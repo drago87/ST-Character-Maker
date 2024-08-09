@@ -20,3 +20,6 @@ When the putton is pressed it will make 2 replys from the user. The first is the
 For best effect keep the information directed towards the category you are going to generate. Anything not mentioned the Card will try to autogenerate.
 The second is just a messege making sure the right Lorebook is loaded. (This will be hidden from the backend as soon as you generate the next category)
 It will then make a reply from the card with some pre inserted content to make sure it follows the templates.
+
+The Latent kink category will be hidden after it is generated to not inflence the rest of the categories.
+When Generating more then 1 Scenario the last Scenario will be hidden.
