@@ -1,6 +1,6 @@
 # ST-QR-buttons
 
-<h1 align='center'>Character Maker</h1>
+<h1 align='center'>Quick Reply Buttons</h1>
 
 ---
 Quck Reply buttons made for [Character Maker Lore](https://chub.ai/characters/Drago87/character-maker-lore-v4-c2bdf3ee5aad)
