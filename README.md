@@ -5,7 +5,7 @@
 ---
 Quck Reply buttons made for [Character Maker Lore](https://chub.ai/characters/Drago87/character-maker-lore-v4-c2bdf3ee5aad)
 
-<h2 align='center'>Character Gender_Type</h2>
+<h2 align='center'>[Character Gender/Type](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Gender_Type.json)</h2>
 
 ---
 Button that first removes the Gender/Type tag from the card.
