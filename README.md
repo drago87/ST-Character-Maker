@@ -23,3 +23,16 @@ It will then make a reply from the card with some pre inserted content to make s
 
 The Latent kink category will be hidden after it is generated to not inflence the rest of the categories.
 When Generating more then 1 Scenario the last Scenario will be hidden.
+
+<h1 align='center'>Lorebooks</h1>
+
+<h2 align='center'>Character Maker Combined NSFW</h2>
+
+[🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json)
+The lorebook that all information and templates the [Character Maker Lore](https://chub.ai/characters/Drago87/character-maker-lore-v4-c2bdf3ee5aad) needs to functions.
+Sort it after Title A-Z to make it esier to navigate.
+
+<h2 align='center'>TabbyAPI Loader Setting</h2>
+
+[🔗]([https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/TabbyAPI%20Loader%20Setting.json))
+Is a Lorebook with the Local LLM models i have tested and what setting i have used for them.
