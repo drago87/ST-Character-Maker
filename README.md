@@ -13,7 +13,7 @@ It then lets you select the type of character you want and add the approprioate 
 
 <h2 align='center'>Character Maker V3</h2>
 
-[🔗]
+[🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V3.json)
 Buttons that lets you select what categories you want the character maker to generate.
 The order have does not matter exept for '1. Generate Basic Information' (Should be the first one) and '14. Generate Scenario' (Should be the last one. Can have multiple).
 When the putton is pressed it will make 2 replys from the user. The first is the content of the message box(This is information that the Character maker will use to generate a character. This can be the characters name, age, background etc..)
