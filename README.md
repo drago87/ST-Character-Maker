@@ -32,13 +32,15 @@ When Generating more then 1 Scenario the last Scenario will be hidden.
 The lorebook that all information and templates the [Character Maker Lore](https://chub.ai/characters/Drago87/character-maker-lore-v4-c2bdf3ee5aad) needs to functions.
 Sort it after Title A-Z to make it esier to navigate.
 
+<h2 align='center'>TabbyAPI Loader Setting</h2>
+
+[🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json)
+Is a Lorebook with the Local LLM models i have tested and what setting i have used for them. (Optional)
+
+<h1 align='center'>Other Needed stuff</h1>
+
 <h2 align='center'>Character Maker Lore Tags</h2>
 
 [🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Character%20Maker%20Lore%20Tags.json)
 The tags needed for the Lorebook and QR Buttons to work.
 This needs to be imported as when you make your own tags they get a random 'ID' but when you import it they get the same 'ID' that the Lorebooks uses.
-
-<h2 align='center'>TabbyAPI Loader Setting</h2>
-
-[🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json)
-Is a Lorebook with the Local LLM models i have tested and what setting i have used for them.
