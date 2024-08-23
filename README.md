@@ -40,5 +40,5 @@ This needs to be imported as when you make your own tags they get a random 'ID' 
 
 <h2 align='center'>TabbyAPI Loader Setting</h2>
 
-[🔗]([https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/TabbyAPI%20Loader%20Setting.json))
+[🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json)
 Is a Lorebook with the Local LLM models i have tested and what setting i have used for them.
