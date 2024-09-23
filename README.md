@@ -48,9 +48,12 @@ This needs to be imported as when you make your own tags they get a random 'ID' 
 <h1 align='center'>Work in Progress</h1>
 
 [🔗](https://github.com/drago87/ST-Character-Maker/tree/main/Characters/Work%20In%20Progress) V5 of the character card. Going away from lorebooks and leaning more towards Quick reply buttons and SillyTaverns Data Bank
+
 [🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Work%20In%20Progress/Character%20Maker%20Combined%20NSFW.json) The Loorebook for the new V5 Card (Still need to clean it up)
+
 [🔗](https://github.com/drago87/ST-Character-Maker/tree/main/Quick%20Reply%20Buttons/Work%20In%20Progress%20json) The quick reply buttons for the V5 card (The Character Maker.json file needs to be enabled in Global Quick Reply Sets
  while the Character Maker V4.json only need to be imported)
+ 
 ![image](https://github.com/user-attachments/assets/601ab79c-2b59-40f0-873a-62a6bc629b84)
 
 [🔗](https://github.com/drago87/ST-Character-Maker/tree/main/Quick%20Reply%20Buttons/Work%20In%20Progress%20Plain%20Text) Same as above but in plain text for easier readabillity
