@@ -1,0 +1,160 @@
+/buttons labels=["Yes","No"] Do you want to delete the current chat?| /qr-arg x {{pipe}}|
+/ife {: /test left={{arg::x}} right=Yes rule=eq :}|
+	/then {: /newchat delete=true:}|
+/elseif {: /test left={{arg::x}} right=No rule=eq :}|
+	/then {: /newchat delete=false:}|
+/else {: /abort :}|
+
+/setvar key=tags ["FHN", "FAN", "FBN", "FDHN", "FNHN", "FPN", "(WIP)", "MHN", "MAN", "MBN", "MDHN", "MNHN", "MPN", "FCANINE", "FEQUINE", "MCANINE", "MEQUINE", "TRANSFORM"]|
+/len {{getvar::tags}}| /setvar key=l {{pipe}}|
+/setvar key=i 0| 
+/setvar key=t none|
+/tag-list| /setvar key=lis|
+/while left=i right={{getvar::l}} rule=lt {:
+    /getvar key=tags index={{getvar::i}} | /setvar key=t {{pipe}}|
+    /ife {: /test left={{getvar::lis}} right={{getvar::t}} rule=in :} |
+        /then {: /tag-remove {{getvar::t}} :}|
+    /addvar key=i 1|
+:}|
+/setvar key=normal_form None|
+/setvar key=transformation None|
+
+/buttons labels=["Female", "Male", "Machine"] What gender is the character you are making? | /setvar key=sgender {{pipe}}|
+/if left=sgender right="" rule=eq /abort|
+
+/ife {: /test left={{getvar::sgender}} right=Machine rule=eq :}|
+	/then {:/setvar key=stype Machine :}|
+/else {: 
+	/buttons labels=["Human", "Anthro", "Demi-Human", "Beastkin", "Non-Humanoid", "Pokémon", "Machine"] What type of character are you making? | /setvar key=stype {{pipe}}|
+	/if left=stype right="" rule=eq /abort:}|
+
+/buttons labels=["Yes", "No"] Can the character transform between a Human form and Another Form?| /setvar key=tr {{pipe}} |
+/ife {: /test left=tr right="" rule=eq :}|
+			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/setvar key=species ["Canine", "Equine", "Feline", "Reptilian", "Other"]|
+
+/ife {:/test left={{getvar::tr}} right=Yes rule=eq :}|
+	/then {:
+		/tag-add TRANSFORM|
+		/input <div>What are the characters main form?</div><div>Example: A werewolf's main form could be Human or Werewolf</div>|
+		/setvar key=normal_form {{pipe}}|
+		/input What are the characters transformed form? (If multiple forms give a comma-separated list)|
+		/setvar key=transformation {{pipe}}|
+	:}|
+/ife {: /test left={{getvar::sgender}} right=Female rule=eq :}|
+	/then {: 
+		/ife {: /test left={{getvar::stype}} right=Human rule=eq :}|
+			/then {: /tag-add FHN  :}|
+		/elseif {: /test left={{getvar::stype}} right=Anthro rule=eq :}|
+			/then {: 
+				/tag-add FAN|
+				/buttons labels=species What type of species should the character be? |
+				/setvar key=sspecies {{pipe}}|
+				/ife {: /test left={{getvar::sspecies}} right=Canine rule=eq :}|
+					/then {: /tag-add FCANINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Equine rule=eq :}|
+					/then {: /tag-add FEQUINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Feline rule=eq :}|
+					/then {: /tag-add FFELINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Reptilian rule=eq :}|
+					/then {: /tag-add FREPTILIAN :}|
+				/else {: /input What type of anthro species do you want?. (Type \"Random\" without \" if you want the bot to make one one for you.)|/setvar key=other {{pipe}} :}|
+			:}|
+		/elseif {: /test left={{getvar::stype}} right=Beastkin rule=eq :}|
+			/then {: 
+				/tag-add FBN|
+				/buttons labels=species What type of species should the character be? |
+				/setvar key=sspecies {{pipe}}|
+				/ife {: /test left={{getvar::sspecies}} right=Canine rule=eq :}|
+					/then {: /tag-add FCANINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Equine rule=eq :}|
+					/then {: /tag-add FEQUINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Feline rule=eq :}|
+					/then {: /tag-add FFELINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Reptilian rule=eq :}|
+					/then {: /tag-add FREPTILIAN :}|
+				/else {: /input What type of Beastkin species do you want?. (Type \"Random\" without \" if you want the bot to make one one for you.)|/setvar key=other {{pipe}} :}|
+			:}|
+		/elseif {: /test left={{getvar::stype}} right=Demi-Human rule=eq :}|
+			/then {: /tag-add FDHN :}|
+		/elseif {: /test left={{getvar::stype}} right=Non-Humanoid rule=eq :}|
+			/then {: 
+				/tag-add FNHN|
+				/buttons labels=species What type of species should the character be? |
+				/setvar key=sspecies {{pipe}}|
+				/ife {: /test left={{getvar::sspecies}} right=Canine rule=eq :}|
+					/then {: /tag-add FCANINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Equine rule=eq :}|
+					/then {: /tag-add FEQUINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Feline rule=eq :}|
+					/then {: /tag-add FFELINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Reptilian rule=eq :}|
+					/then {: /tag-add FREPTILIAN :}|
+				/else {: /input What type of Non-Humanoid species do you want?. (Type \"Random\" without \" if you want the bot to make one one for you.)|/setvar key=other {{pipe}} :}|
+			:}|
+		/elseif {: /test left={{getvar::stype}} right=Pokémon rule=eq :}|
+			/then {: /tag-add FPN :}
+	:}|
+/elseif {: /test left={{getvar::sgender}} right=Male rule=eq :}|
+	/then {: 
+		/ife {: /test left={{getvar::stype}} right=Human rule=eq :}|
+			/then {: /tag-add MHN  :}|
+		/elseif {: /test left={{getvar::stype}} right=Anthro rule=eq :}|
+			/then {: 
+				/tag-add MAN|
+				/buttons labels=species What type of species should the character be? |
+				/setvar key=sspecies {{pipe}}|
+				/ife {: /test left={{getvar::sspecies}} right=Canine rule=eq :}|
+					/then {: /tag-add MCANINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Equine rule=eq :}|
+					/then {: /tag-add MEQUINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Feline rule=eq :}|
+					/then {: /tag-add MFELINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Reptilian rule=eq :}|
+					/then {: /tag-add MREPTILIAN :}|
+				/else {: /input What type of anthro species do you want?. (Type \"Random\" without \" if you want the bot to make one one for you.)|/setvar key=other {{pipe}} :}|
+			:}|
+		/elseif {: /test left={{getvar::stype}} right=Beastkin rule=eq :}|
+			/then {: 
+				/tag-add MBN|
+				/buttons labels=species What type of species should the character be? |
+				/setvar key=sspecies {{pipe}}|
+				/ife {: /test left={{getvar::sspecies}} right=Canine rule=eq :}|
+					/then {: /tag-add MCANINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Equine rule=eq :}|
+					/then {: /tag-add MEQUINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Feline rule=eq :}|
+					/then {: /tag-add MFELINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Reptilian rule=eq :}|
+					/then {: /tag-add MREPTILIAN :}|
+				/else {: /input What type of Beastkin species do you want?. (Type \"Random\" without \" if you want the bot to make one one for you.)|/setvar key=other {{pipe}} :}|
+			:}|
+		/elseif {: /test left={{getvar::stype}} right=Demi-Human rule=eq :}|
+			/then {: /tag-add MDHN :}|
+		/elseif {: /test left={{getvar::stype}} right=Non-Humanoid rule=eq :}|
+			/then {: 
+				/tag-add MNHN|
+				/buttons labels=species What type of species should the character be? |
+				/setvar key=sspecies {{pipe}}|
+				/ife {: /test left={{getvar::sspecies}} right=Canine rule=eq :}|
+					/then {: /tag-add MCANINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Equine rule=eq :}|
+					/then {: /tag-add MEQUINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Feline rule=eq :}|
+					/then {: /tag-add MFELINE :}|
+				/elseif {: /test left={{getvar::sspecies}} right=Reptilian rule=eq :}|
+					/then {: /tag-add MREPTILIAN :}|
+				/else {: /input What type of Non-Humanoid species do you want?. (Type \"Random\" without \" if you want the bot to make one one for you.)|/setvar key=other {{pipe}} :}|
+				:}|
+		/elseif {: /test left={{getvar::stype}} right=Pokémon rule=eq :}|
+			/then {: /tag-add MPN :}
+	:}|
+/else {: /tag-add (WIP) :}|
+
+/db-add source=chat name=normal_form {{getvar::normal_form}}|
+/db-disable source=chat normal_form|
+/db-add source=chat name=transformation {{getvar::transformation}}|
+/db-disable source=chat transformation|
+
+/:"Character Maker V4.Flushvar"

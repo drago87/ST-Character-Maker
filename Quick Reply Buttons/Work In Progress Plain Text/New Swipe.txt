@@ -1,0 +1,86 @@
+/setvar key=t {{lastmessage}}| /re-replace replace="" find="/Character Maker Lore: /g" var=t | /setvar key=p {{pipe}} | /re-replace replace="" find="/(?<=<\/h2>)([\s\S]*)/g" var=p | /setvar key=d {{pipe}} | /swipes-add {{getvar::d}}| /tag-list | /setvar key=list {{pipe}} | /setvar key=swipe Yes|
+/messages 0-{{lastMessageId}} |
+/setvar key=messageHistory {{pipe}} | 
+
+
+
+
+
+/getvar key=kinks index=0| /setvar key=t {{pipe}}|
+/ife {: /test left=t right="" rule=eq :}|
+/then {: /echo true :}|
+/else {: /echo false :}
+
+{{// /genraw lock=on name={{char}} {{instructInput}} You are {{char}}. Consider your conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a single kink. INSTRUCTION: Start the kink with a capital letter. Encase the kink in '"'. The kink should not be any of these {{getvar::kinks}}. Use max three tokens. /n {{instructFirstOutput}} |}}|
+
+
+
+
+
+
+
+
+/ife {: /test left={{getvar::d}} right="<h2 align='center'>Basic Information</h2>" rule=eq :}|
+	/then {:
+		/:"Character Maker V4.01. Generate Basic Information (form)"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Appearance Info" rule=in :}|
+	/then {: 
+		/:"Character Maker V4.02. Generate Appearance Info (Can Generate Multiple)"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Outfit and Gear</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.03. Generate Outfit and Gear"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Personality Traits And Quirks</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.04. Generate Personality Traits And Quirks"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Relationship Information</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.05. Generate Relationship Information"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Known Kinks</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.06. Generate Known Kinks"|
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Latent Kinks</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.07. Generate Latent Kinks"
+	:}|
+
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Background Info</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.08. Generate Background Info"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Interaction Style</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.09. Generate Interaction Style"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Contextual Information</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.10. Generate Contextual Information"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Additional Notes</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.11. Generate Additional Notes"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Spells and Abilities</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.12. Generate Spells and Abilities"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Character Rules</h2>" rule=eq :}|
+	/then {: 
+		/echo Rules does nothing with a swipe. Insted Edit it manualy and add/remove rules to your liking.|
+		/:"Character Maker V4.Flushvar"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Extras</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.14. Generate Extras"
+	:}|
+/elseif {: /test left={{getvar::d}} right="<h2 align='center'>Scenario</h2>" rule=eq :}|
+	/then {: 
+		/:"Character Maker V4.15. Generate Scenario"
+	:}
+|/echo Generating new {{getvar::d}}|
+/:"Character Maker V4.Flushvar"

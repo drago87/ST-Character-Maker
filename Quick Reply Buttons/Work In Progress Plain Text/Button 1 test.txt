@@ -1,0 +1,826 @@
+/ife {: /test left=swipe right=Yes rule=neq:}|
+	/then {:
+		/message-edit message=0 <h2 align='center'>Basic Information</h2>|
+	:}|
+/tag-list | /setvar key=tags {{pipe}}|
+/split var=tags | /setvar key=lis {{pipe}}| /setvar key=type none|
+/messages 0-{{lastMessageId}} |
+/setvar key=messageHistory {{pipe}} | 
+
+/setvar key=db ["genre","time_period","
+world_type","first_name","last_name","nic_name","age","species","gender","sub_species","sexuality","occupation","character_files","media","media_name","normal_form","transformation"]|
+
+
+
+/foreach var=db {:
+	/try {:
+		/db-delete source=chat {{item}}
+	:}
+:}|
+
+/foreach list=list var=lis {:
+	/setvar key=t {{item}}|
+	/re-replace replace="" find="/(?<=^.)(.*)/g" var=t | /setvar key=d1 {{pipe}}|
+	/ife {: /test left=t right=FCANINE rule=eq:}|
+		/then {: /setvar key=type Canine:}|
+	/elseif {: /test left=t right=MCANINE rule=eq:}|
+		/then {: /setvar key=type Canine:}|
+	/elseif {: /test left=t right=FEQUINE rule=eq:}|
+		/then {: /setvar key=type Equine:}|
+	/elseif {: /test left=t right=MEQUINE rule=eq:}|
+		/then {: /setvar key=type Equine:}|
+	/elseif {: /test left=t right=FFELINE rule=eq:}|
+		/then {: /setvar key=type Feline:}|
+	/elseif {: /test left=t right=MFELINE rule=eq:}|
+		/then {: /setvar key=type Feline:}|
+	/elseif {: /test left=t right=FREPTILIAN rule=eq:}|
+		/then {: /setvar key=type Reptilian :}|
+	/elseif {: /test left=t right=MREPTILIAN rule=eq:}|
+		/then {: /setvar key=type Reptilian :}|
+		
+	/ife {: /test left=d1 right=F rule=eq:}|
+		/then {: 
+			/re-replace replace="" find="/\b(FCANINE\|FEQUINE\|MCANINE\|MEQUINE\|FFELINE\|MFELINE\|FREPTILIAN\|MREPTILIAN)\b/" var=t | /setvar key=d2 {{pipe}}|
+			/ife {: /test left={{getvar::d2}} right="" rule=neq :}|
+				/then {: /setvar key=gender Female :}
+		:}|
+	/ife {: /test left=d1 right=M rule=eq:}|
+		/then {: 
+			/re-replace replace="" find="/\b(FCANINE\|FEQUINE\|MCANINE\|MEQUINE\|FFELINE\|MFELINE\|FREPTILIAN\|MREPTILIAN)\b/" var=t | /setvar key=d2 {{pipe}}|
+			/ife {: /test left={{getvar::d2}} right="" rule=neq :}|
+				/then {: /setvar key=gender Male :}
+		:}|
+		
+:}|
+
+/setvar key=nhum No|
+/foreach var=tags {:
+	/ife {: /test left={{item}} right=FNHN rule=eq :}|
+		/then {: /setvar key=nhum Yes :}|
+/elseif {: /test left={{item}} right=MNHN rule=in :}|
+		/then {: /setvar key=nhum Yes :}|
+:}
+
+
+	
+// Enable/Disable is real function|
+/setvar key=enable false|
+/setvar key=real No|
+/ife {: /test left=enable left=true rule=eq :}|
+	/then {: /:"Character Maker V4.Is real" :}|
+
+/setvar key=char_info {{noop}}|
+/ife {: /test left=real right=Yes rule=eq :}|
+	/then {:
+		/ife {: /test left=character_files right="No Files" rule=neq :}|
+			/then {:
+				/split var=character_files | /setvar key=t1 {{pipe}}|
+				/getvar key=t1 index=0 | /setvar key=t2 {{pipe}}|
+				/ife {: /test left=t2 right="No Files" rule=neq :}|
+					/then {:
+						/addvar key=char_info "This is information about {{getvar::fname}} {{getvar::lname}} that you should use while making your reply
+'"|
+						/foreach var=t1 {:
+					/addvar key=char_info "
+{{item}}"|
+						:}|
+						/addvar key=char_info "
+
+{{getvar::fname}} {{getvar::lname}} is from the {{getvar::media}} \" {{getvar::media_name}}\"'"|
+					:}|
+			:}|
+:}|
+
+
+/buttons labels=["Yes", "No"] Do you want to manually give the character a genre?| /setvar key=answer {{pipe}}|
+/ife {: /test left=answer right="" rule=eq :}|
+	/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/elseif {: /test left=answer right="Yes" rule=eq :}|
+	/then {:
+		/input What is the genre of the character? (make it a comma-separated list) |
+		/setvar key=temp {{pipe}} |
+		/if left=temp right="" rule=eq {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+		
+	:}|
+/elseif {: /test left={{getvar::answer}} right=No rule=eq :}|
+	/then {: 
+		/setvar key=genre Redo|
+		/setvar key=temp1 {{noop}}|
+		/while left=genre right=Done rule=neq {:
+			/echo Generateing Five Genres:|
+			
+			/genraw lock=on name={{char}} 
+			system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a comma-separated list of five genres. INSTRUCTION: Start the genres with a capital letter. Only reply with five genres, nothing else.
+{{instructFirstOutput}} |
+			/setvar key=genrelist {{pipe}} |
+					
+					 
+			/split {{getvar::genrelist}} | /setvar key=genrelist {{pipe}}|
+			/setvar key=i 0|
+			/setvar key=temp3 []|
+			/foreach var=genrelist {:
+				/getvar key=genrelist index={{getvar::i}}|
+				/setvar key=temp2 {{pipe}}|
+				/re-replace replace=" " find="/\./g" var=temp2 | /setvar key=temp2 {{pipe}}|
+				/re-replace replace=" " find="/\"/g" var=temp2 | /setvar key=temp2 {{pipe}}|
+				/re-replace replace=" " find="/\n/g" var=temp2 | /setvar key=temp2 {{pipe}}|
+				/setvar key=genrelist index={{getvar::i}} {{getvar::temp2}}|
+				/addvar key=i 1|
+				/ife {: /test left=i right=4 rule=lte :}|
+					/then {: /addvar key=temp3 {{getvar::temp2}} :}
+			:}|
+			
+			/addvar key=genrelist "Manually Add"|
+			/addvar key=genrelist Redo|
+			/ife {: /test left=temp1 right={{noop}} rule=neq :}|
+				/then {: /addvar key=genrelist Done :}|
+			/buttons labels={{getvar::genrelist}} Do any of these genres look good or do you want me to redo the genres?|
+			/setvar key=genre {{pipe}} |
+			
+			/ife {: /test left=genre right="Manually Add" rule=eq :}|
+				/then {: /input Add the genre you want to manually add.|
+				/setvar key=genre {{pipe}}
+				:}|
+			
+			/ife {: /test left=genre right="" rule=eq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
+			
+			/elseif {: /test left={{getvar::genre}} right=Redo rule=eq :}|
+				/then {::}|
+			/elseif {: /test left={{getvar::genre}} right=Done rule=neq :}|
+				/then {:
+					/echo Done=neq|
+					/ife {: /test left=temp1 right={{noop}} rule=neq :}|
+						/then {: 
+							/addvar key=temp1 ", {{getvar::genre}}"
+						:}|
+					/else {: /setvar key=temp1 {{getvar::genre}}:}
+						
+				:}|
+		:}|
+			
+	:}|
+/setvar key=genre {{getvar::temp1}}|
+
+/buttons labels=["Yes", "No"] Do you want to manually give the character a Time Period?| /setvar key=answer {{pipe}}|
+/ife {: /test left=answer right="" rule=eq :}|
+	/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/elseif {: /test left=answer right="Yes" rule=eq :}|
+	/then {:
+		/input What is the Time Period of the character? |
+		/setvar key=period {{pipe}} |
+		/if left=period right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+	:}|
+/elseif {: /test left={{getvar::answer}} right="No" rule=eq :}|
+	/then {: /setvar key=period Redo |
+		/while left=period right=Redo rule=eq {:
+			/echo Generateing periods:|
+			
+			/genraw lock=on name={{char}} 
+			system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a comma-separated list of five Time Periods. Examples: The 2000s, Future etc..
+INSTRUCTION: Start the time periods with a capital letter. Only reply with five time period, nothing else.
+{{instructFirstOutput}} |
+			/setvar key=periodlist {{pipe}} |
+					
+					 
+			/split {{getvar::periodlist}} | /setvar key=periodlist {{pipe}}|
+			/setvar key=i 0|
+			/setvar key=temp3 []|
+			/foreach var=periodlist {:
+				/getvar key=periodlist index={{getvar::i}}|
+				/setvar key=temp2 {{pipe}}|
+				/re-replace replace=" " find="/\./g" var=temp2 | /setvar key=temp2 {{pipe}}|
+				/re-replace replace=" " find="/\"/g" var=temp2 | /setvar key=temp2 {{pipe}}|
+				/re-replace replace=" " find="/\n/g" var=temp2 | /setvar key=temp2 {{pipe}}|
+				/setvar key=periodlist index={{getvar::i}} {{getvar::temp2}}|
+				/addvar key=i 1|
+				/ife {: /test left=i right=4 rule=lte :}|
+					/then {: /addvar key=temp3 {{getvar::temp2}} :}
+			:}|
+			/setvar key=periodlist {{getvar::temp3}}|
+			/addvar key=periodlist "Manually Add" |
+			/addvar key=periodlist Redo|
+			/buttons labels={{getvar::periodlist}} Do any of these Time Periods look good or do you want me to redo them?|
+			/setvar key=period {{pipe}} |
+			/if left=period right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}:}|
+			
+			/ife {: /test left=period right="Manually Add" rule=eq :}|
+				/then {: /input Add the Time Period you want to use.|
+				/setvar key=period {{pipe}}
+				:}|
+	:}|
+
+
+
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Something|
+    /setvar key=genState []|  
+	
+   /genraw lock=on name={{char}} 
+	system="{{getvar::char_info}}
+
+Example1: Fantasy Realm
+Example2: Sci-Fi Universe
+Example3: Realistic Setting"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five world types.
+INSTRUCTION: Emululate the examples given. Start the reply with a capital letter. Only reply with five world types, nothing else.
+{{instructFirstOutput}}|
+
+	/setvar key=t {{pipe}}|
+	/split var=t | 
+	/setvar key=genState {{pipe}}|
+    /addvar key=genState "Manually Add"|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} text|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right="Manually Add" rule=eq :}|
+		/then {:
+			/input Manually Add a World Type|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=world_type {{getvar::selected_btn}}|
+
+/ife {: /test left=real right=No rule=eq :}|
+/then {:
+/buttons labels=["Yes", "No"] Do you want to manually give the character a first name?| /setvar key=answer {{pipe}}|
+/ife {: /test left=answer right="" rule=eq :}|
+	/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/elseif {: /test left=answer right="Yes" rule=eq :}|
+	/then {:
+		/input What is the name of the character? |
+		/setvar key=fname {{pipe}} |
+		/if left=fname right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+	:}|
+/elseif {: /test left={{getvar::answer}} right="No" rule=eq :}|
+	/then {: /setvar key=fname Redo |
+		/while left=fname right=Redo rule=eq {:
+			/echo Generateing First Names:|
+			/setvar key=namelist []|
+			/ife {: /test left=gender right=Female rule=eq :}|
+				/then {:
+					/genraw lock=on name={{char}} 
+					system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female first names.
+INSTRUCTION: Only reply with five female first names, nothing else.
+{{instructFirstOutput}} |
+					/setvar key=nlist {{pipe}} 
+                :}|
+			/elseif {: /test left=gender right=Male rule=eq :}|
+				/then {:
+					/genraw lock=on name={{char}} 
+			system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five male first names.
+INSTRUCTION: Start the first names with a capital letter. Only reply with five male first names, nothing else.
+{{instructFirstOutput}} |
+					/setvar key=nlist {{pipe}} 
+                    :}|		
+			/wait 1|
+			/split var=nlist | /setvar key=namelist {{pipe}}|
+			
+			/addvar key=namelist Redo|
+			/buttons labels={{getvar::namelist}} Do any of these names look good or do you want me to redo the names?|
+			/setvar key=fname {{pipe}} |
+			/if left=fname right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}:}|
+	:}|
+
+
+
+/buttons labels=["Yes", "No"] Do you want to manually give the character a last name?| /setvar key=answer {{pipe}}|
+/if left=answer right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/ife {: /test left=answer right="Yes" rule=eq :}|
+	/then {:
+		/input What is the last name of the character? |
+		/setvar key=lname {{pipe}} |
+		/if left=lname right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+	:}|
+/elseif {: /test left=answer right="No" rule=eq :}|
+	/then {: /setvar key=lname Redo|
+		/while left=lname right=Redo rule=eq {:
+			/echo Generateing Last Names:|
+			/ife {: /test left=gender right=Female rule=eq :}|
+				/then {:
+					/genraw lock=on name={{char}} 
+					system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female last names that complement {{getvar::fname}}.
+INSTRUCTION: Start the last names with a capital letter. Only reply with five female last names, nothing else.
+{{instructFirstOutput}} |
+					/setvar key=lnamelist {{pipe}}
+                :}|
+			/elseif {: /test left=gender right=Male rule=eq :}|
+				/then {:
+					/genraw lock=on name={{char}} 
+					system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female last names that complement {{getvar::fname}}.
+INSTRUCTION: Start the last names with a capital letter. Only reply with five male last names, nothing else.
+{{instructFirstOutput}} |
+					/setvar key=lnamelist {{pipe}}
+                :}|
+				
+			/wait 1|
+			/split var=lnamelist | /setvar key=lnamelist {{pipe}}|
+			/addvar key=lnamelist "N/A"|
+			/addvar key=lnamelist Redo|
+			/buttons labels={{getvar::lnamelist}} Do any of these Last Names look good or do you want me to redo the last names?|
+			/setvar key=lname {{pipe}} |
+			/if left=lname right="" rule=eq {:
+                /echo Aborting | /abort
+                :}
+        :}
+	:}|
+:}|	
+	
+/buttons labels=["Yes", "No"] Do you want to manually give the character a nickname?| /setvar key=answer {{pipe}}|
+/if left=answer right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/ife {: /test left=answer right="Yes" rule=eq :}|
+	/then {:
+		/input What is the nickname of the character? |
+		/setvar key=nname {{pipe}} |
+		/if left=nname right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+	:}|
+/elseif {: /test left=answer right="No" rule=eq :}|
+	/then {: /setvar key=nname Redo|
+		/while left=nname right=Redo rule=eq {:
+			/echo Generateing Nicknames:|
+			/ife {: /test left=gender right=Female rule=eq :}|
+				/then {:
+					/genraw lock=on name={{char}} 
+					system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female nicknames that complement {{getvar::fname}} {{getvar::lname}}.
+INSTRUCTION: The nickname should be something parents of close frends use. Start the nicknames with a capital letter. Only reply with five female nicknames, nothing else.
+{{instructFirstOutput}} |
+					/setvar key=nnamelist {{pipe}} :}|
+			/elseif {: /test left=gender right=Male rule=eq :}|
+				/then {:
+					/genraw lock=on name={{char}} 
+			system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female nicknames that complement {{getvar::fname}} {{getvar::lname}}.
+INSTRUCTION: Only reply with five male nicknames, nothing else.
+{{instructFirstOutput}} |
+					/setvar key=nnamelist {{pipe}} 
+                :}|
+				
+			/wait 1|
+			/split var=nnamelist | /setvar key=nnamelist {{pipe}}|
+			
+			/addvar key=nnamelist "N/A"|
+			/addvar key=nnamelist "Manually Add"|
+			/addvar key=nnamelist Redo|
+			/buttons labels={{getvar::nnamelist}} Do any of these Nicknames look good for {{getvar::fname}} {{getvar::lname}} or do you want me to redo the nicknames?|
+			/setvar key=nname {{pipe}} |
+			/if left=nname right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}:}|
+			
+			/ife {: /test left=nname right="Manually Add" rule=eq :}|
+				/then {: /input Add the Nickname you want to use for {{getvar::fname}} {{getvar::lname}}.|
+				/setvar key=nname {{pipe}}
+				:}|
+	:}|
+	
+
+/ife {: /test left={{getvar::tags}} right=FHN rule=in :}|
+	/then {: 
+	/setvar key=species Human|
+	/setvar key=posture Bipedal|
+	:}|
+/elseif {: /test left={{getvar::tags}} right=MHN rule=in :}|
+	/then {:
+	/setvar key=species Human|
+	/setvar key=posture Bipedal|
+	:}|
+/else {:
+	/buttons labels=["Yes", "No"] Do you want to manually give the character a species?| /setvar key=answer {{pipe}}|
+	/if left=answer right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+	/elseif {: /test left=answer right=Yes rule=eq :}|
+		/then {:
+			/input What is the species of the character? |
+			/setvar key=species {{pipe}} |
+			/if left=species right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}:}|
+			/elseif {: /test left=answer right=No rule=eq :}|
+				/then {: /setvar key=species Redo|
+					/while left=species right=Redo rule=eq {:
+						/echo Generateing Species:|
+						/ife {: /test left=type right=none rule=eq :}|
+							/then {:
+								/genraw lock=on name={{char}} 
+								system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five species.
+INSTRUCTION: Start the species with a capital letter. Only reply with five species, nothing else.
+{{instructFirstOutput}} |
+								/setvar key=specieslist {{pipe}} :}|
+						/else {:
+								/genraw lock=on name={{char}} 
+			system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five {{getvar::type}} species.
+INSTRUCTION: Start the species with a capital letter. Only reply with five species, nothing else.
+{{instructFirstOutput}} |
+								/setvar key=specieslist {{pipe}} :}|
+
+						/wait 1|
+						/split var=specieslist | /setvar key=specieslist {{pipe}}|
+						/addvar key=specieslist Redo|
+						
+						/buttons labels={{getvar::specieslist}} Do any of these Species look good or do you want me to redo the species?|
+						/setvar key=species {{pipe}} |
+						/if left=species right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+					:}|
+					/ife {: /test left=nhum right=Yes rule=eq :}|
+						/then {:
+							/setvar key=sdesc Redo|
+							/while left=sdesc right=Redo rule=eq {:
+								/echo Generateing Species Description:|
+								
+								/genraw lock=on name={{char}} 
+								system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a description of a {{getvar::species}}.
+INSTRUCTION: Only reply with the description, nothing else.
+{{instructFirstOutput}} |
+								/setvar key=sdesclist {{pipe}}|
+								
+		
+								/setvar key=sdesclist {{pipe}} |
+								/addvar key=sdesclist Edit|
+								/addvar key=sdesclist Redo|
+								/buttons labels={{getvar::sdesclist}} Do this description look good look good or do you want me to redo the description?|
+								/setvar key=sdesc {{pipe}} |
+								/if left=sdesc right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+								
+								/getvar key=sdesclist index=0|
+								/setvar key=t|
+								/ife {: /test left=sdesc right="Edit" rule=eq :}|
+									/then {: /input default={{getvar::t}} Edit the Species Description you want to use.|
+									/setvar key=sdesc {{pipe}}
+								:}|
+						:}
+					:}|
+					/buttons labels=["Bipedal","Quadrupedal","Hexapodal","Octopedal","Aquatic","Serpentine","Semibipedal","Make your own"] What type of Posture is {{getvar::species}} using?|
+					/setvar key=posture {{pipe}}|
+					/ife {: /test left=posture right="Make your own" rule=eq :}|
+						/then {:
+							/input Write a posture for the species.|
+							/setvar key=posture {{pipe}}
+						:}|
+				:}
+:}|
+/setvar key=sspecies None |
+/setvar key=answer No|
+/ife {: /test left=nhum right=Yes rule=eq :}|
+	/then {: /buttons labels=["Yes", "No"] Is the character of a sub species of {{getvar::species}}?| /setvar key=answer {{pipe}}|
+		/if left=answer right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+	:}|
+
+/elseif {: /test left=answer right=Yes rule=eq :}|
+	/then {:
+		/buttons labels=["Yes", "No"] Do you want to manually give the character a sub species?| /setvar key=answer {{pipe}}|
+		/ife {: left=answer right="" rule=eq :}
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort
+		:}|
+
+		/elseif {: /test left=answer right=Yes rule=eq :}|
+			/then {:
+				/input What is the sub spices of the character? |
+				/setvar key=sspecies {{pipe}} |
+				/if left=sspecies right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}:}|
+				/elseif {: /test left=answer right=No rule=eq :}|
+					/then {: /setvar key=sspecies Redo|
+						/while left=species right=Redo rule=eq {:
+							/echo Generateing sub species:|
+							/genraw lock=on name={{char}} 
+			system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five sub species of the type {{getvar::species}}.
+INSTRUCTION: Start the sub species with a capital letter. Only reply with five sub species, nothing else.
+{{instructFirstOutput}} |
+							/setvar key=sspecieslist {{pipe}} |
+				
+							/wait 1|
+							/split var=getvar::sspecieslist | /setvar key=sspecieslist {{pipe}}|
+							/setvar key=i 0|
+							/setvar key=temp3 []|
+							/foreach var=sspecieslist {:
+								/getvar key=sspecieslist index={{getvar::i}}|
+								/setvar key=temp2 {{pipe}}|
+								/re-replace replace=" " find="/\./g" var=temp2 | /setvar key=temp2 {{pipe}}|
+								/re-replace replace=" " find="/\"/g" var=temp2 | /setvar key=temp2 {{pipe}}|
+								/re-replace replace=" " find="/\n/g" var=temp2 | /setvar key=temp2 {{pipe}}|
+								/setvar key=sspecieslist index={{getvar::i}} {{getvar::temp2}}|
+								/addvar key=i 1|
+								/ife {: /test left=i right=4 rule=lte :}|
+									/then {: /addvar key=temp3 {{getvar::temp2}} :}
+							:}|
+							/setvar key=sspecieslist {{getvar::temp3}}|
+							/addvar key=sspecieslist "Manually Add"|
+							/addvar key=sspecieslist Redo|
+							/buttons labels={{getvar::sspecieslist}} Do any of these Species look good or do you want me to redo the species?|
+							/setvar key=sspecies {{pipe}} |
+							/if left=sspecies right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+							
+							/ife {: /test left=sspecies right="Manually Add" rule=eq :}|
+								/then {: /input Add the Sub Species you want to use.|
+								/setvar key=sspecies {{pipe}}
+							:}|
+						:}|
+						/setvar key=ssdesc Redo|
+						/while left=ssdesc right=Redo rule=eq {:
+							/echo Generateing Species Description:|
+							
+							/genraw lock=on name={{char}} 
+							system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a description of a {{getvar::sspecies}}.
+INSTRUCTION: Only reply with the description, nothing else.
+{{instructFirstOutput}} |
+							/setvar key=ssdesclist {{pipe}}|
+							
+		
+							/setvar key=ssdesclist {{pipe}} |
+							/addvar key=ssdesclist Edit|
+							/addvar key=ssdesclist Redo|
+							/buttons labels={{getvar::ssdesclist}} Do this description look good look good or do you want me to redo the description?|
+							/setvar key=ssdesc {{pipe}} |
+							/if left=ssdesc right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+							
+							/getvar key=ssdesclist index=0|
+							/setvar key=t|
+							/ife {: /test left=ssdesc right="Edit" rule=eq :}|
+								/then {: /input default={{getvar::t}} Edit the Sub Species Description you want to use.|
+								/setvar key=ssdesc {{pipe}}
+							:}|
+					:}
+		:}
+	
+	:}|
+
+
+/ife {: /test left=tags right=FHN rule=in :}|
+	/then {::}|
+/elseif {: /test left=tags right=MHN rule=in :}|
+	/then {::}|
+/elseif {: /test left=tags right=FAN rule=in :}|
+	/then {: 
+		/setvar key=species "Anthro {{getvar::species"|
+		/ife {: /test left=sspecies right="" rule=neq :}|
+			/then {: /setvar key=sspecies "Anthro {{getvar::sspecies" :}|
+	:}|
+/elseif {: /test left=tags right=MAN rule=in :}|
+	/then {: 
+		/setvar key=species "Anthro {{getvar::species"|
+		/ife {: /test left=sspecies right="" rule=neq :}|
+			/then {: /setvar key=sspecies "Anthro {{getvar::sspecies" :}|
+	:}|
+/elseif {: /test left=tags right=FBN rule=in :}|
+	/then {: 
+		/setvar key=species "Beastkin {{getvar::species"|
+		/ife {: /test left=sspecies right="" rule=neq :}|
+			/then {: /setvar key=sspecies "Beastkin {{getvar::sspecies" :}|
+	:}|
+/elseif {: /test left=tags right=MBN rule=in :}|
+	/then {: 
+		/setvar key=species "Beastkin {{getvar::species"|
+		/ife {: /test left=sspecies right="" rule=neq :}|
+			/then {: /setvar key=sspecies "Beastkin {{getvar::sspecies" :}|
+	:}|
+/elseif {: /test left=tags right=FDHN rule=in :}|
+	/then {: 
+		/setvar key=species "Demi-Human {{getvar::species"|
+		/ife {: /test left=sspecies right="" rule=neq :}|
+			/then {: /setvar key=sspecies "Demi-Human {{getvar::sspecies" :}|
+	:}|
+/elseif {: /test left=tags right=MDHN rule=in :}|
+	/then {: 
+		/setvar key=species "Demi-Human {{getvar::species"|
+		/ife {: /test left=sspecies right="" rule=neq :}|
+			/then {: /setvar key=sspecies "Demi-Human {{getvar::sspecies" :}|
+	:}|
+/elseif {: /test left=tags right=FNHN rule=in :}|
+	/then {: 
+		/setvar key=species " {{getvar::species"|
+		/ife {: /test left=sspecies right="" rule=neq :}|
+			/then {: /setvar key=sspecies " {{getvar::sspecies" :}|
+	:}|
+/elseif {: /test left=tags right=MNHN rule=in :}|
+	/then {: 
+		/setvar key=species "Animal {{getvar::species"|
+		/ife {: /test left=sspecies right="" rule=neq :}|
+			/then {: /setvar key=sspecies "Animal {{getvar::sspecies" :}|
+	:}|
+/elseif {: /test left=tags right=FPN rule=in :}|
+	/then {: 
+		/setvar key=species "Pokémon {{getvar::species"|
+		/ife {: /test left=sspecies right="" rule=neq :}|
+			/then {: /setvar key=sspecies "Pokémon {{getvar::sspecies" :}|
+	:}|
+/elseif {: /test left=tags right=MPN rule=in :}|
+	/then {: 
+		/setvar key=species "Pokémon {{getvar::species"|
+		/ife {: /test left=sspecies right="" rule=neq :}|
+			/then {: /setvar key=sspecies "Pokémon {{getvar::sspecies" :}|
+	:}|
+
+/buttons labels=["Yes", "No"] Do you want to manually give the character a age?| /setvar key=answer {{pipe}}|
+/if left=answer right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/ife {: /test left=answer right=Yes rule=eq :}|
+	/then {:
+		/input What is the age of the character? (Just use numbers as it will ad yo at the end.) |
+		/setvar key=age {{pipe}} |
+		/if left=age right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+	:}|
+/elseif {: /test left=answer right=No rule=eq :}|
+	/then {: /setvar key=age Redo|
+		/while left=age right=Redo rule=eq {:
+			/echo Generateing the character's Age:|
+			
+			/genraw lock=on name={{char}} 
+			system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five ages that works for {{getvar::species}}.
+INSTRUCTION: Only use numbers for the age. Only reply with five ages, nothing else.
+{{instructFirstOutput}} |
+			/setvar key=agelist {{pipe}} |
+	
+
+			/wait 1|
+			/split var=agelist | /setvar key=agelist {{pipe}}|
+			
+			/addvar key=agelist "Manually add"|
+			/addvar key=agelist Redo|
+			/buttons labels={{getvar::agelist}} Do any of these Age's look good or do you want me to redo the age?|
+			/setvar key=age {{pipe}} |
+			/if left=age right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			
+			/ife {: /test left=age right="Manually add" rule=eq :}|
+				/then {: 
+					/input Add the Age you want to use. (numbers only)|
+					/setvar key=age {{pipe}}
+			:}|
+		:}
+	:}|
+/setvar key=age {{getvar::age}}yo|
+
+/buttons labels=["Yes", "No"] Do you want to manually give the character a sexuality?| /setvar key=answer {{pipe}}|
+/if left=answer right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/ife {: /test left=answer right=Yes rule=eq :}|
+	/then {:
+		/input What is the gender the character is drawn towards? |
+		/setvar key=sexualg {{pipe}} |
+		/if left=sexualg right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/input What is the species the character is drawn towards? |
+		/setvar key=sexuals {{pipe}} |
+		/if left=sexuals right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+	:}|
+/elseif {: /test left=answer right=No rule=eq :}|
+	/then {: 
+		/buttons labels=["Female", "Male", "Both"] What is the gender of the character's sexual interest?| /setvar key=sexualg {{pipe}}|
+		/if left=sexualg right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/setvar key=sexuals Redo|
+		/setvar key=temp {{getvar::genre}}|
+		/setvar key=temp1 {{noop}}|
+		/while left=sexuals right=Redo rule=eq {: 
+			/echo Generateing species of the character's Sexuality:|
+			
+			/ife {: /test left=temp1 right={{noope}} rule=neq :}|
+				/then {: /setvar key=temp1 " Don't use these species as species in your reply {{getvar::temp1}}.":}|
+			
+			/genraw lock=on name={{char}} 
+			system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five species that a {{getvar::species}} from one of these genres {{getvar::temp}} world could be sexually interested in.
+INSTRUCTION:{{getvar::temp1}} Start each species with a capital letter. The species should be plural. Only reply with five species, nothing else.
+{{instructFirstOutput}} |
+			/setvar key=sexlist {{pipe}} |
+			/setvar key=temp1 {{getvar::sexlist}}|
+			/wait 10|
+			/try {: /split var=temp1:}|
+				/catch {: /input default={{getvar::temp1 Something when wrong. Edit it to a comma-separated list.:}|
+			/setvar key=sexlist {{pipe}}|
+			
+			
+			/addvar key=sexlist "Manually Add"|
+			/addvar key=sexlist Redo|
+			
+			/buttons labels={{getvar::sexlist}} Do any of these species look good or do you want me to redo them?|
+			/setvar key=sexuals {{pipe}} |
+			/if left=sexuals right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			
+			/ife {: /test left=sexuals right="Manually Add" rule=eq:}|
+				/then {: /input Add the species you want {{getvar::fname}} would be interested in.|
+				/getvar key=sexuals {{pipe}}|
+			:}|
+		:}
+	:}|
+	
+	
+/buttons labels=["Yes", "No"] Do you want to manually give the character a occupation?| /setvar key=answer {{pipe}}|
+/if left=answer right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/ife {: /test left=answer right=Yes rule=eq :}|
+	/then {:
+		/input What is the the character's occupation? |
+		/setvar key=occupation {{pipe}} |
+		/if left=occupation right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}:}|
+/elseif {: /test left=answer right=No rule=eq :}|
+	/then {: /setvar key=occupation Redo|
+		/while left=occupation right=Redo rule=eq {:
+			/echo Generateing the character's Occupation:|
+			
+			/genraw lock=on name={{char}} 
+			system="{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five occupations that works for someone {{getvar::age}}.
+INSTRUCTION: Start the occupations with a capital letter. Only reply with five occupations, nothing else.
+{{instructFirstOutput}} |
+			/setvar key=oclist {{pipe}} |
+	
+
+			/wait 1|
+			/split var=oclist | /setvar key=oclist {{pipe}}|
+			
+			/addvar key=oclist "Manually Add"|
+			/addvar key=oclist Redo|
+			/buttons labels={{getvar::oclist}} Do any of these Occupation's look good or do you want me to redo the occupation?|
+			/setvar key=occupation {{pipe}} |
+			/if left=occupation right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			
+			/ife {: /test left=occupation right="Manually Add" rule=eq :}|
+				/then {: /input Add the occupation you want to use.|
+				/setvar key=occupation {{pipe}}
+			:}|
+		:}
+	:}|
+	
+
+/setvar key=sexual {{getvar::sexualg}} {{getvar::sexuals}}|
+/setvar key=output <h2 align='center'>Basic Information</h2>
+
+Genres: {{getvar::genre}}
+
+Time Period: {{getvar::period}}
+
+World Type: {{getvar::world_type}}
+
+First Name: {{getvar::fname}}
+
+Last Name: {{getvar::lname}}
+
+Nickname: {{getvar::nname}}
+
+Age: {{getvar::age}}
+
+Species: {{getvar::species}}|
+
+/ife {: /test left=nhum right=Yes rule=eq :}|
+	/then {:
+		/addvar key=output "
+
+Species Description: {{getvar::sdesc}}":}|
+
+/ife {: /test left=sspecies right=none rule=neq :}|
+	/then {:
+		/addvar key=output "
+
+Sub-Species: {{getvar::sspecies}}
+
+Sub-Species Description: {{getvar::ssdesc}}":}|
+
+/addvar key=output "
+
+Posture: {{getvar::posture}}
+
+Sexuality: {{getvar::sexual}}
+
+Occupation: {{getvar::occupation}}"|
+
+/message-edit message=0 {{getvar::output}}|
+
+/db-add source=chat name=genre {{getvar::genre}}| /db-disable source=chat genre|
+/db-add source=chat name=time_period {{getvar::period}}| /db-disable source=chat time_period|
+/db-add source=chat name=world_type {{getvar::world_type}}| /db-disable source=chat world_type|
+/db-add source=chat name=first_name {{getvar::fname}}| /db-disable source=chat first_name|
+/db-add source=chat name=last_name {{getvar::lname}}| /db-disable source=chat last_name|
+/db-add source=chat name=nic_name {{getvar::nname}}| /db-disable source=chat nic_name|
+/db-add source=chat name=age {{getvar::age}}| /db-disable source=chat age|
+/db-add source=chat name=species {{getvar::species}}| /db-disable source=chat species|
+/db-add source=chat name=gender {{getvar::gender}}| /db-disable source=chat gender|
+
+/db-add source=chat name=sub_species {{getvar::sspecies}}| /db-disable source=chat sub_species|
+
+/db-add source=chat name=sexuality {{getvar::sexual}}| /db-disable source=chat sexuality|
+/db-add source=chat name=occupation {{getvar::occupation}}| /db-disable source=chat occupation

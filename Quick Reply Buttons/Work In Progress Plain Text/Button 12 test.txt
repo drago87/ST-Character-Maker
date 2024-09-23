@@ -1,0 +1,289 @@
+/setvar key=catgen "Spells and Abilities"|
+/setvar key=genid "12"|
+
+
+//setvar key=swipe Yes|
+
+/:"Character Maker V4.Get Char info"|
+
+
+
+
+/setvar key=genState Redo|
+/setvar key=outputString {{noop}}|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Spells|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five spells.
+INSTRUCTION: Don't end with '.'. Start the spells with a capital letter. Only reply with a comma-separated list of spell names, nothing else. /n {{instructFirstOutput}}|
+
+	/setvar key=t {{pipe}}|
+	/split var=t | 
+	/setvar key=genState {{pipe}}|
+    /addvar key=genState "Manually add to List"|
+	/ife {: /test left=outputString right="" rule=eq:}|
+		/then {: /addvar key=genState None| :}|
+	/else {:/addvar key=genState Done|:}|
+	
+    /addvar key=genState Redo|
+
+    /buttons labels={{getvar::genState}} text|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {:/:"Character Maker V4.Flushvar"|| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
+		/then {:
+			
+			/input text|
+			/setvar key=t {{pipe}}|
+			/setvar key=genState Redo|
+			/ife {: /test left=t right="" rule=eq :}|
+				/then {:/:"Character Maker V4.Flushvar"|| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
+            /then {:
+                /addvar key=outputString ", {{getvar::t}}"|
+            :}|
+            /else {:
+                /setvar key=outputString {{getvar::t}}|
+            :}|
+		:}|
+	/elseif {: /test left={{getvar::selected_btn}} right=Done rule=eq :}|
+		/then {::}|
+	/elseif {: /test left={{getvar::selected_btn}} right=None rule=eq :}|
+		/then {: /setvar key=outputString None :}|
+	/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=neq :}|
+		/then {:
+			/ife {: /test left={{getvar::outputString}} right="" rule=neq :}|
+				/then {:
+					/addvar key=outputString ", {{getvar::selected_btn}}"|
+					/setvar key=genState Redo
+				:}|
+				/else {:
+					/setvar key=outputString {{getvar::selected_btn}}|
+					/setvar key=genState Redo
+				:}|
+		:}|
+	/else  {: /setvar key=genState Redo :}|
+	:}|
+:}|
+/setvar key=spelln {{getvar::outputString}}|
+
+/wait 1|
+/setvar key=spelld []|
+/ife {: /test left=spelln right=None rule=neq :}|
+	/then {:
+		
+		/split find="," var=spelln| /setvar key=spells {{pipe}}|
+		
+		/foreach var=spells {:
+			/setvar key=genState Redo|
+			/while left=genState right=Redo rule=eq {:
+				/echo Generating {{item}}'s description.|
+				/setvar key=genState []|
+				/genraw lock=on name={{char}} 
+				system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+			
+Start your respons with 'x: y.'
+Where 'x' is the name of the spell and 'y' is the spell description.
+Example1: Fireball: Casts a ball of fire that explodes on hit.
+Example2: Increased Sensitivity: Increase the sensitivity of the target."
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of the spell: {{item}} .
+INSTRUCTION: Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the spell description, nothing else. /n {{instructFirstOutput}}| 
+				
+				
+				
+				
+				/addvar key=genState {{pipe}}|
+				/addvar key=genState Edit|  
+				/addvar key=genState Redo|  
+			
+				/buttons labels={{getvar::genState}} text|
+			
+				/setvar key=selected_btn {{pipe}}|
+			
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"|| /echo Aborting | /abort:}|
+				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+					/then {:
+						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+						/input default={{getvar::t}} text|
+						/setvar key=selected_btn {{pipe}}|
+						/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"|| /echo Aborting | /abort:}
+					:}|
+			
+				/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+					/then {:
+						/setvar key=genState Redo|
+					:}|
+			:}|
+			/addvar key=spelld {{getvar::selected_btn}}|
+		:}|
+	:}|
+/else {: /addvar key=spelld "{{getvar::fname}} have no spells." :}|
+
+
+
+
+/setvar key=genState Redo|
+/setvar key=outputString {{noop}}|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Abilities|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five physical and/or mental abilities.
+INSTRUCTION: Abilities are not spells. Don't end with '.'. Start the abilities with a capital letter. Only reply with a comma-separated list of ability names, nothing else. /n {{instructFirstOutput}}|
+
+	/setvar key=t {{pipe}}|
+	/split var=t | 
+	/setvar key=genState {{pipe}}|
+    /addvar key=genState "Manually add to List"|
+	/ife {: /test left=outputString right="" rule=eq:}|
+		/then {: /addvar key=genState None| :}|
+	/else {:/addvar key=genState Done|:}|
+    /addvar key=genState Redo|
+
+    /buttons labels={{getvar::genState}} text|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {:/:"Character Maker V4.Flushvar"|| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
+		/then {:
+			
+			/input text|
+			/setvar key=t {{pipe}}|
+			/setvar key=genState Redo|
+			/ife {: /test left=t right="" rule=eq :}|
+				/then {:/:"Character Maker V4.Flushvar"|| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
+            /then {:
+                /addvar key=outputString ", {{getvar::t}}"|
+            :}|
+            /else {:
+                /setvar key=outputString {{getvar::t}}|
+            :}|
+		:}|
+	/elseif {: /test left={{getvar::selected_btn}} right=Done rule=eq :}|
+		/then {::}|
+	/elseif {: /test left={{getvar::selected_btn}} right=None rule=eq :}|
+		/then {: /setvar key=outputString None :}|
+	/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=neq :}|
+		/then {:
+			/ife {: /test left={{getvar::outputString}} right="" rule=neq :}|
+				/then {:
+					/addvar key=outputString ", {{getvar::selected_btn}}"|
+					/setvar key=genState Redo
+				:}|
+				/else {:
+					/setvar key=outputString {{getvar::selected_btn}}|
+					/setvar key=genState Redo
+				:}|
+		:}|
+	/else  {: /setvar key=genState Redo :}|
+	:}|
+:}|
+/setvar key=abilityn {{getvar::outputString}}|
+
+
+
+/setvar key=abilityd []|
+/wait 1|
+/ife {: /test left=abilityn right=None rule=neq :}|
+	/then {:
+		
+		/split find="," var=abilityn| /setvar key=spells {{pipe}}|
+	
+		/foreach var=spells {:
+			/setvar key=genState Redo|
+			
+			/while left=genState right=Redo rule=eq {:
+				/echo Generating {{item}}'s description.|
+				/setvar key=genState []|  
+			
+				/genraw lock=on name={{char}} 
+				system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+			
+Start your respons with 'x: y.'
+Where 'x' is the name of the ability and 'y' is the ability description.
+Example1: Enhanced Agility: {{getvar::fname}}'s increased Agility and reflexes are inborn and .
+Example2: Increased Sensitivity (Clit): {{getvar::fname}}'s clit have increased sensitivity due to having played to mutch with it."
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of the ability: {{item}}. Describe how {{getvar::fname}} got the ability (if is it inborn, have been training to get it etc..) and what the ability does.
+INSTRUCTION: Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the ability description, nothing else. /n {{instructFirstOutput}}| 
+				
+				
+				
+				
+				/addvar key=genState {{pipe}}|
+				/addvar key=genState Edit|  
+				/addvar key=genState Redo|  
+			
+				/buttons labels={{getvar::genState}} text|
+			
+				/setvar key=selected_btn {{pipe}}|
+			
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"|| /echo Aborting | /abort:}|
+				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+					/then {:
+						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+						/input default={{getvar::t}} text|
+						/setvar key=selected_btn {{pipe}}|
+						/ife {: /test left=selected_btn right="" rule=eq :}|
+							/then {:/:"Character Maker V4.Flushvar"|| /echo Aborting | /abort:}|
+					:}|
+			
+				/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+					/then {:
+						/setvar key=genState Redo|
+					:}|
+			:}|
+		/addvar key=abilityd {{getvar::selected_btn}}|
+		:}|
+	:}|
+/else {: /addvar key=abilityd "{{getvar::fname}} have no abilities.":}|
+
+/setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
+
+Spells
+
+"|
+/len {{getvar::spelld}} | /setvar key=l {{pipe}}|
+/foreach var=spelld {:
+	/ife {: /test left={{index}} right=l rule=lt:}|
+		/then {: /addvar key=output "{{item}}
+
+"
+	:}|
+	/else {:/addvar key=output {{item}}:}|
+:}|
+/addvar key=output "Abilities
+
+"|
+/len {{getvar::abilityd}} | /setvar key=l {{pipe}}|
+/foreach var=abilityd {:
+	/ife {: /test left={{index}} right=l rule=lt:}|
+		/then {: /addvar key=output "{{item}}
+
+"
+	:}|
+	/else {:/addvar key=output {{item}}:}|
+:}|
+/message-edit message={{lastMessageId}} {{getvar::output}}

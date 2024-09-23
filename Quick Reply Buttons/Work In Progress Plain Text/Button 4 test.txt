@@ -1,0 +1,533 @@
+/setvar key=catgen "Personality Traits And Quirks"|
+/setvar key=genid "4"|
+
+
+//setvar key=swipe Yes|
+
+/:"Character Maker V4.Get Char info"|
+
+
+
+/buttons labels=["One", "Two", "Three", "Four", "Five","Random"] How many positive traits do you want to add?| /setvar key=answer {{pipe}}|
+/ife {: /test left=answer right=Random rule=eq:}|
+	/then {: /setvar key=answer {{random::One::Two::Three::Four::Five}}:}|
+/ife {: /test left=answer right=One rule=eq:}|
+	/then {: /setvar key=x 1:}|
+/elseif {: /test left=answer right=Two rule=eq:}|
+	/then {: /setvar key=x 2:}|
+/elseif {: /test left=answer right=Three rule=eq:}|
+	/then {: /setvar key=x 3:}|
+/elseif {: /test left=answer right=Four rule=eq:}|
+	/then {: /setvar key=x 4:}|
+/elseif {: /test left=answer right=Five rule=eq:}|
+	/then {: /setvar key=x 5:}|
+/else {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/setvar key=postrs []|
+/setvar key=temp ""|
+/setvar key=t1 ""|
+/setvar key=i 0|
+/while left=i right={{getvar::x}} rule=lt {:
+	/setvar key=postr Redo |
+	/while left=postr right=Redo rule=eq {:
+		/echo Generateing Positive Traits|
+		/len {{getvar::postrs}}| /setvar key=l1 {{pipe}}|
+		/wordcount {{getvar::temp}}| /setvar key=l2 {{pipe}}|
+		/foreach var=postrs {:
+			/ife {: /test left=l1 right=1 rule=neq :}|
+				/then {:
+					/ife {: /test left={{index}} right=0 rule=neq :}|
+						/then {: /addvar key=temp ", {{item}}":}|
+					/else {: /setvar key=temp " Don't use any of these positive traits {{item}}":}|
+				:}|
+			/else {: 
+				/ife {: /test left=l2 right=1 rule=gte :}|
+					/then {:
+						Don't use any of these positive traits {{item}}
+					:}|
+				/else {:
+					/setvar key=temp " Don't use this positive trait {{item}}"
+					:}|
+			:}|
+		:}|
+		/ife {: /test left=l2 right=1 rule=gte :}|
+			/then {:
+				/ife {: /test left=l1 right=1 rule=gte :}|
+					/then {: /addvar key=temp ", {{getvar::t1}}"
+				:}|
+				/else {: 
+					/setvar key=temp " Don't use any of these positive traits {{getvar::t1}}"
+				:}|
+			:}|
+		
+		/ife {: /test left=l1 right=1 rule=gte:}|
+			/then {: /addvar key=temp "." :}|
+		/elseif {: /test left=l1 right=1 rule=gte:}|
+			/then {: /addvar key=temp "." :}|
+		/genraw lock=on name={{char}} 
+		system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five positive traits. 
+INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each positive trait with a capital letter. Only reply with five positive traits and nothing else. /n {{instructFirstOutput}}|
+		/setvar key=t1 {{pipe}}|
+		/re-replace replace="" find="/\./" var=t1| /setvar key=t1 {{pipe}}|
+		/split var=t1|
+		/setvar key=poslist {{pipe}}|
+		
+		/addvar key=poslist Manual input|
+		/addvar key=poslist Redo|
+		/buttons labels={{getvar::poslist}} Is any of these positive traits anything you want you want for {{getvar::fname}}?|
+		/setvar key=postr {{pipe}} |
+		/ife {: /test left=postr right="" rule=eq :}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left=postr right="Manual input" rule=eq :}|
+			/then {:
+				/input  Add the positive trait you want.|
+				/setvar key=postr {{pipe}}|
+				/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				
+			:}|
+	
+	:}|
+	/addvar key=postrs {{getvar::postr}}|
+	/addvar key=i 1
+:}|
+
+
+/buttons labels=["One", "Two", "Three", "Four", "Five","Random"] How many negative traits do you want to add?| /setvar key=answer {{pipe}}|
+/ife {: /test left=answer right=Random rule=eq:}|
+	/then {: /setvar key=answer {{random::One::Two::Three::Four::Five}}:}|
+/ife {: /test left=answer right=One rule=eq:}|
+	/then {: /setvar key=x 1:}|
+/elseif {: /test left=answer right=Two rule=eq:}|
+	/then {: /setvar key=x 2:}|
+/elseif {: /test left=answer right=Three rule=eq:}|
+	/then {: /setvar key=x 3:}|
+/elseif {: /test left=answer right=Four rule=eq:}|
+	/then {: /setvar key=x 4:}|
+/elseif {: /test left=answer right=Five rule=eq:}|
+	/then {: /setvar key=x 5:}|
+/else {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/setvar key=negtrs []|
+/setvar key=temp ""|
+/setvar key=t1 ""|
+/setvar key=i 0|
+/while left=i right={{getvar::x}} rule=lt {:
+	/setvar key=postr Redo |
+	/while left=postr right=Redo rule=eq {:
+		/echo Generateing Negative Traits|
+		/len {{getvar::negtrs}}| /setvar key=l1 {{pipe}}|
+		/wordcount {{getvar::temp}}| /setvar key=l2 {{pipe}}|
+		/foreach var=negtrs {:
+			/ife {: /test left=l1 right=1 rule=neq :}|
+				/then {:
+					/ife {: /test left={{index}} right=0 rule=neq :}|
+						/then {: /addvar key=temp ", {{item}}":}|
+					/else {: /setvar key=temp " Don't use any of these negative traits {{item}}":}|
+				:}|
+			/else {: 
+				/ife {: /test left=l2 right=1 rule=gte :}|
+					/then {:
+						Don't use any of these negative traits {{item}}
+					:}|
+				/else {:
+					/setvar key=temp " Don't use this negative trait {{item}}"
+					:}|
+			:}|
+		:}|
+		/ife {: /test left=l2 right=1 rule=gte :}|
+			/then {:
+				/ife {: /test left=l1 right=1 rule=gte :}|
+					/then {: /addvar key=temp ", {{getvar::t1}}"
+				:}|
+				/else {: 
+					/setvar key=temp " Don't use any of these negative traits {{getvar::t1}}"
+				:}|
+			:}|
+		/ife {: /test left=l1 right=1 rule=gte:}|
+			/then {: /addvar key=temp "." :}|
+		/elseif {: /test left=l1 right=1 rule=gte:}|
+			/then {: /addvar key=temp "." :}|
+		/genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five negative traits. 
+INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each negative trait with a capital letter. Only reply with five negative traits and nothing else. /n {{instructFirstOutput}}|
+		/setvar key=t1 {{pipe}}|
+		/re-replace replace="" find="/\./" var=t1| /setvar key=t1 {{pipe}}|
+		/split var=t1|
+		/setvar key=neglist {{pipe}}|
+		
+		/addvar key=neglist Manual input|
+		/addvar key=neglist Redo|
+		/buttons labels={{getvar::neglist}} Is any of these negative traits something you want you want for {{getvar::fname}}?|
+		/setvar key=postr {{pipe}} |
+		/ife {: /test left=postr right="" rule=eq :}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left=postr right="Manual input" rule=eq :}|
+			/then {:
+				/input  Add the negative trait you want.|
+				/setvar key=postr {{pipe}}|
+				/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				
+			:}|
+	
+	:}|
+	/addvar key=negtrs {{getvar::postr}}|
+	/addvar key=i 1
+:}|
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/setvar key=human_traits {{noop}}|
+
+/ife {: /test left=isTure right=true rule=eq:}|
+	/then {:
+		/setvar key=genState Redo|
+		
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating Human Trait|
+			/setvar key=genState []|  
+		
+			/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five Human traits(This can be things like 'Can speak', 'Can hold things', 'Can use tools', 'Feels pleasure' etc..).
+INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-separated list of five Human traits, nothing else.
+{{instructFirstOutput}}|  
+
+			/setvar key=t {{pipe}}|
+			/re-replace replace="" find="/\./" var=t | /setvar key=t {{pipe}}|
+			/split var=t | 
+			/setvar key=genState {{pipe}}|
+			/addvar key=genState "Manually add to List"|
+			/addvar key=genState Done|
+			/addvar key=genState Redo|
+		
+			/buttons labels={{getvar::genState}} text|
+		
+			/setvar key=selected_btn {{pipe}}|
+		
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
+				/then {:
+					
+					/input text|
+					/setvar key=t {{pipe}}|
+					/setvar key=genState Redo|
+					/ife {: /test left=t right="" rule=eq :}|
+						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
+					/then {:
+						/addvar key=outputString ", {{getvar::t}}"|
+					:}|
+					/else {:
+						/setvar key=outputString {{getvar::t}}|
+					:}|
+				:}|
+			/elseif {: /test left={{getvar::selected_btn}} right=Done rule=eq :}|
+				/then {::}|
+			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=neq :}|
+				/then {:
+					/ife {: /test left={{getvar::outputString}} right="" rule=neq :}|
+						/then {:
+							/addvar key=outputString ", {{getvar::selected_btn}}"|
+							/setvar key=genState Redo
+						:}|
+						/else {:
+							/setvar key=outputString {{getvar::selected_btn}}|
+							/setvar key=genState Redo
+						:}|
+				:}|
+			/else  {: /setvar key=genState Redo :}|
+		:}|
+		
+		/setvar key=human_traits "Human traits: {{getvar::outputString}}"|
+:}|
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+
+/setvar key=non-human_traits {{noop}}|
+
+/ife {: /test left=isTure right=true rule=eq:}|
+	/then {:
+		/setvar key=genState Redo|
+		/re-replace replace="" find="/\b(Demi-Human\|Anthro\|Beastkin\|Animal)\b\s*/" var=species | /setvar key=d2 {{pipe}}|
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating {{getvar::d2}} Trait|
+			/setvar key=genState []|  
+		
+			/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five {{getvar::d2}} traits.
+INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-separated list of five {{getvar::d2}} traits, nothing else.
+{{instructFirstOutput}}|  
+
+			/setvar key=t {{pipe}}|
+			/re-replace replace="" find="/\./" var=t | /setvar key=t {{pipe}}|
+			/split var=t | 
+			/setvar key=genState {{pipe}}|
+			/addvar key=genState "Manually add to List"|
+			/addvar key=genState Done|
+			/addvar key=genState Redo|
+		
+			/buttons labels={{getvar::genState}} text|
+		
+			/setvar key=selected_btn {{pipe}}|
+		
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
+				/then {:
+					
+					/input text|
+					/setvar key=t {{pipe}}|
+					/setvar key=genState Redo|
+					/ife {: /test left=t right="" rule=eq :}|
+						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
+					/then {:
+						/addvar key=outputString ", {{getvar::t}}"|
+					:}|
+					/else {:
+						/setvar key=outputString {{getvar::t}}|
+					:}|
+				:}|
+			/elseif {: /test left={{getvar::selected_btn}} right=Done rule=eq :}|
+				/then {::}|
+			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=neq :}|
+				/then {:
+					/ife {: /test left={{getvar::outputString}} right="" rule=neq :}|
+						/then {:
+							/addvar key=outputString ", {{getvar::selected_btn}}"|
+							/setvar key=genState Redo
+						:}|
+						/else {:
+							/setvar key=outputString {{getvar::selected_btn}}|
+							/setvar key=genState Redo
+						:}|
+				:}|
+			/else  {: /setvar key=genState Redo :}|
+		:}|
+		
+		/setvar key=non-human_traits "{{getvar::d2}} Traits: {{getvar::outputString}}"|
+:}|
+
+
+
+
+
+/buttons labels=["One", "Two", "Three", "Four", "Five","Random"] How many quirks do you want to add?| /setvar key=answer {{pipe}}|
+/ife {: /test left=answer right=Random rule=eq:}|
+	/then {: /setvar key=answer {{random::One::Two::Three::Four::Five}}:}|
+/ife {: /test left=answer right=One rule=eq:}|
+	/then {: /setvar key=x 1:}|
+/elseif {: /test left=answer right=Two rule=eq:}|
+	/then {: /setvar key=x 2:}|
+/elseif {: /test left=answer right=Three rule=eq:}|
+	/then {: /setvar key=x 3:}|
+/elseif {: /test left=answer right=Four rule=eq:}|
+	/then {: /setvar key=x 4:}|
+/elseif {: /test left=answer right=Five rule=eq:}|
+	/then {: /setvar key=x 5:}|
+/else {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
+/setvar key=quirks []|
+/setvar key=temp ""|
+/setvar key=t1 ""|
+/setvar key=i 0|
+/while left=i right={{getvar::x}} rule=lt {:
+	/setvar key=postr Redo |
+	/while left=postr right=Redo rule=eq {:
+		/echo Generateing Quirks|
+		/len {{getvar::quirks}}| /setvar key=l1 {{pipe}}|
+		/wordcount {{getvar::temp}}| /setvar key=l2 {{pipe}}|
+		/foreach var=quirks {:
+			/ife {: /test left=l1 right=1 rule=neq :}|
+				/then {:
+					/ife {: /test left={{index}} right=0 rule=neq :}|
+						/then {: /addvar key=temp ", {{item}}":}|
+					/else {: /setvar key=temp " Don't use any of these quirks {{item}}":}|
+				:}|
+			/else {: 
+				/ife {: /test left=l2 right=1 rule=gte :}|
+					/then {:
+						Don't use any of these quirks {{item}}
+					:}|
+				/else {:
+					/setvar key=temp " Don't use this quirks {{item}}"
+					:}|
+			:}|
+		:}|
+		/ife {: /test left=l2 right=1 rule=gte :}|
+			/then {:
+				/ife {: /test left=l1 right=1 rule=gte :}|
+					/then {: /addvar key=temp ", {{getvar::t1}}"
+				:}|
+				/else {: 
+					/setvar key=temp " Don't use any of these quirks {{getvar::t1}}"
+				:}|
+			:}|
+		
+		/ife {: /test left=l1 right=1 rule=gte:}|
+			/then {: /addvar key=temp "." :}|
+		/elseif {: /test left=l1 right=1 rule=gte:}|
+			/then {: /addvar key=temp "." :}|
+		/genraw lock=on name={{char}} 
+		system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five quirks(This is something {{getvar::fname}} does that is odd).
+INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirks with a capital letter. Eache quirk should be a short sentence. Only reply with five quirks and nothing else. /n {{instructFirstOutput}}|
+		/setvar key=t1 {{pipe}}|
+		/re-replace replace="" find="/\./" var=t1| /setvar key=t1 {{pipe}}|
+		/split var=t1|
+		/setvar key=qrlist {{pipe}}|
+		
+		/addvar key=qrlist Manual input|
+		/addvar key=qrlist Redo|
+		/buttons labels={{getvar::qrlist}} Is any of these quirks you want for {{getvar::fname}}?|
+		/setvar key=postr {{pipe}} |
+		/ife {: /test left=postr right="" rule=eq :}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left=postr right="Manual input" rule=eq :}|
+			/then {:
+				/getvar key=qrlist index=0| /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} Add the quirk you like.|
+				/setvar key=postr {{pipe}}|
+				/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				
+			:}|
+	
+	:}|
+	/addvar key=quirks {{getvar::postr}}|
+	/addvar key=i 1
+:}|
+
+
+
+/setvar key=person Posivite Traits:|
+/foreach var=postrs {:
+	/ife {: /test left={{index}} right=0 rule=neq :}|
+		/then {:
+			/addvar key=person ", {{item}}"|
+		:}|
+	/else {: /addvar key=person " {{item}}":}|
+:}|
+/addvar key=person "
+
+Negative Traits:"|
+/foreach var=negtrs {:
+	/ife {: /test left={{index}} right=0 rule=neq :}|
+		/then {:
+			/addvar key=person ", {{item}}"|
+		:}|
+	/else {: /addvar key=person " {{item}}":}|
+:}|
+
+/ife {: /test left=human_traits right="" rule=neq :}|
+	/then {:
+		/addvar key=person "
+
+{{getvar::human_traits}}"|
+	:}|
+/ife {: /test left=non-human_traits right="" rule=neq :}|
+	/then {:
+		/addvar key=person "
+
+{{getvar::non-human_traits}}"|
+	:}|
+
+/foreach var=quirks {:
+	/ife {: /test left={{index}} right=0 rule=neq :}|
+		/then {:
+			/addvar key=person ", {{item}}"|
+		:}|
+	/else {: /addvar key=person " {{item}}":}|
+:}|
+	:}|
+
+
+/addvar key=person "
+
+Quirks:"|
+/foreach var=quirks {:
+	/ife {: /test left={{index}} right=0 rule=neq :}|
+		/then {:
+			/addvar key=person ", {{item}}"|
+		:}|
+	/else {: /addvar key=person " {{item}}":}|
+:}|
+
+/setvar key=per Redo|
+/while left=per right=Redo rule=eq {:
+	/setvar key=t1 []|
+	/genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+Based on these
+\"{{getvar::person}}\""
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide description of {{getvar::fname}}'s personality.
+INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirks with a capital letter. Only reply with the description of {{getvar::fname}}'s personality and nothing else. /n {{instructFirstOutput}}|
+
+	/addvar key=t1 {{pipe}}|
+	/addvar key=t1 Edit|
+	/addvar key=t1 Redo|
+	
+	/buttons labels={{getvar::t1}} Is this the personality you want for {{getvar::fname}}?|
+	/setvar key=per {{pipe}} |
+	/ife {: /test left=per right="" rule=eq :}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+	/elseif {: /test left=per right="Edit" rule=eq :}|
+		/then {:
+			/getvar key=t1 index=0| /setvar key=t {{pipe}}|
+			/input default={{getvar::t}} Edit the personality to youor likeing.|
+			/setvar key=per {{pipe}}|
+			/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				
+		:}|
+	
+:}|
+/setvar key=personality {{getvar::per}}|
+/setvar key=form " {{getvar::form}}"|
+/addvar /addvar key=person "
+
+Personality: {{getvar::personality}}"|
+
+/message-edit message={{lastMessageId}} "<h2 align='center'>{{getvar::catgen}}{{getvar::form}}</h2>
+
+{{getvar::person}}"

@@ -1,0 +1,134 @@
+/setvar key=catgen "Latent Kinks"|
+/setvar key=genid "7"|
+
+
+//setvar key=swipe Yes|
+
+/:"Character Maker V4.Get Char info"|
+
+
+
+/buttons labels=["One", "Two", "Three", "Four", "Five"] How many latent kinks do you want?| /setvar key=answer {{pipe}}|
+/ife {: /test left=answer right=One rule=eq:}|
+	/then {: /setvar key=x 1:}|
+/elseif {: /test left=answer right=Two rule=eq:}|
+	/then {: /setvar key=x 2:}|
+/elseif {: /test left=answer right=Three rule=eq:}|
+	/then {: /setvar key=x 3:}|
+/elseif {: /test left=answer right=Four rule=eq:}|
+	/then {: /setvar key=x 4:}|
+/elseif {: /test left=answer right=Five rule=eq:}|
+	/then {: /setvar key=x 5:}|
+/else {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+/db-get source=chat first_name| /setvar key=fname {{pipe}}|
+/db-get source=chat age| /setvar key=age {{pipe}}|
+/db-get source=chat gender| /setvar key=gender {{pipe}}|
+/setvar key=kinks []|
+/setvar key=exkinks []|
+/setvar key=types []|
+/setvar key=i 0|
+/while left=i right={{getvar::x}} rule=lt {:
+	/setvar key=kink Redo |
+	/while left=kink right=Redo rule=eq {:
+		/echo Generateing new kink|
+		/setvar key=kinklist []|
+		/setvar key=temp|
+		/foreach list=list var=kinks {:
+			/addvar key=temp {{item}}
+		:}|
+		/genraw lock=on name={{char}} {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide one kink. INSTRUCTION: Start the kink with a capital letter. Encase the kink in '"'. Ensure the kink is not one of these kinks, {{getvar::temp}}. The response should be only one kink and nothing else. /n {{instructFirstOutput}}|
+		/setvar key=k {{pipe}} |
+		/re-replace replace="" find="/.*?\"/" var=k | /setvar key=k1 {{pipe}}|
+		/re-replace replace="" find="/\".*$/" var=k1 | /setvar key=k2 {{pipe}}|
+		/re-replace replace="" find="/[\n\r]+\|^\s+/" var=k2 | /setvar key=k3 {{pipe}}|
+		/addvar key=kinklist {{getvar::k3}}|
+		/addvar key=kinklist Manual Input|
+		/addvar key=kinklist Redo|
+		/buttons labels={{getvar::kinklist}} Is this a kink you want your character to have or do you want me to redo it?|
+		/setvar key=kink {{pipe}} |
+		/ife {: /test left=kink right="" rule=eq :}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left=kink right="Manual Input" rule=eq :}|
+			/then {:
+				/input What is the kink you want to add?|
+				/setvar key=kink {{pipe}}|
+				/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			:}
+	:}|
+	
+	/buttons labels=["Receiver","Giver","Not Specified"] Would you like the character to be on the receiving end or the giving end?|
+	/setvar key=type {{pipe}} |
+	/if left=type right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+	
+	/addvar key=kinks {{getvar::kink}}|
+	
+	/ife {: /test left=type right=Receiver rule=eq :}|
+		/then {: /setvar key=t "This is where {{getvar::fname}} is the one that have the kink done to. "| /addvar key=types {{getvar::type}} :}|
+	/elseif {: /test left=type right=Giver rule=eq :}|
+		/then {: /setvar key=t "This is where {{getvar::fname}} is the one doing the kink to another. "|/addvar key=types {{getvar::type}}| :}|
+	/else {: /setvar key=t ""|/addvar key=types ""| :}|
+	
+	/setvar key=exkink Redo |
+	/while left=exkink right=Redo rule=eq {:
+		/echo Generateing {{getvar::kink}} explanation.|
+		/setvar key=exkink [] |
+		/setvar key=p1 Redo|
+		/while left=p1 right=Redo rule=eq {:
+			/setvar key=p1i []|
+			/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a short Explanation of what the kink {{getvar::kink}}. INSTRUCTION: Start the explanation with '{{getvar::kink}}' followed by ' is when a person'. Use max fifteen tokens. /n {{instructFirstOutput}} |
+			/addvar key=p1i {{pipe}} |
+			/addvar key=p1i Redo|
+			/buttons labels={{getvar::p1i}} Is this a kink you want your character to have or do you want me to redo it?|
+			/setvar key=p1 {{pipe}} |
+			/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+		
+		/setvar key=p2 Redo|
+		/while left=p2 right=Redo rule=eq {:
+			/setvar key=p2i []|
+			/genraw lock=on name={{char}} {{instructInput}} You are {{char}}. Consider your conversation between you and {{user}} use these rules 
+{{getvar::rules}}:: "{{getvar:: messageHistory}}. Now, provide a short description on what could make {{getvar::fname}} interested in {{getvar::kink}}. {{getvar::fname}} could get the know about the kink from {{random::a parent::a older sibling (Give the sibling a name)::a older relative (Give the relative a name)::a neighbor (Give the neighbor a name)::a rental video in the wrong package::a magazine::accidentally seeing someone doing the kink}} INSTRUCTION: Keep in mind that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Start the reply with 'If {{getvar::fname}}' or 'If someone' (This could be that if someone does something to the character, the character sees or hear something or the character may accidentally be exposed to it) . The reply should be in future tense. Use max fifteen tokens. /n {{instructFirstOutput}} |
+			/addvar key=p2i {{pipe}} |
+			/addvar key=p2i Redo|
+			/buttons labels={{getvar::p2i}} Is this a kink you want your character to have or do you want me to redo it?|
+			/setvar key=p2 {{pipe}} |
+			/if left=p2 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+		:}|
+		
+		
+		/addvar key=exkink {{getvar::p1}} {{getvar::p2}}|
+		/addvar key=exkink Redo|
+		/input default={{getvar::exkink}} Is this a kink you want your character to have or do you want me to redo it?|
+		/setvar key=exkink {{pipe}} |
+		/if left=exkink right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+	:}|
+	/addvar key=exkinks {{getvar::exkink}}|
+	/addvar key=i 1
+:}|
+
+/setvar key=output "<h2 align='center'>Latent Kinks</h2>
+
+<h3>Latent Kinks</h3>"|
+/foreach list=list var=kinks {:
+	/getvar key=types index={{index}}|/setvar key=t {{pipe}}|
+	/ife {: /test left=t right="" rule=eq:}|
+		/then {: /setvar key=t "":}|
+	/else {: /setvar key=t " ({{getvar::t}})":}|
+	/addvar key=output "
+
+- {{item}}{{getvar::t}}"|
+:}|
+
+/addvar key=output "
+
+<h3>Latent Kinks Explanation</h3>"|
+/foreach list=list var=exkinks {:
+	/addvar key=output "
+
+- {{item}}"|
+:}|
+/message-edit message={{lastMessageId}} {{getvar::output}}

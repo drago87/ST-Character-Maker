@@ -1,0 +1,565 @@
+/setvar key=catgen "Outfit and Gear"|
+/setvar key=genid "3"|
+
+
+//setvar key=swipe Yes|
+
+/:"Character Maker V4.Get Char info"|
+
+
+
+
+/setvar key=input []|
+/addvar key=input "Headwear(This is what {{getvar::fname}} have on the head(Cap, Hair Ornament etc..))"|
+/ife {: /test left=outfit_coice right="One-Piece" rule=eq :}|
+	/then {: /addvar key=input "One-Piece(This is the one-piece garment {{getvar::fname}} is wearing.(This could be a long dress etc..))"| :}|
+/elseif {: /test left=outfit_coice right="Two-Piece" rule=eq :}|
+	/then {: /addvar key=input "Top(This is the top part of a Two-Piece garment {{getvar::fname}} is wearing.(This could be a t-shirt, hoddie, shirt etc..))"| :}|
+
+/ife {: /test left=gender right=Female rule=eq :}|
+	/then {:
+		/addvar key=input "Underwear(This is the underwear {{getvar::fname}} is wearing on her upper body(This is a bra, chestbinding etc..).)"|
+	:}|
+
+/setvar key=p1 []|
+/foreach var=input {:
+	/setvar key=genState Redo|
+	
+	/while left=genState right=Redo rule=eq {:
+		/re-replace find=/\(.*$/g replace="" {{item}}|
+		/setvar key=cat {{pipe}}|
+		/echo Generating {{getvar::outfit_coice}} Upper: {{getvar::cat}}|
+		/setvar key=genState []|  
+	
+		/genraw lock=on name={{char}} 
+		system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s {{item}}. Include the color and any patterns or motifs on the {{getvar::cat}}.
+INSTRUCTION: The description should only be two sentences. Only reply with the description, nothing else.
+{{instructFirstOutput}}|
+		
+		
+		
+		
+		/addvar key=genState {{pipe}}|
+		/ife {: /test left=cat right=Headwear rule=eq :}|
+			/then {:
+				/addvar key=genState Nothing|
+			:}|
+		/elseif {: /test left=cat right=Underwear rule=eq :}|
+			/then {:
+				/addvar key=genState Nothing|
+			:}|
+		/addvar key=genState Edit|  
+		/addvar key=genState Redo|  
+		
+		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
+	
+		/setvar key=selected_btn {{pipe}}|
+	
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+			/then {:
+				/getvar key=genState index=0 |/setvar key=t {{pipe}}|
+				/input default={{getvar::t}} Edit {{getvar::cat}}'s description.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife {: left=selected_btn right="" rule=eq :}|
+						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			:}|
+	
+		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+	:}|
+	/addvar key=p1 "{{getvar::cat}}: {{getvar::selected_btn}}"|
+:}|
+
+/setvar key=upper_garment {{getvar::p1}}|
+/setvar key=p1st {{noop}}|
+/foreach var=p1 {:
+	/ife {: /test left={{index}} right=0 rule=neq :}|
+		/then {:
+			/addvar key=p1st "
+{{item}}"|
+		:}|
+	/else {: /addvar key=p1st "{{item}}" :}|
+:}|
+
+/setvar key=upper_modification {{noop}}|
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq:}|
+	/then {:
+	
+		/setvar key=genState Redo|
+		
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating Something|
+			/setvar key=genState []|  
+		
+			/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+This is the descriptions of {{getvar::upper}}'s upper garments:
+'{{getvar::p1st}}'"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on how {{getvar::fname}}'s upper garments are modified to accommodate {{getvar::fname}}'s horns, wings, tail etc...
+INSTRUCTION: Only reply with the description, nothing else.
+{{instructFirstOutput}}|  
+			
+			
+			
+			
+			/addvar key=genState {{pipe}}|
+			/addvar key=genState Edit|  
+			/addvar key=genState Redo|  
+		
+			/buttons labels={{getvar::genState}} text|
+		
+			/setvar key=selected_btn {{pipe}}|
+		
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+				/then {:
+					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+					/input default={{getvar::t}} text|
+					/setvar key=selected_btn {{pipe}}|
+					/ife {: left=selected_btn right="" rule=eq :}|
+							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				:}|
+		
+			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+				/then {:
+					/setvar key=genState Redo|
+				:}|
+		:}|
+		/setvar key=upper_modification {{getvar::selected_btn}}|
+
+:}|
+
+
+/setvar key=input []|
+/ife {: /test left=outfit_coice right="One-Piece" rule=eq :}|
+	/then {: 
+		/addvar key=input "Lower(This is the garment that {{getvar::fname}} is wearing under the One-Piece(This could be something like Pantyhose etc..))"|
+	:}|
+/elseif {: /test left=outfit_coice right="Two-Piece" rule=eq :}|
+	/then {:
+		/addvar key=input "Lower(This is the garment that {{getvar::fname}} is wearing on the lower body(This could be something like pants, skirt etc..))"|
+	:}|
+
+
+/addvar key=input "Underwear(This is the underwear {{getvar::fname}} is wearing on the lower body.)"|
+
+
+/setvar key=p1 []|
+/foreach var=input {:
+	/setvar key=genState Redo|
+	
+	/while left=genState right=Redo rule=eq {:
+		/re-replace find=/\(.*$/g replace="" {{item}}|
+		/setvar key=cat {{pipe}}|
+		/echo Generating {{getvar::outfit_coice}} Lower: {{getvar::cat}}|
+		/setvar key=genState []|  
+	
+		/genraw lock=on name={{char}} 
+		system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+This is the descriptions of {{getvar::upper}}'s upper garments:
+'{{getvar::p1st}}'"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s {{item}}(Is should fit with the upper garments). Include the color and any patterns or motifs on the {{getvar::cat}}.
+INSTRUCTION: The description should only be two sentences. Only reply with the description, nothing else.
+{{instructFirstOutput}}|
+		
+		
+		
+		
+		/addvar key=genState {{pipe}}|
+		/ife {: /test left=cat right=Underwear rule=eq :}|
+			/then {:
+				/addvar key=genState Nothing|
+			:}|
+		/addvar key=genState Edit|  
+		/addvar key=genState Redo|  
+	
+		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
+	
+		/setvar key=selected_btn {{pipe}}|
+	
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+			/then {:
+				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} Edit {{getvar::cat}}'s description.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife {: left=selected_btn right="" rule=eq :}|
+						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			:}|
+	
+		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+	:}|
+	/addvar key=p1 "{{getvar::cat}}: {{getvar::selected_btn}}"|
+:}|
+
+/setvar key=lower_garment {{getvar::p1}}|
+/setvar key=p2st {{noop}}|
+/foreach var=p1 {:
+	/ife {: /test left={{index}} right=0 rule=neq :}|
+		/then {:
+			/addvar key=p2st "
+{{item}}"|
+		:}|
+	/else {: /addvar key=p2st "{{item}}" :}|
+:}|
+
+/setvar key=lower_modification {{noop}}|
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq:}|
+	/then {:
+	
+		/setvar key=genState Redo|
+		
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating Something|
+			/setvar key=genState []|  
+		
+			/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+This is the descriptions of {{getvar::upper}}'s upper garments:
+'{{getvar::p1st}}'
+This is the descriptions of {{getvar::fname}}'s lower garments:
+'{{getvar::p2st}}'"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on how {{getvar::fname}}'s lower garments are modified to accommodate {{getvar::fname}}'s horns, wings, tail etc...
+INSTRUCTION: Only reply with the description, nothing else.
+{{instructFirstOutput}}|  
+			
+			
+			
+			
+			/addvar key=genState {{pipe}}|
+			/addvar key=genState Edit|  
+			/addvar key=genState Redo|  
+		
+			/buttons labels={{getvar::genState}} text|
+		
+			/setvar key=selected_btn {{pipe}}|
+		
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+				/then {:
+					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+					/input default={{getvar::t}} text|
+					/setvar key=selected_btn {{pipe}}|
+					/ife {: left=selected_btn right="" rule=eq :}|
+							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				:}|
+		
+			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+				/then {:
+					/setvar key=genState Redo|
+				:}|
+		:}|
+		/setvar key=lower_modification {{getvar::selected_btn}}|
+
+:}|
+
+
+
+
+/setvar key=input []|
+
+/addvar key=input "Socks"|
+/addvar key=input "Footwear"|
+
+/setvar key=p1 []|
+/foreach var=input {:
+	/setvar key=genState Redo|
+	
+	/while left=genState right=Redo rule=eq {:
+		/re-replace find=/\(.*$/g replace="" {{item}}|
+		/setvar key=cat {{pipe}}|
+		/echo Generating {{getvar::outfit_coice}} Other: {{getvar::cat}}|
+		/setvar key=genState []|  
+	
+		/genraw lock=on name={{char}} 
+		system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+This is the descriptions of {{getvar::upper}}'s upper garments:
+'{{getvar::p1st}}'
+This is the descriptions of {{getvar::upper}}'s lower garments:
+'{{getvar::p2st}}'"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s {{item}}(Is should fit with the upper and lower garments). Include the color and any patterns or motifs on the {{getvar::cat}}.
+INSTRUCTION: The description should only be two sentences. Only reply with the description, nothing else.
+{{instructFirstOutput}}|
+		
+		
+		
+		
+		/addvar key=genState {{pipe}}|
+		/addvar key=genState Edit|  
+		/addvar key=genState Redo|  
+	
+		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
+	
+		/setvar key=selected_btn {{pipe}}|
+	
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+			/then {:
+				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} Edit {{getvar::cat}}'s description.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife {: left=selected_btn right="" rule=eq :}|
+						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			:}|
+	
+		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+	:}|
+	/addvar key=p1 "{{getvar::cat}}: {{getvar::selected_btn}}"|
+:}|
+
+/setvar key=other_garment {{getvar::p1}}|
+/setvar key=p3st {{noop}}|
+/foreach var=p1 {:
+	/ife {: /test left={{index}} right=0 rule=neq :}|
+		/then {:
+			/addvar key=p3st "
+{{item}}"|
+		:}|
+	/else {: /addvar key=p3st "{{item}}" :}|
+:}|
+
+/setvar key=other_modification {{noop}}|
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq:}|
+	/then {:
+	
+		/setvar key=genState Redo|
+		
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating Something|
+			/setvar key=genState []|  
+		
+			/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+This is the descriptions of {{getvar::upper}}'s upper garments:
+'{{getvar::p1st}}'
+This is the descriptions of {{getvar::fname}}'s lower garments:
+'{{getvar::p2st}}'
+This is the descriptions of {{getvar::fname}}'s other garments:
+'{{getvar::p3st}}'"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on how {{getvar::fname}}'s other garments are modified to accommodate {{getvar::fname}}'s horns, wings, tail etc...
+INSTRUCTION: Only reply with the description, nothing else.
+{{instructFirstOutput}}|  
+			
+			
+			
+			
+			/addvar key=genState {{pipe}}|
+			/addvar key=genState Edit|  
+			/addvar key=genState Redo|  
+		
+			/buttons labels={{getvar::genState}} text|
+		
+			/setvar key=selected_btn {{pipe}}|
+		
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+				/then {:
+					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+					/input default={{getvar::t}} text|
+					/setvar key=selected_btn {{pipe}}|
+					/ife {: left=selected_btn right="" rule=eq :}|
+							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				:}|
+		
+			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+				/then {:
+					/setvar key=genState Redo|
+				:}|
+		:}|
+		/setvar key=other_modification {{getvar::selected_btn}}|
+
+:}|
+
+
+
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Gear|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+The reply should only consist of gear(Saddle, Sword, Armor, Schoolbag, Dildo, Vibrator, Tools etc..) and not garments"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a brief Description of {{getvar::fname}}'s Gear (Saddle, Sword, Armor etc..)
+
+The gear can have something to do with {{getvar::occupation}} or with {{getvar::fname}}'s kinks.
+INSTRUCTION: Avoid garments in the reply. The reply should be up to five sentences. Only reply with the description, nothing else.
+{{instructFirstOutput}}|  
+	
+	
+	
+	
+    /addvar key=genState {{pipe}}|
+    /addvar key=genState Edit|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} text|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {:
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input default={{getvar::t}} text|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=gear {{getvar::selected_btn}}|
+
+/ife {: /test left=form right="" rule=neq :}|
+	/then {: /setvar key=form " ({{getvar::form}})" :}|
+
+/setvar key=output "<h2 align='center'>{{getvar::catgen}}{{getvar::form}} ({{getvar::outfit_coice}})</h2>
+
+Outfit Description
+Upper Body
+"|
+
+/foreach var=upper_garment {:
+	/addvar key=output "
+- {{item}}"|
+:}|
+
+/ife {: /test left=upper_modification right="" rule=neq :}|
+	/then {:
+		/addvar key=output "
+
+Modifications to the upper garments
+- {{getvar::upper_modification}}"
+	:}|
+	
+/addvar key=output "
+
+
+Lower Body
+"|
+
+/foreach var=lower_garment {:
+	/addvar key=output "
+- {{item}}"|
+:}|
+
+/ife {: /test left=lower_modification right="" rule=neq :}|
+	/then {:
+		/addvar key=output "
+
+Modifications to the lower garments
+- {{getvar::lower_modification}}"
+	:}|
+
+
+/addvar key=output "
+
+
+Other
+"|
+
+/foreach var=other_garment {:
+	/addvar key=output "
+- {{item}}"|
+:}|
+
+/ife {: /test left=other_modification right="" rule=neq :}|
+	/then {:
+		/addvar key=output "
+
+Modifications to the other garments
+- {{getvar::lower_modification}}"
+	:}|
+	
+/addvar key=output "
+
+
+Gear: {{getvar::gear}}"|
+/message-edit message={{lastMessageId}} {{getvar::output}}

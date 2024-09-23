@@ -1,0 +1,289 @@
+/setvar key=catgen "Extras"|
+/setvar key=genid "14"|
+
+
+//setvar key=swipe Yes|
+
+/:"Character Maker V4.Get Char info"|
+		
+
+
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Personality summary|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fnames}}'s personality.
+INSTRUCTION: Start the genres with a capital letter. Only reply with description of the personality, nothing else. /n {{instructFirstOutput}}|
+	
+	
+    /addvar key=genState {{pipe}}|
+    /addvar key=genState Edit|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} text|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {:
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input default={{getvar::t}} text|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=personality {{getvar::selected_btn}}|
+
+
+/setvar key=examplelist ["a single example where {{getvar::fname}} talks to someone", "a single example where {{getvar::fname}} makes a sound.", "a single example of {{getvar::fname}}'s thoughts.", "a single example of {{getvar::fname}} emotions."]|
+
+/addvar key=examples []|
+/foreach var=examplelist {:
+
+	/setvar key=genState Redo|
+
+	/while left=genState right=Redo rule=eq {:
+		/ife {: /test left={{index}} right=0 rule=eq :}|
+			/then {: /echo "Generating Dialog using \"speach\"" | :}|
+		/elseif {: /test left={{index}} right=1 rule=eq :}|
+			/then {: /echo Generating Dialog using **sound**| :}|
+		/elseif {: /test left={{index}} right=2 rule=eq :}|
+			/then {: /echo Generating Dialog using *thoughts*| :}|
+		/elseif {: /test left={{index}} right=3 rule=eq :}|
+			/then {: /echo Generating Dialog using (emotions)| :}|
+		
+		/setvar key=genState []|  
+	
+		/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+Here is {{getvar::fname}}'s personality: '{{getvar::personality}}'
+
+Start your respons with 'x: y.'
+Where 'x' is {{getvar::fname}} and 'y' is the example.
+Example1: '{{getvar::fname}}: She looks at him \"Thank you\"'
+Example2: '{{getvar::fname}}: \"What's your name? My name is {{getvar::fname}}!\" She says, with a bright smile.'
+Example3: '{{getvar::fname}}: **Ghasp** "What do you mean?" She says shocked.'
+Example4: '{{getvar::fname}}: *I wonder what he thinks about me?* She thinks to herself.'
+Example4: '{{getvar::fname}}: (Scared) \"Wh-what do you mean?\"'
+
+Use \"speach\" for speach.
+Use *thoughts* for thoughts.
+Use **sound** for sounds.
+Use (emotions) for emotions.
+	
+Start your respons with: {{getvar::fname}}:"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide {{item}} using mostly English showcasing {{getvar::fname}}'s dialect and speech pattern.
+INSTRUCTION: Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else. /n {{instructFirstOutput}}| 
+		
+		
+		
+		
+		/addvar key=genState {{pipe}}|
+		/addvar key=genState Edit|  
+		/addvar key=genState Redo|  
+	
+		/buttons labels={{getvar::genState}} text|
+	
+		/setvar key=selected_btn {{pipe}}|
+	
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+			/then {:
+				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} text|
+				/setvar key=selected_btn {{pipe}}|
+				/ife {: left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			:}|
+	
+		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+	:}|
+	/addvar key=examples {{getvar::selected_btn}}|
+:}|
+
+
+
+/setvar key=exexamples ["On encountering someone engaging in a kink","On engaging in a kink with someone","On experiencing pleasure","On experiencing intense pleasure","On reaching orgasm","On reaching an overwhelming orgasm"]|
+
+/setvar key=temp {{noop}}|
+/foreach var=exexamples {:
+	/addvar key=temp "<div>{{item}}"|
+:}|
+
+/buttons labels=["Yes","Add","Skip"] "<div>Do you want to use the extra dialog examples or do you to add your own or skip?</div>{{getvar::temp}}"|
+/setvar key=temp_btn {{pipe}}|
+/ife {: left=temp_btn right="" rule=eq :}|
+	/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+/elseif {: left=temp_btn right=Add rule=eq :}|
+	/then {:
+		/setvar key=genState Redo|
+
+		/while left=genState right=Redo rule=eq {:
+			
+			/input "<div>When adding a category follow this format</div>
+<div>On experiencing pleasure</div>"|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/else {:
+				/addvar key=exexamples {{getvar::selected_btn}}|
+				/buttons labels=["Yes","No"] Want to add more?|
+				/setvar key=answer {{pipe}}|
+				/ife {: left=answer right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/elseif {: left=answer right=Yes rule=eq :}|
+					/then {: /setvar key=genState Redo| :}|
+			:}|
+		:}|
+		
+	:}|
+
+
+/setvar key=e {{noop}}|
+/foreach var=examples {:
+	/ife {: /test left={{index}} right=0 rule=eq:}|
+		/then {: /addvar key=e {{item}} :}|
+	/else {: /addvar key=e "
+{{item}}" :}|
+:}|
+
+
+/ife {: /test left=temp_btn right=Skip rule=neq :}|
+	/then {:
+		/setvar key=a []|
+		/foreach var=exexamples {:
+			/setvar key=i 1|
+			/setvar key=b []|
+			/setvar key=genState Redo|
+			/while left=genState right=Redo rule=eq {:
+				/echo escapeHtml=false "<div>Generating example for:</div><div>\"{{item}}\"</div><div>Example nr: {{getvar::i}}"|
+				
+				/setvar key=genState []|  
+			
+				/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+Here is {{getvar::fname}}'s personality: '{{getvar::personality}}'
+
+Here is some dialoge examples: '{{getvar::e}}'
+
+Start your respons with 'x: y.'
+Where 'x' is {{getvar::fname}} and 'y' is the example.
+Example1: '{{getvar::fname}}: She looks at him \"Thank you\"'
+Example2: '{{getvar::fname}}: \"What's your name? My name is {{getvar::fname}}!\" She says, with a bright smile.'
+Example3: '{{getvar::fname}}: **Ghasp** "What do you mean?" She says shocked.'
+Example4: '{{getvar::fname}}: *I wonder what he thinks about me?* She thinks to herself.'
+Example4: '{{getvar::fname}}: (Scared) \"Wh-what do you mean?\"'
+
+Use \"speach\" for speach.
+Use *thoughts* for thoughts.
+Use **sound** for sounds.
+Use (emotions) for emotions.
+	
+Start your respons with: {{getvar::fname}}:"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a single short dialog example where {{getvar::fname}} is in this situation: {{item}}. Use mostly English while showcasing {{getvar::fname}}'s dialect and speech pattern.
+INSTRUCTION: The reply should be shorther then tree sentences. Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else. /n {{instructFirstOutput}}|  
+				
+				
+				/addvar key=genState {{pipe}}|
+				/addvar key=genState Edit|
+				
+				
+				/ife {: /test left=i right=1 rule=neq:}|
+					/then {:/addvar key=genState Done|:}|
+				
+				/addvar key=genState Redo|  
+			
+				/buttons labels={{getvar::genState}} {{item}}|
+			
+				/setvar key=selected_btn {{pipe}}|
+				
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+					/then {:
+						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+						/input default={{getvar::t}} text|
+						/setvar key=selected_btn {{pipe}}|
+						/ife {: left=selected_btn right="" rule=eq :}|
+								/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+						/else {: 
+							/setvar key=genState Redo|
+							/addvar key=b {{getvar::selected_btn}}|
+							/incvar i|
+						:}|
+						
+					:}|
+				/elseif {: /test left={{getvar::selected_btn}} right=Done rule=eq :}|
+					/then {: :}|
+				/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+					/then {:
+						/setvar key=genState Redo|
+					:}|
+				/else {:
+					/setvar key=genState Redo|
+					/addvar key=b {{getvar::selected_btn}}|
+					/incvar i|
+					
+				:}|
+			:}|
+			/addvar key=a ["{{item}}", {{getvar::b}}]|
+		
+	:}|
+	
+:}|
+
+
+/setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
+
+Personality summary: {{getvar::personality}}
+
+Speech Examples
+"|
+
+/foreach var=examples {:
+	/addvar key=output "
+{{item}}"|
+:}|
+
+/foreach var=a {:
+	/setvar key=a1 {{item}}|
+	/getvar key=a1 index=0|
+	/setvar key=a2 {{pipe}}|
+	/addvar key=output "
+
+
+{{getvar::a2}}:
+"|
+	/getvar key=a1 index=1|
+	/setvar key=a3 {{pipe}}|
+	/foreach var=a3 {:
+		/addvar key=output "
+{{item}}"
+	:}|
+:}|
+
+/message-edit message={{lastMessageId}} {{getvar::output}}

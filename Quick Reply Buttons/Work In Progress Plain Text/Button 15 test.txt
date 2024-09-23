@@ -1,0 +1,9 @@
+/setvar key=catgen "Scenario"|
+/setvar key=genid "15"|
+
+
+//setvar key=swipe Yes|
+
+/:"Character Maker V4.Get Char info"|
+		
+/continue await=true {{getvar::info}}

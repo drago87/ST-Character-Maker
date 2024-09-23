@@ -1,0 +1,118 @@
+/setvar key=id {{lastMessageId}} |
+
+/ife {: /test left={{lastmessage}} right="<h2 align='center'>Latent Kinks</h2>" rule=in:}|
+	/then {:/decvar id | /hide {{getvar::id}}-{{lastMessageId}}:}|
+	
+/ife {: /test left={{lastmessage}} right="<h2 align='center'>Scenario</h2>" rule=in:}|
+	/then {:/decvar id | /hide {{getvar::id}}-{{lastMessageId}}:}|
+
+
+/messages 0-{{lastMessageId}} |
+/setvar key=messageHistory {{pipe}} |
+
+/db-get source=chat first_name| /setvar key=fname {{pipe}}|
+/db-get source=chat age| /setvar key=age {{pipe}}|
+/db-get source=chat gender| /setvar key=gender {{pipe}}|
+/db-get source=chat last_name| /setvar key=lname {{pipe}}|
+/db-get source=chat species| /setvar key=species {{pipe}}|
+/db-get source=chat sub_species| /setvar key=sub_species {{pipe}}|
+/db-get source=chat genre| /setvar key=genre {{pipe}}|
+/db-get source=chat time_period| /setvar key=time_period {{pipe}}|
+/db-get source=chat occupation| /setvar key=occupation {{pipe}}|
+/db-get source=chat real| /setvar key=real {{pipe}}|
+/db-get source=chat character_files| /setvar key=character_files {{pipe}}|
+/db-get source=chat media| /setvar key=media {{pipe}}|
+/db-get source=chat media_name| /setvar key=media_name {{pipe}}|
+/db-get source=chat normal_form| /setvar key=normal_form {{pipe}}|
+/db-get source=chat transformation| /setvar key=transformation {{pipe}}|
+
+/ife {: /test left=sub_species right=None rule=neq :}|
+	/then {: /setvar key=species {{getvar::sub_species}} :}|
+
+/getentryfield file="Character Maker Combined NSFW" 72| /setvar key=rules {{pipe}}|
+
+
+
+/ife {: /test left=gender right=Female rule=eq:}|
+	/then {: /setvar key=prononce "she, her or hers" :}|
+/elseif {: /test left=gender right=Male rule=eq:}|
+	/then {: /setvar key=prononce "he, him or his" :}|
+/else {: /setvar key=prononce "them, their or theirs" :}|
+
+
+
+/ife {: /test left=swipe right=Yes rule=neq:}|
+	/then {:
+		
+		/input default={{input}} Information about {{getvar::fname}}  you want the generation to take into account.|
+		/setvar key=info {{pipe}}|
+		/ife {: /test left=info right="" rule=eq:}|
+			/then {: /setinput </{{getvar::genid}}>:}|
+		/else {: /setinput {{getvar::info}}:}|
+		/sendas name="{{user}}" "{{pipe}}" |
+		/setinput {{noop}}|
+		/setvar key=id {{lastMessageId}}|
+		/hide {{getvar::id}}|
+		/sendas name="{{char}}" <h2 align='center'>{{getvar::catgen}}</h2>|
+	:}|
+/else {: 
+	/setvar key=id {{lastMessageId}}|
+	/decvar id | /setvar key=t {{pipe}} |/messages names=off hidden=on {{getvar::t}} |/setvar key=info {{pipe}}|
+	/ife {: /test left=info right="</{{getvar::genid}}>" rule=eq:}|
+		/then {: /setvar key=info {{noop}} :}|
+:}|
+
+/setvar key=char_info {{noop}}|
+/ife {: /test left=real right=Yes rule=eq :}|
+	/then {:
+		/split var=character_files | /setvar key=t1 {{pipe}}|
+		/getvar key=t1 index=0 | /setvar key=t2 {{pipe}}|
+		/ife {: /test left=t2 right="No Files" rule=neq :}|
+			/then {:
+				/addvar key=char_info "This is information about {{getvar::fname}} {{getvar::lname}} that you should use while making your reply
+'"|
+				/while var=t1 {:
+					/addvar key=char_info "
+{{item}}"|
+				:}|
+				/addvar key=char_info "
+
+{{getvar::fname}} {{getvar::lname}} is from the {{getvar::media}} \" {{getvar::media_name}}\"'"|
+			:}|
+:}|
+
+/setvar key=info "Use this information when formulating your reply: '{{getvar::info}}
+
+The genres are: {{getvar::genre}}.
+The time period is: {{getvar::time_period}}
+The world setting is: {{getvar::world_setting}}
+
+When talking about {{getvar::fname}} use these pronouns: {{getvar::prononce}}'
+
+Your replys should avoid 'Character Development' or 'Self-Discovery.'" :}|
+		
+
+/tag-list| /setvar key=list {{pipe}}|
+/setvar key=form {{noop}}|
+/ife {: /test left=list right=TRANSFORM rule=in :}|
+	/then {:
+		/buttons labels=["Normal","Transformation"] "Do you want to make an outfit for {{getvar::fname}}'s normal form or the transformation?"|
+		/setvar key=selected_btn {{pipe}}|
+	
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left=selected_btn right="Normal" rule=eq :}|
+			/then {:
+				/setvar key=species "{{getvar::normal}}"|
+				/setvar key=form "{{getvar::species}}"|
+			:}|
+		/elseif {: /test left=selected_btn right="Transformation" rule=eq :}|
+			/then {:
+				/split var=transformation| /setvar key=tr {{pipe}}|
+				/buttons labels={{getvar::tr}} What transformation do you want the outfit for?|
+				/setvar key=species {{pipe}}|
+				/ife {: /test left=species right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/setvar key=form "{{getvar::species}}"|
+			:}|
+	:}|

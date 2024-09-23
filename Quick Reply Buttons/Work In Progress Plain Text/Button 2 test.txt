@@ -1,0 +1,1748 @@
+/setvar key=catgen "Appearance Info"|
+/setvar key=genid "2"|
+
+
+//setvar key=swipe Yes|
+
+/:"Character Maker V4.Get Char info"|
+
+
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Height|
+    /setvar key=genState []|  
+
+	/genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+Here is some examples:
+Example1: 187cm
+Example2: 1.87m
+Example3: 90cm
+Example4: 10m"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five numeric heights for {{getvar::fname}}. The heights whould be approriate for {{getvar::age}} {{getvar::gender}}'s of the species {{getvar::species}}. 
+INSTRUCTION: Emululate the examples given. The heights should be in centimeter or meter depending on what is more approriate for {{getvar::species}}'s. Only reply with a comma-separated list, nothing else.
+{{instructFirstOutput}}|
+
+	/setvar key=t {{pipe}}|
+	/split var=t | 
+	/setvar key=genState {{pipe}}|
+    /addvar key=genState "Manually Add"|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} Select a height (Should end in cm or m).|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right="Manually Add" rule=eq :}|
+		/then {:
+			/input  Add your own height (End with cm or m).|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=height {{getvar::selected_btn}}|
+
+
+/setvar key=lenght None|
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq:}|
+	/then {:
+		/setvar key=genState Redo|
+		
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating Lenght|
+			/setvar key=genState []|  
+		
+			/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}} height is: {{getvar::height}}.
+
+Here is some examples:
+Example1: 150cm
+Example2: 15m"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five numeric lenghts for {{getvar::fname}}. The lenghts whould be approriate for {{getvar::age}} {{getvar::gender}}'s of the species {{getvar::species}}. The lenght should be from the tip of the nose to the tip of the tail.
+INSTRUCTION: Emululate the examples given. The lenghts should be in centimeter or meter depending on what is more approriate for {{getvar::species}}'s. Only reply with a comma-separated list, nothing else.
+{{instructFirstOutput}}|
+		
+			/setvar key=t {{pipe}}|
+			/split var=t | 
+			/setvar key=genState {{pipe}}|
+			/addvar key=genState "Manually Add"|  
+			/addvar key=genState Redo|  
+		
+			/buttons labels={{getvar::genState}} Select a lenght from the tip of the nose to the tip of the tail. (Should end in cm or m)|
+		
+			/setvar key=selected_btn {{pipe}}|
+		
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::selected_btn}} right="Manually Add" rule=eq :}|
+				/then {:
+					/input Manually add a lenght from the tip of the nose to the tip of the tail (Should be in cm or m)|
+					/setvar key=selected_btn {{pipe}}|
+					/ife {: left=selected_btn right="" rule=eq :}|
+							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				:}|
+		
+			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+				/then {:
+					/setvar key=genState Redo|
+				:}|
+		:}|
+		/setvar key=lenght {{getvar::selected_btn}}|
+
+:}|
+
+
+
+/ife {: /test left=lenght right=None rule=eq :}|
+	/then {: /setvar key=lenghtinf {{noop}} :}|
+/else {:
+	/setvar key=lenghtinf "{{getvar::fname}}'s lenght from the tip of the nose to the tip of the tail is: {{getvar::lenght}}.
+"
+:}|
+
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Weight|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}
+
+Here is some examples:
+Example1: 85kg
+Example2: 5t"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five numeric weights for {{getvar::fname}}'s total weight. Each weight should be approriate for a {{getvar::species}} that is a {{getvar::age}} {{getvar::gender}}.
+INSTRUCTION: Emululate the examples given. Each weight should be appropriate for the species height and lenght. Each weight should be a single numeric value followed by its corresponding unit of measurement(Only show kg or t). The weights should be in kilo or tonne depending on what is more approriate for {{getvar::species}}'s weight. Only reply with a comma-separated list, nothing else.
+{{instructFirstOutput}}|
+
+	/setvar key=t {{pipe}}|
+	/split var=t | 
+	/setvar key=genState {{pipe}}|
+    /addvar key=genState "Manually Add"|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} Select a weight (It shold end in kg or t)|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right="Manually Add" rule=eq :}|
+		/then {:
+			/input Add a weight (End it in kg or t)|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=weight {{getvar::selected_btn}}|
+
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq :}|
+	/then {: 
+		/setvar key=genState Redo|
+		
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating Covering|
+			/setvar key=genState []|  
+		
+			/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s covering(This should be what type of covering(Fur, Scales, Feathers etc..) and what parts of the body is covered by the covering.).
+INSTRUCTION: Start the reply with a capital letter. Only reply with , nothing else.
+{{instructFirstOutput}}|
+	
+			/addvar key=genState Edit|  
+			/addvar key=genState Redo|  
+		
+			/buttons labels={{getvar::genState}} text|
+		
+			/setvar key=selected_btn {{pipe}}|
+		
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+				/then {:
+					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+					/input default={{getvar::t}} text|
+					/setvar key=selected_btn {{pipe}}|
+					/ife {: left=selected_btn right="" rule=eq :}|
+							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				:}|
+		
+			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+				/then {:
+					/setvar key=genState Redo|
+				:}|
+		:}|
+		/setvar key=cover {{getvar::selected_btn}}|
+
+:}|
+
+
+
+
+
+
+/setvar key=input []|
+/addvar key=input "Hair(This is the hair ontop of your head. This should include color, lenght and hairstyle.)"|
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq :}|
+	/then {: 
+		/addvar key=input "Horns(This is {{getvar::species}}'s horns or things like that on the head.)"
+	:}|
+
+
+/addvar key=input "Ears(This should include the form and position of the ears)"|
+/addvar key=input "eyes(This should include the color of the irises and form of the pupils)"|
+/addvar key=input "Nose"|
+/addvar key=input "Mouth(This shold include the shape, type of teeth and the look of the tongue)"|
+
+
+/setvar key=p1 []|
+/foreach var=input {:
+	/setvar key=genState Redo|
+	
+	/while left=genState right=Redo rule=eq {:
+		/re-replace find=/\(.*$/g replace="" {{item}}|
+		/setvar key=cat {{pipe}}|
+		/echo Generating Head: {{getvar::cat}}|
+		/setvar key=genState []|  
+	
+		/genraw lock=on name={{char}} 
+		system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+Your reply should not include things like clothing, accessories etc.. or bodyparts like breasts, pussy, dick etc..
+
+Here is some examples of responses.
+Example1: His brown hair is short and messy.
+Example2: Her pink hair is put up in a neat braid.
+Example3: His horns are poiting strait up ending in a sharp tip.
+Example4: Her rainbow clolored horn is in the middle of her forhead and is ending in a sharp tip.
+Example5: His ears are rounded at the edges with a slight upward tilt.
+Example6: Her ears are pointed with a sharp tilt backwards.
+Example7: His eyes are golden with vertical slit pupils.
+Example8: Her eyes are brown with circular pupils."
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
+INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+{{instructFirstOutput}}|
+		
+		
+		
+		
+		/addvar key=genState {{pipe}}|
+		/ife {: /test left=cat right=Horns rule=eq:}|
+			/then {: /addvar key=genState None :}|
+
+		/addvar key=genState Edit|
+		/addvar key=genState Redo|  
+	
+		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
+	
+		/setvar key=selected_btn {{pipe}}|
+	
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+			/then {:
+				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} Edit the description to your liking.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife {: left=selected_btn right="" rule=eq :}|
+						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			:}|
+	
+		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+	:}|
+	/addvar key=p1 "{{getvar::cat}}: {{getvar::selected_btn}}"|
+:}|
+
+/setvar key=p1st {{noop}}|
+/foreach var=p1 {:
+	/ife {: /test left={{index}} right=0 rule=neq :}|
+		/then {:
+			/ife {: /test left={{item}} right="Horns: None" rule=neq :}|
+				/then {: /addvar key=p1st "
+{{item}}" :}|
+			:}|
+	/else {: /addvar key=p1st "{{item}}" :}|
+:}|
+/setvar key=face {{getvar::p1}}|
+
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Face Appearance|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+This is the general information about {{getvar::fname}}'s head appearance: '{{getvar::p1st}}'
+
+Your reply should not include things like clothing, accessories etc.. or bodyparts like breasts, pussy, dick etc.."
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general face appearance using the information given. The description should focus on the shape of {{getvar::fname}}'s head and face.
+INSTRUCTION: Keep the replys to under five sentences. Keep in mind that {{getvar::fname}}'s has a {{getvar::gender}} gender so use the correct pronoun. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. Only reply with a description, nothing else.
+{{instructFirstOutput}}| 
+	
+	
+	
+	
+    /addvar key=genState {{pipe}}|
+    /addvar key=genState Edit|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} Is this description to your liking?|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {:
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input default={{getvar::t}} Edit the description to your liking.|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=p2 {{getvar::selected_btn}}|
+/setvar key=head "{{getvar::p1st}}
+Appearance: {{getvar::p2}}"|
+
+/addvar key=face {{getvar::p2}}|
+
+
+/setvar key=input []|
+
+/addvar key=input "Body Type"|
+/addvar key=input "Torso"|
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq :}|
+	/then {: 
+		/addvar key=input "Front Legs"|
+	:}|
+/else {:
+	/addvar key=input "Arms"|
+:}|
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq :}|
+	/then {: 
+		/buttons labels=["Hand","Front Paws", "Front Fins","Front Hooves", "Flippers"]|
+		/addvar key=input {{pipe}}|
+	:}|
+/else {:
+	/addvar key=input "Hands"
+	:}|
+
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq :}|
+	/then {: 
+		/addvar key=input "Claws"|
+		/addvar key=input "Wings"|
+	:}|
+
+/addvar key=input "Stomach"|
+
+/setvar key=body_type {{noop}}|
+
+/setvar key=p1 []|
+/foreach var=input {:
+	/setvar key=genState Redo|
+	
+	/while left=genState right=Redo rule=eq {:
+		/re-replace find=/\(.*$/g replace="" {{item}}|
+		/setvar key=cat {{pipe}}|
+		/echo Generating Upper Body: {{getvar::cat}}|
+		/setvar key=genState []|  
+	
+		/genraw lock=on name={{char}} 
+		system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+Here is a description of {{getvar::fname}}'s face: {{getvar::p2}}
+
+{{getvar::body_type}}
+
+Your reply should not include things like clothing, accessories etc.. or bodyparts like breasts, pussy, dick etc..
+
+Here is some examples of responses.
+Example1: His is well trained.
+Example2: Her is small and slender for her age.
+Example3: His torso is hairy with well defined muscels .
+Example4: Her torso is mostly smooth without a trace of muscle.
+Example5: His claws are sharp and slithly curved.
+Example6: Her claws are well-groomed and blunt.
+Example7: His wings are batlike with bony protrusions.
+Example8: Her wings are feathered and colorful.
+Example9: His stomach has a hard six pack, with a outie bellybutton.
+Example10: Her stomach is small and flat, with a bellybutton that is slightly indented."
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
+INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+{{instructFirstOutput}}|
+		
+		
+		
+		
+		/addvar key=genState {{pipe}}|
+		/ife {: /test left=cat right=Claws rule=eq:}|
+			/then {: /addvar key=genState None :}|
+		/ife {: /test left=cat right=Wings rule=eq:}|
+			/then {: /addvar key=genState None :}|
+		/addvar key=genState Edit|
+		/addvar key=genState Redo|  
+	
+		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
+	
+		/setvar key=selected_btn {{pipe}}|
+	
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+			/then {:
+				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} Edit the description to your liking.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife {: left=selected_btn right="" rule=eq :}|
+						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			:}|
+	
+		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+	:}|
+	/ife {::}|
+		/then {: 
+			/setvar key=body_type "{{getvar::fname}}'s body type is {{getvar::selected_btn}}"
+		:}|
+	/addvar key=p1 "{{getvar::cat}}: {{getvar::selected_btn}}"|
+:}|
+
+/setvar key=p1st {{noop}}|
+/foreach var=p1 {:
+	/ife {: /test left={{index}} right=0 rule=neq :}|
+		/then {:
+			/ife {: /test left={{item}} right="Horns: None" rule=neq :}|
+				/then {: /addvar key=p1st "
+{{item}}" :}|
+			:}|
+	/else {: /addvar key=p1st "{{item}}" :}|
+:}|
+
+
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating torso Appearance|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+This is general information about {{getvar::fname}}'s appearance: '{{getvar::p1st}}'
+
+Your reply should not include things like clothing, accessories etc.. or bodyparts like breasts, pussy, dick etc.."
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general torso appearance using the information given.
+INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}}, {{getvar::genre}} {{getvar::time_period}} or {{getvar::world_setting}} in the reply. Only reply with a description, nothing else.
+{{instructFirstOutput}}| 
+	
+	
+	
+	
+    /addvar key=genState {{pipe}}|
+    /addvar key=genState Edit|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} Is this description to your liking?|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {:
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input default={{getvar::t}} Edit the description to your liking.|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=p2 {{getvar::selected_btn}}|
+/setvar key=upper_body "{{getvar::p1st}}
+Appearance: {{getvar::p2}}"|
+
+/setvar key=upper {{getvar::p1}}|
+/addvar key=upper {{getvar::p2}}|
+/setvar key=input []|
+
+/addvar key=input "Butt"|
+
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq :}|
+	/then {: 
+		/addvar key=input "Tail"|
+	:}|
+	
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq :}|
+	/then {: 
+		/addvar key=input "Hind Legs"|
+	:}|
+/else {:
+	/addvar key=input "Legs"
+	:}|
+
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Demi-Human rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/else {: /setvar key=isTure true :}|
+
+/ife {: /test left=isTure right=true rule=eq :}|
+	/then {: 
+		/buttons labels=["Feets","Hind Paws", "Hind Fins","Hind Hooves", "Flippers"]|
+		/addvar key=input {{pipe}}|
+	:}|
+/else {:
+	/addvar key=input "Feets"
+	:}|
+
+
+
+/setvar key=p1 []|
+/foreach var=input {:
+	/setvar key=genState Redo|
+	
+	/while left=genState right=Redo rule=eq {:
+		/re-replace find=/\(.*$/g replace="" {{item}}|
+		/setvar key=cat {{pipe}}|
+		/echo Generating Lower Body: {{getvar::cat}}|
+		/setvar key=genState []|  
+	
+		/genraw lock=on name={{char}} 
+		system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+Here is a description of {{getvar::fname}}'s face: {{getvar::p2}}
+
+{{getvar::body_type}}
+
+Your reply should not include things like clothing, accessories etc.. or bodyparts like breasts, pussy, dick etc..
+
+Here is some examples of responses.
+Example1: His butt is firm.
+Example2: Her butt is small and squishy.
+Example3: His tail is covered with scales and have spikes at the end.
+Example4: Her tail is soft and fluffy.
+Example5: His legs are long and powerful.
+Example6: Her legs are .
+Example7: His wings are batlike with bony protrusions.
+Example8: Her wings are feathered and colorful.
+Example9: His stomach has a hard six pack, with a outie bellybutton.
+Example10: Her stomach is small and flat, with a bellybutton that is slightly indented."
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
+INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+{{instructFirstOutput}}|
+		
+		
+		
+		
+		/addvar key=genState {{pipe}}|
+		/ife {: /test left=cat right=Tail rule=eq:}|
+			/then {: /addvar key=genState None :}|
+		/addvar key=genState Edit|
+		/addvar key=genState Redo|  
+	
+		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
+	
+		/setvar key=selected_btn {{pipe}}|
+	
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+			/then {:
+				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} Edit the description to your liking.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife {: left=selected_btn right="" rule=eq :}|
+						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			:}|
+	
+		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+	:}|
+	/addvar key=p1 "{{getvar::cat}}: {{getvar::selected_btn}}"|
+:}|
+
+/setvar key=p2st {{noop}}|
+/foreach var=p1 {:
+	/ife {: /test left={{index}} right=0 rule=neq :}|
+		/then {:
+			/ife {: /test left={{item}} right="Horns: None" rule=neq :}|
+				/then {: /addvar key=p2st "
+{{item}}" :}|
+			:}|
+	/else {: /addvar key=p2st "{{item}}" :}|
+:}|
+
+
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating lower body Appearance|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+This is general information about {{getvar::fname}}'s appearance: '{{getvar::p2st}}'
+
+Your reply should not include things like clothing, accessories etc.. or bodyparts like breasts, pussy, dick etc.."
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general lower body appearance using the information given.
+INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}}, {{getvar::genre}} {{getvar::time_period}} or {{getvar::world_setting}} in the reply. Only reply with a description, nothing else.
+{{instructFirstOutput}}| 
+	
+	
+	
+	
+    /addvar key=genState {{pipe}}|
+    /addvar key=genState Edit|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} Is this description to your liking?|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {:
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input default={{getvar::t}} Edit the description to your liking.|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=p2 {{getvar::selected_btn}}|
+/setvar key=lower_body "{{getvar::p2st}}
+Appearance: {{getvar::p2}}"|
+
+/setvar key=lower {{getvar::p1}}|
+/addvar key=lower {{getvar::p2}}|
+
+
+/setvar key=special {{noop}}|
+/ife {: /test left=list right=FCANINE rule=eq :}|
+	/then {:
+		/getentryfield file="Character Maker Combined NSFW" 132|
+		/addvar key=special {{pipe}}|
+	:}|
+/elseif {: /test left=list right=MCANINE rule=eq :}|
+	/then {:
+		/getentryfield file="Character Maker Combined NSFW" 133|
+		/addvar key=special {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW" 194|
+		/addvar key=special "
+{{pipe}}"|
+		/getentryfield file="Character Maker Combined NSFW" 195|
+		/addvar key=special "
+{{pipe}}"|
+	:}|
+/ife {: /test left=list right=FQEUINE rule=eq :}|
+	/then {:
+		/getentryfield file="Character Maker Combined NSFW" 191|
+		/addvar key=special {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW" 192|
+		/addvar key=special "
+{{pipe}}"|
+	:}|
+/elseif {: /test left=list right=MQEUINE rule=eq :}|
+	/then {:
+		/getentryfield file="Character Maker Combined NSFW" 196|
+		/addvar key=special {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW" 197|
+		/addvar key=special "
+{{pipe}}"|
+		/getentryfield file="Character Maker Combined NSFW" 198|
+		/addvar key=special "
+{{pipe}}"|
+		/getentryfield file="Character Maker Combined NSFW" 199|
+		/addvar key=special "
+{{pipe}}"|
+	:}|
+/ife {: /test left=list right=FFELINE rule=eq :}|
+	/then {::}|
+/elseif {: /test left=list right=MFELINE rule=eq :}|
+	/then {::}|
+/ife {: /test left=list right=FREPTILIAN rule=eq :}|
+	/then {::}|
+/elseif {: /test left=list right=MREPTILIAN rule=eq :}|
+	/then {::}|
+
+
+
+/setvar key=breasts {{noop}}|
+/setvar key=pussy {{noop}}|
+/setvar key=dick {{noop}}|
+
+
+
+/ife {: /test left=gender right=Female rule=eq :}|
+	/then {:
+		/setvar key=input []|
+		/addvar key=input "Cup size(This is the size of {getvar::fname}}'s breasts.)"|
+		/addvar key=input "Firmness(This is the firmness of {getvar::fname}}'s breasts.)"|
+		/addvar key=input "Nipples(This is type(Protruding, flat or inverted) and size(long, short, wide) of {{getvar::fname}}'s nipples.)"|
+		/addvar key=input "Sensativity(This is the sensativity of {{getvar::fname}}'s nipples.)"|
+		
+		
+		/setvar key=p1 []|
+		/foreach var=input {:
+			/setvar key=genState Redo|
+			
+			/while left=genState right=Redo rule=eq {:
+				/re-replace find=/\(.*$/g replace="" {{item}}|
+				/setvar key=cat {{pipe}}|
+				/echo Generating Breast: {{getvar::cat}}|
+				/setvar key=genState []|  
+			
+				/genraw lock=on name={{char}} 
+				system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+Here is a description of {{getvar::fname}}'s face: {{getvar::p2}}
+
+{{getvar::body_type}}
+
+
+
+Here is some examples of responses.
+Example1: Her breasts are big for her age.
+Example2: Her breasts are small.
+Example3: The firmness of her breasts is squishy.
+Example4: The firmness of her breasts is firm.
+Example5: Her nipples are long and protruding.
+Example6: Her nipples are inverted.
+Example7: The sensativity of her nipples is realy high.
+Example8: The sensativity of her nipples is ."
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
+INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be one sentences. Only reply with a description, nothing else.
+{{instructFirstOutput}}|
+		
+		
+		
+		
+				/addvar key=genState {{pipe}}|
+				/addvar key=genState Edit|
+				/addvar key=genState Redo|  
+			
+				/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
+			
+				/setvar key=selected_btn {{pipe}}|
+			
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+					/then {:
+						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+						/input default={{getvar::t}} Edit the description to your liking.|
+						/setvar key=selected_btn {{pipe}}|
+						/ife {: left=selected_btn right="" rule=eq :}|
+								/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					:}|
+			
+				/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+					/then {:
+						/setvar key=genState Redo|
+					:}|
+			:}|
+			/addvar key=p1 "{{getvar::cat}}: {{getvar::selected_btn}}"|
+		:}|
+		
+		/setvar key=p3st {{noop}}|
+		/foreach var=p1 {:
+			/ife {: /test left={{index}} right=0 rule=neq :}|
+				/then {:
+					/ife {: /test left={{item}} right="Horns: None" rule=neq :}|
+						/then {: /addvar key=p3st "
+		{{item}}" :}|
+					:}|
+			/else {: /addvar key=p3st "{{item}}" :}|
+		:}|
+		
+		
+		/setvar key=genState Redo|
+		
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating breast Appearance|
+			/setvar key=genState []|  
+		
+			/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+This is general information about {{getvar::fname}}'s appearance: '{{getvar::p3st}}'"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general breast and nipple appearance using the information given.
+INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}}, {{getvar::genre}} {{getvar::time_period}} or {{getvar::world_setting}} in the reply. Only reply with a description, nothing else.
+{{instructFirstOutput}}| 
+	
+	
+	
+	
+			/addvar key=genState {{pipe}}|
+			/addvar key=genState Edit|  
+			/addvar key=genState Redo|  
+		
+			/buttons labels={{getvar::genState}} Is this description to your liking?|
+		
+			/setvar key=selected_btn {{pipe}}|
+		
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+				/then {:
+					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+					/input default={{getvar::t}} Edit the description to your liking.|
+					/setvar key=selected_btn {{pipe}}|
+					/ife {: left=selected_btn right="" rule=eq :}|
+							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				:}|
+		
+			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+				/then {:
+					/setvar key=genState Redo|
+				:}|
+		:}|
+		/setvar key=p2 {{getvar::selected_btn}}|
+		/setvar key=breast "{{getvar::p3st}}
+Appearance: {{getvar::p2}}"|
+		
+		/setvar key=breasts {{getvar::p1}}|
+		/addvar key=breasts {{getvar::p2}}|
+		
+		/setvar key=input []|
+		/addvar key=input "Tightness(This is the tightness of {{getvar::fname}}'s pussy)"|
+		/addvar key=input "Depth(This is the depth of {{getvar::fname}}'s pussy)"|
+		/addvar key=input "Wetness(This is how easy {{getvar::fname}}'s pussy gets wet)"|
+		/addvar key=input "Clit(This is how big and visible the clit is)"|
+		/addvar key=input "Pussy Shape(This is the shape of {{getvar::fname}}'s pussy. It can have \"visible inner lips\", \"small, closed outer lips\", \"small, open outer lips\", \"long, dangling outer lips\", \"long, dangling inner lips\", \"prominent outer lips\", \"prominent inner lips\", \"curved outer lips\" or \"asymmetrical inner lips\")"|
+		/addvar key=input "Hymen(This is the state of {{getvar::fname}}'s hymen)"|
+		/addvar key=input "Public Hair(This is the state of {{getvar::fname}}'s public hair, it can be naturaly smooth(Due to age or something else), shaven, trimmed to a shape, or unshaved)"|
+		
+		
+		/setvar key=p1 []|
+		/foreach var=input {:
+			/setvar key=genState Redo|
+			
+			/while left=genState right=Redo rule=eq {:
+				/re-replace find=/\(.*$/g replace="" {{item}}|
+				/setvar key=cat {{pipe}}|
+				/echo Generating Pussy: {{getvar::cat}}|
+				/setvar key=genState []|  
+			
+				/genraw lock=on name={{char}} 
+				system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+Here is a description of {{getvar::fname}}'s face: {{getvar::p2}}
+
+{{getvar::body_type}}
+
+
+
+Here is some examples of responses.
+Example1: His butt is firm.
+Example2: Her butt is small and squishy.
+Example3: His tail is covered with scales and have spikes at the end.
+Example4: Her tail is soft and fluffy.
+Example5: His legs are long and powerful.
+Example6: Her legs are .
+Example7: His wings are batlike with bony protrusions.
+Example8: Her wings are feathered and colorful.
+Example9: His stomach has a hard six pack, with a outie bellybutton.
+Example10: Her stomach is small and flat, with a bellybutton that is slightly indented.
+
+{{getvar::special}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
+INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+{{instructFirstOutput}}|
+		
+		
+		
+		
+				/addvar key=genState {{pipe}}|
+				/addvar key=genState Edit|
+				/addvar key=genState Redo|  
+			
+				/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
+			
+				/setvar key=selected_btn {{pipe}}|
+			
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+					/then {:
+						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+						/input default={{getvar::t}} Edit the description to your liking.|
+						/setvar key=selected_btn {{pipe}}|
+						/ife {: left=selected_btn right="" rule=eq :}|
+								/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					:}|
+			
+				/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+					/then {:
+						/setvar key=genState Redo|
+					:}|
+			:}|
+			/addvar key=p1 "{{getvar::cat}}: {{getvar::selected_btn}}"|
+		:}|
+		
+		/setvar key=p4st {{noop}}|
+		/foreach var=p1 {:
+			/ife {: /test left={{index}} right=0 rule=neq :}|
+				/then {:
+					/ife {: /test left={{item}} right="Horns: None" rule=neq :}|
+						/then {: /addvar key=p4st "
+		{{item}}" :}|
+					:}|
+			/else {: /addvar key=p4st "{{item}}" :}|
+		:}|
+		
+		
+		/setvar key=genState Redo|
+		
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating pussy Appearance|
+			/setvar key=genState []|  
+		
+			/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+This is general information about {{getvar::fname}}'s pussy appearance: '{{getvar::p4st}}'
+
+{{getvar::special}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s pussy general appearance using the information given.
+INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}} in the reply. Only reply with a description, nothing else.
+{{instructFirstOutput}}| 
+	
+	
+	
+	
+			/addvar key=genState {{pipe}}|
+			/addvar key=genState Edit|  
+			/addvar key=genState Redo|  
+		
+			/buttons labels={{getvar::genState}} Is this description to your liking?|
+		
+			/setvar key=selected_btn {{pipe}}|
+		
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+				/then {:
+					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+					/input default={{getvar::t}} Edit the description to your liking.|
+					/setvar key=selected_btn {{pipe}}|
+					/ife {: left=selected_btn right="" rule=eq :}|
+							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				:}|
+		
+			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+				/then {:
+					/setvar key=genState Redo|
+				:}|
+		:}|
+		/setvar key=p2 {{getvar::selected_btn}}|
+		/setvar key=puss "{{getvar::p3st}}
+Appearance: {{getvar::p2}}"|
+		
+		/setvar key=pussy {{getvar::p1}}|
+		/addvar key=pussy {{getvar::p2}}|
+		
+	:}|
+/elseif {: /test left=gender right=Male rule=eq :}|
+	/then {:
+		/setvar key=input []|
+		/addvar key=input "Lenght Flacid(This is the lenght of {{getvar::fname}}'s dick/penis when it is flacid. Take {{getvar::fname}}'s age into account)"|
+		/addvar key=input "Girth Flacid(This is the girth of {{getvar::fname}}'s dick/penis when it is flacid. Take {{getvar::fname}}'s age into account)"|
+		/addvar key=input "Lenght Erect(This is the lenght of {{getvar::fname}}'s dick/penis when it is fully erect. Take {{getvar::fname}}'s age into account)"|
+		/addvar key=input "Girth Erect(This is the girth of {{getvar::fname}}'s dick/penis when it is fully erect. Take {{getvar::fname}}'s age into account)"|
+		/addvar key=input "Form(This could be if the cock "have a curve to it", "have veins on it" or "have been circumcised" etc..)"|
+		/addvar key=input "Public Hair(This is the state of {{getvar::fname}}'s public hair, it can be naturaly smooth(Due to age or something else), shaven, trimmed to a shape, or unshaved. Take {{getvar::fname}}'s age into account)"|
+		/addvar key=input "Feature"|
+		
+		
+		
+		/setvar key=p1 []|
+		/foreach var=input {:
+			/setvar key=genState Redo|
+			
+			/while left=genState right=Redo rule=eq {:
+				/re-replace find=/\(.*$/g replace="" {{item}}|
+				/setvar key=cat {{pipe}}|
+				/echo Generating Cock: {{getvar::cat}}|
+				/setvar key=genState []|  
+			
+				/genraw lock=on name={{char}} 
+				system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+Here is a description of {{getvar::fname}}'s face: {{getvar::p2}}
+
+{{getvar::body_type}}
+
+
+
+Here is some examples of responses.
+Example1: His butt is firm.
+Example2: Her butt is small and squishy.
+Example3: His tail is covered with scales and have spikes at the end.
+Example4: Her tail is soft and fluffy.
+Example5: His legs are long and powerful.
+Example6: Her legs are .
+Example7: His wings are batlike with bony protrusions.
+Example8: Her wings are feathered and colorful.
+Example9: His stomach has a hard six pack, with a outie bellybutton.
+Example10: Her stomach is small and flat, with a bellybutton that is slightly indented.
+
+{{getvar::special}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
+INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+{{instructFirstOutput}}|
+		
+		
+		
+		
+				/addvar key=genState {{pipe}}|
+				/addvar key=genState Edit|
+				/addvar key=genState Redo|  
+			
+				/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
+			
+				/setvar key=selected_btn {{pipe}}|
+			
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+					/then {:
+						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+						/input default={{getvar::t}} Edit the description to your liking.|
+						/setvar key=selected_btn {{pipe}}|
+						/ife {: left=selected_btn right="" rule=eq :}|
+								/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					:}|
+			
+				/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+					/then {:
+						/setvar key=genState Redo|
+					:}|
+			:}|
+			/addvar key=p1 "{{getvar::cat}}: {{getvar::selected_btn}}"|
+		:}|
+		
+		/setvar key=p5st {{noop}}|
+		/foreach var=p1 {:
+			/ife {: /test left={{index}} right=0 rule=neq :}|
+				/then {:
+					/ife {: /test left={{item}} right="Horns: None" rule=neq :}|
+						/then {: /addvar key=p5st "
+		{{item}}" :}|
+					:}|
+			/else {: /addvar key=p5st "{{item}}" :}|
+		:}|
+		
+		
+		/setvar key=genState Redo|
+		
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating dick Appearance|
+			/setvar key=genState []|  
+		
+			/genraw lock=on name={{char}} 
+			system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+This is general information about {{getvar::fname}}'s dick appearance: '{{getvar::p5st}}'
+
+
+{{getvar::special}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general dick appearance using the information given.
+INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}} in the reply. Only reply with a description, nothing else.
+{{instructFirstOutput}}| 
+	
+	
+	
+	
+			/addvar key=genState {{pipe}}|
+			/addvar key=genState Edit|  
+			/addvar key=genState Redo|  
+		
+			/buttons labels={{getvar::genState}} Is this description to your liking?|
+		
+			/setvar key=selected_btn {{pipe}}|
+		
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+				/then {:
+					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+					/input default={{getvar::t}} Edit the description to your liking.|
+					/setvar key=selected_btn {{pipe}}|
+					/ife {: left=selected_btn right="" rule=eq :}|
+							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				:}|
+		
+			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+				/then {:
+					/setvar key=genState Redo|
+				:}|
+		:}|
+		/setvar key=p2 {{getvar::selected_btn}}|
+		/setvar key=dic "{{getvar::p5st}}
+Appearance: {{getvar::p2}}"|
+		
+		/setvar key=dick {{getvar::p1}}|
+		/addvar key=dick {{getvar::p2}}|
+	:}|
+
+
+
+/setvar key=input []|
+/addvar key=input "Tightness(This is the tightness of {{getvar::fname}}'s ass hole)"|
+/addvar key=input "Depth(This is the depth of {{getvar::fname}}'s ass hole)"|
+
+/setvar key=p1 []|
+/foreach var=input {:
+	/setvar key=genState Redo|
+	
+	/while left=genState right=Redo rule=eq {:
+		/re-replace find=/\(.*$/g replace="" {{item}}|
+		/setvar key=cat {{pipe}}|
+		/echo Generating Ass Hole: {{getvar::cat}}|
+		/setvar key=genState []|  
+	
+		/genraw lock=on name={{char}} 
+		system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+Here is a description of {{getvar::fname}}'s face: {{getvar::p2}}
+
+{{getvar::body_type}}
+
+
+
+Here is some examples of responses.
+Example1: His butt is firm.
+Example2: Her butt is small and squishy.
+Example3: His tail is covered with scales and have spikes at the end.
+Example4: Her tail is soft and fluffy.
+Example5: His legs are long and powerful.
+Example6: Her legs are .
+Example7: His wings are batlike with bony protrusions.
+Example8: Her wings are feathered and colorful.
+Example9: His stomach has a hard six pack, with a outie bellybutton.
+Example10: Her stomach is small and flat, with a bellybutton that is slightly indented."
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
+INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+{{instructFirstOutput}}|
+		
+		
+		
+		
+		/addvar key=genState {{pipe}}|
+		/addvar key=genState Edit|
+		/addvar key=genState Redo|  
+	
+		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
+	
+		/setvar key=selected_btn {{pipe}}|
+	
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+			/then {:
+				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} Edit the description to your liking.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife {: left=selected_btn right="" rule=eq :}|
+						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			:}|
+	
+		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+	:}|
+	/addvar key=p1 "{{getvar::cat}}: {{getvar::selected_btn}}"|
+:}|
+
+/setvar key=p6st {{noop}}|
+/foreach var=p1 {:
+	/ife {: /test left={{index}} right=0 rule=neq :}|
+		/then {:
+			/ife {: /test left={{item}} right="Horns: None" rule=neq :}|
+				/then {: /addvar key=p6st "
+{{item}}" :}|
+			:}|
+	/else {: /addvar key=p6st "{{item}}" :}|
+:}|
+
+
+
+
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating ass hole Appearance|
+	/setvar key=genState []|  
+
+	/genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
+
+{{getvar::fname}} height is: {{getvar::height}}.
+{{getvar::lenghtinf}}{{getvar::fname}} weight is: {{getvar::weight}}.
+
+This is general information about {{getvar::fname}}'s ass hole appearance: '{{getvar::p6st}}'"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general ass hole appearance using the information given.
+INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}} in the reply. Only reply with a description, nothing else.
+{{instructFirstOutput}}| 
+	
+	
+	
+	
+	/addvar key=genState {{pipe}}|
+	/addvar key=genState Edit|  
+	/addvar key=genState Redo|  
+
+	/buttons labels={{getvar::genState}} Is this description to your liking?|
+
+	/setvar key=selected_btn {{pipe}}|
+
+	/ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+	/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {:
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input default={{getvar::t}} Edit the description to your liking.|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+	/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=p2 {{getvar::selected_btn}}|
+/setvar key=ass "{{getvar::p6st}}
+Appearance: {{getvar::p2}}"|
+
+/setvar key=ass_hole {{getvar::p1}}|
+/addvar key=ass_hole {{getvar::p2}}|
+
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating External Erogenous Zones|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}
+
+
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of external zones on {{getvar::fname}}'s body that is highly Erogenous(These zones are specific for {{getvar::fname}}).
+INSTRUCTION: The respons should be less then four sentences. Only reply with the description, nothing else. /n {{instructFirstOutput}}|  
+	
+	
+	
+	
+    /addvar key=genState {{pipe}}|
+    /addvar key=genState Edit|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} text|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {:
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input default={{getvar::t}} text|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=ext_ergo_zones {{getvar::selected_btn}}|
+
+
+
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Internal Erogenous Zones|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of internal zones on {{getvar::fname}}'s body that is highly Erogenous(These zones are specific for {{getvar::fname}})(These are zones that are inside of the body such as the g-spot, bladder, womb etc..).
+INSTRUCTION: The respons should be less then four sentences. Only reply with the description, nothing else. /n {{instructFirstOutput}}|  
+	
+	
+	
+	
+    /addvar key=genState {{pipe}}|
+    /addvar key=genState Edit|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} text|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {:
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input default={{getvar::t}} text|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: left=selected_btn right="" rule=eq :}|
+					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=int_ergo_zones {{getvar::selected_btn}}|
+
+/ife {: /test left=form right="" rule=neq :}|
+	/then {: /setvar key=form " ({{getvar::form)" :}|
+
+/setvar key=output "<h2 align='center'>{{getvar::catgen}}{{getvar::form}}</h2>
+
+Heigt: {{getvar::height}}"|
+
+/ife {: /test left=lenght right=None rule=neq :}|
+	/then {: /addvar key=output "
+Lenght: {{getvar::lenght}}"
+	:}|
+
+/addvar key=output "
+Weight: {{getvar::weight}}
+
+Appearance Description"|
+
+/ife {: /test left=transformation right=None rule=neq:}|
+	/then {:
+		/addvar key=output "
+
+Covering: {{getvar::covering}}"
+	:}|
+	
+/addvar key=output "
+
+Face
+"|
+
+/foreach var=face {:
+	/ife {: /test left={{index}} right=0 rule=neq:}|
+		/then {:
+			/addvar key=output "
+- {{item}}"|
+		:}|
+	/else {: /addvar key=output "- {{item}}":}|
+:}|
+
+/addvar key=output "
+
+
+Upper Body
+"|
+
+/foreach var=upper {:
+	/ife {: /test left={{index}} right=0 rule=neq:}|
+		/then {:
+			/addvar key=output "
+- {{item}}"|
+		:}|
+	/else {: /addvar key=output "- {{item}}":}|
+:}|
+
+/addvar key=output "
+
+
+Lower Body
+"|
+
+/foreach var=lower {:
+	/ife {: /test left={{index}} right=0 rule=neq:}|
+		/then {:
+			/addvar key=output "
+- {{item}}"|
+		:}|
+	/else {: /addvar key=output "- {{item}}":}|
+:}|
+
+/ife {: /test left=gender right=Female rule=eq :}|
+	/then {:
+		/addvar key=output "
+
+
+Breasts
+"|
+
+		/foreach var=breasts {:
+			/ife {: /test left={{index}} right=0 rule=neq:}|
+				/then {:
+					/addvar key=output "
+- {{item}}"|
+				:}|
+			/else {: /addvar key=output "- {{item}}":}|
+		:}|
+		
+		/addvar key=output "
+
+
+Pussy
+"|
+
+		/foreach var=pussy {:
+			/ife {: /test left={{index}} right=0 rule=neq:}|
+				/then {:
+					/addvar key=output "
+- {{item}}"|
+				:}|
+			/else {: /addvar key=output "- {{item}}":}|
+		:}|
+	:}|
+/elseif {: /test left=gender right=Male rule=eq :}|
+	/then {:
+		/addvar key=output "
+
+
+Cock
+"|
+
+		/foreach var=breasts {:
+			/ife {: /test left={{index}} right=0 rule=neq:}|
+				/then {:
+					/addvar key=output "
+- {{item}}"|
+				:}|
+			/else {: /addvar key=output "- {{item}}":}|
+		:}|	
+	:}|
+
+/addvar key=output "
+
+
+Ass hole
+"|
+
+/foreach var=ass_hole {:
+	/ife {: /test left={{index}} right=0 rule=neq:}|
+		/then {:
+			/addvar key=output "
+- {{item}}"|
+		:}|
+	/else {: /addvar key=output "- {{item}}":}|
+:}|
+
+/addvar key=output "
+
+
+External Erogenous Zones
+{{getvar::ext_ergo_zones}}
+
+
+External Erogenous Zones
+{{getvar::int_ergo_zones}}"|
+/message-edit message={{lastMessageId}} {{getvar::output}}
