@@ -179,6 +179,46 @@
       "color": "rgba(255, 2, 245, 0.5)",
       "color2": "",
       "create_date": 1724344952515
+    },
+    {
+      "id": "245750f7-fe57-47fd-90d1-f6406d383f0b",
+      "name": "FFELINE",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": 1,
+      "color": "rgba(1, 254, 238, 0.5)",
+      "color2": "",
+      "create_date": 1725839862236
+    },
+    {
+      "id": "c2e7b9ef-2cbd-49ad-be53-afd1465a79c4",
+      "name": "MFELINE",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": 2,
+      "color": "rgba(1, 254, 238, 0.5)",
+      "color2": "",
+      "create_date": 1725839872576
+    },
+    {
+      "id": "0c0dfd24-4354-42db-a6f3-bae40fc61061",
+      "name": "FREPTILIAN",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": 3,
+      "color": "rgba(1, 254, 238, 0.5)",
+      "color2": "",
+      "create_date": 1725839962046
+    },
+    {
+      "id": "8ef7f69c-4f0a-43a4-93d0-b8ac61cc8a44",
+      "name": "MREPTILIAN",
+      "folder_type": "NONE",
+      "filter_state": "UNDEFINED",
+      "sort_order": 4,
+      "color": "rgba(1, 254, 238, 0.5)",
+      "color2": "",
+      "create_date": 1725839967044
     }
   ],
   "tag_map": {
@@ -186,7 +226,11 @@
     "undefined": [],
     "Char Creator TAGS.png": [
       "03959c88-3aee-4209-b3ea-2bb638695d14",
-      "d5e1e6f3-8ca0-43f9-a68c-3d76c3feaf72"
+      "d5e1e6f3-8ca0-43f9-a68c-3d76c3feaf72",
+      "245750f7-fe57-47fd-90d1-f6406d383f0b",
+      "c2e7b9ef-2cbd-49ad-be53-afd1465a79c4",
+      "0c0dfd24-4354-42db-a6f3-bae40fc61061",
+      "8ef7f69c-4f0a-43a4-93d0-b8ac61cc8a44"
     ]
   }
 }
