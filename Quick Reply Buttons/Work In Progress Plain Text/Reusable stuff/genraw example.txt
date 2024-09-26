@@ -3,7 +3,7 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a comma-separated list of five dialects.
-INSTRUCTION: The description should be under five sentences. Remember the Genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+INSTRUCTION: The description should be under five sentences. Remember the Genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
 {{instructFirstOutput}}|
 
 
@@ -24,6 +24,8 @@ INSTRUCTION: Start the reply with a capital letter. Only reply with the descript
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
+	/split var=t | 
+	/re-replace replace="" find="/\./g" var=t | /setvar key=t {{pipe}}|
 	/split var=t | 
 	/setvar key=genState {{pipe}}|
 

@@ -1,11 +1,27 @@
 /setvar key=id {{lastMessageId}} |
 
-/ife {: /test left={{lastmessage}} right="<h2 align='center'>Latent Kinks</h2>" rule=in:}|
-	/then {:/decvar id | /hide {{getvar::id}}-{{lastMessageId}}:}|
-	
-/ife {: /test left={{lastmessage}} right="<h2 align='center'>Scenario</h2>" rule=in:}|
-	/then {:/decvar id | /hide {{getvar::id}}-{{lastMessageId}}:}|
 
+/ife {: /test left=new right=Yes rule=neq :}|
+	/then {:
+		
+	:}|
+	
+/ife {: /test left=swipe right=Yes rule=neq :}|
+	/then {:
+		/ife {: /test left={{lastmessage}} right="<h2 align='center'>Latent Kinks</h2>" rule=in:}|
+			/then {:/decvar id | /hide {{getvar::id}}-{{lastMessageId}}:}|
+			
+		/ife {: /test left={{lastmessage}} right="<h2 align='center'>Scenario</h2>" rule=in:}|
+			/then {:/decvar id | /hide {{getvar::id}}-{{lastMessageId}}:}|
+		
+		/ife {: /test left={{lastmessage}} right="<h2 align='center'>Appearance Info" rule=in:}|
+			/then {:/decvar id | /hide {{getvar::id}}-{{lastMessageId}}:}|
+		
+		
+		/ife {: /test left={{lastmessage}} right="<h2 align='center'>Outfit and Gear" rule=in:}|
+			/then {:/decvar id | /hide {{getvar::id}}-{{lastMessageId}}:}|
+		
+	:}|
 
 /messages 0-{{lastMessageId}} |
 /setvar key=messageHistory {{pipe}} |
@@ -18,6 +34,7 @@
 /db-get source=chat sub_species| /setvar key=sub_species {{pipe}}|
 /db-get source=chat genre| /setvar key=genre {{pipe}}|
 /db-get source=chat time_period| /setvar key=time_period {{pipe}}|
+/db-get source=chat world_type| /setvar key=world_type {{pipe}}|
 /db-get source=chat occupation| /setvar key=occupation {{pipe}}|
 /db-get source=chat real| /setvar key=real {{pipe}}|
 /db-get source=chat character_files| /setvar key=character_files {{pipe}}|
@@ -25,6 +42,7 @@
 /db-get source=chat media_name| /setvar key=media_name {{pipe}}|
 /db-get source=chat normal_form| /setvar key=normal_form {{pipe}}|
 /db-get source=chat transformation| /setvar key=transformation {{pipe}}|
+/db-get source=chat tags| /setvar key=tags {{pipe}}|
 
 /ife {: /test left=sub_species right=None rule=neq :}|
 	/then {: /setvar key=species {{getvar::sub_species}} :}|
@@ -44,7 +62,7 @@
 /ife {: /test left=swipe right=Yes rule=neq:}|
 	/then {:
 		
-		/input default={{input}} Information about {{getvar::fname}}  you want the generation to take into account.|
+		/input rows=8 default={{input}} Information about {{getvar::fname}} you want the generation of {{getvar::catgen}} to take into account.|
 		/setvar key=info {{pipe}}|
 		/ife {: /test left=info right="" rule=eq:}|
 			/then {: /setinput </{{getvar::genid}}>:}|
@@ -68,18 +86,27 @@
 		/split var=character_files | /setvar key=t1 {{pipe}}|
 		/getvar key=t1 index=0 | /setvar key=t2 {{pipe}}|
 		/ife {: /test left=t2 right="No Files" rule=neq :}|
-			/then {:
-				/addvar key=char_info "This is information about {{getvar::fname}} {{getvar::lname}} that you should use while making your reply
+				/then {:
+					/addvar key=char_info "This is information about {{getvar::fname}} {{getvar::lname}} that you should use while making your reply
 '"|
-				/while var=t1 {:
+					/foreach var=t1 {:
+						/db-get source=chat {{item}} | /setvar key=file {{pipe}}|
+						/ife {: /test left={{index}} right=0 rule=eq :}|
+							/then {:
+								/addvar key=char_info "{{getvar::file}}"
+							:}|
+						/else {:
+							/addvar key=char_info "
+{{getvar::file}}"|
+						:}|
+					:}|
+		
 					/addvar key=char_info "
-{{item}}"|
-				:}|
-				/addvar key=char_info "
 
-{{getvar::fname}} {{getvar::lname}} is from the {{getvar::media}} \" {{getvar::media_name}}\"'"|
-			:}|
-:}|
+{{getvar::fname}} {{getvar::lname}} is from the {{getvar::media}} \"{{getvar::media_name}}\"'"|
+				:}|
+		
+	:}|
 
 /setvar key=info "Use this information when formulating your reply: '{{getvar::info}}
 
@@ -100,7 +127,7 @@ Your replys should avoid 'Character Development' or 'Self-Discovery.'" :}|
 		/setvar key=selected_btn {{pipe}}|
 	
 		/ife {: /test left=selected_btn right="" rule=eq :}|
-			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		/elseif {: /test left=selected_btn right="Normal" rule=eq :}|
 			/then {:
 				/setvar key=species "{{getvar::normal}}"|
@@ -112,7 +139,7 @@ Your replys should avoid 'Character Development' or 'Self-Discovery.'" :}|
 				/buttons labels={{getvar::tr}} What transformation do you want the outfit for?|
 				/setvar key=species {{pipe}}|
 				/ife {: /test left=species right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 				/setvar key=form "{{getvar::species}}"|
 			:}|
 	:}|

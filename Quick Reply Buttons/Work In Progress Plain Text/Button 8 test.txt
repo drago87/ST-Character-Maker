@@ -18,7 +18,8 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a short backstory for {{getvar::fname}}, include key life events, upbringing, and significant experiences. (This can include {{getvar::fname}}'s Known Kinks.)
-INSTRUCTION: Ignore Hobbies, Interests and personal goals. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::tp}}. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}.  Keep the response to five sentences. The response should be short about {{getvar::fname}}'s backstory and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Ignore Hobbies, Interests and personal goals. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}}. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}.  Keep the response to five sentences. The response should be short about {{getvar::fname}}'s backstory and nothing else.
+{{instructFirstOutput}}|
 	/addvar key=genState {{pipe}} |
 	/addvar key=genState Edit|
 	/addvar key=genState Redo|
@@ -30,8 +31,8 @@ INSTRUCTION: Ignore Hobbies, Interests and personal goals. Remember the Genre is
 		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
-			/getvar key=genState index=0 | /setvar key=t {{pipe}}
-			/input default={{getvar::t}} Edit {{getvar::fname}}'s backstory to your liking?|
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s backstory to your liking?|
 			/setvar key=selected_btn {{pipe}}|
 			/ife {: /test left=selected_btn right="" rule=eq :}|
 				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
@@ -58,7 +59,8 @@ INSTRUCTION: Ignore Hobbies, Interests and personal goals. Remember the Genre is
 
 Use {{getvar::fname}}'s backstory to guide your reply: {{getvar::bio}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a short description {{getvar::fname}}'s hobbies and interests.
-INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}}'s age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Keep the response to two or tree sentences. The response should be short about {{getvar::fname}}'s hobbies and interests and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}}'s age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Keep the response to two or tree sentences. The response should be short about {{getvar::fname}}'s hobbies and interests and nothing else.
+{{instructFirstOutput}}|
 
 	/addvar key=genState {{pipe}} |
 	/addvar key=genState Edit|
@@ -72,8 +74,8 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
 		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
-			/getvar key=genState index=0 | /setvar key=t {{pipe}}
-			/input default={{getvar::t}} Edit {{getvar::fname}}'s hobbies and interests to your liking?|
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s hobbies and interests to your liking?|
 			/setvar key=selected_btn {{pipe}}|
 			/ife {: /test left=selected_btn right="" rule=eq :}|
 				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
@@ -101,7 +103,8 @@ Use {{getvar::fname}}'s backstory to guide your reply: {{getvar::bio}}
 
 Keep {{getvar::fname}}'s Hobbies and Interests when replying: {{getvar::hibin}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a short description {{getvar::fname}}'s perspnal goals.
-INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}}'s age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Keep the response to two or tree sentences. The response should be short about {{getvar::fname}}'s perspnal goals and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}}'s age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Keep the response to two or tree sentences. The response should be short about {{getvar::fname}}'s perspnal goals and nothing else.
+{{instructFirstOutput}}|
 
 	/addvar key=genState {{pipe}} |
 	/addvar key=genState Edit|
@@ -115,10 +118,10 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
 		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 	/elseif {: /test left=selected_btn right="Edit" rule=eq :}|
 		/then {:
-			/getvar key=genState index=0 | /setvar key=t {{pipe}}
-			/input default={{getvar::t}} Edit {{getvar::fname}}'s Personal Goals to your liking?|
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s Personal Goals to your liking?|
 			/setvar key=selected_btn {{pipe}}|
-			/ife {: left=selected_btn right="" rule=eq :}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
 				/then {:
 					/:"Character Maker V4.Flushvar"|
 					/echo Aborting |
@@ -126,10 +129,12 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
 				:}|
 		:}|
 	/elseif {: /test left=selected_btn right=Redo rule=eq :}|
-		/then {:/setvar key=genState Redo:}|
+		/then {:
+			/setvar key=genState Redo
+		:}|
 :}|
 /setvar key=pg {{getvar::selected_btn}}|
-/setvar key=output "<h2 align='center'>{{getvar::gen}}</h2>
+/setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
 
 Backstory
 {{getvar::bio}}

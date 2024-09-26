@@ -1,0 +1,12 @@
+/echo Flushing variables|
+
+/listvar scope=local format=none | /setvar key=flvars {{pipe}}|
+/foreach var=flvars {:
+	/setvar key=flvar {{item}}|
+	/foreach var=flvar {:
+		/ife {: /test left={{index}} right=key rule=eq:}|
+			/then {: /flushvar {{item}} :}|
+	:}|
+:}|
+/flushvar flvars|
+/flushvar flvar|

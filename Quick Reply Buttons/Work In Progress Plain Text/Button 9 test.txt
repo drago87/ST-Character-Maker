@@ -19,7 +19,8 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, describe {{getvar::fname}} Speech Patterns (how and if {{getvar::fname}} speaks or if it can only use sounds and gestures to communicate.)
-INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}.  Keep the response to one sentences. The response should be short about {{getvar::fname}}'s Speech Patterns and nothing else. /n {{instructFirstOutput}}| 
+INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}.  Keep the response to one sentences. The response should be short about {{getvar::fname}}'s Speech Patterns and nothing else.
+{{instructFirstOutput}}| 
 	
 	
 	
@@ -32,13 +33,14 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
 	
     /setvar key=selected_btn {{pipe}}|
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit {{getvar::fname}} Spech pattern.|
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}} Spech pattern.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}| 
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -61,30 +63,33 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
 {{getvar::info}}
 {{getvar::char_info}}
 
-Take {{getvad::fname}}'s Speach pattern into consideration when ansering: {{getvar::sp}}"
+Take {{getvar::fname}}'s Speach pattern into consideration when ansering: {{getvar::sp}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a comma-separated list of five dialects.
-INSTRUCTION: The dialects should only be one or two words. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be a list of five dialects and nothing else. /n {{instructFirstOutput}}|  
+INSTRUCTION: The dialects should only be one or two words. Start each dialect with a capital letter. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be a list of five dialects and nothing else.
+{{instructFirstOutput}}|  
 	
 	
 	/setvar key=spli {{pipe}}|
+	/re-replace replace="" find="/\./g" var=spli | /setvar key=spli {{pipe}}|
 	/split var=spli|
 	
     /setvar key=genState {{pipe}}|
-    /addvar key=genState Edit|  
+    /addvar key=genState "Add Dialect"|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Select the dialect you want {{getvar::fname}} to have.|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
-    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
+    /elseif {: /test left={{getvar::selected_btn}} right="Add Dialect" rule=eq :}|
 		/then {:
-			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			
+			/input rows=8 Add the dielact you want {{getvar::fname}} to have. |
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -107,9 +112,10 @@ INSTRUCTION: The dialects should only be one or two words. Remember the Genre is
 {{getvar::info}}
 {{getvar::char_info}}
 
-Take {{getvad::fname}}'s {{getvar::dil}} dialect and use in your reply."
+Take {{getvar::fname}}'s {{getvar::dil}} dialect and use in your reply."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a example on how {{getvar::fname}} would talk using {{getvar::dil}}.
-INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The reply should be one sentence. The response should only be the example and nothing else. /n {{instructFirstOutput}}| 
+INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The reply should be one sentence. The response should only be the example and nothing else.
+{{instructFirstOutput}}| 
 	
 	
 	
@@ -118,18 +124,19 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this a good reprencentation of {{getvar::fname}}'s dialect? |
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit the example of {{getvar::fname}}'s dielact.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -152,11 +159,12 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
 {{getvar::info}}
 {{getvar::char_info}}
 
-Take {{getvad::fname}}'s Speach pattern into consideration when replying: {{getvar::sp}}
+Take {{getvar::fname}}'s Speach pattern into consideration when replying: {{getvar::sp}}
 
-Take {{getvad::fname}}'s dialect into consideration when replying: {{getvar::dil}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a short Catchphrase.
-INSTRUCTION: The Catchphrase should only be a short sentence. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should the Catchphrase and nothing else. /n {{instructFirstOutput}}|
+Take {{getvar::fname}}'s dialect into consideration when replying: {{getvar::dil}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a short Catchphrase that {{getvar::fname}} uses.
+INSTRUCTION: The Catchphrase should only be a short sentence. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should the Catchphrase and nothing else.
+{{instructFirstOutput}}|
 	
 	
 	
@@ -165,18 +173,19 @@ INSTRUCTION: The Catchphrase should only be a short sentence. Remember the Genre
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this a good Catchphrase for {{getvar::fname}}?|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit the Catchphrase to your liking. |
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -184,7 +193,7 @@ INSTRUCTION: The Catchphrase should only be a short sentence. Remember the Genre
 			/setvar key=genState Redo|
 		:}|
 :}|
-/setvar key=catchp "\"{{getvar::selected_btn}}\""|
+/setvar key=catchp {{getvar::selected_btn}}|
 
 
 
@@ -200,33 +209,40 @@ INSTRUCTION: The Catchphrase should only be a short sentence. Remember the Genre
 {{getvar::info}}
 {{getvar::char_info}}
 
-Take {{getvad::fname}}'s Speach pattern into consideration when replying: {{getvar::sp}}
+Take {{getvar::fname}}'s Speach pattern into consideration when replying: {{getvar::sp}}
 
-Take {{getvad::fname}}'s dialect into consideration when replying: {{getvar::dil}}"
+Take {{getvar::fname}}'s dialect into consideration when replying: {{getvar::dil}}
+
+Here is some examples:
+Example1: \"Gulp\"
+Example2: \"Jelp\"
+Example3: \"Whelp\""
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five Common onomatopoeias the character often starts or ends sentences with (This could be words like 'Dude' etc..).
-INSTRUCTION: Sourond the onomatopoeias with a single \"at the start and end. Start the onomatopoeias with a capital letter. Only reply with five words, nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Emululate the examples given. Start each onomatopoeias with a capital letter. Only reply with five words, nothing else.
+{{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
+	/re-replace replace="" find="/\./g" var=t | /setvar key=t {{pipe}}|
 	/split var=t | 
 	/setvar key=genState {{pipe}}|
     /addvar key=genState "Manually add to List"|
 	/addvar key=genState Done|
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Select the Vocal sound you want {{getvar::fname}} to use.|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
 		/then {:
 			
-			/input text|
+			/input rows=8 Add a Vocal sound you want {{getvar::fname}} to use.(\"sound\") |
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
 			/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
             /then {:
                 /addvar key=outputString ", {{getvar::t}}"|
@@ -267,9 +283,10 @@ INSTRUCTION: Sourond the onomatopoeias with a single \"at the start and end. Sta
 {{getvar::info}}
 {{getvar::char_info}}
 
-Take {{getvad::fname}}'s Speach pattern into consideration when ansering: {{getvar::sp}}"
+Take {{getvar::fname}}'s Speach pattern into consideration when ansering: {{getvar::sp}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a description on how {{getvar::fname}} typically interact with others.
-INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Keep the response to one sentences.  The response should only be a description and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Keep the response to one sentences.  The response should only be a description and nothing else.
+{{instructFirstOutput}}|
 	
 	
 	
@@ -278,18 +295,19 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this a good description of how {{getvar::fname}} interact with others. |
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit the description of how {{getvar::fname}} interacts with others. |
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -303,6 +321,7 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
 
 /setvar key=genState Redo|
 /setvar key=outputString {{noop}}|
+/setvar key=skip {{noop}}|
 
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Something|
@@ -313,42 +332,48 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
 {{getvar::info}}
 {{getvar::char_info}}
 
+{{getvar::skip}}
+
 These are some examples
 example1: Dwarf's like to talk about metal and rocks.
 example2: Elf's like to talk about nature and music.
 example3: Dragon's like to talk about their treasures."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a subject {{getvar::fname}} enjoys discussing.
-INSTRUCTION: Avoid '.' The subjects should be short and be something that {{getvar::fnames}}'s {{getvar::species}} species likes to discuss. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should be a short sentence. The response should only a subject and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: The subjects should be short and be something that {{getvar::fnames}}'s {{getvar::species}} species likes to discuss. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should be a short sentence. The response should only be a subject, nothing else.
+{{instructFirstOutput}}|
 	
 	
-    /setvar key=t {{pipe}}|
-	/split var=t | 
-	/setvar key=genState {{pipe}}|
+	/addvar key=genState {{pipe}}|
     /addvar key=genState "Manually add to List"|
 	/addvar key=genState Done|
     /addvar key=genState Redo|  
-
-    /buttons labels={{getvar::genState}} Is this a good subject to add?|
+	/setvar key=skip "Avoid using these subjects in your reply: "|
+	
+    /buttons labels={{getvar::genState}} Is this a subject {{getvar::fname}} enjoys discussing?|
 
     /setvar key=selected_btn {{pipe}}|
+	/getvar key=genState index=0| /setvar key=temp {{pipe}}|
 	/re-replace replace="" find="/\./" var=selected_btn | /setvar key=selected_btn|
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
     /elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
 		/then {:
 			
-			/input Manually add this subject.|
+			/input rows=8 Manually add this subject.|
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 			/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
             /then {:
                 /addvar key=outputString ", {{getvar::t}}"|
             :}|
             /else {:
                 /setvar key=outputString {{getvar::t}}|
+				
             :}|
+			/addvar key=skip {{getvar::outputString}}, {{getvar::temp}}|
+			
 		:}|
 	/elseif {: /test left={{getvar::selected_btn}} right=Done rule=eq :}|
 		/then {::}|
@@ -363,13 +388,24 @@ INSTRUCTION: Avoid '.' The subjects should be short and be something that {{getv
 					/setvar key=outputString {{getvar::selected_btn}}|
 					/setvar key=genState Redo
 				:}|
+				/addvar key=skip {{getvar::outputString}}, {{getvar::temp}}|
 		:}|
-	/else  {: /setvar key=genState Redo :}|
+	/else {:
+		/ife {: /test left={{getvar::outputString}} right="" rule=neq :}|
+			/then {: 
+				/addvar key=skip {{getvar::outputString}}, {{getvar::temp}}|
+			:}|
+		/else {:
+			/addvar key=skip {{getvar::temp}}|
+		:}|
+		/setvar key=genState Redo|
+	:}|
+		
 	:}|
 :}|
 /setvar key=subj {{getvar::outputString}}|
 
-/setvar key=output "<h2 align='center'>{{getvar::gen}}</h2>
+/setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
 
 Speach Pattern: {{getvar::sp}}
 
@@ -377,9 +413,32 @@ Dialect: {{getvar::dil}}
 
 Dialect Example: {{getvar::diaex}}
 
-Catchphrase: \"{{getvar::catchp}}\"
+Catchphrase: {{getvar::catchp}}
 
-Common Words: {{getvar::comwords}}
+Common Words:"|
+
+/setvar key=temp {{noop}}|
+/setvar key=temp2 []|
+/wait 1|
+/split var=comwords | /setvar key=t {{pipe}}|
+/foreach var=t {:
+	/setvar key=t1 {{item}}|
+	
+	/while left=t1 right="\"" rule=in {:
+		/setvar key=a {{getvar::t1}}|
+		/re-replace find="/\"/" replace="" key=t1 | /setvar key=t1 {{pipe}}|
+		
+	:}|
+	/addvar key=temp2 {{getvar::t1}}|
+	/ife {: /test left={{index}} right=0 rule=eq :}|
+		/then {:
+			/addvar key=temp \"{{getvar::t1}}"|
+		:}|
+		/else {:/addvar key=temp , "{{getvar::t1}}" :}|
+:}|
+
+
+/addvar key=output " {{getvar::temp}}
 
 Behavior in Conversations: {{getvar::behavior}}
 

@@ -21,9 +21,11 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five spells.
-INSTRUCTION: Don't end with '.'. Start the spells with a capital letter. Only reply with a comma-separated list of spell names, nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Don't end with '.'. Start the spells with a capital letter. Only reply with a comma-separated list of spell names, nothing else.
+{{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
+	/re-replace replace="" find="/\./g" var=t| /setvar key=t {{pipe}}|
 	/split var=t | 
 	/setvar key=genState {{pipe}}|
     /addvar key=genState "Manually add to List"|
@@ -33,7 +35,7 @@ INSTRUCTION: Don't end with '.'. Start the spells with a capital letter. Only re
 	
     /addvar key=genState Redo|
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Select the spell you want {{getname::fname}} to know.|
 
     /setvar key=selected_btn {{pipe}}|
 
@@ -42,7 +44,7 @@ INSTRUCTION: Don't end with '.'. Start the spells with a capital letter. Only re
     /elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
 		/then {:
 			
-			/input text|
+			/input rows=8 Add a spell that you want {{getvar::fname}} to know.|
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife {: /test left=t right="" rule=eq :}|
@@ -98,7 +100,8 @@ Where 'x' is the name of the spell and 'y' is the spell description.
 Example1: Fireball: Casts a ball of fire that explodes on hit.
 Example2: Increased Sensitivity: Increase the sensitivity of the target."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of the spell: {{item}} .
-INSTRUCTION: Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the spell description, nothing else. /n {{instructFirstOutput}}| 
+INSTRUCTION: Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the spell description, nothing else.
+{{instructFirstOutput}}| 
 				
 				
 				
@@ -107,7 +110,7 @@ INSTRUCTION: Start the Desciption with a capital letter. The description should 
 				/addvar key=genState Edit|  
 				/addvar key=genState Redo|  
 			
-				/buttons labels={{getvar::genState}} text|
+				/buttons labels={{getvar::genState}} Is this an accurate description of what the spell {{item}} does?|
 			
 				/setvar key=selected_btn {{pipe}}|
 			
@@ -116,9 +119,10 @@ INSTRUCTION: Start the Desciption with a capital letter. The description should 
 				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 					/then {:
 						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-						/input default={{getvar::t}} text|
+						/input rows=8 default={{getvar::t}} Edit the spell {{item}}'s description.|
 						/setvar key=selected_btn {{pipe}}|
-						/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"|| /echo Aborting | /abort:}
+						/ife {: /test left=selected_btn right="" rule=eq :}|
+							/then {: /:"Character Maker V4.Flushvar"|| /echo Aborting | /abort :}
 					:}|
 			
 				/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -146,9 +150,11 @@ INSTRUCTION: Start the Desciption with a capital letter. The description should 
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five physical and/or mental abilities.
-INSTRUCTION: Abilities are not spells. Don't end with '.'. Start the abilities with a capital letter. Only reply with a comma-separated list of ability names, nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Abilities are not spells. Don't end with '.'. Start the abilities with a capital letter. Only reply with a comma-separated list of ability names, nothing else.
+{{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
+	/re-replace replace="" find="/\./g" var=t| /setvar key=t {{pipe}}|
 	/split var=t | 
 	/setvar key=genState {{pipe}}|
     /addvar key=genState "Manually add to List"|
@@ -157,7 +163,7 @@ INSTRUCTION: Abilities are not spells. Don't end with '.'. Start the abilities w
 	/else {:/addvar key=genState Done|:}|
     /addvar key=genState Redo|
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Select the ability you want {{getvar::fname}} to have.|
 
     /setvar key=selected_btn {{pipe}}|
 
@@ -166,7 +172,7 @@ INSTRUCTION: Abilities are not spells. Don't end with '.'. Start the abilities w
     /elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
 		/then {:
 			
-			/input text|
+			/input rows=8 Add an Ability you want {{getvar::fname}} to have.|
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife {: /test left=t right="" rule=eq :}|
@@ -226,7 +232,8 @@ Where 'x' is the name of the ability and 'y' is the ability description.
 Example1: Enhanced Agility: {{getvar::fname}}'s increased Agility and reflexes are inborn and .
 Example2: Increased Sensitivity (Clit): {{getvar::fname}}'s clit have increased sensitivity due to having played to mutch with it."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of the ability: {{item}}. Describe how {{getvar::fname}} got the ability (if is it inborn, have been training to get it etc..) and what the ability does.
-INSTRUCTION: Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the ability description, nothing else. /n {{instructFirstOutput}}| 
+INSTRUCTION: Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the ability description, nothing else.
+{{instructFirstOutput}}| 
 				
 				
 				
@@ -235,7 +242,7 @@ INSTRUCTION: Start the Desciption with a capital letter. The description should 
 				/addvar key=genState Edit|  
 				/addvar key=genState Redo|  
 			
-				/buttons labels={{getvar::genState}} text|
+				/buttons labels={{getvar::genState}} Is this an accurate description of the ability {{item}}.|
 			
 				/setvar key=selected_btn {{pipe}}|
 			
@@ -244,7 +251,7 @@ INSTRUCTION: Start the Desciption with a capital letter. The description should 
 				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 					/then {:
 						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-						/input default={{getvar::t}} text|
+						/input rows=8 default={{getvar::t}} Edit the description of the ability {{item}}'s description.|
 						/setvar key=selected_btn {{pipe}}|
 						/ife {: /test left=selected_btn right="" rule=eq :}|
 							/then {:/:"Character Maker V4.Flushvar"|| /echo Aborting | /abort:}|

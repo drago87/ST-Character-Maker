@@ -19,7 +19,8 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a a description of the type of world(medieval, fantasy, sci-fi, present times etc..) {{getvar::fname}} lives in.
-INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else. /n {{instructFirstOutime_periodut}}|
+INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
+{{instructFirstOutime_periodut}}|
 	
 	
 	
@@ -33,13 +34,14 @@ INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fna
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit the description to your liking.|
+			/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -62,7 +64,8 @@ INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fna
 
 Description of {{getvar::fname}}'s world: {{getvar::p1}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue with the description of the where {{getvar::fname}} lives?(Small house in a community, Apartment in a skyscraper etc.. )
-INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else. /n {{instructFirstOutime_periodut}}|
+INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
+{{instructFirstOutime_periodut}}|
 	
 	
 	
@@ -76,13 +79,13 @@ INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fna
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit the living location.|
+			/input rows=8 default={{getvar::t}} Edit the living location.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|	/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -106,7 +109,8 @@ INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fna
 Description of {{getvar::fname}}'s world: {{getvar::p1}}
 Description of where {{getvar::fname}} lives: {{getvar::p2}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue with the description of {{getvar::fname}}'s home environment and community etc...
-INSTRUCTION: Keep the reply to under ten sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else. /n {{instructFirstOutime_periodut}}|
+INSTRUCTION: Keep the reply to under ten sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
+{{instructFirstOutime_periodut}}|
 	
 	
 	
@@ -120,13 +124,13 @@ INSTRUCTION: Keep the reply to under ten sentences. Don't mention {{getvar::fnam
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit the home anviroment and community to your liking.|
+			/input rows=8 default={{getvar::t}} Edit the home anviroment and community to your liking.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|	/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -156,7 +160,8 @@ INSTRUCTION: Keep the reply to under ten sentences. Don't mention {{getvar::fnam
 {{getvar::fname}}'s occupation is: {{getvar::occupation}}
 This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a description of {{getvar::fnames}}'s morning rutine (this is something {{getvar::fnames}} does in the mornings before going to work/school).
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under three sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else. /n {{instructFirstOutput}}|  
+INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under three sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+{{instructFirstOutput}}|  
 	
 	
 	
@@ -165,18 +170,18 @@ INSTRUCTION: Describe it from an outsiders view. Use plain English. The descript
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s morning rutines good?|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit the description of {{getvar::fname}}'s morning rutine.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|	/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -202,7 +207,8 @@ This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}
 
 This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s daily rutine (this is something {{getvar::fnames}} does during work/school).
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else. /n {{instructFirstOutput}}|  
+INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+{{instructFirstOutput}}|  
 	
 	
 	
@@ -211,18 +217,18 @@ INSTRUCTION: Describe it from an outsiders view. Use plain English. The descript
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s work/school rutine good?|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit the description of {{getvar::fname}}'s work/school rutine to your liking. |
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|	/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -249,7 +255,8 @@ This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}
 This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}
 This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s after work/school rutine untill  eating dinner (this is something {{getvar::fnames}} does after work/school untill just after dinner.).
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else. /n {{instructFirstOutput}}|  
+INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+{{instructFirstOutput}}|  
 	
 	
 	
@@ -258,18 +265,18 @@ INSTRUCTION: Describe it from an outsiders view. Use plain English. The descript
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s pre dinner rutine good?|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s pre dinner description.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|	/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -297,7 +304,8 @@ This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}
 This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}
 This is {{getvar::fname}}'s after work/school rutine: {{getvar::p3}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s evening rutine (this is something {{getvar::fnames}} does in the evening but before getting ready for bed).
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else. /n {{instructFirstOutput}}|  
+INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+{{instructFirstOutput}}|  
 	
 	
 	
@@ -306,18 +314,18 @@ INSTRUCTION: Describe it from an outsiders view. Use plain English. The descript
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s after dinner rutines good?|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit the description of {{getvar::fname}}'s after dinner rutnie.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|	/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -345,8 +353,9 @@ This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}
 This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}
 This is {{getvar::fname}}'s after work/school rutine: {{getvar::p3}}
 This is {{getvar::fname}}'s evening rutine: {{getvar::p4}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s Nightly rutine (this is something {{getvar::fnames}} does at night when going to bed and in the bed be sleeping).
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else. /n {{instructFirstOutput}}|  
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s Nightly rutine (this is something {{getvar::fnames}} does at night when going to bed and in the bed before sleeping).
+INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+{{instructFirstOutput}}|  
 	
 	
 	
@@ -355,18 +364,18 @@ INSTRUCTION: Describe it from an outsiders view. Use plain English. The descript
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s nightly rutines good?|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s nightly rutine.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|	/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -395,7 +404,8 @@ This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}
 This is {{getvar::fname}}'s after work/school rutine: {{getvar::p3}}
 This is {{getvar::fname}}'s evening rutine: {{getvar::p4}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of what {{getvar::fnames}} usually do during Weekends.
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else. /n {{instructFirstOutput}}|  
+INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+{{instructFirstOutput}}|  
 	
 	
 	
@@ -404,18 +414,18 @@ INSTRUCTION: Describe it from an outsiders view. Use plain English. The descript
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s weekend rutines good?|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s weekend rutine.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|	/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -443,7 +453,7 @@ Bedtime
 Weekend Rutine
 {{getvar::p6}}"|
 
-/setvar key=output "<h2 align='center'>{{getvar::gen}}</h2>
+/setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
 
 Setting
 {{getvar::setting}}

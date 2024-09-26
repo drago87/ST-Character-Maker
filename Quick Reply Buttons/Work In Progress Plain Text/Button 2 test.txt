@@ -28,6 +28,7 @@ INSTRUCTION: Emululate the examples given. The heights should be in centimeter o
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
+	/re-replace replace="" find="/\./g" var=t | /setvar key=t {{pipe}}|
 	/split var=t | 
 	/setvar key=genState {{pipe}}|
     /addvar key=genState "Manually Add"|  
@@ -38,13 +39,13 @@ INSTRUCTION: Emululate the examples given. The heights should be in centimeter o
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
     /elseif {: /test left={{getvar::selected_btn}} right="Manually Add" rule=eq :}|
 		/then {:
-			/input  Add your own height (End with cm or m).|
+			/input rows=8  Add your own height (End with cm or m).|
 			/setvar key=selected_btn {{pipe}}|
-			/ife {: left=selected_btn right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -57,20 +58,20 @@ INSTRUCTION: Emululate the examples given. The heights should be in centimeter o
 
 /setvar key=lenght None|
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Demi-Human rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Anthro rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Pokémon rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
-/ife {: /test left=isTure right=true rule=eq:}|
+/ife {: /test left=isTrue right=true rule=eq:}|
 	/then {:
 		/setvar key=genState Redo|
 		
@@ -94,6 +95,7 @@ INSTRUCTION: Emululate the examples given. The lenghts should be in centimeter o
 {{instructFirstOutput}}|
 		
 			/setvar key=t {{pipe}}|
+			/re-replace replace="" find="/\./g" var=t| /setvar key=t {{pipe}}|
 			/split var=t | 
 			/setvar key=genState {{pipe}}|
 			/addvar key=genState "Manually Add"|  
@@ -104,13 +106,13 @@ INSTRUCTION: Emululate the examples given. The lenghts should be in centimeter o
 			/setvar key=selected_btn {{pipe}}|
 		
 			/ife {: /test left=selected_btn right="" rule=eq :}|
-				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			/elseif {: /test left={{getvar::selected_btn}} right="Manually Add" rule=eq :}|
 				/then {:
-					/input Manually add a lenght from the tip of the nose to the tip of the tail (Should be in cm or m)|
+					/input rows=8 Manually add a lenght from the tip of the nose to the tip of the tail (Should be in cm or m)|
 					/setvar key=selected_btn {{pipe}}|
-					/ife {: left=selected_btn right="" rule=eq :}|
-							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					/ife {: /test left=selected_btn right="" rule=eq :}|
+							/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 				:}|
 		
 			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -154,6 +156,7 @@ INSTRUCTION: Emululate the examples given. Each weight should be appropriate for
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
+	/re-replace replace="" find="/\./g" var=t| /setvar key=t {{pipe}}|
 	/split var=t | 
 	/setvar key=genState {{pipe}}|
     /addvar key=genState "Manually Add"|  
@@ -164,13 +167,13 @@ INSTRUCTION: Emululate the examples given. Each weight should be appropriate for
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
     /elseif {: /test left={{getvar::selected_btn}} right="Manually Add" rule=eq :}|
 		/then {:
-			/input Add a weight (End it in kg or t)|
+			/input rows=8 Add a weight (End it in kg or t)|
 			/setvar key=selected_btn {{pipe}}|
-			/ife {: left=selected_btn right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -182,20 +185,20 @@ INSTRUCTION: Emululate the examples given. Each weight should be appropriate for
 
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Demi-Human rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Anthro rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Pokémon rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
-/ife {: /test left=isTure right=true rule=eq :}|
+/ife {: /test left=isTrue right=true rule=eq :}|
 	/then {: 
 		/setvar key=genState Redo|
 		
@@ -214,19 +217,19 @@ INSTRUCTION: Start the reply with a capital letter. Only reply with , nothing el
 			/addvar key=genState Edit|  
 			/addvar key=genState Redo|  
 		
-			/buttons labels={{getvar::genState}} text|
+			/buttons labels={{getvar::genState}} Is this the covering you want for {{getvar::fname}}?|
 		
 			/setvar key=selected_btn {{pipe}}|
 		
 			/ife {: /test left=selected_btn right="" rule=eq :}|
-				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 				/then {:
 					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-					/input default={{getvar::t}} text|
+					/input rows=8 default={{getvar::t}} Edit the description to what you want.|
 					/setvar key=selected_btn {{pipe}}|
-					/ife {: left=selected_btn right="" rule=eq :}|
-							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					/ife {: /test left=selected_btn right="" rule=eq :}|
+							/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 				:}|
 		
 			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -247,20 +250,20 @@ INSTRUCTION: Start the reply with a capital letter. Only reply with , nothing el
 /addvar key=input "Hair(This is the hair ontop of your head. This should include color, lenght and hairstyle.)"|
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Demi-Human rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Anthro rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Pokémon rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
-/ife {: /test left=isTure right=true rule=eq :}|
+/ife {: /test left=isTrue right=true rule=eq :}|
 	/then {: 
 		/addvar key=input "Horns(This is {{getvar::species}}'s horns or things like that on the head.)"
 	:}|
@@ -322,14 +325,14 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 		/setvar key=selected_btn {{pipe}}|
 	
 		/ife {: /test left=selected_btn right="" rule=eq :}|
-			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 			/then {:
 				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-				/input default={{getvar::t}} Edit the description to your liking.|
+				/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
-				/ife {: left=selected_btn right="" rule=eq :}|
-						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+						/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			:}|
 	
 		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -387,14 +390,14 @@ INSTRUCTION: Keep the replys to under five sentences. Keep in mind that {{getvar
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit the description to your liking.|
+			/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
-			/ife {: left=selected_btn right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -411,24 +414,24 @@ Appearance: {{getvar::p2}}"|
 
 /setvar key=input []|
 
-/addvar key=input "Body Type"|
+/addvar key=input "Body Type(This is {{getvar::fname}}'s body type. Reply with one word that describes it.)"|
 /addvar key=input "Torso"|
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Demi-Human rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Anthro rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Pokémon rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
-/ife {: /test left=isTure right=true rule=eq :}|
+/ife {: /test left=isTrue right=true rule=eq :}|
 	/then {: 
 		/addvar key=input "Front Legs"|
 	:}|
@@ -437,20 +440,20 @@ Appearance: {{getvar::p2}}"|
 :}|
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Demi-Human rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Anthro rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Pokémon rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
-/ife {: /test left=isTure right=true rule=eq :}|
+/ife {: /test left=isTrue right=true rule=eq :}|
 	/then {: 
 		/buttons labels=["Hand","Front Paws", "Front Fins","Front Hooves", "Flippers"]|
 		/addvar key=input {{pipe}}|
@@ -461,20 +464,20 @@ Appearance: {{getvar::p2}}"|
 
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Demi-Human rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Anthro rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Pokémon rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
-/ife {: /test left=isTure right=true rule=eq :}|
+/ife {: /test left=isTrue right=true rule=eq :}|
 	/then {: 
 		/addvar key=input "Claws"|
 		/addvar key=input "Wings"|
@@ -542,14 +545,14 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 		/setvar key=selected_btn {{pipe}}|
 	
 		/ife {: /test left=selected_btn right="" rule=eq :}|
-			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 			/then {:
 				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-				/input default={{getvar::t}} Edit the description to your liking.|
+				/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
-				/ife {: left=selected_btn right="" rule=eq :}|
-						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+						/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 			:}|
 	
 		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -557,7 +560,7 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 				/setvar key=genState Redo|
 			:}|
 	:}|
-	/ife {::}|
+	/ife {: /test left=cat right="Body Type" rule=eq:}|
 		/then {: 
 			/setvar key=body_type "{{getvar::fname}}'s body type is {{getvar::selected_btn}}"
 		:}|
@@ -612,14 +615,14 @@ INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit the description to your liking.|
+			/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
-			/ife {: left=selected_btn right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -639,39 +642,39 @@ Appearance: {{getvar::p2}}"|
 
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Demi-Human rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Anthro rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Pokémon rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
-/ife {: /test left=isTure right=true rule=eq :}|
+/ife {: /test left=isTrue right=true rule=eq :}|
 	/then {: 
 		/addvar key=input "Tail"|
 	:}|
 	
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Demi-Human rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Anthro rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Pokémon rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
-/ife {: /test left=isTure right=true rule=eq :}|
+/ife {: /test left=isTrue right=true rule=eq :}|
 	/then {: 
 		/addvar key=input "Hind Legs"|
 	:}|
@@ -681,20 +684,20 @@ Appearance: {{getvar::p2}}"|
 
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Demi-Human rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Anthro rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Pokémon rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
-/ife {: /test left=isTure right=true rule=eq :}|
+/ife {: /test left=isTrue right=true rule=eq :}|
 	/then {: 
 		/buttons labels=["Feets","Hind Paws", "Hind Fins","Hind Hooves", "Flippers"]|
 		/addvar key=input {{pipe}}|
@@ -761,14 +764,14 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 		/setvar key=selected_btn {{pipe}}|
 	
 		/ife {: /test left=selected_btn right="" rule=eq :}|
-			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 			/then {:
 				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-				/input default={{getvar::t}} Edit the description to your liking.|
+				/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
-				/ife {: left=selected_btn right="" rule=eq :}|
-						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+						/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			:}|
 	
 		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -827,14 +830,14 @@ INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit the description to your liking.|
+			/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
-			/ife {: left=selected_btn right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -967,14 +970,14 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 				/setvar key=selected_btn {{pipe}}|
 			
 				/ife {: /test left=selected_btn right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 					/then {:
 						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-						/input default={{getvar::t}} Edit the description to your liking.|
+						/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 						/setvar key=selected_btn {{pipe}}|
-						/ife {: left=selected_btn right="" rule=eq :}|
-								/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+						/ife {: /test left=selected_btn right="" rule=eq :}|
+								/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 					:}|
 			
 				/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -1031,14 +1034,14 @@ INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}
 			/setvar key=selected_btn {{pipe}}|
 		
 			/ife {: /test left=selected_btn right="" rule=eq :}|
-				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 				/then {:
 					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-					/input default={{getvar::t}} Edit the description to your liking.|
+					/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 					/setvar key=selected_btn {{pipe}}|
-					/ife {: left=selected_btn right="" rule=eq :}|
-							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					/ife {: /test left=selected_btn right="" rule=eq :}|
+							/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 				:}|
 		
 			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -1119,14 +1122,14 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 				/setvar key=selected_btn {{pipe}}|
 			
 				/ife {: /test left=selected_btn right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 					/then {:
 						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-						/input default={{getvar::t}} Edit the description to your liking.|
+						/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 						/setvar key=selected_btn {{pipe}}|
-						/ife {: left=selected_btn right="" rule=eq :}|
-								/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+						/ife {: /test left=selected_btn right="" rule=eq :}|
+								/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 					:}|
 			
 				/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -1185,14 +1188,14 @@ INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}
 			/setvar key=selected_btn {{pipe}}|
 		
 			/ife {: /test left=selected_btn right="" rule=eq :}|
-				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 				/then {:
 					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-					/input default={{getvar::t}} Edit the description to your liking.|
+					/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 					/setvar key=selected_btn {{pipe}}|
-					/ife {: left=selected_btn right="" rule=eq :}|
-							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					/ife {: /test left=selected_btn right="" rule=eq :}|
+							/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 				:}|
 		
 			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -1277,14 +1280,14 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 				/setvar key=selected_btn {{pipe}}|
 			
 				/ife {: /test left=selected_btn right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 					/then {:
 						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-						/input default={{getvar::t}} Edit the description to your liking.|
+						/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 						/setvar key=selected_btn {{pipe}}|
-						/ife {: left=selected_btn right="" rule=eq :}|
-								/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+						/ife {: /test left=selected_btn right="" rule=eq :}|
+								/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 					:}|
 			
 				/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -1344,14 +1347,14 @@ INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}
 			/setvar key=selected_btn {{pipe}}|
 		
 			/ife {: /test left=selected_btn right="" rule=eq :}|
-				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 				/then {:
 					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-					/input default={{getvar::t}} Edit the description to your liking.|
+					/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 					/setvar key=selected_btn {{pipe}}|
-					/ife {: left=selected_btn right="" rule=eq :}|
-							/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+					/ife {: /test left=selected_btn right="" rule=eq :}|
+							/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 				:}|
 		
 			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -1427,14 +1430,14 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 		/setvar key=selected_btn {{pipe}}|
 	
 		/ife {: /test left=selected_btn right="" rule=eq :}|
-			/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 			/then {:
 				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-				/input default={{getvar::t}} Edit the description to your liking.|
+				/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
-				/ife {: left=selected_btn right="" rule=eq :}|
-						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+						/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			:}|
 	
 		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -1493,14 +1496,14 @@ INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}
 	/setvar key=selected_btn {{pipe}}|
 
 	/ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 	/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit the description to your liking.|
+			/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
-			/ife {: left=selected_btn right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		:}|
 
 	/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -1527,8 +1530,9 @@ Appearance: {{getvar::p2}}"|
 {{getvar::char_info}}
 
 
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of external zones on {{getvar::fname}}'s body that is highly Erogenous(These zones are specific for {{getvar::fname}}).
-INSTRUCTION: The respons should be less then four sentences. Only reply with the description, nothing else. /n {{instructFirstOutput}}|  
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of external Erogenous zones on {{getvar::fname}}'s body that is highly Erogenous(These zones are specific for {{getvar::fname}}).
+INSTRUCTION: The respons should be less then four sentences. Only reply with the description, nothing else.
+{{instructFirstOutput}}|  
 	
 	
 	
@@ -1537,19 +1541,19 @@ INSTRUCTION: The respons should be less then four sentences. Only reply with the
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this what you want the external Erogenous zones for {{getvar::fname}}?|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit the it what you want.|
 			/setvar key=selected_btn {{pipe}}|
-			/ife {: left=selected_btn right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -1571,8 +1575,9 @@ INSTRUCTION: The respons should be less then four sentences. Only reply with the
 	system="{{getvar::rules}}
 {{getvar::info}}
 {{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of internal zones on {{getvar::fname}}'s body that is highly Erogenous(These zones are specific for {{getvar::fname}})(These are zones that are inside of the body such as the g-spot, bladder, womb etc..).
-INSTRUCTION: The respons should be less then four sentences. Only reply with the description, nothing else. /n {{instructFirstOutput}}|  
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of internal Erogenous zones on {{getvar::fname}}'s body that is highly Erogenous(These zones are specific for {{getvar::fname}})(These are zones that are inside of the body such as the g-spot, bladder, womb etc..).
+INSTRUCTION: The respons should be less then four sentences. Only reply with the description, nothing else.
+{{instructFirstOutput}}|  
 	
 	
 	
@@ -1581,19 +1586,19 @@ INSTRUCTION: The respons should be less then four sentences. Only reply with the
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this the description you want for {{getvar::fname}}' internal Erogenous zones?|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
-			/ife {: left=selected_btn right="" rule=eq :}|
-					/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|

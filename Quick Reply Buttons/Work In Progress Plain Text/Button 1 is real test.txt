@@ -1,0 +1,99 @@
+/buttons labels=["Yes", "No"] Is the character you are making a "real" character from a game/anime/book etc..?|
+/setvar key=real {{pipe}}|
+/ife {: /test left=real right="" rule=eq :}|
+	/then {:
+		/:"Character Maker V4.Flushvar"| /echo Aborting | /abort
+	:}|
+/elseif {: /test left=real right=Yes rule=eq :}|
+	/then {:
+		
+		/addvar key=filenames {{noop}}|
+		
+		
+		/input rows=8 What is the first name of the character?|
+		/setvar key=fname {{pipe}}|
+		/ife {: /test left=fname right="" rule=eq :}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+	
+		
+		/input rows=8 What is the last name of {{getvar::fname}}?|
+		/setvar key=lname {{pipe}}|
+		/ife {: /test left=fname right="" rule=eq :}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		
+		
+		/input rows=8 What is the media of {{getvar::fname}}?|
+		/setvar key=media {{pipe}}|
+		/ife {: /test left=media right="" rule=eq :}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		
+		
+		/input rows=8 What is the name of the {{getvar::media}} that {{getvar::fname}} is in?|
+		/setvar key=sname {{pipe}}|
+		/ife {: /test left=fname right="" rule=eq :}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		
+		
+		/buttons labels=["Yes","No","Let the bot do it","Upload"] <div>Have you uploaded any information about {{getvar::fname}} to the Chat Databank or do you want to upload something now?</div><div>The "Cleaner" the uploaded files are the better.</div>|
+		/setvar key=temp {{pipe}}|
+		/ife {: /test left=temp right="" rule=eq :}|
+			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/elseif {: /test left=temp right=Yes rule=eq :}|
+			/then {:
+				/echo timeout=0 extendedTimeout=0 awaitDismissal=true escapeHtml=false "<div>Make sure that the character info Chat Attachments names don't contain \|, :)</div><div>Press this to continue.</div>"|
+				/input rows=8 Write a comma-separated list of the filenames uploaded (Include ending if any (eg .txt))|
+				/addvar key=character_files {{pipe}}|
+				/getvar key=character_files index=0| /setvar key=temp {{pipe}}|
+				/ife {: /test left=temp right="" rule=neq :}|
+					/then {:
+						/split var=character_files| /setvar key=temp {{pipe}}|
+						/foreach var=temp {:
+							/db-disable source=chat {{item}}|
+						:}|
+					:}|
+			:}|
+		/elseif {: /test left=temp right=Upload rule=eq :}|
+			/then {:
+				/echo timeout=0 extendedTimeout=0 awaitDismissal=true escapeHtml=false "<div>Upload the character information to the Chat Attachments. (Names need to be without \| :)</div><div>Press this to continue.</div>"|
+				/input rows=8 Write a comma-separated list of the filenames uploaded. (Press cancel if you want the bot to generate the information.)|
+				/addvar key=character_files {{pipe}}|
+				/getvar key=character_files index=0| /setvar key=temp {{pipe}}|
+				/ife {: /test left=temp right="" rule=neq :}|
+					/then {:
+						/split var=character_files| /setvar key=temp {{pipe}}|
+						/foreach var=temp {:
+							/db-disable source=chat {{item}}|
+						:}|
+					:}|
+				
+			:}|
+		/else {:
+			
+		:}|
+		/ife {: /test left=character_files right="" rule=neq :}|
+			/then {:
+				/db-add source=chat name=character_files {{getvar::character_files}}|
+				/db-disable source=chat character_files
+			:}|
+		/else {:
+			/setvar key=character_files "No Files"|
+			/db-add source=chat name=character_files {{getvar::character_files}}|
+			/db-disable source=chat character_files
+		:}|
+		/db-add source=chat name=real {{getvar::real}}| /db-disable source=chat real|
+		/db-add source=chat name=first_name {{getvar::fname}}| /db-disable source=chat first_name|
+		/db-add source=chat name=last_name {{getvar::lname}}| /db-disable source=chat last_name|
+		/db-add source=chat name=media {{getvar::media}}| /db-disable source=chat media|
+		/db-add source=chat name=media_name {{getvar::sname}}| /db-disable source=chat media_name|
+	:}|
+/else {: 
+	/db-add source=chat name=real {{getvar::real}}|
+	/db-disable source=chat real|
+	/db-add source=chat name=media None|
+	/db-disable source=chat media|
+	/db-add source=chat name=media_name None|
+	/db-disable source=chat media_name|
+	/setvar key=character_files "No Files"|
+	/db-add source=chat name=character_files {{getvar::character_files}}|
+	/db-disable source=chat character_files
+:}

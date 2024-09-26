@@ -1,4 +1,4 @@
-/setvar key=gen "Additional Notes"|
+/setvar key=catgen "Additional Notes"|
 /setvar key=genid "11"|
 
 
@@ -13,39 +13,59 @@
 
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Strenghts|
+	/setvar key=skip {{noop}}|
+	/setvar key=skip1 {{noop}}|
+	/split var=outputString| /setvar key=t1 {{pipe}}|
+	/foreach var=t1 {:
+			/addvar key=skip "<div>{{item}}</div>"|
+			/ife {: /test left={{index}} right=0 rule=eq :}|
+				/then {: /addvar key=skip1 {{item}} :}|
+				/else {: /addvar key=skip1 ", {{item}}" :}|
+	:}|
+	
+	
+	
     /setvar key=genState []|  
 
     /genraw lock=on name={{char}} 
 	system="{{getvar::rules}}
 {{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five strenghts that {{getvar::fname}} is particularly good at.
-INSTRUCTION: Start the strenghts with a capital letter. Only reply with five strenghts, nothing else. /n {{instructFirstOutput}}|
+{{getvar::char_info}}
+
+Here is some examples:
+Example1: Dance
+Example2: Bake
+Example3: Massage
+Example4: Giving a Blowjob"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five things that {{getvar::fname}} is particularly good at.(This could be dancing, doing a blowjob etc..)
+INSTRUCTION: Emululate the examples given. Avoid having any of these strenghts in your replys: {{getvar::skip1}}. Start the strenghts with a capital letter. Only reply with a comma-separated list of five strenghts, nothing else.
+{{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
+	/re-replace replace="" find="/\./g" var=t| /setvar key=t {{pipe}}|
 	/split var=t | 
 	/setvar key=genState {{pipe}}|  
 	
 	
-    /addvar key=genState "Add to List"|
+    /addvar key=genState "Manually add to List"|
 	/addvar key=genState Done|
     /addvar key=genState Redo|
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} <div>Select the Strenght you want {{getvar::fname}} to have.</div><div>Here is what you already have chosen</div>{{getvar::skip}} |
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
 		/then {:
 			
-			/input text|
+			/input rows=8 Add a strenght to {{getvar::fname}}.|
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
-			/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
+			/elseif {: /test left=outputString right="" rule=neq :}|
             /then {:
                 /addvar key=outputString ", {{getvar::t}}"|
             :}|
@@ -78,6 +98,19 @@ INSTRUCTION: Start the strenghts with a capital letter. Only reply with five str
 
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Weaknesses|
+	
+	/setvar key=skip {{noop}}|
+	/setvar key=skip1 {{noop}}|
+
+	/split var=outputString| /setvar key=t1 {{pipe}}|
+	/foreach var=t1 {:
+			/addvar key=skip "<div>{{item}}</div>"|
+			/ife {: /test left={{index}} right=0 rule=eq :}|
+				/then {: /addvar key=skip1 {{item}} :}|
+				/else {: /addvar key=skip1 ", {{item}}" :}|
+	:}|
+		
+		
     /setvar key=genState []|  
 
     /genraw lock=on name={{char}} 
@@ -85,33 +118,41 @@ INSTRUCTION: Start the strenghts with a capital letter. Only reply with five str
 {{getvar::info}}
 {{getvar::char_info}}
 
-This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five weaknesses that is {{getvar::fname}}'s  vulnerabilities or challenges are.
-INSTRUCTION: Start the weakness with a capital letter. Only reply with five weaknesses, nothing else. /n {{instructFirstOutput}}|
+This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}
+
+Here is some examples:
+Example1: Dance
+Example2: Bake
+Example3: Massage
+Example4: Blowjob"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five weaknesses that is {{getvar::fname}}'s vulnerabilities or challenges are.(This could be dancing, doing a blowjob etc..)
+INSTRUCTION: Emululate the examples given. Start the weakness with a capital letter. Avoid picking any of these weaknesses {{getvar::skip1}}. Only reply with a comma-separated list of five weaknesses, nothing else.
+{{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
+	/re-replace replace="" find="/\./g" var=t| /setvar key=t {{pipe}}|
 	/split var=t | 
 	/setvar key=genState {{pipe}}|  
 	
 	
-    /addvar key=genState "Add to List"|
+    /addvar key=genState "Manually add to List"|
 	/addvar key=genState Done|
     /addvar key=genState Redo|
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} <div>Select the Weakness you want {{getvar::fname}} to have.</div><div>Here is what you already have chosen</div>{{getvar::skip}} |
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
 		/then {:
 			
-			/input text|
+			/input rows=8 Add a weakness to {{getvar::fname}}.|
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
 			/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
             /then {:
                 /addvar key=outputString ", {{getvar::t}}"|
@@ -146,6 +187,17 @@ INSTRUCTION: Start the weakness with a capital letter. Only reply with five weak
 
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Likes|
+	
+	/setvar key=skip {{noop}}|
+	/setvar key=skip1 {{noop}}|
+	/split var=outputString| /setvar key=t1 {{pipe}}||
+	/foreach var=t1 {:
+			/addvar key=skip "<div>{{item}}</div>"|
+			/ife {: /test left={{index}} right=0 rule=eq :}|
+				/then {: /addvar key=skip1 {{item}} :}|
+				/else {: /addvar key=skip1 ", {{item}}" :}|
+	:}|
+	
     /setvar key=genState []|  
 
     /genraw lock=on name={{char}} 
@@ -154,33 +206,40 @@ INSTRUCTION: Start the weakness with a capital letter. Only reply with five weak
 {{getvar::char_info}}
 
 This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}
-This is a list of {{getvar::fname}}'s weaknesses: {{getvar::weaknesses}}"
+This is a list of {{getvar::fname}}'s weaknesses: {{getvar::weaknesses}}
+
+Here is some examples:
+Example1: Pizza
+Example2: Playing outside
+Example3: Taking Baths"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five things {{getvar::fname}} likes (this can be items, food, activities etc...).
-INSTRUCTION: Start the likes with a capital letter. Only reply with five likes, nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Emululate the examples given. Start the likes with a capital letter. Avoid picking any of these likes {{getvar::skip1}}. Only reply with a comma-separated list of five likes, nothing else.
+{{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
+	/re-replace replace="" find="/\./g" var=t | /setvar key=t {{pipe}}|
 	/split var=t | 
 	/setvar key=genState {{pipe}}|  
 	
 	
-    /addvar key=genState "Add to List"|
+    /addvar key=genState "Manually add to List"|
 	/addvar key=genState Done|
     /addvar key=genState Redo|
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} <div>Select what you want {{getvar::fname}} to like.</div><div>Here is what you already have chosen</div>{{getvar::skip}} |
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
 		/then {:
 			
-			/input text|
+			/input rows=8 Give {{getvar::fname}} something to like.|
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
 			/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
             /then {:
                 /addvar key=outputString ", {{getvar::t}}"|
@@ -215,6 +274,17 @@ INSTRUCTION: Start the likes with a capital letter. Only reply with five likes, 
 
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Dislikes|
+	
+	/setvar key=skip {{noop}}|
+	/setvar key=skip1 {{noop}}|
+	/split var=outputString| /setvar key=t1 {{pipe}}|
+	/foreach var=t1 {:
+			/addvar key=skip "<div>{{item}}</div>"|
+			/ife {: /test left={{index}} right=0 rule=eq :}|
+				/then {: /addvar key=skip1 {{item}} :}|
+				/else {: /addvar key=skip1 ", {{item}}" :}|
+	:}|
+	
     /setvar key=genState []|  
 
     /genraw lock=on name={{char}} 
@@ -224,33 +294,40 @@ INSTRUCTION: Start the likes with a capital letter. Only reply with five likes, 
 
 This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}
 This is a list of {{getvar::fname}}'s weaknesses: {{getvar::weaknesses}}
-This is a list of what {{getvar::fname}} likes: {{getvar::likes}}"
+This is a list of what {{getvar::fname}} likes: {{getvar::likes}}
+
+Here is some examples:
+Example1: Storms
+Example2: Bullying
+Example3: Spinach"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five things {{getvar::fname}} dislikes (this can be items, food, activities etc...).
-INSTRUCTION: Start the dislike with a capital letter. Only reply with five dislikes, nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Emululate the examples given. Start the dislike with a capital letter. Avoid picking any of these dislikes {{getvar::skip1}}. Only reply with a comma-separated list of five dislikes, nothing else.
+{{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
+	/re-replace replace="" find="/\./g" var=t | /setvar key=t {{pipe}}|
 	/split var=t | 
 	/setvar key=genState {{pipe}}|  
 	
 	
-    /addvar key=genState "Add to List"|
+    /addvar key=genState "Manually add to List"|
 	/addvar key=genState Done|
     /addvar key=genState Redo|
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} <div>Select what you want {{getvar::fname}} to dislike.</div><div>Here is what you already have chosen</div>{{getvar::skip}}|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
 		/then {:
 			
-			/input text|
+			/input rows=8 Add something for {{getvar::fname}} to dislike.|
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
 			/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
             /then {:
                 /addvar key=outputString ", {{getvar::t}}"|
@@ -285,6 +362,17 @@ INSTRUCTION: Start the dislike with a capital letter. Only reply with five disli
 
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Fears|
+	
+	/setvar key=skip {{noop}}|
+	/setvar key=skip1 {{noop}}|
+	/split var=outputString| /setvar key=t1 {{pipe}}|
+	/foreach var=t1 {:
+			/addvar key=skip "<div>{{item}}</div>"|
+			/ife {: /test left={{index}} right=0 rule=eq :}|
+				/then {: /addvar key=skip1 {{item}} :}|
+				/else {: /addvar key=skip1 ", {{item}}" :}|
+	:}|
+	
     /setvar key=genState []|  
 
     /genraw lock=on name={{char}} 
@@ -295,33 +383,41 @@ INSTRUCTION: Start the dislike with a capital letter. Only reply with five disli
 This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}
 This is a list of {{getvar::fname}}'s weaknesses: {{getvar::weaknesses}}
 This is a list of what {{getvar::fname}} likes: {{getvar::likes}}
-This is a list of what {{getvar::fname}} dislikes: {{getvar::likes}}"
+This is a list of what {{getvar::fname}} dislikes: {{getvar::likes}}
+
+Here is some examples:
+Example1: Loud noise
+Example2: Spiders
+Example3: Pain
+Example4: Losing Games"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five things {{getvar::fname}} is afraid of.
-INSTRUCTION: Start the fear with a capital letter. Only reply with five fears, nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Emululate the examples given. Start each fear with a capital letter. Avoid picking any of these fears {{getvar::skip1}}. Only reply with a comma-separated list of five fears, nothing else.
+{{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
+	/re-replace replace="" find="/\./g" var=t | /setvar key=t {{pipe}}|
 	/split var=t | 
 	/setvar key=genState {{pipe}}|  
 	
 	
-    /addvar key=genState "Add to List"|
+    /addvar key=genState "Manually add to List"|
 	/addvar key=genState Done|
     /addvar key=genState Redo|
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} <div>Select what you want {{getvar::fname}} to be afraid of.</div><div>Here is what you already have chosen</div>{{getvar::skip}}|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
 		/then {:
 			
-			/input text|
+			/input rows=8 Add something for {{getvar::fname}} to dislike.|
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
 			/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
             /then {:
                 /addvar key=outputString ", {{getvar::t}}"|
@@ -350,55 +446,8 @@ INSTRUCTION: Start the fear with a capital letter. Only reply with five fears, n
 
 
 
-/setvar key=genState Redo|
-/setvar key=outputString {{noop}}|
-
-/while left=genState right=Redo rule=eq {:
-	/echo Generating Sexual knowlage|
-    /setvar key=genState []|  
-
-    /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}
-This is a list of {{getvar::fname}}'s weaknesses: {{getvar::weaknesses}}
-This is a list of what {{getvar::fname}} likes: {{getvar::likes}}
-This is a list of what {{getvar::fname}} dislikes: {{getvar::likes}}
-This is a list of what {{getvar::fname}} is afraid of: {{getvar::fears}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on {{getvar::fname}}'s Sexual Knowlage.
-INSTRUCTION: Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Only reply with the description, nothing else. /n {{instructFirstOutput}}|
-
-	/addvar key=genState {{pipe}}|
-    /addvar key=genState Edit|  
-    /addvar key=genState Redo|  
-
-    /buttons labels={{getvar::genState}} text|
-
-    /setvar key=selected_btn {{pipe}}|
-
-    /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
-    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
-		/then {:
-			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
-			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
-		:}|
-
-    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
-		:}|
-:}|
-/setvar key=sknowlage {{getvar::outputString}}|
-
-
 
 /setvar key=genState Redo|
-/setvar key=outputString {{noop}}|
 
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Sexual knowledge|
@@ -415,24 +464,26 @@ This is a list of what {{getvar::fname}} likes: {{getvar::likes}}
 This is a list of what {{getvar::fname}} dislikes: {{getvar::likes}}
 This is a list of what {{getvar::fname}} is afraid of: {{getvar::fears}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on {{getvar::fname}}'s Sexual knowledge (This is  knowledge about sex, porn, the opposite gender, sex toys, kinks etc...).
-INSTRUCTION: Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Only reply with the description, nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: The description should be under four sentences. Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Only reply with the description, nothing else.
+{{instructFirstOutput}}|
 
 	/addvar key=genState {{pipe}}|
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this the sexual knowlage you want {{getvar::fname}} to have.|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit the description of {{getvar::fname}}'s sexual knowlage.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -440,12 +491,11 @@ INSTRUCTION: Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gend
 			/setvar key=genState Redo|
 		:}|
 :}|
-/setvar key=sknowlage {{getvar::outputString}}|
+/setvar key=sknowlage {{getvar::selected_btn}}|
 
 
 
 /setvar key=genState Redo|
-/setvar key=outputString {{noop}}|
 
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Sexual experiance|
@@ -463,24 +513,26 @@ This is a list of what {{getvar::fname}} dislikes: {{getvar::likes}}
 This is a list of what {{getvar::fname}} is afraid of: {{getvar::fears}}
 This is {{getvar::fname}}' sexual knowlage: {{getvar::sknowlage}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on {{getvar::fname}}'s Sexual experiance (The description should include something {{getvar::fname}} have experienced that have left a mark, either physically or mentally, sex toys, having someone touch the character's Genitalia, kinks etc...).
-INSTRUCTION: Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Only reply with the description, nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: The description should be under four sentences. Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Only reply with the description, nothing else.
+{{instructFirstOutput}}|
 
 	/addvar key=genState {{pipe}}|
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this the sexual experiance you want {{getvar::fname}} to have.|
 
     /setvar key=selected_btn {{pipe}}|
 
     /ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit the description.|
 			/setvar key=selected_btn {{pipe}}|
-			/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 
     /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -488,28 +540,22 @@ INSTRUCTION: Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gend
 			/setvar key=genState Redo|
 		:}|
 :}|
-/setvar key=sexperiance {{getvar::outputString}}|
+/setvar key=sexperiance {{getvar::selected_btn}}|
 
 
-/setvar key=temp false
-/ife {: /test left=list right=FHN rule=in:}|
-	/then {: /setvar key=temp true :}|
-/elseif {: /test left=list right=MHN rule=in:}|
-	/then {: /setvar key=temp true :}|
-/elseif {: /test left=list right=FAN rule=in:}|
-	/then {: /setvar key=temp true :}|
-/elseif {: /test left=list right=MAN rule=in:}|
-	/then {: /setvar key=temp true :}|
-/elseif {: /test left=list right=FDHN rule=in:}|
-	/then {: /setvar key=temp true :}|
-/elseif {: /test left=list right=MDHN rule=in:}|
-	/then {: /setvar key=temp true :}|
-/elseif {: /test left=list right=FBN rule=in:}|
-	/then {: /setvar key=temp true :}|
-/elseif {: /test left=list right=MBN rule=in:}|
-	/then {: /setvar key=temp true :}|
-	
-/ife {: /test left=temp right=true rule=neq:}|
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTrue false :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTrue false :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTrue false :}|
+/elseif {: /test left=species right=Pokemon rule=in:}|
+	/then {: /setvar key=isTrue true :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
+
+/ife {: /test left=isTrue right=true rule=eq:}|
 	/then {:
 		/setvar key=genState Redo|
 
@@ -522,7 +568,8 @@ INSTRUCTION: Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gend
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a description on how the species {{getvar::species}} mate with eachouther. The description should be the mating process of {{getvar::species}}'s and how the male Genitalia interacts with the females Genitalia.
-INSTRUCTION: The description should be in depth and under ten sentences and fookus on how the male and female interact during mating.  The response should only be the description and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: The description should be in depth and under ten sentences and fookus on how the male and female interact during mating.  The response should only be the description and nothing else.
+{{instructFirstOutput}}|
 			
 			
 			
@@ -531,18 +578,19 @@ INSTRUCTION: The description should be in depth and under ten sentences and fook
 			/addvar key=genState Edit|  
 			/addvar key=genState Redo|  
 		
-			/buttons labels={{getvar::genState}} text|
+			/buttons labels={{getvar::genState}} Is this the a good mating description of {{getvar::species}}.|
 		
 			/setvar key=selected_btn {{pipe}}|
 		
 			/ife {: /test left=selected_btn right="" rule=eq :}|
-				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}||
 			/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 				/then {:
 					/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-					/input default={{getvar::t}} text|
+					/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 					/setvar key=selected_btn {{pipe}}|
-					/if left=selected_btn right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+					/ife {: /test left=selected_btn right="" rule=eq :}|
+						/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 				:}|
 		
 			/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
@@ -552,7 +600,7 @@ INSTRUCTION: The description should be in depth and under ten sentences and fook
 		:}|
 		/setvar key=mating {{getvar::selected_btn}}|
 		
-		/setvar key=output "<h2 align='center'>{{getvar::gen}}</h2>
+		/setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
 
 Strenghts: {{getvar::strenghts}}
 
@@ -571,7 +619,7 @@ Sexual Experiance: {{getvar::sexperiance}}
 Mating: {{getvar::mating}}"|
 	:}|
 /else {:
-	/setvar key=output "<h2 align='center'>{{getvar::gen}}</h2>
+	/setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
 
 Strenghts: {{getvar::strenghts}}
 

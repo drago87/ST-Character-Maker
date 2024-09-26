@@ -38,15 +38,15 @@
 				/then {:
 					/ife {: /test left={{index}} right=0 rule=neq :}|
 						/then {: /addvar key=temp ", {{item}}":}|
-					/else {: /setvar key=temp " Don't use any of these positive traits {{item}}":}|
+					/else {: /setvar key=temp " Avoid these positive traits {{item}}. ":}|
 				:}|
 			/else {: 
 				/ife {: /test left=l2 right=1 rule=gte :}|
 					/then {:
-						Don't use any of these positive traits {{item}}
+						/setvar key=temp " Avoid these positive traits {{item}}. "
 					:}|
 				/else {:
-					/setvar key=temp " Don't use this positive trait {{item}}"
+					/setvar key=temp " Avoid this positive trait {{item}}. "
 					:}|
 			:}|
 		:}|
@@ -56,7 +56,7 @@
 					/then {: /addvar key=temp ", {{getvar::t1}}"
 				:}|
 				/else {: 
-					/setvar key=temp " Don't use any of these positive traits {{getvar::t1}}"
+					/setvar key=temp " Don't use any of these positive traits {{getvar::t1}}. "
 				:}|
 			:}|
 		
@@ -69,7 +69,9 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five positive traits. 
-INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each positive trait with a capital letter. Only reply with five positive traits and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION:{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each positive trait with a capital letter. Only reply with five positive traits and nothing else.
+{{instructFirstOutput}}|
+
 		/setvar key=t1 {{pipe}}|
 		/re-replace replace="" find="/\./" var=t1| /setvar key=t1 {{pipe}}|
 		/split var=t1|
@@ -83,9 +85,10 @@ INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::ge
 			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		/elseif {: /test left=postr right="Manual input" rule=eq :}|
 			/then {:
-				/input  Add the positive trait you want.|
+				/input rows=8  Add the positive trait you want.|
 				/setvar key=postr {{pipe}}|
-				/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/ife {: /test left=p1 right="" rule=eq :}|
+					/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 				
 			:}|
 	
@@ -125,15 +128,15 @@ INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::ge
 				/then {:
 					/ife {: /test left={{index}} right=0 rule=neq :}|
 						/then {: /addvar key=temp ", {{item}}":}|
-					/else {: /setvar key=temp " Don't use any of these negative traits {{item}}":}|
+					/else {: /setvar key=temp " Don't use any of these negative traits {{item}}. ":}|
 				:}|
 			/else {: 
 				/ife {: /test left=l2 right=1 rule=gte :}|
 					/then {:
-						Don't use any of these negative traits {{item}}
+						/setvar key=temp " Don't use any of these negative traits {{item}}. "
 					:}|
 				/else {:
-					/setvar key=temp " Don't use this negative trait {{item}}"
+					/setvar key=temp " Don't use this negative trait {{item}}. "
 					:}|
 			:}|
 		:}|
@@ -143,7 +146,7 @@ INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::ge
 					/then {: /addvar key=temp ", {{getvar::t1}}"
 				:}|
 				/else {: 
-					/setvar key=temp " Don't use any of these negative traits {{getvar::t1}}"
+					/setvar key=temp " Don't use any of these negative traits {{getvar::t1}}. "
 				:}|
 			:}|
 		/ife {: /test left=l1 right=1 rule=gte:}|
@@ -155,7 +158,9 @@ INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::ge
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five negative traits. 
-INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each negative trait with a capital letter. Only reply with five negative traits and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION:{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each negative trait with a capital letter. Only reply with five negative traits and nothing else.
+{{instructFirstOutput}}|
+
 		/setvar key=t1 {{pipe}}|
 		/re-replace replace="" find="/\./" var=t1| /setvar key=t1 {{pipe}}|
 		/split var=t1|
@@ -169,9 +174,10 @@ INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::ge
 			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		/elseif {: /test left=postr right="Manual input" rule=eq :}|
 			/then {:
-				/input  Add the negative trait you want.|
+				/input rows=8  Add the negative trait you want.|
 				/setvar key=postr {{pipe}}|
-				/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/ife {: /test left=p1 right="" rule=eq :}|
+					/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 				
 			:}|
 	
@@ -181,22 +187,22 @@ INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::ge
 :}|
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Demi-Human rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Anthro rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Pokémon rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
 /setvar key=human_traits {{noop}}|
 
-/ife {: /test left=isTure right=true rule=eq:}|
+/ife {: /test left=isTrue right=true rule=eq:}|
 	/then {:
 		/setvar key=genState Redo|
 		
@@ -220,20 +226,20 @@ INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-s
 			/addvar key=genState Done|
 			/addvar key=genState Redo|
 		
-			/buttons labels={{getvar::genState}} text|
+			/buttons labels={{getvar::genState}} Select the Human trait you want {{getvar::fname}} to have.|
 		
 			/setvar key=selected_btn {{pipe}}|
 		
 			/ife {: /test left=selected_btn right="" rule=eq :}|
-				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			/elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
 				/then {:
 					
-					/input text|
+					/input rows=8 Add the Human trait you want {{getvar::fname}} to have.|
 					/setvar key=t {{pipe}}|
 					/setvar key=genState Redo|
 					/ife {: /test left=t right="" rule=eq :}|
-						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+						/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 					/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
 					/then {:
 						/addvar key=outputString ", {{getvar::t}}"|
@@ -263,23 +269,23 @@ INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-s
 :}|
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Demi-Human rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Anthro rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Pokémon rule=in:}|
-	/then {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
 
 /setvar key=non-human_traits {{noop}}|
 
-/ife {: /test left=isTure right=true rule=eq:}|
+/ife {: /test left=isTrue right=true rule=eq:}|
 	/then {:
 		/setvar key=genState Redo|
 		/re-replace replace="" find="/\b(Demi-Human\|Anthro\|Beastkin\|Animal)\b\s*/" var=species | /setvar key=d2 {{pipe}}|
@@ -303,20 +309,20 @@ INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-s
 			/addvar key=genState Done|
 			/addvar key=genState Redo|
 		
-			/buttons labels={{getvar::genState}} text|
+			/buttons labels={{getvar::genState}} Select the {{getvar::d2}} trait you want {{getvar::fname}} to have.|
 		
 			/setvar key=selected_btn {{pipe}}|
 		
 			/ife {: /test left=selected_btn right="" rule=eq :}|
-				/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			/elseif {: /test left={{getvar::selected_btn}} right="Manually add to List" rule=eq :}|
 				/then {:
 					
-					/input text|
+					/input rows=8 Add the {{getvar::d2}} trait you want {{getvar::fname}} to have.|
 					/setvar key=t {{pipe}}|
 					/setvar key=genState Redo|
 					/ife {: /test left=t right="" rule=eq :}|
-						/then {://:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+						/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 					/elseif {: /test left={{getvar::outputString}} right="" rule=neq :}|
 					/then {:
 						/addvar key=outputString ", {{getvar::t}}"|
@@ -379,7 +385,7 @@ INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-s
 				/then {:
 					/ife {: /test left={{index}} right=0 rule=neq :}|
 						/then {: /addvar key=temp ", {{item}}":}|
-					/else {: /setvar key=temp " Don't use any of these quirks {{item}}":}|
+					/else {: /setvar key=temp " Avoid these quirks {{item}} ":}|
 				:}|
 			/else {: 
 				/ife {: /test left=l2 right=1 rule=gte :}|
@@ -387,7 +393,7 @@ INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-s
 						Don't use any of these quirks {{item}}
 					:}|
 				/else {:
-					/setvar key=temp " Don't use this quirks {{item}}"
+					/setvar key=temp " Avoid this quirks {{item}}. "
 					:}|
 			:}|
 		:}|
@@ -397,7 +403,7 @@ INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-s
 					/then {: /addvar key=temp ", {{getvar::t1}}"
 				:}|
 				/else {: 
-					/setvar key=temp " Don't use any of these quirks {{getvar::t1}}"
+					/setvar key=temp " Avoid these quirks {{getvar::t1}}. "
 				:}|
 			:}|
 		
@@ -409,8 +415,10 @@ INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-s
 		system="{{getvar::rules}}
 {{getvar::info}}
 {{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five quirks(This is something {{getvar::fname}} does that is odd).
-INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirks with a capital letter. Eache quirk should be a short sentence. Only reply with five quirks and nothing else. /n {{instructFirstOutput}}|
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five quirks(This is something {{getvar::fname}} does that other think is odd).
+INSTRUCTION:{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirk with a capital letter. Eache quirk should be a short sentence. Only reply with a comma-separated list with five quirks, nothing else.
+{{instructFirstOutput}}|
+
 		/setvar key=t1 {{pipe}}|
 		/re-replace replace="" find="/\./" var=t1| /setvar key=t1 {{pipe}}|
 		/split var=t1|
@@ -424,10 +432,11 @@ INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::ge
 			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		/elseif {: /test left=postr right="Manual input" rule=eq :}|
 			/then {:
-				/getvar key=qrlist index=0| /setvar key=t {{pipe}}|
-				/input default={{getvar::t}} Add the quirk you like.|
+				
+				/input rows=8 Add the quirk you like.|
 				/setvar key=postr {{pipe}}|
-				/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/ife {: /test left=p1 right="" rule=eq :}|
+					/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 				
 			:}|
 	
@@ -502,7 +511,8 @@ Quirks:"|
 Based on these
 \"{{getvar::person}}\""
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide description of {{getvar::fname}}'s personality.
-INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirks with a capital letter. Only reply with the description of {{getvar::fname}}'s personality and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION:{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirks with a capital letter. Only reply with the description of {{getvar::fname}}'s personality and nothing else.
+{{instructFirstOutput}}|
 
 	/addvar key=t1 {{pipe}}|
 	/addvar key=t1 Edit|
@@ -515,16 +525,17 @@ INSTRUCTION:{{getvar::temp}} {{getvar::fname}} is a {{getvar::age}} {{getvar::ge
 	/elseif {: /test left=per right="Edit" rule=eq :}|
 		/then {:
 			/getvar key=t1 index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit the personality to youor likeing.|
+			/input rows=8 default={{getvar::t}} Edit the personality to youor likeing.|
 			/setvar key=per {{pipe}}|
-			/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/ife {: /test left=p1 right="" rule=eq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 				
 		:}|
 	
 :}|
 /setvar key=personality {{getvar::per}}|
 /setvar key=form " {{getvar::form}}"|
-/addvar /addvar key=person "
+/addvar key=person "
 
 Personality: {{getvar::personality}}"|
 

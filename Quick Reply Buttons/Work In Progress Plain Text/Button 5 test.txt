@@ -14,15 +14,15 @@
 /setvar key=scount {{pipe}}|
 /ife {: /test left=scount right=None rule=eq:}|
 	/then {: 
-		/setvar key=x 2|
+		/setvar key=x 0|
 		:}|
 /elseif {: /test left=scount right=One rule=eq:}|
 	/then {:
-		/setvar key=x 3|
+		/setvar key=x 1|
 	:}|
 /elseif {: /test left=scount right=Two rule=eq:}|
 	/then {:
-		/setvar key=x 4|
+		/setvar key=x 2|
 	:}|
 /elseif {: /test left=scount right=Three rule=eq:}|
 	/then {:
@@ -60,7 +60,9 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide the name, age and gender of one of {{getvar::fname}}'s siblings.
-INSTRUCTION: The sibling is a {{random::{{getvar::span}}}} {{random::Boy::Girl}}. Remember the world type is {{getvar::wtype}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::tp}} or {{getvar::wtype}}. Keep the response to one or two short sentences. {{getvar::fname}} is {{getvar::age}}. Start the respons with 'The older/younger sister/brother' followed by 'name' of the sibling followed by 'age' of the sibling followed by a sold description of the sibling's personality. The respons should be present tense. The response should be short about {{getvar::fname}}'s sibling and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: The sibling is a {{random::{{getvar::span}}}} {{random::Boy::Girl}}. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two short sentences. {{getvar::fname}} is {{getvar::age}}. Start the respons with 'The older/younger sister/brother' followed by 'name' of the sibling followed by 'age' of the sibling followed by a sold description of the sibling's personality. The respons should be present tense. The response should be short about {{getvar::fname}}'s sibling and nothing else.
+{{instructFirstOutput}}|
+
 		/addvar key=slist {{pipe}} |
 		/addvar key=slist Edit|
 		/addvar key=slist Redo|
@@ -71,15 +73,17 @@ INSTRUCTION: The sibling is a {{random::{{getvar::span}}}} {{random::Boy::Girl}}
 		/elseif {: /test left=sibling right="Edit" rule=eq :}|
 			/then {:
 				/getvar key=slist index=0| /setvar key=t {{pipe}}|
-				/input default={{getvar::t}} Edit {{getvar::fname}}'s sibling to your liking?|
+				/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s sibling to your liking?|
 				/setvar key=sibling {{pipe}}|
-				/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+				/ife {: /test left=sibling right="" rule=eq :}|
+					/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 			:}|
 	
 	:}|
 	/addvar key=siblings {{getvar::sibling}}|
 	/addvar key=i 1
 :}|
+
 
 //Generating Parents|
 //Mother|
@@ -92,7 +96,8 @@ INSTRUCTION: The sibling is a {{random::{{getvar::span}}}} {{random::Boy::Girl}}
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide the name and situation (Situation can be Working(Provided what she is working with), Devorced(Provide why they are devorced), Deciesed(Provide how she died)) of {{getvar::fname}}'s mother.
-INSTRUCTION:Remeber she is the mother of {{getvar::scount}} children. Remember the world type is {{getvar::wtype}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::tp}} or {{getvar::wtype}}. Keep the response to one or two sentences. The response should be short about {{getvar::fname}}'s mother and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Remeber she is the mother of {{getvar::scount}} children. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two sentences. The response should be short about {{getvar::fname}}'s mother and nothing else.
+{{instructFirstOutput}}|
 	/addvar key=mlist {{pipe}} |
 	/addvar key=mlist Edit|
 	/addvar key=mlist Redo|
@@ -103,9 +108,10 @@ INSTRUCTION:Remeber she is the mother of {{getvar::scount}} children. Remember t
 	/elseif {: /test left=mother right="Edit" rule=eq :}|
 		/then {:
 			/getvar key=mlist index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit {{getvar::fname}}'s mother to your liking?|
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s mother to your liking?|
 			/setvar key=mother {{pipe}}|
-			/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=mother right="" rule=eq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}
 :}|
 
@@ -120,7 +126,9 @@ INSTRUCTION:Remeber she is the mother of {{getvar::scount}} children. Remember t
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide the name and situation (Situation can be Working(Provided what he is working with), Devorced(Provide why they are devorced), Deciesed(Provide how he died)) of {{getvar::fname}}'s father. Here is information of {{getvar::fname}}'s mother 
 '{{getvar::mother}}'
-INSTRUCTION: Remeber he is the father of {{getvar::scount}} children. Remember the world type is {{getvar::wtype}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::tp}} or {{getvar::wtype}}. Keep the response to one or two sentences. The response should be short about {{getvar::fname}}'s father and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Remeber he is the father of {{getvar::scount}} children. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two sentences. The response should be short about {{getvar::fname}}'s father and nothing else.
+{{instructFirstOutput}}|
+
 	/addvar key=flist {{pipe}} |
 	/addvar key=flist Edit|
 	/addvar key=flist Redo|
@@ -131,13 +139,15 @@ INSTRUCTION: Remeber he is the father of {{getvar::scount}} children. Remember t
 	/elseif {: /test left=father right="Edit" rule=eq :}|
 		/then {:
 			/getvar key=flist index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit {{getvar::fname}}'s father to your liking?|
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s father to your liking?|
 			/setvar key=father {{pipe}}|
-			/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=father right="" rule=eq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}
 :}|
 
 //Generatin Family|
+/setvar key=finfo {{noop}}|
 /foreach var=siblings {:
 	/ife {: /test left={{index}} right=0 rule=eq :}|
 		/then {: /setvar key=finfo {{item}} :}|
@@ -169,7 +179,8 @@ This is information about {{getvar::fname}}'s familty '{{getvar::finfo}}'
 	
 {{getvar::rules}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, use this information to make a coherent description of {{getvar::name}}'s family.
-INSTRUCTION: Remember the world type is {{getvar::wtype}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::tp}} or {{getvar::wtype}}. Keep the response to five to ten sentences. The response should be short about {{getvar::fname}}'s family and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to five to ten sentences. The response should be short about {{getvar::fname}}'s family and nothing else.
+{{instructFirstOutput}}|
 	/addvar key=falist {{pipe}} |
 	/addvar key=falist Edit|
 	/addvar key=falist Redo|
@@ -180,13 +191,16 @@ INSTRUCTION: Remember the world type is {{getvar::wtype}}, the genre is {{getvar
 	/elseif {: /test left=family right="Edit" rule=eq :}|
 		/then {:
 			/getvar key=falist index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit {{getvar::fname}}'s family to your liking?|
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s family to your liking?|
 			/setvar key=family {{pipe}}|
-			/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/ife {: /test left=family right="" rule=eq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 :}|
 
-/message-edit message={{lastMessageId}} Family: {{getvar::family}}|
+/message-edit message={{lastMessageId}} "<h2 align='center'>{{getvar::catgen}}</h2>
+
+Family: {{getvar::family}}"|
 
 //Generating Best Friend|
 
@@ -194,36 +208,86 @@ INSTRUCTION: Remember the world type is {{getvar::wtype}}, the genre is {{getvar
 
 /while left=bfrend right=Redo rule=eq {:
 	/echo Generateing Best Friend|
-	/setvar key=bflist []|
+	/setvar key=bfrend []|
 	/genraw lock=on name={{char}} 
 	system="{{getvar::rules}}
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, use make {{getvar::name}}'s best friend and give a short description of what they do together.
-INSTRUCTION: Remember the world type is {{getvar::wtype}}, the genre is {{getvar::genre}} and the time period is {{getvar::tp}}. Don't mention {{getvar::genre}}, {{getvar::tp}} or {{getvar::wtype}}. Keep the response to five to ten sentences. The response should be short about {{getvar::fname}}'s best friend and nothing else. /n {{instructFirstOutput}}|
+INSTRUCTION: Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to fore to six sentences. The response should be short about {{getvar::fname}}'s best friend and nothing else.
+{{instructFirstOutput}}|
+
 	/addvar key=bfrend {{pipe}} |
 	/addvar key=bfrend Edit|
 	/addvar key=bfrend Redo|
-	/buttons labels={{getvar::bfrend}} Is this the family you want for {{getvar::fname}}?|
-	/setvar key=family {{pipe}} |
-	/ife {: /test left=family right="" rule=eq :}|
+	/buttons labels={{getvar::bfrend}} Is this the best friend you want for {{getvar::fname}}?|
+	/setvar key=selected_btn {{pipe}} |
+	/ife {: /test left=selected_btn right="" rule=eq :}|
 		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
-	/elseif {: /test left=family right="Edit" rule=eq :}|
+	/elseif {: /test left=selected_btn right="Edit" rule=eq :}|
 		/then {:
 			/getvar key=bfrend index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} Edit {{getvar::fname}}'s family to your liking?|
-			/setvar key=family {{pipe}}|
-			/if left=p1 right="" rule=eq {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s best friend to your liking?|
+			/setvar key=bfrend {{pipe}}|
+			/ife {: /test left=bfrend right="" rule=eq :}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 :}|
 
-/message-edit message={{lastMessageId}} "Family: {{getvar::family}}
+/message-edit message={{lastMessageId}} "<h2 align='center'>{{getvar::catgen}}</h2>
+
+Family: {{getvar::family}}
 
 Best Friend: {{getvar::bfrend}}"|
 
 //Generating Romantic Interest|
 
-/message-edit message={{lastMessageId}} "Family: {{getvar::family}}
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Romantic interest|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s romantic interest if there is one.
+INSTRUCTION: The reply should be two sentences. Only reply with the description, nothing else.
+{{instructFirstOutput}}| 
+	
+	
+	
+	
+    /addvar key=genState {{pipe}}|
+    /addvar key=genState Edit|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} Is this the romantic interest you want for {{getvar::fname}}?|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {:
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input rows=8 default={{getvar::t}} Edit {{getvar::fname}} romantic interest to your liking.|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=rinterest {{getvar::selected_btn}}|
+
+/message-edit message={{lastMessageId}} "<h2 align='center'>{{getvar::catgen}}</h2>
+
+Family: {{getvar::family}}
 
 Best Friend: {{getvar::bfrend}}
 
@@ -231,7 +295,54 @@ Romantic Interest: {{getvar::rinterest}}"|
 
 //Generating Enemy/Rival|
 
-/message-edit message={{lastMessageId}} "Family: {{getvar::family}}
+/setvar key=genState Redo|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Enemy/Rival|
+    /setvar key=genState []|  
+
+    /genraw lock=on name={{char}} 
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s Enemy and/or Rival if there is one.
+INSTRUCTION: The description should be one sentence for the Eneme and one sentence for the Rival. Only reply with the description, nothing else.
+{{instructFirstOutput}}|  
+	
+	
+	
+	
+    /addvar key=genState {{pipe}}|
+    /addvar key=genState Edit|  
+    /addvar key=genState Redo|  
+
+    /buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s Enemy/Rival?|
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {:
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input rows=8 default={{getvar::t}} Edit the description of {{getvar::fname}}'s Enemy/Rival.|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+		:}|
+
+    /elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+:}|
+/setvar key=eorinfo {{getvar::selected_btn}}|
+
+
+
+/message-edit message={{lastMessageId}} "<h2 align='center'>{{getvar::catgen}}</h2>
+
+Family: {{getvar::family}}
 
 Best Friend: {{getvar::bfrend}}
 

@@ -1,1 +1,1 @@
-/echo timeout=0 extendedTimeout=0 awaitDismissal=true test
+/echo timeout=0 extendedTimeout=0 awaitDismissal=true test|

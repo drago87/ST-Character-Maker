@@ -18,15 +18,16 @@
 	system="{{getvar::rules}}
 {{getvar::info}}
 {{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fnames}}'s personality.
-INSTRUCTION: Start the genres with a capital letter. Only reply with description of the personality, nothing else. /n {{instructFirstOutput}}|
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fnames}}'s personality, describing {{getvar::fnames}} from a outsiders view.
+INSTRUCTION: Start the genres with a capital letter. Only reply with description of the personality, nothing else.
+{{instructFirstOutput}}|
 	
 	
     /addvar key=genState {{pipe}}|
     /addvar key=genState Edit|  
     /addvar key=genState Redo|  
 
-    /buttons labels={{getvar::genState}} text|
+    /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s personality. |
 
     /setvar key=selected_btn {{pipe}}|
 
@@ -35,9 +36,9 @@ INSTRUCTION: Start the genres with a capital letter. Only reply with description
     /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 		/then {:
 			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} text|
+			/input rows=8 default={{getvar::t}} Edit the description of {{getvar::fname}}'s personality.|
 			/setvar key=selected_btn {{pipe}}|
-			/ife {: left=selected_btn right="" rule=eq :}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
 					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 		:}|
 
@@ -90,7 +91,8 @@ Use (emotions) for emotions.
 	
 Start your respons with: {{getvar::fname}}:"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide {{item}} using mostly English showcasing {{getvar::fname}}'s dialect and speech pattern.
-INSTRUCTION: Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else. /n {{instructFirstOutput}}| 
+INSTRUCTION: The reply should be one short sentence. Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else.
+{{instructFirstOutput}}| 
 		
 		
 		
@@ -99,7 +101,7 @@ INSTRUCTION: Always start the respons with '{{getvar::fname}}: '. Only reply wit
 		/addvar key=genState Edit|  
 		/addvar key=genState Redo|  
 	
-		/buttons labels={{getvar::genState}} text|
+		/buttons labels={{getvar::genState}} Is this a good shocase of {{getvar::fname}}'s dialect and speech pattern?|
 	
 		/setvar key=selected_btn {{pipe}}|
 	
@@ -108,9 +110,9 @@ INSTRUCTION: Always start the respons with '{{getvar::fname}}: '. Only reply wit
 		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 			/then {:
 				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-				/input default={{getvar::t}} text|
+				/input rows=8 default={{getvar::t}} Edit the shocase.|
 				/setvar key=selected_btn {{pipe}}|
-				/ife {: left=selected_btn right="" rule=eq :}|
+				/ife {: /test left=selected_btn right="" rule=eq :}|
 					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			:}|
 	
@@ -133,27 +135,27 @@ INSTRUCTION: Always start the respons with '{{getvar::fname}}: '. Only reply wit
 
 /buttons labels=["Yes","Add","Skip"] "<div>Do you want to use the extra dialog examples or do you to add your own or skip?</div>{{getvar::temp}}"|
 /setvar key=temp_btn {{pipe}}|
-/ife {: left=temp_btn right="" rule=eq :}|
-	/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
-/elseif {: left=temp_btn right=Add rule=eq :}|
+/ife {: /test left=temp_btn right="" rule=eq :}|
+	/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
+/elseif {: /test left=temp_btn right=Add rule=eq :}|
 	/then {:
 		/setvar key=genState Redo|
 
 		/while left=genState right=Redo rule=eq {:
 			
-			/input "<div>When adding a category follow this format</div>
-<div>On experiencing pleasure</div>"|
+			/input rows=8 "<div>When adding a category follow this format</div><div>On experiencing pleasure</div>"|
 			/setvar key=selected_btn {{pipe}}|
-			/ife {: left=selected_btn right="" rule=eq :}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
 					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 			/else {:
 				/addvar key=exexamples {{getvar::selected_btn}}|
 				/buttons labels=["Yes","No"] Want to add more?|
 				/setvar key=answer {{pipe}}|
-				/ife {: left=answer right="" rule=eq :}|
+				/ife {: /test left=answer right="" rule=eq :}|
 					/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
-				/elseif {: left=answer right=Yes rule=eq :}|
+				/elseif {: /test left=answer right=Yes rule=eq :}|
 					/then {: /setvar key=genState Redo| :}|
+				/else {: /setvar key=genState Done:}|
 			:}|
 		:}|
 		
@@ -205,7 +207,8 @@ Use (emotions) for emotions.
 	
 Start your respons with: {{getvar::fname}}:"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a single short dialog example where {{getvar::fname}} is in this situation: {{item}}. Use mostly English while showcasing {{getvar::fname}}'s dialect and speech pattern.
-INSTRUCTION: The reply should be shorther then tree sentences. Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else. /n {{instructFirstOutput}}|  
+INSTRUCTION: The reply should be one short sentence. Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else.
+{{instructFirstOutput}}|  
 				
 				
 				/addvar key=genState {{pipe}}|
@@ -217,7 +220,7 @@ INSTRUCTION: The reply should be shorther then tree sentences. Always start the 
 				
 				/addvar key=genState Redo|  
 			
-				/buttons labels={{getvar::genState}} {{item}}|
+				/buttons labels={{getvar::genState}} Is this dialog example good for this situatuin: {{item}}|
 			
 				/setvar key=selected_btn {{pipe}}|
 				
@@ -226,9 +229,9 @@ INSTRUCTION: The reply should be shorther then tree sentences. Always start the 
 				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 					/then {:
 						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
-						/input default={{getvar::t}} text|
+						/input rows=8 default={{getvar::t}} Edit the dialog example to fit this situation: {{item}}|
 						/setvar key=selected_btn {{pipe}}|
-						/ife {: left=selected_btn right="" rule=eq :}|
+						/ife {: /test left=selected_btn right="" rule=eq :}|
 								/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 						/else {: 
 							/setvar key=genState Redo|
