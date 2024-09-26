@@ -58,4 +58,4 @@ This needs to be imported as when you make your own tags they get a random 'ID' 
 
 [🔗](https://github.com/drago87/ST-Character-Maker/tree/main/Quick%20Reply%20Buttons/Work%20In%20Progress%20Plain%20Text) Same as above but in plain text for easier readabillity
 
-Use the Character Maker Lore Tags from above it is updated. (Will probebly remove the need for it in the future)
+Use the Character Maker Lore Tags from above it is updated. (This is now not needed)
