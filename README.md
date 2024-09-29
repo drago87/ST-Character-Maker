@@ -3,7 +3,7 @@
 <h1 align='center'>Quick Reply Buttons</h1>
 
 
-Quck Reply buttons made for [Character Maker QR]([https://chub.ai/characters/Drago87/character-maker-lore-v4-c2bdf3ee5aad](https://chub.ai/characters/Drago87/character-maker-sillytavern-quick-reply-driven-0eb2c2852a4f))
+Quck Reply buttons made for [Character Maker QR](https://chub.ai/characters/Drago87/character-maker-sillytavern-quick-reply-driven-0eb2c2852a4f)
 
 
 <h1 align='center'>Lorebooks</h1>
