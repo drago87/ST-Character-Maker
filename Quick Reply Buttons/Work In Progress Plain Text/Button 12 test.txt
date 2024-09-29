@@ -21,7 +21,7 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five spells.
-INSTRUCTION: Don't end with '.'. Start the spells with a capital letter. Only reply with a comma-separated list of spell names, nothing else.
+INSTRUCTION: Use the right pronounce. Don't end with '.'. Start the spells with a capital letter. Only reply with a comma-separated list of spell names, nothing else.
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
@@ -100,7 +100,7 @@ Where 'x' is the name of the spell and 'y' is the spell description.
 Example1: Fireball: Casts a ball of fire that explodes on hit.
 Example2: Increased Sensitivity: Increase the sensitivity of the target."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of the spell: {{item}} .
-INSTRUCTION: Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the spell description, nothing else.
+INSTRUCTION: Use the right pronounce. Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the spell description, nothing else.
 {{instructFirstOutput}}| 
 				
 				
@@ -150,7 +150,7 @@ INSTRUCTION: Start the Desciption with a capital letter. The description should 
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five physical and/or mental abilities.
-INSTRUCTION: Abilities are not spells. Don't end with '.'. Start the abilities with a capital letter. Only reply with a comma-separated list of ability names, nothing else.
+INSTRUCTION: Use the right pronounce. Abilities are not spells. Don't end with '.'. Start the abilities with a capital letter. Only reply with a comma-separated list of ability names, nothing else.
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
@@ -232,7 +232,7 @@ Where 'x' is the name of the ability and 'y' is the ability description.
 Example1: Enhanced Agility: {{getvar::fname}}'s increased Agility and reflexes are inborn and .
 Example2: Increased Sensitivity (Clit): {{getvar::fname}}'s clit have increased sensitivity due to having played to mutch with it."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of the ability: {{item}}. Describe how {{getvar::fname}} got the ability (if is it inborn, have been training to get it etc..) and what the ability does.
-INSTRUCTION: Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the ability description, nothing else.
+INSTRUCTION: Use the right pronounce. Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the ability description, nothing else.
 {{instructFirstOutput}}| 
 				
 				

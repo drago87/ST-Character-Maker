@@ -19,7 +19,7 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a a description of the type of world(medieval, fantasy, sci-fi, present times etc..) {{getvar::fname}} lives in.
-INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
+INSTRUCTION: Use the right pronounce. Keep the reply to under five sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
 {{instructFirstOutime_periodut}}|
 	
 	
@@ -64,7 +64,7 @@ INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fna
 
 Description of {{getvar::fname}}'s world: {{getvar::p1}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue with the description of the where {{getvar::fname}} lives?(Small house in a community, Apartment in a skyscraper etc.. )
-INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
+INSTRUCTION: Use the right pronounce. Keep the reply to under five sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
 {{instructFirstOutime_periodut}}|
 	
 	
@@ -109,7 +109,7 @@ INSTRUCTION: Keep the reply to under five sentences. Don't mention {{getvar::fna
 Description of {{getvar::fname}}'s world: {{getvar::p1}}
 Description of where {{getvar::fname}} lives: {{getvar::p2}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue with the description of {{getvar::fname}}'s home environment and community etc...
-INSTRUCTION: Keep the reply to under ten sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
+INSTRUCTION: Use the right pronounce. Keep the reply to under ten sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
 {{instructFirstOutime_periodut}}|
 	
 	
@@ -160,7 +160,7 @@ INSTRUCTION: Keep the reply to under ten sentences. Don't mention {{getvar::fnam
 {{getvar::fname}}'s occupation is: {{getvar::occupation}}
 This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a description of {{getvar::fnames}}'s morning rutine (this is something {{getvar::fnames}} does in the mornings before going to work/school).
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under three sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under three sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
 {{instructFirstOutput}}|  
 	
 	
@@ -207,7 +207,7 @@ This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}
 
 This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s daily rutine (this is something {{getvar::fnames}} does during work/school).
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
 {{instructFirstOutput}}|  
 	
 	
@@ -255,7 +255,7 @@ This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}
 This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}
 This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s after work/school rutine untill  eating dinner (this is something {{getvar::fnames}} does after work/school untill just after dinner.).
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
 {{instructFirstOutput}}|  
 	
 	
@@ -304,7 +304,7 @@ This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}
 This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}
 This is {{getvar::fname}}'s after work/school rutine: {{getvar::p3}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s evening rutine (this is something {{getvar::fnames}} does in the evening but before getting ready for bed).
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
 {{instructFirstOutput}}|  
 	
 	
@@ -354,7 +354,7 @@ This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}
 This is {{getvar::fname}}'s after work/school rutine: {{getvar::p3}}
 This is {{getvar::fname}}'s evening rutine: {{getvar::p4}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s Nightly rutine (this is something {{getvar::fnames}} does at night when going to bed and in the bed before sleeping).
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
 {{instructFirstOutput}}|  
 	
 	
@@ -404,7 +404,7 @@ This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}
 This is {{getvar::fname}}'s after work/school rutine: {{getvar::p3}}
 This is {{getvar::fname}}'s evening rutine: {{getvar::p4}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of what {{getvar::fnames}} usually do during Weekends.
-INSTRUCTION: Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
+INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
 {{instructFirstOutput}}|  
 	
 	

@@ -19,7 +19,7 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fnames}}'s personality, describing {{getvar::fnames}} from a outsiders view.
-INSTRUCTION: Start the genres with a capital letter. Only reply with description of the personality, nothing else.
+INSTRUCTION: Use the right pronounce. Start the genres with a capital letter. Only reply with description of the personality, nothing else.
 {{instructFirstOutput}}|
 	
 	
@@ -91,7 +91,7 @@ Use (emotions) for emotions.
 	
 Start your respons with: {{getvar::fname}}:"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide {{item}} using mostly English showcasing {{getvar::fname}}'s dialect and speech pattern.
-INSTRUCTION: The reply should be one short sentence. Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else.
+INSTRUCTION: Use the right pronounce. The reply should be one short sentence. Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else.
 {{instructFirstOutput}}| 
 		
 		
@@ -207,7 +207,7 @@ Use (emotions) for emotions.
 	
 Start your respons with: {{getvar::fname}}:"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a single short dialog example where {{getvar::fname}} is in this situation: {{item}}. Use mostly English while showcasing {{getvar::fname}}'s dialect and speech pattern.
-INSTRUCTION: The reply should be one short sentence. Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else.
+INSTRUCTION: Use the right pronounce. The reply should be one short sentence. Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else.
 {{instructFirstOutput}}|  
 				
 				

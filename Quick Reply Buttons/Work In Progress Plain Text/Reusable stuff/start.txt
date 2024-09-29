@@ -39,7 +39,7 @@
 /ife {: /test left=swipe right=Yes rule=neq:}|
 	/then {:
 		
-		/input default={{input}} Information about {{getvar::fname}}  you want the generation to take into account.|
+		/input rows=8 default={{input}} Information about {{getvar::fname}}  you want the generation to take into account.|
 		/setvar key=info {{pipe}}|
 		/ife {: /test left=info right="" rule=eq:}|
 			/then {: /setinput </{{getvar::genid}}>:}|

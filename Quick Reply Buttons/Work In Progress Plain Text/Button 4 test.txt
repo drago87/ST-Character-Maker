@@ -69,7 +69,7 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five positive traits. 
-INSTRUCTION:{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each positive trait with a capital letter. Only reply with five positive traits and nothing else.
+INSTRUCTION: Use the right pronounce.{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each positive trait with a capital letter. Only reply with five positive traits and nothing else.
 {{instructFirstOutput}}|
 
 		/setvar key=t1 {{pipe}}|
@@ -158,7 +158,7 @@ INSTRUCTION:{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gen
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five negative traits. 
-INSTRUCTION:{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each negative trait with a capital letter. Only reply with five negative traits and nothing else.
+INSTRUCTION: Use the right pronounce.{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each negative trait with a capital letter. Only reply with five negative traits and nothing else.
 {{instructFirstOutput}}|
 
 		/setvar key=t1 {{pipe}}|
@@ -215,7 +215,7 @@ INSTRUCTION:{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gen
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five Human traits(This can be things like 'Can speak', 'Can hold things', 'Can use tools', 'Feels pleasure' etc..).
-INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-separated list of five Human traits, nothing else.
+INSTRUCTION: Use the right pronounce. Start each trait with a capital letter. Only reply with the comma-separated list of five Human traits, nothing else.
 {{instructFirstOutput}}|  
 
 			/setvar key=t {{pipe}}|
@@ -298,7 +298,7 @@ INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-s
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five {{getvar::d2}} traits.
-INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-separated list of five {{getvar::d2}} traits, nothing else.
+INSTRUCTION: Use the right pronounce. Start each trait with a capital letter. Only reply with the comma-separated list of five {{getvar::d2}} traits, nothing else.
 {{instructFirstOutput}}|  
 
 			/setvar key=t {{pipe}}|
@@ -416,7 +416,7 @@ INSTRUCTION: Start each trait with a capital letter. Only reply with the comma-s
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five quirks(This is something {{getvar::fname}} does that other think is odd).
-INSTRUCTION:{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirk with a capital letter. Eache quirk should be a short sentence. Only reply with a comma-separated list with five quirks, nothing else.
+INSTRUCTION: Use the right pronounce.{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirk with a capital letter. Eache quirk should be a short sentence. Only reply with a comma-separated list with five quirks, nothing else.
 {{instructFirstOutput}}|
 
 		/setvar key=t1 {{pipe}}|
@@ -511,7 +511,7 @@ Quirks:"|
 Based on these
 \"{{getvar::person}}\""
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide description of {{getvar::fname}}'s personality.
-INSTRUCTION:{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirks with a capital letter. Only reply with the description of {{getvar::fname}}'s personality and nothing else.
+INSTRUCTION: Use the right pronounce.{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirks with a capital letter. Only reply with the description of {{getvar::fname}}'s personality and nothing else.
 {{instructFirstOutput}}|
 
 	/addvar key=t1 {{pipe}}|

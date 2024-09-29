@@ -37,7 +37,7 @@
 		/genraw lock=on name={{char}} 
 		system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}"Now, provide a comma-separated list of five kinks.
-INSTRUCTION: Start each kink with a capital letter. Ensure the kink is not one of these kinks, {{getvar::temp}}. The response should be a comma-separated list of five kinks, nothing else.
+INSTRUCTION: Use the right pronounce. Start each kink with a capital letter. Ensure the kink is not one of these kinks, {{getvar::temp}}. The response should be a comma-separated list of five kinks, nothing else.
 {{instructFirstOutput}}|
 
 		/setvar key=t {{pipe}}|
@@ -70,17 +70,17 @@ INSTRUCTION: Start each kink with a capital letter. Ensure the kink is not one o
 	/addvar key=kink {{getvar::selected_btn}}|
 
 
-	/setvar key=type {{noop}}
-	/setvar key=temptype {{noop}}|
+	/setvar key=regiv {{noop}}
+	/setvar key=tempregiv {{noop}}|
 	/buttons labels=["Receiver","Giver","Not Specified"] Would you like the character to be on the receiving end or the giving end?|
-	/setvar key=type {{pipe}} |
-	/ife {: /test left=type right="" rule=eq :}|
+	/setvar key=regiv {{pipe}} |
+	/ife {: /test left=regiv right="" rule=eq :}|
 		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
-	/ife {: /test left=type right=Receiver rule=eq :}|
-		/then {: /setvar key=temptype "This is where {{getvar::fname}} is the one that have the kink done to. "| /addvar key=types {{getvar::type}} :}|
-	/elseif {: /test left=type right=Giver rule=eq :}|
-		/then {: /setvar key=temptype "This is where {{getvar::fname}} is the one doing the kink to another. "|/addvar key=types {{getvar::type}}| :}|
-	/addvar key=kink {{getvar::type}}|
+	/ife {: /test left=regiv right=Receiver rule=eq :}|
+		/then {: /setvar key=tempregiv "This is where {{getvar::fname}} is the one that have the kink done to. "| /addvar key=regivs {{getvar::regiv}} :}|
+	/elseif {: /test left=regiv right=Giver rule=eq :}|
+		/then {: /setvar key=tempregiv "This is where {{getvar::fname}} is the one doing the kink to another. "|/addvar key=regivs {{getvar::regiv}}| :}|
+	/addvar key=kink {{getvar::regiv}}|
 	
 	
 	//Explanation of the kink|
@@ -98,7 +98,7 @@ INSTRUCTION: Start each kink with a capital letter. Ensure the kink is not one o
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a short Explanation of what the kink '{{getvar::k}}' entails.
-INSTRUCTION: Start the explanation with '{{getvar::k}}' followed by ' is when a person'. Use max fifteen tokens.
+INSTRUCTION: Use the right pronounce. Start the explanation with '{{getvar::k}}' followed by ' is when a person'. Use max fifteen tokens.
 {{instructFirstOutput}} |
 		
 		
@@ -136,7 +136,7 @@ INSTRUCTION: Start the explanation with '{{getvar::k}}' followed by ' is when a 
 	/setvar key=genState Redo|
 
 	/while left=genState right=Redo rule=eq {:
-		/echo Generating Something|
+		/echo Generating {{getvar::k}} trigger|
 		/setvar key=genState []|  
 	
 		/genraw lock=on name={{char}} 
@@ -144,7 +144,7 @@ INSTRUCTION: Start the explanation with '{{getvar::k}}' followed by ' is when a 
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a short description on what could make {{getvar::fname}} interested in {{getvar::kink}}. {{getvar::fname}} could get the know about the kink from {{random::a parent::a older sibling (Mention the siblings name)::a older relative (Mention the relatives name)::a neighbor (Mention the neighbors name)::a rental video in the wrong package::a magazine::accidentally seeing someone doing the kink}}
-INSTRUCTION: Keep in mind that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Start the reply with 'If {{getvar::fname}}' or 'If someone' (This could be that if someone does something to the character, the character sees or hear something or the character may accidentally be exposed to it) . The reply should be in future tense. Use max fifteen tokens.
+INSTRUCTION: Use the right pronounce. Keep in mind that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Start the reply with 'If {{getvar::fname}}' or 'If someone' (This could be that if someone does something to the character, the character sees or hear something or the character may accidentally be exposed to it) . The reply should be in future tense. Use max fifteen tokens.
 {{instructFirstOutput}} |
 		
 		

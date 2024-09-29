@@ -19,7 +19,7 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, describe {{getvar::fname}} Speech Patterns (how and if {{getvar::fname}} speaks or if it can only use sounds and gestures to communicate.)
-INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}.  Keep the response to one sentences. The response should be short about {{getvar::fname}}'s Speech Patterns and nothing else.
+INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}.  Keep the response to one sentences. The response should be short about {{getvar::fname}}'s Speech Patterns and nothing else.
 {{instructFirstOutput}}| 
 	
 	
@@ -65,7 +65,7 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
 
 Take {{getvar::fname}}'s Speach pattern into consideration when ansering: {{getvar::sp}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a comma-separated list of five dialects.
-INSTRUCTION: The dialects should only be one or two words. Start each dialect with a capital letter. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be a list of five dialects and nothing else.
+INSTRUCTION: Use the right pronounce. The dialects should only be one or two words. Start each dialect with a capital letter. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be a list of five dialects and nothing else.
 {{instructFirstOutput}}|  
 	
 	
@@ -104,7 +104,7 @@ INSTRUCTION: The dialects should only be one or two words. Start each dialect wi
 /setvar key=genState Redo|
 
 /while left=genState right=Redo rule=eq {:
-	/echo Generating Something|
+	/echo Generating {{getvar::fname}}'s {{getvar::dil}} dialect example.|
     /setvar key=genState []|  
 
     /genraw lock=on name={{char}} 
@@ -114,7 +114,7 @@ INSTRUCTION: The dialects should only be one or two words. Start each dialect wi
 
 Take {{getvar::fname}}'s {{getvar::dil}} dialect and use in your reply."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a example on how {{getvar::fname}} would talk using {{getvar::dil}}.
-INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The reply should be one sentence. The response should only be the example and nothing else.
+INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The reply should be one sentence. The response should only be the example and nothing else.
 {{instructFirstOutput}}| 
 	
 	
@@ -163,7 +163,7 @@ Take {{getvar::fname}}'s Speach pattern into consideration when replying: {{getv
 
 Take {{getvar::fname}}'s dialect into consideration when replying: {{getvar::dil}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a short Catchphrase that {{getvar::fname}} uses.
-INSTRUCTION: The Catchphrase should only be a short sentence. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should the Catchphrase and nothing else.
+INSTRUCTION: Use the right pronounce. The Catchphrase should only be a short sentence. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should the Catchphrase and nothing else.
 {{instructFirstOutput}}|
 	
 	
@@ -218,7 +218,7 @@ Example1: \"Gulp\"
 Example2: \"Jelp\"
 Example3: \"Whelp\""
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five Common onomatopoeias the character often starts or ends sentences with (This could be words like 'Dude' etc..).
-INSTRUCTION: Emululate the examples given. Start each onomatopoeias with a capital letter. Only reply with five words, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. Start each onomatopoeias with a capital letter. Only reply with five words, nothing else.
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
@@ -285,7 +285,7 @@ INSTRUCTION: Emululate the examples given. Start each onomatopoeias with a capit
 
 Take {{getvar::fname}}'s Speach pattern into consideration when ansering: {{getvar::sp}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a description on how {{getvar::fname}} typically interact with others.
-INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Keep the response to one sentences.  The response should only be a description and nothing else.
+INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Keep the response to one sentences.  The response should only be a description and nothing else.
 {{instructFirstOutput}}|
 	
 	
@@ -324,7 +324,7 @@ INSTRUCTION: Remember the Genre is {{getvar::genre}}, the genre is {{getvar::gen
 /setvar key=skip {{noop}}|
 
 /while left=genState right=Redo rule=eq {:
-	/echo Generating Something|
+	/echo Generating {{getvar::fname}}'s Preferred subject|
     /setvar key=genState []|  
 
     /genraw lock=on name={{char}} 
@@ -339,7 +339,7 @@ example1: Dwarf's like to talk about metal and rocks.
 example2: Elf's like to talk about nature and music.
 example3: Dragon's like to talk about their treasures."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a subject {{getvar::fname}} enjoys discussing.
-INSTRUCTION: The subjects should be short and be something that {{getvar::fnames}}'s {{getvar::species}} species likes to discuss. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should be a short sentence. The response should only be a subject, nothing else.
+INSTRUCTION: Use the right pronounce. The subjects should be short and be something that {{getvar::fnames}}'s {{getvar::species}} species likes to discuss. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should be a short sentence. The response should only be a subject, nothing else.
 {{instructFirstOutput}}|
 	
 	

@@ -68,7 +68,7 @@
 				
 			:}|
 		/else {:
-			
+			/setvar key=character_files "No Files"|
 		:}|
 		/ife {: /test left=character_files right="" rule=neq :}|
 			/then {:

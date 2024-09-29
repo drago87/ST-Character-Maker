@@ -38,7 +38,7 @@ Example2: Bake
 Example3: Massage
 Example4: Giving a Blowjob"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five things that {{getvar::fname}} is particularly good at.(This could be dancing, doing a blowjob etc..)
-INSTRUCTION: Emululate the examples given. Avoid having any of these strenghts in your replys: {{getvar::skip1}}. Start the strenghts with a capital letter. Only reply with a comma-separated list of five strenghts, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid having any of these strenghts in your replys: {{getvar::skip1}}. Start the strenghts with a capital letter. Only reply with a comma-separated list of five strenghts, nothing else.
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
@@ -126,7 +126,7 @@ Example2: Bake
 Example3: Massage
 Example4: Blowjob"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five weaknesses that is {{getvar::fname}}'s vulnerabilities or challenges are.(This could be dancing, doing a blowjob etc..)
-INSTRUCTION: Emululate the examples given. Start the weakness with a capital letter. Avoid picking any of these weaknesses {{getvar::skip1}}. Only reply with a comma-separated list of five weaknesses, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. Start the weakness with a capital letter. Avoid picking any of these weaknesses {{getvar::skip1}}. Only reply with a comma-separated list of five weaknesses, nothing else.
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
@@ -213,7 +213,7 @@ Example1: Pizza
 Example2: Playing outside
 Example3: Taking Baths"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five things {{getvar::fname}} likes (this can be items, food, activities etc...).
-INSTRUCTION: Emululate the examples given. Start the likes with a capital letter. Avoid picking any of these likes {{getvar::skip1}}. Only reply with a comma-separated list of five likes, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. Start the likes with a capital letter. Avoid picking any of these likes {{getvar::skip1}}. Only reply with a comma-separated list of five likes, nothing else.
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
@@ -301,7 +301,7 @@ Example1: Storms
 Example2: Bullying
 Example3: Spinach"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five things {{getvar::fname}} dislikes (this can be items, food, activities etc...).
-INSTRUCTION: Emululate the examples given. Start the dislike with a capital letter. Avoid picking any of these dislikes {{getvar::skip1}}. Only reply with a comma-separated list of five dislikes, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. Start the dislike with a capital letter. Avoid picking any of these dislikes {{getvar::skip1}}. Only reply with a comma-separated list of five dislikes, nothing else.
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
@@ -391,7 +391,7 @@ Example2: Spiders
 Example3: Pain
 Example4: Losing Games"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five things {{getvar::fname}} is afraid of.
-INSTRUCTION: Emululate the examples given. Start each fear with a capital letter. Avoid picking any of these fears {{getvar::skip1}}. Only reply with a comma-separated list of five fears, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. Start each fear with a capital letter. Avoid picking any of these fears {{getvar::skip1}}. Only reply with a comma-separated list of five fears, nothing else.
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
@@ -464,7 +464,7 @@ This is a list of what {{getvar::fname}} likes: {{getvar::likes}}
 This is a list of what {{getvar::fname}} dislikes: {{getvar::likes}}
 This is a list of what {{getvar::fname}} is afraid of: {{getvar::fears}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on {{getvar::fname}}'s Sexual knowledge (This is  knowledge about sex, porn, the opposite gender, sex toys, kinks etc...).
-INSTRUCTION: The description should be under four sentences. Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. The description should be under four sentences. Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Only reply with the description, nothing else.
 {{instructFirstOutput}}|
 
 	/addvar key=genState {{pipe}}|
@@ -513,7 +513,7 @@ This is a list of what {{getvar::fname}} dislikes: {{getvar::likes}}
 This is a list of what {{getvar::fname}} is afraid of: {{getvar::fears}}
 This is {{getvar::fname}}' sexual knowlage: {{getvar::sknowlage}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on {{getvar::fname}}'s Sexual experiance (The description should include something {{getvar::fname}} have experienced that have left a mark, either physically or mentally, sex toys, having someone touch the character's Genitalia, kinks etc...).
-INSTRUCTION: The description should be under four sentences. Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. The description should be under four sentences. Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Only reply with the description, nothing else.
 {{instructFirstOutput}}|
 
 	/addvar key=genState {{pipe}}|
@@ -568,7 +568,7 @@ INSTRUCTION: The description should be under four sentences. Remember that {{get
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a description on how the species {{getvar::species}} mate with eachouther. The description should be the mating process of {{getvar::species}}'s and how the male Genitalia interacts with the females Genitalia.
-INSTRUCTION: The description should be in depth and under ten sentences and fookus on how the male and female interact during mating.  The response should only be the description and nothing else.
+INSTRUCTION: Use the right pronounce. The description should be in depth and under ten sentences and fookus on how the male and female interact during mating.  The response should only be the description and nothing else.
 {{instructFirstOutput}}|
 			
 			

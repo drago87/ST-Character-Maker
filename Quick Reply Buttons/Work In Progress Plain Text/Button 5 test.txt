@@ -60,7 +60,7 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide the name, age and gender of one of {{getvar::fname}}'s siblings.
-INSTRUCTION: The sibling is a {{random::{{getvar::span}}}} {{random::Boy::Girl}}. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two short sentences. {{getvar::fname}} is {{getvar::age}}. Start the respons with 'The older/younger sister/brother' followed by 'name' of the sibling followed by 'age' of the sibling followed by a sold description of the sibling's personality. The respons should be present tense. The response should be short about {{getvar::fname}}'s sibling and nothing else.
+INSTRUCTION: Use the right pronounce. The sibling is a {{random::{{getvar::span}}}} {{random::Boy::Girl}}. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two short sentences. {{getvar::fname}} is {{getvar::age}}. Start the respons with 'The older/younger sister/brother' followed by 'name' of the sibling followed by 'age' of the sibling followed by a sold description of the sibling's personality. The respons should be present tense. The response should be short about {{getvar::fname}}'s sibling and nothing else.
 {{instructFirstOutput}}|
 
 		/addvar key=slist {{pipe}} |
@@ -96,7 +96,7 @@ INSTRUCTION: The sibling is a {{random::{{getvar::span}}}} {{random::Boy::Girl}}
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide the name and situation (Situation can be Working(Provided what she is working with), Devorced(Provide why they are devorced), Deciesed(Provide how she died)) of {{getvar::fname}}'s mother.
-INSTRUCTION: Remeber she is the mother of {{getvar::scount}} children. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two sentences. The response should be short about {{getvar::fname}}'s mother and nothing else.
+INSTRUCTION: Use the right pronounce. Remeber she is the mother of {{getvar::scount}} children. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two sentences. The response should be short about {{getvar::fname}}'s mother and nothing else.
 {{instructFirstOutput}}|
 	/addvar key=mlist {{pipe}} |
 	/addvar key=mlist Edit|
@@ -126,7 +126,7 @@ INSTRUCTION: Remeber she is the mother of {{getvar::scount}} children. Remember 
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide the name and situation (Situation can be Working(Provided what he is working with), Devorced(Provide why they are devorced), Deciesed(Provide how he died)) of {{getvar::fname}}'s father. Here is information of {{getvar::fname}}'s mother 
 '{{getvar::mother}}'
-INSTRUCTION: Remeber he is the father of {{getvar::scount}} children. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two sentences. The response should be short about {{getvar::fname}}'s father and nothing else.
+INSTRUCTION: Use the right pronounce. Remeber he is the father of {{getvar::scount}} children. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two sentences. The response should be short about {{getvar::fname}}'s father and nothing else.
 {{instructFirstOutput}}|
 
 	/addvar key=flist {{pipe}} |
@@ -179,7 +179,7 @@ This is information about {{getvar::fname}}'s familty '{{getvar::finfo}}'
 	
 {{getvar::rules}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, use this information to make a coherent description of {{getvar::name}}'s family.
-INSTRUCTION: Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to five to ten sentences. The response should be short about {{getvar::fname}}'s family and nothing else.
+INSTRUCTION: Use the right pronounce. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to five to ten sentences. The response should be short about {{getvar::fname}}'s family and nothing else.
 {{instructFirstOutput}}|
 	/addvar key=falist {{pipe}} |
 	/addvar key=falist Edit|
@@ -214,7 +214,7 @@ Family: {{getvar::family}}"|
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, use make {{getvar::name}}'s best friend and give a short description of what they do together.
-INSTRUCTION: Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to fore to six sentences. The response should be short about {{getvar::fname}}'s best friend and nothing else.
+INSTRUCTION: Use the right pronounce. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to fore to six sentences. The response should be short about {{getvar::fname}}'s best friend and nothing else.
 {{instructFirstOutput}}|
 
 	/addvar key=bfrend {{pipe}} |
@@ -253,7 +253,7 @@ Best Friend: {{getvar::bfrend}}"|
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s romantic interest if there is one.
-INSTRUCTION: The reply should be two sentences. Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. The reply should be two sentences. Only reply with the description, nothing else.
 {{instructFirstOutput}}| 
 	
 	
@@ -306,7 +306,7 @@ Romantic Interest: {{getvar::rinterest}}"|
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s Enemy and/or Rival if there is one.
-INSTRUCTION: The description should be one sentence for the Eneme and one sentence for the Rival. Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. The description should be one sentence for the Eneme and one sentence for the Rival. Only reply with the description, nothing else.
 {{instructFirstOutput}}|  
 	
 	

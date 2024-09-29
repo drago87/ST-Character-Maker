@@ -1,4 +1,4 @@
-/setvar key=t {{lastmessage}}| /re-replace replace="" find="/Character Maker Lore: /g" var=t | /setvar key=p {{pipe}} | /re-replace replace="" find="/(?<=<\/h2>)([\s\S]*)/g" var=p | /setvar key=d {{pipe}} | /swipes-add {{getvar::d}}| /tag-list | /setvar key=list {{pipe}} | /setvar key=swipe Yes|
+/setvar key=t {{lastmessage}}| /re-replace replace="" find="/Character Maker QR: /g" var=t | /setvar key=p {{pipe}} | /re-replace replace="" find="/(?<=<\/h2>)([\s\S]*)/g" var=p | /setvar key=d {{pipe}} | /swipes-add {{getvar::d}}| /tag-list | /setvar key=list {{pipe}} | /setvar key=swipe Yes|
 /messages 0-{{lastMessageId}} |
 /setvar key=messageHistory {{pipe}} | 
 

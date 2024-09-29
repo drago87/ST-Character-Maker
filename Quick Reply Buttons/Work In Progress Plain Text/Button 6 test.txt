@@ -31,13 +31,13 @@
 	/setvar key=genState Redo|
 
 	/while left=genState right=Redo rule=eq {:
-		/echo Generating Something|
+		/echo Generating Known kinks|
 		/setvar key=genState []|  
 	
 		/genraw lock=on name={{char}} 
 		system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}"Now, provide a comma-separated list of five kinks.
-INSTRUCTION: Start each kink with a capital letter. Ensure the kink is not one of these kinks, {{getvar::temp}}. The response should be a comma-separated list of five kinks, nothing else.
+INSTRUCTION: Use the right pronounce. Start each kink with a capital letter. Ensure the kink is not one of these kinks, {{getvar::temp}}. The response should be a comma-separated list of five kinks, nothing else.
 {{instructFirstOutput}}|
 
 		/setvar key=t {{pipe}}|
@@ -70,17 +70,17 @@ INSTRUCTION: Start each kink with a capital letter. Ensure the kink is not one o
 	/addvar key=kink {{getvar::selected_btn}}|
 
 
-	/setvar key=type {{noop}}
-	/setvar key=temptype {{noop}}|
+	/setvar key=regiv {{noop}}
+	/setvar key=tempregiv {{noop}}|
 	/buttons labels=["Receiver","Giver","Not Specified"] Would you like the character to be on the receiving end or the giving end?|
-	/setvar key=type {{pipe}} |
-	/ife {: /test left=type right="" rule=eq :}|
+	/setvar key=regiv {{pipe}} |
+	/ife {: /test left=regiv right="" rule=eq :}|
 		/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
-	/ife {: /test left=type right=Receiver rule=eq :}|
-		/then {: /setvar key=temptype "This is where {{getvar::fname}} is the one that have the kink done to. "| /addvar key=types {{getvar::type}} :}|
-	/elseif {: /test left=type right=Giver rule=eq :}|
-		/then {: /setvar key=temptype "This is where {{getvar::fname}} is the one doing the kink to another. "|/addvar key=types {{getvar::type}}| :}|
-	/addvar key=kink {{getvar::type}}|
+	/ife {: /test left=regiv right=Receiver rule=eq :}|
+		/then {: /setvar key=tempregiv "This is where {{getvar::fname}} is the one that have the kink done to. "| /addvar key=regivs {{getvar::regiv}} :}|
+	/elseif {: /test left=regiv right=Giver rule=eq :}|
+		/then {: /setvar key=tempregiv "This is where {{getvar::fname}} is the one doing the kink to another. "|/addvar key=regivs {{getvar::regiv}}| :}|
+	/addvar key=kink {{getvar::regiv}}|
 	
 	
 	//Explanation of the kink|
@@ -90,7 +90,7 @@ INSTRUCTION: Start each kink with a capital letter. Ensure the kink is not one o
 	/setvar key=genState Redo|
 	
 	/while left=genState right=Redo rule=eq {:
-		/echo Generating Something|
+		/echo Generating {{getvar::k}}'s explanation|
 		/setvar key=genState []|  
 	
 		/genraw lock=on name={{char}} 
@@ -98,7 +98,7 @@ INSTRUCTION: Start each kink with a capital letter. Ensure the kink is not one o
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a short Explanation of what the kink '{{getvar::k}}' entails.
-INSTRUCTION: Start the explanation with '{{getvar::k}}' followed by ' is when a person'. Use max fifteen tokens.
+INSTRUCTION: Use the right pronounce. Start the explanation with '{{getvar::k}}' followed by ' is when a person'. Use max fifteen tokens.
 {{instructFirstOutput}} |
 		
 		
@@ -136,7 +136,7 @@ INSTRUCTION: Start the explanation with '{{getvar::k}}' followed by ' is when a 
 	/setvar key=genState Redo|
 
 	/while left=genState right=Redo rule=eq {:
-		/echo Generating Something|
+		/echo Generating {getvar::fname}}'s first exposure to {{getvar::k}}|
 		/setvar key=genState []|  
 	
 		/genraw lock=on name={{char}} 
@@ -144,7 +144,7 @@ INSTRUCTION: Start the explanation with '{{getvar::k}}' followed by ' is when a 
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a short description on how {{getvar::fname}} first got to know about {{getvar::k}}. {{getvar::fname}} could get the know about the kink from {{random::a parent::a older sibling::a older relative::a neighbor::a video::a magazine::accidentally seeing someone doing the kink}} when {{getvar::fname}} was younger then {{getvar::age}}.
-INSTRUCTION: Keep in mind that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Start the reply with {{getvar::fname}}. Include the age at witch {{getvar::fname}} learnt about the kink. Use max fifteen tokens.
+INSTRUCTION: Use the right pronounce. Keep in mind that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Start the reply with {{getvar::fname}}. Include the age at witch {{getvar::fname}} learnt about the kink. Use max fifteen tokens.
 {{instructFirstOutput}} |
 		
 		
@@ -183,7 +183,7 @@ INSTRUCTION: Keep in mind that {{getvar::fname}} is a {{getvar::age}} {{getvar::
 	/setvar key=genState Redo|
 
 	/while left=genState right=Redo rule=eq {:
-		/echo Generating Something|
+		/echo Generating {{getvar::fname}}'s first experiance with {{getvar::k}}|
 		/setvar key=genState []|  
 		
 		/genraw lock=on name={{char}} 
@@ -195,7 +195,7 @@ This is how and when {{getvar::fname}} learnt the kink.
 '{{getvar::lernt}}'"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a short description of {{getvar::fname}} first time trying {{getvar::k}}. {{getvar::fname}} first experiance should happen sometime after she learns about the kink but still younger then {{getvar::age}}.
 The way that {{getvar::fname}} tried the kink for the first time could be {{random::a older sibling::a parent::a older relative::a teacher}} persuade {{getvar::fname}} to try it. Or {{getvar::fname}} could try it themself.
-INSTRUCTION: Keep in mind that {{getvar::fname}} is {{getvar::age}}.{{getvar::temptype}}Describe it in the past tense. Start the reply with 'The first time {{getvar::fname}} tried {{getvar::k}} was when'. Use max fifteen tokens.
+INSTRUCTION: Use the right pronounce. Keep in mind that {{getvar::fname}} is {{getvar::age}}.{{getvar::tempregiv}}Describe it in the past tense. Start the reply with 'The first time {{getvar::fname}} tried {{getvar::k}} was when'. Use max fifteen tokens.
 {{instructFirstOutput}} |  
 		
 		

@@ -7,10 +7,12 @@
 /:"Character Maker V4.Get Char info"|
 
 
-/buttons labels=["One-Piece","Two-Piece"] What type of outfit do you want {{getvar::fname}} to have?(Run it multiple times if you want multiple outfits.)|
+/buttons labels=["One-Piece","Two-Piece","No Outfit"] What type of outfit do you want {{getvar::fname}} to have?(Run it multiple times if you want multiple outfits.)|
 /setvar key=outfit_coice {{pipe}}|
 /ife {: /test left=outfit_coice right="" rule=eq :}|
 	/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
+/ife {: /test left=outfit_coice right="No Outfit" rule=neq :}|
+	/then {:
 /setvar key=input []|
 /addvar key=input "Headwear(This is what {{getvar::fname}} have on the head(Cap, Hair Ornament etc..))"|
 /ife {: /test left=outfit_coice right="One-Piece" rule=eq :}|
@@ -38,21 +40,14 @@
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s {{item}}. Include the color and any patterns or motifs on the {{getvar::cat}}.
-INSTRUCTION: Avoid things that mention her personality. The description should only be one sentences. Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. Avoid things that mention her personality. The description should only be one sentences. Only reply with the description, nothing else.
 {{instructFirstOutput}}|
 		
 		
 		
 		
 		/addvar key=genState {{pipe}}|
-		/ife {: /test left=cat right=Headwear rule=eq :}|
-			/then {:
-				/addvar key=genState Nothing|
-			:}|
-		/elseif {: /test left=cat right=Underwear rule=eq :}|
-			/then {:
-				/addvar key=genState Nothing|
-			:}|
+		/addvar key=genState None|
 		/addvar key=genState Edit|  
 		/addvar key=genState Redo|  
 		
@@ -112,7 +107,7 @@ INSTRUCTION: Avoid things that mention her personality. The description should o
 		/setvar key=genState Redo|
 		
 		/while left=genState right=Redo rule=eq {:
-			/echo Generating Something|
+			/echo Generating Upper Garment modifications|
 			/setvar key=genState []|  
 		
 			/genraw lock=on name={{char}} 
@@ -123,13 +118,14 @@ INSTRUCTION: Avoid things that mention her personality. The description should o
 This is the descriptions of {{getvar::upper}}'s upper garments:
 '{{getvar::p1st}}'"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on how {{getvar::fname}}'s upper garments are modified to accommodate {{getvar::fname}}'s horns, wings, tail etc...
-INSTRUCTION: Avoid things that mention her personality. The reply shoud be four short sentences. Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. Avoid things that mention her personality. The reply shoud be four short sentences. Only reply with the description, nothing else.
 {{instructFirstOutput}}|  
 			
 			
 			
 			
 			/addvar key=genState {{pipe}}|
+			/addvar key=genState None|
 			/addvar key=genState Edit|  
 			/addvar key=genState Redo|  
 		
@@ -190,17 +186,14 @@ INSTRUCTION: Avoid things that mention her personality. The reply shoud be four 
 This is the descriptions of {{getvar::upper}}'s upper garments:
 '{{getvar::p1st}}'"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s {{item}}(Is should fit with the upper garments). Include the color and any patterns or motifs on the {{getvar::cat}}.
-INSTRUCTION: Avoid things that mention her personality. The description should only be one sentences. Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. Avoid things that mention her personality. The description should only be one sentences. Only reply with the description, nothing else.
 {{instructFirstOutput}}|
 		
 		
 		
 		
 		/addvar key=genState {{pipe}}|
-		/ife {: /test left=cat right=Underwear rule=eq :}|
-			/then {:
-				/addvar key=genState Nothing|
-			:}|
+		/addvar key=genState None|
 		/addvar key=genState Edit|  
 		/addvar key=genState Redo|  
 	
@@ -260,7 +253,7 @@ INSTRUCTION: Avoid things that mention her personality. The description should o
 		/setvar key=genState Redo|
 		
 		/while left=genState right=Redo rule=eq {:
-			/echo Generating Something|
+			/echo Generating Lower Garment modification|
 			/setvar key=genState []|  
 		
 			/genraw lock=on name={{char}} 
@@ -273,13 +266,14 @@ This is the descriptions of {{getvar::upper}}'s upper garments:
 This is the descriptions of {{getvar::fname}}'s lower garments:
 '{{getvar::p2st}}'"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on how {{getvar::fname}}'s lower garments are modified to accommodate {{getvar::fname}}'s horns, wings, tail etc...
-INSTRUCTION: Avoid things that mention her personality. The description should only be four short sentences.  Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. Avoid things that mention her personality. The description should only be four short sentences.  Only reply with the description, nothing else.
 {{instructFirstOutput}}|  
 			
 			
 			
 			
 			/addvar key=genState {{pipe}}|
+			/addvar key=genState None|
 			/addvar key=genState Edit|  
 			/addvar key=genState Redo|  
 		
@@ -335,13 +329,14 @@ This is the descriptions of {{getvar::upper}}'s upper garments:
 This is the descriptions of {{getvar::upper}}'s lower garments:
 '{{getvar::p2st}}'"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s {{item}}(Is should fit with the upper and lower garments). Include the color and any patterns or motifs on the {{getvar::cat}}.
-INSTRUCTION: Avoid things that mention her personality. The description should only be one sentences. Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. Avoid things that mention her personality. The description should only be one sentences. Only reply with the description, nothing else.
 {{instructFirstOutput}}|
 		
 		
 		
 		
 		/addvar key=genState {{pipe}}|
+		/addvar key=genState None|
 		/addvar key=genState Edit|  
 		/addvar key=genState Redo|  
 	
@@ -401,7 +396,7 @@ INSTRUCTION: Avoid things that mention her personality. The description should o
 		/setvar key=genState Redo|
 		
 		/while left=genState right=Redo rule=eq {:
-			/echo Generating Something|
+			/echo Generating Other Garment modification|
 			/setvar key=genState []|  
 		
 			/genraw lock=on name={{char}} 
@@ -416,13 +411,14 @@ This is the descriptions of {{getvar::fname}}'s lower garments:
 This is the descriptions of {{getvar::fname}}'s other garments:
 '{{getvar::p3st}}'"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on how {{getvar::fname}}'s other garments are modified to accommodate {{getvar::fname}}'s horns, wings, tail etc...
-INSTRUCTION: Avoid things that mention her personality. The description should only be four short sentences. Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. Avoid things that mention her personality. The description should only be four short sentences. Only reply with the description, nothing else.
 {{instructFirstOutput}}|  
 			
 			
 			
 			
 			/addvar key=genState {{pipe}}|
+			/addvar key=genState None|  
 			/addvar key=genState Edit|  
 			/addvar key=genState Redo|  
 		
@@ -449,7 +445,16 @@ INSTRUCTION: Avoid things that mention her personality. The description should o
 		/setvar key=other_modification {{getvar::selected_btn}}|
 
 :}|
-
+:}|
+/else {:
+	/setvar key=upper_garment []|
+	/setvar key=lower_garment []|
+	/setvar key=other_garment []|
+	/setvar key=upper_modification []|
+	/setvar key=lower_modification []|
+	/setvar key=other_modification []|
+	/setvar key=outfit_coice {{noop}}|
+:}|
 
 
 /setvar key=genState Redo|
@@ -464,18 +469,19 @@ INSTRUCTION: Avoid things that mention her personality. The description should o
 {{getvar::char_info}}
 
 The reply should only consist of gear(Saddle, Sword, Armor, Schoolbag, Dildo, Vibrator, Tools etc..) and not garments"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a brief Description of {{getvar::fname}}'s Gear (Saddle, Sword, Armor etc..)
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a brief Description of {{getvar::fname}}'s Gear.
 
 The gear can have something to do with {{getvar::occupation}} or with {{getvar::fname}}'s kinks.
-INSTRUCTION: Avoid things that mention her personality. Avoid garments in the reply. The reply should be up to five short sentences. Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. Avoid things that mention the personality. Avoid garments in the reply. The reply should be up to five short sentences. Only reply with the description, nothing else.
 {{instructFirstOutput}}|  
 	
 	
 	
 	
     /addvar key=genState {{pipe}}|
-    /addvar key=genState Edit|  
-    /addvar key=genState Redo|  
+	/addvar key=genState None|
+    /addvar key=genState Edit|
+    /addvar key=genState Redo|
 
     /buttons labels={{getvar::genState}} Is this the gear you want {{getvar::fname}} to have?|
 
@@ -502,66 +508,126 @@ INSTRUCTION: Avoid things that mention her personality. Avoid garments in the re
 /ife {: /test left=form right="" rule=neq :}|
 	/then {: /setvar key=form " ({{getvar::form}})" :}|
 
-/setvar key=output "<h2 align='center'>{{getvar::catgen}}{{getvar::form}} ({{getvar::outfit_coice}})</h2>
-
-Outfit Description
-Upper Body
-"|
+/setvar key=ucheck No|
+/setvar key=lcheck No|
+/setvar key=ocheck No|
 
 /foreach var=upper_garment {:
-	/addvar key=output "
-- {{item}}"|
+	/ife {: /test left={{item}} right=": None" rule=nin :}|
+		/then {: /setvar key=ucheck Yes :}|
 :}|
 
-/ife {: /test left=upper_modification right="" rule=neq :}|
+/foreach var=lower_garment {:
+	/ife {: /test left={{item}} right=": None" rule=nin :}|
+		/then {: /setvar key=lcheck Yes :}|
+:}|
+
+/foreach var=other_garment {:
+	/ife {: /test left={{item}} right=": None" rule=nin :}|
+		/then {: /setvar key=ocheck Yes :}|
+:}|
+
+/ife {: /test left=outfit_coice right="" rule=neq :}|
+	/then {: /setvar key=outfit_coice ({{getvar::outfit_coice}}):}|
+
+/setvar key=output "<h2 align='center'>{{getvar::catgen}}{{getvar::form}} {{getvar::outfit_coice}}</h2>
+
+"|
+/ife {: /test left=ucheck right=Yes rule=eq :}|
+	/then {:
+		/addvar key=output "Outfit Description"
+	:}|
+/elseif {: /test left=lcheck right=Yes rule=eq :}|
+	/then {:
+		/addvar key=output "Outfit Description"
+	:}|
+/elseif {: /test left=ocheck right=Yes rule=eq :}|
+	/then {:
+		/addvar key=output "Outfit Description"
+	:}|
+
+/ife {: /test left=ucheck right=Yes rule=eq :}|
 	/then {:
 		/addvar key=output "
+Upper Body"
+	:}|
+
+"|
+/ife {: /test left=ucheck right=Yes rule=eq :}|
+	/then {:
+		/foreach var=upper_garment {:
+			/ife {: /test left={{item}} right=": None" rule=nin :}|
+				/then {:
+					/addvar key=output "
+- {{item}}"|
+			:}|
+		:}|
+		/ife {: /test left=upper_modification right="" rule=neq :}|
+			/then {:
+				/addvar key=output "
 
 Modifications to the upper garments
 - {{getvar::upper_modification}}"
+		:}|
 	:}|
-	
-/addvar key=output "
+
+
+/ife {: /test left=lcheck right=Yes rule=eq :}|
+	/then {:
+		/addvar key=output "
 
 
 Lower Body
 "|
-
-/foreach var=lower_garment {:
-	/addvar key=output "
-- {{item}}"|
-:}|
-
-/ife {: /test left=lower_modification right="" rule=neq :}|
-	/then {:
-		/addvar key=output "
-
-Modifications to the lower garments
-- {{getvar::lower_modification}}"
 	:}|
 
 
-/addvar key=output "
+/ife {: /test left=lcheck right=Yes rule=eq :}|
+	/then {:
+		/foreach var=lower_garment {:
+			/ife {: /test left={{item}} right=": None" rule=nin :}|
+				/then {:
+					/addvar key=output "
+- {{item}}"|
+			:}|
+		:}|
+		/ife {: /test left=lower_modification right="" rule=neq :}|
+			/then {:
+				/addvar key=output "
+
+Modifications to the lower garments
+- {{getvar::lower_modification}}"
+		:}|
+	:}|
+
+
+/ife {: /test left=lcheck right=Yes rule=eq :}|
+	/then {:
+		/addvar key=output "
 
 
 Other
 "|
+	:}|
 
-/foreach var=other_garment {:
-	/addvar key=output "
-- {{item}}"|
-:}|
-
-/ife {: /test left=other_modification right="" rule=neq :}|
+/ife {: /test left=ocheck right=Yes rule=eq :}|
 	/then {:
-		/addvar key=output "
+		/foreach var=other_garment {:
+			/ife {: /test left={{item}} right=": None" rule=nin :}|
+				/then {:
+					/addvar key=output "
+- {{item}}"|
+			:}|
+		:}|
+		/ife {: /test left=other_modification right="" rule=neq :}|
+			/then {:
+				/addvar key=output "
 
 Modifications to the other garments
-- {{getvar::lower_modification}}"
+- {{getvar::other_modification}}"
+		:}|
 	:}|
-	
-/addvar key=output "
 
 
-Gear: {{getvar::gear}}"|
+/addvar key=output "Gear: {{getvar::gear}}"|
 /message-edit message={{lastMessageId}} {{getvar::output}}

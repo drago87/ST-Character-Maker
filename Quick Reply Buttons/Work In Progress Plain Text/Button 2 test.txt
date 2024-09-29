@@ -7,6 +7,29 @@
 /:"Character Maker V4.Get Char info"|
 
 
+/ife {: /test left=type right=None rule=neq :}|
+	/then {: /setvar key=typef "{{getvar::fname}}'s genetalia is {{getvar::type}} in form." :}|
+else {: /setvar key=typef {{noop}} :}|
+
+/setvar key=heightInfo {{noop}}|
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {: /setvar key=isTure true :}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Pokemon rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {: /setvar key=isTure false :}|
+/else {: /setvar key=isTure false :}|
+
+/ife {: /test left=isTure right=true rule=eq:}|
+	/then {: /addvar (This is the Height of {{getvar::fname}} when standing on two legs. It is mesured from the ground to the top of the head.)
+:}|
+/else {: /addvar (This is the Height of {{getvar::fname}} when standing on fore legs. It is mesured from the ground to it's withers.)
+:}|
+
 /setvar key=genState Redo|
 
 /while left=genState right=Redo rule=eq {:
@@ -24,7 +47,7 @@ Example2: 1.87m
 Example3: 90cm
 Example4: 10m"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five numeric heights for {{getvar::fname}}. The heights whould be approriate for {{getvar::age}} {{getvar::gender}}'s of the species {{getvar::species}}. 
-INSTRUCTION: Emululate the examples given. The heights should be in centimeter or meter depending on what is more approriate for {{getvar::species}}'s. Only reply with a comma-separated list, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. The heights should be in centimeter or meter depending on what is more approriate for {{getvar::species}}'s. The response should be a comma-separated list of five heights, nothing else.
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
@@ -89,9 +112,11 @@ INSTRUCTION: Emululate the examples given. The heights should be in centimeter o
 
 Here is some examples:
 Example1: 150cm
-Example2: 15m"
+Example2: 15m
+Example3: 1.5,
+Example4: 195cm"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five numeric lenghts for {{getvar::fname}}. The lenghts whould be approriate for {{getvar::age}} {{getvar::gender}}'s of the species {{getvar::species}}. The lenght should be from the tip of the nose to the tip of the tail.
-INSTRUCTION: Emululate the examples given. The lenghts should be in centimeter or meter depending on what is more approriate for {{getvar::species}}'s. Only reply with a comma-separated list, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. The lenghts should be in centimeter or meter depending on what is more approriate for {{getvar::species}}'s. The response should be a comma-separated list of five lenghts, nothing else.
 {{instructFirstOutput}}|
 		
 			/setvar key=t {{pipe}}|
@@ -152,7 +177,7 @@ Here is some examples:
 Example1: 85kg
 Example2: 5t"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five numeric weights for {{getvar::fname}}'s total weight. Each weight should be approriate for a {{getvar::species}} that is a {{getvar::age}} {{getvar::gender}}.
-INSTRUCTION: Emululate the examples given. Each weight should be appropriate for the species height and lenght. Each weight should be a single numeric value followed by its corresponding unit of measurement(Only show kg or t). The weights should be in kilo or tonne depending on what is more approriate for {{getvar::species}}'s weight. Only reply with a comma-separated list, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. Each weight should be appropriate for the species height and lenght. Each weight should be a single numeric value followed by its corresponding unit of measurement(Only show kg or t). The weights should be in kilo or tonne depending on what is more approriate for {{getvar::species}}'s weight. The response should be a comma-separated list of five weights, nothing else.
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
@@ -211,9 +236,10 @@ INSTRUCTION: Emululate the examples given. Each weight should be appropriate for
 {{getvar::info}}
 {{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s covering(This should be what type of covering(Fur, Scales, Feathers etc..) and what parts of the body is covered by the covering.).
-INSTRUCTION: Start the reply with a capital letter. Only reply with , nothing else.
+INSTRUCTION: Use the right pronounce. Start the reply with a capital letter. Only reply with , nothing else.
 {{instructFirstOutput}}|
-	
+			
+			/addvar key=genState {{pipe}}|
 			/addvar key=genState Edit|  
 			/addvar key=genState Redo|  
 		
@@ -269,10 +295,11 @@ INSTRUCTION: Start the reply with a capital letter. Only reply with , nothing el
 	:}|
 
 
-/addvar key=input "Ears(This should include the form and position of the ears)"|
-/addvar key=input "eyes(This should include the color of the irises and form of the pupils)"|
-/addvar key=input "Nose"|
-/addvar key=input "Mouth(This shold include the shape, type of teeth and the look of the tongue)"|
+/addvar key=input "Ears(This should include the form and position of {{getvar::fname}}'s ears)"|
+/addvar key=input "eyes(This should include the color of the irises and form of the pupils of {{getvar::fname}}'s ayes)"|
+/addvar key=input "Nose(This should include the form and look of {{getvar::fname}}'s nose)"|
+/addvar key=input "Mouth(This shold include the shape, type and look of {{getvar::fname}}'s teeth and lips)"|
+/addvar key=input "Tongue(This shold include the shape, type and look of {{getvar::fname}}'s tongue)"|
 
 
 /setvar key=p1 []|
@@ -290,6 +317,7 @@ INSTRUCTION: Start the reply with a capital letter. Only reply with , nothing el
 {{getvar::info}}
 {{getvar::char_info}}
 
+{{getvar::cover}}
 
 {{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
 
@@ -307,13 +335,15 @@ Example6: Her ears are pointed with a sharp tilt backwards.
 Example7: His eyes are golden with vertical slit pupils.
 Example8: Her eyes are brown with circular pupils."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
-INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
 {{instructFirstOutput}}|
 		
 		
 		
 		
 		/addvar key=genState {{pipe}}|
+		/ife {: /test left=cat right=Hair rule=eq:}|
+			/then {: /addvar key=genState None :}|
 		/ife {: /test left=cat right=Horns rule=eq:}|
 			/then {: /addvar key=genState None :}|
 
@@ -366,6 +396,7 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 {{getvar::info}}
 {{getvar::char_info}}
 
+{{getvar::cover}}
 
 {{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
 
@@ -375,7 +406,7 @@ This is the general information about {{getvar::fname}}'s head appearance: '{{ge
 
 Your reply should not include things like clothing, accessories etc.. or bodyparts like breasts, pussy, dick etc.."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general face appearance using the information given. The description should focus on the shape of {{getvar::fname}}'s head and face.
-INSTRUCTION: Keep the replys to under five sentences. Keep in mind that {{getvar::fname}}'s has a {{getvar::gender}} gender so use the correct pronoun. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Keep the replys to under five sentences. Keep in mind that {{getvar::fname}}'s has a {{getvar::gender}} gender so use the correct pronoun. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. Only reply with a description, nothing else.
 {{instructFirstOutput}}| 
 	
 	
@@ -502,6 +533,7 @@ Appearance: {{getvar::p2}}"|
 {{getvar::info}}
 {{getvar::char_info}}
 
+{{getvar::cover}}
 
 {{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
 
@@ -526,7 +558,7 @@ Example8: Her wings are feathered and colorful.
 Example9: His stomach has a hard six pack, with a outie bellybutton.
 Example10: Her stomach is small and flat, with a bellybutton that is slightly indented."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
-INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
 {{instructFirstOutput}}|
 		
 		
@@ -590,6 +622,7 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 {{getvar::info}}
 {{getvar::char_info}}
 
+{{getvar::cover}}
 
 {{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
 
@@ -600,7 +633,7 @@ This is general information about {{getvar::fname}}'s appearance: '{{getvar::p1s
 
 Your reply should not include things like clothing, accessories etc.. or bodyparts like breasts, pussy, dick etc.."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general torso appearance using the information given.
-INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}}, {{getvar::genre}} {{getvar::time_period}} or {{getvar::world_setting}} in the reply. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}}, {{getvar::genre}} {{getvar::time_period}} or {{getvar::world_setting}} in the reply. Only reply with a description, nothing else.
 {{instructFirstOutput}}| 
 	
 	
@@ -723,6 +756,7 @@ Appearance: {{getvar::p2}}"|
 {{getvar::info}}
 {{getvar::char_info}}
 
+{{getvar::cover}}
 
 {{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
 
@@ -747,7 +781,7 @@ Example8: Her wings are feathered and colorful.
 Example9: His stomach has a hard six pack, with a outie bellybutton.
 Example10: Her stomach is small and flat, with a bellybutton that is slightly indented."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
-INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
 {{instructFirstOutput}}|
 		
 		
@@ -805,6 +839,7 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 {{getvar::info}}
 {{getvar::char_info}}
 
+{{getvar::cover}}
 
 {{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
 
@@ -815,7 +850,7 @@ This is general information about {{getvar::fname}}'s appearance: '{{getvar::p2s
 
 Your reply should not include things like clothing, accessories etc.. or bodyparts like breasts, pussy, dick etc.."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general lower body appearance using the information given.
-INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}}, {{getvar::genre}} {{getvar::time_period}} or {{getvar::world_setting}} in the reply. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}}, {{getvar::genre}} {{getvar::time_period}} or {{getvar::world_setting}} in the reply. Only reply with a description, nothing else.
 {{instructFirstOutput}}| 
 	
 	
@@ -933,6 +968,7 @@ Appearance: {{getvar::p2}}"|
 {{getvar::info}}
 {{getvar::char_info}}
 
+{{getvar::cover}}
 
 {{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
 
@@ -955,7 +991,7 @@ Example6: Her nipples are inverted.
 Example7: The sensativity of her nipples is realy high.
 Example8: The sensativity of her nipples is ."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
-INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be one sentences. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be one sentences. Only reply with a description, nothing else.
 {{instructFirstOutput}}|
 		
 		
@@ -1019,7 +1055,7 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 
 This is general information about {{getvar::fname}}'s appearance: '{{getvar::p3st}}'"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general breast and nipple appearance using the information given.
-INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}}, {{getvar::genre}} {{getvar::time_period}} or {{getvar::world_setting}} in the reply. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}}, {{getvar::genre}} {{getvar::time_period}} or {{getvar::world_setting}} in the reply. Only reply with a description, nothing else.
 {{instructFirstOutput}}| 
 	
 	
@@ -1061,6 +1097,31 @@ Appearance: {{getvar::p2}}"|
 		/addvar key=input "Depth(This is the depth of {{getvar::fname}}'s pussy)"|
 		/addvar key=input "Wetness(This is how easy {{getvar::fname}}'s pussy gets wet)"|
 		/addvar key=input "Clit(This is how big and visible the clit is)"|
+		
+		/ife {: /test left=type right=Human rule=eq :}|
+			/then {:
+				/addvar key=input "Feature(This is special human features of {{getvar::fname}}'s pussy)"|
+			:}|
+		/elseif {: /test left=type right=Canine rule=eq :}|
+			/then {:
+				/addvar key=input "Feature(This is special Canine features of {{getvar::fname}}'s pussy(This could be things like Outward appearance etc..))"|
+			:}|
+		/elseif {: /test left=type right=Equine rule=eq :}|
+			/then {:
+				/addvar key=input "Feature(This is special Equine features of {{getvar::fname}}'s pussy(This could be things like Outward appearance etc..))"|
+			:}|
+		/elseif {: /test left=type right=Feline rule=eq :}|
+			/then {:
+				/addvar key=input "Feature(This is special Feline features of {{getvar::fname}}'s pussy)"|
+			:}|
+		/elseif {: /test left=type right=Reptilian rule=eq :}|
+			/then {:
+				/addvar key=input "Feature(This is special Reptilian features of {{getvar::fname}}'s pussy)"|
+			:}|
+		/else {:
+			/addvar key=input "Feature(This is special {{getvar::species}} features of {{getvar::fname}}'s pussy(This could be things like Sheath, Knot, Medial ring, Flare etc..))"|
+		:}|
+		
 		/addvar key=input "Pussy Shape(This is the shape of {{getvar::fname}}'s pussy. It can have \"visible inner lips\", \"small, closed outer lips\", \"small, open outer lips\", \"long, dangling outer lips\", \"long, dangling inner lips\", \"prominent outer lips\", \"prominent inner lips\", \"curved outer lips\" or \"asymmetrical inner lips\")"|
 		/addvar key=input "Hymen(This is the state of {{getvar::fname}}'s hymen)"|
 		/addvar key=input "Public Hair(This is the state of {{getvar::fname}}'s public hair, it can be naturaly smooth(Due to age or something else), shaven, trimmed to a shape, or unshaved)"|
@@ -1091,7 +1152,7 @@ Here is a description of {{getvar::fname}}'s face: {{getvar::p2}}
 
 {{getvar::body_type}}
 
-
+{{getvar::typef}}
 
 Here is some examples of responses.
 Example1: His butt is firm.
@@ -1107,7 +1168,7 @@ Example10: Her stomach is small and flat, with a bellybutton that is slightly in
 
 {{getvar::special}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
-INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
 {{instructFirstOutput}}|
 		
 		
@@ -1164,6 +1225,8 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 {{getvar::char_info}}
 
 
+{{getvar::typef}}
+
 {{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
 
 {{getvar::fname}} height is: {{getvar::height}}.
@@ -1173,7 +1236,7 @@ This is general information about {{getvar::fname}}'s pussy appearance: '{{getva
 
 {{getvar::special}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s pussy general appearance using the information given.
-INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}} in the reply. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}} in the reply. Only reply with a description, nothing else.
 {{instructFirstOutput}}| 
 	
 	
@@ -1218,9 +1281,34 @@ Appearance: {{getvar::p2}}"|
 		/addvar key=input "Girth Flacid(This is the girth of {{getvar::fname}}'s dick/penis when it is flacid. Take {{getvar::fname}}'s age into account)"|
 		/addvar key=input "Lenght Erect(This is the lenght of {{getvar::fname}}'s dick/penis when it is fully erect. Take {{getvar::fname}}'s age into account)"|
 		/addvar key=input "Girth Erect(This is the girth of {{getvar::fname}}'s dick/penis when it is fully erect. Take {{getvar::fname}}'s age into account)"|
+		/addvar key=input "Scrotum(Describe how it looks and where it is placed(Is it internal or external?))"|
+		/ife {: /test left=type right=Human rule=eq :}|
+			/then {:
+				/addvar key=input "Feature(This is special human features of {{getvar::fname}}'s cock)"|
+			:}|
+		/elseif {: /test left=type right=Canine rule=eq :}|
+			/then {:
+				/addvar key=input "Feature(This is special Canine features of {{getvar::fname}}'s cock(This could be things like Sheath, Knot etc..))"|
+			:}|
+		/elseif {: /test left=type right=Equine rule=eq :}|
+			/then {:
+				/addvar key=input "Feature(This is special Equine features of {{getvar::fname}}'s cock(This could be things like Sheath, Medial ring, Flare etc..))"|
+			:}|
+		/elseif {: /test left=type right=Feline rule=eq :}|
+			/then {:
+				/addvar key=input "Feature(This is special Feline features of {{getvar::fname}}'s cock(This could be things like Sheath etc..))"|
+			:}|
+		/elseif {: /test left=type right=Reptilian rule=eq :}|
+			/then {:
+				/addvar key=input "Feature(This is special Reptilian features of {{getvar::fname}}'s cock(This could be things like Sheath, Knot, Medial ring, Flare etc..))"|
+			:}|
+		/else {:
+			/addvar key=input "Feature(This is special {{getvar::species}} features of {{getvar::fname}}'s cock(This could be things like Sheath, Knot, Medial ring, Flare etc..))"|
+		:}|
+		
 		/addvar key=input "Form(This could be if the cock "have a curve to it", "have veins on it" or "have been circumcised" etc..)"|
-		/addvar key=input "Public Hair(This is the state of {{getvar::fname}}'s public hair, it can be naturaly smooth(Due to age or something else), shaven, trimmed to a shape, or unshaved. Take {{getvar::fname}}'s age into account)"|
-		/addvar key=input "Feature"|
+		/addvar key=input "Public Hair(This is the state of {{getvar::fname}}'s public hair, it can be naturaly smooth(Due to age or something else), shaven, trimmed to a shape, or unshaved. Take {{getvar::fname}}'s age and species into account)"|
+		
 		
 		
 		
@@ -1249,23 +1337,22 @@ Here is a description of {{getvar::fname}}'s face: {{getvar::p2}}
 
 {{getvar::body_type}}
 
-
+{{getvar::typef}}
 
 Here is some examples of responses.
-Example1: His butt is firm.
-Example2: Her butt is small and squishy.
-Example3: His tail is covered with scales and have spikes at the end.
-Example4: Her tail is soft and fluffy.
-Example5: His legs are long and powerful.
-Example6: Her legs are .
-Example7: His wings are batlike with bony protrusions.
-Example8: Her wings are feathered and colorful.
-Example9: His stomach has a hard six pack, with a outie bellybutton.
-Example10: Her stomach is small and flat, with a bellybutton that is slightly indented.
+Example1: The lenght of his flacid cock is 8cm.
+Example2: The lenght of his flacid cock is 40cm.
+Example3: The girth of his flacid cock is 5cm.
+Example4: The girth of his flacid cock is 20cm.
+Example5: The lenght of his erect cock is 18cm.
+Example6: The lenght of his erect cock is 88cm.
+Example7: The girth of his erect cock is 8cm.
+Example8: The girth of his erect cock is 33cm.
+Example9: His cock have a slight curve to the left and it have pronounced veins.
 
 {{getvar::special}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
-INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
 {{instructFirstOutput}}|
 		
 		
@@ -1321,6 +1408,7 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 {{getvar::info}}
 {{getvar::char_info}}
 
+{{getvar::typef}}
 
 {{getvar::fname}}'s species is {{getvar::species}} keep that in mind when replying.
 
@@ -1332,7 +1420,7 @@ This is general information about {{getvar::fname}}'s dick appearance: '{{getvar
 
 {{getvar::special}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general dick appearance using the information given.
-INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}} in the reply. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}} in the reply. Only reply with a description, nothing else.
 {{instructFirstOutput}}| 
 	
 	
@@ -1415,7 +1503,7 @@ Example8: Her wings are feathered and colorful.
 Example9: His stomach has a hard six pack, with a outie bellybutton.
 Example10: Her stomach is small and flat, with a bellybutton that is slightly indented."
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fname}}'s {{item}}.
-INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Don't mention {{getvar::fname}}'s name, gender, age or species in the reply. The description should be less then three sentences. Only reply with a description, nothing else.
 {{instructFirstOutput}}|
 		
 		
@@ -1481,7 +1569,7 @@ INSTRUCTION: Emululate the examples given. {{getvar::fname}} is a {{getvar::age}
 
 This is general information about {{getvar::fname}}'s ass hole appearance: '{{getvar::p6st}}'"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s general ass hole appearance using the information given.
-INSTRUCTION: Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}} in the reply. Only reply with a description, nothing else.
+INSTRUCTION: Use the right pronounce. Don't mention {{getvar::fname}}, {{getvar::gender}}, {{getvar::age}}, {{getvar::species}} in the reply. Only reply with a description, nothing else.
 {{instructFirstOutput}}| 
 	
 	
@@ -1531,7 +1619,7 @@ Appearance: {{getvar::p2}}"|
 
 
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of external Erogenous zones on {{getvar::fname}}'s body that is highly Erogenous(These zones are specific for {{getvar::fname}}).
-INSTRUCTION: The respons should be less then four sentences. Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. The respons should be less then four sentences. Only reply with the description, nothing else.
 {{instructFirstOutput}}|  
 	
 	
@@ -1564,6 +1652,14 @@ INSTRUCTION: The respons should be less then four sentences. Only reply with the
 /setvar key=ext_ergo_zones {{getvar::selected_btn}}|
 
 
+/setvar key=example {{noop}}|
+/ife {{: /test left=gender right=Female rule=eq :}|
+	/then {:
+		/addvar key=example "g-spot, bladder, womb"|
+	:}|
+/else {:
+	/addvar key=example "prostate"|
+:}|
 
 /setvar key=genState Redo|
 
@@ -1575,8 +1671,8 @@ INSTRUCTION: The respons should be less then four sentences. Only reply with the
 	system="{{getvar::rules}}
 {{getvar::info}}
 {{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of internal Erogenous zones on {{getvar::fname}}'s body that is highly Erogenous(These zones are specific for {{getvar::fname}})(These are zones that are inside of the body such as the g-spot, bladder, womb etc..).
-INSTRUCTION: The respons should be less then four sentences. Only reply with the description, nothing else.
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of internal Erogenous zones on {{getvar::fname}}'s body that is highly Erogenous(These zones are specific for {{getvar::fname}})(These are zones that are inside of the body such as the {{getvar::example}} etc..).
+INSTRUCTION: Use the right pronounce. The respons should be less then four sentences. Only reply with the description, nothing else.
 {{instructFirstOutput}}|  
 	
 	
@@ -1609,7 +1705,7 @@ INSTRUCTION: The respons should be less then four sentences. Only reply with the
 /setvar key=int_ergo_zones {{getvar::selected_btn}}|
 
 /ife {: /test left=form right="" rule=neq :}|
-	/then {: /setvar key=form " ({{getvar::form)" :}|
+	/then {: /setvar key=form " ({{getvar::form}})" :}|
 
 /setvar key=output "<h2 align='center'>{{getvar::catgen}}{{getvar::form}}</h2>
 
@@ -1625,11 +1721,11 @@ Weight: {{getvar::weight}}
 
 Appearance Description"|
 
-/ife {: /test left=transformation right=None rule=neq:}|
+/ife {: /test left=cover right="" rule=neq:}|
 	/then {:
 		/addvar key=output "
 
-Covering: {{getvar::covering}}"
+Covering: {{getvar::cover}}"
 	:}|
 	
 /addvar key=output "
@@ -1638,12 +1734,15 @@ Face
 "|
 
 /foreach var=face {:
-	/ife {: /test left={{index}} right=0 rule=neq:}|
+	/ife {: /test left={{item}} right=": None" rule=nin:}|
 		/then {:
-			/addvar key=output "
+			/ife {: /test left={{index}} right=0 rule=neq:}|
+				/then {:
+					/addvar key=output "
 - {{item}}"|
+				:}|
+			/else {: /addvar key=output "- {{item}}":}|
 		:}|
-	/else {: /addvar key=output "- {{item}}":}|
 :}|
 
 /addvar key=output "
@@ -1653,12 +1752,15 @@ Upper Body
 "|
 
 /foreach var=upper {:
-	/ife {: /test left={{index}} right=0 rule=neq:}|
+	/ife {: /test left={{item}} right=": None" rule=nin:}|
 		/then {:
-			/addvar key=output "
+			/ife {: /test left={{index}} right=0 rule=neq:}|
+				/then {:
+					/addvar key=output "
 - {{item}}"|
+				:}|
+			/else {: /addvar key=output "- {{item}}":}|
 		:}|
-	/else {: /addvar key=output "- {{item}}":}|
 :}|
 
 /addvar key=output "
@@ -1668,12 +1770,15 @@ Lower Body
 "|
 
 /foreach var=lower {:
-	/ife {: /test left={{index}} right=0 rule=neq:}|
+	/ife {: /test left={{item}} right=": None" rule=nin:}|
 		/then {:
-			/addvar key=output "
+			/ife {: /test left={{index}} right=0 rule=neq:}|
+				/then {:
+					/addvar key=output "
 - {{item}}"|
+				:}|
+			/else {: /addvar key=output "- {{item}}":}|
 		:}|
-	/else {: /addvar key=output "- {{item}}":}|
 :}|
 
 /ife {: /test left=gender right=Female rule=eq :}|
@@ -1685,12 +1790,15 @@ Breasts
 "|
 
 		/foreach var=breasts {:
-			/ife {: /test left={{index}} right=0 rule=neq:}|
+			/ife {: /test left={{item}} right=": None" rule=nin:}|
 				/then {:
-					/addvar key=output "
+					/ife {: /test left={{index}} right=0 rule=neq:}|
+						/then {:
+							/addvar key=output "
 - {{item}}"|
+						:}|
+					/else {: /addvar key=output "- {{item}}":}|
 				:}|
-			/else {: /addvar key=output "- {{item}}":}|
 		:}|
 		
 		/addvar key=output "
@@ -1700,14 +1808,17 @@ Pussy
 "|
 
 		/foreach var=pussy {:
-			/ife {: /test left={{index}} right=0 rule=neq:}|
+			/ife {: /test left={{item}} right=": None" rule=nin:}|
 				/then {:
-					/addvar key=output "
+					/ife {: /test left={{index}} right=0 rule=neq:}|
+						/then {:
+							/addvar key=output "
 - {{item}}"|
+						:}|
+					/else {: /addvar key=output "- {{item}}":}|
 				:}|
-			/else {: /addvar key=output "- {{item}}":}|
 		:}|
-	:}|
+:}|
 /elseif {: /test left=gender right=Male rule=eq :}|
 	/then {:
 		/addvar key=output "
@@ -1716,15 +1827,19 @@ Pussy
 Cock
 "|
 
-		/foreach var=breasts {:
-			/ife {: /test left={{index}} right=0 rule=neq:}|
+		/foreach var=dick {:
+			/ife {: /test left={{item}} right=": None" rule=nin:}|
 				/then {:
-					/addvar key=output "
+					/ife {: /test left={{index}} right=0 rule=neq :}|
+						/then {:
+							/addvar key=output "
 - {{item}}"|
+						:}|
+					/else {: /addvar key=output "- {{item}}":}|
 				:}|
-			/else {: /addvar key=output "- {{item}}":}|
-		:}|	
+		:}|
 	:}|
+
 
 /addvar key=output "
 

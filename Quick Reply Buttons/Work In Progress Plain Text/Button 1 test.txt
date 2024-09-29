@@ -13,46 +13,12 @@
 		:}|
 	:}|
 /db-get source=chat tags | /setvar key=tags {{pipe}}|
-/split var=tags | /setvar key=lis {{pipe}}| /setvar key=type none|
+/db-get source=chat gender | /setvar key=gender {{pipe}}|
+/db-get source=chat type | /setvar key=type {{pipe}}|
+/split var=tags | /setvar key=lis {{pipe}}|
 /messages 0-{{lastMessageId}} |
 /setvar key=messageHistory {{pipe}} | 
 
-
-
-/foreach list=list var=lis {:
-	/setvar key=t {{item}}|
-	/re-replace replace="" find="/(?<=^.)(.*)/g" var=t | /setvar key=d1 {{pipe}}|
-	/ife {: /test left=t right=FCANINE rule=eq:}|
-		/then {: /setvar key=type Canine:}|
-	/elseif {: /test left=t right=MCANINE rule=eq:}|
-		/then {: /setvar key=type Canine:}|
-	/elseif {: /test left=t right=FEQUINE rule=eq:}|
-		/then {: /setvar key=type Equine:}|
-	/elseif {: /test left=t right=MEQUINE rule=eq:}|
-		/then {: /setvar key=type Equine:}|
-	/elseif {: /test left=t right=FFELINE rule=eq:}|
-		/then {: /setvar key=type Feline:}|
-	/elseif {: /test left=t right=MFELINE rule=eq:}|
-		/then {: /setvar key=type Feline:}|
-	/elseif {: /test left=t right=FREPTILIAN rule=eq:}|
-		/then {: /setvar key=type Reptilian :}|
-	/elseif {: /test left=t right=MREPTILIAN rule=eq:}|
-		/then {: /setvar key=type Reptilian :}|
-		
-	/ife {: /test left=d1 right=F rule=eq:}|
-		/then {: 
-			/re-replace replace="" find="/\b(FCANINE\|FEQUINE\|MCANINE\|MEQUINE\|FFELINE\|MFELINE\|FREPTILIAN\|MREPTILIAN)\b/" var=t | /setvar key=d2 {{pipe}}|
-			/ife {: /test left={{getvar::d2}} right="" rule=neq :}|
-				/then {: /setvar key=gender Female :}
-		:}|
-	/ife {: /test left=d1 right=M rule=eq:}|
-		/then {: 
-			/re-replace replace="" find="/\b(FCANINE\|FEQUINE\|MCANINE\|MEQUINE\|FFELINE\|MFELINE\|FREPTILIAN\|MREPTILIAN)\b/" var=t | /setvar key=d2 {{pipe}}|
-			/ife {: /test left={{getvar::d2}} right="" rule=neq :}|
-				/then {: /setvar key=gender Male :}
-		:}|
-		
-:}|
 
 /setvar key=nhum No|
 /foreach var=tags {:
@@ -77,10 +43,10 @@
 
 /ife {: /test left=skip right=No rule=eq:}|
 	/then {: 
-		/setvar key=db ["genre","time_period","world_type","first_name","last_name","nic_name","age","species","gender","sub_species","sexuality","occupation"]|
+		/setvar key=db ["genre","time_period","world_type","first_name","last_name","nic_name","age","species","sub_species","sexuality","occupation"]|
 :}|
 /else {:
-	/setvar key=db ["genre","time_period","world_type","nic_name","age","species","gender","sub_species","sexuality","occupation"]|
+	/setvar key=db ["genre","time_period","world_type","nic_name","age","species","sub_species","sexuality","occupation"]|
 	/db-get source=chat first_name| /setvar key=fname {{pipe}}|
 	/db-get source=chat last_name| /setvar key=lname {{pipe}}|
 	/db-get source=chat character_files| /setvar key=character_files {{pipe}}|
@@ -156,7 +122,7 @@
 			
 			/genraw lock=on name={{char}} 
 			system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a comma-separated list of five genres. INSTRUCTION: Start the genres with a capital letter. Only reply with five genres, nothing else.
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a comma-separated list of five genres. INSTRUCTION: Use the right pronounce. Start the genres with a capital letter. Only reply with five genres, nothing else.
 {{instructFirstOutput}} |
 			/setvar key=genrelist {{pipe}} |
 					
@@ -227,7 +193,7 @@
 			/genraw lock=on name={{char}} 
 			system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a comma-separated list of five Time Periods. Examples: The 2000s, Future etc..
-INSTRUCTION: Start the time periods with a capital letter. Only reply with five time period, nothing else.
+INSTRUCTION: Use the right pronounce. Start the time periods with a capital letter. Only reply with five time period, nothing else.
 {{instructFirstOutput}} |
 			/setvar key=periodlist {{pipe}} |
 					
@@ -276,7 +242,7 @@ Example1: Fantasy Realm
 Example2: Sci-Fi Universe
 Example3: Realistic Setting"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five world types.
-INSTRUCTION: Emululate the examples given. Start the reply with a capital letter. Only reply with five world types, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. Start the reply with a capital letter. Only reply with five world types, nothing else.
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
@@ -331,7 +297,7 @@ INSTRUCTION: Emululate the examples given. Start the reply with a capital letter
 							/genraw lock=on name={{char}} 
 							system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female first names.
-INSTRUCTION: Only reply with five female first names, nothing else.
+INSTRUCTION: Use the right pronounce. Only reply with five female first names, nothing else.
 {{instructFirstOutput}} |
 							/setvar key=nlist {{pipe}} 
 						:}|
@@ -340,7 +306,7 @@ INSTRUCTION: Only reply with five female first names, nothing else.
 							/genraw lock=on name={{char}} 
 							system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five male first names.
-INSTRUCTION: Start the first names with a capital letter. Only reply with five male first names, nothing else.
+INSTRUCTION: Use the right pronounce. Start the first names with a capital letter. Only reply with five male first names, nothing else.
 {{instructFirstOutput}} |
 							/setvar key=nlist {{pipe}} 
 							:}|		
@@ -377,7 +343,7 @@ INSTRUCTION: Start the first names with a capital letter. Only reply with five m
 							/genraw lock=on name={{char}} 
 							system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female last names that complement {{getvar::fname}}.
-INSTRUCTION: Start the last names with a capital letter. Only reply with five female last names, nothing else.
+INSTRUCTION: Use the right pronounce. Start the last names with a capital letter. Only reply with five female last names, nothing else.
 {{instructFirstOutput}} |
 							/setvar key=lnamelist {{pipe}}
 						:}|
@@ -386,14 +352,14 @@ INSTRUCTION: Start the last names with a capital letter. Only reply with five fe
 							/genraw lock=on name={{char}} 
 							system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female last names that complement {{getvar::fname}}.
-INSTRUCTION: Start the last names with a capital letter. Only reply with five male last names, nothing else.
+INSTRUCTION: Use the right pronounce. Start the last names with a capital letter. Only reply with five male last names, nothing else.
 {{instructFirstOutput}} |
 							/setvar key=lnamelist {{pipe}}
 						:}|
 						
 					/wait 1|
 					/split var=lnamelist | /setvar key=lnamelist {{pipe}}|
-					/addvar key=lnamelist "N/A"|
+					/addvar key=lnamelist "None"|
 					/addvar key=lnamelist Redo|
 					/buttons labels={{getvar::lnamelist}} Do any of these Last Names look good or do you want me to redo the last names?|
 					/setvar key=lname {{pipe}} |
@@ -423,7 +389,7 @@ INSTRUCTION: Start the last names with a capital letter. Only reply with five ma
 					/genraw lock=on name={{char}} 
 					system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female nicknames that complement {{getvar::fname}} {{getvar::lname}}.
-INSTRUCTION: The nickname should be something parents of close frends use. Start the nicknames with a capital letter. Only reply with five female nicknames, nothing else.
+INSTRUCTION: Use the right pronounce. The nickname should be something parents of close frends use. Start the nicknames with a capital letter. Only reply with five female nicknames, nothing else.
 {{instructFirstOutput}} |
 					/setvar key=nnamelist {{pipe}}
 				:}|
@@ -432,7 +398,7 @@ INSTRUCTION: The nickname should be something parents of close frends use. Start
 					/genraw lock=on name={{char}} 
 					system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female nicknames that complement {{getvar::fname}} {{getvar::lname}}.
-INSTRUCTION: Only reply with five male nicknames, nothing else.
+INSTRUCTION: Use the right pronounce. Only reply with five male nicknames, nothing else.
 {{instructFirstOutput}} |
 					/setvar key=nnamelist {{pipe}} 
                 :}|
@@ -440,7 +406,7 @@ INSTRUCTION: Only reply with five male nicknames, nothing else.
 			/wait 1|
 			/split var=nnamelist | /setvar key=nnamelist {{pipe}}|
 			
-			/addvar key=nnamelist "N/A"|
+			/addvar key=nnamelist "None"|
 			/addvar key=nnamelist "Manually Add"|
 			/addvar key=nnamelist Redo|
 			/buttons labels={{getvar::nnamelist}} Do any of these Nicknames look good for {{getvar::fname}} {{getvar::lname}} or do you want me to redo the nicknames?|
@@ -483,12 +449,12 @@ INSTRUCTION: Only reply with five male nicknames, nothing else.
 		/then {: /setvar key=species Redo|
 			/while left=species right=Redo rule=eq {:
 				/echo Generateing Species:|
-				/ife {: /test left=type right=none rule=eq :}|
+				/ife {: /test left=type right=None rule=eq :}|
 					/then {:
 						/genraw lock=on name={{char}} 
 						system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five species.
-INSTRUCTION: Start the species with a capital letter. Only reply with five species, nothing else.
+INSTRUCTION: Use the right pronounce. Start the species with a capital letter. Only reply with five species, nothing else.
 {{instructFirstOutput}} |
 						/setvar key=specieslist {{pipe}}|
 					:}|
@@ -496,7 +462,7 @@ INSTRUCTION: Start the species with a capital letter. Only reply with five speci
 					/genraw lock=on name={{char}} 
 					system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five {{getvar::type}} species.
-INSTRUCTION: Start the species with a capital letter. Only reply with five species, nothing else.
+INSTRUCTION: Use the right pronounce. Start the species with a capital letter. Only reply with five species, nothing else.
 {{instructFirstOutput}} |
 					/setvar key=specieslist {{pipe}} :}|
 
@@ -518,7 +484,7 @@ INSTRUCTION: Start the species with a capital letter. Only reply with five speci
 						/genraw lock=on name={{char}} 
 						system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a description of a {{getvar::species}}.
-INSTRUCTION: Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. Only reply with the description, nothing else.
 {{instructFirstOutput}} |
 						/setvar key=sdesclist {{pipe}}|
 						
@@ -577,7 +543,7 @@ INSTRUCTION: Only reply with the description, nothing else.
 						/genraw lock=on name={{char}} 
 						system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five sub species of the type {{getvar::species}}.
-INSTRUCTION: Start the sub species with a capital letter. Only reply with five sub species, nothing else.
+INSTRUCTION: Use the right pronounce. Start the sub species with a capital letter. Only reply with five sub species, nothing else.
 {{instructFirstOutput}} |
 						/setvar key=sspecieslist {{pipe}} |
 				
@@ -616,7 +582,7 @@ INSTRUCTION: Start the sub species with a capital letter. Only reply with five s
 						/genraw lock=on name={{char}} 
 						system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a description of a {{getvar::sspecies}}.
-INSTRUCTION: Only reply with the description, nothing else.
+INSTRUCTION: Use the right pronounce. Only reply with the description, nothing else.
 {{instructFirstOutput}} |
 							/setvar key=ssdesclist {{pipe}}|
 							
@@ -725,7 +691,7 @@ INSTRUCTION: Only reply with the description, nothing else.
 			/genraw lock=on name={{char}} 
 			system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five ages that works for {{getvar::species}}.
-INSTRUCTION: Only use numbers for the age. Only reply with five ages, nothing else.
+INSTRUCTION: Use the right pronounce. Only use numbers for the age. Only reply with five ages, nothing else.
 {{instructFirstOutput}} |
 			/setvar key=agelist {{pipe}} |
 	
@@ -781,7 +747,7 @@ INSTRUCTION: Only use numbers for the age. Only reply with five ages, nothing el
 			/genraw lock=on name={{char}} 
 			system="{{getvar::char_info}}"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five species that a {{getvar::species}} from one of these genres {{getvar::temp}} world could be sexually interested in.
-INSTRUCTION:{{getvar::temp1}} Start each species with a capital letter. The species should be plural. Only reply with five species, nothing else.
+INSTRUCTION: Use the right pronounce.{{getvar::temp1}} Start each species with a capital letter. The species should be plural. Only reply with five species, nothing else.
 {{instructFirstOutput}} |
 			/setvar key=sexlist {{pipe}} |
 			/setvar key=temp1 {{getvar::sexlist}}|
@@ -837,7 +803,7 @@ Example7: Factory Worker
 Example8: Inventor
 Example9: Photographer"
 {{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five occupations that works for someone {{getvar::age}}.
-INSTRUCTION: Emululate the examples given. Start each occupation with a capital letter. Only reply with five occupations, nothing else.
+INSTRUCTION: Use the right pronounce. Emululate the examples given. Start each occupation with a capital letter. Only reply with five occupations, nothing else.
 {{instructFirstOutput}} |
 			/setvar key=oclist {{pipe}} |
 	
@@ -871,11 +837,21 @@ World Type: {{getvar::world_type}}
 
 First Name: {{getvar::fname}}
 
-Last Name: {{getvar::lname}}
+"|
+/ife {: /test left=lname right=None rule=neq :}|
+	/then {:
+		/addvar key=output "Last Name: {{getvar::lname}}
 
-Nickname: {{getvar::nname}}
+"
+:}|
 
-Age: {{getvar::age}}
+/ife {: /test left=lname right=None rule=neq :}|
+	/then {:
+		/addvar key=output "Nickname: {{getvar::nname}}
+
+"|
+
+/addvar key=output "Age: {{getvar::age}}
 
 Species: {{getvar::species}}"|
 
@@ -914,7 +890,6 @@ Occupation: {{getvar::occupation}}"|
 /db-add source=chat name=nic_name {{getvar::nname}}| /db-disable source=chat nic_name|
 /db-add source=chat name=age {{getvar::age}}| /db-disable source=chat age|
 /db-add source=chat name=species {{getvar::species}}| /db-disable source=chat species|
-/db-add source=chat name=gender {{getvar::gender}}| /db-disable source=chat gender|
 
 /db-add source=chat name=sub_species {{getvar::sspecies}}| /db-disable source=chat sub_species|
 
