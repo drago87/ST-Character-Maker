@@ -30,5 +30,3 @@ Is a Lorebook with the Local LLM models i have tested and what setting i have us
 ![image](https://github.com/user-attachments/assets/601ab79c-2b59-40f0-873a-62a6bc629b84)
 
 [🔗](https://github.com/drago87/ST-Character-Maker/tree/main/Quick%20Reply%20Buttons/Work%20In%20Progress%20Plain%20Text) Same as above but in plain text for easier readabillity
-
-Use the Character Maker Lore Tags from above it is updated. (This is now not needed)
