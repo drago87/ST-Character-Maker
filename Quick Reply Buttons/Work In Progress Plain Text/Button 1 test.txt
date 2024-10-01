@@ -32,8 +32,12 @@
 /foreach var=a {:
 	/ife {: /test left={{item}} right=real rule=eq :}|
 		/then {:
-			/setvar key=skip Yes|
-			
+			/db-get source=chat real| /setvar key=s|
+			/ife {: /test left=s right=No rule=eq :}|
+				/then {:
+					/setvar key=skip Yes|
+					/break|
+				:}|
 		:}|
 	/else {:
 	/ife {: /test left=skip right=Yes rule=neq :}|
@@ -108,8 +112,8 @@
 /elseif {: /test left=answer right="Yes" rule=eq :}|
 	/then {:
 		/input rows=8 What is the genre of the character? (make it a comma-separated list) |
-		/setvar key=temp {{pipe}} |
-		/ife {: /test left=temp right="" rule=eq :}|
+		/setvar key=temp1 {{pipe}} |
+		/ife {: /test left=temp1 right="" rule=eq :}|
 			/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		
 	:}|
@@ -444,6 +448,13 @@ INSTRUCTION: Use the right pronounce. Only reply with five male nicknames, nothi
 			/setvar key=species {{pipe}} |
 			/ife {: /test left=species right="" rule=eq :}|
 				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
+			/buttons labels=["Bipedal","Quadrupedal","Hexapodal","Octopedal","Aquatic","Serpentine","Semibipedal","Make your own"] What type of Posture is {{getvar::species}} using?|
+			/setvar key=posture {{pipe}}|
+			/ife {: /test left=posture right="Make your own" rule=eq :}|
+				/then {:
+					/input rows=8 Write a posture for the species.|
+					/setvar key=posture {{pipe}}
+				:}|
 		:}|
 	/elseif {: /test left=answer right=No rule=eq :}|
 		/then {: /setvar key=species Redo|
@@ -850,7 +861,7 @@ First Name: {{getvar::fname}}
 		/addvar key=output "Nickname: {{getvar::nname}}
 
 "|
-
+	:}|
 /addvar key=output "Age: {{getvar::age}}
 
 Species: {{getvar::species}}"|
@@ -861,7 +872,7 @@ Species: {{getvar::species}}"|
 
 Species Description: {{getvar::sdesc}}":}|
 
-/ife {: /test left=sspecies right=none rule=neq :}|
+/ife {: /test left=sspecies right=none rule=nin :}|
 	/then {:
 		/addvar key=output "
 

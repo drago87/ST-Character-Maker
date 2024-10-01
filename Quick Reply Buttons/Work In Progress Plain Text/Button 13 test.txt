@@ -6,4 +6,8 @@
 /sendas name="{{char}}"<h2 align='center'>Character Rules</h2>
 
 {{getvar::t}}
-{{input}}
+{{input}}|
+
+/sys Add double '{' before char and user and double '}' after char and user. You don't need to keep this line.|
+
+/hide {{lastMessageId}}

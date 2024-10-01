@@ -103,7 +103,7 @@
 					:}|
 				/elseif {: /test left={{getvar::sspecies}} right=Reptilian rule=eq :}|
 					/then {:
-						/addvar key=tag FREPTILIAN|
+						/addvar key=tag ", FREPTILIAN"|
 						/setvar key=type Reptilian|
 					:}|
 				/else {: /input rows=8 What type of Beastkin species do you want?. (Type \"Random\" without \" if you want the bot to make one one for you.)|/setvar key=other ", {{pipe}}" :}|
@@ -169,7 +169,7 @@
 					:}|
 				/elseif {: /test left={{getvar::sspecies}} right=Reptilian rule=eq :}|
 					/then {:
-						/addvar key=tag MREPTILIAN|
+						/addvar key=tag ", MREPTILIAN"|
 						/setvar key=type Reptilian|
 					:}|
 				/else {: /input rows=8 What type of anthro species do you want?. (Type \"Random\" without \" if you want the bot to make one one for you.)|/setvar key=other ", {{pipe}}" :}|
@@ -243,6 +243,6 @@
 /db-disable source=chat tags|
 /db-add source=chat name=type {{getvar::type}}|
 /db-disable source=chat type|
-/db-add source=chat name=gender {{getvar::gender}}|
+/db-add source=chat name=gender {{getvar::sgender}}|
 /db-disable source=chat gender|
 /:"Character Maker V4.Flushvar"

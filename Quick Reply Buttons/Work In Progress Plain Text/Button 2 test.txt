@@ -947,8 +947,8 @@ Appearance: {{getvar::p2}}"|
 /ife {: /test left=gender right=Female rule=eq :}|
 	/then {:
 		/setvar key=input []|
-		/addvar key=input "Cup size(This is the size of {getvar::fname}}'s breasts.)"|
-		/addvar key=input "Firmness(This is the firmness of {getvar::fname}}'s breasts.)"|
+		/addvar key=input "Cup size(This is the size of {{getvar::fname}}'s breasts.)"|
+		/addvar key=input "Firmness(This is the firmness of {{getvar::fname}}'s breasts.)"|
 		/addvar key=input "Nipples(This is type(Protruding, flat or inverted) and size(long, short, wide) of {{getvar::fname}}'s nipples.)"|
 		/addvar key=input "Sensativity(This is the sensativity of {{getvar::fname}}'s nipples.)"|
 		

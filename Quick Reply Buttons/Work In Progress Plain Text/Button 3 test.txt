@@ -629,5 +629,7 @@ Modifications to the other garments
 	:}|
 
 
-/addvar key=output "Gear: {{getvar::gear}}"|
+/addvar key=output "
+
+Gear: {{getvar::gear}}"|
 /message-edit message={{lastMessageId}} {{getvar::output}}

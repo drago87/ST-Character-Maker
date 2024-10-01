@@ -6,4 +6,4 @@
 
 /:"Character Maker V4.Get Char info"|
 		
-/continue await=true {{getvar::info}}
+/continue {{getvar::info}}

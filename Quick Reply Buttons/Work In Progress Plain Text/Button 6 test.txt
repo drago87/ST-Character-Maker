@@ -136,7 +136,7 @@ INSTRUCTION: Use the right pronounce. Start the explanation with '{{getvar::k}}'
 	/setvar key=genState Redo|
 
 	/while left=genState right=Redo rule=eq {:
-		/echo Generating {getvar::fname}}'s first exposure to {{getvar::k}}|
+		/echo Generating {{getvar::fname}}'s first exposure to {{getvar::k}}|
 		/setvar key=genState []|  
 	
 		/genraw lock=on name={{char}} 

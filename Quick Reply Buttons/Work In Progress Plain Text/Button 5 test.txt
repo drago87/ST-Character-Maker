@@ -123,9 +123,11 @@ INSTRUCTION: Use the right pronounce. Remeber she is the mother of {{getvar::sco
 	/genraw lock=on name={{char}} 
 	system="{{getvar::rules}}
 {{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide the name and situation (Situation can be Working(Provided what he is working with), Devorced(Provide why they are devorced), Deciesed(Provide how he died)) of {{getvar::fname}}'s father. Here is information of {{getvar::fname}}'s mother 
-'{{getvar::mother}}'
+{{getvar::char_info}}
+
+Here is information of {{getvar::fname}}'s mother 
+'{{getvar::mother}}'"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide the name and situation (Situation can be Working(Provided what he is working with), Devorced(Provide why they are devorced), Deciesed(Provide how he died)) of {{getvar::fname}}'s father.
 INSTRUCTION: Use the right pronounce. Remeber he is the father of {{getvar::scount}} children. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two sentences. The response should be short about {{getvar::fname}}'s father and nothing else.
 {{instructFirstOutput}}|
 
