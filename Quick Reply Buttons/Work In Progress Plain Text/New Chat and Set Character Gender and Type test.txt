@@ -235,6 +235,8 @@
 	:}|
 /else {: /addvar key=tag (WIP) :}|
 
+/:"Character Maker V4.Is real"|
+
 /db-add source=chat name=normal_form {{getvar::normal_form}}|
 /db-disable source=chat normal_form|
 /db-add source=chat name=transformation {{getvar::transformation}}|

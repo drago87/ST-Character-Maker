@@ -15,14 +15,23 @@
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Spells|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 12 - 01|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 354|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 355|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 356|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five spells.
-INSTRUCTION: Use the right pronounce. Don't end with '.'. Start the spells with a capital letter. Only reply with a comma-separated list of spell names, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/setvar key=t {{pipe}}|
 	/re-replace replace="" find="/\./g" var=t| /setvar key=t {{pipe}}|
@@ -90,18 +99,23 @@ INSTRUCTION: Use the right pronounce. Don't end with '.'. Start the spells with 
 			/while left=genState right=Redo rule=eq {:
 				/echo Generating {{item}}'s description.|
 				/setvar key=genState []|
+				
+				/setvar key=system {{noop}}|
+				/setvar key=prompt {{noop}}|
+				/setvar key=instruct {{noop}}|
+				
+				//Button 12 - 02|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 358|
+				/setvar key=system {{pipe}}|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 359|
+				/setvar key=prompt {{pipe}}|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 360|
+				/setvar key=instruct {{pipe}}|
+				
 				/genraw lock=on name={{char}} 
-				system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-			
-Start your respons with 'x: y.'
-Where 'x' is the name of the spell and 'y' is the spell description.
-Example1: Fireball: Casts a ball of fire that explodes on hit.
-Example2: Increased Sensitivity: Increase the sensitivity of the target."
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of the spell: {{item}} .
-INSTRUCTION: Use the right pronounce. Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the spell description, nothing else.
-{{instructFirstOutput}}| 
+				system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 				
 				
 				
@@ -144,14 +158,23 @@ INSTRUCTION: Use the right pronounce. Start the Desciption with a capital letter
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Abilities|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 12 - 03|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 362|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 363|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 364|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five physical and/or mental abilities.
-INSTRUCTION: Use the right pronounce. Abilities are not spells. Don't end with '.'. Start the abilities with a capital letter. Only reply with a comma-separated list of ability names, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/setvar key=t {{pipe}}|
 	/re-replace replace="" find="/\./g" var=t| /setvar key=t {{pipe}}|
@@ -221,19 +244,23 @@ INSTRUCTION: Use the right pronounce. Abilities are not spells. Don't end with '
 			/while left=genState right=Redo rule=eq {:
 				/echo Generating {{item}}'s description.|
 				/setvar key=genState []|  
-			
+				
+				/setvar key=system {{noop}}|
+				/setvar key=prompt {{noop}}|
+				/setvar key=instruct {{noop}}|
+				
+				//Button 12 - 04|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 366|
+				/setvar key=system {{pipe}}|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 367|
+				/setvar key=prompt {{pipe}}|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 368|
+				/setvar key=instruct {{pipe}}|
+				
 				/genraw lock=on name={{char}} 
-				system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-			
-Start your respons with 'x: y.'
-Where 'x' is the name of the ability and 'y' is the ability description.
-Example1: Enhanced Agility: {{getvar::fname}}'s increased Agility and reflexes are inborn and .
-Example2: Increased Sensitivity (Clit): {{getvar::fname}}'s clit have increased sensitivity due to having played to mutch with it."
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of the ability: {{item}}. Describe how {{getvar::fname}} got the ability (if is it inborn, have been training to get it etc..) and what the ability does.
-INSTRUCTION: Use the right pronounce. Start the Desciption with a capital letter. The description should be less then four sentenses. Only reply with the ability description, nothing else.
-{{instructFirstOutput}}| 
+				system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 				
 				
 				

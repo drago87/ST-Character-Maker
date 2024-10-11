@@ -13,13 +13,24 @@
 /while left=genState right=Redo rule=eq {:
 	/echo Generateing backstory.|
 	/setvar key=genState []|
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 08 - 01|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 246|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 247|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 248|
+	/setvar key=instruct {{pipe}}|
+	
 	/genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a short backstory for {{getvar::fname}}, include key life events, upbringing, and significant experiences. (This can include {{getvar::fname}}'s Known Kinks.)
-INSTRUCTION: Use the right pronounce. Ignore Hobbies, Interests and personal goals. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}}. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}.  Keep the response to five sentences. The response should be short about {{getvar::fname}}'s backstory and nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+
 	/addvar key=genState {{pipe}} |
 	/addvar key=genState Edit|
 	/addvar key=genState Redo|
@@ -52,15 +63,22 @@ INSTRUCTION: Use the right pronounce. Ignore Hobbies, Interests and personal goa
 	/echo Generateing Hobbies and Interests|
 	/setvar key=genState []|
 	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 08 - 02|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 250|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 251|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 252|
+	/setvar key=instruct {{pipe}}|
+	
 	/genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Use {{getvar::fname}}'s backstory to guide your reply: {{getvar::bio}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a short description {{getvar::fname}}'s hobbies and interests.
-INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}}'s age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Keep the response to two or tree sentences. The response should be short about {{getvar::fname}}'s hobbies and interests and nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/addvar key=genState {{pipe}} |
 	/addvar key=genState Edit|
@@ -94,17 +112,22 @@ INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, t
 	/echo Generateing Personal Goals|
 	/setvar key=genState []|
 	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 08 - 03|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 254|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 255|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 256|
+	/setvar key=instruct {{pipe}}|
+	
 	/genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Use {{getvar::fname}}'s backstory to guide your reply: {{getvar::bio}}
-
-Keep {{getvar::fname}}'s Hobbies and Interests when replying: {{getvar::hibin}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a short description {{getvar::fname}}'s perspnal goals.
-INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}}'s age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Keep the response to two or tree sentences. The response should be short about {{getvar::fname}}'s perspnal goals and nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/addvar key=genState {{pipe}} |
 	/addvar key=genState Edit|

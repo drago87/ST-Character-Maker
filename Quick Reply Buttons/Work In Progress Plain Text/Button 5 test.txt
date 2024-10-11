@@ -54,14 +54,26 @@
 			/add p -1|/setvar key=p {{pipe}}
 		:}|
 		
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+		
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+		
+		//Button 05 - 01|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 190|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 191|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 192|
+		/setvar key=instruct {{pipe}}|
 		
 		/genraw lock=on name={{char}} 
-		system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide the name, age and gender of one of {{getvar::fname}}'s siblings.
-INSTRUCTION: Use the right pronounce. The sibling is a {{random::{{getvar::span}}}} {{random::Boy::Girl}}. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two short sentences. {{getvar::fname}} is {{getvar::age}}. Start the respons with 'The older/younger sister/brother' followed by 'name' of the sibling followed by 'age' of the sibling followed by a sold description of the sibling's personality. The respons should be present tense. The response should be short about {{getvar::fname}}'s sibling and nothing else.
-{{instructFirstOutput}}|
+		system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 		/addvar key=slist {{pipe}} |
 		/addvar key=slist Edit|
@@ -84,6 +96,22 @@ INSTRUCTION: Use the right pronounce. The sibling is a {{random::{{getvar::span}
 	/addvar key=i 1
 :}|
 
+/incvar scount|
+
+/setvar key=s {{noop}}|
+
+/foreach var=siblings {:
+	/ife {: /test left={{index}} right=0 rule=eq :}|
+		/then {:
+			/addvar key=s "This is {{getvar::fname}}'s siblings:
+{{item}}"|
+		:}|
+		/else {:
+			/addvar key=s "
+{{item}}|
+		:}|
+:}|
+
 
 //Generating Parents|
 //Mother|
@@ -91,13 +119,23 @@ INSTRUCTION: Use the right pronounce. The sibling is a {{random::{{getvar::span}
 /while left=mother right=Redo rule=eq {:
 	/echo Generateing mother|
 	/setvar key=mlist []|
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 05 - 02|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 194|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 195|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 196|
+	/setvar key=instruct {{pipe}}|
+	
 	/genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide the name and situation (Situation can be Working(Provided what she is working with), Devorced(Provide why they are devorced), Deciesed(Provide how she died)) of {{getvar::fname}}'s mother.
-INSTRUCTION: Use the right pronounce. Remeber she is the mother of {{getvar::scount}} children. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two sentences. The response should be short about {{getvar::fname}}'s mother and nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	/addvar key=mlist {{pipe}} |
 	/addvar key=mlist Edit|
 	/addvar key=mlist Redo|
@@ -120,16 +158,23 @@ INSTRUCTION: Use the right pronounce. Remeber she is the mother of {{getvar::sco
 /while left=father right=Redo rule=eq {:
 	/echo Generateing father|
 	/setvar key=flist []|
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 05 - 01|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 198|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 199|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 200|
+	/setvar key=instruct {{pipe}}|
+	
 	/genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Here is information of {{getvar::fname}}'s mother 
-'{{getvar::mother}}'"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide the name and situation (Situation can be Working(Provided what he is working with), Devorced(Provide why they are devorced), Deciesed(Provide how he died)) of {{getvar::fname}}'s father.
-INSTRUCTION: Use the right pronounce. Remeber he is the father of {{getvar::scount}} children. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to one or two sentences. The response should be short about {{getvar::fname}}'s father and nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/addvar key=flist {{pipe}} |
 	/addvar key=flist Edit|
@@ -172,17 +217,23 @@ INSTRUCTION: Use the right pronounce. Remeber he is the father of {{getvar::scou
 /while left=family right=Redo rule=eq {:
 	/echo Generateing Family|
 	/setvar key=falist []|
-	/genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-This is information about {{getvar::fname}}'s familty '{{getvar::finfo}}'
 	
-{{getvar::rules}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, use this information to make a coherent description of {{getvar::name}}'s family.
-INSTRUCTION: Use the right pronounce. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to five to ten sentences. The response should be short about {{getvar::fname}}'s family and nothing else.
-{{instructFirstOutput}}|
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 05 - 04|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 202|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 203|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 204|
+	/setvar key=instruct {{pipe}}|
+	
+	/genraw lock=on name={{char}} 
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	/addvar key=falist {{pipe}} |
 	/addvar key=falist Edit|
 	/addvar key=falist Redo|
@@ -211,13 +262,23 @@ Family: {{getvar::family}}"|
 /while left=bfrend right=Redo rule=eq {:
 	/echo Generateing Best Friend|
 	/setvar key=bfrend []|
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 05 - 05|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 206|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 207|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 208|
+	/setvar key=instruct {{pipe}}|
+	
 	/genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, use make {{getvar::name}}'s best friend and give a short description of what they do together.
-INSTRUCTION: Use the right pronounce. Remember the world type is {{getvar::world_type}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Avoid mentioning {{getvar::genre}}, {{getvar::time_period}} or {{getvar::world_type}}. Keep the response to fore to six sentences. The response should be short about {{getvar::fname}}'s best friend and nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/addvar key=bfrend {{pipe}} |
 	/addvar key=bfrend Edit|
@@ -249,14 +310,23 @@ Best Friend: {{getvar::bfrend}}"|
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Romantic interest|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 05 - 06|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 210|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 211|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 212|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s romantic interest if there is one.
-INSTRUCTION: Use the right pronounce. The reply should be two sentences. Only reply with the description, nothing else.
-{{instructFirstOutput}}| 
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	
@@ -302,14 +372,23 @@ Romantic Interest: {{getvar::rinterest}}"|
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Enemy/Rival|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 05 - 07|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 214|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 215|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 216|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description of {{getvar::fname}}'s Enemy and/or Rival if there is one.
-INSTRUCTION: Use the right pronounce. The description should be one sentence for the Eneme and one sentence for the Rival. Only reply with the description, nothing else.
-{{instructFirstOutput}}|  
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	

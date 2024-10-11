@@ -9,22 +9,12 @@
 	
 	
 	
-/buttons labels=["One", "Two", "Three", "Four", "Five"] How many known kinks do you want?| /setvar key=answer {{pipe}}|
-/ife {: /test left=answer right=One rule=eq:}|
-	/then {: /setvar key=x 1:}|
-/elseif {: /test left=answer right=Two rule=eq:}|
-	/then {: /setvar key=x 2:}|
-/elseif {: /test left=answer right=Three rule=eq:}|
-	/then {: /setvar key=x 3:}|
-/elseif {: /test left=answer right=Four rule=eq:}|
-	/then {: /setvar key=x 4:}|
-/elseif {: /test left=answer right=Five rule=eq:}|
-	/then {: /setvar key=x 5:}|
-/else {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+
 
 /setvar key=kinks []|
 /setvar key=i 0|
-/while left=i right=x rule=lt {:
+/setvar key=x Continue|
+/while left=x right=Continue rule=eq {:
 
 	//Make kink|
 	/setvar key=kink []|
@@ -33,18 +23,30 @@
 	/while left=genState right=Redo rule=eq {:
 		/echo Generating Known kinks|
 		/setvar key=genState []|  
-	
+		
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+		
+		//Button 06 - 01|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 218|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 219|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 220|
+		/setvar key=instruct {{pipe}}|
+		
 		/genraw lock=on name={{char}} 
-		system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}"Now, provide a comma-separated list of five kinks.
-INSTRUCTION: Use the right pronounce. Start each kink with a capital letter. Ensure the kink is not one of these kinks, {{getvar::temp}}. The response should be a comma-separated list of five kinks, nothing else.
-{{instructFirstOutput}}|
+		system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 		/setvar key=t {{pipe}}|
 		/re-replace replace="" find="/\./g" var=t | /setvar key=t {{pipe}}|
 		/split var=t | 
 		/setvar key=genState {{pipe}}|
-		/addvar key=genState "Manually Add"|  
+		/addvar key=genState "Manually Add"|
+		/addvar key=genState Done|  		
 		/addvar key=genState Redo|  
 	
 		/buttons labels={{getvar::genState}} Chose the kink you want {{getvar::fname}} to have.|
@@ -52,16 +54,19 @@ INSTRUCTION: Use the right pronounce. Start each kink with a capital letter. Ens
 		/setvar key=selected_btn {{pipe}}|
 	
 		/ife {: /test left=selected_btn right="" rule=eq :}|
-			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		/elseif {: /test left={{getvar::selected_btn}} right="Manually Add" rule=eq :}|
 			/then {:
 				
 				/input rows=8 Manually add the kink you want {{getvar::fname}} to have.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife {: /test left=selected_btn right="" rule=eq :}|
-						/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+						/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 			:}|
-	
+		/elseif {: /test left={{getvar::selected_btn}} right=Done rule=eq :}|
+			/then {:
+				/setvar key=x Done|
+			:}|
 		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
 			/then {:
 				/setvar key=genState Redo|
@@ -69,7 +74,21 @@ INSTRUCTION: Use the right pronounce. Start each kink with a capital letter. Ens
 	:}|
 	/addvar key=kink {{getvar::selected_btn}}|
 
-
+	/ife {: /test left=x right=Continue rule=eq :}|
+		/then {:
+	/setvar key=special {{noop}}
+	/setvar key=tempspecial {{noop}}|
+	/buttons labels=["Yes","No"] <div>Is there anything special with this kink?</div><div>Example: Besiality (input)</div><div>Where input is your input in the above example it could be Dog</div>|
+	/setvar key=special {{pipe}}|
+	/ife {: /test left=special right="" rule=eq :}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
+	/elseif {: /test left=special right=Yes rule=eq :}|
+		/then {:
+			/input What is special about the kink?|
+			/setvar key=special {{pipe}}|
+			/setvar key=tempspecial "This is what is special about the kink: {{getvar::special}}. "|
+		:}|
+	/addvar key=kink {{getvar::special}}|
 	/setvar key=regiv {{noop}}
 	/setvar key=tempregiv {{noop}}|
 	/buttons labels=["Receiver","Giver","Not Specified"] Would you like the character to be on the receiving end or the giving end?|
@@ -92,14 +111,23 @@ INSTRUCTION: Use the right pronounce. Start each kink with a capital letter. Ens
 	/while left=genState right=Redo rule=eq {:
 		/echo Generating {{getvar::k}}'s explanation|
 		/setvar key=genState []|  
-	
+		
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+		
+		//Button 06 - 02|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 222|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 223|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 224|
+		/setvar key=instruct {{pipe}}|
+		
 		/genraw lock=on name={{char}} 
-		system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a short Explanation of what the kink '{{getvar::k}}' entails.
-INSTRUCTION: Use the right pronounce. Start the explanation with '{{getvar::k}}' followed by ' is when a person'. Use max fifteen tokens.
-{{instructFirstOutput}} |
+		system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 		
 		
 		
@@ -138,14 +166,23 @@ INSTRUCTION: Use the right pronounce. Start the explanation with '{{getvar::k}}'
 	/while left=genState right=Redo rule=eq {:
 		/echo Generating {{getvar::fname}}'s first exposure to {{getvar::k}}|
 		/setvar key=genState []|  
-	
+		
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+		
+		//Button 06 - 03|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 226|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 227|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 228|
+		/setvar key=instruct {{pipe}}|
+		
 		/genraw lock=on name={{char}} 
-		system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a short description on how {{getvar::fname}} first got to know about {{getvar::k}}. {{getvar::fname}} could get the know about the kink from {{random::a parent::a older sibling::a older relative::a neighbor::a video::a magazine::accidentally seeing someone doing the kink}} when {{getvar::fname}} was younger then {{getvar::age}}.
-INSTRUCTION: Use the right pronounce. Keep in mind that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Start the reply with {{getvar::fname}}. Include the age at witch {{getvar::fname}} learnt about the kink. Use max fifteen tokens.
-{{instructFirstOutput}} |
+		system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 		
 		
 		
@@ -186,17 +223,21 @@ INSTRUCTION: Use the right pronounce. Keep in mind that {{getvar::fname}} is a {
 		/echo Generating {{getvar::fname}}'s first experiance with {{getvar::k}}|
 		/setvar key=genState []|  
 		
-		/genraw lock=on name={{char}} 
-		system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-This is how and when {{getvar::fname}} learnt the kink.
-'{{getvar::lernt}}'"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a short description of {{getvar::fname}} first time trying {{getvar::k}}. {{getvar::fname}} first experiance should happen sometime after she learns about the kink but still younger then {{getvar::age}}.
-The way that {{getvar::fname}} tried the kink for the first time could be {{random::a older sibling::a parent::a older relative::a teacher}} persuade {{getvar::fname}} to try it. Or {{getvar::fname}} could try it themself.
-INSTRUCTION: Use the right pronounce. Keep in mind that {{getvar::fname}} is {{getvar::age}}.{{getvar::tempregiv}}Describe it in the past tense. Start the reply with 'The first time {{getvar::fname}} tried {{getvar::k}} was when'. Use max fifteen tokens.
-{{instructFirstOutput}} |  
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+		
+		//Button 06 - 04|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 230|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 231|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 232|
+		/setvar key=instruct {{pipe}}|
+		
+		system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 		
 		
 		
@@ -234,7 +275,7 @@ INSTRUCTION: Use the right pronounce. Keep in mind that {{getvar::fname}} is {{g
 		
 	:}|
 	/addvar key=kinks ["{{getvar::k}}", {{getvar::kinkinfo}}]|
-	
+	:}|
 	/incvar i|
 :}|
 
@@ -257,12 +298,30 @@ INSTRUCTION: Use the right pronounce. Keep in mind that {{getvar::fname}} is {{g
 		/else {:
 			/setvar key=x {{item}}|
 			/foreach var=x {:
-				
+				/setvar key=y {{item}}|
 				/ife {: /test left={{index}} right=0 rule=eq :}|
 					/then {:
-						/addvar key=output1 "- {{getvar::kinkname}} ({{item}})
-" :}|
-				/elseif {: /test left={{index}} right=0 rule=neq :}|
+						/ife {: /test left=y right=No rule=neq :}|
+							/then {:
+								/addvar key=output1 "- {{getvar::kinkname}} ({{item}})"
+							:}|
+						/else {:
+							/addvar key=output1 "- {{getvar::kinkname}}"
+						:}|
+					:}|
+				/ife {: /test left={{index}} right=1 rule=eq :}|
+					/then {:
+						/ife {: /test left=y right="Not Specified" rule=neq :}|
+							/then {:
+								/addvar key=output1 " ({{item}})
+"|
+							:}|
+						/else {:
+							/addvar key=output1 "
+"|
+						:}|
+					:}|
+				/elseif {: /test left={{index}} right=1 rule=gt :}|
 					/then {:
 						/ife {: /test left=tempoutput2 right="" rule=eq :}|
 							/then {: /addvar key=tempoutput2 "- {{item}}" :}|

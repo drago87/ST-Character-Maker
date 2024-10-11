@@ -12,7 +12,7 @@
 /setvar key=outputString []|
 
 /while left=genState right=Redo rule=eq {:
-	/echo Generating Strenghts|
+	/echo Generating strengths|
 	/setvar key=genState []|
 	/setvar key=skip {{noop}}|
 	/setvar key=skip1 {{noop}}|
@@ -24,22 +24,25 @@
 	:}|
 	
 	
-	
     /setvar key=genState []|  
-
+	
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 11 - 01|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 322|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 323|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 324|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Here is some examples:
-Example1: {{getvar::fname}} is quite curious and determined, always eager to learn new things.
-Example2: {{getvar::fname}} is curious and quick to learn new things.
-Example3: She's also very caring and always wants to help others.
-Example4: He possesses an impressive memory, recalling anatomical details and sexual techniques effortlessly."
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short sentence of something that {{getvar::fname}} is particularly good at.
-INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid having any of these strenghts in your replys: {{getvar::skip1}}. Only reply with a short sentence describing the strenght, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	
 	/addvar key=genState {{pipe}}|  
@@ -77,7 +80,7 @@ INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid having
 		:}|
 	/else  {: /setvar key=genState Redo :}|
 :}|
-/setvar key=strenghts {{getvar::outputString}}|
+/setvar key=strengths {{getvar::outputString}}|
 
 
 
@@ -101,23 +104,23 @@ INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid having
 		
 		
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 11 - 02|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 326|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 327|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 328|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}
-
-Here is some examples:
-Example1: She's still young and inexperienced, so she lacks knowledge about certain subjects.
-Example2: Her impulsiveness can get her into trouble.
-Example3: She can be easily distracted from tasks at hand.
-Example4: His confidence can occasionally border on arrogance, and his fascination with his work keeps him from maintaining lasting personal connections.
-Example5: While adept at creating sensual devices, his personal life remains somewhat barren, making it harder for Lance to empathize with the emotional aspect of intimacy."
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short sentence of what  {{getvar::fname}}'s vulnerabilities or challenges are.
-INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid picking any of these weaknesses {{getvar::skip1}}. Only reply with a short sentence describing the weakness, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/add key=genState {{pipe}}|  
 	
@@ -175,22 +178,23 @@ INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid pickin
 	:}|
 	
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 11 - 03|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 330|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 331|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 332|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}
-This is a list of {{getvar::fname}}'s weaknesses: {{getvar::weaknesses}}
-
-Here is some examples:
-Example1: Pizza
-Example2: Playing outside
-Example3: Taking Baths"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short sentence of one thing that {{getvar::fname}} likes (this can be items, food, activities etc...).
-INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid picking any of these likes {{getvar::skip1}}. Only reply with a short sentence describing the like, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/addvar key=genState {{pipe}}|  
 	
@@ -249,23 +253,23 @@ INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid pickin
 	:}|
 	
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 11 - 04|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 334|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 335|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 336|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}
-This is a list of {{getvar::fname}}'s weaknesses: {{getvar::weaknesses}}
-This is a list of what {{getvar::fname}} likes: {{getvar::likes}}
-
-Here is some examples:
-Example1: Storms
-Example2: Bullying
-Example3: Spinach"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short sentence of what {{getvar::fname}} dislikes (this can be items, food, activities etc...).
-INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid picking any of these dislikes {{getvar::skip1}}. Only reply with a short sentence describing the dislike, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/addvar key=genState {{pipe}}|  
 	
@@ -324,25 +328,23 @@ INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid pickin
 	:}|
 	
     /setvar key=genState []|  
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 11 - 05|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 338|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 339|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 340|
+	/setvar key=instruct {{pipe}}|
 
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}
-This is a list of {{getvar::fname}}'s weaknesses: {{getvar::weaknesses}}
-This is a list of what {{getvar::fname}} likes: {{getvar::likes}}
-This is a list of what {{getvar::fname}} dislikes: {{getvar::likes}}
-
-Here is some examples:
-Example1: Loud noise
-Example2: Spiders
-Example3: Pain
-Example4: Losing Games"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short sentence of what {{getvar::fname}} is afraid of.
-INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid picking any of these fears {{getvar::skip1}}. Only reply with a short sentence describing the fear, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/setvar key=t {{pipe}}|
 	/re-replace replace="" find="/\./g" var=t | /setvar key=t {{pipe}}|
@@ -393,20 +395,23 @@ INSTRUCTION: Use the right pronounce. Emululate the examples given. Avoid pickin
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Sexual knowledge|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 11 - 06|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 342|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 343|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 344|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}
-This is a list of {{getvar::fname}}'s weaknesses: {{getvar::weaknesses}}
-This is a list of what {{getvar::fname}} likes: {{getvar::likes}}
-This is a list of what {{getvar::fname}} dislikes: {{getvar::likes}}
-This is a list of what {{getvar::fname}} is afraid of: {{getvar::fears}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on {{getvar::fname}}'s Sexual knowledge (This is  knowledge about sex, porn, the opposite gender, sex toys, kinks etc...).
-INSTRUCTION: Use the right pronounce. The description should be under four sentences. Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Only reply with the description, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/addvar key=genState {{pipe}}|
     /addvar key=genState Edit|  
@@ -441,21 +446,23 @@ INSTRUCTION: Use the right pronounce. The description should be under four sente
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Sexual experiance|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 11 - 07|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 346|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 347|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 348|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-This is a list of {{getvar::fname}}'s strenghts: {{getvar::strenghts}}
-This is a list of {{getvar::fname}}'s weaknesses: {{getvar::weaknesses}}
-This is a list of what {{getvar::fname}} likes: {{getvar::likes}}
-This is a list of what {{getvar::fname}} dislikes: {{getvar::likes}}
-This is a list of what {{getvar::fname}} is afraid of: {{getvar::fears}}
-This is {{getvar::fname}}' sexual knowlage: {{getvar::sknowlage}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a description on {{getvar::fname}}'s Sexual experiance (The description should include something {{getvar::fname}} have experienced that have left a mark, either physically or mentally, sex toys, having someone touch the character's Genitalia, kinks etc...).
-INSTRUCTION: Use the right pronounce. The description should be under four sentences. Remember that {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Only reply with the description, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/addvar key=genState {{pipe}}|
     /addvar key=genState Edit|  
@@ -490,7 +497,7 @@ INSTRUCTION: Use the right pronounce. The description should be under four sente
 	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Beastkin rule=in:}|
 	/then {: /setvar key=isTrue false :}|
-/elseif {: /test left=species right=Pokemon rule=in:}|
+/elseif {: /test left=species right=Pokèmon rule=in:}|
 	/then {: /setvar key=isTrue true :}|
 /elseif {: /test left=species right=Animal rule=in:}|
 	/then {: /setvar key=isTrue true :}|
@@ -503,14 +510,23 @@ INSTRUCTION: Use the right pronounce. The description should be under four sente
 		/while left=genState right=Redo rule=eq {:
 			/echo Generating {{getvar::species}} Mating|
 			/setvar key=genState []|  
-		
+			
+			/setvar key=system {{noop}}|
+			/setvar key=prompt {{noop}}|
+			/setvar key=instruct {{noop}}|
+			
+			//Button 11 - 08|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 350|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 351|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 352|
+			/setvar key=instruct {{pipe}}|
+			
 			/genraw lock=on name={{char}} 
-			system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a description on how the species {{getvar::species}} mate with eachouther. The description should be the mating process of {{getvar::species}}'s and how the male Genitalia interacts with the females Genitalia.
-INSTRUCTION: Use the right pronounce. The description should be in depth and under ten sentences and fookus on how the male and female interact during mating.  The response should only be the description and nothing else.
-{{instructFirstOutput}}|
+			system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 			
 			
 			
@@ -543,9 +559,9 @@ INSTRUCTION: Use the right pronounce. The description should be in depth and und
 	:}|	
 /setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
 
-Strenghts"|
+Strengths"|
 
-/foreach var=strenghts {:
+/foreach var=strengths {:
 	/addvar key=output "
 - {{item}}"| 
 :}|

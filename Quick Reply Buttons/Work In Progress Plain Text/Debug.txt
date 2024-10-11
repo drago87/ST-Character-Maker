@@ -1,0 +1,9 @@
+/ife {: /test left=debug right=Yes rule=neq :}|
+	/then {:
+		/setvar key=debug Yes|
+		/echo Debug Enabled|
+	:}|
+/else {:
+	/setvar key=debug No|
+	/echo Debug Disabled|
+:}|

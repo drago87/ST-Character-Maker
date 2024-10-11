@@ -13,14 +13,23 @@
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Speach Pattern|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 09 - 01|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 258|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 259|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 260|
+	/setvar key=instruct {{pipe}}|
+	
    /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, describe {{getvar::fname}} Speech Patterns (how and if {{getvar::fname}} speaks or if it can only use sounds and gestures to communicate.)
-INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}.  Keep the response to one sentences. The response should be short about {{getvar::fname}}'s Speech Patterns and nothing else.
-{{instructFirstOutput}}| 
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	
@@ -57,16 +66,23 @@ INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, t
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Dialect|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 09 - 02|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 262|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 263|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 264|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Take {{getvar::fname}}'s Speach pattern into consideration when ansering: {{getvar::sp}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a comma-separated list of five dialects.
-INSTRUCTION: Use the right pronounce. The dialects should only be one or two words. Start each dialect with a capital letter. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be a list of five dialects and nothing else.
-{{instructFirstOutput}}|  
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	/setvar key=spli {{pipe}}|
@@ -106,16 +122,22 @@ INSTRUCTION: Use the right pronounce. The dialects should only be one or two wor
 /while left=genState right=Redo rule=eq {:
 	/echo Generating {{getvar::fname}}'s {{getvar::dil}} dialect example.|
     /setvar key=genState []|  
-
-    /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Take {{getvar::fname}}'s {{getvar::dil}} dialect and use in your reply."
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a example on how {{getvar::fname}} would talk using {{getvar::dil}}.
-INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The reply should be one sentence. The response should only be the example and nothing else.
-{{instructFirstOutput}}| 
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 09 - 03|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 266|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 267|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 268|
+	/setvar key=instruct {{pipe}}|
+	
+    system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	
@@ -153,18 +175,23 @@ INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, t
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Catchphrase|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 09 - 04|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 270|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 271|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 272|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Take {{getvar::fname}}'s Speach pattern into consideration when replying: {{getvar::sp}}
-
-Take {{getvar::fname}}'s dialect into consideration when replying: {{getvar::dil}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a short Catchphrase that {{getvar::fname}} uses.
-INSTRUCTION: Use the right pronounce. The Catchphrase should only be a short sentence. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should the Catchphrase and nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	
@@ -203,23 +230,23 @@ INSTRUCTION: Use the right pronounce. The Catchphrase should only be a short sen
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Common words|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 09 - 05|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 274|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 275|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 276|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Take {{getvar::fname}}'s Speach pattern into consideration when replying: {{getvar::sp}}
-
-Take {{getvar::fname}}'s dialect into consideration when replying: {{getvar::dil}}
-
-Here is some examples:
-Example1: \"Gulp\"
-Example2: \"Jelp\"
-Example3: \"Whelp\""
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five Common onomatopoeias the character often starts or ends sentences with (This could be words like 'Dude' etc..).
-INSTRUCTION: Use the right pronounce. Emululate the examples given. Start each onomatopoeias with a capital letter. Only reply with five words, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/setvar key=t {{pipe}}|
 	/re-replace replace="" find="/\./g" var=t | /setvar key=t {{pipe}}|
@@ -277,16 +304,23 @@ INSTRUCTION: Use the right pronounce. Emululate the examples given. Start each o
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Behavior in Conversations|
     /setvar key=genState []|  
-
-    	/genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Take {{getvar::fname}}'s Speach pattern into consideration when ansering: {{getvar::sp}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a description on how {{getvar::fname}} typically interact with others.
-INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. Keep the response to one sentences.  The response should only be a description and nothing else.
-{{instructFirstOutput}}|
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 09 - 06|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 278|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 279|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 280|
+	/setvar key=instruct {{pipe}}|
+	
+    /genraw lock=on name={{char}} 
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	
@@ -326,21 +360,23 @@ INSTRUCTION: Use the right pronounce. Remember the Genre is {{getvar::genre}}, t
 /while left=genState right=Redo rule=eq {:
 	/echo Generating {{getvar::fname}}'s Preferred subject|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 09 - 07|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 282|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 283|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 284|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-{{getvar::skip}}
-
-These are some examples
-example1: Dwarf's like to talk about metal and rocks.
-example2: Elf's like to talk about nature and music.
-example3: Dragon's like to talk about their treasures."
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a subject {{getvar::fname}} enjoys discussing.
-INSTRUCTION: Use the right pronounce. The subjects should be short and be something that {{getvar::fnames}}'s {{getvar::species}} species likes to discuss. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should be a short sentence. The response should only be a subject, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	/addvar key=genState {{pipe}}|

@@ -1,12 +1,21 @@
-/echo Flushing variables|
-
-/listvar scope=local format=none | /setvar key=flvars {{pipe}}|
-/foreach var=flvars {:
-	/setvar key=flvar {{item}}|
-	/foreach var=flvar {:
-		/ife {: /test left={{index}} right=key rule=eq:}|
-			/then {: /flushvar {{item}} :}|
+/ife {: /test left=debug right=Yes rule=eq :}|
+	/then {:
+		/echo Flushing variables|
+		
+		/listvar scope=local return=object | /setvar key=flvars {{pipe}}|
+		/foreach var=flvars {:
+			/setvar key=flvar {{item}}|
+			/foreach var=flvar {:
+				/ife {: /test left={{index}} right=key rule=eq:}|
+					/then {:
+						/ife {: /test left={{item}} right=saftey rule=neq:}|
+							/then {:
+								/flushvar {{item}}
+							:}|
+					:}|
+			:}|
+		:}|
+		/flushvar flvars|
+		/flushvar flvar|
 	:}|
-:}|
-/flushvar flvars|
-/flushvar flvar|
+/else {: /echo Not Flushing variables Debug enabled |:}|

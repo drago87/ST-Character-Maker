@@ -13,14 +13,27 @@
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Setting: World type|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 10 - 01|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 286|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 287|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 288|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a a description of the type of world(medieval, fantasy, sci-fi, present times etc..) {{getvar::fname}} lives in.
-INSTRUCTION: Use the right pronounce. Keep the reply to under five sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
-{{instructFirstOutime_periodut}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	
@@ -56,16 +69,23 @@ INSTRUCTION: Use the right pronounce. Keep the reply to under five sentences. Do
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Setting: Living conditions.|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 10 - 02|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 290|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 291|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 292|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Description of {{getvar::fname}}'s world: {{getvar::p1}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue with the description of the where {{getvar::fname}} lives?(Small house in a community, Apartment in a skyscraper etc.. )
-INSTRUCTION: Use the right pronounce. Keep the reply to under five sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
-{{instructFirstOutime_periodut}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	
@@ -100,17 +120,23 @@ INSTRUCTION: Use the right pronounce. Keep the reply to under five sentences. Do
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Setting: Home enviroment and community.|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 10 - 03|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 294|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 295|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 296|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Description of {{getvar::fname}}'s world: {{getvar::p1}}
-Description of where {{getvar::fname}} lives: {{getvar::p2}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue with the description of {{getvar::fname}}'s home environment and community etc...
-INSTRUCTION: Use the right pronounce. Keep the reply to under ten sentences. Don't mention {{getvar::fname}} age.  The response should only be a description of the setting and nothing else.
-{{instructFirstOutime_periodut}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	
@@ -151,17 +177,23 @@ INSTRUCTION: Use the right pronounce. Keep the reply to under ten sentences. Don
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Daily Rutine: Morning|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 10 - 04|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 298|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 299|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 300|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-{{getvar::fname}}'s occupation is: {{getvar::occupation}}
-This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a description of {{getvar::fnames}}'s morning rutine (this is something {{getvar::fnames}} does in the mornings before going to work/school).
-INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under three sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
-{{instructFirstOutput}}|  
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	
@@ -196,19 +228,23 @@ INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use pl
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Daily Rutine: Day|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 10 - 05|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 302|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 303|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 304|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-{{getvar::fname}}'s occupation is: {{getvar::occupation}}
-This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}
-
-This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s daily rutine (this is something {{getvar::fnames}} does during work/school).
-INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
-{{instructFirstOutput}}|  
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}| 
 	
 	
 	
@@ -243,20 +279,23 @@ INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use pl
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Daily Rutine: After work/school|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 10 - 06|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 306|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 307|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 308|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-{{getvar::fname}}'s occupation is: {{getvar::occupation}}
-This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}
-
-This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}
-This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s after work/school rutine untill  eating dinner (this is something {{getvar::fnames}} does after work/school untill just after dinner.).
-INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
-{{instructFirstOutput}}|  
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}| 
 	
 	
 	
@@ -291,21 +330,23 @@ INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use pl
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Daily Rutine: Evening|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 10 - 07|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 310|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 311|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 312|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-{{getvar::fname}}'s occupation is: {{getvar::occupation}}
-This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}
-
-This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}
-This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}
-This is {{getvar::fname}}'s after work/school rutine: {{getvar::p3}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s evening rutine (this is something {{getvar::fnames}} does in the evening but before getting ready for bed).
-INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
-{{instructFirstOutput}}|  
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	
@@ -340,22 +381,23 @@ INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use pl
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Daily Rutine: Bed|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 10 - 08|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 314|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 315|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 316|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-{{getvar::fname}}'s occupation is: {{getvar::occupation}}
-This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}
-
-This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}
-This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}
-This is {{getvar::fname}}'s after work/school rutine: {{getvar::p3}}
-This is {{getvar::fname}}'s evening rutine: {{getvar::p4}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of {{getvar::fnames}}'s Nightly rutine (this is something {{getvar::fnames}} does at night when going to bed and in the bed before sleeping).
-INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
-{{instructFirstOutput}}|  
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	
@@ -390,22 +432,23 @@ INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use pl
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Daily Rutine: Weekend|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 10 - 09|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 318|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 319|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 320|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-{{getvar::fname}}'s occupation is: {{getvar::occupation}}
-This is the setting under which {{getvar::fname}} is living: {{getvar::setting}}
-
-This is {{getvar::fname}}'s morning rutine: {{getvar::p1}}
-This is {{getvar::fname}}'s daily rutine: {{getvar::p2}}
-This is {{getvar::fname}}'s after work/school rutine: {{getvar::p3}}
-This is {{getvar::fname}}'s evening rutine: {{getvar::p4}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, continue the description of what {{getvar::fnames}} usually do during Weekends.
-INSTRUCTION: Use the right pronounce. Describe it from an outsiders view. Use plain English. The description should be under four sentences. Remember the Genre is {{getvar::genre}}, the genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The response should only be the description and nothing else.
-{{instructFirstOutput}}|  
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
 	

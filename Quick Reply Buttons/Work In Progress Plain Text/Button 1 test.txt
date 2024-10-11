@@ -1,17 +1,29 @@
 /setvar key=a {{lastMessageId}}|
 /ife {: /test left=swipe right=Yes rule=neq:}|
 	/then {:
-		/ife {: /test left=a right="" rule=neq:}|
+		/ife {: /test left=a right=0 rule=gt:}|
 			/then {:
-				/ife {: /test left=swipe right=Yes rule=neq:}|
+				/buttons labels=["Yes","No"] WARNING!! This will delete the chat. Do you want to continue?|
+				/setvar key=a1 {{pipe}}|
+				/ife {: /test left=a1 right=Yes rule=eq :}|
 					/then {:
-						/message-edit message=0 <h2 align='center'>Basic Information</h2>|
+						/cut 0-{{lastmessageID}}|
+						/sendas name={{char}} <h2 align='center'>Basic Information</h2>|
 					:}|
-		:}|
+				/else {:
+					/:"Character Maker V4.Flushvar"| /echo Aborting | /abort|
+				:}|
+			:}|
+		/elseif {: /test left=a right="" rule=eq:}|
+			/then {:
+				/sendas name={{char}} <h2 align='center'>Basic Information</h2>|
+			:}|
 		/else {:
+			/cut {{lastmessageID}}|
 			/sendas name={{char}} <h2 align='center'>Basic Information</h2>|
 		:}|
 	:}|
+
 /db-get source=chat tags | /setvar key=tags {{pipe}}|
 /db-get source=chat gender | /setvar key=gender {{pipe}}|
 /db-get source=chat type | /setvar key=type {{pipe}}|
@@ -19,7 +31,7 @@
 /messages 0-{{lastMessageId}} |
 /setvar key=messageHistory {{pipe}} | 
 
-
+/setvar key=saftey {{noop}}|
 /setvar key=nhum No|
 /foreach var=tags {:
 	/ife {: /test left={{item}} right=FNHN rule=eq :}|
@@ -27,6 +39,7 @@
 /elseif {: /test left={{item}} right=MNHN rule=in :}|
 		/then {: /setvar key=nhum Yes :}|
 :}|
+
 /setvar key=skip {{noop}}|
 /db-list source=chat field=name |/setvar key=a {{pipe}}|
 /foreach var=a {:
@@ -35,6 +48,7 @@
 			/db-get source=chat real| /setvar key=s|
 			/ife {: /test left=s right=No rule=eq :}|
 				/then {:
+					
 					/setvar key=skip Yes|
 					/break|
 				:}|
@@ -45,7 +59,7 @@
 	:}|
 :}|
 
-/ife {: /test left=skip right=No rule=eq:}|
+/ife {: /test left=skip right=No rule=neq:}|
 	/then {: 
 		/setvar key=db ["genre","time_period","world_type","first_name","last_name","nic_name","age","species","sub_species","sexuality","occupation"]|
 :}|
@@ -59,21 +73,20 @@
 	/db-get source=chat real| /setvar key=real {{pipe}}|
 :}|
 
-
-
 /foreach var=db {:
 	/setvar key=b {{item}}|
 	/foreach var=a {:
-		/ife {: /test left=b right={{item}} rule=eq :}|
-			/then {: /db-delete source=chat {{item}} :}|
+		/setvar key=a1 {{item}}|
+		/ife {: /test left=b right=a1 rule=eq :}|
+			/then {: 
+			/db-delete source=chat {{item}}
+			:}|
 	:}|
 	
 	
 :}|
 
 
-/ife {: /test left=skip right=No rule=eq:}|
-	/then {: /:"Character Maker V4.Is real" :}|
 	
 /setvar key=t2 {{noop}}|
 /setvar key=char_info {{noop}}|
@@ -124,10 +137,22 @@
 		/while left=genre right=Done rule=neq {:
 			/echo Generateing Five Genres:|
 			
+			/setvar key=system {{noop}}|
+			/setvar key=prompt {{noop}}|
+			/setvar key=instruct {{noop}}|
+			
+			//Button 01 - 01|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 1|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 2|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 3|
+			/setvar key=instruct {{pipe}}|
+			
 			/genraw lock=on name={{char}} 
-			system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a comma-separated list of five genres. INSTRUCTION: Use the right pronounce. Start the genres with a capital letter. Only reply with five genres, nothing else.
-{{instructFirstOutput}} |
+			system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 			/setvar key=genrelist {{pipe}} |
 					
 					 
@@ -161,11 +186,13 @@
 			/ife {: /test left=genre right="" rule=eq :}|
 				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 			
-			/elseif {: /test left={{getvar::genre}} right=Redo rule=eq :}|
+			/elseif {: /test left=genre right=Redo rule=eq :}|
+				/then {: /setvar key=genre Redo :}|
+			/elseif {: /test left={{getvar::genre}} right=Done rule=eq :}|
 				/then {::}|
 			/elseif {: /test left={{getvar::genre}} right=Done rule=neq :}|
 				/then {:
-					/echo Done=neq|
+					/addvar key=saftey {{getvar::genre}}|
 					/ife {: /test left=temp1 right={{noop}} rule=neq :}|
 						/then {: 
 							/addvar key=temp1 ", {{getvar::genre}}"
@@ -194,11 +221,22 @@
 		/while left=period right=Redo rule=eq {:
 			/echo Generateing periods:|
 			
+			/setvar key=system {{noop}}|
+			/setvar key=prompt {{noop}}|
+			/setvar key=instruct {{noop}}|
+			
+			//Button 01 - 02|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 5|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 6|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 7|
+			/setvar key=instruct {{pipe}}|
+			
 			/genraw lock=on name={{char}} 
-			system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, provide a comma-separated list of five Time Periods. Examples: The 2000s, Future etc..
-INSTRUCTION: Use the right pronounce. Start the time periods with a capital letter. Only reply with five time period, nothing else.
-{{instructFirstOutput}} |
+			system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 			/setvar key=periodlist {{pipe}} |
 					
 					 
@@ -222,13 +260,14 @@ INSTRUCTION: Use the right pronounce. Start the time periods with a capital lett
 			/buttons labels={{getvar::periodlist}} Do any of these Time Periods look good or do you want me to redo them?|
 			/setvar key=period {{pipe}} |
 			/ife {: /test left=period right="" rule=eq :}|
-				/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+				/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 		:}|
 			
 			/ife {: /test left=period right="Manually Add" rule=eq :}|
 				/then {: /input rows=8 Add the Time Period you want to use.|
 				/setvar key=period {{pipe}}
 				:}|
+			/addvar key=saftey {{getvar::period}}|
 	:}|
 
 
@@ -239,15 +278,22 @@ INSTRUCTION: Use the right pronounce. Start the time periods with a capital lett
 	/echo Generating World Type|
     /setvar key=genState []|  
 	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 01 - 03|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 9|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 10|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 11|
+	/setvar key=instruct {{pipe}}|
+	
    /genraw lock=on name={{char}} 
-	system="{{getvar::char_info}}
-
-Example1: Fantasy Realm
-Example2: Sci-Fi Universe
-Example3: Realistic Setting"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five world types.
-INSTRUCTION: Use the right pronounce. Emululate the examples given. Start the reply with a capital letter. Only reply with five world types, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/setvar key=t {{pipe}}|
 	/split var=t |
@@ -277,6 +323,9 @@ INSTRUCTION: Use the right pronounce. Emululate the examples given. Start the re
 		:}|
 :}|
 /setvar key=world_type {{getvar::selected_btn}}|
+/addvar key=saftey {{getvar::world_type}}|
+
+
 
 /ife {: /test left=real right=No rule=eq :}|
 	/then {:
@@ -296,24 +345,26 @@ INSTRUCTION: Use the right pronounce. Emululate the examples given. Start the re
 				/while left=fname right=Redo rule=eq {:
 					/echo Generateing First Names:|
 					/setvar key=namelist []|
-					/ife {: /test left=gender right=Female rule=eq :}|
-						/then {:
-							/genraw lock=on name={{char}} 
-							system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female first names.
-INSTRUCTION: Use the right pronounce. Only reply with five female first names, nothing else.
-{{instructFirstOutput}} |
-							/setvar key=nlist {{pipe}} 
-						:}|
-					/elseif {: /test left=gender right=Male rule=eq :}|
-						/then {:
-							/genraw lock=on name={{char}} 
-							system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five male first names.
-INSTRUCTION: Use the right pronounce. Start the first names with a capital letter. Only reply with five male first names, nothing else.
-{{instructFirstOutput}} |
-							/setvar key=nlist {{pipe}} 
-							:}|		
+					
+					/setvar key=system {{noop}}|
+					/setvar key=prompt {{noop}}|
+					/setvar key=instruct {{noop}}|
+					
+					//Button 01 - 04|
+					/getentryfield file="Character Maker Combined NSFW GenRaw" 13|
+					/setvar key=system {{pipe}}|
+					/getentryfield file="Character Maker Combined NSFW GenRaw" 14|
+					/setvar key=prompt {{pipe}}|
+					/getentryfield file="Character Maker Combined NSFW GenRaw" 15|
+					/setvar key=instruct {{pipe}}|
+					
+					/genraw lock=on name={{char}} 
+					system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+					/setvar key=nlist {{pipe}}|
+					/re-replace find="/\./g" replace="" {{getvar::nlist}}|
+					/setvar key=nlist {{pipe}}|
 					/wait 1|
 					/split var=nlist | /setvar key=namelist {{pipe}}|
 					
@@ -324,7 +375,7 @@ INSTRUCTION: Use the right pronounce. Start the first names with a capital lette
 						/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
 				:}|
 			:}|
-
+		/addvar key=saftey {{getvar::fname}}|
 
 
 		/buttons labels=["Yes", "No"] Do you want to manually give the character a last name?| /setvar key=answer {{pipe}}|
@@ -342,25 +393,27 @@ INSTRUCTION: Use the right pronounce. Start the first names with a capital lette
 			/then {: /setvar key=lname Redo|
 				/while left=lname right=Redo rule=eq {:
 					/echo Generateing Last Names:|
-					/ife {: /test left=gender right=Female rule=eq :}|
-						/then {:
-							/genraw lock=on name={{char}} 
-							system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female last names that complement {{getvar::fname}}.
-INSTRUCTION: Use the right pronounce. Start the last names with a capital letter. Only reply with five female last names, nothing else.
-{{instructFirstOutput}} |
-							/setvar key=lnamelist {{pipe}}
-						:}|
-					/elseif {: /test left=gender right=Male rule=eq :}|
-						/then {:
-							/genraw lock=on name={{char}} 
-							system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female last names that complement {{getvar::fname}}.
-INSTRUCTION: Use the right pronounce. Start the last names with a capital letter. Only reply with five male last names, nothing else.
-{{instructFirstOutput}} |
-							/setvar key=lnamelist {{pipe}}
-						:}|
-						
+					
+					/setvar key=system {{noop}}|
+					/setvar key=prompt {{noop}}|
+					/setvar key=instruct {{noop}}|
+					
+					//Button 01 - 05|
+					/getentryfield file="Character Maker Combined NSFW GenRaw" 17|
+					/setvar key=system {{pipe}}|
+					/getentryfield file="Character Maker Combined NSFW GenRaw" 18|
+					/setvar key=prompt {{pipe}}|
+					/getentryfield file="Character Maker Combined NSFW GenRaw" 19|
+					/setvar key=instruct {{pipe}}|
+					
+					/genraw lock=on name={{char}} 
+					system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+					/setvar key=lnamelist {{pipe}}|
+					
+					/re-replace find="/\./g" replace="" {{getvar::lnamelist}}|
+					/setvar key=lnamelist {{pipe}}|
 					/wait 1|
 					/split var=lnamelist | /setvar key=lnamelist {{pipe}}|
 					/addvar key=lnamelist "None"|
@@ -371,6 +424,7 @@ INSTRUCTION: Use the right pronounce. Start the last names with a capital letter
 						/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 				:}
 			:}|
+			/addvar key=saftey {{getvar::lname}}|
 	:}|	
 	
 /buttons labels=["Yes", "No"] Do you want to manually give the character a nickname?| /setvar key=answer {{pipe}}|
@@ -388,25 +442,26 @@ INSTRUCTION: Use the right pronounce. Start the last names with a capital letter
 	/then {: /setvar key=nname Redo|
 		/while left=nname right=Redo rule=eq {:
 			/echo Generateing Nicknames:|
-			/ife {: /test left=gender right=Female rule=eq :}|
-				/then {:
-					/genraw lock=on name={{char}} 
-					system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female nicknames that complement {{getvar::fname}} {{getvar::lname}}.
-INSTRUCTION: Use the right pronounce. The nickname should be something parents of close frends use. Start the nicknames with a capital letter. Only reply with five female nicknames, nothing else.
-{{instructFirstOutput}} |
-					/setvar key=nnamelist {{pipe}}
-				:}|
-			/elseif {: /test left=gender right=Male rule=eq :}|
-				/then {:
-					/genraw lock=on name={{char}} 
-					system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five female nicknames that complement {{getvar::fname}} {{getvar::lname}}.
-INSTRUCTION: Use the right pronounce. Only reply with five male nicknames, nothing else.
-{{instructFirstOutput}} |
-					/setvar key=nnamelist {{pipe}} 
-                :}|
-				
+			
+			/setvar key=system {{noop}}|
+			/setvar key=prompt {{noop}}|
+			/setvar key=instruct {{noop}}|
+			
+			//Button 01 - 06|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 21|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 22|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 23|
+			/setvar key=instruct {{pipe}}|
+			
+			/genraw lock=on name={{char}} 
+			system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+			/setvar key=nnamelist {{pipe}}|
+			/re-replace find="/\./g" replace="" {{getvar::nnamelist}}|
+			/setvar key=nnamelist {{pipe}}|
 			/wait 1|
 			/split var=nnamelist | /setvar key=nnamelist {{pipe}}|
 			
@@ -425,7 +480,7 @@ INSTRUCTION: Use the right pronounce. Only reply with five male nicknames, nothi
 					/setvar key=nname {{pipe}}
 				:}|
 	:}|
-	
+/addvar key=saftey {{getvar::nname}}|
 
 /ife {: /test left={{getvar::tags}} right=FHN rule=in :}|
 	/then {: 
@@ -460,23 +515,42 @@ INSTRUCTION: Use the right pronounce. Only reply with five male nicknames, nothi
 		/then {: /setvar key=species Redo|
 			/while left=species right=Redo rule=eq {:
 				/echo Generateing Species:|
+				
+				/setvar key=system {{noop}}|
+				/setvar key=prompt {{noop}}|
+				/setvar key=instruct {{noop}}|
+				
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 25|
+				/setvar key=system {{pipe}}|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 28|
+				/setvar key=instruct {{pipe}}|
 				/ife {: /test left=type right=None rule=eq :}|
 					/then {:
+						
+						//Button 01 - 07|
+						/getentryfield file="Character Maker Combined NSFW GenRaw" 26|
+						/setvar key=prompt {{pipe}}|
+
+						
 						/genraw lock=on name={{char}} 
-						system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five species.
-INSTRUCTION: Use the right pronounce. Start the species with a capital letter. Only reply with five species, nothing else.
-{{instructFirstOutput}} |
+						system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 						/setvar key=specieslist {{pipe}}|
 					:}|
 				/else {:
+					
+					/getentryfield file="Character Maker Combined NSFW GenRaw" 27|
+					/setvar key=prompt {{pipe}}|
+					
 					/genraw lock=on name={{char}} 
-					system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five {{getvar::type}} species.
-INSTRUCTION: Use the right pronounce. Start the species with a capital letter. Only reply with five species, nothing else.
-{{instructFirstOutput}} |
-					/setvar key=specieslist {{pipe}} :}|
-
+					system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+					/setvar key=specieslist {{pipe}}|
+					:}|
+					/re-replace find="/\./g" replace="" {{getvar::specieslist}}|
+					/setvar key=specieslist {{pipe}}|
 					/wait 1|
 					/split var=specieslist | /setvar key=specieslist {{pipe}}|
 					/addvar key=specieslist Redo|
@@ -486,21 +560,34 @@ INSTRUCTION: Use the right pronounce. Start the species with a capital letter. O
 					/ife {: /test left=species right="" rule=eq :}|
 						/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 			:}|
+			/addvar key=saftey {{getvar::species}}|
 			/ife {: /test left=nhum right=Yes rule=eq :}|
 				/then {:
 					/setvar key=sdesc Redo|
 					/while left=sdesc right=Redo rule=eq {:
 						/echo Generateing Species Description:|
 						
+						/setvar key=sdesclist []|
+						
+						/setvar key=system {{noop}}|
+						/setvar key=prompt {{noop}}|
+						/setvar key=instruct {{noop}}|
+						
+						//Button 01 - 08|
+						/getentryfield file="Character Maker Combined NSFW GenRaw" 30|
+						/setvar key=system {{pipe}}|
+						/getentryfield file="Character Maker Combined NSFW GenRaw" 31|
+						/setvar key=prompt {{pipe}}|
+						/getentryfield file="Character Maker Combined NSFW GenRaw" 32|
+						/setvar key=instruct {{pipe}}|
+						
 						/genraw lock=on name={{char}} 
-						system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a description of a {{getvar::species}}.
-INSTRUCTION: Use the right pronounce. Only reply with the description, nothing else.
-{{instructFirstOutput}} |
-						/setvar key=sdesclist {{pipe}}|
+						system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+						/addvar key=sdesclist {{pipe}}|
 						
 		
-						/setvar key=sdesclist {{pipe}} |
 						/addvar key=sdesclist Edit|
 						/addvar key=sdesclist Redo|
 						/buttons labels={{getvar::sdesclist}} Do this description look good look good or do you want me to redo the description?|
@@ -515,7 +602,9 @@ INSTRUCTION: Use the right pronounce. Only reply with the description, nothing e
 							/setvar key=sdesc {{pipe}}
 						:}|
 					:}|
+					/addvar key=saftey {{getvar::sdesc}}|
 				:}|
+			
 			/buttons labels=["Bipedal","Quadrupedal","Hexapodal","Octopedal","Aquatic","Serpentine","Semibipedal","Make your own"] What type of Posture is {{getvar::species}} using?|
 			/setvar key=posture {{pipe}}|
 			/ife {: /test left=posture right="Make your own" rule=eq :}|
@@ -551,13 +640,26 @@ INSTRUCTION: Use the right pronounce. Only reply with the description, nothing e
 				/then {: /setvar key=sspecies Redo|
 					/while left=species right=Redo rule=eq {:
 						/echo Generateing sub species:|
+						
+						/setvar key=system {{noop}}|
+						/setvar key=prompt {{noop}}|
+						/setvar key=instruct {{noop}}|
+						
+						//Button 01 - 09|
+						/getentryfield file="Character Maker Combined NSFW GenRaw" 34|
+						/setvar key=system {{pipe}}|
+						/getentryfield file="Character Maker Combined NSFW GenRaw" 35|
+						/setvar key=prompt {{pipe}}|
+						/getentryfield file="Character Maker Combined NSFW GenRaw" 36|
+						/setvar key=instruct {{pipe}}|
+						
 						/genraw lock=on name={{char}} 
-						system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five sub species of the type {{getvar::species}}.
-INSTRUCTION: Use the right pronounce. Start the sub species with a capital letter. Only reply with five sub species, nothing else.
-{{instructFirstOutput}} |
+						system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 						/setvar key=sspecieslist {{pipe}} |
-				
+						/re-replace find="/\./g" replace="" {{getvar::sspecieslist}}|
+						/setvar key=sspecieslist {{pipe}}|
 						/wait 1|
 						/split var=getvar::sspecieslist | /setvar key=sspecieslist {{pipe}}|
 						/setvar key=i 0|
@@ -589,16 +691,28 @@ INSTRUCTION: Use the right pronounce. Start the sub species with a capital lette
 					/setvar key=ssdesc Redo|
 					/while left=ssdesc right=Redo rule=eq {:
 						/echo Generateing Species Description:|
+						/setvar key=ssdesclist []|
+						
+						/setvar key=system {{noop}}|
+						/setvar key=prompt {{noop}}|
+						/setvar key=instruct {{noop}}|
+						
+						//Button 01 - 10|
+						/getentryfield file="Character Maker Combined NSFW GenRaw" 38|
+						/setvar key=system {{pipe}}|
+						/getentryfield file="Character Maker Combined NSFW GenRaw" 39|
+						/setvar key=prompt {{pipe}}|
+						/getentryfield file="Character Maker Combined NSFW GenRaw" 40|
+						/setvar key=instruct {{pipe}}|
 						
 						/genraw lock=on name={{char}} 
-						system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a description of a {{getvar::sspecies}}.
-INSTRUCTION: Use the right pronounce. Only reply with the description, nothing else.
-{{instructFirstOutput}} |
-							/setvar key=ssdesclist {{pipe}}|
+						system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+							/addvar key=ssdesclist {{pipe}}|
 							
 		
-							/setvar key=ssdesclist {{pipe}} |
+							
 							/addvar key=ssdesclist Edit|
 							/addvar key=ssdesclist Redo|
 							/buttons labels={{getvar::ssdesclist}} Do this description look good look good or do you want me to redo the description?|
@@ -616,7 +730,7 @@ INSTRUCTION: Use the right pronounce. Only reply with the description, nothing e
 		:}
 	
 	:}|
-
+/addvar key=saftey {{getvar::ssdesc}}|
 
 /ife {: /test left=tags right=FHN rule=in :}|
 	/then {::}|
@@ -699,14 +813,26 @@ INSTRUCTION: Use the right pronounce. Only reply with the description, nothing e
 		/while left=age right=Redo rule=eq {:
 			/echo Generateing the character's Age:|
 			
+			/setvar key=system {{noop}}|
+			/setvar key=prompt {{noop}}|
+			/setvar key=instruct {{noop}}|
+			
+			//Button 01 - 11|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 46|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 47|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 48|
+			/setvar key=instruct {{pipe}}|
+			
 			/genraw lock=on name={{char}} 
-			system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five ages that works for {{getvar::species}}.
-INSTRUCTION: Use the right pronounce. Only use numbers for the age. Only reply with five ages, nothing else.
-{{instructFirstOutput}} |
+			system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 			/setvar key=agelist {{pipe}} |
-	
-
+			/re-replace find="/\./g" replace="" {{getvar::agelist}}|
+			/setvar key=agelist {{pipe}}|
+			
 			/wait 1|
 			/split var=agelist | /setvar key=agelist {{pipe}}|
 			
@@ -725,6 +851,7 @@ INSTRUCTION: Use the right pronounce. Only use numbers for the age. Only reply w
 		:}
 	:}|
 /setvar key=age {{getvar::age}}yo|
+/addvar key=saftey {{getvar::age}}|
 
 /buttons labels=["Yes", "No"] Do you want to manually give the character a sexuality?| /setvar key=answer {{pipe}}|
 /ife {: /test left=answer right="" rule=eq :}|
@@ -755,16 +882,31 @@ INSTRUCTION: Use the right pronounce. Only use numbers for the age. Only reply w
 			/ife {: /test left=temp1 right={{noope}} rule=neq :}|
 				/then {: /setvar key=temp1 " Don't use these species as species in your reply {{getvar::temp1}}.":}|
 			
+			/setvar key=system {{noop}}|
+			/setvar key=prompt {{noop}}|
+			/setvar key=instruct {{noop}}|
+			
+			//Button 01 - 12|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 50|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 51|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 52|
+			/setvar key=instruct {{pipe}}|
+			
 			/genraw lock=on name={{char}} 
-			system="{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five species that a {{getvar::species}} from one of these genres {{getvar::temp}} world could be sexually interested in.
-INSTRUCTION: Use the right pronounce.{{getvar::temp1}} Start each species with a capital letter. The species should be plural. Only reply with five species, nothing else.
-{{instructFirstOutput}} |
+			system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 			/setvar key=sexlist {{pipe}} |
+			/re-replace find="/\./g" replace="" {{getvar::sexlist}}|
+			/setvar key=sexlist {{pipe}}|
 			/setvar key=temp1 {{getvar::sexlist}}|
 			/wait 10|
-			/try {: /split var=temp1:}|
-				/catch {: /input rows=8 default={{getvar::temp1}} Something whent wrong. Edit it to a comma-separated list.:}|
+			
+			/try {: /split var=temp1 :}|
+			/catch {: /input rows=8 default={{getvar::temp1}} Something whent wrong. Edit it to a comma-separated list. :}|
+			
 			/setvar key=sexlist {{pipe}}|
 			
 			
@@ -782,7 +924,7 @@ INSTRUCTION: Use the right pronounce.{{getvar::temp1}} Start each species with a
 			:}|
 		:}
 	:}|
-	
+	/addvar key=saftey {{getvar::sexuals}}|
 
 /buttons labels=["Yes", "No"] Do you want to manually give the character a occupation?| /setvar key=answer {{pipe}}|
 /ife {: /test left=answer right="" rule=eq :}|
@@ -800,25 +942,27 @@ INSTRUCTION: Use the right pronounce.{{getvar::temp1}} Start each species with a
 		/while left=occupation right=Redo rule=eq {:
 			/echo Generateing the character's Occupation:|
 			
+			/setvar key=system {{noop}}|
+			/setvar key=prompt {{noop}}|
+			/setvar key=instruct {{noop}}|
+			
+			//Button 01 - 13|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 54|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 55|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 56|
+			/setvar key=instruct {{pipe}}|
+			
 			/genraw lock=on name={{char}} 
-			system="{{getvar::char_info}}
-
-Here is some examples of responses.
-Example1: Grade Schooler
-Example2: Preschooler
-Example3: Elementary School Student
-Example4: Middle Schooler
-Example5: High School Student
-Example6: Painter
-Example7: Factory Worker
-Example8: Inventor
-Example9: Photographer"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar:: messageHistory}}. Now, respond with a comma-separated list of five occupations that works for someone {{getvar::age}}.
-INSTRUCTION: Use the right pronounce. Emululate the examples given. Start each occupation with a capital letter. Only reply with five occupations, nothing else.
-{{instructFirstOutput}} |
+			system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 			/setvar key=oclist {{pipe}} |
-	
-
+			/re-replace find="/\./g" replace="" {{getvar::oclist}}|
+			/setvar key=oclist {{pipe}}|
+			
+			
 			/wait 1|
 			/split var=oclist | /setvar key=oclist {{pipe}}|
 			

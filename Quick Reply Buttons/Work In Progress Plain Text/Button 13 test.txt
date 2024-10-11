@@ -2,7 +2,7 @@
 /ife {: /test left={{lastmessage}} right="<h2 align='center'>Latent Kinks</h2>" rule=in :}|
 	/then {:/decvar id | /hide {{getvar::id}}-{{lastMessageId}}:}|
 /else {: /hide {{getvar::id}} :}|
-/getentryfield file="Character Maker Combined NSFW" 44| /setvar key=t {{pipe}}|
+/getentryfield file="Character Maker Combined NSFW" 1| /setvar key=t {{pipe}}|
 /sendas name="{{char}}"<h2 align='center'>Character Rules</h2>
 
 {{getvar::t}}

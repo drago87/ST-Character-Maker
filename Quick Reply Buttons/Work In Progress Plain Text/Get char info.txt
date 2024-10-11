@@ -6,6 +6,7 @@
 		
 	:}|
 	
+
 /ife {: /test left=swipe right=Yes rule=neq :}|
 	/then {:
 		/ife {: /test left={{lastmessage}} right="<h2 align='center'>Latent Kinks</h2>" rule=in:}|
@@ -33,6 +34,7 @@
 	:}|
 
 
+
 /messages 0-{{lastMessageId}} |
 /setvar key=messageHistory {{pipe}} |
 
@@ -55,11 +57,47 @@
 /db-get source=chat tags| /setvar key=tags {{pipe}}|
 /db-get source=chat type| /setvar key=type {{pipe}}|
 
-/ife {: /test left=sub_species right=None rule=neq :}|
+/ife {: /test left=sub_species right=None rule=nin :}|
 	/then {: /setvar key=species {{getvar::sub_species}} :}|
 
-/getentryfield file="Character Maker Combined NSFW" 72| /setvar key=rules {{pipe}}|
+/getentryfield file="Character Maker Combined NSFW" 0| /setvar key=rules {{pipe}}|
 
+/setvar key=cleanSpeciees {{noop}}|
+
+
+/ife {: /test left=species right=Human rule=eq:}|
+	/then {:
+		/setvar key=isTure true|
+		/setvar key=cleanSpeciees Human|
+	:}|
+/elseif {: /test left=species right=Anthro rule=in:}|
+	/then {:
+		/setvar key=isTure true|
+		/re-exec first=true find="/(?<=Anthro ).*/g" {{getvar::species}}|
+	:}|
+/elseif {: /test left=species right=Beastkin rule=in:}|
+	/then {:
+		/setvar key=isTure false|
+		/re-exec first=true find="/(?<=Beastkin ).*/g" {{getvar::species}}|
+		
+	:}|
+/elseif {: /test left=species right=Pokémon rule=in:}|
+	/then {:
+		/setvar key=isTure false|
+		/re-exec first=true find="/(?<=Pokémon ).*/g" {{getvar::species}}|
+	:}|
+/elseif {: /test left=species right=Animal rule=in:}|
+	/then {:
+		/setvar key=isTure false|
+		/re-exec first=true find="/(?<=Animal ).*/g" {{getvar::species}}|
+	:}|
+/else {:
+/setvar key=isTure false|
+/setvar key=cleanSpeciees {{getvar::species}}|
+:}|
+/setvar key=cleanSpeciees {{pipe}}|
+/getvar key=cleanSpeciees index=0 |
+/setvar key=cleanSpeciees {{pipe}}|
 
 
 /ife {: /test left=gender right=Female rule=eq:}|
@@ -127,7 +165,10 @@ The world type is: {{getvar::world_type}}
 
 When talking about {{getvar::fname}} use these pronouns: {{getvar::prononce}}'
 
-Your replies should avoid 'Character Development' or 'Self-Discovery.'" |
+Exclude Character Development or Self-Discovery from your reply.
+Exclude emotional or interpretative phrases from your reply.
+Exclude enchanting qualities or highlights from your reply.
+Exclude origins or age from your reply." |
 		
 
 /tag-list| /setvar key=list {{pipe}}|

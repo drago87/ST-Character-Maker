@@ -13,14 +13,23 @@
 /while left=genState right=Redo rule=eq {:
 	/echo Generating Personality summary|
     /setvar key=genState []|  
-
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 14 - 01|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 374|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 375|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 376|
+	/setvar key=instruct {{pipe}}|
+	
     /genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a short description of {{getvar::fnames}}'s personality, describing {{getvar::fnames}} from a outsiders view.
-INSTRUCTION: Use the right pronounce. Start the genres with a capital letter. Only reply with description of the personality, nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 	
 	
     /addvar key=genState {{pipe}}|
@@ -59,7 +68,7 @@ INSTRUCTION: Use the right pronounce. Start the genres with a capital letter. On
 
 	/while left=genState right=Redo rule=eq {:
 		/ife {: /test left={{index}} right=0 rule=eq :}|
-			/then {: /echo "Generating Dialog using \"speach\"" | :}|
+			/then {: /echo "Generating Dialog using \"speech\"" | :}|
 		/elseif {: /test left={{index}} right=1 rule=eq :}|
 			/then {: /echo Generating Dialog using **sound**| :}|
 		/elseif {: /test left={{index}} right=2 rule=eq :}|
@@ -68,31 +77,23 @@ INSTRUCTION: Use the right pronounce. Start the genres with a capital letter. On
 			/then {: /echo Generating Dialog using (emotions)| :}|
 		
 		/setvar key=genState []|  
-	
+		
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+		
+		//Button 14 - 02|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 378|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 379|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 380|
+		/setvar key=instruct {{pipe}}|
+		
 		/genraw lock=on name={{char}} 
-			system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Here is {{getvar::fname}}'s personality: '{{getvar::personality}}'
-
-Start your respons with 'x: y.'
-Where 'x' is {{getvar::fname}} and 'y' is the example.
-Example1: '{{getvar::fname}}: She looks at him \"Thank you\"'
-Example2: '{{getvar::fname}}: \"What's your name? My name is {{getvar::fname}}!\" She says, with a bright smile.'
-Example3: '{{getvar::fname}}: **Ghasp** "What do you mean?" She says shocked.'
-Example4: '{{getvar::fname}}: *I wonder what he thinks about me?* She thinks to herself.'
-Example4: '{{getvar::fname}}: (Scared) \"Wh-what do you mean?\"'
-
-Use \"speach\" for speach.
-Use *thoughts* for thoughts.
-Use **sound** for sounds.
-Use (emotions) for emotions.
-	
-Start your respons with: {{getvar::fname}}:"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide {{item}} using mostly English showcasing {{getvar::fname}}'s dialect and speech pattern.
-INSTRUCTION: Use the right pronounce. The reply should be one short sentence. Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else.
-{{instructFirstOutput}}| 
+			system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 		
 		
 		
@@ -182,33 +183,23 @@ INSTRUCTION: Use the right pronounce. The reply should be one short sentence. Al
 				/echo escapeHtml=false "<div>Generating example for:</div><div>\"{{item}}\"</div><div>Example nr: {{getvar::i}}"|
 				
 				/setvar key=genState []|  
-			
+				
+				/setvar key=system {{noop}}|
+				/setvar key=prompt {{noop}}|
+				/setvar key=instruct {{noop}}|
+				
+				//Button 14 - 01|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 382|
+				/setvar key=system {{pipe}}|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 383|
+				/setvar key=prompt {{pipe}}|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 384|
+				/setvar key=instruct {{pipe}}|
+				
 				/genraw lock=on name={{char}} 
-			system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Here is {{getvar::fname}}'s personality: '{{getvar::personality}}'
-
-Here is some dialoge examples: '{{getvar::e}}'
-
-Start your respons with 'x: y.'
-Where 'x' is {{getvar::fname}} and 'y' is the example.
-Example1: '{{getvar::fname}}: She looks at him \"Thank you\"'
-Example2: '{{getvar::fname}}: \"What's your name? My name is {{getvar::fname}}!\" She says, with a bright smile.'
-Example3: '{{getvar::fname}}: **Ghasp** "What do you mean?" She says shocked.'
-Example4: '{{getvar::fname}}: *I wonder what he thinks about me?* She thinks to herself.'
-Example4: '{{getvar::fname}}: (Scared) \"Wh-what do you mean?\"'
-
-Use \"speach\" for speach.
-Use *thoughts* for thoughts.
-Use **sound** for sounds.
-Use (emotions) for emotions.
-	
-Start your respons with: {{getvar::fname}}:"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a single short dialog example where {{getvar::fname}} is in this situation: {{item}}. Use mostly English while showcasing {{getvar::fname}}'s dialect and speech pattern.
-INSTRUCTION: Use the right pronounce. The reply should be one short sentence. Always start the respons with '{{getvar::fname}}: '. Only reply with one example, nothing else.
-{{instructFirstOutput}}|  
+				system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 				
 				
 				/addvar key=genState {{pipe}}|

@@ -1,1 +1,27 @@
 /echo timeout=0 extendedTimeout=0 awaitDismissal=true test|
+
+
+
+/ife {: /test left= right= rule=eq :}|
+	/then {::}|
+	
+	
+/re-replace find="/\./g" replace="" {{getvar::aaaaaaaaa}}|
+/setvar key=aaaaaaaaa {{pipe}}|
+
+
+
+/setvar key=item {{item}}|
+
+//Gets the thing after 'Anthro ' etc|
+/re-exec first=true find="/(?<=Anthro ).*/g" {{getvar::species}}|
+/re-exec first=true find="/(?<=Beastkin ).*/g" {{getvar::species}}|
+/re-exec first=true find="/(?<=Pokémon ).*/g" {{getvar::species}}|
+/re-exec first=true find="/(?<=Animal ).*/g" {{getvar::species}}|
+
+/setvar key=cleanSpeciees {{pipe}}|
+/getvar key=cleanSpeciees index=0 |
+/setvar key=cleanSpeciees {{pipe}}|
+
+//Gets the thing before ' Horse' etc|
+/re-exec first=true find="/^.*?/g" {{getvar::species}}|

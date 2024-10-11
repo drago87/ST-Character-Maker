@@ -8,26 +8,8 @@
 
 
 
-/buttons labels=["One", "Two", "Three", "Four", "Five","Random"] How many positive traits do you want to add?| /setvar key=answer {{pipe}}|
-/ife {: /test left=answer right=Random rule=eq:}|
-	/then {: /setvar key=answer {{random::One::Two::Three::Four::Five}}:}|
-/ife {: /test left=answer right=One rule=eq:}|
-	/then {: /setvar key=x 1:}|
-/elseif {: /test left=answer right=Two rule=eq:}|
-	/then {: /setvar key=x 2:}|
-/elseif {: /test left=answer right=Three rule=eq:}|
-	/then {: /setvar key=x 3:}|
-/elseif {: /test left=answer right=Four rule=eq:}|
-	/then {: /setvar key=x 4:}|
-/elseif {: /test left=answer right=Five rule=eq:}|
-	/then {: /setvar key=x 5:}|
-/else {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
-
-/setvar key=postrs []|
-/setvar key=temp ""|
-/setvar key=t1 ""|
-/setvar key=i 0|
-/while left=i right={{getvar::x}} rule=lt {:
+/setvar key=i Continue|
+/while left=i right=Continue rule=eq {:
 	/setvar key=postr Redo |
 	/while left=postr right=Redo rule=eq {:
 		/echo Generateing Positive Traits|
@@ -61,16 +43,26 @@
 			:}|
 		
 		/ife {: /test left=l1 right=1 rule=gte:}|
-			/then {: /addvar key=temp "." :}|
+			/then {: /addvar key=temp ". " :}|
 		/elseif {: /test left=l1 right=1 rule=gte:}|
-			/then {: /addvar key=temp "." :}|
+			/then {: /addvar key=temp ". " :}|
+		
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+		
+		//Button 04 - 01|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 166|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 167|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 168|
+		/setvar key=instruct {{pipe}}|
+
 		/genraw lock=on name={{char}} 
-		system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five positive traits. 
-INSTRUCTION: Use the right pronounce.{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each positive trait with a capital letter. Only reply with five positive traits and nothing else.
-{{instructFirstOutput}}|
+		system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 		/setvar key=t1 {{pipe}}|
 		/re-replace replace="" find="/\./" var=t1| /setvar key=t1 {{pipe}}|
@@ -94,30 +86,15 @@ INSTRUCTION: Use the right pronounce.{{getvar::temp}}{{getvar::fname}} is a {{ge
 	
 	:}|
 	/addvar key=postrs {{getvar::postr}}|
-	/addvar key=i 1
+	/buttons labels=["Continue","Done"]Do you want to continue adding positive traits?|
+	/setvar key=i {{pipe}}|
+	/ife {: /test left=i right="" rule=eq :}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 :}|
 
 
-/buttons labels=["One", "Two", "Three", "Four", "Five","Random"] How many negative traits do you want to add?| /setvar key=answer {{pipe}}|
-/ife {: /test left=answer right=Random rule=eq:}|
-	/then {: /setvar key=answer {{random::One::Two::Three::Four::Five}}:}|
-/ife {: /test left=answer right=One rule=eq:}|
-	/then {: /setvar key=x 1:}|
-/elseif {: /test left=answer right=Two rule=eq:}|
-	/then {: /setvar key=x 2:}|
-/elseif {: /test left=answer right=Three rule=eq:}|
-	/then {: /setvar key=x 3:}|
-/elseif {: /test left=answer right=Four rule=eq:}|
-	/then {: /setvar key=x 4:}|
-/elseif {: /test left=answer right=Five rule=eq:}|
-	/then {: /setvar key=x 5:}|
-/else {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
-
-/setvar key=negtrs []|
-/setvar key=temp ""|
-/setvar key=t1 ""|
-/setvar key=i 0|
-/while left=i right={{getvar::x}} rule=lt {:
+/setvar key=i Continue|
+/while left=i right=Continue rule=eq {:
 	/setvar key=postr Redo |
 	/while left=postr right=Redo rule=eq {:
 		/echo Generateing Negative Traits|
@@ -150,16 +127,26 @@ INSTRUCTION: Use the right pronounce.{{getvar::temp}}{{getvar::fname}} is a {{ge
 				:}|
 			:}|
 		/ife {: /test left=l1 right=1 rule=gte:}|
-			/then {: /addvar key=temp "." :}|
+			/then {: /addvar key=temp ". " :}|
 		/elseif {: /test left=l1 right=1 rule=gte:}|
-			/then {: /addvar key=temp "." :}|
+			/then {: /addvar key=temp ". " :}|
+		
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+		
+		//Button 04 - 01|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 170|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 171|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 172|
+		/setvar key=instruct {{pipe}}|
+		
 		/genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five negative traits. 
-INSTRUCTION: Use the right pronounce.{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each negative trait with a capital letter. Only reply with five negative traits and nothing else.
-{{instructFirstOutput}}|
+		system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 		/setvar key=t1 {{pipe}}|
 		/re-replace replace="" find="/\./" var=t1| /setvar key=t1 {{pipe}}|
@@ -183,7 +170,10 @@ INSTRUCTION: Use the right pronounce.{{getvar::temp}}{{getvar::fname}} is a {{ge
 	
 	:}|
 	/addvar key=negtrs {{getvar::postr}}|
-	/addvar key=i 1
+	/buttons labels=["Continue","Done"]Do you want to continue adding negative traits?|
+	/setvar key=i {{pipe}}|
+	/ife {: /test left=i right="" rule=eq :}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 :}|
 
 /ife {: /test left=species right=Human rule=eq:}|
@@ -209,14 +199,23 @@ INSTRUCTION: Use the right pronounce.{{getvar::temp}}{{getvar::fname}} is a {{ge
 		/while left=genState right=Redo rule=eq {:
 			/echo Generating Human Trait|
 			/setvar key=genState []|  
-		
+			
+			/setvar key=system {{noop}}|
+			/setvar key=prompt {{noop}}|
+			/setvar key=instruct {{noop}}|
+			
+			//Button 04 - 03|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 174|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 175|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 176|
+			/setvar key=instruct {{pipe}}|
+			
 			/genraw lock=on name={{char}} 
-			system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five Human traits(This can be things like 'Can speak', 'Can hold things', 'Can use tools', 'Feels pleasure' etc..).
-INSTRUCTION: Use the right pronounce. Start each trait with a capital letter. Only reply with the comma-separated list of five Human traits, nothing else.
-{{instructFirstOutput}}|  
+			system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 			/setvar key=t {{pipe}}|
 			/re-replace replace="" find="/\./" var=t | /setvar key=t {{pipe}}|
@@ -292,14 +291,23 @@ INSTRUCTION: Use the right pronounce. Start each trait with a capital letter. On
 		/while left=genState right=Redo rule=eq {:
 			/echo Generating {{getvar::d2}} Trait|
 			/setvar key=genState []|  
-		
+			
+			/setvar key=system {{noop}}|
+			/setvar key=prompt {{noop}}|
+			/setvar key=instruct {{noop}}|
+			
+			//Button 04 - 04|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 178|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 179|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 180|
+			/setvar key=instruct {{pipe}}|
+			
 			/genraw lock=on name={{char}} 
-			system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of five {{getvar::d2}} traits.
-INSTRUCTION: Use the right pronounce. Start each trait with a capital letter. Only reply with the comma-separated list of five {{getvar::d2}} traits, nothing else.
-{{instructFirstOutput}}|  
+			system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 			/setvar key=t {{pipe}}|
 			/re-replace replace="" find="/\./" var=t | /setvar key=t {{pipe}}|
@@ -355,26 +363,8 @@ INSTRUCTION: Use the right pronounce. Start each trait with a capital letter. On
 
 
 
-/buttons labels=["One", "Two", "Three", "Four", "Five","Random"] How many quirks do you want to add?| /setvar key=answer {{pipe}}|
-/ife {: /test left=answer right=Random rule=eq:}|
-	/then {: /setvar key=answer {{random::One::Two::Three::Four::Five}}:}|
-/ife {: /test left=answer right=One rule=eq:}|
-	/then {: /setvar key=x 1:}|
-/elseif {: /test left=answer right=Two rule=eq:}|
-	/then {: /setvar key=x 2:}|
-/elseif {: /test left=answer right=Three rule=eq:}|
-	/then {: /setvar key=x 3:}|
-/elseif {: /test left=answer right=Four rule=eq:}|
-	/then {: /setvar key=x 4:}|
-/elseif {: /test left=answer right=Five rule=eq:}|
-	/then {: /setvar key=x 5:}|
-/else {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
-
-/setvar key=quirks []|
-/setvar key=temp ""|
-/setvar key=t1 ""|
-/setvar key=i 0|
-/while left=i right={{getvar::x}} rule=lt {:
+/setvar key=i Continue|
+/while left=i right=Continue rule=eq {:
 	/setvar key=postr Redo |
 	/while left=postr right=Redo rule=eq {:
 		/echo Generateing Quirks|
@@ -408,16 +398,26 @@ INSTRUCTION: Use the right pronounce. Start each trait with a capital letter. On
 			:}|
 		
 		/ife {: /test left=l1 right=1 rule=gte:}|
-			/then {: /addvar key=temp "." :}|
+			/then {: /addvar key=temp ". " :}|
 		/elseif {: /test left=l1 right=1 rule=gte:}|
-			/then {: /addvar key=temp "." :}|
+			/then {: /addvar key=temp ". " :}|
+		
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+		
+		//Button 04 - 05|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 182|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 183|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 184|
+		/setvar key=instruct {{pipe}}|
+		
 		/genraw lock=on name={{char}} 
-		system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}"
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list with five quirks(This is something {{getvar::fname}} does that other think is odd).
-INSTRUCTION: Use the right pronounce.{{getvar::temp}}{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirk with a capital letter. Eache quirk should be a short sentence. Only reply with a comma-separated list with five quirks, nothing else.
-{{instructFirstOutput}}|
+		system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 		/setvar key=t1 {{pipe}}|
 		/re-replace replace="" find="/\./" var=t1| /setvar key=t1 {{pipe}}|
@@ -442,7 +442,10 @@ INSTRUCTION: Use the right pronounce.{{getvar::temp}}{{getvar::fname}} is a {{ge
 	
 	:}|
 	/addvar key=quirks {{getvar::postr}}|
-	/addvar key=i 1
+	/buttons labels=["Continue","Done"]Do you want to continue adding quirks?|
+	/setvar key=i {{pipe}}|
+	/ife {: /test left=i right="" rule=eq :}|
+		/then {: /:"Character Maker V4.Flushvar"| /echo Aborting | /abort :}|
 :}|
 
 
@@ -503,16 +506,23 @@ Quirks:"|
 /setvar key=per Redo|
 /while left=per right=Redo rule=eq {:
 	/setvar key=t1 []|
+	
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+	
+	//Button 04 - 06|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 186|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 187|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 188|
+	/setvar key=instruct {{pipe}}|
+	
 	/genraw lock=on name={{char}} 
-	system="{{getvar::rules}}
-{{getvar::info}}
-{{getvar::char_info}}
-
-Based on these
-\"{{getvar::person}}\""
-{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide description of {{getvar::fname}}'s personality.
-INSTRUCTION: Use the right pronounce.{{getvar::fname}} is a {{getvar::age}} {{getvar::gender}} of the species {{getvar::species}}. Start each quirks with a capital letter. Only reply with the description of {{getvar::fname}}'s personality and nothing else.
-{{instructFirstOutput}}|
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 
 	/addvar key=t1 {{pipe}}|
 	/addvar key=t1 Edit|
