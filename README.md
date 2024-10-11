@@ -12,7 +12,12 @@ Quck Reply buttons made for [Character Maker QR](https://chub.ai/characters/Drag
 
 [🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json)
 The lorebook that all information and templates the [Character Maker QR]([https://chub.ai/characters/Drago87/character-maker-lore-v4-c2bdf3ee5aad](https://chub.ai/characters/Drago87/character-maker-sillytavern-quick-reply-driven-0eb2c2852a4f)) needs to functions.
-Sort it after Title A-Z to make it esier to navigate.
+Sort it after UID ↗ to make it esier to navigate.
+
+[🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW%20GenRaw.json)
+A lorebook that controlls all generations in the QR buttons
+Sort it after UID ↗ to make it esier to navigate.
+
 
 <h2 align='center'>TabbyAPI Loader Setting</h2>
 
