@@ -1,4 +1,4 @@
-# ST-QR-buttons
+# ST-QR-buttons Beta for new LALib version
 
 <h1 align='center'>Quick Reply Buttons</h1>
 
