@@ -26,11 +26,13 @@ Is a Lorebook with the Local LLM models i have tested and what setting i have us
 
 <h1 align='center'>Other Needed stuff</h1>
 
-[🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Work%20In%20Progress/Character%20Maker%20Combined%20NSFW.json) The Loorebook for the new V5 Card (Still need to clean it up)
+[🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Work%20In%20Progress/Character%20Maker%20Combined%20NSFW.json) The Loorebook for the new V6 Card
 
-[🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker.json) The visible quick reply buttons for the V5 card (This file needs to be enabled in Global Quick Reply Sets)
+[🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW%20GenRaw.json) The Loorebook driving the generation.
+
+[🔗](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker.json) The visible quick reply buttons for the V6 card (This file needs to be enabled in Global Quick Reply Sets)
  
-[🔗](https://chub.ai/characters/Drago87/character-maker-sillytavern-quick-reply-driven-0eb2c2852a4f) The invisible quick reply buttons for the V5 card (This only need to be imported)
+[🔗](https://chub.ai/characters/Drago87/character-maker-sillytavern-quick-reply-driven-0eb2c2852a4f) The invisible quick reply buttons for the V6 card (This only need to be imported)
  
 ![image](https://github.com/user-attachments/assets/601ab79c-2b59-40f0-873a-62a6bc629b84)
 
