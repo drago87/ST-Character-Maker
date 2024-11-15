@@ -1,16 +1,15 @@
 /setvar key=qr Character Maker V4.|
-/buttons labels=["01. Generate Basic Information (form)","02. Generate Appearance Info (Can Generate Multiple)","03. Generate Outfit and Gear (Can Generate Multiple)","04. Generate Personality Traits And Quirks","05. Generate Relationship Information","06. Generate Known Kinks","07. Generate Latent Kinks","08. Generate Background Info","09. Generate Interaction Style","10. Generate Contextual Information","11. Generate Additional Notes","12. Generate Spells and Abilities","13. Copy Character Rules","14. Generate Extras","15. Generate Scenario"] What do you want to do?|
+/buttons labels=["01. Generate Basic Information (form)","02. Generate Appearance Info (Can Generate Multiple)","03. Generate Personality Traits And Quirks","04. Character's Relation to user","05. Generate Relationship Information","06. Generate Known Kinks","07. Generate Latent Kinks","08. Generate Outfit and Gear (Can Generate Multiple)","09. Generate Background Info","10. Generate Interaction Style","11. Generate Contextual Information","12. Generate Additional Notes","13. Generate Spells and Abilities","14. Copy Character Rules","15. Generate Extras","16. Generate Scenario"] What do you want to do?|
 /setvar key=choice {{pipe}}|
 
 /setvar key=new Yes|
 /setvar key=swipe No|
 
-/ife {: /test left=choice right="" rule=eq :}|
-	/then {:
-		/:"Character Maker V4.Flushvar"|
-		/echo Aborting | /abort
-	:}|
-	
+/ife ( choice == ''){:
+	/:"Character Maker V4.Flushvar"|
+	/echo Aborting | /abort
+:}|
+
 /addvar key=qr {{getvar::choice}}|
 
 /:{{getvar::qr}}|

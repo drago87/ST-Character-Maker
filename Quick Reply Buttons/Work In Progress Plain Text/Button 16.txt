@@ -1,0 +1,8 @@
+/setvar key=catgen "Scenario"|
+/setvar key=genid "16"|
+
+/:"Character Maker V4.Get Char info"|
+
+/getentryfield file="Character Maker Combined NSFW" 30| /setvar key=prom {{pipe}}|
+
+/continue "{{getvar::prom}}"

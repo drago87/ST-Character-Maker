@@ -1,0 +1,535 @@
+/setvar key=catgen "Character's Relation to user"|
+/setvar key=genid "4"|
+
+
+/:"Character Maker V4.Get Char info"|
+
+/setvar key=turelation {{noop}}|
+
+/buttons labels=["Male","Female"] What gender is user?|
+/setvar key=selected_btn {{pipe}}|
+/ife {: /test left=selected_btn right="" rule=eq :}|
+	/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
+/setvar key=ugender {{getvar::selected_btn}}|
+
+
+/setvar key=run {{noop}}|
+/setvar key=t {{noop}}|
+/setvar key=agechoice []|
+/buttons labels=["Sibling","Child", "Parent", "Teacher", "Student", "Coworker/Classmate", "Neighbor", "Relative", "Unrelated"] What is user's relation to {{getvar::fname}}?|
+/setvar key=selected_btn {{pipe}}|
+/setvar key=t {{getvar::selected_btn}}|
+/ife {: /test left=selected_btn right="" rule=eq :}|
+	/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
+
+/elseif {: /test left=selected_btn right=Sibling rule=eq :}|
+	/then {:
+		/addvar key=agechoice Younger|
+		/addvar key=agechoice Same|
+		/addvar key=agechoice Older|
+
+	:}|
+/elseif {: /test left=selected_btn right=Parent rule=eq :}|
+	/then {:
+		/addvar key=agechoice Older|
+		/ife {: /test left=ugender right=Male rule=eq :}|
+			/then {:
+				/setvar key=turelation "user is {{getvar::fname}}'s Father."|
+			:}|
+		/elseif {: /test left=ugender right=Female rule=eq :}|
+			/then {:
+				/setvar key=turelation "user is {{getvar::fname}}'s Mother."|
+			:}|
+	:}|
+/elseif {: /test left=selected_btn right=Teacher rule=eq :}|
+	/then {:
+		/addvar key=agechoice Younger|
+		/setvar key=turelation "user is {{getvar::fname}}'s Teacher."|
+	:}|
+/elseif {: /test left=selected_btn right=Student rule=eq :}|
+	/then {:
+		/addvar key=agechoice Older|
+		/setvar key=turelation "user is {{getvar::fname}}'s Student."|
+	:}|
+/elseif {: /test left=selected_btn right="Coworker/Classmate" rule=eq :}|
+	/then {:
+		/addvar key=agechoice Younger|
+		/addvar key=agechoice Same|
+		/addvar key=agechoice Older|
+		/setvar key=run Yes|
+	:}|
+/elseif {: /test left=selected_btn right=Neighbor rule=eq :}|
+	/then {:
+		/addvar key=agechoice Younger|
+		/addvar key=agechoice Same|
+		/addvar key=agechoice Older|
+		/setvar key=run Yes|
+		/setvar key=t {{getvar::selected_btn}}|
+	:}|
+/elseif {: /test left=selected_btn right=Relative rule=eq :}|
+	/then {:
+		/addvar key=agechoice Younger|
+		/addvar key=agechoice Same|
+		/addvar key=agechoice Older|
+		/setvar key=run Yes|
+	:}|
+/elseif {: /test left=selected_btn right=Child rule=eq :}|
+	/then {:
+		/addvar key=agechoice Younger|
+		/setvar key=turelation "user is the child of {{getvar::fname}}."
+	:}|
+/else {:
+	/addvar key=agechoice Younger|
+	/addvar key=agechoice Same|
+	/addvar key=agechoice Older|
+	/setvar key=run Yes|
+:}|
+
+/buttons labels={{getvar::agechoice}} How old is the user in comparison to {{getvar::fname}}?|
+/setvar key=selected_btn {{pipe}}|
+/setvar key=t2 {{getvar::selected_btn}}|
+/ife {: /test left=selected_btn right="" rule=eq :}|
+	/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
+/elseif {: /test left=selected_btn right=Same rule=eq :}|
+	/then {: /setvar key=uage {{getvar::age}}| :}|
+
+/else {:
+	/setvar key=genState Redo|
+	/setvar key=guide {{noop}}|
+	/setvar key=tskip {{noop}}|
+
+	/setvar key=tuage "User is {{getvar::selected_btn}} then {{getvar::age}}."|
+	/while left=genState right=Redo rule=eq {:
+		/echo Generating user Age|
+		/setvar key=genState []|
+
+		/setvar key=skip {{noop}}|
+		/ife {: /test left=tskip right="" rule=neq:}|
+			/then {:
+				/setvar key=skip "In your reply, exclude ages that include: {{getvar::tskip}}. "
+			:}|
+
+		//Button04-01|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 386|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 387|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 388|
+		/setvar key=instruct {{pipe}}|
+
+		/genraw lock=on name={{char}}
+		system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+
+		/setvar key=t1 {{pipe}}|
+		/re-replace find="/\./g" replace="" {{getvar::t1}}|
+		/setvar key=t1 {{pipe}}|
+		/split {{getvar::t}}1|
+
+		/setvar key=genState {{pipe}}|
+		/addvar key=genState "Manually Set"|
+		/ife {: /test left=guide right="" rule=eq :}|
+			/then {:
+				/addvar key=genState "Set Guidance"|
+				/addvar key=genState Redo|
+			:}|
+		/else {:
+			/addvar key=genState Change Guidance|
+			/addvar key=genState Redo(Keep Guidance)|
+			/addvar key=genState Redo(Don't keep Guidance)|
+		:}|
+
+		/addvar key=genState "Exclude items"|
+
+		/buttons labels={{getvar::genState}} Select the age you want the user that will interact with {{getvar::fname}}|
+
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
+    /elseif {: /test left={{getvar::selected_btn}} right="Edit" rule=eq :}|
+			/then {:
+				/getvar key=genState index=0| /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} rows=8 Edit the like to your liking.|
+				/setvar key=t {{pipe}}|
+				/setvar key=genState Redo|
+				/ife {: /test left=t right="" rule=eq :}|
+					/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
+					/else {:
+					/addvar key=outputList {{getvar::t}}|
+            	:}|
+			:}|
+		/elseif {: /test left=selected_btn right=Done rule=eq :}|
+			/then {:
+			:}|
+		/elseif {: /test left=selected_btn right="Redo" rule=eq :}|
+				/then {:
+					/setvar key=genState Redo|
+				:}|
+		/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+		/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+				/setvar key=guide {{noop}}|
+			:}|
+
+		/elseif {: /test left=selected_btn right=Guidance rule=in :}|
+			/then {:
+				/setvar key=guide {{noop}}|
+
+				/input default="{{getvar::guidePrompt}}" Add what you want the strength you want the generation to focus on.|
+				/setvar key=guide " ({{pipe}})"|
+
+				/setvar key=genState Redo|
+			:}|
+		/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
+			/then {:
+				/ife {: /test left=tskip right="" rule=neq :}|
+					/then {:
+						/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
+					:}|
+				/else {:
+					/setvar key=t {{noop}}|
+				:}|
+				/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+				/setvar key=t {{pipe}}|
+
+				/ife {: /test left=t right="Reset" rule=eq :}|
+					/then {: /setvar key=tskip {{noop}}| :}|
+				/elseif {: /test left=t right="" rule=neq :}|
+					/then {:
+						/ife {: /test left=tskip right="" rule=neq :}|
+							/then {:
+								/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
+							:}|
+							/else {:
+								/setvar key=tskip {{getvar::t}}|
+							:}|
+						:}|
+				/setvar key=genState Redo|
+			:}|
+	:}|
+	/setvar key=uage {{getvar::selected_btn}}yo|
+:}|
+
+
+
+
+
+
+/ife {: /test left=t right="Sibling" rule=eq :}|
+		/then {:
+			/ife {: /test left=t2 right=Same rule=eq :}|
+				/then {:
+					/setvar key=turelation "user is {{getvar::fname}}'s twin "|
+				:}|
+			/else {:
+				/setvar key=turelation "user is {{getvar::fname}}'s {{getvar::t2}} "|
+			:}|
+			/ife {: /test left=ugender right=Male rule=eq :}|
+				/then {:
+					/addvar key=turelation "brother."|
+				:}|
+			/else {:
+				/addvar key=turelation "sister."|
+			:}|
+		:}|
+/elseif {: /test left=t right="Relative" rule=eq :}|
+	/then {:
+				/setvar key=turelation {{noop}}|
+		/re-replace find="/yo/g" replace="" {{getvar::age}} |
+		/setvar key=cage {{pipe}}|
+		/ife {: /test left=t2 right=Older rule=eq :}|
+			/then {:
+				/add cage 25|
+				/setvar key=newage {{pipe}}|
+			:}|
+		/elseif {: /test left=t2 right=Younger rule=eq :}|
+			/then {:
+				/add cage -25|
+				/setvar key=newage {{pipe}}|
+				/ife {: /test left=newage right=1 rule=lt :}|
+					/then {:
+						/setvar key=newage 1|
+					:}|
+			:}|
+
+
+		/ife {: /test left=t2 right=Older rule=eq :}|
+			/then {:
+				/add newage 25|
+				/setvar key=newage2 {{pipe}}|
+			:}|
+		/elseif {: /test left=t2 right=Younger rule=eq :}|
+			/then {:
+				/add newage -25|
+				/setvar key=newage2 {{pipe}}|
+				/ife {: /test left=newage2 right=1 rule=lt :}|
+					/then {:
+						/setvar key=newage2 1|
+					:}|
+			:}|
+
+		/re-replace find="/yo/g" replace="" {{getvar::uage}} |
+		/setvar key=tuage {{pipe}}|
+		/ife {: /test left=tuage right=cage rule=gt :}|
+			/then {:
+				/ife {: /test left=tuage right=newage rule=gt :}|
+					/then {:
+						/ife {: /test left=tuage right=newage2 rule=gt :}|
+							/then {:
+								/ife {: /test left=ugender right=Male rule=eq :}|
+									/then {:
+										/setvar key=turelation "user is {{getvar::fname}}'s Grandpa."
+									:}|
+								/else {:
+									/setvar key=turelation "user is {{getvar::fname}}'s Grandma."
+								:}|
+							:}|
+						/else {:
+							/ife {: /test left=ugender right=Male rule=eq :}|
+								/then {:
+									/setvar key=turelation "user is {{getvar::fname}}'s Uncle."
+								:}|
+							/else {:
+								/setvar key=turelation "user is {{getvar::fname}}'s Aunt."
+							:}|
+						:}|
+					:}|
+			:}|
+		/elseif {: /test left=tuage right=cage rule=lt :}|
+			/then {:
+				/elseif {: /test left=tuage right=newage rule=lt :}|
+					/then {:
+						/elseif {: /test left=tuage right=newage2 rule=lt :}|
+							/then {:
+								/ife {: /test left=ugender right=Male rule=eq :}|
+									/then {:
+										/setvar key=turelation "{{getvar::fname}} is user's Grandpa."
+									:}|
+								/else {:
+									/setvar key=turelation "{{getvar::fname}} is user's Grandma."
+								:}|
+							:}|
+						/else {:
+							/ife {: /test left=ugender right=Male rule=eq :}|
+								/then {:
+									/setvar key=turelation "{{getvar::fname}} is user's Uncle."
+								:}|
+							/else {:
+								/setvar key=turelation "{{getvar::fname}} is user's Aunt."
+							:}|
+						:}|
+					:}|
+			:}|
+		/else {:
+			/ife {: /test left=t2 right=Same rule=eq :}|
+				/then {:
+					/setvar key=turelation "user is {{getvar::fname}}'s Cusin, they are the same age."
+				:}|
+			/else {:
+				/setvar key=turelation "user is {{getvar::fname}}'s {{getvar::t2}} Cusin"
+			:}|
+		:}|
+	:}|
+/elseif {: /test left=t right="Neighbor" rule=eq :}|
+	/then {:
+		/ife {: /test left=t2 right=Same rule=eq :}|
+			/then {:
+				/setvar key=turelation "user is a neighbor of {{getvar::fname}} that is the same age."
+			:}|
+		/else {:
+			/setvar key=turelation "user is a {{getvar::t2}} neighbor of {{getvar::fname}}."
+		:}|
+	:}|
+/elseif {: /test left=t right="Unrelated" rule=eq :}|
+	/then {:
+		/ife {: /test left=t2 right=Same rule=eq :}|
+			/then {:
+				/setvar key=turelation "user is a stranger to {{getvar::fname}} that is the same age."
+			:}|
+		/else {:
+			/setvar key=turelation "user is a stranger to {{getvar::fname}} that is {{getvar::t2}}."
+		:}|
+	:}|
+/else {:
+	/genraw lock=on name={{char}}
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, respond with "Coworker" or "Classmate" depending on what best fits {{getvar::fname}}'s occupation.
+INSTRUCTION: Only reply with Coworker or Classmate, nothing else.
+{{instructFirstOutput}}|
+	/setvar key=gen {{pipe}}|
+	/ife {: /test left=gen right="Coworker" rule=eq :}|
+		/then {:
+			/ife {: /test left=t2 right=Same rule=eq :}|
+				/then {:
+					/setvar key=turelation "user is a Coworker that is the same age as {{getvar::fname}}."
+				:}|
+			/else {:
+				/setvar key=turelation "user is a Coworker that is {{getvar::t2}} then {{getvar::fname}}."
+			:}|
+		:}|
+
+	/elseif {: /test left=gen right="Classmate" rule=eq :}|
+		/then {:
+			/ife {: /test left=t2 right=Same rule=eq :}|
+				/then {:
+					/setvar key=turelation "user is a Classmate that is the same age as {{getvar::fname}}."
+				:}|
+			/elseif {: /test left=t2 right=Younger rule=eq :}|
+				/then {:
+					/setvar key=turelation "user is a Junior Classmate that is {{getvar::t2}} then {{getvar::fname}}."
+				:}|
+			/elseif {: /test left=t2 right=Older rule=eq :}|
+				/then {:
+					/setvar key=turelation "user is a Senior Classmate that is {{getvar::t2}} then {{getvar::fname}}."
+				:}|
+		:}|
+:}|
+
+/setvar key=genState Redo|
+/setvar key=guide {{noop}}|
+/setvar key=tskip {{noop}}|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating user|
+  /setvar key=genState []|
+
+	/setvar key=skip {{noop}}|
+	/ife {: /test left=tskip right="" rule=neq:}|
+		/then {:
+			/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+		:}|
+
+	//Buttonx-y|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 390|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 391|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 392|
+	/setvar key=instruct {{pipe}}|
+
+  /genraw lock=on name={{char}}
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+
+
+    /addvar key=genState {{pipe}}|
+    /addvar key=genState Edit|
+		/addvar key=genState Done|
+		/ife {: /test left=guide right="" rule=eq :}|
+			/then {:
+				/addvar key=genState "Set Guidance"|
+				/addvar key=genState Redo|
+			:}|
+		/else {:
+			/addvar key=genState Change Guidance|
+			/addvar key=genState Redo(Keep Guidance)|
+			/addvar key=genState Redo(Don't keep Guidance)|
+		:}|
+
+		/addvar key=genState "Exclude items"|
+
+    /buttons labels={{getvar::genState}} Is the user's information to your liking?|
+
+    /setvar key=selected_btn {{pipe}}|
+
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
+    /elseif {: /test left={{getvar::selected_btn}} right="Edit" rule=eq :}|
+			/then {:
+				/getvar key=genState index=0| /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} rows=8 Edit the like to your liking.|
+				/setvar key=t {{pipe}}|
+				/setvar key=genState Redo|
+				/ife {: /test left=t right="" rule=eq :}|
+					/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
+				/else {:
+					/addvar key=outputList {{getvar::t}}|
+	            :}|
+			:}|
+		/elseif {: /test left=selected_btn right=Done rule=eq :}|
+			/then {:
+			:}|
+		/elseif {: /test left=selected_btn right="Redo" rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+		/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+		/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+				/setvar key=guide {{noop}}|
+			:}|
+
+		/elseif {: /test left=selected_btn right=Guidance rule=in :}|
+			/then {:
+				/setvar key=guide {{noop}}|
+
+				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+				/setvar key=guide " ({{pipe}})"|
+
+				/setvar key=genState Redo|
+			:}|
+		/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
+			/then {:
+				/ife {: /test left=tskip right="" rule=neq :}|
+					/then {:
+						/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
+					:}|
+				/else {:
+					/setvar key=t {{noop}}|
+				:}|
+				/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+				/setvar key=t {{pipe}}|
+
+				/ife {: /test left=t right="Reset" rule=eq :}|
+					/then {: /setvar key=tskip {{noop}}| :}|
+				/elseif {: /test left=t right="" rule=neq :}|
+					/then {:
+						/ife {: /test left=tskip right="" rule=neq :}|
+							/then {:
+								/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
+							:}|
+							/else {:
+								/setvar key=tskip {{getvar::t}}|
+							:}|
+						:}|
+				/setvar key=genState Redo|
+			:}|
+:}|
+/setvar key=urelation {{getvar::selected_btn}}|
+
+/setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
+
+user's Age: {{getvar::uage}}
+
+user's Gender: {{getvar::ugender}}
+
+user's Relation to {{getvar::fname}}
+{{getvar::urelation}}"|
+
+/message-edit message={{lastMessageId}} {{getvar::output}}|
+
+/db-list source=chat field=name |/setvar key=a {{pipe}}|
+/setvar key=b {{noop}}|
+
+/foreach var=a {:
+	/ife {: /test left={{var::item}} right=user_relation rule=eq :}|
+	/then {: /setvar key=b yes :}|
+:}|
+
+/ife {: /test left=b right=yes rule=eq :}|
+	/then {:
+		/db-update source=chat name=user_relation {{getvar::t}}|
+		/db-disable source=chat name=user_relation|
+	:}|
+/else {:
+	/db-add source=chat name=user_relation {{getvar::t}}|
+	/db-disable source=chat name=user_relation|
+:}|

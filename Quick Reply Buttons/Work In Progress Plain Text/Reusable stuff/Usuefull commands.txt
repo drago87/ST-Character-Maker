@@ -4,14 +4,16 @@
 
 /ife {: /test left= right= rule=eq :}|
 	/then {::}|
-	
-	
+
+/elseif {: /test left= right= rule=eq :}|
+	/then {::}|
+
 /re-replace find="/\./g" replace="" {{getvar::aaaaaaaaa}}|
 /setvar key=aaaaaaaaa {{pipe}}|
 
 
 
-/setvar key=item {{item}}|
+/setvar key=item {{var::item}}|
 
 //Gets the thing after 'Anthro ' etc|
 /re-exec first=true find="/(?<=Anthro ).*/g" {{getvar::species}}|
@@ -25,3 +27,16 @@
 
 //Gets the thing before ' Horse' etc|
 /re-exec first=true find="/^.*?/g" {{getvar::species}}|
+
+/getentryfield file="Character Maker Combined NSFW GenRaw" system uid|
+
+
+/extension-exists SillyTavern-LALib
+/extension-exists SillyTavern-Variable-Viewer
+
+/ife ( selected_btn is number){:
+	/addvar key=selected_btn yo
+:}|
+
+/setvar key=it {{var::item}}|
+/setvar key=in {{var::index}}|

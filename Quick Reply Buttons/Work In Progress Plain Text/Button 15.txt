@@ -1,0 +1,495 @@
+/setvar key=catgen "Extras"|
+/setvar key=genid "15"|
+
+
+
+
+/:"Character Maker V4.Get Char info"|
+
+
+
+/setvar key=genState Redo|
+/setvar key=guide {{noop}}|
+/setvar key=tskip {{noop}}|
+
+/while left=genState right=Redo rule=eq {:
+	/echo Generating Personality summary|
+    /setvar key=genState []|
+
+	/setvar key=skip {{noop}}|
+	/ife {: /test left=tskip right="" rule=neq:}|
+		/then {:
+			/setvar key=skip "In your reply, exclude strengths that include: {{getvar::tskip}}. "
+		:}|
+
+	/setvar key=system {{noop}}|
+	/setvar key=prompt {{noop}}|
+	/setvar key=instruct {{noop}}|
+
+	//Button15-01|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 374|
+	/setvar key=system {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 375|
+	/setvar key=prompt {{pipe}}|
+	/getentryfield file="Character Maker Combined NSFW GenRaw" 376|
+	/setvar key=instruct {{pipe}}|
+
+    /genraw lock=on name={{char}}
+	system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+
+
+    /addvar key=genState {{pipe}}|
+    /addvar key=genState Edit|
+    /ife {: /test left=guide right="" rule=eq :}|
+		/then {:
+			/addvar key=genState "Set Guidance"|
+			/addvar key=genState Redo|
+		:}|
+	/else {:
+		/addvar key=genState Change Guidance|
+		/addvar key=genState Redo(Keep Guidance)|
+		/addvar key=genState Redo(Don't keep Guidance)|
+	:}|
+
+	/addvar key=genState "Exclude items"|
+
+    /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s personality. |
+
+    /setvar key=selected_btn {{pipe}}|
+
+    /ife {: /test left=selected_btn right="" rule=eq :}|
+		/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
+    /elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+		/then {:
+			/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+			/input rows=8 default={{getvar::t}} Edit the description of {{getvar::fname}}'s personality.|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
+		:}|
+	/elseif {: /test left=selected_btn right="Redo" rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+    /elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+		:}|
+	/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
+		/then {:
+			/setvar key=genState Redo|
+			/setvar key=guide {{noop}}|
+		:}|
+
+	/elseif {: /test left=selected_btn right=Guidance rule=in :}|
+		/then {:
+			/setvar key=guide {{noop}}|
+
+			/input default="{{getvar::guidePrompt}}" Add what you want the strength you want the generation to focus on.|
+			/setvar key=guide " ({{pipe}})"|
+
+			/setvar key=genState Redo|
+		:}|
+	/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
+		/then {:
+			/ife {: /test left=tskip right="" rule=neq :}|
+				/then {:
+					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
+				:}|
+			/else {:
+				/setvar key=t {{noop}}|
+			:}|
+			/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+			/setvar key=t {{pipe}}|
+
+			/ife {: /test left=t right="Reset" rule=eq :}|
+				/then {: /setvar key=tskip {{noop}}| :}|
+			/elseif {: /test left=t right="" rule=neq :}|
+				/then {:
+					/ife {: /test left=tskip right="" rule=neq :}|
+						/then {:
+							/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
+						:}|
+						/else {:
+							/setvar key=tskip {{getvar::t}}|
+						:}|
+					:}|
+			/setvar key=genState Redo|
+		:}|
+	/else  {:
+
+
+	:}|
+
+:}|
+/setvar key=personality {{getvar::selected_btn}}|
+
+
+/setvar key=examplelist ["a single example where {{getvar::fname}} talks to someone", "a single example where {{getvar::fname}} makes a sound.", "a single example of {{getvar::fname}}'s thoughts.", "a single example of {{getvar::fname}} emotions."]|
+
+/addvar key=examples []|
+/foreach var=examplelist {:
+
+	/setvar key=genState Redo|
+	/setvar key=outputList []|
+	/setvar key=guide {{noop}}|
+	/setvar key=tskip {{noop}}|
+
+	/while left=genState right=Redo rule=eq {:
+		/ife {: /test left={{var::index}} right=0 rule=eq :}|
+			/then {:
+				/echo "Generating Dialog using \"speech\"" |
+				/setvar key=b "\"speech\""|
+			:}|
+		/elseif {: /test left={{var::index}} right=1 rule=eq :}|
+			/then {:
+				/echo Generating Dialog using **sound**|
+				/setvar key=b **sound**|
+			:}|
+		/elseif {: /test left={{var::index}} right=2 rule=eq :}|
+			/then {:
+				/echo Generating Dialog using *thoughts*|
+				/setvar key=b *thoughts*|
+			:}|
+		/elseif {: /test left={{var::index}} right=3 rule=eq :}|
+			/then {:
+				/echo Generating Dialog using (emotions)|
+				/setvar key=b (emotions)|
+			:}|
+
+		/setvar key=item {{var::item}}|
+		/setvar key=genState []|
+
+		/setvar key=skip {{noop}}|
+		/ife {: /test left=tskip right="" rule=neq:}|
+			/then {:
+				/setvar key=skip "In your reply, exclude strengths that include: {{getvar::tskip}}. "
+			:}|
+
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+
+		//Button15-02|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 378|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 379|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 380|
+		/setvar key=instruct {{pipe}}|
+
+		/genraw lock=on name={{char}}
+			system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+
+
+
+
+		/addvar key=genState {{pipe}}|
+		/addvar key=genState Edit|
+		/ife {: /test left=guide right="" rule=eq :}|
+			/then {:
+				/addvar key=genState "Set Guidance"|
+				/addvar key=genState Redo|
+			:}|
+		/else {:
+			/addvar key=genState Change Guidance|
+			/addvar key=genState Redo(Keep Guidance)|
+			/addvar key=genState Redo(Don't keep Guidance)|
+		:}|
+
+		/addvar key=genState "Exclude items"|
+
+		/buttons labels={{getvar::genState}} Is this a good shocase of {{getvar::fname}}'s dialect and speech pattern? {{getvar::b}}|
+
+		/setvar key=selected_btn {{pipe}}|
+
+		/ife {: /test left=selected_btn right="" rule=eq :}|
+			/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
+		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+			/then {:
+				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+				/input rows=8 default={{getvar::t}} Edit the shocase.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
+			:}|
+
+		/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+			:}|
+		/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
+			/then {:
+				/setvar key=genState Redo|
+				/setvar key=guide {{noop}}|
+			:}|
+
+		/elseif {: /test left=selected_btn right=Guidance rule=in :}|
+			/then {:
+				/setvar key=guide {{noop}}|
+
+				/input default="{{getvar::guidePrompt}}" Add what you want the strength you want the generation to focus on.|
+				/setvar key=guide " ({{pipe}})"|
+
+				/setvar key=genState Redo|
+			:}|
+		/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
+			/then {:
+				/ife {: /test left=tskip right="" rule=neq :}|
+					/then {:
+						/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
+					:}|
+				/else {:
+					/setvar key=t {{noop}}|
+				:}|
+				/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+				/setvar key=t {{pipe}}|
+
+				/ife {: /test left=t right="Reset" rule=eq :}|
+					/then {: /setvar key=tskip {{noop}}| :}|
+				/elseif {: /test left=t right="" rule=neq :}|
+					/then {:
+						/ife {: /test left=tskip right="" rule=neq :}|
+							/then {:
+								/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
+							:}|
+							/else {:
+								/setvar key=tskip {{getvar::t}}|
+							:}|
+						:}|
+				/setvar key=genState Redo|
+			:}|
+		/else  {:
+			/addvar key=outputList {{getvar::selected_btn}}|
+			/setvar key=guide {{noop}}|
+			/setvar key=genState Redo|
+
+		:}|
+
+	:}|
+	/addvar key=examples {{getvar::outputList}}|
+:}|
+
+
+
+/setvar key=exexamples ["On encountering someone engaging in a kink","On engaging in a kink with someone","On experiencing pleasure","On experiencing intense pleasure","On reaching orgasm","On reaching an overwhelming orgasm"]|
+
+/setvar key=temp {{noop}}|
+/foreach var=exexamples {:
+	/addvar key=temp "<div>{{var::item}}"|
+:}|
+
+/buttons labels=["Yes","Add","Skip"] "<div>Do you want to use the extra dialog examples or do you to add your own or skip?</div>{{getvar::temp}}"|
+/setvar key=temp_btn {{pipe}}|
+/ife {: /test left=temp_btn right="" rule=eq :}|
+	/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
+/elseif {: /test left=temp_btn right=Add rule=eq :}|
+	/then {:
+		/setvar key=genState Redo|
+
+		/while left=genState right=Redo rule=eq {:
+
+			/input rows=8 "<div>When adding a category follow this format</div><div>On experiencing pleasure</div>"|
+			/setvar key=selected_btn {{pipe}}|
+			/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
+			/else {:
+				/addvar key=exexamples {{getvar::selected_btn}}|
+				/buttons labels=["Yes","No"] Want to add more?|
+				/setvar key=answer {{pipe}}|
+				/ife {: /test left=answer right="" rule=eq :}|
+					/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
+				/elseif {: /test left=answer right=Yes rule=eq :}|
+					/then {: /setvar key=genState Redo| :}|
+				/else {: /setvar key=genState Done :}|
+			:}|
+		:}|
+
+	:}|
+
+
+/setvar key=e {{noop}}|
+/foreach var=examples {:
+	/ife {: /test left={{var::index}} right=0 rule=eq:}|
+		/then {: /addvar key=e {{var::item}} :}|
+	/else {: /addvar key=e "
+{{var::item}}" :}|
+:}|
+
+
+/ife {: /test left=temp_btn right=Skip rule=neq :}|
+	/then {:
+		/setvar key=a []|
+		/foreach var=exexamples {:
+			/setvar key=i 1|
+			/setvar key=b []|
+			/setvar key=genState Redo|
+			/setvar key=outputList []|
+			/setvar key=guide {{noop}}|
+			/setvar key=tskip {{noop}}|
+			/while left=genState right=Redo rule=eq {:
+				/echo escapeHtml=false "<div>Generating example for:</div><div>\"{{var::item}}\"</div><div>Example nr: {{getvar::i}}"|
+
+				/setvar key=item {{var::item}}|
+				/setvar key=genState []|
+
+				/setvar key=skip {{noop}}|
+				/ife {: /test left=tskip right="" rule=neq:}|
+					/then {:
+						/setvar key=skip "In your reply, exclude strengths that include: {{getvar::tskip}}. "
+					:}|
+
+				/setvar key=system {{noop}}|
+				/setvar key=prompt {{noop}}|
+				/setvar key=instruct {{noop}}|
+
+				//Button15-01|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 382|
+				/setvar key=system {{pipe}}|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 383|
+				/setvar key=prompt {{pipe}}|
+				/getentryfield file="Character Maker Combined NSFW GenRaw" 384|
+				/setvar key=instruct {{pipe}}|
+
+				/genraw lock=on name={{char}}
+				system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+
+
+				/addvar key=genState {{pipe}}|
+				/addvar key=genState Edit|
+
+
+				/ife {: /test left=i right=1 rule=neq:}|
+					/then {:/addvar key=genState Done|:}|
+
+				/ife {: /test left=guide right="" rule=eq :}|
+				/then {:
+					/addvar key=genState "Set Guidance"|
+					/addvar key=genState Redo|
+				:}|
+				/else {:
+					/addvar key=genState Change Guidance|
+					/addvar key=genState Redo(Keep Guidance)|
+					/addvar key=genState Redo(Don't keep Guidance)|
+				:}|
+
+				/addvar key=genState "Exclude items"|
+
+				/buttons labels={{getvar::genState}} Is this dialog example good for this situatuin: {{var::item}}|
+
+				/setvar key=selected_btn {{pipe}}|
+
+				/ife {: /test left=selected_btn right="" rule=eq :}|
+					/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
+				/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
+					/then {:
+						/getvar key=genState index=0 | /setvar key=t {{pipe}}|
+						/input rows=8 default={{getvar::t}} Edit the dialog example to fit this situation: {{var::item}}|
+						/setvar key=selected_btn {{pipe}}|
+						/ife {: /test left=selected_btn right="" rule=eq :}|
+								/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
+						/else {:
+							/setvar key=genState Redo|
+							/addvar key=b {{getvar::selected_btn}}|
+							/incvar i|
+						:}|
+
+					:}|
+				/elseif {: /test left={{getvar::selected_btn}} right=Done rule=eq :}|
+					/then {: :}|
+				/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
+					/then {:
+						/setvar key=genState Redo|
+					:}|
+				/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
+					/then {:
+						/setvar key=genState Redo|
+						/setvar key=guide {{noop}}|
+					:}|
+
+				/elseif {: /test left=selected_btn right=Guidance rule=in :}|
+					/then {:
+						/setvar key=guide {{noop}}|
+
+						/input default="{{getvar::guidePrompt}}" Add what you want the strength you want the generation to focus on.|
+						/setvar key=guide " ({{pipe}})"|
+
+						/setvar key=genState Redo|
+					:}|
+				/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
+					/then {:
+						/ife {: /test left=tskip right="" rule=neq :}|
+							/then {:
+								/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
+							:}|
+						/else {:
+							/setvar key=t {{noop}}|
+						:}|
+						/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+						/setvar key=t {{pipe}}|
+
+						/ife {: /test left=t right="Reset" rule=eq :}|
+							/then {: /setvar key=tskip {{noop}}| :}|
+						/elseif {: /test left=t right="" rule=neq :}|
+							/then {:
+								/ife {: /test left=tskip right="" rule=neq :}|
+									/then {:
+										/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
+									:}|
+									/else {:
+										/setvar key=tskip {{getvar::t}}|
+									:}|
+								:}|
+						/setvar key=genState Redo|
+					:}|
+				/else {:
+					/setvar key=genState Redo|
+					/setvar key=guide {{noop}}|
+					/addvar key=b {{getvar::selected_btn}}|
+					/incvar i|
+
+				:}|
+			:}|
+			/addvar key=a ["{{var::item}}", {{getvar::b}}]|
+
+	:}|
+
+:}|
+
+
+/setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
+
+Personality summary: {{getvar::personality}}
+
+Speech Examples
+"|
+
+/foreach var=examples {:
+	/addvar key=output "
+{{var::item}}"|
+:}|
+
+/foreach var=a {:
+	/setvar key=a1 {{var::item}}|
+	/getvar key=a1 index=0|
+	/setvar key=a2 {{pipe}}|
+	/addvar key=output "
+
+
+{{getvar::a2}}:
+"|
+	/getvar key=a1 index=1|
+	/setvar key=a3 {{pipe}}|
+	/foreach var=a3 {:
+		/addvar key=output "
+{{var::item}}"
+	:}|
+:}|
+
+/message-edit message={{lastMessageId}} {{getvar::output}}

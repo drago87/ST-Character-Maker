@@ -1,4 +1,4 @@
-	/genraw lock=on name={{char}} 
+	/genraw lock=on name={{char}}
 	system="{{getvar::rules}}
 {{getvar::info}}
 {{getvar::char_info}}"
@@ -7,7 +7,7 @@ INSTRUCTION: Use the right pronounce. The description should be under five sente
 {{instructFirstOutput}}|
 
 
-/genraw lock=on name={{char}} 
+/genraw lock=on name={{char}}
 system="{{getvar::system}}"
 {{getvar::prompt}}
 {{getvar::instruct}}|
@@ -16,7 +16,7 @@ system="{{getvar::system}}"
 
 
 
-	/genraw lock=on name={{char}} 
+	/genraw lock=on name={{char}}
 	system="{{getvar::rules}}
 {{getvar::info}}
 {{getvar::char_info}}"
@@ -25,9 +25,7 @@ INSTRUCTION: Use the right pronounce. Start the reply with a capital letter. Onl
 {{instructFirstOutput}}|
 
 	/setvar key=t {{pipe}}|
-	/split var=t | 
-	/re-replace replace="" find="/\./g" var=t | /setvar key=t {{pipe}}|
-	/split var=t | 
+	/split {{getvar::t}} |
+	/re-replace replace="" find="/\./g" {{getvar::t}} | /setvar key=t {{pipe}}|
+	/split {{getvar::t}} |
 	/setvar key=genState {{pipe}}|
-
-

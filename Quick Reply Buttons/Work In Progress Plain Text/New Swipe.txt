@@ -1,81 +1,67 @@
-/setvar key=t {{lastmessage}}| /re-replace replace="" find="/Character Maker QR: /g" var=t | /setvar key=p {{pipe}} | /re-replace replace="" find="/(?<=<\/h2>)([\s\S]*)/g" var=p | /setvar key=d {{pipe}} |
+/setvar key=t {{lastmessage}}|
+/re-replace replace="" find="/Character Maker QR: /g" {{getvar::t}} | /setvar key=p {{pipe}} |
+/re-replace replace="" find="/(?<=<\/h2>)([\s\S]*)/g" {{getvar::p}} | /setvar key=d {{pipe}} |
 /try {:
 	/swipes-add {{getvar::d}}|
 	/setvar key=swipe Yes|
-	/setvar key=new= No|
+	/setvar key=new No|
 :}|
 /catch  {:
-	/setvar key=d <h2 align='center'>Basic Information"|
+	/setvar key=d "<h2 align='center'>Basic Information"|
 	/setvar key=swipe No|
-	/setvar key=new= Yes|
+	/setvar key=new Yes|
 :}|
-/tag-list | /setvar key=list {{pipe}} | 
-/messages 0-{{lastMessageId}} |
-/setvar key=messageHistory {{pipe}} | 
 
 
 
-/ife {: /test left=d right="<h2 align='center'>Basic Information" rule=in :}|
-	/then {:
-		/:"Character Maker V4.01. Generate Basic Information (form)"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Appearance Info" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.02. Generate Appearance Info (Can Generate Multiple)"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Outfit and Gear" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.03. Generate Outfit and Gear (Can Generate Multiple)"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Personality Traits And Quirks" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.04. Generate Personality Traits And Quirks"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Relationship Information" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.05. Generate Relationship Information"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Known Kinks" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.06. Generate Known Kinks"|
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Latent Kinks" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.07. Generate Latent Kinks"|
-	:}|
 
-/elseif {: /test left=d right="<h2 align='center'>Background Info" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.08. Generate Background Info"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Interaction Style" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.09. Generate Interaction Style"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Contextual Information" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.10. Generate Contextual Information"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Additional Notes" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.11. Generate Additional Notes"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Spells and Abilities" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.12. Generate Spells and Abilities"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Character Rules" rule=in :}|
-	/then {: 
-		/echo Rules does nothing with a swipe. Insted Edit it manualy and add/remove rules to your liking.|
-		/:"Character Maker V4.Flushvar"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Extras" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.14. Generate Extras"
-	:}|
-/elseif {: /test left=d right="<h2 align='center'>Scenario" rule=in :}|
-	/then {: 
-		/:"Character Maker V4.15. Generate Scenario"
-	:}
-|
+/ife ( 'Basic Information' in d){:
+	/:"Character Maker V4.01. Generate Basic Information (form)"
+:}|
+/elseif ( 'Appearance Info' in d){:
+	/:"Character Maker V4.02. Generate Appearance Info (Can Generate Multiple)"
+:}|
+/elseif ( 'Personality Traits And Quirks' in d){:
+	/:"Character Maker V4.03. Generate Personality Traits And Quirks"
+:}|
+/elseif ( 'Character\'s Relation to user' in d){:
+	/:"Character Maker V4.04. Character's Relation to user"
+:}|
+/elseif ( 'Relationship Information' in d){:
+	/:"Character Maker V4.05. Generate Relationship Information"
+:}|
+/elseif ( 'Known Kinks' in d){:
+	/:"Character Maker V4.06. Generate Known Kinks"|
+:}|
+/elseif ( 'Latent Kinks' in d){:
+	/:"Character Maker V4.07. Generate Latent Kinks"|
+:}|
+/elseif ( 'Outfit and Gear' in d){:
+	/:"Character Maker V4.08. Generate Outfit and Gear (Can Generate Multiple)"
+:}|
+/elseif ( 'Background Info' in d){:
+	/:"Character Maker V4.09. Generate Background Info"
+:}|
+/elseif  'Interaction Style' in d){:
+	/:"Character Maker V4.10. Generate Interaction Style"
+:}|
+/elseif ( 'Contextual Information' in d){:
+	/:"Character Maker V4.11. Generate Contextual Information"
+:}|
+/elseif ( 'Additional Notes' in d){:
+	/:"Character Maker V4.12. Generate Additional Notes"
+:}|
+/elseif ( 'Spells and Abilities' in d){:
+	/:"Character Maker V4.13. Generate Spells and Abilities"
+:}|
+/elseif ( 'Character Rules' in d){:
+	/echo Rules does nothing with a swipe. Insted Edit it manualy and add/remove rules to your liking.|
+	/:"Character Maker V4.Flushvar"
+:}|
+/elseif ( 'Extras' in d){:
+	/:"Character Maker V4.15. Generate Extras"
+:}|
+/elseif ( 'Scenario' in d){:
+	/:"Character Maker V4.16. Generate Scenario"
+:}|
 /:"Character Maker V4.Flushvar"

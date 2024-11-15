@@ -7,7 +7,7 @@
 	/wiz-page id="Gender" {:
 		/wiz-page-text "<h2 align='center'>What gender do you want your character to be?</h2>" |
 		/foreach var=genders {:
-			/wiz-page-button label={{item}} {:/wiz-cmd-var key=gender {{item}}|/wiz-cmd-next:}|
+			/wiz-page-button label={{var::item}} {:/wiz-cmd-var key=gender {{var::item}}|/wiz-cmd-next:}|
 		:}|
 	:} |
 	/wiz-page id="Type" {:
@@ -15,7 +15,7 @@
 		/wiz-page-text "<h2 align='center'>Current selection</h2>"|
 		/wiz-page-text "<h4 align='center'>Gender: {{wizvar::gender}}</h4>"|
 		/foreach var=types {:
-			/wiz-page-button label={{item}} {: /wiz-cmd-var key=type {{item}}| /wiz-cmd-next:}|
+			/wiz-page-button label={{var::item}} {: /wiz-cmd-var key=type {{var::item}}| /wiz-cmd-next:}|
 		:}|
 	:} |
 	/wiz-page id="Transformation" {:

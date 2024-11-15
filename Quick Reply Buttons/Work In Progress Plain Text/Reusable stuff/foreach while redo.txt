@@ -1,19 +1,33 @@
 /setvar key=input []|
 /addvar key=input "Something"|
+
+
 /setvar key=input []|
 /foreach var=input {:
 	/setvar key=genState Redo|
 	
 	/while left=genState right=Redo rule=eq {:
-		/re-replace find=/\(.*$/g replace="" {{item}}|
+		/re-replace find=/\(.*$/g replace="" {{var::item}}|
 		/setvar key=cat {{pipe}}|
 		/echo Generating Something: {{getvar::cat}}|
 		/setvar key=genState []|  
-	
-		/genraw lock=on name={{char}} generates something| 
 		
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
 		
+		//Buttonx-y|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" system uid|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" prompt uid|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" instruct uid|
+		/setvar key=instruct {{pipe}}|
 		
+		/genraw lock=on name={{char}} 
+system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
 		
 		/addvar key=genState {{pipe}}|
 		/addvar key=genState Edit|  
@@ -24,14 +38,14 @@
 		/setvar key=selected_btn {{pipe}}|
 	
 		/ife {: /test left=selected_btn right="" rule=eq :}|
-			/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+			/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
 		/elseif {: /test left={{getvar::selected_btn}} right=Edit rule=eq :}|
 			/then {:
 				/getvar key=genState index=0 | /setvar key=t {{pipe}}|
 				/input rows=8 default={{getvar::t}} text|
 				/setvar key=selected_btn {{pipe}}|
 				/ife {: /test left=selected_btn right="" rule=eq :}|
-						/then {:/:"Character Maker V4.Flushvar"| /echo Aborting | /abort:}|
+						/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
 			:}|
 	
 		/elseif {: /test left={{getvar::selected_btn}} right=Redo rule=eq :}|
