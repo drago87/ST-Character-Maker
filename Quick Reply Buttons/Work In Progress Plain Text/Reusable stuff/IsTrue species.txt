@@ -1,14 +1,14 @@
 /ife {: /test left=species right=Human rule=eq:}|
-	/then {: /setvar key=isTure false :}|
-/elseif ( species == 'Anthro'){:
-	/then {: /setvar key=isTure false :}|
-/elseif ( species == 'Anthro'){:
-	/then {: /setvar key=isTure false :}|
+	/then {: /setvar key=isTrue false :}|
+/elseif ( 'Anthro' in species){:
+	/then {: /setvar key=isTrue false :}|
+/elseif ( 'Anthro' in species){:
+	/then {: /setvar key=isTrue false :}|
 /elseif {: /test left=species right=Pokemon rule=in:}|
-	/then {: /setvar key=isTure true :}|
-/elseif ( species == 'Animal'){:
-	/then {: /setvar key=isTure true :}|
-/else {: /setvar key=isTure true :}|
+	/then {: /setvar key=isTrue true :}|
+/elseif ( 'Animal' in species){:
+	/then {: /setvar key=isTrue true :}|
+/else {: /setvar key=isTrue true :}|
 
-/ife {: /test left=isTure right=true rule=eq:}|
+/ife {: /test left=isTrue right=true rule=eq:}|
 	/then {::}|

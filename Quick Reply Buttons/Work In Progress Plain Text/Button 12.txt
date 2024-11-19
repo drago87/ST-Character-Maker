@@ -821,18 +821,18 @@
 
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
+	/setvar key=isTrue no :}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue no :}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue no :}|
 /elseif {: /test left=species right=Pokèmon rule=in:}|
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
+	/setvar key=isTrue yes :}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes :}|
+/else {: /setvar key=isTrue yes :}|
 /setvar key=mating {{noop}}|
-/ife {: /test left=isTrue right=true rule=eq:}|
+/ife {: /test left=isTrue right=yes rule=eq:}|
 	/then {:
 		/setvar key=genState Redo|
 

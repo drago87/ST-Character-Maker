@@ -3,21 +3,21 @@
 
 	/listvar scope=local return=object | /setvar key=flvars {{pipe}}|
 	/foreach {{getvar::flvars}} {:
-		/setvar key=flvar {{var::item}}|
-		/foreach {{getvar::flvar}} {:
-			/setvar key=in {{var::index}}|
-			/setvar key=it {{var::item}}|
-			/ife ( in == 'key'){:
-				/ife ( it != 'fname'){:
-					/flushvar {{getvar::it}}
-				:}|
+		/setvar key=it1 {{var::item}}|
+		/setvar key=in1 {{var::index}}|
+		/foreach {{getvar::it1}} {:
+			/setvar key=it2 {{var::item}}|
+			/setvar key=in2 {{var::index}}|
+			/ife ( in2 == 'key'){:
+				/flushvar {{getvar::it2}}
 			:}|
 		:}|
 	:}|
 	/flushvar flvars|
-	/flushvar flvar|
-	/flushvar it|
-	/flushvar in|
+	/flushvar it1|
+	/flushvar in1|
+	/flushvar it2|
+	/flushvar in2|
 :}|
 /else {: /echo Not Flushing variables Debug enabled |:}|
 /abort

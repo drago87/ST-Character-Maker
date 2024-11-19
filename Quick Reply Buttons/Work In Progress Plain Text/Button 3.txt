@@ -299,22 +299,22 @@
 
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Demi-Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Pokémon'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
+	/setvar key=isTrue no :}|
+/elseif ( 'Demi-Human' in species){:
+	/setvar key=isTrue no :}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue no :}|
+/elseif ( 'Beastkin' in species){:
+	/setvar key=isTrue no :}|
+/elseif ( 'Pokémon' in species){:
+	/setvar key=isTrue yes :}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes :}|
+/else {: /setvar key=isTrue yes :}|
 
 /setvar key=human_traits {{noop}}|
 
-/ife {: /test left=isTrue right=true rule=eq:}|
+/ife {: /test left=isTrue right=yes rule=eq:}|
 	/then {:
 		/setvar key=genState Redo|
 		/setvar key=outputList []|
@@ -448,23 +448,23 @@
 :}|
 
 /ife {: /test left=species right=Human rule=eq:}|
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Demi-Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Pokémon'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
+	/setvar key=isTrue no :}|
+/elseif ( 'Demi-Human' in species){:
+	/setvar key=isTrue no :}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue no :}|
+/elseif ( 'Beastkin' in species){:
+	/setvar key=isTrue no :}|
+/elseif ( 'Pokémon' in species){:
+	/setvar key=isTrue yes :}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes :}|
+/else {: /setvar key=isTrue yes :}|
 
 
 /setvar key=non-human_traits {{noop}}|
 
-/ife {: /test left=isTrue right=true rule=eq:}|
+/ife {: /test left=isTrue right=yes rule=eq:}|
 	/then {:
 		/setvar key=genState Redo|
 		/setvar key=outputList []|

@@ -193,22 +193,22 @@
 
 
 			/ife {: /test left=species right=Human rule=eq:}|
-				/setvar key=isTrue false :}|
-			/elseif ( species == 'Demi-Human'){:
-				/setvar key=isTrue true :}|
-			/elseif ( species == 'Anthro'){:
-				/setvar key=isTrue true :}|
-			/elseif ( species == 'Anthro'){:
-				/setvar key=isTrue true :}|
-			/elseif ( species == 'Pokémon'){:
-				/setvar key=isTrue true :}|
-			/elseif ( species == 'Animal'){:
-				/setvar key=isTrue true :}|
-			/else {: /setvar key=isTrue true :}|
+				/setvar key=isTrue no :}|
+			/elseif ( 'Demi-Human' in species){:
+				/setvar key=isTrue yes :}|
+			/elseif ( 'Anthro' in species){:
+				/setvar key=isTrue yes :}|
+			/elseif ( 'Beastkin' in species){:
+				/setvar key=isTrue yes :}|
+			/elseif ( 'Pokémon' in species){:
+				/setvar key=isTrue yes :}|
+			/elseif ( 'Animal' in species){:
+				/setvar key=isTrue yes :}|
+			/else {: /setvar key=isTrue yes :}|
 
 
 
-			/ife {: /test left=isTrue right=true rule=eq:}|
+			/ife {: /test left=isTrue right=yes rule=eq:}|
 				/then {:
 
 					/setvar key=genState Redo|
@@ -484,20 +484,20 @@
 		/ife {: /test left=extra3 right="" rule=neq :}|
 			/then {:
 				/ife {: /test left=species right=Human rule=eq:}|
-					/setvar key=isTrue false :}|
-				/elseif ( species == 'Demi-Human'){:
-					/setvar key=isTrue true :}|
-				/elseif ( species == 'Anthro'){:
-					/setvar key=isTrue true :}|
-				/elseif ( species == 'Anthro'){:
-					/setvar key=isTrue true :}|
-				/elseif ( species == 'Pokémon'){:
-					/setvar key=isTrue true :}|
-				/elseif ( species == 'Animal'){:
-					/setvar key=isTrue true :}|
-				/else {: /setvar key=isTrue true :}|
+					/setvar key=isTrue no :}|
+				/elseif ( 'Demi-Human' in species){:
+					/setvar key=isTrue yes :}|
+				/elseif ( 'Anthro' in species){:
+					/setvar key=isTrue yes :}|
+				/elseif ( 'Beastkin' in species){:
+					/setvar key=isTrue yes :}|
+				/elseif ( 'Pokémon' in species){:
+					/setvar key=isTrue yes :}|
+				/elseif ( 'Animal' in species){:
+					/setvar key=isTrue yes :}|
+				/else {: /setvar key=isTrue yes :}|
 
-				/ife {: /test left=isTrue right=true rule=eq:}|
+				/ife {: /test left=isTrue right=yes rule=eq:}|
 					/then {:
 
 						/setvar key=genState Redo|
@@ -766,20 +766,20 @@
 		/ife {: /test left=extra4 right="" rule=neq :}|
 			/then {:
 				/ife {: /test left=species right=Human rule=eq:}|
-					/setvar key=isTrue false :}|
-				/elseif ( species == 'Demi-Human'){:
-					/setvar key=isTrue true :}|
-				/elseif ( species == 'Anthro'){:
-					/setvar key=isTrue true :}|
-				/elseif ( species == 'Anthro'){:
-					/setvar key=isTrue true :}|
-				/elseif ( species == 'Pokémon'){:
-					/setvar key=isTrue true :}|
-				/elseif ( species == 'Animal'){:
-					/setvar key=isTrue true :}|
-				/else {: /setvar key=isTrue true :}|
+					/setvar key=isTrue no :}|
+				/elseif ( 'Demi-Human' in species){:
+					/setvar key=isTrue yes :}|
+				/elseif ( 'Anthro' in species){:
+					/setvar key=isTrue yes :}|
+				/elseif ( 'Beastkin' in species){:
+					/setvar key=isTrue yes :}|
+				/elseif ( 'Pokémon' in species){:
+					/setvar key=isTrue yes :}|
+				/elseif ( 'Animal' in species){:
+					/setvar key=isTrue yes :}|
+				/else {: /setvar key=isTrue yes :}|
 
-				/ife {: /test left=isTrue right=true rule=eq:}|
+				/ife {: /test left=isTrue right=yes rule=eq:}|
 					/then {:
 
 						/setvar key=genState Redo|

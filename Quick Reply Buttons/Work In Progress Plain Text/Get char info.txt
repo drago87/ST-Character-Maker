@@ -63,8 +63,26 @@
 :}|
 
 /setvar key=et {{noop}}|
-/ife ( ethnicity != 'None'){:
-	/setvar key=et " with a ethnicity of {{getvar::ethnicity}}"|
+/len {{getvar::ethnicity}}| /setvar key=len {{pipe}}|
+
+/ife ( 'None' not in ethnicity){:
+	/ife ( len > 1){:
+		/setvar key=et "with a mixed ethnicity of "|
+		/foreach {{getvar::ethnicity}} {:
+			/setvar key=it {{var::item}}|
+			/setvar key=in {{var::index}}|
+			/ife ( in == 0){:
+				/addvar key=et "{{getvar::it}}"|
+			:}|
+			/else {:
+				/addvar key=et " and {{getvar::it}}"|
+			:}|
+		:}|
+	:}|
+	/else {:
+		/getvar key=ethnicity index=0|
+		/setvar key=et "with a {{pipe}} ethnicity"|
+	:}|
 :}|
 /ife ( 'None' not in sub_species){:
 	/setvar key=species {{getvar::sub_species}}
@@ -74,29 +92,32 @@
 
 /setvar key=cleanSpeciees {{noop}}|
 
-
-/ife ( species == 'Human'){:
-	/setvar key=isTure true|
+/ife ('Demi-Human' in species ){:
+	/setvar key=isTrue yes|
+	/re-exec first=true find="/(?<=Demi-Human ).*/g" {{getvar::species}}|
+:}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue yes|
 	/setvar key=cleanSpeciees Human|
 :}|
 /elseif ('Anthro' in species ){:
-	/setvar key=isTure true|
+	/setvar key=isTrue yes|
 	/re-exec first=true find="/(?<=Anthro ).*/g" {{getvar::species}}|
 :}|
 /elseif ( 'Beastkin' in species ){:
-	/setvar key=isTure true|
+	/setvar key=isTrue yes|
 	/re-exec first=true find="/(?<=Beastkin ).*/g" {{getvar::species}}|
 :}|
 /elseif ( 'Pokémon' in species ){:
-	/setvar key=isTure false|
+	/setvar key=isTrue no|
 	/re-exec first=true find="/(?<=Pokémon ).*/g" {{getvar::species}}|
 :}|
 /elseif ( 'Animal' in species ){:
-	/setvar key=isTure false|
+	/setvar key=isTrue no|
 	/re-exec first=true find="/(?<=Animal ).*/g" {{getvar::species}}|
 :}|
 /else {:
-	/setvar key=isTure false|
+	/setvar key=isTrue no|
 	/setvar key=cleanSpeciees {{getvar::species}}|
 :}|
 /setvar key=cleanSpeciees {{pipe}}|

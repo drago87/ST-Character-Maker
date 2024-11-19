@@ -6,6 +6,44 @@
 
 /:"Character Maker V4.Get Char info"|
 
+/setvar key=form {{noop}}|
+/ife ( 'TRANSFORM' in tags){:
+	/buttons labels=["Normal","Transformation"] "Do you want to make a description for {{getvar::fname}}'s normal form or the transformation?"|
+	/setvar key=selected_btn {{pipe}}|
+
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+	/elseif ( selected_btn == 'Normal'){:
+		/setvar key=species "{{getvar::normal_form}}"|
+		/setvar key=form "{{getvar::cleanSpeciees}}"|
+	:}|
+	/elseif ( selected_btn == 'Transformation'){:
+		/split {{getvar::transformation}}| /setvar key=tr {{pipe}}|
+		/buttons labels={{getvar::tr}} What transformation do you want the description for?|
+		/setvar key=selected_btn {{pipe}}|
+		/ife ( selected_btn == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/else {:
+			/re-exec first=true find="/\((.*?)\)/g" {{getvar::selected_btn}}|
+			/setvar key=a {{pipe}}|
+			/getvar key=a index=1| /setvar key=a {{pipe}}|
+			/re-exec first=true find="/^(.*?)\(/g" {{getvar::selected_btn}}|
+			/setvar key=b {{pipe}}|
+			/getvar key=b index=1| /setvar key=b {{pipe}}|
+			/setvar key=cleanSpecies {{getvar::b}}|
+			/setvar key=type {{getvar::a}}|
+			/setvar key=form "{{getvar::cleanSpecies}}"|
+		:}|
+
+	:}|
+	/else {:
+	/setvar key=form "{{getvar::cleanSpecies}}"|
+
+	:}|
+:}|
+
 /ife ( type != 'None'){:
 	/setvar key=typef "{{getvar::fname}}'s genetalia is {{getvar::type}} in form."
 :}|
@@ -19,11 +57,11 @@ else {:
 /setvar key=extra4 {{noop}}|
 /setvar key=cover {{noop}}|
 
-/ife ( isTure == 'true'){:
-	/addvar key=h "(This is the Height of {{getvar::fname}} when standing on two legs. It is mesured from the ground to the top of the head.)"|
+/ife ( isTrue == 'yes'){:
+	/setvar key=h "(This is the Height of {{getvar::fname}} when standing on two legs. It is mesured from the ground to the top of the head.)"|
 :}|
 /else {:
-	/addvar key=h "(This is the Height of {{getvar::fname}} when standing on four legs. It is measured from the ground to its withers.)"|
+	/setvar key=h "(This is the Height of {{getvar::fname}} when standing on four legs. It is measured from the ground to its withers.)"|
 :}|
 
 /setvar key=genState Redo|
@@ -77,11 +115,11 @@ else {:
 
   /setvar key=selected_btn {{pipe}}|
 
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
 	/ife (selected_btn is string){:
-		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
-		:}|
-	  /elseif ( selected_btn == 'Manually Add'){:
+	  /ife ( selected_btn == 'Manually Add'){:
 			/input rows=8  Add your own height (End with cm or m).|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
@@ -133,21 +171,28 @@ else {:
 
 
 /setvar key=lenght None|
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Demi-Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Pokémon'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
 
-/ife ( isTrue == 'true'){:
+/ife ( 'Demi-Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Beastkin' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Pokémon' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes|
+:}|
+/else {: /setvar key=isTrue yes|:}|
+
+/ife ( isTrue == 'yes'){:
 		/setvar key=genState Redo|
 		/setvar key=guide {{noop}}|
 		/setvar key=tskip {{noop}}|
@@ -198,11 +243,11 @@ else {:
 			/buttons labels={{getvar::genState}} Select a lenght from the tip of the nose to the tip of the tail. (Should end in cm or m)|
 
 			/setvar key=selected_btn {{pipe}}|
+			/ife ( selected_btn == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
 			/ife ( selected_btn is string){:
-				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
-				:}|
-			  /elseif ( selected_btn == 'Manually Add'){:
+			  /ife ( selected_btn == 'Manually Add'){:
 					/input rows=8 Manually add a lenght from the tip of the nose to the tip of the tail (Should be in cm or m)|
 					/setvar key=selected_btn {{pipe}}|
 					/ife ( selected_btn == ''){:
@@ -315,12 +360,11 @@ else {:
   /buttons labels={{getvar::genState}} Select a weight (It shold end in kg or t)|
 
   /setvar key=selected_btn {{pipe}}|
-
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
 	/ife ( selected_btn is string){:
-		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
-		:}|
-		/elseif ( selected_btn == 'Manually Add'){:
+		/ife ( selected_btn == 'Manually Add'){:
 			/input rows=8 Add a weight (End it in kg or t)|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
@@ -372,27 +416,32 @@ else {:
 /setvar key=weight {{getvar::selected_btn}}|
 
 /setvar key=covers {{noop}}|
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Demi-Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true|
+
+/ife ( 'Demi-Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue yes|
 	/getentryfield file="Character Maker Combined NSFW" 25|
 	/setvar key=covers {{pipe}}|
 :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true|
+/elseif ( 'Beastkin' in species){:
+	/setvar key=isTrue yes|
 	/getentryfield file="Character Maker Combined NSFW" 26|
 	/setvar key=covers {{pipe}}|
 :}|
-/elseif ( species == 'Pokémon'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
+/elseif ( 'Pokémon' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes|
+:}|
+/else {: /setvar key=isTrue yes|:}|
 
-/ife ( isTrue == 'true'){:
+/ife ( isTrue == 'yes'){:
 	/setvar key=genState Redo|
 	/setvar key=guide {{noop}}|
 	/setvar key=tskip {{noop}}|
@@ -601,23 +650,30 @@ else {:
 :}|
 
 /setvar key=input []|
-/addvar key=input "Hair(This is the hair ontop of {{getvar::fname}}'s head. This should include color, lenght and hairstyle.)"|
+/addvar key=input "Hair(This is the hair on top of {{getvar::fname}}'s head. This should include color, lenght and hairstyle.)"|
+:}|
 
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Demi-Human'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Pokémon'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
+/ife ( 'Demi-Human' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Beastkin' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Pokémon' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes|
+:}|
+/else {: /setvar key=isTrue yes|:}|
 
-/ife ( isTrue == 'true'){:
+/ife ( isTrue == 'yes'){:
 	/buttons labels=["Yes","No"] Do the character have horns?|
 	/setvar key=selected_btn {{pipe}}|
 
@@ -651,10 +707,16 @@ else {:
 /ife ( extra1 != ''){:
 	/setvar key=fea " (In addition to {{getvar::extra1}})"|
 :}|
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/else {: /setvar key=isTrue true :}|
-/ife ( isTrue == 'true'){:
+
+/ife ( 'Demi-Human' not in species){:
+	/ife ( 'Human' in species){:
+		/setvar key=isTrue no|
+	:}|
+	/else {: /setvar key=isTrue yes|:}|
+:}|
+/else {: /setvar key=isTrue yes|:}|
+
+/ife ( isTrue == 'yes'){:
 	/buttons labels=["Yes","No"] Do {{getvar::fname}} have any non human feature on the head?{{getvar::fea}}|
 
 	/setvar key=selected_btn {{pipe}}|
@@ -696,14 +758,13 @@ else {:
 	:}|
 :}|
 
-
 /setvar key=h1 []|
 /foreach {{getvar::input}} {:
 	/setvar key=genState Redo|
 	/setvar key=guide {{noop}}|
 	/setvar key=tskip {{noop}}|
 	/setvar key=it {{var::item}}|
-	/setvar key=in {{var::index}}
+	/setvar key=in {{var::index}}|
 
 	/while left=genState right=Redo rule=eq {:
 		/re-replace find="/\(.*$/g" replace="" {{getvar::it}}|
@@ -813,14 +874,17 @@ else {:
 
 /setvar key=p1st {{noop}}|
 /foreach {{getvar::h1}} {:
-	/setvar key=it {{var::itme}}
-	/setvar key=in {{var::index}}
-	/ife ( {{getvar::in}} != 0){:
-		/ife ( {{getvar::it}} != 'Horns: None'){:
+	/setvar key=it {{var::item}}|
+	/setvar key=in {{var::index}}|
+	/ife ( in != 0){:
+		/ife ( it != 'Horns: None'){:
 			/addvar key=p1st "
-{{getvar::it}}" :}|
+{{getvar::it}}"|
 		:}|
-	/else {: /addvar key=p1st "{{getvar::it}}" :}|
+	:}|
+	/else {:
+		/addvar key=p1st "{{getvar::it}}"
+	:}|
 :}|
 /setvar key=face {{getvar::h1}}|
 
@@ -937,42 +1001,56 @@ Appearance: {{getvar::p2}}"|
 /addvar key=input "Body Type(This is {{getvar::fname}}'s body type. Reply with one word that describes it.)"|
 /addvar key=input "Torso(Mention skin color, skin complexion. Exclude stomach, breasts, nipples, arms and butt from the reply)"|
 
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Demi-Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Pokémon'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
 
-/ife ( isTrue == 'true'){:
+/ife ( 'Demi-Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Beastkin' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Pokémon' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes|
+:}|
+/else {: /setvar key=isTrue yes|:}|
+
+/ife ( isTrue == 'yes'){:
 	/addvar key=input "Front Legs"|
 :}|
 /else {:
 	/addvar key=input "Arms(This is {{getvar::fname}}'s upper and lower arms. Exclude hands and fingers in the reply)"|
 :}|
 
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Demi-Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Pokémon'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
 
-/ife ( isTrue == 'true'){:
+/ife ( 'Demi-Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Beastkin' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Pokémon' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes|
+:}|
+/else {: /setvar key=isTrue yes|:}|
+
+/ife ( isTrue == 'yes'){:
 	/buttons labels=["Hands","Front Paws", "Front Fins","Front Hooves", "Front Flippers"]|
 	/setvar key=selected_btn {{pipe}}|
 	/ife ( selected_btn == ''){:
@@ -1001,21 +1079,28 @@ Appearance: {{getvar::p2}}"|
 :}|
 
 
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Demi-Human'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Pokémon'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
 
-/ife ( isTrue == 'true'){:
+/ife ( 'Demi-Human' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Beastkin' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Pokémon' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes|
+:}|
+/else {: /setvar key=isTrue yes|:}|
+
+/ife ( isTrue == 'yes'){:
 	/buttons labels=["Yes","No"] Do the character have Claws?|
 	/setvar key=selected_btn {{pipe}}|
 	/ife ( selected_btn == ''){:
@@ -1050,10 +1135,14 @@ Appearance: {{getvar::p2}}"|
 	/setvar key=fea " (In addition to {{getvar::extra2}})"|
 :}|
 
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/else {: /setvar key=isTrue true :}|
-/ife ( isTrue == 'true'){:
+/ife ( 'Demi-Human' not in species){:
+	/ife ( 'Human' in species){:
+		/setvar key=isTrue no|
+	:}|
+	/else {: /setvar key=isTrue yes|:}|
+:}|
+/else {: /setvar key=isTrue yes|:}|
+/ife ( isTrue == 'yes'){:
 	/buttons labels=["Yes","No"] Do {{getvar::fname}} have any non human feature on the upper body?{{getvar::fea}}|
 
 	/setvar key=selected_btn {{pipe}}|
@@ -1214,8 +1303,8 @@ Appearance: {{getvar::p2}}"|
 /foreach {{getvar::u1}} {:
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|
-	/ife ( {{getvar::in}} != 0){:
-		/ife ( {{getvar::it}} != 'Horns: None'){:
+	/ife ( in != 0){:
+		/ife ( it != 'Horns: None'){:
 			/addvar key=p1st "
 {{getvar::it}}"|
 		:}|
@@ -1337,22 +1426,29 @@ Appearance: {{getvar::p2}}"|
 /addvar key=input "Butt(Exclude tail in the reply)"|
 
 
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Demi-Human'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Pokémon'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
+
+/ife ( 'Demi-Human' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Beastkin' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Pokémon' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes|
+:}|
+/else {: /setvar key=isTrue yes|:}|
 
 
-/ife ( isTrue == 'true'){:
+/ife ( isTrue == 'yes'){:
 	/buttons labels=["Yes","No"] Do the character have a tail?|
 	/setvar key=selected_btn {{pipe}}|
 
@@ -1368,21 +1464,28 @@ Appearance: {{getvar::p2}}"|
 	:}|
 :}|
 
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Demi-Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Pokémon'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
 
-/ife ( isTrue == 'true'){:
+/ife ( 'Demi-Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Beastkin' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Pokémon' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes|
+:}|
+/else {: /setvar key=isTrue yes|:}|
+
+/ife ( isTrue == 'yes'){:
 	/addvar key=input "Hind Legs(Exclude Feet's and toes in the reply)"|
 :}|
 /else {:
@@ -1394,11 +1497,15 @@ Appearance: {{getvar::p2}}"|
 	/setvar key=fea " (In addition to {{getvar::extra3}})"|
 :}|
 
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/else {: /setvar key=isTrue true :}|
+/ife ( 'Demi-Human' not in species){:
+	/ife ( 'Human' in species){:
+		/setvar key=isTrue no|
+	:}|
+	/else {: /setvar key=isTrue yes|:}|
+:}|
+/else {: /setvar key=isTrue yes|:}|
 
-/ife ( isTrue == 'true'){:
+/ife ( isTrue == 'yes'){:
 	/buttons labels=["Yes","No"] Do {{getvar::fname}} have any non human feature on the lower body?{{getvar::fea}}|
 
 	/setvar key=selected_btn {{pipe}}|
@@ -1436,21 +1543,28 @@ Appearance: {{getvar::p2}}"|
 :}|
 
 
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Demi-Human'){:
-	/setvar key=isTrue false :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Anthro'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Pokémon'){:
-	/setvar key=isTrue true :}|
-/elseif ( species == 'Animal'){:
-	/setvar key=isTrue true :}|
-/else {: /setvar key=isTrue true :}|
 
-/ife ( isTrue == 'true'){:
+/ife ( 'Demi-Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue no|
+:}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Beastkin' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Pokémon' in species){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes|
+:}|
+/else {: /setvar key=isTrue yes|:}|
+
+/ife ( isTrue == 'yes'){:
 	/buttons labels=["Feet's","Hind Paws", "Hind Fins","Hind Hooves", "Flippers"] What type of extremities does {{getvar::fname}} use? |
 	/setvar key=selected_btn {{pipe}}|
 
@@ -1506,11 +1620,15 @@ Appearance: {{getvar::p2}}"|
 	/setvar key=fea " (In addition to {{getvar::extra4}})"|
 :}|
 
-/ife ( species == 'Human'){:
-	/setvar key=isTrue false :}|
-/else {: /setvar key=isTrue true :}|
+/ife ( 'Demi-Human' not in species){:
+	/ife ( 'Human' in species){:
+		/setvar key=isTrue no|
+	:}|
+	/else {: /setvar key=isTrue yes|:}|
+:}|
+/else {: /setvar key=isTrue yes|:}|
 
-/ife ( isTrue == 'true'){:
+/ife ( isTrue == 'yes'){:
 	/buttons labels=["Yes","No"] Do {{getvar::fname}} have any other non human feature on some other places on the body?{{getvar::fea}}|
 
 	/setvar key=selected_btn {{pipe}}|
@@ -1664,8 +1782,8 @@ Appearance: {{getvar::p2}}"|
 /foreach {{getvar::l1}} {:
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|
-	/ife ({{getvar::in}} != 0){:
-		/ife ({{getvar::it}} != 'Horns: None'){:
+	/ife ( in != 0){:
+		/ife ( it != 'Horns: None'){:
 			/addvar key=p2st "
 {{getvar::it}}"
 		:}|
@@ -1951,8 +2069,8 @@ Appearance: {{getvar::l2}}"|
 	/foreach {{getvar::b1}} {:
 		/setvar key=it {{var::item}}|
 		/setvar key=in {{var::inedx}}
-		/ife ( {{getvar::in}} != 0){:
-			/ife ({{getvar::it}} != 'Horns: None'){:
+		/ife ( in != 0){:
+			/ife ( it != 'Horns: None'){:
 				/addvar key=p3st "
 {{getvar::it}}"|
 			:}|
@@ -2125,7 +2243,7 @@ Appearance: {{getvar::b2}}"|
 
 			/setvar key=pus {{noop}}|
 			/foreach  {{getvar::p1}} {:
-				/ife ({{getvar::in}} == 0){:
+				/ife ( in == 0){:
 					/setvar key=pus "This is descriptions of {{getvar::fname}}'s pussy"
 				:}|
 				/else {:
@@ -2229,8 +2347,8 @@ Appearance: {{getvar::b2}}"|
 	/foreach {{getvar::p1}} {:
 		/setvar key=it {{var::item}}|
 		/setvar key=in {{var::index}}|
-		/ife ({{getvar::in}} != 0){:
-			/ife ({{getvar::it}} != 'Horns: None'){:
+		/ife ( in != 0){:
+			/ife ( it != 'Horns: None'){:
 				/addvar key=p4st "
 {{getvar::it}}"
 			:}|
@@ -2497,8 +2615,8 @@ Appearance: {{getvar::p2}}"|
 	/foreach {{getvar::d1}} {:
 		/setvar key=it {{var::item}}|
 		/setvar key=in {{var::index}}|
-		/ife ( {{getvar::in}} != 0){:
-			/ife ( {{getvar::it}} != 'Horns: None'){:
+		/ife ( in != 0){:
+			/ife ( it != 'Horns: None'){:
 				/addvar key=p5st "
 {{getvar::it}}"
 			:}|
@@ -2739,8 +2857,8 @@ Appearance: {{getvar::p2}}"|
 /foreach {{getvar::a1}} {:
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|
-	/ife ( {{getvar::in}} != 0){:
-		/ife ( {{getvar::it}} != 'Horns: None'){:
+	/ife ( in != 0){:
+		/ife ( it != 'Horns: None'){:
 		/addvar key=p6st "
 {{getvar::it}}" :}|
 	:}|
@@ -3123,8 +3241,8 @@ Face
 /foreach {{getvar::face}} {:
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|
-	/ife ( ': None' not in {{getvar::it}}){:
-		/ife ( {{getvar::in}} != 0){:
+	/ife ( ': None' not in it){:
+		/ife ( in != 0){:
 			/addvar key=output "
 - {{getvar::it}}"|
 		:}|
@@ -3143,8 +3261,8 @@ Upper Body
 /foreach {{getvar::upper}} {:
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|
-	/ife ( ': None' not in {{getvar::it}}){:
-		/ife ( {{getvar::in}} != 0){:
+	/ife ( ': None' not in it){:
+		/ife ( in != 0){:
 			/addvar key=output "
 - {{getvar::it}}"|
 		:}|
@@ -3163,8 +3281,8 @@ Lower Body
 /foreach {{getvar::lower}} {:
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|
-	/ife ( ': None' not in {{getvar::it}}){:
-		/ife ({{getvar::in}} != 0){:
+	/ife ( ': None' not in it){:
+		/ife ( in != 0){:
 			/addvar key=output "
 - {{getvar::it}}"|
 		:}|
@@ -3184,8 +3302,8 @@ Breasts
 	/foreach {{getvar::breasts}} {:
 		/setvar key=it {{var::item}}|
 		/setvar key=in {{var::index}}|
-		/ife ( ': None' not in {{getvar::it}}){:
-			/ife ( {{getvar::in}} != 0){:
+		/ife ( ': None' not in it){:
+			/ife ( in != 0){:
 				/addvar key=output "
 - {{getvar::it}}"|
 			:}|
@@ -3204,8 +3322,8 @@ Pussy
 	/foreach  {{getvar::pussy}} {:
 		/setvar key=it {{var::item}}|
 		/setvar key=in {{var::index}}|
-		/ife ( ': None' not in {{getvar::it}}){:
-			/ife ({{getvar::in}} != 0){:
+		/ife ( ': None' not in it){:
+			/ife ( in != 0){:
 				/addvar key=output "
 - {{getvar::it}}"|
 			:}|
@@ -3225,8 +3343,8 @@ Cock
 	/foreach  {{getvar::dick}} {:
 		/setvar key=it {{var::item}}|
 		/setvar key=in {{var::index}}|
-		/ife (  ': None' not in {{getvar::it}}){:
-			/ife ( {{getvar::in}} != 0){:
+		/ife ( ': None' not in it){:
+			/ife ( in != 0){:
 				/addvar key=output "
 - {{getvar::it}}"|
 			:}|
@@ -3247,7 +3365,7 @@ Anus
 /foreach {{getvar::ass_hole}} {:
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|
-	/ife ({{getvar::in}} != 0){:
+	/ife ( in != 0){:
 		/addvar key=output "
 - {{getvar::it}}"|
 	:}|
@@ -3278,7 +3396,7 @@ Other: {{getvar::extra4}}"|
 /foreach {{getvar::a}} {:
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|
-	/ife ( {{getvar::it}} == 'extra'){:
+	/ife ( it == 'extra'){:
 		/setvar key=b yes
 	:}|
 :}|
