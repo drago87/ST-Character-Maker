@@ -635,11 +635,11 @@ This is the character's nationality: {{getvar::nationality}}"|
 
 
 //Ethnicity|
-/ife ( 'Demi-Human' not in species){:
-	/ife ( 'Human' in species){:
-		/setvar key=isTrue yes|
-	:}|
-	/else {: /setvar key=isTrue no|:}|
+/ife ( 'FHN' in tags ){:
+	/setvar key=isTrue yes|
+:}|
+/elseif ( 'MHN' in tags ){:
+	/setvar key=isTrue yes|
 :}|
 /else {: /setvar key=isTrue no|:}|
 
