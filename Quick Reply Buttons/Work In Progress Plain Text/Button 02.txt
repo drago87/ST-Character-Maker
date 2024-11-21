@@ -2068,7 +2068,7 @@ Appearance: {{getvar::l2}}"|
 	/setvar key=p3st {{noop}}|
 	/foreach {{getvar::b1}} {:
 		/setvar key=it {{var::item}}|
-		/setvar key=in {{var::inedx}}
+		/setvar key=in {{var::index}}
 		/ife ( in != 0){:
 			/ife ( it != 'Horns: None'){:
 				/addvar key=p3st "

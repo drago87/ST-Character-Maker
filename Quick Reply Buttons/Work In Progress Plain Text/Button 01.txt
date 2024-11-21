@@ -2199,37 +2199,39 @@ First Name: {{getvar::fname}}
 
 "|
 :}|
-/len {{getvar::ethnicity}}| /setvar key=len {{pipe}}|
-/ife ( len == 0){:
-	/addvar key=output "
-{{getvar::fname}}'s ethnicity is: "|
+/ife ( 'None' not in ethnicity){:
+	/len {{getvar::ethnicity}}| /setvar key=len {{pipe}}|
+	/ife ( len == 1){:
+		/addvar key=output "
+	{{getvar::fname}}'s ethnicity is: "|
 
-	/foreach {{getvar::ethnicity}} {:
-		/setvar key=it {{var::item}}|
-		/setvar key=in {{var::index}}|
-		/ife ( in == 0){:
-			/addvar key=output "{{getvar::it}}
+		/foreach {{getvar::ethnicity}} {:
+			/setvar key=it {{var::item}}|
+			/setvar key=in {{var::index}}|
+			/ife ( in == 0){:
+				/addvar key=output "{{getvar::it}}
 
-"|
+	"|
+			:}|
 		:}|
 	:}|
-:}|
-/else {:
-	/addvar key=output "{{getvar::fname}}'s ethnicity is a mix of: "|
+	/else {:
+		/addvar key=output "{{getvar::fname}}'s ethnicity is a mix of: "|
 
-	/foreach {{getvar::ethnicity}} {:
-		/setvar key=it {{var::item}}|
-		/setvar key=in {{var::index}}|
-		/ife ( in == 0){:
-			/addvar key=output "{{getvar::it}}"|
+		/foreach {{getvar::ethnicity}} {:
+			/setvar key=it {{var::item}}|
+			/setvar key=in {{var::index}}|
+			/ife ( in == 0){:
+				/addvar key=output "{{getvar::it}}"|
+			:}|
+			/else {:
+				/addvar key=output " and {{getvar::it}}"|
+			:}|
 		:}|
-		/else {:
-			/addvar key=output " and {{getvar::it}}"|
-		:}|
+		/addvar key=output "
+
+	"|
 	:}|
-	/addvar key=output "
-
-"|
 :}|
 
 /addvar key=output "Species: {{getvar::species}}"|

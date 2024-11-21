@@ -1,0 +1,12 @@
+/let lowercase {: string=
+    /re-exec find=/(.)/g "ABCDEFGHIJKLMNOPQRSTUVWXYZ" | /map {{pipe}} {: /getat index="1" {{var::item}} :} | /let key=mfrom ||
+    /re-exec find=/(.)/g "abcdefghijklmnopqrstuvwxyz" | /map {{pipe}} {: /getat index="1" {{var::item}} :} | /let key=mto ||
+    /foreach {{var::mfrom}} {:
+        /getat index={{var::index}} {{var::mto}}
+        | /let lto {{pipe}}
+        | /re-replace find=/{{var::item}}/g replace={{var::lto}} {{var::string}}
+        | /var string {{pipe}}
+    :}
+:} ||
+/:lowercase string="{{getvar::s}}" |
+/setvar key=s {{pipe}}|
