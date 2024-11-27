@@ -64,58 +64,46 @@
 			/addvar key=outputList {{getvar::t}}|
 		:}|
 	:}|
-	/elseif {: /test left=selected_btn right=Done rule=eq :}|
-		/then {:
+	/elseif ( selected_btn == 'Done'){:
 		:}|
-	/elseif {: /test left=selected_btn right="Redo" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	/elseif ( selected_btn == 'Redo'){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Don\'t' in selected_btn){:
+		/setvar key=genState Redo|
+		/setvar key=guide {{noop}}|
+	:}|
+	/elseif ( 'Keep Guidance' in selected_btn){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Guidance' in selected_btn){:
+		/setvar key=guide {{noop}}|
+		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		/setvar key=guide " ({{pipe}})"|
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Exclude items'){:
+		/ife ( tskip != ''){:
+			/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+		/else {:
+			/setvar key=t {{noop}}|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
-			/setvar key=guide {{noop}}|
+		/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+		/setvar key=t {{pipe}}|
+		/ife ( t == 'Reset'){:
+			/setvar key=tskip {{noop}}|
 		:}|
-
-	/elseif {: /test left=selected_btn right=Guidance rule=in :}|
-		/then {:
-			/setvar key=guide {{noop}}|
-
-			/input default="{{getvar::guidePrompt}}" Add what you want the things you want the generation to focus on.|
-			/setvar key=guide " ({{pipe}})"|
-
-			/setvar key=genState Redo|
-		:}|
-	/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
-		/then {:
-			/ife {: /test left=tskip right="" rule=neq :}|
-				/then {:
-					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
-				:}|
-			/else {:
-				/setvar key=t {{noop}}|
+		/elseif ( t != ''){:
+			/ife ( tskip != ''){:
+				/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
 			:}|
-			/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
-			/setvar key=t {{pipe}}|
-
-			/ife {: /test left=t right="Reset" rule=eq :}|
-				/then {: /setvar key=tskip {{noop}}| :}|
-			/elseif {: /test left=t right="" rule=neq :}|
-				/then {:
-					/ife {: /test left=tskip right="" rule=neq :}|
-						/then {:
-							/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
-						:}|
-						/else {:
-							/setvar key=tskip {{getvar::t}}|
-						:}|
-					:}|
-			/setvar key=genState Redo|
+			/else {:
+				/setvar key=tskip {{getvar::t}}|
+			:}|
 		:}|
+		/setvar key=genState Redo|
+	:}|
 	/else  {:
 		/addvar key=outputList {{getvar::selected_btn}}|
 		/setvar key=guide {{noop}}|
@@ -123,4 +111,4 @@
 	:}|
 
 :}|
-/setvar key=varname {{getvar::outputList}}|father
+/setvar key=varname {{getvar::outputList}}|

@@ -17,16 +17,16 @@
 	/setvar key=genState []|
 
 	/setvar key=skip {{noop}}|
-	/ife {: /test left=tskip right="" rule=neq:}|
-		/then {:
-			/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
-		:}|
+	/ife ( tskip != ''){:
+		/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+	:}|
 
 	/re-replace replace="" find="/yo/" {{getvar::age}} | /setvar key=k {{pipe}}|
 	/add k 6| /setvar key=max {{pipe}} |
 	/add k -6| /setvar key=min {{pipe}}|
-	/ife {: /test left=min right=0 rule=lte:}|
-		/then {: /setvar key=min 0:}|
+	/ife ( min <= 0){:
+		/setvar key=min 0
+	:}|
 
 	/add max -{{getvar::min}} | /setvar key=p {{pipe}}|
 	/setvar key=span {{getvar::max}}yo|
@@ -54,104 +54,83 @@
 {{getvar::prompt}}
 {{getvar::instruct}}|
 
-/addvar key=genState {{pipe}}|
-/len {{getvar::outputList}}| /setvar key=len |
-/ife {: /test left=len right=0 rule=gt :}|
-	/then {:
+	/addvar key=genState {{pipe}}|
+	/len {{getvar::outputList}}| /setvar key=len |
+	/ife ( len > 0){:
 		/addvar key=genState Done|
 	:}|
-/else {:
-	/addvar key=genState None|
-:}|
-/addvar key=genState Edit|
+	/else {:
+		/addvar key=genState None|
+	:}|
+	/addvar key=genState Edit|
 
-/ife {: /test left=guide right="" rule=eq :}|
-	/then {:
+	/ife ( guide == ''){:
 		/addvar key=genState "Set Guidance"|
 		/addvar key=genState Redo|
 	:}|
-/else {:
-	/addvar key=genState Change Guidance|
-	/addvar key=genState Redo(Keep Guidance)|
-	/addvar key=genState Redo(Don't keep Guidance)|
-:}|
+	/else {:
+		/addvar key=genState Change Guidance|
+		/addvar key=genState Redo(Keep Guidance)|
+		/addvar key=genState Redo(Don't keep Guidance)|
+	:}|
 
-/addvar key=genState "Exclude items"|
+	/addvar key=genState "Exclude items"|
 
-	/buttons labels={{getvar::genState}} text|
+	/buttons labels={{getvar::genState}} Is the description of {{getvar::fname}}'s sibling good?|
 
 	/setvar key=selected_btn {{pipe}}|
 
-	/ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
-	/elseif {: /test left={{getvar::selected_btn}} right="Edit" rule=eq :}|
-		/then {:
-			/getvar key=genState index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} rows=8 Edit the sibling to your liking.|
-			/setvar key=t {{pipe}}|
-			/setvar key=genState Redo|
-			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+  /elseif ( selected_btn == 'Edit)
+		/getvar key=genState index=0| /setvar key=t {{pipe}}|
+		/input default={{getvar::t}} rows=8 Edit the sibling to your liking.|
+		/setvar key=t {{pipe}}|
+		/setvar key=genState Redo|
+		/ife ( t == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	/elseif ( selected_btn == 'Done'){:
+	:}|
+	/elseif ( selected_btn == 'Redo'){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Don\'t' in selected_btn){:
+		/setvar key=genState Redo|
+		/setvar key=guide {{noop}}|
+	:}|
+	/elseif ( 'Keep Guidance' in selected_btn){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Guidance' in selected_btn){:
+		/setvar key=guide {{noop}}|
+		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		/setvar key=guide " ({{pipe}})"|
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Exclude items'){:
+		/ife ( tskip != ''){:
+			/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
+		:}|
+		/else {:
+			/setvar key=t {{noop}}|
+		:}|
+		/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+		/setvar key=t {{pipe}}|
+		/ife ( t == 'Reset'){:
+			/setvar key=tskip {{noop}}|
+		:}|
+		/elseif ( t != ''){:
+			/ife ( tskip != ''){:
+				/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
+			:}|
 			/else {:
-				/addvar key=outputList {{getvar::t}}|
-				/incvar counter|
+				/setvar key=tskip {{getvar::t}}|
 			:}|
 		:}|
-	/elseif {: /test left=selected_btn right=Done rule=eq :}|
-		/then {:
-		:}|
-		/elseif {: /test left=selected_btn right=None rule=eq :}|
-			/then {:
-			:}|
-	/elseif {: /test left=selected_btn right="Redo" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
-		:}|
-	/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
-		:}|
-	/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
-			/setvar key=guide {{noop}}|
-		:}|
-
-	/elseif {: /test left=selected_btn right=Guidance rule=in :}|
-		/then {:
-			/setvar key=guide {{noop}}|
-
-			/input default="{{getvar::guidePrompt}}" Add what you want the things you want the generation to focus on.|
-			/setvar key=guide " ({{pipe}})"|
-
-			/setvar key=genState Redo|
-		:}|
-	/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
-		/then {:
-			/ife {: /test left=tskip right="" rule=neq :}|
-				/then {:
-					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
-				:}|
-			/else {:
-				/setvar key=t {{noop}}|
-			:}|
-			/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
-			/setvar key=t {{pipe}}|
-
-			/ife {: /test left=t right="Reset" rule=eq :}|
-				/then {: /setvar key=tskip {{noop}}| :}|
-			/elseif {: /test left=t right="" rule=neq :}|
-				/then {:
-					/ife {: /test left=tskip right="" rule=neq :}|
-						/then {:
-							/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
-						:}|
-						/else {:
-							/setvar key=tskip {{getvar::t}}|
-						:}|
-					:}|
-			/setvar key=genState Redo|
-		:}|
+		/setvar key=genState Redo|
+	:}|
 	/else  {:
 		/addvar key=outputList {{getvar::selected_btn}}|
 		/setvar key=guide {{noop}}|
@@ -169,22 +148,22 @@
 
 /setvar key=s {{noop}}|
 
-/foreach var=siblings {:
-	/ife {: /test left={{var::index}} right=0 rule=eq :}|
-		/then {:
-			/addvar key=s "This is {{getvar::fname}}'s siblings:
-{{var::item}}"|
-		:}|
-		/else {:
-			/addvar key=s "
-{{var::item}}"|
-		:}|
+/foreach {{getvar::siblings}} {:
+	/setvar key=it {{var::item}}|
+	/setvar key=in {{var::index}}|
+	/if ( in == 0){:
+		/addvar key=s "This is {{getvar::fname}}'s siblings:
+{{getvar::it}}"|
+	:}|
+	/else {:
+		/addvar key=s "
+{{getvar::it}}"|
+	:}|
 :}|
 /incvar counter|
-/ife {: /test left=user_relation right=Sibling rule=eq :}|
-	/then {:
-		/incvar counter|
-		addvar key= "
+/ife ( user_relation == 'Sibling'{:
+	/incvar counter|
+	/addvar key=s "
 user is a sibling."|
 	:}|
 
@@ -202,44 +181,38 @@ user is a sibling."|
 	/setvar key=genState []|
 
 	/setvar key=skip {{noop}}|
-	/ife {: /test left=tskip right="" rule=neq:}|
-		/then {:
-			/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
-		:}|
+	/ife ( tskip != ''){:
+		/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+	:}|
 
 	/buttons labels=["Working", "Unemployed"] What is {{getvar::fname}}'s mothers working status?"|
 	/setvar key=selected_btn {{pipe}}|
 
-	/ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
-	/else {:
-		/ife {: /test left=selected_btn right=Working rule=eq :}|
-		/then {:
-			/setvar key=mwork "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided what she is working with)"|
-		:}|
-		/ife {: /test left=selected_btn right=Unemployed rule=eq :}|
-		/then {:
-			/setvar key=mwork "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided why she is unemployed)"|
-		:}|
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
 	:}|
+	/elseif ( selected_btn == 'Working'){:
+		/setvar key=mwork "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided what she is working with)"|
+	:}|
+	/elseif ( selected_btn == 'Unemployed'){:
+		/setvar key=mwork "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided why she is unemployed)"|
+	:}|
+
 	/buttons labels=["Married", "Unmarried" "Divorced"] What is {{getvar::fname}}'s mother's marital status?"|
 	/setvar key=selected_btn {{pipe}}|
 
-	/ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
-	/else {:
-		/ife {: /test left=selected_btn right=Married rule=eq :}|
-			/then {:
-				/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided who she is married to)"|
-			:}|
-		/ife {: /test left=selected_btn right=Unmarried rule=eq :}|
-			/then {:
-				/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided why she is unmarried)"|
-			:}|
-		/ife {: /test left=selected_btn right=Divorced rule=eq :}|
-			/then {:
-				/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided why she is divorced)"|
-			:}|
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+
+	/ife ( selected_btn == 'Married'){:
+		/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided who she is married to)"|
+	:}|
+	/elseif ( selected_btn == 'Unmarried'{:
+		/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided why she is unmarried)"|
+	:}|
+	/elseif ( selected_btn == 'Divorced'){:
+		/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided why she is divorced)"|
 	:}|
 
 
@@ -262,11 +235,10 @@ user is a sibling."|
 
 	/addvar key=genState {{pipe}}|
 	/addvar key=genState Edit|
-	/ife {: /test left=guide right="" rule=eq :}|
-		/then {:
-			/addvar key=genState "Set Guidance"|
-			/addvar key=genState Redo|
-		:}|
+	/ife ( guide == ''){:
+		/addvar key=genState "Set Guidance"|
+		/addvar key=genState Redo|
+	:}|
 	/else {:
 		/addvar key=genState Change Guidance|
 		/addvar key=genState Redo(Keep Guidance)|
@@ -279,73 +251,57 @@ user is a sibling."|
 
 	/setvar key=selected_btn {{pipe}}|
 
-	/ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
-	/elseif {: /test left={{getvar::selected_btn}} right="Edit" rule=eq :}|
-		/then {:
-			/getvar key=genState index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} rows=8 Edit the like to your liking.|
-			/setvar key=t {{pipe}}|
-			/setvar key=genState Redo|
-			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
-			/else {:
-				/addvar key=outputList {{getvar::t}}|
-						:}|
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+	/elseif ( selected_btn == 'Edit'){:
+		/getvar key=genState index=0| /setvar key=t {{pipe}}|
+		/input default={{getvar::t}} rows=8 Edit the mother to your likeing.|
+		/setvar key=selected_btn {{pipe}}|
+		/ife ( selected_btn == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
 		:}|
-	/elseif {: /test left=selected_btn right=Done rule=eq :}|
-		/then {:
+	:}|
+	/elseif ( selected_btn == 'Done'){:
 		:}|
-	/elseif {: /test left=selected_btn right="Redo" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	/elseif ( selected_btn == 'Redo'){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Don\'t' in selected_btn){:
+		/setvar key=genState Redo|
+		/setvar key=guide {{noop}}|
+	:}|
+	/elseif ( 'Keep Guidance' in selected_btn){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Guidance' in selected_btn){:
+		/setvar key=guide {{noop}}|
+		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		/setvar key=guide " ({{pipe}})"|
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Exclude items'){:
+		/ife ( tskip != ''){:
+			/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+		/else {:
+			/setvar key=t {{noop}}|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
-			/setvar key=guide {{noop}}|
+		/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+		/setvar key=t {{pipe}}|
+		/ife ( t == 'Reset'){:
+			/setvar key=tskip {{noop}}|
 		:}|
-
-	/elseif {: /test left=selected_btn right=Guidance rule=in :}|
-		/then {:
-			/setvar key=guide {{noop}}|
-
-			/input default="{{getvar::guidePrompt}}" Add what you want the things you want the generation to focus on.|
-			/setvar key=guide " ({{pipe}})"|
-
-			/setvar key=genState Redo|
-		:}|
-	/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
-		/then {:
-			/ife {: /test left=tskip right="" rule=neq :}|
-				/then {:
-					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
-				:}|
-			/else {:
-				/setvar key=t {{noop}}|
+		/elseif ( t != ''){:
+			/ife ( tskip != ''){:
+				/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
 			:}|
-			/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
-			/setvar key=t {{pipe}}|
-
-			/ife {: /test left=t right="Reset" rule=eq :}|
-				/then {: /setvar key=tskip {{noop}}| :}|
-			/elseif {: /test left=t right="" rule=neq :}|
-				/then {:
-					/ife {: /test left=tskip right="" rule=neq :}|
-						/then {:
-							/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
-						:}|
-						/else {:
-							/setvar key=tskip {{getvar::t}}|
-						:}|
-					:}|
-			/setvar key=genState Redo|
+			/else {:
+				/setvar key=tskip {{getvar::t}}|
+			:}|
 		:}|
-
+		/setvar key=genState Redo|
+	:}|
 :}|
 /setvar key=mother {{getvar::selected_btn}}|
 
@@ -401,107 +357,94 @@ user is a sibling."|
 {{getvar::prompt}}
 {{getvar::instruct}}|
 
-/addvar key=genState {{pipe}}|
-/addvar key=genState Edit|
-/ife {: /test left=guide right="" rule=eq :}|
-	/then {:
+	/addvar key=genState {{pipe}}|
+	/addvar key=genState Edit|
+	/ife ( guide == ''){:
 		/addvar key=genState "Set Guidance"|
 		/addvar key=genState Redo|
 	:}|
-/else {:
-	/addvar key=genState Change Guidance|
-	/addvar key=genState Redo(Keep Guidance)|
-	/addvar key=genState Redo(Don't keep Guidance)|
-:}|
+	/else {:
+		/addvar key=genState Change Guidance|
+		/addvar key=genState Redo(Keep Guidance)|
+		/addvar key=genState Redo(Don't keep Guidance)|
+	:}|
 
-/addvar key=genState "Exclude items"|
+	/addvar key=genState "Exclude items"|
 
 	/buttons labels={{getvar::genState}} Is the description of {{getvar::fname}}'s father good?|
 
 	/setvar key=selected_btn {{pipe}}|
 
-	/ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
-	/elseif {: /test left={{getvar::selected_btn}} right="Edit" rule=eq :}|
-		/then {:
-			/getvar key=genState index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} rows=8 Edit the like to your liking.|
-			/setvar key=t {{pipe}}|
-			/setvar key=genState Redo|
-			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
-			/else {:
-				/addvar key=outputList {{getvar::t}}|
-						:}|
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+  /elseif ( selected_btn == 'Edit'){:
+		/getvar key=genState index=0| /setvar key=t {{pipe}}|
+		/input default={{getvar::t}} rows=8 Edit the Father to your liking.|
+		/setvar key=selected_btn {{pipe}}|
+		/ife ( selected_btn == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Done'){:
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	/elseif ( selected_btn == 'Redo'){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Don\'t' in selected_btn){:
+		/setvar key=genState Redo|
+		/setvar key=guide {{noop}}|
+	:}|
+	/elseif ( 'Keep Guidance' in selected_btn){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Guidance' in selected_btn){:
+		/setvar key=guide {{noop}}|
+		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		/setvar key=guide " ({{pipe}})"|
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Exclude items'){:
+		/ife ( tskip != ''){:
+			/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
-			/setvar key=guide {{noop}}|
+		/else {:
+			/setvar key=t {{noop}}|
 		:}|
-
-	/elseif {: /test left=selected_btn right=Guidance rule=in :}|
-		/then {:
-			/setvar key=guide {{noop}}|
-
-			/input default="{{getvar::guidePrompt}}" Add what you want the things you want the generation to focus on.|
-			/setvar key=guide " ({{pipe}})"|
-
-			/setvar key=genState Redo|
+		/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+		/setvar key=t {{pipe}}|
+		/ife ( t == 'Reset'){:
+			/setvar key=tskip {{noop}}|
 		:}|
-	/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
-		/then {:
-			/ife {: /test left=tskip right="" rule=neq :}|
-				/then {:
-					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
-				:}|
-			/else {:
-				/setvar key=t {{noop}}|
+		/elseif ( t != ''){:
+			/ife ( tskip != ''){:
+				/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
 			:}|
-			/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
-			/setvar key=t {{pipe}}|
-
-			/ife {: /test left=t right="Reset" rule=eq :}|
-				/then {: /setvar key=tskip {{noop}}| :}|
-			/elseif {: /test left=t right="" rule=neq :}|
-				/then {:
-					/ife {: /test left=tskip right="" rule=neq :}|
-						/then {:
-							/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
-						:}|
-						/else {:
-							/setvar key=tskip {{getvar::t}}|
-						:}|
-					:}|
-			/setvar key=genState Redo|
+			/else {:
+				/setvar key=tskip {{getvar::t}}|
+			:}|
 		:}|
+		/setvar key=genState Redo|
+	:}|
 :}|
 /setvar key=father {{getvar::selected_btn}}|
 
 //Generatin Family|
 /setvar key=finfo {{noop}}|
-/foreach var=siblings {:
-	/ife {: /test left={{var::index}} right=0 rule=eq :}|
-		/then {: /setvar key=finfo {{var::item}} :}|
-	/else {: /addvar key=finfo
-"
+/foreach {{getvar::siblings}} {:
+	/setvar key=it {{var::item}}|
+	/setvar key=in {{var::index}}|
+	/ife ( in == 0){:
+		/setvar key=finfo "{{getvar::it}}"
+	:}|
+	/else {: /addvar key=finfo "
 
-{{var::item}}":}|
+{{getvar::it}}":}|
 :}|
-/addvar key=finfo
-"
+/addvar key=finfo "
 
 {{getvar::mother}}"|
-/addvar key=finfo
-"
+/addvar key=finfo "
 
 {{getvar::father}}"|
 
@@ -514,10 +457,9 @@ user is a sibling."|
 	/setvar key=genState []|
 
 	/setvar key=skip {{noop}}|
-	/ife {: /test left=tskip right="" rule=neq:}|
-		/then {:
-			/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
-		:}|
+	/ife ( tskip != ''){:
+		/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+	:}|
 
 	/setvar key=system {{noop}}|
 	/setvar key=prompt {{noop}}|
@@ -538,11 +480,10 @@ user is a sibling."|
 
 	/addvar key=genState {{pipe}}|
 	/addvar key=genState Edit|
-	/ife {: /test left=guide right="" rule=eq :}|
-		/then {:
-			/addvar key=genState "Set Guidance"|
-			/addvar key=genState Redo|
-		:}|
+	ife ( guide == ''){:
+		/addvar key=genState "Set Guidance"|
+		/addvar key=genState Redo|
+	:}|
 	/else {:
 		/addvar key=genState Change Guidance|
 		/addvar key=genState Redo(Keep Guidance)|
@@ -555,69 +496,57 @@ user is a sibling."|
 
 	/setvar key=selected_btn {{pipe}}|
 
-	/ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
-	/elseif {: /test left={{getvar::selected_btn}} right="Edit" rule=eq :}|
-		/then {:
-			/getvar key=genState index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} rows=8 Edit the like to your liking.|
-			/setvar key=t {{pipe}}|
-			/setvar key=genState Redo|
-			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
-			/else {:
-				/addvar key=outputList {{getvar::t}}|
-						:}|
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+  /elseif ( selected_btn == 'Edit'){:
+		/getvar key=genState index=0| /setvar key=t {{pipe}}|
+		/input default={{getvar::t}} rows=8 Edit the family to your liking.|
+		/setvar key=selected_btn {{pipe}}|
+		/ife ( selected_btn == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Done'){:
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	/elseif ( selected_btn == 'Redo'){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Don\'t' in selected_btn){:
+		/setvar key=genState Redo|
+		/setvar key=guide {{noop}}|
+	:}|
+	/elseif ( 'Keep Guidance' in selected_btn){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Guidance' in selected_btn){:
+		/setvar key=guide {{noop}}|
+		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		/setvar key=guide " ({{pipe}})"|
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Exclude items'){:
+		/ife ( tskip != ''){:
+			/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
-			/setvar key=guide {{noop}}|
+		/else {:
+			/setvar key=t {{noop}}|
 		:}|
-
-	/elseif {: /test left=selected_btn right=Guidance rule=in :}|
-		/then {:
-			/setvar key=guide {{noop}}|
-
-			/input default="{{getvar::guidePrompt}}" Add what you want the things you want the generation to focus on.|
-			/setvar key=guide " ({{pipe}})"|
-
-			/setvar key=genState Redo|
+		/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+		/setvar key=t {{pipe}}|
+		/ife ( t == 'Reset'){:
+			/setvar key=tskip {{noop}}|
 		:}|
-	/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
-		/then {:
-			/ife {: /test left=tskip right="" rule=neq :}|
-				/then {:
-					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
-				:}|
-			/else {:
-				/setvar key=t {{noop}}|
+		/elseif ( t != ''){:
+			/ife ( tskip != ''){:
+				/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
 			:}|
-			/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
-			/setvar key=t {{pipe}}|
-
-			/ife {: /test left=t right="Reset" rule=eq :}|
-				/then {: /setvar key=tskip {{noop}}| :}|
-			/elseif {: /test left=t right="" rule=neq :}|
-				/then {:
-					/ife {: /test left=tskip right="" rule=neq :}|
-						/then {:
-							/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
-						:}|
-						/else {:
-							/setvar key=tskip {{getvar::t}}|
-						:}|
-					:}|
-			/setvar key=genState Redo|
+			/else {:
+				/setvar key=tskip {{getvar::t}}|
+			:}|
 		:}|
+		/setvar key=genState Redo|
+	:}|
 :}|
 /setvar key=family {{getvar::selected_btn}}|
 
@@ -636,10 +565,9 @@ Family: {{getvar::family}}"|
 	/setvar key=genState []|
 
 	/setvar key=skip {{noop}}|
-	/ife {: /test left=tskip right="" rule=neq:}|
-		/then {:
-			/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
-		:}|
+	/ife ( tskip != ''){:
+		/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+	:}|
 
 	/setvar key=system {{noop}}|
 	/setvar key=prompt {{noop}}|
@@ -660,11 +588,10 @@ Family: {{getvar::family}}"|
 
 	/addvar key=genState {{pipe}} |
   /addvar key=genState Edit|
-	/ife {: /test left=guide right="" rule=eq :}|
-		/then {:
-			/addvar key=genState "Set Guidance"|
-			/addvar key=genState Redo|
-		:}|
+	/ife ( guide == ''){:
+		/addvar key=genState "Set Guidance"|
+		/addvar key=genState Redo|
+	:}|
 	/else {:
 		/addvar key=genState Change Guidance|
 		/addvar key=genState Redo(Keep Guidance)|
@@ -677,71 +604,59 @@ Family: {{getvar::family}}"|
 
 	/setvar key=selected_btn {{pipe}} |
 
-	/ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
-	/elseif {: /test left={{getvar::selected_btn}} right="Edit" rule=eq :}|
-		/then {:
-			/getvar key=genState index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} rows=8 Edit the like to your liking.|
-			/setvar key=t {{pipe}}|
-			/setvar key=genState Redo|
-			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
-			/else {:
-				/addvar key=outputList {{getvar::t}}|
-						:}|
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+  /elseif ( selected_btn == 'Edit'){:
+		/getvar key=genState index=0| /setvar key=t {{pipe}}|
+		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
+		/setvar key=selected_btn {{pipe}}|
+		/ife ( selected_btn == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Done'){:
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	/elseif ( selected_btn == 'Redo'){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Don\'t' in selected_btn){:
+		/setvar key=genState Redo|
+		/setvar key=guide {{noop}}|
+	:}|
+	/elseif ( 'Keep Guidance' in selected_btn){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Guidance' in selected_btn){:
+		/setvar key=guide {{noop}}|
+		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		/setvar key=guide " ({{pipe}})"|
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Exclude items'){:
+		/ife ( tskip != ''){:
+			/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
-			/setvar key=guide {{noop}}|
+		/else {:
+			/setvar key=t {{noop}}|
 		:}|
-
-	/elseif {: /test left=selected_btn right=Guidance rule=in :}|
-		/then {:
-			/setvar key=guide {{noop}}|
-
-			/input default="{{getvar::guidePrompt}}" Add what you want the things you want the generation to focus on.|
-			/setvar key=guide " ({{pipe}})"|
-
-			/setvar key=genState Redo|
+		/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+		/setvar key=t {{pipe}}|
+		/ife ( t == 'Reset'){:
+			/setvar key=tskip {{noop}}|
 		:}|
-	/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
-		/then {:
-			/ife {: /test left=tskip right="" rule=neq :}|
-				/then {:
-					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
-				:}|
-			/else {:
-				/setvar key=t {{noop}}|
+		/elseif ( t != ''){:
+			/ife ( tskip != ''){:
+				/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
 			:}|
-			/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
-			/setvar key=t {{pipe}}|
-
-			/ife {: /test left=t right="Reset" rule=eq :}|
-				/then {: /setvar key=tskip {{noop}}| :}|
-			/elseif {: /test left=t right="" rule=neq :}|
-				/then {:
-					/ife {: /test left=tskip right="" rule=neq :}|
-						/then {:
-							/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
-						:}|
-						/else {:
-							/setvar key=tskip {{getvar::t}}|
-						:}|
-					:}|
-			/setvar key=genState Redo|
+			/else {:
+				/setvar key=tskip {{getvar::t}}|
+			:}|
 		:}|
+		/setvar key=genState Redo|
+	:}|
 :}|
-/setvar key=varname {{getvar::selected_btn}}|bfrend
+/setvar key=bfrend {{getvar::selected_btn}}|
 
 /message-edit message={{lastMessageId}} "<h2 align='center'>{{getvar::catgen}}</h2>
 
@@ -760,10 +675,9 @@ Best Friend: {{getvar::bfrend}}"|
   /setvar key=genState []|
 
 	/setvar key=skip {{noop}}|
-	/ife {: /test left=tskip right="" rule=neq:}|
-		/then {:
-			/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
-		:}|
+	/ife ( tskip != ''){:
+		/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+	:}|
 
 	/setvar key=system {{noop}}|
 	/setvar key=prompt {{noop}}|
@@ -777,7 +691,7 @@ Best Friend: {{getvar::bfrend}}"|
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 212|
 	/setvar key=instruct {{pipe}}|
 
-    /genraw lock=on name={{char}}
+  /genraw lock=on name={{char}}
 	system="{{getvar::system}}"
 {{getvar::prompt}}
 {{getvar::instruct}}|
@@ -785,11 +699,10 @@ Best Friend: {{getvar::bfrend}}"|
 
   /addvar key=genState {{pipe}}|
   /addvar key=genState Edit|
-	/ife {: /test left=guide right="" rule=eq :}|
-		/then {:
-			/addvar key=genState "Set Guidance"|
-			/addvar key=genState Redo|
-		:}|
+	/ife ( guide == ''){:
+		/addvar key=genState "Set Guidance"|
+		/addvar key=genState Redo|
+	:}|
 	/else {:
 		/addvar key=genState Change Guidance|
 		/addvar key=genState Redo(Keep Guidance)|
@@ -802,69 +715,57 @@ Best Friend: {{getvar::bfrend}}"|
 
   /setvar key=selected_btn {{pipe}}|
 
-	/ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
-	/elseif {: /test left={{getvar::selected_btn}} right="Edit" rule=eq :}|
-		/then {:
-			/getvar key=genState index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} rows=8 Edit the like to your liking.|
-			/setvar key=t {{pipe}}|
-			/setvar key=genState Redo|
-			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
-			/else {:
-				/addvar key=outputList {{getvar::t}}|
-						:}|
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+  /elseif ( selected_btn == 'Edit'){:
+		/getvar key=genState index=0| /setvar key=t {{pipe}}|
+		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
+		/setvar key=selected_btn {{pipe}}|
+		/ife ( selected_btn == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Done'){:
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	/elseif ( selected_btn == 'Redo'){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Don\'t' in selected_btn){:
+		/setvar key=genState Redo|
+		/setvar key=guide {{noop}}|
+	:}|
+	/elseif ( 'Keep Guidance' in selected_btn){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Guidance' in selected_btn){:
+		/setvar key=guide {{noop}}|
+		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		/setvar key=guide " ({{pipe}})"|
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Exclude items'){:
+		/ife ( tskip != ''){:
+			/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
-			/setvar key=guide {{noop}}|
+		/else {:
+			/setvar key=t {{noop}}|
 		:}|
-
-	/elseif {: /test left=selected_btn right=Guidance rule=in :}|
-		/then {:
-			/setvar key=guide {{noop}}|
-
-			/input default="{{getvar::guidePrompt}}" Add what you want the things you want the generation to focus on.|
-			/setvar key=guide " ({{pipe}})"|
-
-			/setvar key=genState Redo|
+		/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+		/setvar key=t {{pipe}}|
+		/ife ( t == 'Reset'){:
+			/setvar key=tskip {{noop}}|
 		:}|
-	/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
-		/then {:
-			/ife {: /test left=tskip right="" rule=neq :}|
-				/then {:
-					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
-				:}|
-			/else {:
-				/setvar key=t {{noop}}|
+		/elseif ( t != ''){:
+			/ife ( tskip != ''){:
+				/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
 			:}|
-			/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
-			/setvar key=t {{pipe}}|
-
-			/ife {: /test left=t right="Reset" rule=eq :}|
-				/then {: /setvar key=tskip {{noop}}| :}|
-			/elseif {: /test left=t right="" rule=neq :}|
-				/then {:
-					/ife {: /test left=tskip right="" rule=neq :}|
-						/then {:
-							/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
-						:}|
-						/else {:
-							/setvar key=tskip {{getvar::t}}|
-						:}|
-					:}|
-			/setvar key=genState Redo|
+			/else {:
+				/setvar key=tskip {{getvar::t}}|
+			:}|
 		:}|
+		/setvar key=genState Redo|
+	:}|
 :}|
 /setvar key=rinterest {{getvar::selected_btn}}|
 
@@ -887,10 +788,9 @@ Romantic Interest: {{getvar::rinterest}}"|
   /setvar key=genState []|
 
 	/setvar key=skip {{noop}}|
-	/ife {: /test left=tskip right="" rule=neq:}|
-		/then {:
-			/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
-		:}|
+	/ife ( tskip != ''){:
+		/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+	:}|
 
 	/setvar key=system {{noop}}|
 	/setvar key=prompt {{noop}}|
@@ -904,82 +804,80 @@ Romantic Interest: {{getvar::rinterest}}"|
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 216|
 	/setvar key=instruct {{pipe}}|
 
-    /genraw lock=on name={{char}}
+  /genraw lock=on name={{char}}
 	system="{{getvar::system}}"
 {{getvar::prompt}}
 {{getvar::instruct}}|
 
-  /addvar key=genState {{pipe}}|
-  /addvar key=genState Edit|
-  /addvar key=genState Redo|
+	/addvar key=genState {{pipe}}|
+	/addvar key=genState Edit|
+	/ife ( guide == ''){:
+		/addvar key=genState "Set Guidance"|
+		/addvar key=genState Redo|
+	:}|
+	/else {:
+		/addvar key=genState Change Guidance|
+		/addvar key=genState Redo(Keep Guidance)|
+		/addvar key=genState Redo(Don't keep Guidance)|
+	:}|
+
+	/addvar key=genState "Exclude items"|
 
   /buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s Enemy/Rival?|
 
   /setvar key=selected_btn {{pipe}}|
 
-	/ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
-	/elseif {: /test left={{getvar::selected_btn}} right="Edit" rule=eq :}|
-		/then {:
-			/getvar key=genState index=0| /setvar key=t {{pipe}}|
-			/input default={{getvar::t}} rows=8 Edit the like to your liking.|
-			/setvar key=t {{pipe}}|
-			/setvar key=genState Redo|
-			/ife {: /test left=t right="" rule=eq :}|
-				/then {:/echo Aborting | /:"Character Maker V4.Flushvar"| :}|
-			/else {:
-				/addvar key=outputList {{getvar::t}}|
-						:}|
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+  /elseif ( selected_btn == 'Edit'){:
+		/getvar key=genState index=0| /setvar key=t {{pipe}}|
+		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
+		/setvar key=selected_btn {{pipe}}|
+		/ife ( selected_btn == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Done'){:
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
+	/elseif ( selected_btn == 'Redo'){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Don\'t' in selected_btn){:
+		/setvar key=genState Redo|
+		/setvar key=guide {{noop}}|
+	:}|
+	/elseif ( 'Keep Guidance' in selected_btn){:
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( 'Guidance' in selected_btn){:
+		/setvar key=guide {{noop}}|
+		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		/setvar key=guide " ({{pipe}})"|
+		/setvar key=genState Redo|
+	:}|
+	/elseif ( selected_btn == 'Exclude items'){:
+		/ife ( tskip != ''){:
+			/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
 		:}|
-	/elseif {: /test left=selected_btn right="Redo(Don't keep Guidance)" rule=eq :}|
-		/then {:
-			/setvar key=genState Redo|
-			/setvar key=guide {{noop}}|
+		/else {:
+			/setvar key=t {{noop}}|
 		:}|
-
-	/elseif {: /test left=selected_btn right=Guidance rule=in :}|
-		/then {:
-			/setvar key=guide {{noop}}|
-
-			/input default="{{getvar::guidePrompt}}" Add what you want the things you want the generation to focus on.|
-			/setvar key=guide " ({{pipe}})"|
-
-			/setvar key=genState Redo|
+		/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+		/setvar key=t {{pipe}}|
+		/ife ( t == 'Reset'){:
+			/setvar key=tskip {{noop}}|
 		:}|
-	/elseif {: /test left=selected_btn right="Exclude items" rule=eq :}|
-		/then {:
-			/ife {: /test left=tskip right="" rule=neq :}|
-				/then {:
-					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
-				:}|
-			/else {:
-				/setvar key=t {{noop}}|
+		/elseif ( t != ''){:
+			/ife ( tskip != ''){:
+				/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
 			:}|
-			/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
-			/setvar key=t {{pipe}}|
-
-			/ife {: /test left=t right="Reset" rule=eq :}|
-				/then {: /setvar key=tskip {{noop}}| :}|
-			/elseif {: /test left=t right="" rule=neq :}|
-				/then {:
-					/ife {: /test left=tskip right="" rule=neq :}|
-						/then {:
-							/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
-						:}|
-						/else {:
-							/setvar key=tskip {{getvar::t}}|
-						:}|
-					:}|
-			/setvar key=genState Redo|
+			/else {:
+				/setvar key=tskip {{getvar::t}}|
+			:}|
 		:}|
+		/setvar key=genState Redo|
+	:}|
 :}|
 /setvar key=eorinfo {{getvar::selected_btn}}|
 

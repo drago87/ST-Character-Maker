@@ -194,29 +194,3 @@
 When talking about {{getvar::fname}} use these pronouns: {{getvar::prononce}}
 When mentioning {{user}} use user as the name.
 {{getvar::exclude}}'" |
-
-
-/setvar key=form {{noop}}|
-/ife ( genid == 8){:
-	/ife ( 'TRANSFORM' in tags){:
-		/buttons labels=["Normal","Transformation"] "Do you want to make an outfit for {{getvar::fname}}'s normal form or the transformation?"|
-		/setvar key=selected_btn {{pipe}}|
-
-		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
-		:}|
-		/elseif ( selected_btn == 'Normal'){:
-			/setvar key=species "{{getvar::normal_form}}"|
-			/setvar key=form "{{getvar::species}}"|
-		:}|
-		/elseif ( selected_btn == 'Transformation'){:
-			/split {{getvar::transformation}}| /setvar key=tr {{pipe}}|
-			/buttons labels={{getvar::tr}} What transformation do you want the outfit for?|
-			/setvar key=species {{pipe}}|
-			/ife ( species == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
-			:}|
-			/setvar key=form "{{getvar::species}}"|
-		:}|
-	:}|
-:}|

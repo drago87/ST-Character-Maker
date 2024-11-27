@@ -37,6 +37,7 @@
 /ife ( selected_btn is number){:
 	/addvar key=selected_btn yo
 :}|
-
-/setvar key=it {{var::item}}|
-/setvar key=in {{var::index}}|
+{:
+	/setvar key=it {{var::item}}|
+	/setvar key=in {{var::index}}|
+	/ife ( in == 0){:

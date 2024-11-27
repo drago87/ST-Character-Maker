@@ -2166,6 +2166,9 @@ The character's ethnicity is is a mix of: "|
 From the {{getvar::media}} {{getvar::media_name}}."
 :}|
 
+/input /input default="{{getvar::fname}} {{getvar::lname}}" rows=1|
+/setvar key=fullname {{pipe}}|
+
 /addvar key=output "
 
 Genres: {{getvar::genre}}
@@ -2174,7 +2177,17 @@ Time Period: {{getvar::period}}
 
 World Type: {{getvar::world_type}}
 
-First Name: {{getvar::fname}}
+"|
+
+/wordcount {{getvar::fullname}}|
+/setvar key=count {{pipe}}|
+/ife ( count > 1)|
+{:
+	/addvar key=output "Fullname: {{getvar::fullname}}
+
+"|
+:}|
+/addvar key=output "First Name: {{getvar::fname}}
 
 "|
 /ife ( lname != 'None'){:
