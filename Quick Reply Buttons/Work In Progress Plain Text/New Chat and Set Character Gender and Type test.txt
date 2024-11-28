@@ -9,6 +9,15 @@
 	/abort
 :}|
 
+/buttons labels=["Yes","No"] Do you want to enable debug mode?|
+/setvar key=selected_btn {{pipe}}|
+/ife ( selected_btn == ''){:
+	/echo Aborting | /:"Character Maker V4.Flushvar"|
+:}|
+/elseif ( selected_btn == 'Yes'){:
+	/:"Character Maker.Debug On/Off"
+:}|
+
 /setvar key=tag []|
 /setvar key=normal_form None|
 /setvar key=transformation []|

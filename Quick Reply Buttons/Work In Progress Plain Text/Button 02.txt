@@ -89,10 +89,25 @@ else {:
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 60|
 	/setvar key=instruct {{pipe}}|
 
+	/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+	/ife ( debug == 'Yes'){:
+		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+		/setvar key=system {{pipe}}|
+		/ife ( system == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+		/setvar key=cprompt {{pipe}}|
+		/ife ( cprompt == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	:}|
+
 	/genraw lock=on name={{char}}
 	system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 	/setvar key=t {{pipe}}|
 	/re-replace replace="" find="/\./g" {{getvar::t}} | /setvar key=t {{pipe}}|
@@ -218,10 +233,25 @@ else {:
 			/getentryfield file="Character Maker Combined NSFW GenRaw" 64|
 			/setvar key=instruct {{pipe}}|
 
+			/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+			/ife ( debug == 'Yes'){:
+				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=system {{pipe}}|
+				/ife ( system == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+				/setvar key=cprompt {{pipe}}|
+				/ife ( cprompt == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+			:}|
+
 			/genraw lock=on name={{char}}
 			system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 			/setvar key=t {{pipe}}|
 			/re-replace replace="" find="/\./g" {{getvar::t}}| /setvar key=t {{pipe}}|
@@ -335,10 +365,25 @@ else {:
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 68|
 	/setvar key=instruct {{pipe}}|
 
-  /genraw lock=on name={{char}}
+	/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+	/ife ( debug == 'Yes'){:
+		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+		/setvar key=system {{pipe}}|
+		/ife ( system == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+		/setvar key=cprompt {{pipe}}|
+		/ife ( cprompt == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	:}|
+
+	/genraw lock=on name={{char}}
 	system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 	/setvar key=t {{pipe}}|
 	/re-replace replace="" find="/\./g" {{getvar::t}}| /setvar key=t {{pipe}}|
@@ -467,10 +512,25 @@ else {:
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 72|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 		/addvar key=genState {{pipe}}|
 		/addvar key=genState Edit|
@@ -571,10 +631,25 @@ else {:
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 407|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-	{{getvar::prompt}}
-	{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 		/addvar key=genState {{pipe}}|
 		/addvar key=genState Edit|
@@ -790,10 +865,25 @@ else {:
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 76|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
 		/addvar key=genState {{pipe}}|
@@ -913,10 +1003,25 @@ else {:
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 80|
 	/setvar key=instruct {{pipe}}|
 
-  /genraw lock=on name={{char}}
+	/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+	/ife ( debug == 'Yes'){:
+		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+		/setvar key=system {{pipe}}|
+		/ife ( system == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+		/setvar key=cprompt {{pipe}}|
+		/ife ( cprompt == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	:}|
+
+	/genraw lock=on name={{char}}
 	system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
   /addvar key=genState {{pipe}}|
@@ -1215,10 +1320,25 @@ Appearance: {{getvar::p2}}"|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 84|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
 		/addvar key=genState {{pipe}}|
@@ -1338,10 +1458,25 @@ Appearance: {{getvar::p2}}"|
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 88|
 	/setvar key=instruct {{pipe}}|
 
-  /genraw lock=on name={{char}}
+	/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+	/ife ( debug == 'Yes'){:
+		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+		/setvar key=system {{pipe}}|
+		/ife ( system == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+		/setvar key=cprompt {{pipe}}|
+		/ife ( cprompt == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	:}|
+
+	/genraw lock=on name={{char}}
 	system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
   /addvar key=genState {{pipe}}|
@@ -1698,10 +1833,25 @@ Appearance: {{getvar::p2}}"|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 92|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
 		/addvar key=genState {{pipe}}|
@@ -1817,10 +1967,25 @@ Appearance: {{getvar::p2}}"|
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 96|
 	/setvar key=instruct {{pipe}}|
 
-  /genraw lock=on name={{char}}
+	/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+	/ife ( debug == 'Yes'){:
+		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+		/setvar key=system {{pipe}}|
+		/ife ( system == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+		/setvar key=cprompt {{pipe}}|
+		/ife ( cprompt == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	:}|
+
+	/genraw lock=on name={{char}}
 	system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
   /addvar key=genState {{pipe}}|
@@ -1987,10 +2152,25 @@ Appearance: {{getvar::l2}}"|
 			/getentryfield file="Character Maker Combined NSFW GenRaw" 100|
 			/setvar key=instruct {{pipe}}|
 
+			/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+			/ife ( debug == 'Yes'){:
+				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=system {{pipe}}|
+				/ife ( system == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+				/setvar key=cprompt {{pipe}}|
+				/ife ( cprompt == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+			:}|
+
 			/genraw lock=on name={{char}}
 			system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 			/addvar key=genState {{pipe}}|
 			/addvar key=genState Edit|
@@ -2106,10 +2286,25 @@ Appearance: {{getvar::l2}}"|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 104|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
 		/addvar key=genState {{pipe}}|
@@ -2265,10 +2460,25 @@ Appearance: {{getvar::b2}}"|
 			/getentryfield file="Character Maker Combined NSFW GenRaw" 108|
 			/setvar key=instruct {{pipe}}|
 
+			/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+			/ife ( debug == 'Yes'){:
+				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=system {{pipe}}|
+				/ife ( system == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+				/setvar key=cprompt {{pipe}}|
+				/ife ( cprompt == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+			:}|
+
 			/genraw lock=on name={{char}}
 			system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 			/addvar key=genState {{pipe}}|
 			/addvar key=genState Edit|
@@ -2384,10 +2594,25 @@ Appearance: {{getvar::b2}}"|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 112|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
 		/addvar key=genState {{pipe}}|
@@ -2532,10 +2757,25 @@ Appearance: {{getvar::p2}}"|
 			/getentryfield file="Character Maker Combined NSFW GenRaw" 116|
 			/setvar key=instruct {{pipe}}|
 
+			/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+			/ife ( debug == 'Yes'){:
+				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=system {{pipe}}|
+				/ife ( system == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+				/setvar key=cprompt {{pipe}}|
+				/ife ( cprompt == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+			:}|
+
 			/genraw lock=on name={{char}}
 			system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
 			/addvar key=genState {{pipe}}|
@@ -2652,10 +2892,25 @@ Appearance: {{getvar::p2}}"|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 120|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
 		/addvar key=genState {{pipe}}|
@@ -2774,10 +3029,25 @@ Appearance: {{getvar::p2}}"|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 124|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
 		/addvar key=genState {{pipe}}|
@@ -2895,10 +3165,25 @@ Appearance: {{getvar::p2}}"|
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 128|
 	/setvar key=instruct {{pipe}}|
 
+	/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+	/ife ( debug == 'Yes'){:
+		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+		/setvar key=system {{pipe}}|
+		/ife ( system == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+		/setvar key=cprompt {{pipe}}|
+		/ife ( cprompt == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	:}|
+
 	/genraw lock=on name={{char}}
 	system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
 	/addvar key=genState {{pipe}}|
@@ -3013,10 +3298,25 @@ Appearance: {{getvar::a2}}"|
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 132|
 	/setvar key=instruct {{pipe}}|
 
-  /genraw lock=on name={{char}}
+	/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+	/ife ( debug == 'Yes'){:
+		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+		/setvar key=system {{pipe}}|
+		/ife ( system == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+		/setvar key=cprompt {{pipe}}|
+		/ife ( cprompt == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	:}|
+
+	/genraw lock=on name={{char}}
 	system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
   /addvar key=genState {{pipe}}|
@@ -3125,10 +3425,25 @@ Appearance: {{getvar::a2}}"|
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 136|
 	/setvar key=instruct {{pipe}}|
 
-  /genraw lock=on name={{char}}
+	/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+	/ife ( debug == 'Yes'){:
+		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+		/setvar key=system {{pipe}}|
+		/ife ( system == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+		/setvar key=cprompt {{pipe}}|
+		/ife ( cprompt == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	:}|
+
+	/genraw lock=on name={{char}}
 	system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 
   /addvar key=genState {{pipe}}|
@@ -3209,7 +3524,7 @@ Appearance: {{getvar::a2}}"|
 
 /setvar key=output "<h2 align='center'>{{getvar::catgen}}{{getvar::form}}</h2>
 
-Heigt: {{getvar::height}}"|
+Height: {{getvar::height}}"|
 
 /ife ( lenght != 'None'){:
 	/addvar key=output "

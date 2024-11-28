@@ -37,6 +37,31 @@
 /ife ( selected_btn is number){:
 	/addvar key=selected_btn yo
 :}|
+
+---
+
+	/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+	/ife ( debug == 'Yes'){:
+		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+		/setvar key=system {{pipe}}|
+		/ife ( system == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+		/setvar key=cprompt {{pipe}}|
+		/ife ( cprompt == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	:}|
+
+	/genraw lock=on name={{char}}
+	system="{{getvar::system}}"
+{{getvar::cprompt}}|
+
+---
+
 {:
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|

@@ -154,10 +154,25 @@
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 3|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 		/setvar key=t {{pipe}} |
 
 
@@ -310,10 +325,25 @@
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 7|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 		/setvar key=t {{pipe}} |
 
 
@@ -434,10 +464,26 @@
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 11|
 	/setvar key=instruct {{pipe}}|
 
-  /genraw lock=on name={{char}}
+
+	/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+	/ife ( debug == 'Yes'){:
+		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+		/setvar key=system {{pipe}}|
+		/ife ( system == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+		/setvar key=cprompt {{pipe}}|
+		/ife ( cprompt == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	:}|
+
+	/genraw lock=on name={{char}}
 	system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 	/setvar key=t {{pipe}}|
 	/split {{getvar::t}} |
@@ -542,6 +588,22 @@
 	/setvar key=prompt {{pipe}}|
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 397|
 	/setvar key=instruct {{pipe}}|
+
+	/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+	/ife ( debug == 'Yes'){:
+		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+		/setvar key=system {{pipe}}|
+		/ife ( system == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+		/setvar key=cprompt {{pipe}}|
+		/ife ( cprompt == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	:}|
 
   /genraw lock=on name={{char}}
 	system="{{getvar::system}}"
@@ -672,10 +734,25 @@ This is the character's nationality: {{getvar::nationality}}"|
 			/getentryfield file="Character Maker Combined NSFW GenRaw" 400|
 			/setvar key=instruct {{pipe}}|
 
-		  /genraw lock=on name={{char}}
+			/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+			/ife ( debug == 'Yes'){:
+				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=system {{pipe}}|
+				/ife ( system == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+				/setvar key=cprompt {{pipe}}|
+				/ife ( cprompt == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+			:}|
+
+			/genraw lock=on name={{char}}
 			system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 			/setvar key=t {{pipe}}|
 			/split {{getvar::t}} |
@@ -870,10 +947,25 @@ The character's ethnicity is is a mix of: "|
 			/getentryfield file="Character Maker Combined NSFW GenRaw" 15|
 			/setvar key=instruct {{pipe}}|
 
+			/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+			/ife ( debug == 'Yes'){:
+				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=system {{pipe}}|
+				/ife ( system == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=cprompt {{pipe}}|
+				/ife ( cprompt == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+			:}|
+
 			/genraw lock=on name={{char}}
 			system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 			/setvar key=t {{pipe}}|
 			/re-replace find="/\./g" replace="" {{getvar::t}}|
 			/setvar key=t {{pipe}}|
@@ -990,10 +1082,25 @@ The character's ethnicity is is a mix of: "|
 			/getentryfield file="Character Maker Combined NSFW GenRaw" 19|
 			/setvar key=instruct {{pipe}}|
 
+			/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+			/ife ( debug == 'Yes'){:
+				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=system {{pipe}}|
+				/ife ( system == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+				/setvar key=cprompt {{pipe}}|
+				/ife ( cprompt == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+			:}|
+
 			/genraw lock=on name={{char}}
 			system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 			/setvar key=t {{pipe}}|
 
 			/re-replace find="/\./g" replace="" {{getvar::t}}|
@@ -1113,10 +1220,25 @@ The character's ethnicity is is a mix of: "|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 23|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 		/setvar key=t {{pipe}}|
 		/re-replace find="/\./g" replace="" {{getvar::t}}|
 		/setvar key=t {{pipe}}|
@@ -1256,11 +1378,26 @@ The character's ethnicity is is a mix of: "|
 				/getentryfield file="Character Maker Combined NSFW GenRaw" 26|
 				/setvar key=prompt {{pipe}}|
 
+				/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+				/ife ( debug == 'Yes'){:
+					/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+					/setvar key=system {{pipe}}|
+					/ife ( system == ''){:
+						/echo Aborting | /:"Character Maker V4.Flushvar"|
+					:}|
+					/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+					/setvar key=cprompt {{pipe}}|
+					/ife ( cprompt == ''){:
+						/echo Aborting | /:"Character Maker V4.Flushvar"|
+					:}|
+				:}|
+
 
 				/genraw lock=on name={{char}}
 				system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 				/setvar key=t {{pipe}}|
 			:}|
 			/else {:
@@ -1268,10 +1405,25 @@ The character's ethnicity is is a mix of: "|
 				/getentryfield file="Character Maker Combined NSFW GenRaw" 27|
 				/setvar key=prompt {{pipe}}|
 
+				/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+				/ife ( debug == 'Yes'){:
+					/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+					/setvar key=system {{pipe}}|
+					/ife ( system == ''){:
+						/echo Aborting | /:"Character Maker V4.Flushvar"|
+					:}|
+					/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+					/setvar key=cprompt {{pipe}}|
+					/ife ( cprompt == ''){:
+						/echo Aborting | /:"Character Maker V4.Flushvar"|
+					:}|
+				:}|
+
 				/genraw lock=on name={{char}}
 				system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 				/setvar key=t {{pipe}}|
 			:}|
 			/re-replace find="/\./g" replace="" {{getvar::t}}|
@@ -1377,10 +1529,25 @@ The character's ethnicity is is a mix of: "|
 				/getentryfield file="Character Maker Combined NSFW GenRaw" 32|
 				/setvar key=instruct {{pipe}}|
 
+				/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+				/ife ( debug == 'Yes'){:
+					/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+					/setvar key=system {{pipe}}|
+					/ife ( system == ''){:
+						/echo Aborting | /:"Character Maker V4.Flushvar"|
+					:}|
+					/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+					/setvar key=cprompt {{pipe}}|
+					/ife ( cprompt == ''){:
+						/echo Aborting | /:"Character Maker V4.Flushvar"|
+					:}|
+				:}|
+
 				/genraw lock=on name={{char}}
-					system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+				system="{{getvar::system}}"
+{{getvar::cprompt}}|
 
 				/addvar key=genState {{pipe}}|
 				/addvar key=genState Edit|
@@ -1513,15 +1680,31 @@ The character's ethnicity is is a mix of: "|
 				/getentryfield file="Character Maker Combined NSFW GenRaw" 36|
 				/setvar key=instruct {{pipe}}|
 
+				/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+				/ife ( debug == 'Yes'){:
+					/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+					/setvar key=system {{pipe}}|
+					/ife ( system == ''){:
+						/echo Aborting | /:"Character Maker V4.Flushvar"|
+					:}|
+					/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+					/setvar key=cprompt {{pipe}}|
+					/ife ( cprompt == ''){:
+						/echo Aborting | /:"Character Maker V4.Flushvar"|
+					:}|
+				:}|
+
 				/genraw lock=on name={{char}}
 				system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 				/setvar key=t {{pipe}} |
 				/re-replace find="/\./g" replace="" {{getvar::t}}|
 				/setvar key=t {{pipe}}|
 				/wait 1|
 				/split {{getvar::t}} | /setvar key=t {{pipe}}|
+
 				/setvar key=i 0|
 				/setvar key=temp3 []|
 				/foreach {{getvar::t}} {:
@@ -1633,10 +1816,25 @@ The character's ethnicity is is a mix of: "|
 				/getentryfield file="Character Maker Combined NSFW GenRaw" 40|
 				/setvar key=instruct {{pipe}}|
 
+				/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+				/ife ( debug == 'Yes'){:
+					/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+					/setvar key=system {{pipe}}|
+					/ife ( system == ''){:
+						/echo Aborting | /:"Character Maker V4.Flushvar"|
+					:}|
+					/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to system in genraw.|/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+					/setvar key=cprompt {{pipe}}|
+					/ife ( cprompt == ''){:
+						/echo Aborting | /:"Character Maker V4.Flushvar"|
+					:}|
+				:}|
+
 				/genraw lock=on name={{char}}
 				system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 
 				/addvar key=genState {{pipe}}|
 				/addvar key=genState Edit|
@@ -1813,10 +2011,25 @@ The character's ethnicity is is a mix of: "|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 48|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 		/setvar key=t {{pipe}} |
 		/re-replace find="/\./g" replace="" {{getvar::t}}|
 		/setvar key=t {{pipe}}|
@@ -1945,10 +2158,25 @@ The character's ethnicity is is a mix of: "|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 52|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 		/setvar key=t {{pipe}} |
 		/re-replace find="/\./g" replace="" {{getvar::t}}|
 		/setvar key=t {{pipe}}|
@@ -2070,10 +2298,25 @@ The character's ethnicity is is a mix of: "|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 56|
 		/setvar key=instruct {{pipe}}|
 
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
 		/genraw lock=on name={{char}}
 		system="{{getvar::system}}"
-{{getvar::prompt}}
-{{getvar::instruct}}|
+{{getvar::cprompt}}|
 		/setvar key=t {{pipe}} |
 		/re-replace find="/\./g" replace="" {{getvar::t}}|
 		/setvar key=t {{pipe}}|

@@ -5,4 +5,14 @@
 
 /getentryfield file="Character Maker Combined NSFW" 30| /setvar key=prom {{pipe}}|
 
+
+/ife ( debug == 'Yes'){:
+  /input default={{getvar::prom}} rows=8 This is the prompt that will be passed to the generation. (This is a normal continue with a prompt so it will use normal Lorebooks rules.)|
+  /setvar key=prom {{pipe}}|
+  /ife ( prom == ''){:
+    /echo Aborting | /:"Character Maker V4.Flushvar"|
+  :}|
+:}|
+
+
 /continue "{{getvar::prom}}"
