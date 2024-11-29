@@ -222,7 +222,7 @@
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife ( t == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 			/else {:
 				/addvar key=outputList {{getvar::t}}|
@@ -232,7 +232,7 @@
 		/elseif ( selected_btn == 'Redo'){:
 			/setvar key=genState Redo|
 		:}|
-		/elseif ( 'Don\'t' in selected_btn is string){:
+		/elseif ( 'Don\'t' in selected_btn){:
 			/setvar key=genState Redo|
 			/setvar key=guide {{noop}}|
 		:}|
@@ -296,7 +296,7 @@
 	/input rows=8 What is the Time Period of the character? |
 	/setvar key=selected_btn {{pipe}} |
 	/ife ( selected_btn == ''){:
-		/echo Aborting | /:"Character Maker V4.Flushvar"|
+		/setvar key=genState Redo|
 	:}
 :}|
 /elseif ( answer == 'No'){:
@@ -384,10 +384,10 @@
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
 		:}|
 		/elseif ( selected_btn == 'Manually Add'){:
-			/input rows=8 Edit the like to your liking.|
+			/input rows=8 Add the Time Period you like.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 			/else {::}|
 		:}|
@@ -515,7 +515,7 @@
 		/input rows=8 Manually Add a World Type|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		/setvar key=genState Redo|
 		:}|
 	:}|
 
@@ -641,7 +641,7 @@
 		/input rows=8 Add the Nationality you want the character to be.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -791,7 +791,7 @@ This is the character's nationality: {{getvar::nationality}}"|
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife ( t == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 			/else {:
 				/addvar key=outputList {{getvar::t}}|
@@ -996,7 +996,7 @@ The character's ethnicity is is a mix of: "|
 				/input rows=8 Add a name you like.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -1134,7 +1134,7 @@ The character's ethnicity is is a mix of: "|
 				/input rows=8 Add the last name you want.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -1271,7 +1271,7 @@ The character's ethnicity is is a mix of: "|
 			/input rows=8 Add the nickname you want.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -1452,10 +1452,10 @@ The character's ethnicity is is a mix of: "|
 				/echo Aborting | /:"Character Maker V4.Flushvar"|
 			:}|
 		  /elseif ( selected_btn == 'Manually Add'){:
-				/input rows=8 Edit the like to your liking.|
+				/input rows=8 Add the Species you like.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 
 			:}|
@@ -1575,7 +1575,7 @@ The character's ethnicity is is a mix of: "|
 					/input default={{getvar::t}} rows=8 Edit the species description to your liking.|
 					/setvar key=selected_btn {{pipe}}|
 					/ife ( selected_btn == ''){:
-						/echo Aborting | /:"Character Maker V4.Flushvar"|
+						/setvar key=genState Redo|
 					:}|
 
 				:}|
@@ -1745,7 +1745,7 @@ The character's ethnicity is is a mix of: "|
 					/input rows=8 Add a sub species that you want.|
 					/setvar key=selected_btn {{pipe}}|
 					/ife ( selected_btn == ''){:
-						/echo Aborting | /:"Character Maker V4.Flushvar"|
+						/setvar key=genState Redo|
 					:}|
 				:}|
 				/elseif ( selected_btn == 'Done'){:
@@ -1861,7 +1861,7 @@ The character's ethnicity is is a mix of: "|
 					/input default={{getvar::t}} rows=8 Edit the sub species description to your liking.|
 					/setvar key=selected_btn {{pipe}}|
 					/ife ( selected_btn == ''){:
-						/echo Aborting | /:"Character Maker V4.Flushvar"|
+						/setvar key=genState Redo|
 					:}|
 				:}|
 				/elseif ( selected_btn == 'Done'){:
@@ -2065,7 +2065,7 @@ The character's ethnicity is is a mix of: "|
 				/input rows=8 Add the age you want.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -2209,7 +2209,7 @@ The character's ethnicity is is a mix of: "|
 			/input rows=8 Add the species of the sexual attraction you want.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -2350,7 +2350,7 @@ The character's ethnicity is is a mix of: "|
 			/input rows=8 Add the occupation you want.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -2409,7 +2409,7 @@ The character's ethnicity is is a mix of: "|
 From the {{getvar::media}} {{getvar::media_name}}."
 :}|
 
-/input /input default="{{getvar::fname}} {{getvar::lname}}" rows=1|
+/input default="{{getvar::fname}} {{getvar::lname}}" rows=1 Reoarder the name to fit the Full name|
 /setvar key=fullname {{pipe}}|
 
 /addvar key=output "
@@ -2426,7 +2426,7 @@ World Type: {{getvar::world_type}}
 /setvar key=count {{pipe}}|
 /ife ( count > 1)|
 {:
-	/addvar key=output "Fullname: {{getvar::fullname}}
+	/addvar key=output "Full Name: {{getvar::fullname}}
 
 "|
 :}|
