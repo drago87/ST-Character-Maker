@@ -88,7 +88,7 @@
 			/input rows=8 Manually add the kink you want {{getvar::fname}} to have.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -245,7 +245,7 @@
 				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -367,7 +367,7 @@
 				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -486,7 +486,7 @@
 				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -606,7 +606,7 @@
 				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:

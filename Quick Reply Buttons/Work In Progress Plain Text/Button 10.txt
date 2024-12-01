@@ -79,7 +79,7 @@
 		/input rows=8 default={{getvar::t}} Edit {{getvar::fname}} Spech pattern.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -206,7 +206,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -344,11 +344,11 @@
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
 	:}|
-  /elseif ( selected_btn == 'Add DialectEdit'){:
+  /elseif ( selected_btn == 'Add Dialect'){:
 		/input rows=8 Add the dielact you want {{getvar::fname}} to have. |
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -467,7 +467,7 @@
 		/input default={{getvar::t}} rows=8 Edit dialect example to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -586,7 +586,7 @@
 		/input rows=8 default={{getvar::t}} Edit the Catchphrase to your liking. |
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -713,7 +713,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -841,7 +841,7 @@
 		/input rows=8 default={{getvar::t}} Edit the description of how {{getvar::fname}} interacts with others. |
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -967,7 +967,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|

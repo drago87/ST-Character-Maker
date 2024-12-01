@@ -1,15 +1,17 @@
 /sub {{lastMessageId}} 1 | /setvar key=id {{pipe}} |
-/ife ( 'Latent Kinks' in {{lastmessage}}){:
+/setvar key=lmessage {{lastmessage}}|
+/ife ( 'Latent Kinks' in lmessage){:
 	/decvar id | /hide {{getvar::id}}-{{lastMessageId}}
 :}|
 /else {:
 	/hide {{getvar::id}}
 :}|
+/setvar key=cprompt {{noop}}|
 /getentryfield file="Character Maker Combined NSFW" 1| /setvar key=t {{pipe}}|
 
-/re-replace replace="user" find="/{{user}}/g" {{getvar::t}}| /setvar key=t {{pipe}}
+/re-replace replace="user" find="/{{user}}/g" {{getvar::t}}| /setvar key=t {{pipe}}|
 /setvar key=cprompt "{{getvar::t}}
-{{input}}|" |
+{{input}}" |
 
 /ife ( debug == 'Yes'){:
 	/input default={{getvar::t}} rows=8 This is the rules that will be printed in the chat.|

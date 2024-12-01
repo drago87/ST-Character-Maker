@@ -79,7 +79,7 @@
 		/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s backstory to your liking?|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -197,7 +197,7 @@
 		/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s hobbies and interests to your liking?|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -314,7 +314,7 @@
 		/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s Personal Goals to your liking?|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:

@@ -11,8 +11,10 @@
 //Generating Siblings|
 /setvar key=siblings []|
 /setvar key=counter 0|
-/setvar key=sibling Redo |
-/while left=sibling right=Redo rule=eq {:
+/setvar key=genState Redo|
+/setvar key=guide {{noop}}|
+/setvar key=tskip {{noop}}|
+/while left=genState right=Redo rule=eq {:
 	/echo Generateing sibling|
 	/setvar key=genState []|
 
@@ -98,14 +100,21 @@
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
 	:}|
-  /elseif ( selected_btn == 'Edit)
+  /elseif ( selected_btn == 'Edit'){:
 		/getvar key=genState index=0| /setvar key=t {{pipe}}|
 		/input default={{getvar::t}} rows=8 Edit the sibling to your liking.|
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
+		/else {:
+			/addvar key=outputList {{getvar::t}}|
+			/incvar counter|
+		:}|
+	:}|
+	/elseif ( selected_btn == 'None'){:
+	:}|
 	/elseif ( selected_btn == 'Done'){:
 	:}|
 	/elseif ( selected_btn == 'Redo'){:
@@ -162,26 +171,27 @@
 
 
 /setvar key=s {{noop}}|
-
-/foreach {{getvar::siblings}} {:
-	/setvar key=it {{var::item}}|
-	/setvar key=in {{var::index}}|
-	/if ( in == 0){:
-		/addvar key=s "This is {{getvar::fname}}'s siblings:
-{{getvar::it}}"|
+/len {{getvar::siblings}}| /setvar key=len {{pipe}}|
+/ife ( len > 0){:
+	/foreach {{getvar::siblings}} {:
+		/setvar key=it {{var::item}}|
+		/setvar key=in {{var::index}}|
+		/if ( in == 0){:
+			/addvar key=s "This is {{getvar::fname}}'s siblings:
+	{{getvar::it}}"|
+		:}|
+		/else {:
+			/addvar key=s "
+	{{getvar::it}}"|
+		:}|
 	:}|
-	/else {:
+	/incvar counter|
+	/ife ( user_relation == 'Sibling'){:
+		/incvar counter|
 		/addvar key=s "
-{{getvar::it}}"|
+	user is a sibling."|
 	:}|
 :}|
-/incvar counter|
-/ife ( user_relation == 'Sibling'{:
-	/incvar counter|
-	/addvar key=s "
-user is a sibling."|
-	:}|
-
 
 //Generating Parents|
 //Mother|
@@ -191,6 +201,39 @@ user is a sibling."|
 /setvar key=mwork {{noop}}|
 /setvar key=mstatus {{noop}}|
 
+/buttons labels=["Working", "Unemployed"] What is {{getvar::fname}}'s mothers working status?"|
+/setvar key=selected_btn {{pipe}}|
+
+/ife ( selected_btn == ''){:
+	/echo Aborting | /:"Character Maker V4.Flushvar"|
+:}|
+/elseif ( selected_btn == 'Working'){:
+	/setvar key=mwork "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide what she is working with)"|
+:}|
+/elseif ( selected_btn == 'Unemployed'){:
+	/setvar key=mwork "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide why she is unemployed)"|
+:}|
+
+/buttons labels=["Married", "Unmarried", "Divorced", "Remarried"] What is {{getvar::fname}}'s mother's marital status?"|
+/setvar key=selected_btn {{pipe}}|
+
+/ife ( selected_btn == ''){:
+	/echo Aborting | /:"Character Maker V4.Flushvar"|
+:}|
+
+/ife ( selected_btn == 'Married'){:
+	/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide who she is married to. This is {{getvar::fname}}'s father.)"|
+:}|
+/elseif ( selected_btn == 'Unmarried'){:
+	/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide why she is unmarried)"|
+:}|
+/elseif ( selected_btn == 'Divorced'){:
+	/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide why she is divorced)"|
+:}|
+/elseif ( selected_btn == 'Remarried'){:
+	/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide why she is Remarried and to who. This is not {{getvar::fname}}'s father.)"|
+:}|
+
 /while left=genState right=Redo rule=eq {:
 	/echo Generateing mother|
 	/setvar key=genState []|
@@ -199,37 +242,6 @@ user is a sibling."|
 	/ife ( tskip != ''){:
 		/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
 	:}|
-
-	/buttons labels=["Working", "Unemployed"] What is {{getvar::fname}}'s mothers working status?"|
-	/setvar key=selected_btn {{pipe}}|
-
-	/ife ( selected_btn == ''){:
-		/echo Aborting | /:"Character Maker V4.Flushvar"|
-	:}|
-	/elseif ( selected_btn == 'Working'){:
-		/setvar key=mwork "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided what she is working with)"|
-	:}|
-	/elseif ( selected_btn == 'Unemployed'){:
-		/setvar key=mwork "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided why she is unemployed)"|
-	:}|
-
-	/buttons labels=["Married", "Unmarried" "Divorced"] What is {{getvar::fname}}'s mother's marital status?"|
-	/setvar key=selected_btn {{pipe}}|
-
-	/ife ( selected_btn == ''){:
-		/echo Aborting | /:"Character Maker V4.Flushvar"|
-	:}|
-
-	/ife ( selected_btn == 'Married'){:
-		/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided who she is married to)"|
-	:}|
-	/elseif ( selected_btn == 'Unmarried'{:
-		/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided why she is unmarried)"|
-	:}|
-	/elseif ( selected_btn == 'Divorced'){:
-		/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provided why she is divorced)"|
-	:}|
-
 
 	/setvar key=system {{noop}}|
 	/setvar key=prompt {{noop}}|
@@ -265,6 +277,7 @@ user is a sibling."|
 
 	/addvar key=genState {{pipe}}|
 	/addvar key=genState Edit|
+	/addvar key=genState Change|
 	/ife ( guide == ''){:
 		/addvar key=genState "Set Guidance"|
 		/addvar key=genState Redo|
@@ -277,7 +290,7 @@ user is a sibling."|
 
 	/addvar key=genState "Exclude items"|
 
-	/buttons labels={{getvar::mlist}} Is this the mother you want for {{getvar::fname}}?|
+	/buttons labels={{getvar::genState}} Is this the mother you want for {{getvar::fname}}?|
 
 	/setvar key=selected_btn {{pipe}}|
 
@@ -289,7 +302,41 @@ user is a sibling."|
 		/input default={{getvar::t}} rows=8 Edit the mother to your likeing.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
+			/setvar key=genState Redo|
+		:}|
+	:}|
+	/elseif ( selected_btn == 'Change'){:
+		/buttons labels=["Working", "Unemployed"] What is {{getvar::fname}}'s mothers working status?"|
+		/setvar key=selected_btn {{pipe}}|
+
+		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/elseif ( selected_btn == 'Working'){:
+			/setvar key=mwork "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide what she is working with)"|
+		:}|
+		/elseif ( selected_btn == 'Unemployed'){:
+			/setvar key=mwork "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide why she is unemployed)"|
+		:}|
+
+		/buttons labels=["Married", "Unmarried", "Divorced", "Remarried"] What is {{getvar::fname}}'s mother's marital status?"|
+		/setvar key=selected_btn {{pipe}}|
+
+		/ife ( selected_btn == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+
+		/ife ( selected_btn == 'Married'){:
+			/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide who she is married to. This is {{getvar::fname}}'s father.)"|
+		:}|
+		/elseif ( selected_btn == 'Unmarried'){:
+			/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide why she is unmarried)"|
+		:}|
+		/elseif ( selected_btn == 'Divorced'){:
+			/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide why she is divorced)"|
+		:}|
+		/elseif ( selected_btn == 'Remarried'){:
+			/setvar key=mstatus "{{getvar::fname}}'s mother is {{getvar::selected_btn}}(Provide why she is Remarried and to who. This is not {{getvar::fname}}'s father.)"|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -339,36 +386,31 @@ user is a sibling."|
 /setvar key=genState Redo |
 /setvar key=guide {{noop}}|
 /setvar key=tskip {{noop}}|
-/setvar key=fwork {{noop}}|
+/setvar key=swork {{noop}}|
 /setvar key=sstatus {{noop}}|
+
+/buttons labels=["Working", "Unemployed"] What is {{getvar::fname}}'s fathers working status?"|
+/setvar key=selected_btn {{pipe}}|
+/ife ( selected_btn == ''){:
+	/echo Aborting | /:"Character Maker V4.Flushvar"|
+:}|
+/else {:
+	/ife ( selected_btn == 'Working'){:
+		/setvar key=swork "{{getvar::fname}}'s father is {{getvar::selected_btn}}(Provide what he is working with)"|
+	:}|
+	/elseif ( selected_btn == 'Unemployed'){:
+		/setvar key=swork "{{getvar::fname}}'s father is {{getvar::selected_btn}}(Provide why he is unemployed)"|
+	:}|
+:}|
 
 /while left=genState right=Redo rule=eq {:
 	/echo Generateing father|
-	/setvar key=flist []|
+	/setvar key=genState []|
 
 	/setvar key=skip {{noop}}|
-	/ife {: /test left=tskip right="" rule=neq:}|
-		/then {:
-			/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
-		:}|
-
-	/buttons labels=["Working", "Unemployed"] What is {{getvar::fname}}'s mothers working status?"|
-	/setvar key=selected_btn {{pipe}}|
-
-	/ife {: /test left=selected_btn right="" rule=eq :}|
-		/then {: /echo Aborting | /:"Character Maker V4.Flushvar"|  :}|
-	/else {:
-		/ife {: /test left=selected_btn right=Working rule=eq :}|
-		/then {:
-			/setvar key=swork "{{getvar::fname}}'s father is {{getvar::selected_btn}}(Provided what he is working with)"|
-		:}|
-		/ife {: /test left=selected_btn right=Unemployed rule=eq :}|
-		/then {:
-			/setvar key=swork "{{getvar::fname}}'s father is {{getvar::selected_btn}}(Provided why he is unemployed)"|
-		:}|
+	/ife ( tskip != ''){:
+		/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
 	:}|
-
-
 
 	/setvar key=system {{noop}}|
 	/setvar key=prompt {{noop}}|
@@ -404,6 +446,7 @@ user is a sibling."|
 
 	/addvar key=genState {{pipe}}|
 	/addvar key=genState Edit|
+	/addvar key=genState Change|
 	/ife ( guide == ''){:
 		/addvar key=genState "Set Guidance"|
 		/addvar key=genState Redo|
@@ -428,7 +471,22 @@ user is a sibling."|
 		/input default={{getvar::t}} rows=8 Edit the Father to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
+			/setvar key=genState Redo|
+		:}|
+	:}|
+	/elseif ( selected_btn == 'Change'){:
+		/buttons labels=["Working", "Unemployed"] What is {{getvar::fname}}'s mothers working status?"|
+		/setvar key=selected_btn {{pipe}}|
+		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/else {:
+			/ife ( selected_btn == 'Working'){:
+				/setvar key=swork "{{getvar::fname}}'s father is {{getvar::selected_btn}}(Provide what he is working with)"|
+			:}|
+			/elseif ( selected_btn == 'Unemployed'){:
+				/setvar key=swork "{{getvar::fname}}'s father is {{getvar::selected_btn}}(Provide why he is unemployed)"|
+			:}|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -476,19 +534,25 @@ user is a sibling."|
 
 //Generatin Family|
 /setvar key=finfo {{noop}}|
-/foreach {{getvar::siblings}} {:
-	/setvar key=it {{var::item}}|
-	/setvar key=in {{var::index}}|
-	/ife ( in == 0){:
-		/setvar key=finfo "{{getvar::it}}"
-	:}|
-	/else {: /addvar key=finfo "
+/len {{getvar::siblings}}| /setvar key=len {{pipe}}|
+/ife ( len > 0){:
+	/foreach {{getvar::siblings}} {:
+		/setvar key=it {{var::item}}|
+		/setvar key=in {{var::index}}|
+		/ife ( in == 0){:
+			/setvar key=finfo "{{getvar::it}}"
+		:}|
+		/else {: /addvar key=finfo "
 
-{{getvar::it}}":}|
-:}|
-/addvar key=finfo "
+	{{getvar::it}}":}|
+	:}|
+	/addvar key=finfo "
 
 {{getvar::mother}}"|
+:}|
+/else {:
+	/addvar key=finfo "{{getvar::mother}}"
+:}|
 /addvar key=finfo "
 
 {{getvar::father}}"|
@@ -552,7 +616,7 @@ user is a sibling."|
 
 	/addvar key=genState "Exclude items"|
 
-	/buttons labels={{getvar::falist}} Is this the family you want for {{getvar::fname}}?|
+	/buttons labels={{getvar::genState}} Is this the family you want for {{getvar::fname}}?|
 
 	/setvar key=selected_btn {{pipe}}|
 
@@ -687,7 +751,7 @@ Family: {{getvar::family}}"|
 		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -813,7 +877,7 @@ Best Friend: {{getvar::bfrend}}"|
 		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -940,7 +1004,7 @@ Romantic Interest: {{getvar::rinterest}}"|
 		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:

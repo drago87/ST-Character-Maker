@@ -81,7 +81,7 @@ INSTRUCTION: Only answer 'Work' or 'School'|
 		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -199,7 +199,7 @@ INSTRUCTION: Only answer 'Work' or 'School'|
 		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -318,7 +318,7 @@ INSTRUCTION: Only answer 'Work' or 'School'|
 		/input rows=8 default={{getvar::t}} Edit the home anviroment and community to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -442,7 +442,7 @@ INSTRUCTION: Only answer 'Work' or 'School'|
 		/input rows=8 default={{getvar::t}} Edit the description of {{getvar::fname}}'s morning rutine.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -560,7 +560,7 @@ INSTRUCTION: Only answer 'Work' or 'School'|
 		/input rows=8 default={{getvar::t}} Edit the description of {{getvar::fname}}'s {{getvar::octype}} rutine to your liking. |
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -680,7 +680,7 @@ INSTRUCTION: Only answer 'Work' or 'School'|
 		/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s pre dinner description.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -798,7 +798,7 @@ INSTRUCTION: Only answer 'Work' or 'School'|
 		/input rows=8 default={{getvar::t}} Edit the description of {{getvar::fname}}'s after dinner rutnie.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -916,7 +916,7 @@ INSTRUCTION: Only answer 'Work' or 'School'|
 		/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s nightly rutine.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -1034,7 +1034,7 @@ INSTRUCTION: Only answer 'Work' or 'School'|
 		/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s weekend rutine.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:

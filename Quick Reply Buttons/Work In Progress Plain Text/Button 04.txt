@@ -21,7 +21,7 @@
 /setvar key=selected_btn {{pipe}}|
 /setvar key=ut {{getvar::selected_btn}}|
 /ife ( selected_btn == ''){:
-	/echo Aborting | /:"Character Maker V4.Flushvar"|
+	/setvar key=genState Redo|
 :}|
 /elseif ( selected_btn  == 'Sibling'){:
 	/addvar key=agechoice Younger|
@@ -155,16 +155,11 @@
 		:}|
 		/ife (selected_btn is string){:
 		  /ife ( selected_btn == 'Edit'){:
-				/getvar key=genState index=0| /setvar key=t {{pipe}}|
-				/input default={{getvar::t}} rows=8 Edit the like to your liking.|
-				/setvar key=t {{pipe}}|
-				/setvar key=genState Redo|
-				/ife ( t == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/input rows=8 Add the age you want.(Without 'yo')|
+				/setvar key=selected_btn {{pipe}}|
+				/ife ( selected_btn == ''){:
+					/setvar key=genState Redo|
 				:}|
-				/else {:
-					/addvar key=outputList {{getvar::t}}|
-		  	:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
 				:}|
@@ -422,7 +417,7 @@ INSTRUCTION: Only reply with Coworker or Classmate, nothing else.
 		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:

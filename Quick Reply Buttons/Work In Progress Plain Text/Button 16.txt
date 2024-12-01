@@ -1,7 +1,21 @@
 /setvar key=catgen "Scenario"|
 /setvar key=genid "16"|
 
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+	/ife ( 'Latent Kinks' in mess){:
+    /ife ( 'Character Rules' not in mess){:
+  		/unhide {{getvar::i}}|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
 /:"Character Maker V4.Get Char info"|
+
 
 /getentryfield file="Character Maker Combined NSFW" 30| /setvar key=prom {{pipe}}|
 
@@ -15,4 +29,17 @@
 :}|
 
 
-/continue "{{getvar::prom}}"
+/continue "{{getvar::prom}}"|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+	/ife ( 'Latent Kinks' in mess){:
+    /ife ( 'Character Rules' not in mess){:
+  		/hide {{getvar::i}}|
+		:}|
+	:}|
+	/incvar i|
+:}|

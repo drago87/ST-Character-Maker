@@ -157,7 +157,7 @@
 				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -254,7 +254,7 @@
 
 
 
-		/ife ( isTrue == 'yes'{:
+		/ife ( isTrue == 'yes'){:
 			/setvar key=genState Redo|
 			/setvar key=guide {{noop}}|
 			/setvar key=tskip {{noop}}|
@@ -328,7 +328,7 @@
 					/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 					/setvar key=selected_btn {{pipe}}|
 					/ife ( selected_btn == ''){:
-						/echo Aborting | /:"Character Maker V4.Flushvar"|
+						/setvar key=genState Redo|
 					:}|
 				:}|
 				/elseif ( selected_btn == 'Done'){:
@@ -468,7 +468,7 @@
 				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -621,7 +621,7 @@
 					/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 					/setvar key=selected_btn {{pipe}}|
 					/ife ( selected_btn == ''){:
-						/echo Aborting | /:"Character Maker V4.Flushvar"|
+						/setvar key=genState Redo|
 					:}|
 				:}|
 				/elseif ( selected_btn == 'Done'){:
@@ -799,7 +799,7 @@
 				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -949,7 +949,7 @@
 					/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 					/setvar key=selected_btn {{pipe}}|
 					/ife ( selected_btn == ''){:
-						/echo Aborting | /:"Character Maker V4.Flushvar"|
+						/setvar key=genState Redo|
 					:}|
 				:}|
 				/elseif ( selected_btn == 'Done'){:
@@ -1083,7 +1083,7 @@
 		/input rows=8 default={{getvar::t}} Edit {{getvar::fname}}'s gear. |
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -1192,6 +1192,10 @@ Upper Body"
 			/addvar key=output "
 - Shirt: None"|
 		:}|
+		/elseif ( 'Underwear: None' in it){:
+		/addvar key=output "
+- Bra: None"|
+		:}|
 	:}|
 	/ife ( upper_modification != ''){:
 		/addvar key=output "
@@ -1216,7 +1220,7 @@ Lower Body
 
 
 /ife ( lcheck == 'Yes'){:
-	/foreach var=lower_garment {:
+	/foreach {{getvar::lower_garment}} {:
 		/setvar key=it {{var::item}}|
 		/setvar key=in {{var::index}}|
 		/ife ( 'Lower: None' not in it){:

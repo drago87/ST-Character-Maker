@@ -91,7 +91,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -223,7 +223,7 @@
 				/input rows=8 default={{getvar::t}} Edit the spell {{var::item}}'s description.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -359,7 +359,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -494,7 +494,7 @@
 				/input rows=8 default={{getvar::t}} Edit the description of the ability {{var::item}}'s description.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:

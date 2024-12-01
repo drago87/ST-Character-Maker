@@ -82,7 +82,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -229,7 +229,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -377,7 +377,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -524,7 +524,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -650,7 +650,8 @@
 	/addvar key=genState Done|
 	/ife ( guide == ''){:
 		/addvar key=genState "Set Guidance"|
-
+		/addvar key=genState Redo|
+	:}|
 	/else {:
 		/addvar key=genState Change Guidance|
 		/addvar key=genState Redo(Keep Guidance)|
@@ -672,7 +673,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -725,6 +726,7 @@
 	:}|
 
 :}|
+
 /setvar key=fears {{getvar::outputList}}|
 /setvar key=fearsString {{noop}}|
 /foreach {{getvar::fears}} {:
@@ -741,7 +743,6 @@
 /ife ( fearsString != ''){:
 	/addvar key=fearsString "\""|
 :}|
-
 
 
 /setvar key=genState Redo|
@@ -815,7 +816,7 @@
 		/input rows=8 default={{getvar::t}} Edit the description of {{getvar::fname}}'s sexual knowlage.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -860,8 +861,6 @@
 	:}|
 :}|
 /setvar key=sknowlage {{getvar::selected_btn}}|
-
-
 
 /setvar key=genState Redo|
 /setvar key=guide {{noop}}|
@@ -934,7 +933,7 @@
 		/input rows=8 default={{getvar::t}} Edit the description.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -1068,7 +1067,7 @@
 			/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -1173,7 +1172,7 @@ Fears"|
 
 Sexual Knowlage: {{getvar::sknowlage}}
 
-Sexual Experiance: {{getvar::sexperiance}}"|
+Sexual Experience: {{getvar::sexperiance}}"|
 
 /ife ( mating != ''){:
 	/addvar key=output "

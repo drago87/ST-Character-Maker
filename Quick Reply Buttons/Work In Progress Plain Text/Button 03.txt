@@ -83,7 +83,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -219,7 +219,7 @@
 			/input default={{getvar::t}} rows=8 Edit the description for {{getvar::cat}} to your liking.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -345,7 +345,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( t == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -481,7 +481,7 @@
 			/input default={{getvar::t}} rows=8 Edit the description for {{getvar::cat}} to your liking.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -622,7 +622,7 @@
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife ( t == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 			/else {:
 				/addvar key=outputList {{getvar::t}}|
@@ -773,7 +773,7 @@
 			/setvar key=t {{pipe}}|
 			/setvar key=genState Redo|
 			/ife ( t == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 			/else {:
 				/addvar key=outputList {{getvar::t}}|
@@ -908,7 +908,7 @@
 		/setvar key=t {{pipe}}|
 		/setvar key=genState Redo|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/addvar key=outputList {{getvar::t}}|
@@ -1038,7 +1038,7 @@
 		/input default={{getvar::t}} rows=8 Edit the personality to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:

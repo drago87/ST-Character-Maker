@@ -23,7 +23,7 @@
 		/buttons labels={{getvar::tr}} What transformation do you want the description for?|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 		/else {:
 			/re-exec first=true find="/\((.*?)\)/g" {{getvar::selected_btn}}|
@@ -138,7 +138,7 @@ else {:
 			/input rows=8  Add your own height (End with cm or m).|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|/elseif ( selected_btn == 'Done'){:
 			:}|
@@ -281,7 +281,7 @@ else {:
 					/input rows=8 Manually add a lenght from the tip of the nose to the tip of the tail (Should be in cm or m)|
 					/setvar key=selected_btn {{pipe}}|
 					/ife ( selected_btn == ''){:
-						/echo Aborting | /:"Character Maker V4.Flushvar"|
+						/setvar key=genState Redo|
 					:}|
 				:}|
 				/elseif ( selected_btn == 'Done'){:
@@ -413,7 +413,7 @@ else {:
 			/input rows=8 Add a weight (End it in kg or t)|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -558,7 +558,7 @@ else {:
 			/input rows=8 default={{getvar::t}} Edit the description to what you want.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -677,7 +677,7 @@ else {:
 			/input rows=8 default={{getvar::t}} Edit the description to what you want.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -915,7 +915,7 @@ else {:
 			/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -1050,7 +1050,7 @@ else {:
 		/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -1369,7 +1369,7 @@ Appearance: {{getvar::p2}}"|
 			/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -1505,7 +1505,7 @@ Appearance: {{getvar::p2}}"|
 		/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -1881,7 +1881,7 @@ Appearance: {{getvar::p2}}"|
 			/input rows=8 default={{getvar::t}} Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -2014,7 +2014,7 @@ Appearance: {{getvar::p2}}"|
 		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -2198,7 +2198,7 @@ Appearance: {{getvar::l2}}"|
 				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -2333,7 +2333,7 @@ Appearance: {{getvar::l2}}"|
 			/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -2506,7 +2506,7 @@ Appearance: {{getvar::b2}}"|
 				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -2641,7 +2641,7 @@ Appearance: {{getvar::b2}}"|
 			/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -2804,7 +2804,7 @@ Appearance: {{getvar::p2}}"|
 				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 				/setvar key=selected_btn {{pipe}}|
 				/ife ( selected_btn == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
+					/setvar key=genState Redo|
 				:}|
 			:}|
 			/elseif ( selected_btn == 'Done'){:
@@ -2939,7 +2939,7 @@ Appearance: {{getvar::p2}}"|
 			/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -3076,7 +3076,7 @@ Appearance: {{getvar::p2}}"|
 			/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 			/setvar key=selected_btn {{pipe}}|
 			/ife ( selected_btn == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
+				/setvar key=genState Redo|
 			:}|
 		:}|
 		/elseif ( selected_btn == 'Done'){:
@@ -3212,7 +3212,7 @@ Appearance: {{getvar::p2}}"|
 		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -3345,7 +3345,7 @@ Appearance: {{getvar::a2}}"|
 		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
@@ -3472,7 +3472,7 @@ Appearance: {{getvar::a2}}"|
 		/input default={{getvar::t}} rows=8 Edit the description to your liking.|
 		/setvar key=selected_btn {{pipe}}|
 		/ife ( selected_btn == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
+			/setvar key=genState Redo|
 		:}|
 	:}|
 	/elseif ( selected_btn == 'Done'){:
