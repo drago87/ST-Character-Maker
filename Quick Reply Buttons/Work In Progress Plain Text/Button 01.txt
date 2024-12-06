@@ -160,9 +160,6 @@
 		/ife ( debug == 'Yes'){:
 			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 			/setvar key=system {{pipe}}|
-			/ife ( system == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
-			:}|
 			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 			/setvar key=cprompt {{pipe}}|
 			/ife ( cprompt == ''){:
@@ -240,8 +237,9 @@
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the genre you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -331,9 +329,6 @@
 		/ife ( debug == 'Yes'){:
 			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 			/setvar key=system {{pipe}}|
-			/ife ( system == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
-			:}|
 			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 			/setvar key=cprompt {{pipe}}|
 			/ife ( cprompt == ''){:
@@ -404,8 +399,9 @@
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the time period you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -532,8 +528,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -595,9 +592,6 @@
 	/ife ( debug == 'Yes'){:
 		/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 		/setvar key=system {{pipe}}|
-		/ife ( system == ''){:
-			/echo Aborting | /:"Character Maker V4.Flushvar"|
-		:}|
 		/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 		/setvar key=cprompt {{pipe}}|
 		/ife ( cprompt == ''){:
@@ -657,8 +651,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -740,9 +735,6 @@ This is the character's nationality: {{getvar::nationality}}"|
 			/ife ( debug == 'Yes'){:
 				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 				/setvar key=system {{pipe}}|
-				/ife ( system == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
-				:}|
 				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 				/setvar key=cprompt {{pipe}}|
 				/ife ( cprompt == ''){:
@@ -810,8 +802,9 @@ This is the character's nationality: {{getvar::nationality}}"|
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -953,9 +946,6 @@ The character's ethnicity is is a mix of: "|
 			/ife ( debug == 'Yes'){:
 				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 				/setvar key=system {{pipe}}|
-				/ife ( system == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
-				:}|
 				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to system in genraw.|
 				/setvar key=cprompt {{pipe}}|
 				/ife ( cprompt == ''){:
@@ -1012,8 +1002,9 @@ The character's ethnicity is is a mix of: "|
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -1088,9 +1079,6 @@ The character's ethnicity is is a mix of: "|
 			/ife ( debug == 'Yes'){:
 				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 				/setvar key=system {{pipe}}|
-				/ife ( system == ''){:
-					/echo Aborting | /:"Character Maker V4.Flushvar"|
-				:}|
 				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 				/setvar key=cprompt {{pipe}}|
 				/ife ( cprompt == ''){:
@@ -1150,8 +1138,9 @@ The character's ethnicity is is a mix of: "|
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -1226,9 +1215,6 @@ The character's ethnicity is is a mix of: "|
 		/ife ( debug == 'Yes'){:
 			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 			/setvar key=system {{pipe}}|
-			/ife ( system == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
-			:}|
 			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 			/setvar key=cprompt {{pipe}}|
 			/ife ( cprompt == ''){:
@@ -1287,8 +1273,9 @@ The character's ethnicity is is a mix of: "|
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -1384,9 +1371,6 @@ The character's ethnicity is is a mix of: "|
 				/ife ( debug == 'Yes'){:
 					/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 					/setvar key=system {{pipe}}|
-					/ife ( system == ''){:
-						/echo Aborting | /:"Character Maker V4.Flushvar"|
-					:}|
 					/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 					/setvar key=cprompt {{pipe}}|
 					/ife ( cprompt == ''){:
@@ -1472,8 +1456,9 @@ The character's ethnicity is is a mix of: "|
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -1535,9 +1520,6 @@ The character's ethnicity is is a mix of: "|
 				/ife ( debug == 'Yes'){:
 					/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 					/setvar key=system {{pipe}}|
-					/ife ( system == ''){:
-						/echo Aborting | /:"Character Maker V4.Flushvar"|
-					:}|
 					/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 					/setvar key=cprompt {{pipe}}|
 					/ife ( cprompt == ''){:
@@ -1592,8 +1574,9 @@ The character's ethnicity is is a mix of: "|
 					/setvar key=genState Redo|
 				:}|
 				/elseif ( 'Guidance' in selected_btn){:
-					/setvar key=guide {{noop}}|
-					/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+				  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+				  /setvar key=guide {{pipe}}|
+				  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 					/setvar key=guide " ({{pipe}})"|
 					/setvar key=genState Redo|
 				:}|
@@ -1686,9 +1669,6 @@ The character's ethnicity is is a mix of: "|
 				/ife ( debug == 'Yes'){:
 					/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 					/setvar key=system {{pipe}}|
-					/ife ( system == ''){:
-						/echo Aborting | /:"Character Maker V4.Flushvar"|
-					:}|
 					/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 					/setvar key=cprompt {{pipe}}|
 					/ife ( cprompt == ''){:
@@ -1761,8 +1741,9 @@ The character's ethnicity is is a mix of: "|
 					/setvar key=genState Redo|
 				:}|
 				/elseif ( 'Guidance' in selected_btn){:
-					/setvar key=guide {{noop}}|
-					/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+				  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+				  /setvar key=guide {{pipe}}|
+				  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 					/setvar key=guide " ({{pipe}})"|
 					/setvar key=genState Redo|
 				:}|
@@ -1822,9 +1803,6 @@ The character's ethnicity is is a mix of: "|
 				/ife ( debug == 'Yes'){:
 					/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 					/setvar key=system {{pipe}}|
-					/ife ( system == ''){:
-						/echo Aborting | /:"Character Maker V4.Flushvar"|
-					:}|
 					/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to system in genraw.|/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 					/setvar key=cprompt {{pipe}}|
 					/ife ( cprompt == ''){:
@@ -1877,8 +1855,9 @@ The character's ethnicity is is a mix of: "|
 					/setvar key=genState Redo|
 				:}|
 				/elseif ( 'Guidance' in selected_btn){:
-					/setvar key=guide {{noop}}|
-					/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+				  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+				  /setvar key=guide {{pipe}}|
+				  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 					/setvar key=guide " ({{pipe}})"|
 					/setvar key=genState Redo|
 				:}|
@@ -2017,9 +1996,6 @@ The character's ethnicity is is a mix of: "|
 		/ife ( debug == 'Yes'){:
 			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 			/setvar key=system {{pipe}}|
-			/ife ( system == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
-			:}|
 			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 			/setvar key=cprompt {{pipe}}|
 			/ife ( cprompt == ''){:
@@ -2081,8 +2057,9 @@ The character's ethnicity is is a mix of: "|
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -2150,7 +2127,7 @@ The character's ethnicity is is a mix of: "|
 		/setvar key=prompt {{noop}}|
 		/setvar key=instruct {{noop}}|
 
-		//Button01-14|
+		//Button01-15|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 50|
 		/setvar key=system {{pipe}}|
 		/getentryfield file="Character Maker Combined NSFW GenRaw" 51|
@@ -2164,9 +2141,6 @@ The character's ethnicity is is a mix of: "|
 		/ife ( debug == 'Yes'){:
 			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
 			/setvar key=system {{pipe}}|
-			/ife ( system == ''){:
-				/echo Aborting | /:"Character Maker V4.Flushvar"|
-			:}|
 			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
 			/setvar key=cprompt {{pipe}}|
 			/ife ( cprompt == ''){:
@@ -2225,8 +2199,9 @@ The character's ethnicity is is a mix of: "|
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -2366,8 +2341,9 @@ The character's ethnicity is is a mix of: "|
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -2401,6 +2377,9 @@ The character's ethnicity is is a mix of: "|
 	/setvar key=sexual {{getvar::sexualg}} {{getvar::sexuals}}|
 :}|
 
+/input default="{{getvar::fname}} {{getvar::lname}}" rows=1 Reoarder the name to fit the Full name|
+/setvar key=fullname {{pipe}}|
+
 /setvar key=output "<h2 align='center'>Basic Information</h2>"|
 
 /ife ( real == 'Yes'){:
@@ -2409,8 +2388,6 @@ The character's ethnicity is is a mix of: "|
 From the {{getvar::media}} {{getvar::media_name}}."
 :}|
 
-/input default="{{getvar::fname}} {{getvar::lname}}" rows=1 Reoarder the name to fit the Full name|
-/setvar key=fullname {{pipe}}|
 
 /addvar key=output "
 
@@ -2459,7 +2436,7 @@ World Type: {{getvar::world_type}}
 	/len {{getvar::ethnicity}}| /setvar key=len {{pipe}}|
 	/ife ( len == 1){:
 		/addvar key=output "
-	{{getvar::fname}}'s ethnicity is: "|
+{{getvar::fname}}'s ethnicity is: "|
 
 		/foreach {{getvar::ethnicity}} {:
 			/setvar key=it {{var::item}}|
@@ -2467,7 +2444,7 @@ World Type: {{getvar::world_type}}
 			/ife ( in == 0){:
 				/addvar key=output "{{getvar::it}}
 
-	"|
+"|
 			:}|
 		:}|
 	:}|
@@ -2486,7 +2463,7 @@ World Type: {{getvar::world_type}}
 		:}|
 		/addvar key=output "
 
-	"|
+"|
 	:}|
 :}|
 

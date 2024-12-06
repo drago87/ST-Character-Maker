@@ -173,8 +173,9 @@
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -344,8 +345,9 @@
 					/setvar key=genState Redo|
 				:}|
 				/elseif ( 'Guidance' in selected_btn){:
-					/setvar key=guide {{noop}}|
-					/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+				  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+				  /setvar key=guide {{pipe}}|
+				  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 					/setvar key=guide " ({{pipe}})"|
 					/setvar key=genState Redo|
 				:}|
@@ -484,8 +486,9 @@
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -637,8 +640,9 @@
 					/setvar key=genState Redo|
 				:}|
 				/elseif ( 'Guidance' in selected_btn){:
-					/setvar key=guide {{noop}}|
-					/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+				  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+				  /setvar key=guide {{pipe}}|
+				  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 					/setvar key=guide " ({{pipe}})"|
 					/setvar key=genState Redo|
 				:}|
@@ -815,8 +819,9 @@
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -965,8 +970,9 @@
 					/setvar key=genState Redo|
 				:}|
 				/elseif ( 'Guidance' in selected_btn){:
-					/setvar key=guide {{noop}}|
-					/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+				  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+				  /setvar key=guide {{pipe}}|
+				  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 					/setvar key=guide " ({{pipe}})"|
 					/setvar key=genState Redo|
 				:}|
@@ -1000,7 +1006,10 @@
 :}|
 /else {:
 	/setvar key=upper_garment []|
+	/addvar key=upper_garment One-Piece: None|
+	/addvar key=upper_garment Underwear: None|
 	/setvar key=lower_garment []|
+	/addvar key=lower_garment Underwear: None|
 	/setvar key=other_garment []|
 
 	/setvar key=upper_modification {{noop}}|
@@ -1022,6 +1031,32 @@
 	/setvar key=skip {{noop}}|
 	/ife ( tskip != ''){:
 		/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+	:}|
+
+	/buttons labels=["{{getvar::octype}}", "leasure", "kink"] <div>What type of gear will {{getvar::fname}} have?</div><div>add lets you add your own while random will use a random choice.</div>|
+	/setvar key=choice {{pipe}}|
+	/ife ( choice == ''){:
+	  /echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+	/elseif (choice == 'add'){:
+	  /input rows=8 Do a short sentence on where {{getvar::fname}} is using the gear.|
+	  /setvar key=choice {{pipe}}|
+	:}|
+	/elseif ( choice == 'random'){:
+	  /setvar key=temp {{noop}}|
+	  /foreach {{getvar::choices}} {:
+	    /setvar key=it {{var::item}}|
+	    /setvar key=in {{var::index}}|
+	    /ife ( ( it != 'random') and ( it != 'add')){:
+	      /ife ( in != 0){:
+	        /addvar key=temp "::{{getvar::it}}"
+	      :}|
+	      /else {:
+	        /addvar key=temp "{{getvar::it}}"
+	      :}|
+	      /setvar key=choice {{random::{{getvar::temp}}}}
+	    :}|
+	  :}|
 	:}|
 
 	/setvar key=system {{noop}}|
@@ -1099,8 +1134,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -1159,13 +1195,7 @@
 /setvar key=output "<h2 align='center'>{{getvar::catgen}}{{getvar::form}} {{getvar::outfit_coice}}</h2>
 
 "|
-/ife ( ucheck == 'Yes'){:
-	/addvar key=output "Outfit Description"
-:}|
-/elseif ( lcheck == 'Yes'){:
-	/addvar key=output "Outfit Description"
-:}|
-/elseif ( ocheck == 'Yes'){:
+/ife ( (ucheck == 'Yes') or ( lcheck == 'Yes') or ( ocheck == 'Yes')){:
 	/addvar key=output "Outfit Description"
 :}|
 
@@ -1227,9 +1257,17 @@ Lower Body
 			/addvar key=output "
 - {{var::item}}"|
 		:}|
-		/else {:
+		/elseif ( ('Underwear: None' in it) and ( gender == 'Female')){:
+		/addvar key=output "
+- Panties: None"|
+		:}|
+		/elseif ( 'Lower: None' in it){:
 			/addvar key=output "
 - Pants: None"|
+		:}|
+		/elseif ( ('Underwear: None' in it) and ( gender == 'Male')){:
+		/addvar key=output "
+- Boxers: None"|
 		:}|
 	:}|
 	/ife ( lower_modification != ''){:
@@ -1241,7 +1279,7 @@ Modifications to the lower garments
 :}|
 
 
-/ife ( lcheck == 'Yes'){:
+/ife ( ocheck == 'Yes'){:
 	/addvar key=output "
 
 

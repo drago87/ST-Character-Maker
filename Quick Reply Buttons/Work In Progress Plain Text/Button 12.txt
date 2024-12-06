@@ -101,8 +101,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -248,8 +249,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -396,8 +398,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -543,8 +546,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -692,8 +696,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -832,8 +837,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -878,6 +884,20 @@
 	/setvar key=system {{noop}}|
 	/setvar key=prompt {{noop}}|
 	/setvar key=instruct {{noop}}|
+
+	/buttons labels=["Yes", "No"] Do {{getvar::fname}} have sexual experiance?|
+	/setvar key=selected_btn {{pipe}}|
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+	/elseif ( selected_btn == 'Yes'){:
+		/getentryfield file="Character Maker Combined NSFW Variables" 3|
+		/setvar key=choice {{pipe}}|
+	:}|
+	/elseif ( selected_btn == 'No'){:
+		/getentryfield file="Character Maker Combined NSFW Variables" 4|
+		/setvar key=choice {{pipe}}|
+	:}|
 
 	//Button12-07|
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 346|
@@ -949,8 +969,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -1083,8 +1104,9 @@
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|

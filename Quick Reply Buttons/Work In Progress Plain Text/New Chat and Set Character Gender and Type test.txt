@@ -9,6 +9,8 @@
 	/abort
 :}|
 
+/persona mode=All user|
+
 /buttons labels=["Yes","No"] Do you want to enable debug mode?|
 /setvar key=selected_btn {{pipe}}|
 /ife ( selected_btn == ''){:

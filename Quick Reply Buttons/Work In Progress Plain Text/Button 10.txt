@@ -95,8 +95,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -225,8 +226,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -324,6 +326,7 @@
 	/split {{getvar::spli}}|
 
   /setvar key=genState {{pipe}}|
+	/addvar key=genState No|
   /addvar key=genState "Add Dialect"|
 	/ife ( guide == ''){:
 		/addvar key=genState "Set Guidance"|
@@ -364,8 +367,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -395,11 +399,10 @@
 /setvar key=dil {{getvar::selected_btn}}|
 
 
-
+/setvar key=diaex {{noop}}|
 /setvar key=genState Redo|
 /setvar key=guide {{noop}}|
 /setvar key=tskip {{noop}}|
-
 /while left=genState right=Redo rule=eq {:
 	/echo Generating {{getvar::fname}}'s {{getvar::dil}} dialect example.|
   /setvar key=genState []|
@@ -441,8 +444,8 @@
 	system="{{getvar::system}}"
 {{getvar::cprompt}}|
 
-  /addvar key=genState {{pipe}}|
-  /addvar key=genState Edit|
+	/addvar key=genState {{pipe}}|
+	/addvar key=genState Edit|
 	/ife ( guide == ''){:
 		/addvar key=genState "Set Guidance"|
 		/addvar key=genState Redo|
@@ -455,14 +458,14 @@
 
 	/addvar key=genState "Exclude items"|
 
-  /buttons labels={{getvar::genState}} Is this a good reprencentation of {{getvar::fname}}'s dialect? |
+	/buttons labels={{getvar::genState}} Is this a good reprencentation of {{getvar::fname}}'s dialect? |
 
-  /setvar key=selected_btn {{pipe}}|
+	/setvar key=selected_btn {{pipe}}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
 	:}|
-  /elseif ( selected_btn == 'Edit'){:
+	/elseif ( selected_btn == 'Edit'){:
 		/getvar key=genState index=0| /setvar key=t {{pipe}}|
 		/input default={{getvar::t}} rows=8 Edit dialect example to your liking.|
 		/setvar key=selected_btn {{pipe}}|
@@ -483,8 +486,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -512,7 +516,6 @@
 	:}|
 :}|
 /setvar key=diaex {{getvar::selected_btn}}|
-
 
 
 /setvar key=genState Redo|
@@ -602,8 +605,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -732,8 +736,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -857,8 +862,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -986,8 +992,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -1035,6 +1042,7 @@ Speach Pattern: {{getvar::sp}}
 /else {:
 	/addvar key=output "Spoken languages: "|
 :}|
+
 /foreach {{getvar::language}} {:
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|
@@ -1046,13 +1054,26 @@ Speach Pattern: {{getvar::sp}}
 	:}|
 :}|
 
+/ife ( dil == 'No'){:
 /addvar key=output "
+
+Dialect: {{getvar::dil}} dialect.
+
+":}|
+/else {:
+	/addvar key=output "
 
 Dialect: {{getvar::dil}}
 
-Dialect Example: {{getvar::diaex}}
+":}|
+:}|
 
-Catchphrase: {{getvar::catchp}}
+/addvar key=output "Dialect Example: {{getvar::diaex}}
+
+"|
+
+
+/addvar key=output "Catchphrase: {{getvar::catchp}}
 
 Common Words:"|
 
@@ -1063,15 +1084,15 @@ Common Words:"|
 
 	/while left=t1 right="\"" rule=in {:
 		/setvar key=a {{getvar::t1}}|
-		/re-replace find="/\"/" replace="" {{getvar::t1}} | /setvar key=t1 {{pipe}}|
+		/re-replace find="/\"/g" replace="" {{getvar::t1}} | /setvar key=t1 {{pipe}}|
 
 	:}|
 	/re-replace find="/(?<=\s\|^)\s(?=\s\|$)\|^\s\|\s$/" replace="" {{getvar::t1}} | /setvar key=t1 {{pipe}}|
 	/ife ( in == 0){:
-		/setvar key=temp \"{{getvar::t1}}"|
+		/setvar key=temp "\"{{getvar::t1}}\""|
 	:}|
 	/else {:
-		/addvar key=temp , "{{getvar::t1}}"
+		/addvar key=temp ", \"{{getvar::t1}}\""|
 	:}|
 :}|
 

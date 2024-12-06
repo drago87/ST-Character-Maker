@@ -25,6 +25,12 @@
 
 {{getvar::cprompt}}"|
 
-/sys You need to add double '{' before char and user and double '}' after char and user when copying the character info to a blank character. You can also replace {{getvar::fname}} with char (with the double '{' and '}'). You don't need to keep this line.|
+/ife ( gender == 'Female'){:
+	/setvar key=genpron her|
+:}|
+/elseif ( gender == 'Male'){:
+	/setvar key=genpron him|
+:}|
+/sys You need to add double '{' before char and user and double '}' after char and user when copying the character info to a blank character. Add 'You are char and will roleplay as {{getvar::genpron}}.' to the first row of the new blank character. You can also replace {{getvar::fname}} with char (with the double '{' and '}'). You don't need to keep this line.|
 
 /hide {{lastMessageId}}

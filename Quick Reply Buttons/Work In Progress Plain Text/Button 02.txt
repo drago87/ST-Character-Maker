@@ -153,8 +153,9 @@ else {:
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -297,8 +298,9 @@ else {:
 					/setvar key=genState Redo|
 				:}|
 				/elseif ( 'Guidance' in selected_btn){:
-					/setvar key=guide {{noop}}|
-					/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+				  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+				  /setvar key=guide {{pipe}}|
+				  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 					/setvar key=guide " ({{pipe}})"|
 					/setvar key=genState Redo|
 				:}|
@@ -429,8 +431,9 @@ else {:
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -485,6 +488,9 @@ else {:
 	/setvar key=isTrue yes|
 :}|
 /else {: /setvar key=isTrue yes|:}|
+
+/setvar key=cover {{noop}}|
+/setvar key=skin_color {{noop}}|
 
 /ife ( isTrue == 'yes'){:
 	/setvar key=genState Redo|
@@ -574,8 +580,9 @@ else {:
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -693,8 +700,9 @@ else {:
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -931,8 +939,9 @@ else {:
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -1066,8 +1075,9 @@ else {:
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -1104,7 +1114,7 @@ Appearance: {{getvar::p2}}"|
 /setvar key=input []|
 
 /addvar key=input "Body Type(This is {{getvar::fname}}'s body type. Reply with one word that describes it.)"|
-/addvar key=input "Torso(Mention skin color, skin complexion. Exclude stomach, breasts, nipples, arms and butt from the reply)"|
+/addvar key=input "Torso(Mention skin color, skin complexion, suntan. Exclude stomach, breasts, nipples, arms and butt from the reply)"|
 
 
 /ife ( 'Demi-Human' in species){:
@@ -1131,7 +1141,7 @@ Appearance: {{getvar::p2}}"|
 	/addvar key=input "Front Legs"|
 :}|
 /else {:
-	/addvar key=input "Arms(This is {{getvar::fname}}'s upper and lower arms. Exclude hands and fingers in the reply)"|
+	/addvar key=input "Arms(This is {{getvar::fname}}'s upper and lower arms.(Mention skin color, skin complexion, suntan.) Exclude hands and fingers in the reply)"|
 :}|
 
 
@@ -1180,7 +1190,7 @@ Appearance: {{getvar::p2}}"|
 
 :}|
 /else {:
-	/addvar key=input "Hands"
+	/addvar key=input "Hands(Mention skin color, skin complexion, suntan.)"
 :}|
 
 
@@ -1233,7 +1243,7 @@ Appearance: {{getvar::p2}}"|
 	:}|
 :}|
 
-/addvar key=input "Stomach"|
+/addvar key=input "Stomach(Mention skin color, skin complexion, suntan.)"|
 
 /setvar key=fea {{noop}}|
 /ife ( extra2 != ''){:
@@ -1385,8 +1395,9 @@ Appearance: {{getvar::p2}}"|
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -1521,8 +1532,9 @@ Appearance: {{getvar::p2}}"|
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -1558,7 +1570,7 @@ Appearance: {{getvar::p2}}"|
 
 
 /setvar key=input []|
-/addvar key=input "Butt(Exclude tail in the reply)"|
+/addvar key=input "Buttocks(Mention skin color, skin complexion, suntan. Exclude tail in the reply)"|
 
 
 
@@ -1621,10 +1633,10 @@ Appearance: {{getvar::p2}}"|
 /else {: /setvar key=isTrue yes|:}|
 
 /ife ( isTrue == 'yes'){:
-	/addvar key=input "Hind Legs(Exclude Feet's and toes in the reply)"|
+	/addvar key=input "Hind Legs(Exclude Feet and toes in the reply)"|
 :}|
 /else {:
-	/addvar key=input "Legs(Exclude Feet's and toes in the reply)"
+	/addvar key=input "Legs(Mention skin color, skin complexion, suntan.Exclude Feet and toes in the reply)"
 :}|
 
 /setvar key=fea {{noop}}|
@@ -1700,14 +1712,14 @@ Appearance: {{getvar::p2}}"|
 /else {: /setvar key=isTrue yes|:}|
 
 /ife ( isTrue == 'yes'){:
-	/buttons labels=["Feet's","Hind Paws", "Hind Fins","Hind Hooves", "Flippers"] What type of extremities does {{getvar::fname}} use? |
+	/buttons labels=["Feet","Hind Paws", "Hind Fins","Hind Hooves", "Flippers"] What type of extremities does {{getvar::fname}} use? |
 	/setvar key=selected_btn {{pipe}}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
 	:}|
-	/elseif ( selected_btn == 'Feet\'s'){:
-		/addvar key=input "{{getvar::selected_btn}}(This is human Feet's)"|
+	/elseif ( selected_btn == 'Feet'){:
+		/addvar key=input "{{getvar::selected_btn}}(Mention skin color, skin complexion, suntan. This is human Feet)"|
 	:}|
 	/elseif ( selected_btn == 'Hind Paws'){:
 		/addvar key=input "{{getvar::selected_btn}}"|
@@ -1747,7 +1759,7 @@ Appearance: {{getvar::p2}}"|
 	:}|
 :}|
 /else {:
-	/addvar key=input "Feet's"
+	/addvar key=input "Feet(Mention skin color, skin complexion, suntan.)"
 :}|
 
 /setvar key=fea {{noop}}|
@@ -1897,8 +1909,9 @@ Appearance: {{getvar::p2}}"|
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -2030,8 +2043,9 @@ Appearance: {{getvar::p2}}"|
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -2117,7 +2131,7 @@ Appearance: {{getvar::l2}}"|
 	/addvar key=input "Cup size(This is the size of {{getvar::fname}}'s breasts.)"|
 	/addvar key=input "Firmness(This is the firmness of {{getvar::fname}}'s breasts.)"|
 	/addvar key=input "Nipples(This is type(Protruding, flat or inverted) and size(long, short, wide) of {{getvar::fname}}'s nipples.)"|
-	/addvar key=input "Sensativity(This is the sensativity of {{getvar::fname}}'s nipples.)"|
+	/addvar key=input "Sensitivity(This is the sensitivity of {{getvar::fname}}'s nipples.)"|
 
 
 	/setvar key=b1 []|
@@ -2214,8 +2228,9 @@ Appearance: {{getvar::l2}}"|
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -2349,8 +2364,9 @@ Appearance: {{getvar::l2}}"|
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -2391,6 +2407,7 @@ Appearance: {{getvar::b2}}"|
 	/addvar key=input "Depth(This is the depth of {{getvar::fname}}'s pussy. Give an example on what it can accommodate lenght wise)"|
 	/addvar key=input "Clit(This is the size, visability and shape of {{getvar::fname}}'s clit. Give a example comparison. Exclude Clitorial Hood from the reply)"|
 	/addvar key=input "Clitorial Hood(This is the visability and shape of {{getvar::fname}}'s clitorial hood. Do it cover the clit?)"|
+	/addvar key=input "Public Hair(This is the state of {{getvar::fname}}'s public hair, it can be naturaly smooth(Due to age or something else), shaven, trimmed to a shape, or unshaved)"|
 
 	/ife ( type == 'Human'){:
 		/addvar key=input "Human Features(This is special human features of {{getvar::fname}}'s pussy. Exclude Tightness, Depth and Clit from the reply)"|
@@ -2413,7 +2430,6 @@ Appearance: {{getvar::b2}}"|
 
 	/addvar key=input "Pussy Shape(This is the shape of {{getvar::fname}}'s {{getvar::cleanSpeciees}} pussy. It can have \"visible inner lips\", \"small, closed outer lips\", \"small, open outer lips\", \"long, dangling outer lips\", \"long, dangling inner lips\", \"prominent outer lips\", \"prominent inner lips\", \"curved outer lips\" or \"asymmetrical inner lips\")"|
 	/addvar key=input "Hymen(This is the state of {{getvar::fname}}'s hymen)"|
-	/addvar key=input "Public Hair(This is the state of {{getvar::fname}}'s public hair, it can be naturaly smooth(Due to age or something else), shaven, trimmed to a shape, or unshaved)"|
 
 
 	/setvar key=p1 []|
@@ -2522,8 +2538,9 @@ Appearance: {{getvar::b2}}"|
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -2657,8 +2674,9 @@ Appearance: {{getvar::b2}}"|
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -2820,8 +2838,9 @@ Appearance: {{getvar::p2}}"|
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -2955,8 +2974,9 @@ Appearance: {{getvar::p2}}"|
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -3092,8 +3112,9 @@ Appearance: {{getvar::p2}}"|
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -3228,8 +3249,9 @@ Appearance: {{getvar::p2}}"|
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -3361,8 +3383,9 @@ Appearance: {{getvar::a2}}"|
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -3488,8 +3511,9 @@ Appearance: {{getvar::a2}}"|
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -3696,7 +3720,7 @@ External Erogenous Zones
 {{getvar::ext_ergo_zones}}
 
 
-External Erogenous Zones
+Internal Erogenous Zones
 {{getvar::int_ergo_zones}}"|
 /message-edit message={{lastMessageId}} {{getvar::output}}|
 

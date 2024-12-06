@@ -107,8 +107,9 @@
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -137,8 +138,9 @@
 	:}|
 	/addvar key=kink {{getvar::selected_btn}}|
 
+
 	/ife ( x == 'Continue'){:
-		/setvar key=special {{noop}}
+		/setvar key=special {{noop}}|
 		/setvar key=tempspecial {{noop}}|
 		/buttons labels=["Yes","No"] <div>Is there anything special with this kink?</div><div>Example: Besiality (input)</div><div>Where input is your input in the above example it could be Dog</div>|
 		/setvar key=special {{pipe}}|
@@ -151,7 +153,7 @@
 			/setvar key=tempspecial "This is what is special about the kink: {{getvar::special}}. "|
 		:}|
 		/addvar key=kink {{getvar::special}}|
-		/setvar key=regiv {{noop}}
+		/setvar key=regiv {{noop}}|
 		/setvar key=tempregiv {{noop}}|
 		/buttons labels=["Receiver","Giver","Not Specified"] Would you like the character to be on the receiving end or the giving end?|
 		/setvar key=regiv {{pipe}} |
@@ -263,8 +265,9 @@
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -312,6 +315,38 @@
 			/setvar key=system {{noop}}|
 			/setvar key=prompt {{noop}}|
 			/setvar key=instruct {{noop}}|
+
+			/getentryfield file="Character Maker Combined NSFW Variables" 0|
+			/setvar key=choices {{pipe}}|
+			/split find=:: {{getvar::choices}}|
+			/setvar key=choices {{pipe}}|
+			/addvar key=choices add|
+			/addvar key=choices random|
+			/buttons labels={{getvar::choices}} <div>Who or what will trigger {{getvar::fname}}'s interest about {{getvar::k}}?</div><div>add lets you add your own while random will use a random choice.</div>|
+			/setvar key=choice {{pipe}}|
+			/ife ( choice == ''){:
+			  /echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/elseif (choice == 'add'){:
+			  /input rows=8 Do a short sentence on how {{getvar::fname}} gets to know about {{getvar::k}}|
+			  /setvar key=choice {{pipe}}|
+			:}|
+			/elseif ( choice == 'random'){:
+			  /setvar key=temp {{noop}}|
+			  /foreach {{getvar::choices}} {:
+			    /setvar key=it {{var::item}}|
+			    /setvar key=in {{var::index}}|
+			    /ife ( ( it != 'random') and ( it != 'add')){:
+			      /ife ( in != 0){:
+			        /addvar key=temp "::{{getvar::it}}"
+			      :}|
+			      /else {:
+			        /addvar key=temp "{{getvar::it}}"
+			      :}|
+			      /setvar key=choice {{random::{{getvar::temp}}}}
+			    :}|
+			  :}|
+			:}|
 
 			//Button07-03|
 			/getentryfield file="Character Maker Combined NSFW GenRaw" 242|
@@ -385,8 +420,9 @@
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|

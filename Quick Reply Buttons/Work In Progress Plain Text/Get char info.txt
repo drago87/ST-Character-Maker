@@ -54,6 +54,12 @@
 /db-get source=chat tags| /setvar key=tags {{pipe}}|
 /db-get source=chat type| /setvar key=type {{pipe}}|
 
+/ife ( catgen != 'Export'){:
+
+/genraw Is {{getvar::occupation}} considered work or school?
+INSTRUCTION: Only answer 'Work' or 'School'|
+/setvar key=octype {{pipe}}|
+
 /getentryfield file="Character Maker Combined NSFW" 28|
 /setvar key=guidePrompt {{pipe}}|
 
@@ -189,8 +195,9 @@
 /getentryfield file="Character Maker Combined NSFW" 27|
 /setvar key=exclude {{pipe}}|
 
-/setvar key=info "Use this information when formulating your reply: '){{getvar::info}}
+/setvar key=info "Use this information when formulating your reply: '{{getvar::info}}
 
 When talking about {{getvar::fname}} use these pronouns: {{getvar::prononce}}
 When mentioning {{user}} use user as the name.
 {{getvar::exclude}}'" |
+:}|

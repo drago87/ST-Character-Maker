@@ -17,7 +17,7 @@
 /setvar key=run {{noop}}|
 /setvar key=ut {{noop}}|
 /setvar key=agechoice []|
-/buttons labels=["Sibling","Child", "Parent", "Teacher", "Student", "Coworker/Classmate", "Neighbor", "Relative", "Unrelated"] What is user's relation to {{getvar::fname}}?|
+/buttons labels=["Sibling", "Child", "Parent", "Teacher", "Friend", "Student", "Coworker/Classmate", "Neighbor", "Relative", "Unrelated"] What is user's relation to {{getvar::fname}}?|
 /setvar key=selected_btn {{pipe}}|
 /setvar key=ut {{getvar::selected_btn}}|
 /ife ( selected_btn == ''){:
@@ -27,6 +27,12 @@
 	/addvar key=agechoice Younger|
 	/addvar key=agechoice Same|
 	/addvar key=agechoice Older|
+:}|
+/elseif ( selected_btn  == 'Friend'){:
+	/addvar key=agechoice Younger|
+	/addvar key=agechoice Same|
+	/addvar key=agechoice Older|
+	/setvar key=turelation "user is {{getvar::fname}}'s {{getvar::ugender}} close friend."|
 :}|
 /elseif ( selected_btn == 'Parent'){:
 	/addvar key=agechoice Older|
@@ -174,8 +180,9 @@
 				/setvar key=genState Redo|
 			:}|
 			/elseif ( 'Guidance' in selected_btn){:
-				/setvar key=guide {{noop}}|
-				/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+			  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 				/setvar key=guide " ({{pipe}})"|
 				/setvar key=genState Redo|
 			:}|
@@ -433,8 +440,9 @@ INSTRUCTION: Only reply with Coworker or Classmate, nothing else.
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -483,6 +491,9 @@ user's Relation to {{getvar::fname}}
 	/ife ( it == 'user_relation'){:
 		/setvar key=b yes
 	:}|
+	/ife ( it == 'user_gender'){:
+		/setvar key=c yes
+	:}|
 :}|
 
 /ife ( b == 'yes'){:
@@ -492,4 +503,12 @@ user's Relation to {{getvar::fname}}
 /else {:
 	/db-add source=chat name=user_relation {{getvar::ut}}|
 	/db-disable source=chat name=user_relation|
+:}|
+/ife ( c == 'yes'){:
+	/db-update source=chat name=user_gender {{getvar::ugender}}|
+	/db-disable source=chat name=user_gender|
+:}|
+/else {:
+	/db-add source=chat name=user_gender {{getvar::ugender}}|
+	/db-disable source=chat name=user_gender|
 :}|

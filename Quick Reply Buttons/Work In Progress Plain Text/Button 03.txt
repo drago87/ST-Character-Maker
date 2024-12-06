@@ -108,8 +108,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -235,8 +236,9 @@
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -370,8 +372,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -497,8 +500,9 @@
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -641,8 +645,9 @@
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -792,8 +797,9 @@
 			/setvar key=genState Redo|
 		:}|
 		/elseif ( 'Guidance' in selected_btn){:
-			/setvar key=guide {{noop}}|
-			/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+		  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 			/setvar key=guide " ({{pipe}})"|
 			/setvar key=genState Redo|
 		:}|
@@ -927,8 +933,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -963,9 +970,69 @@
 :}|
 /setvar key=quirks {{getvar::outputList}}|
 
+
 /setvar key=show {{noop}}|
 /foreach {{getvar::quirks}} {:
 	/addvar key=show <div>{{var::item}}</div>|
+:}|
+
+/setvar key=person "Positive Traits
+"|
+/foreach {{getvar::positive_desc}} {:
+	/setvar key=it {{var::item}}|
+	/setvar key=in {{var::index}}|
+	/addvar key=person "- {{getvar::it}}
+"|
+:}|
+/addvar key=person "
+
+Negative Traits
+"|
+/foreach {{getvar::negative_desc}} {:
+	/setvar key=it {{var::item}}|
+	/setvar key=in {{var::index}}|
+	/addvar key=person "- {{getvar::it}}
+"|
+:}|
+/len {{getvar::human_traits}}| /setvar key=len|
+/ife ( len > 0){:
+	/addvar key=person "
+
+Human Traits
+"|
+	/foreach {{getvar::human_traits}} {:
+		/setvar key=it {{var::item}}|
+		/setvar key=in {{var::index}}|
+		/addvar key=person "- {{getvar::it}}
+"|
+	:}|
+:}|
+
+
+/len {{getvar::non-human_traits}}| /setvar key=len|
+/ife ( len > 0){:
+	/addvar key=person "
+
+{{getvar::cleanSpeciees}} Traits
+"|
+	/foreach {{getvar::non-human_traits}} {:
+		/setvar key=it {{var::item}}|
+		/setvar key=in {{var::index}}|
+		/addvar key=person "- {{getvar::it}}
+"|
+	:}|
+:}|
+
+
+/addvar key=person "
+
+Quirks
+"|
+/foreach {{getvar::quirks}} {:
+	/setvar key=it {{var::item}}|
+	/setvar key=in {{var::index}}|
+	/addvar key=person "- {{getvar::it}}
+"|
 :}|
 
 /setvar key=genState Redo|
@@ -1054,8 +1121,9 @@
 		/setvar key=genState Redo|
 	:}|
 	/elseif ( 'Guidance' in selected_btn){:
-		/setvar key=guide {{noop}}|
-		/input default="{{getvar::guidePrompt}}" Add what you want the generation to focus on.|
+	  /re-replace replace="" find="/\({{getvar::guidePrompt}}\s*\|\)/g" {{getvar::guide}}|
+	  /setvar key=guide {{pipe}}|
+	  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
 		/setvar key=guide " ({{pipe}})"|
 		/setvar key=genState Redo|
 	:}|
@@ -1083,67 +1151,6 @@
 	:}|
 :}|
 /setvar key=personality {{getvar::selected_btn}}|
-
-/setvar key=person "Positive Traits
-"|
-/foreach {{getvar::positive_desc}} {:
-	/setvar key=it {{var::item}}|
-	/setvar key=in {{var::index}}|
-	/addvar key=person "- {{getvar::it}}
-"|
-:}|
-/addvar key=person "
-
-Negative Traits
-"|
-/foreach {{getvar::positive_desc}} {:
-	/setvar key=it {{var::item}}|
-	/setvar key=in {{var::index}}|
-	/addvar key=person "- {{getvar::it}}
-"|
-:}|
-/len {{getvar::human_traits}}| /setvar key=len|
-/ife ( len > 0){:
-	/addvar key=person "
-
-Human Traits
-"|
-	/foreach {{getvar::human_traits}} {:
-		/setvar key=it {{var::item}}|
-		/setvar key=in {{var::index}}|
-		/addvar key=person "- {{getvar::it}}
-"|
-	:}|
-:}|
-
-
-/len {{getvar::non-human_traits}}| /setvar key=len|
-/ife ( len > 0){:
-	/addvar key=person "
-
-{{getvar::cleanSpeciees}} Traits
-"|
-	/foreach {{getvar::non-human_traits}} {:
-		/setvar key=it {{var::item}}|
-		/setvar key=it {{var::item}}|
-		/setvar key=in {{var::index}}|
-		/addvar key=person "- {{getvar::it}}
-"|
-	:}|
-:}|
-
-
-/addvar key=person "
-
-Quirks
-"|
-/foreach {{getvar::quirks}} {:
-	/setvar key=it {{var::item}}|
-	/setvar key=in {{var::index}}|
-	/addvar key=person "- {{getvar::it}}
-"|
-:}|
-
 
 /addvar key=person "
 

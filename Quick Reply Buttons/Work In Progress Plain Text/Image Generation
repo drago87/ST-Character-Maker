@@ -1,0 +1,134 @@
+/setvar key=catgen "Image Generation"|
+/setvar key=genid "20"|
+
+/:"Character Maker V4.Get Char info"|
+
+/buttons labels=["Yes","No"] Do you want to make a nude character portrait?|
+/setvar key=nude {{pipe}}|
+/setvar key=outfits []|
+/ife ( nude != 'Yes'){:
+  /setvar key=i 0|
+  /setvar key=x {{lastMessageId}}|
+  /whilee ( i <= x ){:
+  	/messages names=off hidden=on {{getvar::i}}|
+  	/setvar key=mess {{pipe}}|
+  	/ife ( 'Outfit and Gear' in mess){:
+      /addvar key=outfits {{getvar::mess}}|
+  	:}|
+  	/incvar i|
+  :}|
+:}|
+/else {:
+  /addvar key=outfits {{getvar::fname}} is fully nude.|
+:}|
+
+/len {{getvar::outfits}}| /setvar key=len {{pipe}}|
+/ife ( len > 1){:
+  /buttons labels={{getvar::outfits}} Select the outfit you want to generate a image for.|
+  /setvar key=selected_btn {{pipe}}||
+  /ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+:}|
+/else {:
+  /getvar key=outfits index=0|
+  /setvar key=selected_btn {{pipe}}||
+:}|
+/setvar key=outfit {{getvar::selected_btn}}|
+
+/setvar key=appearances []|
+/ife ( nude != 'Yes'){:
+  /setvar key=i 0|
+  /setvar key=x {{lastMessageId}}|
+  /whilee ( i <= x ){:
+  	/messages names=off hidden=on {{getvar::i}}|
+  	/setvar key=mess {{pipe}}|
+  	/ife ( 'Appearance Info' in mess){:
+      /re-replace find=/External[\s\S]*/g replace="" {{getvar::mess}} |
+      /setvar key=mess {{pipe}}|
+      /ife ( gender == 'Female'){:
+        /re-replace find=/Breasts(?=\n)[\s\S]*/g replace="" {{getvar::mess}} |
+        /setvar key=mess {{pipe}}|
+      :}|
+      /else {:
+        /re-replace find=/Cock(?=\n)[\s\S]*/g replace="" {{getvar::mess}} |
+        /setvar key=mess {{pipe}}|
+      :}|
+      /addvar key=appearances {{getvar::mess}}|
+  	:}|
+  	/incvar i|
+  :}|
+:}|
+/else {:
+  /setvar key=i 0|
+  /setvar key=x {{lastMessageId}}|
+  /whilee ( i <= x ){:
+    /messages names=off hidden=on {{getvar::i}}|
+    /setvar key=mess {{pipe}}|
+    /ife ( 'Appearance Info' in mess){:
+    /re-replace find=/Anus(?=\n)[\s\S]*/g replace="" {{getvar::mess}} |
+    /setvar key=mess {{pipe}}|
+
+      /addvar key=appearances {{getvar::mess}}|
+    :}|
+    /incvar i|
+  :}|
+:}|
+
+/getvar key=appearances index=0|
+/setvar key=selected_btn {{pipe}}||
+/ife ( selected_btn == 'None'){:
+  /echo No Appearance Info Found|
+  /echo Aborting | /:"Character Maker V4.Flushvar"|
+:}|
+
+/len {{getvar::appearances}}| /setvar key=len {{pipe}}|
+/ife ( len > 1){:
+  /buttons labels={{getvar::appearances}} Select the outfit you want to generate a image for.|
+  /setvar key=selected_btn {{pipe}}||
+  /ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+:}|
+/else {:
+  /getvar key=appearances index=0|
+  /setvar key=selected_btn {{pipe}}||
+:}|
+/setvar key=appearance {{getvar::selected_btn}}|
+
+/buttons labels=["Realistic", "Cartoonish", "Minimalist", "Cyberpunk", "Vintage painting"] What type of style do you want?|
+/setvar key=style {{pipe}}|
+/buttons labels=["Photograph", "Amateur Photograph", "Pixar", "Disney", "Oil painting", "3D render", "Pencil Sketch"] What type of medium do you want?|
+/setvar key=medium {{pipe}}|
+/buttons labels=["SD1.5","SDXL","Phony","Flux"] What type of model do you want to use?|
+/setvar key=model {{pipe}}|
+
+/setvar key=imggenprompt {{noop}}|
+/ife ( model == 'SD1.5'){:
+  /getentryfield file="Character Maker Combined NSFW IMG Gen" 0|
+  /setvar key=imggenprompt {{pipe}}|
+:}|
+/elseif ( model == 'SDXL'){:
+  /getentryfield file="Character Maker Combined NSFW IMG Gen" 1|
+  /setvar key=imggenprompt {{pipe}}|
+:}|
+/elseif ( model == 'Phony'){:
+  /getentryfield file="Character Maker Combined NSFW IMG Gen" 2|
+  /setvar key=imggenprompt {{pipe}}|
+:}|
+/elseif ( model == 'Flux'){:
+  /getentryfield file="Character Maker Combined NSFW IMG Gen" 3|
+  /setvar key=imggenprompt {{pipe}}|
+:}|
+
+/getentryfield file="Character Maker Combined NSFW IMG Gen" 4|
+/setvar key=pro "{{pipe}}
+{{getvar::imggenprompt}}"|
+
+/genraw as=char {{getvar::pro}}|
+/setvar key=output {{lastMessage}}
+
+Prompt for model type: {{getvar::model}}
+{{pipe}}|
+
+/message-edit message={{lastMessageId}} {{getvar::output}}

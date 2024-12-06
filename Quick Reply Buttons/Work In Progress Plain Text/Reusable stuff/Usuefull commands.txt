@@ -66,3 +66,8 @@
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|
 	/ife ( in == 0){:
+
+
+Regex
+:}(?!\|)
+(?<!\/)\bife\b

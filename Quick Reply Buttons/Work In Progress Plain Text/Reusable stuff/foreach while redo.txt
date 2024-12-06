@@ -5,6 +5,7 @@
 /setvar key=varname []|
 /foreach {{getvar::input}} {:
 	/setvar key=genState Redo|
+	/setvar key=guide {{noop}}|
 	/setvar key=it {{var::item}}|
 	/setvar key=in {{var::index}}|
 
