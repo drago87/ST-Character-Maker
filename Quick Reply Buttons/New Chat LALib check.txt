@@ -1,0 +1,9 @@
+/extension-exists SillyTavern-LALib | /setvar key=lalib {{pipe}}|
+/if else={: /popup The Extension LALib is needed for this to work. :} left=lalib right=true rule=eq {:
+  /extension-state SillyTavern-LALib | /setvar key=laliben {{pipe}}|
+  /if else={: /popup The Extension LALib needs to be enabled for this to work. :} left=laliben right=true rule=eq {:
+    /if left={{getglobalvar::run}} right=Yes rule=neq {:
+      /:"Character Maker V4.New Char"|
+    :}|
+  :}|
+:}|

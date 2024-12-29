@@ -1,0 +1,36 @@
+/setvar key=genders ["Female", "Male", "Machine"]|
+/setvar key=types ["Human", "Anthro", "Demi-Human", "Beastkin", "Non-Humanoid", "Pokémon", "Machine"]|
+/wizard title="Basic Selections" {:
+	/wiz-nav prev=false next=false |
+
+	//wiz-hero {::}|
+	/wiz-page id="Gender" {:
+		/wiz-page-text "<h2 align='center'>What gender do you want your character to be?</h2>" |
+		/foreach var=genders {:
+			/wiz-page-button label={{var::item}} {:/wiz-cmd-var key=gender {{var::item}}|/wiz-cmd-next:}|
+		:}|
+	:} |
+	/wiz-page id="Type" {:
+		/wiz-page-text "<h2 align='center'>What type of character do you want to make?</h2>"|
+		/wiz-page-text "<h2 align='center'>Current selection</h2>"|
+		/wiz-page-text "<h4 align='center'>Gender: {{wizvar::gender}}</h4>"|
+		/foreach var=types {:
+			/wiz-page-button label={{var::item}} {: /wiz-cmd-var key=type {{var::item}}| /wiz-cmd-next:}|
+		:}|
+	:} |
+	/wiz-page id="Transformation" {:
+		/wiz-page-text "<h2 align='center'>Can the character transform between a Human form and Another Form?</h2>"|
+		//wiz-page-text "<h2 align='center'>Current selection</h2>"|
+		//wiz-page-text "<h4 align='center'>Gender: {{wizvar::gender}}</h4>"|
+		//wiz-page-text "<h4 align='center'>Type: {{wizvar::type}}</h4>"|
+		/wiz-page-button label=Yes {: /wiz-cmd-var key=tr Yes| /wiz-cmd-next:}|
+		/wiz-page-button label=No {: /wiz-cmd-var key=tr No| /wiz-cmd-next:}|
+	:}|
+	/wiz-page id="Type" {:
+		/wiz-page-text "<h2 align='center'>Do the character have a transformation?</h2>"|
+		/wiz-page-text "<h2 align='center'>Current selection</h2>"|
+		/wiz-page-text "<h4 align='center'>Gender: {{wizvar::gender}}</h4>"|
+		/wiz-page-text "<h4 align='center'>Type: {{wizvar::type}}</h4>"|
+		/wiz-page-text "<h4 align='center'>Transforms: {{wizvar::tr}}</h4>"|
+	:}|
+:} |

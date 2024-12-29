@@ -1,0 +1,29 @@
+/let lowercase {: string=
+    /re-exec find=/(.)/g "ABCDEFGHIJKLMNOPQRSTUVWXYZ" | /map {{pipe}} {: /getat index="1" {{var::item}} :} | /let key=mfrom ||
+    /re-exec find=/(.)/g "abcdefghijklmnopqrstuvwxyz" | /map {{pipe}} {: /getat index="1" {{var::item}} :} | /let key=mto ||
+    /foreach {{var::mfrom}} {:
+        /getat index={{var::index}} {{var::mto}}
+        | /let lto {{pipe}}
+        | /re-replace find=/{{var::item}}/g replace={{var::lto}} {{var::string}}
+        | /var string {{pipe}}
+    :}
+:} ||
+/:lowercase string="{{getvar::s}}" |
+/setvar as=string key=s {{pipe}}|
+
+
+/let remove_accents {: string=
+    /re-exec find=/(.)/g "ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïñòóôõöùúûüýÿ" | /map {{pipe}} {: /getat index="1" {{var::item}} :} | /let key=mfrom ||
+    /re-exec find=/(.)/g "AAAAAACEEEEIIIINOOOOOUUUUYaaaaaaceeeeiiiinooooouuuuyy" | /map {{pipe}} {: /getat index="1" {{var::item}} :} | /let key=mto ||
+    /foreach {{var::mfrom}} {:
+        /getat index={{var::index}} {{var::mto}}
+        | /let lto {{pipe}}
+        | /re-replace find=/{{var::item}}/g replace={{var::lto}} {{var::string}}
+        | /var string {{pipe}}
+    :}
+:} ||
+
+
+
+/:remove_accents string={{getvar::s}} |
+/setvar as=string key=s {{pipe}}|

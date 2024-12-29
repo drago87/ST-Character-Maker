@@ -1,0 +1,18 @@
+/setvar key=char {{char}}|
+/ife (  char == 'Character Maker QR'){:
+  /qr-chat-set-off Character Maker|
+  /setglobalvar key=persona {{user}}|
+  /wait 10|
+	/persona mode=all user|
+  /flushvar char|
+:}|
+/elseif (  char != 'Character Maker QR'){:
+  /qr-chat-set-on Character Maker|
+:}|
+/elseif ( persona != '') {:
+  /persona mode=all {{getglobalvar::persona}}|
+  /flushglobalvar persona|
+  /flushvar char|
+	/abort
+:}|
+/flushvar char|
