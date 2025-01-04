@@ -1,5 +1,0 @@
-/setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
-
-"|
-
-/message-edit message={{lastMessageId}} {{getvar::output}}
