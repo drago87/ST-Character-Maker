@@ -1,0 +1,31 @@
+	/genraw lock=on name={{char}}
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, make a comma-separated list of five dialects.
+INSTRUCTION: Use the right pronounce. The description should be under five sentences. Remember the Genre is {{getvar::genre}} and the time period is {{getvar::time_period}}. Don't mention {{getvar::genre}}, {{getvar::time_period}} or {{getvar::fname}} age. {{getvar::fname}} is a {{getvar::age}} {{getvar::gender}}. The responsee should only be the description and nothing else.
+{{instructFirstOutput}}|
+
+
+/genraw lock=on name={{char}}
+system="{{getvar::system}}"
+{{getvar::prompt}}
+{{getvar::instruct}}|
+
+
+
+
+
+	/genraw lock=on name={{char}}
+	system="{{getvar::rules}}
+{{getvar::info}}
+{{getvar::char_info}}"
+{{instructInput}} You are {{char}}. Based on the conversation between you and {{user}}: "{{getvar::messageHistory}}". Now, provide a comma-separated list of .
+INSTRUCTION: Use the right pronounce. Start the reply with a capital letter. Only reply with the description, nothing else.
+{{instructFirstOutput}}|
+
+	/setvar key=t {{pipe}}|
+	/split {{getvar::t}} |
+	/re-replace replace="" find="/\./g" {{getvar::t}} | /setvar key=t {{pipe}}|
+	/split {{getvar::t}} |
+	/setvar key=genState {{pipe}}|
