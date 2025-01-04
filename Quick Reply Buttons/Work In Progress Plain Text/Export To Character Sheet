@@ -1,0 +1,547 @@
+/setvar key=catgen "Export"|
+/setvar key=genid "0"|
+
+/:"Character Maker V4.Get Char info"|
+
+/getentryfield file="Character Maker Combined NSFW Variables" 8|
+/setvar key=charCard {{pipe}}|
+
+
+/re-replace find="/--CharName--/g" replace="{{getvar::fname}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+
+//Personality Summary|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+  /setvar key=check "<h2 align='center'>Personality</h2>"|
+	/ife ( check in mess){:
+    /ife ( 'Character Rules' not in mess){:
+      /re-replace replace="" find="/<h2 align='center'>Personality<\/h2>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="" find="/<h2 align='center'>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="" find="/<\/h2>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="" find="/^-\s/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /trim {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="\\"" find="/\"/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="\r\n" find="/(\r\n\|\r\|\n)/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+  		/setvar key=Summary {{getvar::mess}}|
+      //break|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+/re-replace find="/--Summary--/g" replace="{{getvar::Summary}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+
+
+//Scenario not implemented yet|
+
+/setvar key=Scenario {{noop}}|
+
+/re-replace find="/--Scenario--/g" replace="{{getvar::Scenario}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+
+
+/setvar key=Main_Prompt {{noop}}|
+
+/re-replace find="/--Main_Prompt--/g" replace="{{original}}{{getvar::Main_Prompt}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+
+
+/setvar key=Post_Hist {{noop}}|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+	/ife ( 'Character Rules' in mess){:
+		/setvar key=Post_Hist {{getvar::mess}}|
+    /re-replace replace="" find="/<h2 align='center'>Character Rules<\/h2>/g" {{getvar::Post_Hist}}|
+    /setvar key=Post_Hist {{pipe}}|
+    /trim {{getvar::Post_Hist}}|
+    /setvar key=Post_Hist {{pipe}}|
+    /re-replace replace="\\"" find="/\"/g" {{getvar::Post_Hist}}|
+    /setvar key=Post_Hist {{pipe}}|
+    /re-replace replace="\r\n" find="/(\r\n\|\r\|\n)/g" {{getvar::Post_Hist}}|
+    /setvar key=Post_Hist {{pipe}}|
+
+    //break|
+	:}|
+	/incvar i|
+:}|
+
+/re-replace find="/--Post_Hist--/g" replace="{{original}}{{getvar::Post_Hist}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+
+
+/setvar key=Char_Notes {{noop}}|
+
+/re-replace find="/--Char_Notes--/g" replace="{{getvar::Char_Notes}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+
+
+//Get First_Mess|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/setvar key=scenarios []|
+/setvar key=scenarioindex []|
+/whilee ( i <= x ){:
+	/messages names=off hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+  /setvar key=check "<h2 align='center'>Scenario</h2>"|
+	/ife ( check in mess){:
+    /ife ( 'Character Rules' not in mess){:
+  		/addvar key=scenarios {{getvar::mess}}|
+			/addvar key=scenarioindex {{getvar::i}}|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+/setvar key=shortscenario []|
+
+/len scenarios| /setvar key=scenlen {{pipe}}|
+
+/ife ( scenlen > 1 ){:
+  /foreach {{getvar::scenarios}} {:
+  	/setvar key=it {{var::item}}|
+  	/setvar key=in {{var::index}}|
+
+  	/genraw Make a short one word or sentence of the scenario(This should be overall what is happening) '{{getvar::it}}'|
+  	/addvar key=shortscenario {{pipe}}|
+
+  :}|
+
+  /buttons labels={{getvar::shortscenario}} Select the scenario that should be The first message.|
+  /setvar key=selected_btn {{pipe}}|
+
+  /foreach {{getvar::shortscenario}} {:
+  	/setvar key=it {{var::item}}|
+  	/getvar key=scenarioindex index={{var::index}}|
+  	/setvar key=in {{pipe}}|
+
+  	/ife ( it == selected_btn){:
+      /getvar key=scenarios index={{var::index}}|
+  		/setvar key=First_Mess {{pipe}}|
+      /setvar key=scenarioindex index={{var::index}} {{noop}}|
+  	:}|
+
+  :}|
+
+  /setvar key=tempindex []|
+  /foreach {{getvar::scenarioindex}} {:
+  	/setvar key=it {{var::item}}|
+  	/setvar key=in {{var::index}}|
+  	/ife ( it != ''){:
+      /addvar key=tempindex {{getvar::it}}|
+    :}|
+  :}|
+  /setvar key=scenarioindex {{getvar::tempindex}}|
+:}|
+/elseif ( scenlen == 1){:
+  /getvar key=scenarios index=0|
+  /setvar key=First_Mess {{pipe}}|
+  /setvar key=scenarioindex []|
+:}|
+/else {:
+ /setvar key=First_Mess {{noop}}|
+:}|
+/re-replace replace="" find="/<h2 align='center'>Scenario<\/h2>/g" {{getvar::First_Mess}}|
+/setvar key=First_Mess {{pipe}}|
+/trim {{getvar::First_Mess}}|
+/setvar key=First_Mess {{pipe}}|
+/re-replace replace="\\"" find="/\"/g" {{getvar::First_Mess}}|
+/setvar key=First_Mess {{pipe}}|
+/re-replace replace="\r\n" find="/(\r\n\|\r\|\n)/g" {{getvar::First_Mess}}|
+/setvar key=First_Mess {{pipe}}|
+
+/re-replace find="/--First_Mess--/g" replace="{{getvar::First_Mess}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+
+
+
+/setvar key=Alt_Greet []|
+
+/foreach {{getvar::scenarioindex}} {:
+	/setvar key=in {{var::item}}|
+  /messages names=off hidden=on {{getvar::in}}|
+  /setvar key=mess {{pipe}}|
+  /re-replace replace="" find="/<h2 align='center'>Scenario<\/h2>/g" {{getvar::mess}}|
+  /setvar key=mess {{pipe}}|
+  /re-replace replace="" find="/<h2 align='center'>/g" {{getvar::mess}}|
+  /setvar key=mess {{pipe}}|
+  /re-replace replace="" find="/<\/h2>/g" {{getvar::mess}}|
+  /setvar key=mess {{pipe}}|
+  /re-replace replace="" find="/^-\s/g" {{getvar::mess}}|
+  /setvar key=mess {{pipe}}|
+  /trim {{getvar::mess}}|
+  /setvar key=mess {{pipe}}|
+  /re-replace replace="\\"" find="/\"/g" {{getvar::mess}}|
+  /setvar key=mess {{pipe}}|
+  /re-replace replace="\r\n" find="/(\r\n\|\r\|\n)/g" {{getvar::mess}}|
+  /addvar key=Alt_Greet {{pipe}}|
+
+:}|
+
+/setvar key=Alt_Greet_String {{noop}}|
+/setvar key=t {{noop}}|
+/foreach {{getvar::Alt_Greet}} {:
+	/setvar key=it {{var::item}}|
+	/setvar key=in {{var::index}}|
+	/ife ( in == 0){:
+    /setvar key=t \"|
+    /addvar key=t {{getvar::it}}|
+    /addvar key=t \"|
+  :}|
+	/else {:
+  /addvar key=t ,"|
+  /addvar key=t {{getvar::it}}|
+  /addvar key=t \"|
+  :}|
+
+:}|
+
+/setvar key=Alt_Greet_String {{getvar::t}}|
+/re-replace find="/\"--Alt_Greet1--\"/g" replace="{{getvar::Alt_Greet_String}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+/json-pretty {{getvar::charCard}}|
+
+
+
+/setvar key=Example_Dial {{noop}}|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+	/ife ( 'Speech Examples' in mess){:
+		/setvar key=Example_Dial {{getvar::mess}}|
+    /re-replace replace="" find="/<h2 align='center'>Speech Examples<\/h2>/g" {{getvar::Example_Dial}}|
+    /setvar key=Example_Dial {{pipe}}|
+    /trim {{getvar::Example_Dial}}|
+    /setvar key=Example_Dial {{pipe}}|
+    /re-replace replace="\\"" find="/\"/g" {{getvar::Example_Dial}}|
+    /setvar key=Example_Dial {{pipe}}|
+    /re-replace replace="\r\n" find="/(\r\n\|\r\|\n)/g" {{getvar::Example_Dial}}|
+    /setvar key=Example_Dial {{pipe}}|
+    //break|
+	:}|
+	/incvar i|
+:}|
+
+/re-replace find="/--Example_Dial--/g" replace="{{getvar::Example_Dial}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+/json-pretty {{getvar::charCard}}|
+
+
+
+
+/setvar key=Tags []|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+	/ife ( 'Tags' in mess){:
+		/setvar key=temptags {{getvar::mess}}|
+    /re-replace replace="" find="/<h2 align='center'>Tags<\/h2>/g" {{getvar::temptags}}|
+    /setvar key=temptags {{pipe}}|
+    /trim {{getvar::temptags}}|
+    /setvar key=temptags {{pipe}}|
+    /split {{getvar::temptags}}|
+    /setvar key=Tags {{pipe}}|
+    //break|
+	:}|
+	/incvar i|
+:}|
+
+/setvar key=Tags_String {{noop}}|
+/setvar key=t {{noop}}|
+/foreach {{getvar::Tags}} {:
+	/setvar key=it {{var::item}}|
+	/setvar key=in {{var::index}}|
+	/ife ( in == 0){:
+    /setvar key=t \"|
+    /addvar key=t {{getvar::it}}|
+    /addvar key=t \"|
+  :}|
+	/else {:
+  /addvar key=t , "|
+  /addvar key=t {{getvar::it}}|
+  /addvar key=t \"|
+  :}|
+
+:}|
+
+/setvar key=Tags_String {{getvar::t}}|
+/re-replace find="/\"--Tag1--\"/g" replace="{{getvar::Tags_String}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+/json-pretty {{getvar::charCard}}|
+
+/setvar key=Group_Greeting {{noop}}|
+/re-replace find="/\"--Group_Greeting1--\"/g" replace="{{getvar::Group_Greeting}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+//Make Character Description|
+
+
+/setvar key=Description "You are {{getvar::fname}} and will roleplay as {{getvar::genpron}}.
+You will never speak, act or make choices as user."|
+/messages names=off hidden=on 0|
+/setvar key=mess {{pipe}}|
+/re-replace replace="" find="/<h2 align='center'>Basic Information<\/h2>/g" {{getvar::mess}}|
+/setvar key=mess {{pipe}}|
+/trim {{getvar::mess}}|
+/setvar key=mess {{pipe}}|
+/addvar key=Description "
+{{getvar::mess}}"|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off role=assistant hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+  /setvar key=find Personality Traits And Quirks|
+	/ife ( find in mess){:
+    /ife ( 'Character Rules' not in mess){:
+      /re-replace replace="" find="/<h2 align='center'>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="" find="/<\/h2>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /trim {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /addvar key=Description "
+
+{{getvar::mess}}"|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off role=assistant hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+  /setvar key=find Character's Relation to user|
+	/ife ( find in mess){:
+    /ife ( 'Character Rules' not in mess){:
+      /re-replace replace="" find="/<h2 align='center'>{{getvar::find}}<\/h2>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /trim {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /addvar key=Description "
+
+{{getvar::mess}}"|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off role=assistant hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+  /setvar key=find Relationship Information|
+	/ife ( find in mess){:
+    /ife ( 'Character Rules' not in mess){:
+      /re-replace replace="" find="/<h2 align='center'>{{getvar::find}}<\/h2>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+			/re-replace replace="" find="/<h2 align='center'>/g" {{getvar::mess}}|
+			/setvar key=mess {{pipe}}|
+			/re-replace replace="" find="/<\/h2>/g" {{getvar::mess}}|
+			/setvar key=mess {{pipe}}|
+      /trim {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /addvar key=Description "
+
+{{getvar::mess}}"|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off role=assistant hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+  /setvar key=find Background Info|
+	/ife ( find in mess){:
+    /ife ( 'Character Rules' not in mess){:
+      /re-replace replace="" find="/<h2 align='center'>{{getvar::find}}<\/h2>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+			/re-replace replace="" find="/<h2 align='center'>/g" {{getvar::mess}}|
+			/setvar key=mess {{pipe}}|
+			/re-replace replace="" find="/<\/h2>/g" {{getvar::mess}}|
+			/setvar key=mess {{pipe}}|
+      /trim {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /addvar key=Description "
+
+{{getvar::mess}}"|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off role=assistant hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+  /setvar key=find Interaction Style|
+	/ife ( find in mess){:
+    /ife ( 'Character Rules' not in mess){:
+			/re-replace replace="" find="/<h2 align='center'>{{getvar::find}}<\/h2>/g" {{getvar::mess}}|
+			/setvar key=mess {{pipe}}|
+			/re-replace replace="" find="/<h2 align='center'>/g" {{getvar::mess}}|
+			/setvar key=mess {{pipe}}|
+			/re-replace replace="" find="/<\/h2>/g" {{getvar::mess}}|
+			/setvar key=mess {{pipe}}|
+      /trim {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /addvar key=Description "
+
+{{getvar::mess}}"|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off role=assistant hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+  /setvar key=find Contextual Information|
+	/ife ( find in mess){:
+    /ife ( 'Character Rules' not in mess){:
+      /re-replace replace="" find="/<h2 align='center'>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="" find="/<\/h2>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /trim {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /addvar key=Description "
+
+{{getvar::mess}}"|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off role=assistant hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+  /setvar key=find Additional Notes|
+	/ife ( find in mess){:
+    /ife ( 'Character Rules' not in mess){:
+      /re-replace replace="" find="/<h2 align='center'>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="" find="/<\/h2>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /trim {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /addvar key=Description "
+
+{{getvar::mess}}"|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages names=off role=assistant hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+  /setvar key=find Spells and Abilities|
+	/ife ( find in mess){:
+    /ife ( 'Character Rules' not in mess){:
+      /re-replace replace="" find="/<h2 align='center'>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="" find="/<\/h2>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /trim {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /addvar key=Description "
+
+{{getvar::mess}}"|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+
+/re-replace replace="\\"" find="/\"/g" {{getvar::Description}}|
+/setvar key=Description {{pipe}}|
+/re-replace replace="\r\n" find="/(\r\n\|\r\|\n)/g" {{getvar::Description}}|
+/setvar key=Description {{pipe}}|
+
+/re-replace find="/\b{{getvar::fname}}/g" replace="\{\{char--remove--\}\}" {{getvar::Description}}|
+/setvar key=Description {{pipe}}|
+
+/re-replace find="/--Description--/g" replace="{{getvar::Description}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+/re-replace find="/\buser\b(?![a-zA-Z])/g" replace="\{\{user--remove--\}\}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+/re-replace find="/(?<!\{\{\|\r\|\n)\bchar\b(?![a-zA-Z]\|\}\})/g" replace="\{\{char--remove--\}\}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+/re-replace find="/(?<!\"name\": \")\b{{getvar::fname}}\b(?![a-zA-Z])/g" replace="\{\{char--remove--\}\}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+/setvar key=Creator_Notes Made with [Character Generator QR](https://chub.ai/characters/Drago87/character-maker-sillytavern-quick-reply-driven-0eb2c2852a4f)\r\n[Github](https://github.com/drago87/ST-Character-Maker)|
+
+/re-replace find="/--Creator_Notes--/g" replace="{{getvar::Creator_Notes}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+/input default=drago87 rows=8 Who/What do you want to display as the creator?|
+/setvar key=Creator {{pipe}}|
+
+/re-replace find="/--Created_By--/g" replace="{{getvar::Creator}}" {{getvar::charCard}}|
+/setvar key=charCard {{pipe}}|
+
+/echo saving Character Card|
+/db-add source=chat name={{getvar::fname}}.json {{getvar::charCard}}|
+/popup <div>Go to the `Extensions`(The wand icon to the left of the chat field)</div>
+<div>Then press the `Open Data Bank`</div>
+<div>Download the {{getvar::fname}}.json file.</div>
+<div>Open the {{getvar::fname}}.json file with a text editor and replace all</div><div>--remove-- with nothing.(Example: \{\{char--remove--\}\}) to \{\{char\}\})</div>
+<div>Import this to SillyTavern(If nothing happens when you try to import the character try to refresh the page. Sometimes the import stops working.)</div>
+<div>Now bind the LoreBook named {{getvar::fname}} {{getvar::lname}} to the new character.</div>
+<div>Character Description is men to go in Tagline on Chumb.ai</div>|
+/popup <div>If you have any problems/recommendation or if you notice that i missed something make a comment on chub.ai or make a issue on Github</div>
+<div>I would love for you to link to any character you make with this on chub.ai</div>|

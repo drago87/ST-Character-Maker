@@ -1,0 +1,811 @@
+/setvar key=catgen "Known Kinks"|
+/setvar key=genid "6"|
+
+
+
+
+/:"Character Maker V4.Get Char info"|
+
+
+/setvar key=kinks []|
+/setvar key=i 0|
+/setvar key=x Continue|
+/while left=x right=Continue rule=eq {:
+
+	//Make kink|
+	/setvar key=kink []|
+	/setvar key=genState Redo|
+	/setvar key=guide {{noop}}|
+	/setvar key=tskip {{noop}}|
+  /len {{getvar::kinks}}| /setvar key=len {{pipe}}|
+  /ife ( len >0 ){:
+    /foreach {{getvar::kinks}} {:
+    	/setvar key=it {{var::item}}|
+    	/setvar key=in {{var::index}}|
+    	/ife ( in == 0){:
+        /addvar key=tskip "{{getvar::it}}"|
+      :}|
+      /else {:
+        /addvar key=tskip ", {{getvar::it}}"|
+      :}|
+
+    :}|
+  :}|
+
+	/while left=genState right=Redo rule=eq {:
+		/echo Generating Known kinks|
+		/setvar key=genState []|
+
+		/setvar key=skip {{noop}}|
+		/ife ( tskip != ''){:
+			/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+		:}|
+
+		/setvar key=system {{noop}}|
+		/setvar key=prompt {{noop}}|
+		/setvar key=instruct {{noop}}|
+
+		//Button06-01|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 218|
+		/setvar key=system {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 219|
+		/setvar key=prompt {{pipe}}|
+		/getentryfield file="Character Maker Combined NSFW GenRaw" 220|
+		/setvar key=instruct {{pipe}}|
+
+		/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+		/ife ( debug == 'Yes'){:
+			/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+			/setvar key=system {{pipe}}|
+			/ife ( system == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+			/setvar key=cprompt {{pipe}}|
+			/ife ( cprompt == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		:}|
+
+		/genraw lock=on name={{char}}
+		system="{{getvar::system}}"
+{{getvar::cprompt}}|
+
+		/setvar key=t {{pipe}}|
+		/re-replace replace="" find="/\./g" {{getvar::t}} | /setvar key=t {{pipe}}|
+		/split {{getvar::t}} |
+		/setvar key=genState {{pipe}}|
+		/addvar key=genState "Manually Add"|
+		/addvar key=genState Done|
+		/ife ( guide == ''){:
+			/addvar key=genState "Set Guidance"|
+			/addvar key=genState Redo|
+		:}|
+		/else {:
+			/addvar key=genState Change Guidance|
+			/addvar key=genState Redo(Keep Guidance)|
+			/addvar key=genState Redo(Don't keep Guidance)|
+		:}|
+
+		/addvar key=genState "Exclude items"|
+
+		/buttons labels={{getvar::genState}} Chose the kink you want {{getvar::fname}} to have.|
+
+		/setvar key=selected_btn {{pipe}}|
+
+		/ife ( selected_btn == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+	  /elseif ( selected_btn == 'Manually Add'){:
+			/input rows=8 Manually add the kink you want {{getvar::fname}} to have.|
+			/setvar key=selected_btn {{pipe}}|
+			/ife ( selected_btn == ''){:
+				/setvar key=genState Redo|
+			:}|
+		:}|
+		/elseif ( selected_btn == 'Done'){:
+			/setvar key=x Done|
+		:}|
+		/elseif ( selected_btn == 'Redo'){:
+			/setvar key=genState Redo|
+		:}|
+		/elseif ( 'Don\'t' in selected_btn){:
+			/setvar key=genState Redo|
+			/setvar key=guide {{noop}}|
+		:}|
+		/elseif ( 'Keep Guidance' in selected_btn){:
+			/setvar key=genState Redo|
+		:}|
+		/elseif ( 'Guidance' in selected_btn){:
+		  /re-replace replace="" find="/^[^:]*:\s/g" {{getvar::guide}}|
+			/setvar key=guide {{pipe}}|
+			/re-replace replace="" find="/\)[^\)]*$/g" {{getvar::guide}}|
+		  /setvar key=guide {{pipe}}|
+		  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
+			/setvar key=guide " ({{pipe}})"|
+			/setvar key=genState Redo|
+		:}|
+		/elseif ( selected_btn == 'Exclude items'){:
+			/ife ( tskip != ''){:
+				/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
+			:}|
+			/else {:
+				/setvar key=t {{noop}}|
+			:}|
+			/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+			/setvar key=t {{pipe}}|
+			/ife ( t == 'Reset'){:
+				/setvar key=tskip {{noop}}|
+			:}|
+			/elseif ( t != ''){:
+				/ife ( tskip != ''){:
+					/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
+				:}|
+				/else {:
+					/setvar key=tskip {{getvar::t}}|
+				:}|
+			:}|
+			/setvar key=genState Redo|
+		:}|
+	:}|
+	/addvar key=kink {{getvar::selected_btn}}|
+
+	/ife ( x == 'Continue'){:
+    /len {{getvar::kinks}}| /setvar key=len {{pipe}}|
+    /ife ( len > 0){:
+      /sendas name="{{char}}" <h2 align='center'>{{getvar::catgen}}</h2>|
+    :}|
+    /getvar key=kink index=0| /setvar key=k {{pipe}}|
+    /addvar key=kinks {{getvar::k}}|
+		/setvar key=special {{noop}}|
+		/setvar key=tempspecial {{noop}}|
+		/buttons labels=["Yes","No"] <div>Is there anything special with this kink?</div><div>Example: Besiality (input)</div><div>Where input is your input in the above example it could be Dog</div>|
+		/setvar key=special {{pipe}}|
+		/ife ( special == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/elseif ( special == 'Yes'){:
+			/input What is special about the kink?|
+			/setvar key=special {{pipe}}|
+			/setvar key=tempspecial "This is what is special about the kink: {{getvar::special}}. "|
+		:}|
+		/addvar key=kink {{getvar::special}}|
+		/setvar key=regiv {{noop}}|
+		/setvar key=tempregiv {{noop}}|
+		/buttons labels=["Receiver","Giver","Not Specified"] Would you like the character to be on the receiving end or the giving end?|
+		/setvar key=regiv {{pipe}} |
+		/ife ( regiv == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/ife ( regiv == 'Receiver'){:
+			/setvar key=tempregiv "This is where {{getvar::fname}} is the one that have the kink done to. "| /addvar key=regivs {{getvar::regiv}}
+		:}|
+		/elseif ( regiv == 'Giver'){:
+			/setvar key=tempregiv "This is where {{getvar::fname}} is the one doing the kink to another. "|/addvar key=regivs {{getvar::regiv}}|
+		:}|
+		/addvar key=kink {{getvar::regiv}}|
+
+
+		//Explanation of the kink|
+
+
+
+		/setvar key=genState Redo|
+		/setvar key=tspecial {{noop}}|
+		/setvar key=guide {{noop}}|
+		/setvar key=tskip {{noop}}|
+
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating {{getvar::k}}'s explanation|
+			/setvar key=genState []|
+
+			/setvar key=skip {{noop}}|
+			/ife ( tskip != ''){:
+				/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+			:}|
+
+			/ife ( special != 'No'){:
+				/setvar key=tspecial " {{getvar::special}} "|
+			:}|
+
+			/setvar key=system {{noop}}|
+			/setvar key=prompt {{noop}}|
+			/setvar key=instruct {{noop}}|
+
+			//Button06-02|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 222|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 223|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 224|
+			/setvar key=instruct {{pipe}}|
+
+			/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+			/ife ( debug == 'Yes'){:
+				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=system {{pipe}}|
+				/ife ( system == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+				/setvar key=cprompt {{pipe}}|
+				/ife ( cprompt == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+			:}|
+
+			/genraw lock=on name={{char}}
+			system="{{getvar::system}}"
+{{getvar::cprompt}}|
+
+			/addvar key=genState {{pipe}}|
+			/addvar key=genState Edit|
+			/ife ( guide == ''){:
+				/addvar key=genState "Set Guidance"|
+				/addvar key=genState Redo|
+			:}|
+			/else {:
+				/addvar key=genState Change Guidance|
+				/addvar key=genState Redo(Keep Guidance)|
+				/addvar key=genState Redo(Don't keep Guidance)|
+			:}|
+
+			/addvar key=genState "Exclude items"|
+
+			/buttons labels={{getvar::genState}} Is this explanation good for {{getvar::fname}}?|
+
+			/setvar key=selected_btn {{pipe}}|
+
+			/ife ( selected_btn == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		  /elseif ( selected_btn == 'Edit'){:
+				/getvar key=genState index=0| /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife ( selected_btn == ''){:
+					/setvar key=genState Redo|
+				:}|
+			:}|
+			/elseif ( selected_btn == 'Done'){:
+				:}|
+			/elseif ( selected_btn == 'Redo'){:
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( 'Don\'t' in selected_btn){:
+				/setvar key=genState Redo|
+				/setvar key=guide {{noop}}|
+			:}|
+			/elseif ( 'Keep Guidance' in selected_btn){:
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( 'Guidance' in selected_btn){:
+			  /re-replace replace="" find="/^[^:]*:\s/g" {{getvar::guide}}|
+				/setvar key=guide {{pipe}}|
+				/re-replace replace="" find="/\)[^\)]*$/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
+				/setvar key=guide " ({{pipe}})"|
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( selected_btn == 'Exclude items'){:
+				/ife ( tskip != ''){:
+					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
+				:}|
+				/else {:
+					/setvar key=t {{noop}}|
+				:}|
+				/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+				/setvar key=t {{pipe}}|
+				/ife ( t == 'Reset'){:
+					/setvar key=tskip {{noop}}|
+				:}|
+				/elseif ( t != ''){:
+					/ife ( tskip != ''){:
+						/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
+					:}|
+					/else {:
+						/setvar key=tskip {{getvar::t}}|
+					:}|
+				:}|
+				/setvar key=genState Redo|
+			:}|
+		:}|
+		/addvar key=kink {{getvar::selected_btn}}|
+
+
+		//Character First knowlage of the kink|
+
+		/getentryfield file="Character Maker Combined NSFW Variables" 0|
+		/setvar key=choices {{pipe}}|
+
+		/setvar key=genState Redo|
+		/setvar key=guide {{noop}}|
+		/setvar key=tskip {{noop}}|
+
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating {{getvar::fname}}'s first exposure to {{getvar::k}}|
+			/setvar key=genState []|
+
+			/setvar key=skip {{noop}}|
+			/ife ( tskip != ''){:
+				/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+			:}|
+
+			/setvar key=system {{noop}}|
+			/setvar key=prompt {{noop}}|
+			/setvar key=instruct {{noop}}|
+
+
+			/split find=:: {{getvar::choices}}|
+			/setvar key=kchoices {{pipe}}|
+			/addvar key=kchoices add|
+			/addvar key=kchoices random|
+			/buttons labels={{getvar::kchoices}} <div>How will {{getvar::fname}} get to know about {{getvar::k}}?</div><div>add lets you add your own while random will use a random choice.</div>|
+			/setvar key=choice {{pipe}}|
+			/ife ( choice == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/elseif (choice == 'add'){:
+				/input rows=8 Do a short sentence on how {{getvar::fname}} gets to know about {{getvar::k}}|
+				/setvar key=choice {{pipe}}|
+				/addvar key=choices "::{{getvar::choice}}"
+			:}|
+			/elseif ( choice == 'random'){:
+				/setvar key=temp {{noop}}|
+				/foreach {{getvar::choices}} {:
+					/setvar key=it {{var::item}}|
+					/setvar key=in {{var::index}}|
+					/ife ( ( it != 'random') and ( it != 'add')){:
+						/ife ( in != 0){:
+							/addvar key=temp "::{{getvar::it}}"
+						:}|
+						/else {:
+							/addvar key=temp "{{getvar::it}}"
+						:}|
+						/setvar key=choice {{random::{{getvar::temp}}}}
+					:}|
+				:}|
+      :}|
+
+
+			//Button06-03|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 226|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 227|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 228|
+			/setvar key=instruct {{pipe}}|
+
+			/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+			/ife ( debug == 'Yes'){:
+				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=system {{pipe}}|
+				/ife ( system == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+				/setvar key=cprompt {{pipe}}|
+				/ife ( cprompt == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+			:}|
+
+			/genraw lock=on name={{char}}
+			system="{{getvar::system}}"
+{{getvar::cprompt}}|
+
+
+
+			/addvar key=genState {{pipe}}|
+			/addvar key=genState Edit|
+			/ife ( guide == ''){:
+				/addvar key=genState "Set Guidance"|
+				/addvar key=genState Redo|
+			:}|
+			/else {:
+				/addvar key=genState Change Guidance|
+				/addvar key=genState Redo(Keep Guidance)|
+				/addvar key=genState Redo(Don't keep Guidance)|
+			:}|
+
+			/addvar key=genState "Exclude items"|
+
+			/buttons labels={{getvar::genState}} Is this how {{getvar::fname}} got to know about {{getvar::k}}?|
+
+			/setvar key=selected_btn {{pipe}}|
+
+			/ife ( selected_btn == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		  /elseif ( selected_btn == 'Edit'){:
+				/getvar key=genState index=0| /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife ( selected_btn == ''){:
+					/setvar key=genState Redo|
+				:}|
+			:}|
+			/elseif ( selected_btn == 'Done'){:
+				:}|
+			/elseif ( selected_btn == 'Redo'){:
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( 'Don\'t' in selected_btn){:
+				/setvar key=genState Redo|
+				/setvar key=guide {{noop}}|
+			:}|
+			/elseif ( 'Keep Guidance' in selected_btn){:
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( 'Guidance' in selected_btn){:
+			  /re-replace replace="" find="/^[^:]*:\s/g" {{getvar::guide}}|
+				/setvar key=guide {{pipe}}|
+				/re-replace replace="" find="/\)[^\)]*$/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
+				/setvar key=guide " ({{pipe}})"|
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( selected_btn == 'Exclude items'){:
+				/ife ( tskip != ''){:
+					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
+				:}|
+				/else {:
+					/setvar key=t {{noop}}|
+				:}|
+				/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+				/setvar key=t {{pipe}}|
+				/ife ( t == 'Reset'){:
+					/setvar key=tskip {{noop}}|
+				:}|
+				/elseif ( t != ''){:
+					/ife ( tskip != ''){:
+						/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
+					:}|
+					/else {:
+						/setvar key=tskip {{getvar::t}}|
+					:}|
+				:}|
+				/setvar key=genState Redo|
+			:}|
+		:}|
+		/addvar key=kink {{getvar::selected_btn}}|
+
+
+		//First experiance of the kink|
+
+		/getvar key=kink index=3 | /setvar key=lernt {{pipe}}|
+
+		/setvar key=genState Redo|
+		/setvar key=guide {{noop}}|
+		/setvar key=tskip {{noop}}|
+
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating {{getvar::fname}}'s first experiance with {{getvar::k}}|
+			/setvar key=genState []|
+
+			/setvar key=skip {{noop}}|
+			/ife ( tskip != ''){:
+				/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+			:}|
+
+			/getentryfield file="Character Maker Combined NSFW Variables" 1|
+			/setvar key=choices {{pipe}}|
+			/split find=:: {{getvar::choices}}|
+			/setvar key=choices {{pipe}}|
+			/addvar key=choices add|
+			/addvar key=choices random|
+			/buttons labels={{getvar::choices}} <div>How will {{getvar::fname}} try {{getvar::k}} for the first time?</div><div>add lets you add your own while random will use a random choice.</div>|
+			/setvar key=choice {{pipe}}|
+			/ife ( choice == ''){:
+			  /echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/elseif (choice == 'add'){:
+			  /input rows=8 Do a short sentence on how {{getvar::fname}} gets to try {{getvar::k}}|
+			  /setvar key=choice {{pipe}}|
+			:}|
+			/elseif ( choice == 'random'){:
+			  /setvar key=temp {{noop}}|
+			  /foreach {{getvar::choices}} {:
+			    /setvar key=it {{var::item}}|
+			    /setvar key=in {{var::index}}|
+			    /ife ( ( it != 'random') and ( it != 'add')){:
+			      /ife ( in != 0){:
+			        /addvar key=temp "::{{getvar::it}}"
+			      :}|
+			      /else {:
+			        /addvar key=temp "{{getvar::it}}"
+			      :}|
+			      /setvar key=choice {{random::{{getvar::temp}}}}
+			    :}|
+			  :}|
+			:}|
+
+			//Button06-04|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 230|
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 231|
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 232|
+			/setvar key=instruct {{pipe}}|
+
+			/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+			/ife ( debug == 'Yes'){:
+				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=system {{pipe}}|
+				/ife ( system == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+				/setvar key=cprompt {{pipe}}|
+				/ife ( cprompt == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+			:}|
+
+			/genraw lock=on name={{char}}
+			system="{{getvar::system}}"
+{{getvar::cprompt}}|
+
+
+			/addvar key=genState {{pipe}}|
+			/addvar key=genState Edit|
+			/ife ( guide == ''){:
+				/addvar key=genState "Set Guidance"|
+				/addvar key=genState Redo|
+			:}|
+			/else {:
+				/addvar key=genState Change Guidance|
+				/addvar key=genState Redo(Keep Guidance)|
+				/addvar key=genState Redo(Don't keep Guidance)|
+			:}|
+
+			/addvar key=genState "Exclude items"|
+
+			/buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s first experiance good?|
+
+			/setvar key=selected_btn {{pipe}}|
+
+			/ife ( selected_btn == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		  /elseif ( selected_btn == 'Edit'){:
+				/getvar key=genState index=0| /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife ( selected_btn == ''){:
+					/setvar key=genState Redo|
+				:}|
+			:}|
+			/elseif ( selected_btn == 'Done'){:
+				:}|
+			/elseif ( selected_btn == 'Redo'){:
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( 'Don\'t' in selected_btn){:
+				/setvar key=genState Redo|
+				/setvar key=guide {{noop}}|
+			:}|
+			/elseif ( 'Keep Guidance' in selected_btn){:
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( 'Guidance' in selected_btn){:
+			  /re-replace replace="" find="/^[^:]*:\s/g" {{getvar::guide}}|
+				/setvar key=guide {{pipe}}|
+				/re-replace replace="" find="/\)[^\)]*$/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
+				/setvar key=guide " ({{pipe}})"|
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( selected_btn == 'Exclude items'){:
+				/ife ( tskip != ''){:
+					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
+				:}|
+				/else {:
+					/setvar key=t {{noop}}|
+				:}|
+				/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+				/setvar key=t {{pipe}}|
+				/ife ( t == 'Reset'){:
+					/setvar key=tskip {{noop}}|
+				:}|
+				/elseif ( t != ''){:
+					/ife ( tskip != ''){:
+						/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
+					:}|
+					/else {:
+						/setvar key=tskip {{getvar::t}}|
+					:}|
+				:}|
+				/setvar key=genState Redo|
+			:}|
+		:}|
+		/addvar key=kink {{getvar::selected_btn}}|
+
+
+
+		//Why char like the kink|
+
+		/getvar key=kink index=4 | /setvar key=fexp {{pipe}}|
+
+		/setvar key=genState Redo|
+		/setvar key=guide {{noop}}|
+		/setvar key=tskip {{noop}}|
+
+		/while left=genState right=Redo rule=eq {:
+			/echo Generating Why {{getvar::fname}} likes {{getvar::k}}|
+			/setvar key=genState []|
+
+			/setvar key=skip {{noop}}|
+			/ife ( tskip != ''){:
+				/setvar key=skip "In your reply, exclude things that include: {{getvar::tskip}}. "
+			:}|
+
+			//Button06-05|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 418 |
+			/setvar key=system {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 419 |
+			/setvar key=prompt {{pipe}}|
+			/getentryfield file="Character Maker Combined NSFW GenRaw" 420 |
+			/setvar key=instruct {{pipe}}|
+
+			/setvar key=cprompt "{{getvar::prompt}}
+{{getvar::instruct}}" |
+
+			/ife ( debug == 'Yes'){:
+				/input default={{getvar::system}} rows=8 This is the prompt that will be passed to system in genraw.|
+				/setvar key=system {{pipe}}|
+				/ife ( system == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/input default={{getvar::cprompt}} rows=8 This is the prompt that will be passed to the generation in genraw.|
+				/setvar key=cprompt {{pipe}}|
+				/ife ( cprompt == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+			:}|
+
+			/genraw lock=on name={{char}}
+			system="{{getvar::system}}"
+{{getvar::cprompt}}|
+
+
+			/addvar key=genState {{pipe}}|
+			/addvar key=genState Edit|
+			/ife ( guide == ''){:
+				/addvar key=genState "Set Guidance"|
+				/addvar key=genState Redo|
+			:}|
+			/else {:
+				/addvar key=genState Change Guidance|
+				/addvar key=genState Redo(Keep Guidance)|
+				/addvar key=genState Redo(Don't keep Guidance)|
+			:}|
+
+			/addvar key=genState "Exclude items"|
+
+			/buttons labels={{getvar::genState}} Is this description of why {{getvar::fname}} likes {{getvar::k}} good?|
+
+			/setvar key=selected_btn {{pipe}}|
+
+			/ife ( selected_btn == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+		  /elseif ( selected_btn == 'Edit'){:
+				/getvar key=genState index=0| /setvar key=t {{pipe}}|
+				/input default={{getvar::t}} rows=8 Edit the description to your liking.|
+				/setvar key=selected_btn {{pipe}}|
+				/ife ( selected_btn == ''){:
+					/setvar key=genState Redo|
+				:}|
+			:}|
+			/elseif ( selected_btn == 'Done'){:
+				:}|
+			/elseif ( selected_btn == 'Redo'){:
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( 'Don\'t' in selected_btn){:
+				/setvar key=genState Redo|
+				/setvar key=guide {{noop}}|
+			:}|
+			/elseif ( 'Keep Guidance' in selected_btn){:
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( 'Guidance' in selected_btn){:
+			  /re-replace replace="" find="/^[^:]*:\s/g" {{getvar::guide}}|
+				/setvar key=guide {{pipe}}|
+				/re-replace replace="" find="/\)[^\)]*$/g" {{getvar::guide}}|
+			  /setvar key=guide {{pipe}}|
+			  /input default="{{getvar::guidePrompt}}{{getvar::guide}}" Add what you want the generation to focus on.|
+				/setvar key=guide " ({{pipe}})"|
+				/setvar key=genState Redo|
+			:}|
+			/elseif ( selected_btn == 'Exclude items'){:
+				/ife ( tskip != ''){:
+					/setvar key=t "<div>This is what you are already exluding</div>{{getvar::tskip}}"|
+				:}|
+				/else {:
+					/setvar key=t {{noop}}|
+				:}|
+				/input rows=8 <div>Add a comma-separated list of things you dont want to generate.</div></div>To reset this type 'Reset'</div>{{getvar::t}}|
+				/setvar key=t {{pipe}}|
+				/ife ( t == 'Reset'){:
+					/setvar key=tskip {{noop}}|
+				:}|
+				/elseif ( t != ''){:
+					/ife ( tskip != ''){:
+						/setvar key=tskip "{{getvar::tskip}}, {{getvar::t}}"|
+					:}|
+					/else {:
+						/setvar key=tskip {{getvar::t}}|
+					:}|
+				:}|
+				/setvar key=genState Redo|
+			:}|
+		:}|
+		/addvar key=kink {{getvar::selected_btn}}|
+
+
+
+		/setvar key=kinkinfo []|
+		/foreach {{getvar::kink}} {:
+		/setvar key=it {{var::item}}|
+		/setvar key=in {{var::index}}|
+		/ife ( in != 0){:
+			/addvar key=kinkinfo {{getvar::it}}
+		:}|
+
+		:}|
+
+    /setvar key=kout {{getvar::k}}|
+    /getvar key=kinkinfo index=0|
+    /setvar key=k1 {{pipe}}|
+    /ife ( k1 != 'No'){:
+      /addvar key=kout " ({{getvar::k1}})"|
+    :}|
+    /setvar key=kout {{getvar::k}}|
+    /getvar key=kinkinfo index=1|
+    /setvar key=k2 {{pipe}}|
+    /ife ( k2 != 'Not Specified'){:
+      /addvar key=kout " ({{getvar::k2}})"|
+    :}|
+    /setvar key=output "<h2 align='center'>{{getvar::catgen}}</h2>
+<h2 align='center'>{{getvar::kout}}</h2>
+
+"|
+
+
+    /setvar key=output2 {{noop}}|
+    /foreach {{getvar::kinkinfo}} {:
+    	/setvar key=it {{var::item}}|
+    	/setvar key=in {{var::index}}|
+    	/ife ( in > 1){:
+        /ife ( output2 == ''){:
+          /addvar key=output2 "- {{getvar::it}}"
+        :}|
+        /else {:
+          /addvar key=output2 "
+{{getvar::it}}"
+        :}|
+      :}|
+    :}|
+
+    /addvar key=output "{{getvar::k}} Explanation
+
+{{getvar::output2}}"|
+
+    /message-edit message={{lastMessageId}} {{getvar::output}}|
+
+	:}|
+	/incvar i|
+:}|

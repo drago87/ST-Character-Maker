@@ -1,0 +1,89 @@
+/setvar key=catgen "Scenario"|
+/setvar key=genid "16"|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+	/ife ( 'Latent Kinks' in mess){:
+    /ife ( 'Character Rules' not in mess){:
+  		/unhide {{getvar::i}}|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/setvar key=outfits []|
+/setvar key=outfitindex []|
+/whilee ( i <= x ){:
+	/messages hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+	/ife ( 'Outfit and Gear' in mess){:
+    /ife ( 'Character Rules' not in mess){:
+  		/addvar key=outfits {{getvar::mess}}|
+			/addvar key=outfitindex {{getvar::i}}|
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+/setvar key=shortoutfit []|
+
+/foreach {{getvar::outfits}} {:
+	/setvar key=it {{var::item}}|
+	/setvar key=in {{var::index}}|
+
+	/genraw Make a short one word or sentence of the outfit(None is a indication that that there is nothing there. If ther is nothing on the Upper Body or Lower Body then {{getvar::fname}} is nude.) '{{getvar::it}}'|
+	/addvar key=shortoutfit {{pipe}}|
+
+:}|
+
+/buttons labels={{getvar::shortoutfit}} Select the outfit that should be enabled.|
+/setvar key=selected_btn {{pipe}}|
+
+/foreach {{getvar::shortoutfit}} {:
+	/setvar key=it {{var::item}}|
+	/getvar key=outfitindex index={{var::index}}|
+	/setvar key=in {{pipe}}|
+
+	/ife ( it == selected_btn){:
+		/unhide {{getvar::in}}|
+	:}|
+	/else {:
+		/hide {{getvar::in}}|
+	:}|
+
+:}|
+
+/:"Character Maker V4.Get Char info"|
+
+
+/getentryfield file="Character Maker Combined NSFW" 30| /setvar key=prom {{pipe}}|
+
+
+/ife ( debug == 'Yes'){:
+  /input default={{getvar::prom}} rows=8 This is the prompt that will be passed to the generation. (This is a normal continue with a prompt so it will use normal Lorebooks rules.)|
+  /setvar key=prom {{pipe}}|
+  /ife ( prom == ''){:
+    /echo Aborting | /:"Character Maker V4.Flushvar"|
+  :}|
+:}|
+
+
+/continue await=true "{{getvar::prom}}"|
+
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+	/ife ( 'Latent Kinks' in mess){:
+    /ife ( 'Character Rules' not in mess){:
+  		/hide {{getvar::i}}|
+		:}|
+	:}|
+	/incvar i|
+:}|

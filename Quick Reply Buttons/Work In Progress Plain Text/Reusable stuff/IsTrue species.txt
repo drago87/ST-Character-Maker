@@ -1,0 +1,15 @@
+/ife ( 'Demi-Human' in species){:
+	/setvar key=isTrue no :}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue no :}|
+/elseif ( 'Anthro' in species){:
+	/setvar key=isTrue no :}|
+/elseif ( 'Pokèmon' in species){:
+	/setvar key=isTrue yes :}|
+/elseif ( 'Animal' in species){:
+	/setvar key=isTrue yes :}|
+/else {: /setvar key=isTrue yes :}|
+
+/ife ( isTrue == 'yes'){:
+
+:}|

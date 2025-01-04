@@ -1,0 +1,345 @@
+/setvar key=id {{lastMessageId}} |
+/setvar key=mess {{lastmessage}}|
+
+/ife ( swipe != 'Yes'){:
+	/ife ( '<h2 align=\'center\'>Latent Kinks</h2'in mess){:
+		/decvar id |
+		/hide {{getvar::id}}-{{lastMessageId}}
+	:}|
+
+	/ife ( '<h2 align=\'center\'>Scenario</h2>' in mess){:
+		/setvar key=i 0|
+		/setvar key=x {{lastMessageId}}|
+		/whilee ( i <= x ){:
+			/messages hidden=on {{getvar::i}}|
+			/setvar key=mess1 {{pipe}}|
+			/ife ( '<h2 align=\'center\'>Scenario</h2>' in mess1){:
+				/ife ( 'Character Rules' not in mess1){:
+					/hide {{getvar::i}}|
+				:}|
+			:}|
+			/incvar i|
+		:}|
+	:}|
+
+	/ife ( choice == '02. Generate Appearance Info (Can Generate Multiple)'){:
+		/ife ( '<h2 align=\'center\'>Appearance Info' in mess){:
+			/decvar id | /hide {{getvar::id}}-{{lastMessageId}}
+		:}|
+	:}|
+
+	/ife ( choice == '03. Generate Outfit and Gear (Can Generate Multiple)'){:
+		/ife ( '<h2 align=\'center\'>Outfit and Gear' in mess){:
+			/decvar id |
+			/hide {{getvar::id}}-{{lastMessageId}}
+		:}|
+	:}|
+:}|
+
+
+/messages 0-{{lastMessageId}} |
+/setvar key=messageHistory {{pipe}} |
+
+/db-get source=chat first_name| /setvar key=fname {{pipe}}|
+/db-get source=chat nationality| /setvar key=nationality {{pipe}}|
+/db-get source=chat ethnicity| /setvar key=ethnicity {{pipe}}|
+/db-get source=chat age| /setvar key=age {{pipe}}|
+/db-get source=chat gender| /setvar key=gender {{pipe}}|
+/db-get source=chat last_name| /setvar key=lname {{pipe}}|
+/db-get source=chat species| /setvar key=species {{pipe}}|
+/db-get source=chat sub_species| /setvar key=sub_species {{pipe}}|
+/db-get source=chat genre| /setvar key=genre {{pipe}}|
+/db-get source=chat time_period| /setvar key=time_period {{pipe}}|
+/db-get source=chat world_type| /setvar key=world_type {{pipe}}|
+/db-get source=chat occupation| /setvar key=occupation {{pipe}}|
+/db-get source=chat real| /setvar key=real {{pipe}}|
+/db-get source=chat character_files| /setvar key=character_files {{pipe}}|
+/db-get source=chat media| /setvar key=media {{pipe}}|
+/db-get source=chat media_name| /setvar key=media_name {{pipe}}|
+/db-get source=chat normal_form| /setvar key=normal_form {{pipe}}|
+/db-get source=chat transformation| /setvar key=transformation {{pipe}}|
+/db-get source=chat tags| /setvar key=tags {{pipe}}|
+/db-get source=chat type| /setvar key=type {{pipe}}|
+/db-get source=chat posture| /setvar key=posture {{pipe}}|
+
+
+
+/ife ( 'NSFW' in tags) {:
+	/setvar key=NSFW Yes|
+:}|
+/elseif ( 'SFW' in tags) {:
+	/setvar key=NSFW No|
+:}|
+
+/genraw Is {{getvar::occupation}} considered work or school?
+INSTRUCTION: Only answer 'Work' or 'School'|
+/setvar key=octype {{pipe}}|
+
+/getentryfield file="Character Maker Combined NSFW" 28|
+/setvar key=guidePrompt {{pipe}}|
+
+/setvar key=na {{noop}}|
+/ife ( nationality != 'None'){:
+	/setvar key=na " from {{getvar::nationality}}"|
+:}|
+
+/setvar key=et {{noop}}|
+/len {{getvar::ethnicity}}| /setvar key=len {{pipe}}|
+
+/ife ( 'None' not in ethnicity){:
+	/ife ( len > 1){:
+		/setvar key=et "with a mixed ethnicity of "|
+		/foreach {{getvar::ethnicity}} {:
+			/setvar key=it {{var::item}}|
+			/setvar key=in {{var::index}}|
+			/ife ( in == 0){:
+				/addvar key=et "{{getvar::it}}"|
+			:}|
+			/else {:
+				/addvar key=et " and {{getvar::it}}"|
+			:}|
+		:}|
+	:}|
+	/else {:
+		/getvar key=ethnicity index=0|
+		/setvar key=et "with a {{pipe}} ethnicity"|
+	:}|
+:}|
+/ife ( 'None' not in sub_species){:
+	/setvar key=species {{getvar::sub_species}}
+:}|
+
+/getentryfield file="Character Maker Combined NSFW" 0| /setvar key=rules {{pipe}}|
+
+/setvar key=cleanSpeciees {{noop}}|
+
+/ife ('Demi-Human' in species ){:
+	/setvar key=isTrue yes|
+	/re-exec first=true find="/(?<=Demi-Human ).*/g" {{getvar::species}}|
+:}|
+/elseif ( 'Human' in species){:
+	/setvar key=isTrue yes|
+	/setvar key=cleanSpeciees Human|
+:}|
+/elseif ('Anthro' in species ){:
+	/setvar key=isTrue yes|
+	/re-exec first=true find="/(?<=Anthro ).*/g" {{getvar::species}}|
+:}|
+/elseif ( 'Beastkin' in species ){:
+	/setvar key=isTrue yes|
+	/re-exec first=true find="/(?<=Beastkin ).*/g" {{getvar::species}}|
+:}|
+/elseif ( 'Pokémon' in species ){:
+	/setvar key=isTrue no|
+	/re-exec first=true find="/(?<=Pokémon ).*/g" {{getvar::species}}|
+:}|
+/elseif ( 'Animal' in species ){:
+	/setvar key=isTrue no|
+	/re-exec first=true find="/(?<=Animal ).*/g" {{getvar::species}}|
+:}|
+/else {:
+	/setvar key=isTrue no|
+	/setvar key=cleanSpeciees {{getvar::species}}|
+:}|
+/setvar key=cleanSpeciees {{pipe}}|
+/getvar key=cleanSpeciees index=0 |
+/setvar key=cleanSpeciees {{pipe}}|
+
+
+/ife ( gender == 'Female'){:
+	/setvar key=prononce "she, her or hers"|
+	/setvar key=genpron her|
+	/setvar key=genpron2 She|
+:}|
+/elseif ( gender == 'Male'){:
+	/setvar key=prononce "he, him or his"|
+	/setvar key=genpron him|
+	/setvar key=genpron2 He|
+:}|
+/else {:
+	/setvar key=prononce "them, their or theirs"|
+	/setvar key=genpron {{noop}}|
+	/setvar key=genpron2 {{noop}}|
+:}|
+
+/ife ( catgen != 'Export'){:
+/ife ( (catgen == 'Scenario') and (swipe != 'Yes')){:
+	/buttons labels=["Yes", "No"] Do you want to be guided to a ok prompt?|
+	/setvar key=selected_btn {{pipe}}|
+
+	/ife ( selected_btn == ''){:
+		/echo Aborting | /:"Character Maker V4.Flushvar"|
+	:}|
+	/elseif ( selected_btn == 'Yes'){:
+		/input rows=8 Describe The setting (Where {{getvar::fname}} is, what {{getvar::genpron2}} is doing, what is going to happen during the scenario.)|
+		/setvar key=part1 {{pipe}}|
+		/ife ( part1 == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/input default="Start the scenario when" rows=8 Describe when the scenario should start.|
+		/setvar key=part2Start {{pipe}}|
+		/ife ( part2Start == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/setvar key=i 1|
+		/setvar key=selected_btn {{noop}}|
+		/setvar key=part3 []|
+		/whilee ( selected_btn != 'Done'){:
+			/ife ( i > 1 ){:
+				/buttons labels=["Done","Not Done"] Are you done?|
+				/setvar key=selected_btn {{pipe}}|
+				/ife ( selected_btn == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}
+			:}|
+			/elseif ( selected_btn != 'Done'){:
+				/input default="Part{{getvar::i}}: " "Describe what is going to happen in this part."|
+				/setvar key=selected_btn {{pipe}}|
+				/ife ( selected_btn == ''){:
+					/echo Aborting | /:"Character Maker V4.Flushvar"|
+				:}|
+				/else {:
+					/addvar key=part3 {{getvar::selected_btn}}|
+					/incvar i|
+				:}|
+			:}|
+		:}|
+		/input default="End the scenario when" rows=8 Describe when the scenario should end.|
+		/setvar key=part4End {{pipe}}|
+		/ife ( part4End == ''){:
+			/echo Aborting | /:"Character Maker V4.Flushvar"|
+		:}|
+		/setvar key=partSFix "Build the scenario like this. (Exclude the 'Part:' and make it a whole coherent reply)"|
+		/setvar key=partFix []|
+		/setvar key=selected_btn {{noop}}|
+		/whilee ( selected_btn != 'Done'){:
+			/input okButton=Add rows=8 <div>Add anything(One for each Add) that should be foccused on.</div><div>Example: {{getvar::fname}} have a blindfold on and will not be able to see.</div><div>Example: {{getvar::fname}} have a gag and will not be able to speak and will only be able to make muffled sounds.</div><div>Write 'Done' when done witout '.</div>|
+			/setvar key=selected_btn {{pipe}}|
+			/ife ( selected_btn == ''){:
+				/echo Aborting | /:"Character Maker V4.Flushvar"|
+			:}|
+			/elseif ( selected_btn != 'Done'){:
+				/addvar key=partFix {{getvar::selected_btn}}|
+			:}|
+
+		:}|
+		/setvar key=userInput "Scenario information
+{{getvar::part1}}
+
+Scenario Rules"|
+
+
+		/foreach {{getvar::partFix}} {:
+			/addvar key=userInput "
+{{var::item}}"|
+		:}|
+		/addvar key=userInput "
+
+{{getvar::partSFix}}
+
+{{getvar::part2Start}}"|
+		/foreach {{getvar::part3}} {:
+			/addvar key=userInput "
+
+{{var::item}}"|
+		:}|
+		/addvar key=userInput "
+
+{{getvar::part4End}}"|
+	:}|
+:}|
+
+/ife ( swipe != 'Yes'){:
+	/ife ( auto != 'Yes'){:
+		/setvar key=userInput {{noop}}|
+	:}|
+
+	/setvar key=tinput {{noop}}|
+	/setvar key=tinput {{input}}|
+	/ife ( tinput != ''){:
+		/setvar key=userInput {{getvar::tinput}}|
+	:}|
+	/input rows=8 default={{getvar::userInput}} Information about {{getvar::fname}} you want the generation of {{getvar::catgen}} to take into account.|
+	/setvar key=info {{pipe}}|
+	/setvar key=userInput {{getvar::info}}|
+	/ife ( info == ''){:
+		/setinput </{{getvar::genid}}>
+	:}|
+	/else {:
+		/setinput {{getvar::info}}
+	:}|
+	/sendas name="{{user}}" "{{pipe}}" |
+	/setinput {{noop}}|
+	/setvar key=id {{lastMessageId}}|
+	/setvar key=userid {{lastMessageId}}|
+	/hide {{getvar::id}}|
+	/sendas name="{{char}}" <h2 align='center'>{{getvar::catgen}}</h2>|
+:}|
+/else {:
+	/setvar key=id {{lastMessageId}}|
+	/setvar key=a1 {{noop}}|
+	/setvar key=a2 {{noop}}|
+	/setvar key=i {{lastMessageId}}|
+	/whilee ( i > 0){:
+		/messages names=on hidden=on {{getvar::i}}|
+		/setvar key=a1 {{pipe}}|
+		/ife ( 'user:' in a1){:
+			/setvar key=userid {{getvar::i}}|
+			/break|
+		:}|
+		/decvar i|
+	:}|
+
+	/messages names=off hidden=on {{getvar::userid}}|
+	/setvar key=info {{pipe}}|
+	/setvar key=userInput {{getvar::info}}|
+	/ife ( info == '</{{getvar::genid}}>'){:
+		/setvar key=info {{noop}}
+	:}|
+:}|
+
+
+/setvar key=toAnalize {{noop}}|
+/ife ( real == 'Yes') {:
+	/split {{getvar::character_files}} | /setvar key=t1 {{pipe}}|
+	/getvar key=t1 index=0 | /setvar key=t2 {{pipe}}|
+	/ife ( t2 != 'No Files'){:
+		/foreach {{getvar::t1}} {:
+			/db-get source=chat {{var::item}} | /setvar key=file {{pipe}}|
+			/setvar key=in {{var::index}}|
+			/ife ( in == 0){:
+				/addvar key=toAnalize "{{getvar::file}}"
+			:}|
+			/else {:
+				/addvar key=toAnalize "
+
+{{getvar::file}}"|
+			:}|
+		:}|
+
+	:}|
+:}|
+
+
+/setvar key=char_info {{noop}}|
+/ife ( real == 'Yes'){:
+	/split {{getvar::character_files}} | /setvar key=t1 {{pipe}}|
+	/getvar key=t1 index=0 | /setvar key=t2 {{pipe}}|
+	/ife ( t2 != 'No Files'){:
+			/addvar key=char_info "This is information about {{getvar::fname}} {{getvar::lname}} that you should use while making your reply
+'{{getvar::toAnalize}}'
+
+{{getvar::fname}} {{getvar::lname}} is from the {{getvar::media}} \"{{getvar::media_name}}\"'"|
+	:}|
+
+:}|
+
+/getentryfield file="Character Maker Combined NSFW" 27|
+/setvar key=exclude {{pipe}}|
+
+/setvar key=info "Use this information when formulating your reply: '{{getvar::info}}
+
+When talking about {{getvar::fname}} use these pronouns: {{getvar::prononce}}
+When mentioning {{user}} use user as the name.
+{{getvar::exclude}}'" |
+:}|

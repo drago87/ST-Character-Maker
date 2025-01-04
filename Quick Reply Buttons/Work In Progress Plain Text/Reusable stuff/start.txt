@@ -1,0 +1,7 @@
+/setvar key=catgen "text"|
+/setvar key=genid "x"|
+
+
+/:"Character Maker V4.Get Char info"|
+		
+Chage 'text' and 'x'
