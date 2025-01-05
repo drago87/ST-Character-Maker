@@ -6,7 +6,11 @@
 
 /:"Character Maker V4.Get Char info"|
 
-
+/buttons labels=["Yes", "No"] Want to enable quick mode?(This will not let you edit or reroll the generation.)|
+/setvar key=quickRoll {{pipe}}|
+/ife ( quickRoll == ''){:
+	/setvar key=quickRoll No|
+:}|
 
 /setvar key=genState Redo|
 /setvar key=guide {{noop}}|
@@ -66,10 +70,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this a good speach pattern for {{getvar::fname}}?|
 
-  /buttons labels={{getvar::genState}} Is this a good speach pattern for {{getvar::fname}}?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -343,10 +352,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Select the dialect you want {{getvar::fname}} to have.|
 
-  /buttons labels={{getvar::genState}} Select the dialect you want {{getvar::fname}} to have.|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -463,10 +477,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+		/buttons labels={{getvar::genState}} Is this a good reprencentation of {{getvar::fname}}'s dialect? |
 
-	/buttons labels={{getvar::genState}} Is this a good reprencentation of {{getvar::fname}}'s dialect? |
-
-	/setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -584,10 +603,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this a good Catchphrase for {{getvar::fname}}?|
 
-  /buttons labels={{getvar::genState}} Is this a good Catchphrase for {{getvar::fname}}?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -870,10 +894,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this a good description of how {{getvar::fname}} interact with others. |
 
-  /buttons labels={{getvar::genState}} Is this a good description of how {{getvar::fname}} interact with others. |
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|

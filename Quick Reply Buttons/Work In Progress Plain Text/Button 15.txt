@@ -6,7 +6,11 @@
 
 /:"Character Maker V4.Get Char info"|
 
-
+/buttons labels=["Yes", "No"] Want to enable quick mode?(This will not let you edit or reroll the generation.)|
+/setvar key=quickRoll {{pipe}}|
+/ife ( quickRoll == ''){:
+	/setvar key=quickRoll No|
+:}|
 
 /setvar key=genState Redo|
 /setvar key=guide {{noop}}|
@@ -73,10 +77,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s personality. |
 
-  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s personality. |
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -291,7 +300,7 @@
 			/setvar key=genState Redo|
 		:}|
 		/else  {:
-			/addvar key=outputList "{{getvar::b}}: {{getvar::selected_btn}}"|
+			/addvar key=outputList "{{getvar::b}} Example: {{getvar::selected_btn}}"|
 			/setvar key=guide {{noop}}|
 		:}|
 
@@ -712,10 +721,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+		/buttons labels={{getvar::genState}} Is these the tags you want to use.|
 
-	/buttons labels={{getvar::genState}} Is these the tags you want to use.|
-
-	/setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -810,6 +824,7 @@
 	/addvar key=output "
 
 
+<Start>
 {{getvar::a2}}:
 "|
 	/getvar key=a1 index=1|
@@ -817,7 +832,6 @@
 	/foreach {{getvar::a3}} {:
 		/addvar key=output "
 
-<Start>
 {{var::item}}"
 	:}|
 :}|

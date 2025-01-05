@@ -6,6 +6,12 @@
 
 /:"Character Maker V4.Get Char info"|
 
+/buttons labels=["Yes", "No"] Want to enable quick mode?(This will not let you edit or reroll the generation.)|
+/setvar key=quickRoll {{pipe}}|
+/ife ( quickRoll == ''){:
+	/setvar key=quickRoll No|
+:}|
+
 /db-get source=chat user_relation| /setvar key=user_relation {{pipe}}|
 
 //Generating Siblings|
@@ -99,6 +105,7 @@
 	/buttons labels={{getvar::genState}} Is the description of {{getvar::fname}}'s sibling good?|
 
 	/setvar key=selected_btn {{pipe}}|
+
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -295,10 +302,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+		/buttons labels={{getvar::genState}} Is this the mother you want for {{getvar::fname}}?|
 
-	/buttons labels={{getvar::genState}} Is this the mother you want for {{getvar::fname}}?|
-
-	/setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -425,7 +437,7 @@
 	/setvar key=prompt {{noop}}|
 	/setvar key=instruct {{noop}}|
 
-	//Button05-01|
+	//Button05-03|
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 198|
 	/setvar key=system {{pipe}}|
 	/getentryfield file="Character Maker Combined NSFW GenRaw" 199|
@@ -467,10 +479,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+		/buttons labels={{getvar::genState}} Is the description of {{getvar::fname}}'s father good?|
 
-	/buttons labels={{getvar::genState}} Is the description of {{getvar::fname}}'s father good?|
-
-	/setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -627,10 +644,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+		/buttons labels={{getvar::genState}} Is this the family you want for {{getvar::fname}}?|
 
-	/buttons labels={{getvar::genState}} Is this the family you want for {{getvar::fname}}?|
-
-	/setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -754,10 +776,15 @@ Family: {{getvar::family}}"|
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+		/buttons labels={{getvar::genState}} Is this the best friend you want for {{getvar::fname}}?|
 
-	/buttons labels={{getvar::genState}} Is this the best friend you want for {{getvar::fname}}?|
-
-	/setvar key=selected_btn {{pipe}} |
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -906,10 +933,15 @@ Best Friend: {{getvar::bfrend}}"|
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this the romantic interest you want for {{getvar::fname}}?|
 
-  /buttons labels={{getvar::genState}} Is this the romantic interest you want for {{getvar::fname}}?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1063,10 +1095,15 @@ Romantic Interest: {{getvar::rinterest}}"|
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s Enemy?|
 
-  /buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s Enemy?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1184,10 +1221,15 @@ Romantic Interest: {{getvar::rinterest}}"|
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s Rival?|
 
-  /buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s Rival?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1330,10 +1372,15 @@ Rivals: {{getvar::rinfo}}"|
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s sibling {{getvar::sname}}?|
 
-		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s sibling {{getvar::sname}}?|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|

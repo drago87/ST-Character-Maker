@@ -4,22 +4,22 @@
   /qr-chat-set-on visible=true Character Maker|
   /setglobalvar key=persona {{user}}|
   /wait 10|
-  /ife ( persona != 'user') {:
+  /ife ( {{getglobalvar::persona}} != 'user') {:
   	/persona mode=all user|
   :}|
   /flushvar char|
 :}|
-/elseif (  char != 'Character Maker QR'){:
+/elseif ( char != 'Character Maker QR'){:
   /echo Disabeling Quick reply buttons|
   /qr-chat-set-off Character Maker|
-  /qr-chat-set visible=false Character Maker
-:}|
-/elseif ( persona != '') {:
-  /ife ( persona != 'user') {:
-    /persona mode=all {{getglobalvar::persona}}|
+  /qr-chat-set visible=false Character Maker|
+  /if left={{getglobalvar::persona}} right=user rule=neq {:
+    /if left={{getglobalvar::persona}} right="" rule=neq {:
+      /persona mode=all {{getglobalvar::persona}}|
+    :}|
   :}|
   /flushglobalvar persona|
   /flushvar char|
-	/abort
 :}|
+
 /flushvar char|

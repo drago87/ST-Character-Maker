@@ -6,6 +6,11 @@
 
 /:"Character Maker V4.Get Char info"|
 
+/buttons labels=["Yes", "No"] Want to enable quick mode?(This will not let you edit or reroll the generation.)|
+/setvar key=quickRoll {{pipe}}|
+/ife ( quickRoll == ''){:
+	/setvar key=quickRoll No|
+:}|
 
 /setvar key=kinks []|
 /setvar key=i 0|
@@ -255,10 +260,15 @@
 			:}|
 
 			/addvar key=genState "Exclude items"|
+			/ife ( quickRoll != 'Yes'){:
+				/buttons labels={{getvar::genState}} Is this explanation good for {{getvar::fname}}?|
 
-			/buttons labels={{getvar::genState}} Is this explanation good for {{getvar::fname}}?|
-
-			/setvar key=selected_btn {{pipe}}|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
+			/else {:
+				/getvar key=genState index=0|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
 
 			/ife ( selected_btn == ''){:
 				/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -416,10 +426,15 @@
 			:}|
 
 			/addvar key=genState "Exclude items"|
+			/ife ( quickRoll != 'Yes'){:
+				/buttons labels={{getvar::genState}} Is this how {{getvar::fname}} got to know about {{getvar::k}}?|
 
-			/buttons labels={{getvar::genState}} Is this how {{getvar::fname}} got to know about {{getvar::k}}?|
-
-			/setvar key=selected_btn {{pipe}}|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
+			/else {:
+				/getvar key=genState index=0|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
 
 			/ife ( selected_btn == ''){:
 				/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -570,10 +585,15 @@
 			:}|
 
 			/addvar key=genState "Exclude items"|
+			/ife ( quickRoll != 'Yes'){:
+				/buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s first experiance good?|
 
-			/buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s first experiance good?|
-
-			/setvar key=selected_btn {{pipe}}|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
+			/else {:
+				/getvar key=genState index=0|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
 
 			/ife ( selected_btn == ''){:
 				/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -693,10 +713,15 @@
 			:}|
 
 			/addvar key=genState "Exclude items"|
+			/ife ( quickRoll != 'Yes'){:
+				/buttons labels={{getvar::genState}} Is this description of why {{getvar::fname}} likes {{getvar::k}} good?|
 
-			/buttons labels={{getvar::genState}} Is this description of why {{getvar::fname}} likes {{getvar::k}} good?|
-
-			/setvar key=selected_btn {{pipe}}|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
+			/else {:
+				/getvar key=genState index=0|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
 
 			/ife ( selected_btn == ''){:
 				/echo Aborting | /:"Character Maker V4.Flushvar"|

@@ -6,6 +6,11 @@
 
 /:"Character Maker V4.Get Char info"|
 
+/buttons labels=["Yes", "No"] Want to enable quick mode?(This will not let you edit or reroll the generation.)|
+/setvar key=quickRoll {{pipe}}|
+/ife ( quickRoll == ''){:
+	/setvar key=quickRoll No|
+:}|
 
 
 /setvar key=postrs {{noop}}|
@@ -280,7 +285,8 @@ INSTRUCTION: Only reply with a comma-seperated list or No, noting else.|
 
 		/buttons labels={{getvar::genState}} Is any of these positive traits anything you want you want for {{getvar::fname}}?|
 
-		/setvar key=selected_btn {{pipe}} |
+		/setvar key=selected_btn {{pipe}}|
+
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
 		:}|
@@ -422,10 +428,15 @@ INSTRUCTION: Only reply with a comma-seperated list or No, noting else.|
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::cat}} for {{getvar::fname}}?|
 
-		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::cat}} for {{getvar::fname}}?|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -573,6 +584,7 @@ INSTRUCTION: Only reply with a comma-seperated list or No, noting else.|
 		/buttons labels={{getvar::genState}} Is any of these negative traits something you want you want for {{getvar::fname}}?|
 
 		/setvar key=selected_btn {{pipe}}|
+
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -728,10 +740,15 @@ Negative Personality Traits: {{getvar::genState2}}"|
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this a good description of the negative trait {{getvar::cat}} for {{getvar::fname}}?|
 
-		/buttons labels={{getvar::genState}} Is this a good description of the negative trait {{getvar::cat}} for {{getvar::fname}}?|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -876,6 +893,7 @@ Negative Personality Traits: {{getvar::genState2}}"|
 		/buttons labels={{getvar::genState}} Select the Human trait you want {{getvar::fname}} to have.|
 
 		/setvar key=selected_btn {{pipe}}|
+
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1030,6 +1048,7 @@ Negative Personality Traits: {{getvar::genState2}}"|
 		/buttons labels={{getvar::genState}} Select the {{getvar::cleanSpeciees}} trait you want {{getvar::fname}} to have.|
 
 		/setvar key=selected_btn {{pipe}}|
+
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1384,6 +1403,7 @@ INSTRUCTION: colon is ':'. Only reply with a colon-seperated list or No, noting 
 
 	/setvar key=selected_btn {{pipe}}|
 
+
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
 	:}|
@@ -1588,7 +1608,8 @@ INSTRUCTION: colon is ':'. Only reply with a colon-seperated list or No, noting 
 
   /buttons labels={{getvar::genState}} Is this a Good habit you want {{getvar::fname}} to have?|
 
-  /setvar key=selected_btn {{pipe}}|
+	/setvar key=selected_btn {{pipe}}|
+
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1726,7 +1747,8 @@ INSTRUCTION: colon is ':'. Only reply with a colon-seperated list or No, noting 
 
   /buttons labels={{getvar::genState}} Is this a Bad habit you want {{getvar::fname}} to have?|
 
-  /setvar key=selected_btn {{pipe}}|
+	/setvar key=selected_btn {{pipe}}|
+
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1879,10 +1901,15 @@ INSTRUCTION: colon is ':'. Only reply with a colon-seperated list or No, noting 
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+		/buttons labels={{getvar::genState}} Is this the personality you want for {{getvar::fname}}?|
 
-	/buttons labels={{getvar::genState}} Is this the personality you want for {{getvar::fname}}?|
-
-	/setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|

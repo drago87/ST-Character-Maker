@@ -6,6 +6,14 @@
 
 /:"Character Maker V4.Get Char info"|
 
+
+/buttons labels=["Yes", "No"] Want to enable quick mode?(This will not let you edit or reroll the generation.)|
+/setvar key=quickRoll {{pipe}}|
+/ife ( quickRoll == ''){:
+	/setvar key=quickRoll No|
+:}|
+
+
 /setvar key=form {{noop}}|
 /ife ( 'TRANSFORM' in tags){:
 	/buttons labels=["Normal","Transformation"] "Do you want to make a description for {{getvar::fname}}'s normal form or the transformation?"|
@@ -170,11 +178,15 @@ INSTRUCTION: {{getvar::measurements}}Only reply with the height in numbers or No
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Select a height.|
 
-  /buttons labels={{getvar::genState}} Select a height.|
-
-  /setvar key=selected_btn {{pipe}}|
-
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
 	:}|
@@ -347,10 +359,15 @@ INSTRUCTION: {{getvar::measurements}}Only reply with the length in numbers or No
 			:}|
 
 			/addvar key=genState "Exclude items"|
+			/ife ( quickRoll != 'Yes'){:
+				/buttons labels={{getvar::genState}} Select a length from the tip of the nose to the tip of the tail.|
 
-			/buttons labels={{getvar::genState}} Select a length from the tip of the nose to the tip of the tail.|
-
-			/setvar key=selected_btn {{pipe}}|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
+			/else {:
+				/getvar key=genState index=0|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
 			/ife ( selected_btn == ''){:
 				/echo Aborting | /:"Character Maker V4.Flushvar"|
 			:}|
@@ -527,10 +544,15 @@ INSTRUCTION: {{getvar::wmeasurements}}Only reply with the height in numbers or N
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Select a weight.|
 
-  /buttons labels={{getvar::genState}} Select a weight.|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
 	:}|
@@ -815,10 +837,15 @@ Make a description of {{getvar::fname}}'s body.
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this the covering you want for {{getvar::fname}}?|
 
-		/buttons labels={{getvar::genState}} Is this the covering you want for {{getvar::fname}}?|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -937,10 +964,15 @@ Make a description of {{getvar::fname}}'s body.
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this the Skin color you want for {{getvar::fname}}?|
 
-		/buttons labels={{getvar::genState}} Is this the Skin color you want for {{getvar::fname}}?|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1221,10 +1253,15 @@ Example2: something else" rows=8 Add some examples. Press cancel if you don't ne
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
 
-		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1359,10 +1396,15 @@ Example2: something else" rows=8 Add some examples. Press cancel if you don't ne
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this description to your liking?|
 
-  /buttons labels={{getvar::genState}} Is this description to your liking?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1744,10 +1786,15 @@ Example2: something else" rows=8 Add some examples. Press cancel if you don't ne
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
 
-		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1883,10 +1930,15 @@ Example2: something else" rows=8 Add some examples. Press cancel if you don't ne
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this description to your liking?|
 
-  /buttons labels={{getvar::genState}} Is this description to your liking?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -2313,10 +2365,15 @@ Example2: something else" rows=8 Add some examples. Press cancel if you don't ne
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
 
-		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -2449,10 +2506,15 @@ Example2: something else" rows=8 Add some examples. Press cancel if you don't ne
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this description to your liking?|
 
-  /buttons labels={{getvar::genState}} Is this description to your liking?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -2660,10 +2722,15 @@ Appearance: {{getvar::l2}}"|
 			:}|
 
 			/addvar key=genState "Exclude items"|
+			/ife ( quickRoll != 'Yes'){:
+				/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
 
-			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
-
-			/setvar key=selected_btn {{pipe}}|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
+			/else {:
+				/getvar key=genState index=0|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
 
 			/ife ( selected_btn == ''){:
 				/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -2799,10 +2866,15 @@ Appearance: {{getvar::l2}}"|
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this description to your liking?|
 
-		/buttons labels={{getvar::genState}} Is this description to your liking?|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -3017,10 +3089,15 @@ Example3: {{getvar::fname}}'s hymen naturally broke while doing sports."|
 			:}|
 
 			/addvar key=genState "Exclude items"|
+			/ife ( quickRoll != 'Yes'){:
+				/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
 
-			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
-
-			/setvar key=selected_btn {{pipe}}|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
+			/else {:
+				/getvar key=genState index=0|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
 
 			/ife ( selected_btn == ''){:
 				/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -3156,10 +3233,15 @@ Example3: {{getvar::fname}}'s hymen naturally broke while doing sports."|
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this description to your liking?|
 
-		/buttons labels={{getvar::genState}} Is this description to your liking?|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -3372,10 +3454,15 @@ Appearance: {{getvar::p2}}"|
 			:}|
 
 			/addvar key=genState "Exclude items"|
+			/ife ( quickRoll != 'Yes'){:
+				/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
 
-			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
-
-			/setvar key=selected_btn {{pipe}}|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
+			/else {:
+				/getvar key=genState index=0|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
 
 			/ife ( selected_btn == ''){:
 				/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -3510,10 +3597,15 @@ Appearance: {{getvar::p2}}"|
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this description to your liking?|
 
-		/buttons labels={{getvar::genState}} Is this description to your liking?|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -3665,10 +3757,15 @@ Example2: {{getvar::fname}}'s anus struggles to fit a adult index finger."|
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
 
-		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -3804,10 +3901,15 @@ Example2: {{getvar::fname}}'s anus struggles to fit a adult index finger."|
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+		/buttons labels={{getvar::genState}} Is this description to your liking?|
 
-	/buttons labels={{getvar::genState}} Is this description to your liking?|
-
-	/setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -3963,10 +4065,15 @@ Example{{getvar::in}}: {{var::item}}"|
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this what you want the external Erogenous zones for {{getvar::fname}}?|
 
-  /buttons labels={{getvar::genState}} Is this what you want the external Erogenous zones for {{getvar::fname}}?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -4163,10 +4270,15 @@ Example{{getvar::in}}: {{var::item}}"|
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this the description you want for {{getvar::fname}}' internal Erogenous zones?|
 
-  /buttons labels={{getvar::genState}} Is this the description you want for {{getvar::fname}}' internal Erogenous zones?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|

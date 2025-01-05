@@ -6,6 +6,11 @@
 
 /:"Character Maker V4.Get Char info"|
 
+/buttons labels=["Yes", "No"] Want to enable quick mode?(This will not let you edit or reroll the generation.)|
+/setvar key=quickRoll {{pipe}}|
+/ife ( quickRoll == ''){:
+	/setvar key=quickRoll No|
+:}|
 
 /setvar key=genState Redo|
 /setvar key=guide {{noop}}|
@@ -65,10 +70,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Do you like the description of the world type?|
 
-  /buttons labels={{getvar::genState}} Do you like the description of the world type?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -186,10 +196,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Do you like the description of where {{getvar::fname}}'s lives? |
 
-  /buttons labels={{getvar::genState}} Do you like the description of where {{getvar::fname}}'s lives? |
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -308,10 +323,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Do you like the description of the home enviroment and community?|
 
-  /buttons labels={{getvar::genState}} Do you like the description of the home enviroment and community?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -435,10 +455,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s morning routines good?|
 
-  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s morning routines good?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -553,10 +578,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s {{getvar::octype}} routine good?|
 
-  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s {{getvar::octype}} routine good?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -676,10 +706,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s pre dinner routine good?|
 
-  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s pre dinner routine good?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -797,10 +832,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s after dinner routines good?|
 
-  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s after dinner routines good?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -918,10 +958,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s nightly routines good?|
 
-  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s nightly routines good?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1039,10 +1084,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s weekend routines good?|
 
-  /buttons labels={{getvar::genState}} Is this description of {{getvar::fname}}'s weekend routines good?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|

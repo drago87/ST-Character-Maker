@@ -6,6 +6,13 @@
 
 /:"Character Maker V4.Get Char info"|
 
+/buttons labels=["Yes", "No"] Want to enable quick mode?(This will not let you edit or reroll the generation.)|
+/setvar key=quickRoll {{pipe}}|
+/ife ( quickRoll == ''){:
+	/setvar key=quickRoll No|
+:}|
+
+
 /setvar key=form {{noop}}|
 /ife ( 'TRANSFORM' in tags){:
 	/buttons labels=["Normal","Transformation"] "Do you want to make a description for {{getvar::fname}}'s normal form or the transformation?"|
@@ -144,12 +151,15 @@
 			:}|
 
 			/addvar key=genState "Exclude items"|
+			/ife ( quickRoll != 'Yes'){:
+				/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
 
-			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
-
-			/setvar key=selected_btn {{pipe}}|
-
-
+				/setvar key=selected_btn {{pipe}}|
+			:}|
+			/else {:
+				/getvar key=genState index=0|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
 
 
 			/ife ( selected_btn == ''){:
@@ -327,10 +337,15 @@
 				:}|
 
 				/addvar key=genState "Exclude items"|
+				/ife ( quickRoll != 'Yes'){:
+					/buttons labels={{getvar::genState}} Is this modification to {{getvar::fname}}'s upper garments right? |
 
-				/buttons labels={{getvar::genState}} Is this modification to {{getvar::fname}}'s upper garments right? |
-
-				/setvar key=selected_btn {{pipe}}|
+					/setvar key=selected_btn {{pipe}}|
+				:}|
+				/else {:
+					/getvar key=genState index=0|
+					/setvar key=selected_btn {{pipe}}|
+				:}|
 
 				/ife ( selected_btn == ''){:
 					/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -470,10 +485,15 @@
 			:}|
 
 			/addvar key=genState "Exclude items"|
+			/ife ( quickRoll != 'Yes'){:
+				/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
 
-			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
-
-			/setvar key=selected_btn {{pipe}}|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
+			/else {:
+				/getvar key=genState index=0|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
 
 			/ife ( selected_btn == ''){:
 				/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -632,10 +652,15 @@
 				:}|
 
 				/addvar key=genState "Exclude items"|
+				/ife ( quickRoll != 'Yes'){:
+					/buttons labels={{getvar::genState}} Is this description of the modification to {{getvar::fname}}'s lower garmetns. |
 
-				/buttons labels={{getvar::genState}} Is this description of the modification to {{getvar::fname}}'s lower garmetns. |
-
-				/setvar key=selected_btn {{pipe}}|
+					/setvar key=selected_btn {{pipe}}|
+				:}|
+				/else {:
+					/getvar key=genState index=0|
+					/setvar key=selected_btn {{pipe}}|
+				:}|
 
 				/ife ( selected_btn == ''){:
 					/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -813,10 +838,15 @@
 			:}|
 
 			/addvar key=genState "Exclude items"|
+			/ife ( quickRoll != 'Yes'){:
+				/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
 
-			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::fname}}'s {{getvar::cat}}?|
-
-			/setvar key=selected_btn {{pipe}}|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
+			/else {:
+				/getvar key=genState index=0|
+				/setvar key=selected_btn {{pipe}}|
+			:}|
 
 			/ife ( selected_btn == ''){:
 				/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -966,10 +996,15 @@
 				:}|
 
 				/addvar key=genState "Exclude items"|
+				/ife ( quickRoll != 'Yes'){:
+					/buttons labels={{getvar::genState}} Is this modification to {{getvar::fname}}'s other garments ok? |
 
-				/buttons labels={{getvar::genState}} Is this modification to {{getvar::fname}}'s other garments ok? |
-
-				/setvar key=selected_btn {{pipe}}|
+					/setvar key=selected_btn {{pipe}}|
+				:}|
+				/else {:
+					/getvar key=genState index=0|
+					/setvar key=selected_btn {{pipe}}|
+				:}|
 
 				/ife ( selected_btn == ''){:
 					/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -1132,10 +1167,15 @@
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is this the gear you want {{getvar::fname}} to have?|
 
-  /buttons labels={{getvar::genState}} Is this the gear you want {{getvar::fname}} to have?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|

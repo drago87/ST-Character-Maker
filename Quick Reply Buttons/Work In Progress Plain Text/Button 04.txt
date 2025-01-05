@@ -6,6 +6,12 @@
 
 /setvar key=turelation {{noop}}|
 
+/buttons labels=["Yes", "No"] Want to enable quick mode?(This will not let you edit or reroll the generation.)|
+/setvar key=quickRoll {{pipe}}|
+/ife ( quickRoll == ''){:
+	/setvar key=quickRoll No|
+:}|
+
 /buttons labels=["Male","Female"] What gender is user?|
 /setvar key=selected_btn {{pipe}}|
 /ife ( selected_btn == ''){:
@@ -156,10 +162,15 @@
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Select the age you want the user that will interact with {{getvar::fname}}|
 
-		/buttons labels={{getvar::genState}} Select the age you want the user that will interact with {{getvar::fname}}|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -425,10 +436,15 @@ INSTRUCTION: Only reply with "coworker" or "boss" or "employee", nothing else.
 	:}|
 
 	/addvar key=genState "Exclude items"|
+	/ife ( quickRoll != 'Yes'){:
+	  /buttons labels={{getvar::genState}} Is the user's information to your liking?|
 
-  /buttons labels={{getvar::genState}} Is the user's information to your liking?|
-
-  /setvar key=selected_btn {{pipe}}|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
+	/else {:
+		/getvar key=genState index=0|
+		/setvar key=selected_btn {{pipe}}|
+	:}|
 
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|

@@ -93,7 +93,7 @@
   /wait 10|
   /re-replace replace="" find="/<h2 align='center'>Outfit/g" {{getvar::mess}}|
   /setvar key=mess {{pipe}}|
-  /re-replace replace="{{getvar::fname}}'s nude" find="/<h2 align='center'>/g" {{getvar::mess}}|
+  /re-replace replace="{{getvar::fname}}'s nude " find="/<h2 align='center'>/g" {{getvar::mess}}|
   /setvar key=mess {{pipe}}|
   /re-replace replace="" find="/<\/h2>/g" {{getvar::mess}}|
   /setvar key=mess {{pipe}}|
@@ -154,13 +154,13 @@ INSTRUCTION: Never have {{getvar::fname}}'s name in the reply. Keep the reply to
       /re-replace find="/Outfit:\s/g" replace="" {{getvar::outfitLook1}}|
       /addvar key=trigger1 {{pipe}}|
 
-      /buttons labels=["Leasure", "{{getvar::octype}}", "Other"] What thype is the {{getvar::outfitLook1}} considerd?|
+      /buttons labels=["Leisure", "{{getvar::octype}}", "Other"] What thype is the {{getvar::outfitLook1}} considerd?|
       /setvar key=selected_btn  {{pipe}}|
       /ife ( selected_btn == ''){:
     		/echo Aborting | /:"Character Maker V4.Flushvar"|
     	:}|
       /elseif ( selected_btn == 'Other') {:
-        /input rows=8 What is the type of outfit considered if not Leasure or {{getvar::octype}}?
+        /input rows=8 What is the type of outfit considered if not Leisure or {{getvar::octype}}?
         /setvar key=selected_btn  {{pipe}}|
         /ife ( selected_btn == ''){:
       		/echo Aborting | /:"Character Maker V4.Flushvar"|
@@ -179,7 +179,9 @@ EXAMPLES: 'Gear: Swimming', 'Gear: Office', 'Gear: Climbing'
 INSTRUCTION: Start the reply with 'Gear: ' then the overall Category name. Reply with only the overall Category name of the gear and nothing else.|
       /setvar key=outfitLook2 {{pipe}}|
       /re-replace find="/Gear:\s/g" replace="" {{getvar::outfitLook2}}|
-      /addvar key=trigger2 {{pipe}}|
+      /setvar key=outfitLook2Clean {{pipe}}
+      /addvar key=trigger2 {{getvar::outfitLook2Clean}}|
+      /addvar key=outfitLook2Clean , {{getvar::outfitLook1Clean}}|
       /addvar key=trigger2 {{getvar::outfitLook1Clean}}|
       /setvar key=a1 {{noop}}|
       /genraw Using the message '{{getvar::mess1}}', extract a list of specific clothing items. Follow these rules:
@@ -302,7 +304,7 @@ Output: "Helmet, Rope, Carabiner"|
       /setvar key=mess2 {{pipe}}|
 
       /setvar key=mess1 {{getvar::fname}}'s {{getvar::outfitLook1Clean}} {{getvar::mess1}}|
-      /setvar key=mess2 {{getvar::fname}}'s {{getvar::outfitLook1Clean}} Gear{{newline}}{{getvar::mess2}}|
+      /setvar key=mess2 {{getvar::fname}}'s {{getvar::outfitLook2Clean}} Gear{{newline}}{{getvar::mess2}}|
       /wait 1000|
       /len {{getvar::outfit}}| /setvar key=len {{pipe}}|
       /createentry file={{getvar::wiBook}} key={{getvar::triggers1}} {{getvar::mess1}}|
