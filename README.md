@@ -45,7 +45,7 @@ Is a Lorebook with the Local LLM models i have tested and what setting i have us
 <h4 align='center'><div>V6.1.2 - Beta</div></h4>
 Added a quick generate option
 
-Update
+<h4 align='center'><div>Update</div></h4>
 [Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
 
 <h4 align='center'><div>V6.1.1 - Beta</div></h4>
@@ -97,12 +97,15 @@ get info changed to save the id of the last user message.
 
 flushvar change to not remove the id of the last user message.
 
-Update
+<h4 align='center'><div>Update</div></h4>
+
 [Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
+
 [GenRaw Lorebook](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW%20GenRaw.json)
 
 <h4 align='center'><div>V6.0.8 - Beta</div></h4>
 Updated the github with a Guide
+
 [Installation Guide](https://github.com/drago87/ST-Character-Maker/wiki)
 
 <h4 align='center'><div>V6.0.7 - Beta</div></h4>
@@ -140,9 +143,12 @@ Added Friend to user generation.
 
 Fixed spelling mistakes.
 
-Update
+<h4 align='center'><div>Update</div></h4>
+
 [Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
+
 [GenRaw Lorebook](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW%20GenRaw.json)
+
 [Character Maker Lorebook](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json)
 
 <h4 align='center'><div>V6.0.7 - Beta</div></h4>
@@ -180,9 +186,12 @@ Added Friend to user generation.
 
 Fixed spelling mistakes.
 
-Update
+<h4 align='center'><div>Update</div></h4>
+
 [Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
+
 [GenRaw Lorebook](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW%20GenRaw.json)
+
 [Character Maker Lorebook](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json)
 
 <h4 align='center'><div>V6.0.5 - Beta</div></h4>
@@ -190,7 +199,8 @@ When editing a reply i have change the cancel to redo the reply instead of stopp
 Fixed error in Genres
 Fixed Full Name input
 
-Update
+<h4 align='center'><div>Update</div></h4>
+
 [Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
 
 <h4 align='center'><div>V6.0.4 - Beta</div></h4>
@@ -199,7 +209,9 @@ It will ask if you want to enable debug mode when making a new character.
 If debug mode is enabled it will let you see and edit what is passed to each /genraw.
 When copying rules you will be able to see and edit them in debug mode.
 When making a scenario debug mode lets you see and edit the prompt that is sent to the continue function.
-Update
+
+<h4 align='center'><div>Update</div></h4>
+
 [Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
 
 <h4 align='center'><div>V6.0.3 - Beta</div></h4>
@@ -234,15 +246,21 @@ Updated Choice
 
 To the new LALib version
 
-Update
+<h4 align='center'><div>Update</div></h4>
+
 [GenRaw Lorebook](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW%20GenRaw.json)
+
 [Character Maker Lorebook](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json)
+
 [Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
+
 [Character Maker QR](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker.json)
 
 <h4 align='center'><div>V6.0.2 - Beta</div></h4>
 Fixed wrong check in Basic Information.
-Update
+
+<h4 align='center'><div>Update</div></h4>
+
 [Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
 
 <h4 align='center'><div>V6.0.1 - Beta<h4 align='center'><div>
@@ -255,8 +273,10 @@ Fixed ethnicity in information
 Fixed missed :}| in last_name breaking rerolling
 Fixed sub_species not saving giving a warning.
 
-Update
+<h4 align='center'><div>Update</div></h4>
+
 [Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
+
 [Character Maker QR](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker.json)
  
 <h4 align='center'><div>V6.0.0 - Beta</div></h4>
@@ -289,8 +309,13 @@ Moved the order of generation.
 Added guidance for 'Additional Notes' (Letting you prevent specific things from generating or pushing the generation towards specific things)
 Moved general exclusion from "Get Char Info" to Lorebook.
 Fixed minor typos and stuff
-Redownload 
+
+<h4 align='center'><div>Update</div></h4>
+
 [GenRaw Lorebook](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW%20GenRaw.json)
+
 [Character Maker Lorebook](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json)
+
 [Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
+
 [Character Maker QR](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker.json)
