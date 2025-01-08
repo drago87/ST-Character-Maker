@@ -6,6 +6,21 @@
 
 /:"Character Maker V4.Get Char info"|
 
+
+/setvar key=eAge {{noop}}|
+/setvar key=eApperance {{noop}}|
+/setvar key=efName {{noop}}|
+/setvar key=eGender {{noop}}|
+/setvar key=eGoal {{noop}}|
+/setvar key=ePersona {{noop}}|
+/setvar key=eRel {{noop}}|
+/setvar key=eRules []|
+/setvar key=eSpecies {{noop}}|
+/setvar key=eType {{noop}}|
+/setvar key=eTypeEx {{noop}}|
+/setvar key=eAgeInfo {{noop}}|
+
+
 /split {{getvar::tags}}|
 /setvar key=ta {{pipe}}|
 /getvar key=ta index=0|
@@ -51,14 +66,17 @@
 
 /buttons labels=["Yes", "No"] Want to give the extra character's name yourself?|
 /setvar key=selected_btn {{pipe}}|
-/ife ( selected_btn == 'Yes') {:
+/ife ( selected_btn == ''){:
+	/echo Aborting | /:"Character Maker V4.Flushvar"|
+:}|
+/elseif ( selected_btn == 'Yes') {:
 	/input rows=8 What is the name of the character?|
 	/setvar key=selected_btn {{pipe}}|
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
 	:}|
 :}|
-/else {:
+/elseif ( selected_btn == 'No') {:
 	/setvar key=genState Redo|
 	/setvar key=guide {{noop}}|
 	/setvar key=tskip {{noop}}|
@@ -195,9 +213,12 @@
 	/echo Aborting | /:"Character Maker V4.Flushvar"|
 :}|
 /elseif ( eAge is number) {:
-	/setvar key=eAge {{getvar::eAge}}yo|
+	/addvar key=eAge yo|
 :}|
-
+/ife ( eSpecies != Human ) {:
+	/buttons labels=["Infant", "Juvenile", "Adolescent", "Adult", "Middle-aged", "Old"] For a {{getvar::eSpecies}}, {{getvar::eAge}} is considered?|
+	/setvar key=eAgeInfo {{getvar::efName}} is considered to be a {{pipe}} {{getvar::eSpecies}}.|
+:}|
 
 //Appearance|
 /setvar key=genState Redo|
@@ -206,7 +227,7 @@
 
 /setvar key=apextra {{noop}}|
 /ife ( ta == 'NSFW' ) {:
-	/setvar key=apextra " Include a description of {{getvar::efName}}'s genitalia."|
+	/setvar key=apextra " End the reply with a detail description of how {{getvar::efName}}'s genitalia looks."|
 :}|
 
 /while left=genState right=Redo rule=eq {:
@@ -475,14 +496,17 @@
 //Goal|
 /buttons labels=["Yes", "No"] Want to give {{getvar::efName}} a goal yourself?|
 /setvar key=selected_btn {{pipe}}|
-/ife ( selected_btn == 'Yes') {:
+/ife ( selected_btn == ''){:
+	/echo Aborting | /:"Character Maker V4.Flushvar"|
+:}|
+/elseif ( selected_btn == 'Yes') {:
 	/input row=8 What is the goal of {{getvar::efName}}|
 	/setvar key=selected_btn {{pipe}}|
 	/ife ( selected_btn == ''){:
 		/echo Aborting | /:"Character Maker V4.Flushvar"|
 	:}|
 :}|
-/else {:
+/elseif ( selected_btn == 'No') {:
 	/setvar key=genState Redo|
 	/setvar key=guide {{noop}}|
 	/setvar key=tskip {{noop}}|
@@ -637,9 +661,7 @@ Information about {{getvar::efName}}
 
 {{getvar::efName}}'s name is {{getvar::efName}}
 
-{{getvar::efName}} is a {{getvar::eAge}}{{getvar::eSpecies}}
-
-{{getvar::efName}} is a "|
+{{getvar::efName}} is a {{getvar::eAge}} {{getvar::eGender}} "|
 
 /ife ( eType == 'Human') {:
 	/addvar key=output {{getvar::eSpecies}}|
@@ -649,6 +671,12 @@ Information about {{getvar::efName}}
 :}|
 /else {:
 	/addvar key=output {{getvar::eType}}  {{getvar::eSpecies}}|
+:}|
+
+/ife ( eType != 'Human') {:
+	/addvar key=output "
+
+{{getvar::eAgeInfo}}"|
 :}|
 
 /addvar key=output "
