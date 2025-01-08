@@ -42,6 +42,21 @@ Is a Lorebook with the Local LLM models i have tested and what setting i have us
 
 <h4 align='center'><div>Version history</div></h4>
 
+<h4 align='center'><div>V6.1.3 - Beta</div></h4>
+Added a explanation on variables that can be used during generation
+
+Added new Generation option. Extra character that will be exported as a Lorebook entry.
+
+<h4 align='center'><div>Update</div></h4>
+
+[Variables Lorebook](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW%20Variables.json)
+
+[Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
+
+[Character Maker QR](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker.json)
+
+[GenRaw Lorebook](https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW%20GenRaw.json)
+
 <h4 align='center'><div>V6.1.2 - Beta</div></h4>
 Added a quick generate option
 
