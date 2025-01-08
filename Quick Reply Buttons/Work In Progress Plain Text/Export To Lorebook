@@ -132,18 +132,16 @@
       /setvar key=index1 {{pipe}}|
       /setvar key=i2 {{getvar::i}}|
       /incvar i2|
-  		/unhide {{getvar::i}}|
-  		/unhide {{getvar::i2}}|
       /addvar key=outfit {{getvar::i}}|
 
       /setvar key=trigger1 []|
       /setvar key=temptrigger1 {{noop}}|
-      /messages names=off names=off {{getvar::i}}|
+      /messages hidden=on names=off {{getvar::i}}|
       /setvar key=mess1 {{pipe}}|
 
       /setvar key=trigger2 []|
       /setvar key=temptrigger2 {{noop}}|
-      /messages names=off {{getvar::i2}}|
+      /messages hidden=on names=off {{getvar::i2}}|
       /setvar key=mess2 {{pipe}}|
 
       /setvar key=outfitLook1 {{noop}}|
@@ -343,10 +341,9 @@ Output: "Helmet, Rope, Carabiner"|
 	/setvar key=mess {{pipe}}|
 	/ife ( entryName in mess){:
     /ife ( 'Character Rules' not in mess){:
-  		/unhide {{getvar::i}}|
       /setvar key=trigger []|
       /setvar key=temptrigger {{noop}}|
-      /messages names=off {{getvar::i}}|
+      /messages hidden=on names=off {{getvar::i}}|
       /setvar key=mess {{pipe}}|
 
       /genraw Using this message '{{getvar::mess}}' identify the name of the kink.
@@ -417,10 +414,9 @@ INSTRUCTION: Never include anything inside '()', Only reply with a comma-separat
 	/setvar key=mess {{pipe}}|
 	/ife ( entryName in mess){:
     /ife ( 'Character Rules' not in mess){:
-  		/unhide {{getvar::i}}|
       /setvar key=trigger []|
       /setvar key=temptrigger {{noop}}|
-      /messages names=off {{getvar::i}}|
+      /messages hidden=on names=off {{getvar::i}}|
       /setvar key=mess {{pipe}}|
 
       /genraw Using this message '{{getvar::mess}}' identify the name of the kink.
@@ -546,6 +542,69 @@ INSTRUCTION: Only reply with Sister or Brother, nothing else.|
       /createentry file={{getvar::wiBook}} key={{getvar::triggers}} {{getvar::mess}}|
       /setvar key=uid {{pipe}}|
       /setentryfield file="{{getvar::wiBook}}" uid={{getvar::uid}} field=comment "Sibling: {{getvar::sName}}"|
+
+		:}|
+	:}|
+	/incvar i|
+:}|
+
+/setvar key=entryName <h2 align='center'>Extra Character</h2>|
+/echo Processing: Siblings|
+/setvar key=i 0|
+/setvar key=x {{lastMessageId}}|
+/whilee ( i <= x ){:
+	/messages hidden=on {{getvar::i}}|
+	/setvar key=mess {{pipe}}|
+	/ife ( entryName in mess){:
+    /ife ( 'Character Rules' not in mess){:
+      /re-replace find="/<h2 align='center'>/g" replace="" {{getvar::entryName}}|
+      /setvar key=entryName {{pipe}}|
+      /re-replace find="/<\/h2>/g" replace="" {{getvar::entryName}}|
+      /setvar key=entryName {{pipe}}|
+      /setvar key=trigger []|
+      /setvar key=temptrigger {{noop}}|
+      /messages hidden=on names=off {{getvar::i}}|
+      /setvar key=mess {{pipe}}|
+
+      /genraw Using this message '{{getvar::mess}}' identify the name of the character that is not {{getvar::fname}}.
+INSTRUCTION: Reply with only the name of the character and nothing else.|
+      /setvar key=cName {{pipe}}|
+      /re-replace replace="" find="/ \(.*/g" {{getvar::cName}}|
+      /setvar key=cName {{pipe}}|
+      /addvar key=trigger {{pipe}}|
+      /genraw in this message '{{getvar::mess}}' identify {{getvar::cName}} relation to {{getvar::fname}}.
+INSTRUCTION: The reply should only be one or two tokens. Only reply with the relation, nothing else.|
+      /setvar key=cRel {{pipe}}|
+      /addvar key=trigger {{getvar::cRel}}|
+
+
+      /setvar key=triggers {{noop}}|
+      /foreach {{getvar::trigger}} {:
+      	/setvar key=it1 {{var::item}}|
+      	/setvar key=in {{var::index}}|
+      	/ife ( in == 0){:
+          /addvar key=triggers {{getvar::it1}}|
+        :}|
+        /else {:
+          /addvar key=triggers ", {{getvar::it1}}"|
+        :}|
+
+      :}|
+
+      /re-replace replace="" find="/<h2 align='center'>Extra Character<\/h2>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="" find="/<h2 align='center'>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="" find="/<\/h2>/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /re-replace replace="" find="/^-\s/g" {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /trim {{getvar::mess}}|
+      /setvar key=mess {{pipe}}|
+      /wait 1000|
+      /createentry file={{getvar::wiBook}} key={{getvar::triggers}} {{getvar::mess}}|
+      /setvar key=uid {{pipe}}|
+      /setentryfield file="{{getvar::wiBook}}" uid={{getvar::uid}} field=comment "{{getvar::cName}}'s information"|
 
 		:}|
 	:}|

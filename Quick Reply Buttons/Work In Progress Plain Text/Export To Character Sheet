@@ -306,7 +306,7 @@
 //Make Character Description|
 
 
-/setvar key=Description "You are {{getvar::fname}} and will roleplay as {{getvar::genpron}}.
+/setvar key=Description "You are {{getvar::fname}} and will roleplay as {{getvar::genpron1S}}.
 You will never speak, act or make choices as user."|
 /messages names=off hidden=on 0|
 /setvar key=mess {{pipe}}|

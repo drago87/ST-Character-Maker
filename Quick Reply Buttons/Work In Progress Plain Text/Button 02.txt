@@ -53,7 +53,7 @@
 :}|
 
 /ife ( type != 'None'){:
-	/setvar key=typef "{{getvar::fname}}'s genetalia is {{getvar::type}} in form."
+	/setvar key=typef "{{getvar::fname}}'s genitalia is {{getvar::type}} in form."
 :}|
 /else {:
 	/setvar key=typef {{noop}}
@@ -658,7 +658,7 @@ INSTRUCTION: {{getvar::wmeasurements}}Only reply with the height in numbers or N
 	/setvar key=overall {{noop}}|
 	/whilee ( overall == ''){:
 		/ife ( 'Animal' not in species) {:
-			/genraw {{getvar::fname}} is a {{getvar::species}}. Describe in detail {{getvar::genpron}} covering(This is the {{getvar::coverType}} of {{getvar::fname}}).
+			/genraw {{getvar::fname}} is a {{getvar::species}}. Describe in detail {{getvar::genpron1S}} covering(This is the {{getvar::coverType}} of {{getvar::fname}}).
 Describe what parts of {{getvar::fname}} is covered in {{getvar::coverType}}.
 Describe what parts are what color.
 Have user included a color scheme?
@@ -671,7 +671,7 @@ INSTRUCTION: The reply should be neutral. The reply should foccus on {{getvar::f
 			/setvar key=t {{pipe}}|
 		:}|
 		/else {:
-			/genraw {{getvar::fname}} is a {{getvar::cleanSpeciees}}. Describe in detail {{getvar::genpron}} covering(This is the {{getvar::coverType}} of {{getvar::fname}}).
+			/genraw {{getvar::fname}} is a {{getvar::cleanSpeciees}}. Describe in detail {{getvar::genpron1S}} covering(This is the {{getvar::coverType}} of {{getvar::fname}}).
 Describe what parts of {{getvar::fname}} is covered in {{getvar::coverType}}.
 Describe what parts are what color.
 Have user included a color scheme?
@@ -1074,7 +1074,7 @@ Example2: {{getvar::fname}}'s pink hair is put up in a neat braid."|
 		/addvar key=input "Horns(This is {{getvar::cleanSpeciees}}'s horns or things like that on the head.)"|
 		/addvar key=outputLenght "Reply with less then three sentences"|
 		/addvar key=outputExamples Example1: {{getvar::fname}}'s horns are pointing strait up ending in a sharp tip.
-Example2: {{getvar::fname}}'s rainbow colored horn is in the middle of {{getvar::genpron}} forehead and is ending in a sharp tip.|
+Example2: {{getvar::fname}}'s rainbow colored horn is in the middle of {{getvar::genpron1S}} forehead and is ending in a sharp tip.|
 		/ife ( extra1 !=''){:
 			/setvar key=extra1 ", Horns"|
 		:}|
@@ -1477,9 +1477,9 @@ Appearance: {{getvar::p2}}"|
 /setvar key=outputExamples []|
 
 /addvar key=input "Body Type(This is {{getvar::fname}}'s body type.)"|
-/addvar key=outputLenght "Reply with a short sentence that describes {{getvar::genpron}} body type"|
+/addvar key=outputLenght "Reply with a short sentence that describes {{getvar::genpron1S}} body type"|
 /addvar key=outputExamples "Example1: {{getvar::fname}} body is petite but athletically built.
-Example2: {{getvar::fname}} is Curvaceous yet lean, with strong musculature that hints at {{getvar::genpron}} agility and prowess.
+Example2: {{getvar::fname}} is Curvaceous yet lean, with strong musculature that hints at {{getvar::genpron1S}} agility and prowess.
 Example3: {{getvar::fname}}'s body is well trained.
 Example4: {{getvar::fname}} is small and slender for her age."|
 
@@ -3988,8 +3988,8 @@ Appearance: {{getvar::a2}}"|
 
 :}|
 /ife ( type != 'Human'){:
-	/addvar key=oe "{{getvar::fname}} is sensitive at the base of {{getvar::genpron}} tail."|
-	/addvar key=oe "{{getvar::fname}} is sensitive behind {{getvar::genpron}} ears."|
+	/addvar key=oe "{{getvar::fname}} is sensitive at the base of {{getvar::genpron1S}} tail."|
+	/addvar key=oe "{{getvar::fname}} is sensitive behind {{getvar::genpron1S}} ears."|
 :}|
 
 /foreach {{getvar::oe}} {:

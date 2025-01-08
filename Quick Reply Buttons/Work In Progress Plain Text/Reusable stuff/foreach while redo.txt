@@ -65,10 +65,15 @@
 		:}|
 
 		/addvar key=genState "Exclude items"|
+		/ife ( quickRoll != 'Yes'){:
+			/buttons labels={{getvar::genState}} Is this a good description of {{getvar::cat}} for {{getvar::fname}}?|
 
-		/buttons labels={{getvar::genState}} Is this a good description of {{getvar::cat}} for {{getvar::fname}}?|
-
-		/setvar key=selected_btn {{pipe}}|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
+		/else {:
+			/getvar key=genState index=0|
+			/setvar key=selected_btn {{pipe}}|
+		:}|
 
 		/ife ( selected_btn == ''){:
 			/echo Aborting | /:"Character Maker V4.Flushvar"|

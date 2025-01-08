@@ -111,7 +111,9 @@
 	/addvar key=labels "15. Generate Extras"|
 :}|
 
-/addvar key=labels "16. Generate Scenario"|
+/addvar key=labels "16. Generate Extra Character"|
+
+/addvar key=labels "17. Generate Scenario"|
 
 
 /buttons labels=labels What do you want to do?|

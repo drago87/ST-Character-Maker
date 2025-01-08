@@ -62,7 +62,10 @@
 /elseif ( 'Extras' in d){:
 	/:"Character Maker V4.15. Generate Extras"
 :}|
+/elseif ( 'Extra Character' in d){:
+	/:"Character Maker V4.16. Generate Extra Character"
+:}|
 /elseif ( 'Scenario' in d){:
-	/:"Character Maker V4.16. Generate Scenario"
+	/:"Character Maker V4.17. Generate Scenario"
 :}|
 /:"Character Maker V4.Flushvar"

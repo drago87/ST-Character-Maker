@@ -12,8 +12,6 @@
 	/setvar key=quickRoll No|
 :}|
 
-/db-get source=chat user_relation| /setvar key=user_relation {{pipe}}|
-
 //Generating Siblings|
 /setvar key=siblings []|
 /setvar key=outputList []|
