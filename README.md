@@ -296,6 +296,7 @@ Fixed sub_species not saving giving a warning.
 [Character Maker QR](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker.json)
  
 <h4 align='center'><div>V6.0.0 - Beta</div></h4>
+
 These are the ones that have been updated to the new LALib version:
 '
 New Chat and Set Character Gender and Type
