@@ -54,7 +54,7 @@
 /db-get source=chat occupation| /setvar key=occupation {{pipe}}|
 /db-get source=chat real| /setvar key=real {{pipe}}|
 /db-get source=chat character_files| /setvar key=character_files {{pipe}}|
-/db-get source=chat media| /setvar key=media {{pipe}}|
+/db-get source=chat media_type| /setvar key=media {{pipe}}|
 /db-get source=chat media_name| /setvar key=media_name {{pipe}}|
 /db-get source=chat normal_form| /setvar key=normal_form {{pipe}}|
 /db-get source=chat transformation| /setvar key=transformation {{pipe}}|

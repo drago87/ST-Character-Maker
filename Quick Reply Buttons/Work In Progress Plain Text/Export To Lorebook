@@ -364,6 +364,7 @@ INSTRUCTION: Never include anything inside '()', Only reply with a comma-separat
 
       /addvar key=trigger Kink|
       /addvar key=trigger Known Kink|
+      /addvar key=trigger Information about {{getvar::fname}}|
 
       /setvar key=triggers {{noop}}|
       /foreach {{getvar::trigger}} {:
@@ -437,6 +438,7 @@ INSTRUCTION: Never include anything inside '()', Only reply with a comma-separat
 
       /addvar key=trigger Kink|
       /addvar key=trigger Latent Kink|
+      /addvar key=trigger Information about {{getvar::fname}}|
 
       /setvar key=triggers {{noop}}|
       /foreach {{getvar::trigger}} {:
