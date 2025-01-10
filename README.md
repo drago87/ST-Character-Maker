@@ -61,6 +61,7 @@ Added new Generation option. Extra character that will be exported as a Lorebook
 Added a quick generate option
 
 <h4 align='center'><div>Update</div></h4>
+
 [Character Maker v4](https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json)
 
 <h4 align='center'><div>V6.1.1 - Beta</div></h4>
