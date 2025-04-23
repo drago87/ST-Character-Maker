@@ -7,7 +7,7 @@
     "mes_example": "--Example_Dial--",
     "creatorcomment": "--Creator_Notes--",
     "avatar": "none",
-    "chat": "CharName - 2024-12-28 @02h 08m 22s 799ms",
+    "chat": "--CharName-- - {\{datetimeformat YYYY-MM-DD @HH\h mm\m ss\s}}",
     "talkativeness": "0.5",
     "fav": false,
     "tags": [
@@ -49,5 +49,5 @@
         },
         "group_only_greetings": []
     },
-    "create_date": "2024-12-28 @02h 08m 22s 979ms"
+    "create_date": "{\{datetimeformat YYYY-MM-DD @HH\h mm\m ss\s}}"
 }
