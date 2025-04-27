@@ -1,4 +1,3 @@
-
 /extension-exists SillyTavern-LALib | /var key=lalib {{pipe}}|
 /if else={: /popup <div>The Extension <a href="https://github.com/LenAnderson/SillyTavern-LALib">LALib</a> is needed for this to work.</div><div>To install it press the <i class="fa-solid fa-cubes"></i> button.</div><div> Then press the "<i class="fa-solid fa-cloud-arrow-down"></i> Install extension" button and paste the LALib github URL into the text box.</div>:} left=lalib right=true rule=eq {:
 	/extension-state SillyTavern-LALib | /var key=laliben {{pipe}}|
