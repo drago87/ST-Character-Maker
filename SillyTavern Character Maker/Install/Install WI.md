@@ -3,78 +3,73 @@
 //---------|
 
 /ife ( 'CMC Clothes' not in lorebookList) {:
-  /getchatbook name="CMC Clothes"|
-  /let key=wi_clothes {{pipe}}|
-  /createentry file={{var::wi_clothes}} key="Female Underwear Top" Bare: Bra: Sports Bra: Bralette: Camisole: Crop Top: Training Bra|
-  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-  /createentry file={{var::wi_clothes}} key="Female Underwear Bottom" Bare: Panties: Bloomer: Thong: Bikini: Briefs: Boyshorts: Hipster|
-  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-  /createentry file={{var::wi_clothes}} key="Female Clothes Top" Bare: Shirt: Blouse: T-Shirt: Tank Top: Crop Top: Sweater: Hoodie: Cardigan: Camisole: Tunic: Button-Up Shirt: Bikini Top|
-  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-  /createentry file={{var::wi_clothes}} key="Female Clothes Bottom" Bare: Skirt: Skirt: Pants: Jeans: Leggings: Shorts: Culottes: Trousers: Capris: Joggers: Palazzo Pants: Bikini Bottom|
-  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-  /createentry file={{var::wi_clothes}} key="Female Clothes Extra" Pantyhose: Thigh Highs|
-  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-  /createentry file={{var::wi_clothes}} key="Female Clothes One-Piece" Bare: Dress: One-Piece Swimsuit|
-  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-  /createentry file={{var::wi_clothes}} key="Male Underwear Bottom" Bare: Boxers: Briefs: Boxer Briefs: Trunks: Jockstraps|
-  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-  /createentry file={{var::wi_clothes}} key="Male Clothes Top" Bare: Shirt: Sweater|
-  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-  /createentry file={{var::wi_clothes}} key="Male Clothes Bottom" Bare: Pants: Shorts|
-  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-  /createentry file={{var::wi_clothes}} key="Clothes Socks" Barefoot: Ankle Socks: Normal Socks: Knee Socks|
-  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-  /createentry file={{var::wi_clothes}} key="Clothes Hat" Bare: Cuffed Beanie: Peaked Cap|
-  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/echo Creating Lorebook "CMC Clothes"|
+	/getchatbook name="CMC Clothes"|
+	/let key=wi_clothes {{pipe}}|
+	/createentry file={{var::wi_clothes}} key="Female Underwear Top" Bare: Bra: Sports Bra: Bralette: Camisole: Crop Top: Training Bra|
+	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_clothes}} key="Female Underwear Bottom" Bare: Panties: Bloomer: Thong: Bikini: Briefs: Boyshorts: Hipster|
+	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_clothes}} key="Female Clothes Top" Bare: Shirt: Blouse: T-Shirt: Tank Top: Crop Top: Sweater: Hoodie: Cardigan: Camisole: Tunic: Button-Up Shirt: Bikini Top|
+	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_clothes}} key="Female Clothes Bottom" Bare: Skirt: Skirt: Pants: Jeans: Leggings: Shorts: Culottes: Trousers: Capris: Joggers: Palazzo Pants: Bikini Bottom|
+	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_clothes}} key="Female Clothes Extra" Pantyhose: Thigh Highs|
+	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_clothes}} key="Female Clothes One-Piece" Bare: Dress: One-Piece Swimsuit|
+	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_clothes}} key="Male Underwear Bottom" Bare: Boxers: Briefs: Boxer Briefs: Trunks: Jockstraps|
+	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_clothes}} key="Male Clothes Top" Bare: Shirt: Sweater|
+	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_clothes}} key="Male Clothes Bottom" Bare: Pants: Shorts|
+	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_clothes}} key="Clothes Socks" Barefoot: Ankle Socks: Normal Socks: Knee Socks|
+	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_clothes}} key="Clothes Hat" Bare: Cuffed Beanie: Peaked Cap|
+	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
 :}|
 //---------|
 
 //---------|
 
 /ife ( 'CMC Appearance' not in lorebookList) {:
+	/echo Creating Lorebook "CMC Appearance"|
 	/getchatbook name="CMC Appearance"|
 	/let key=wi_appearance|
 	/createentry file={{var::wi_appearance}} key="Female Hairstyle" Single Braid: Pixie Cut|
-	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
 	/createentry file={{var::wi_appearance}} key="Female Brest Size" Flat: Small: Medium: Large: Huge|
-	/setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
 	/createentry file={{var::wi_appearance}} key="Female Pussy Type" Curved outer lips (The outer lips have a curved magnet-like shape, meeting at the bottom. This shape will create a window in the middle revealing the inner lips.): Prominent inner lips (The inner lips are larger than the outer lips.): Prominent outer lips (The outer lips are larger than the inner lips. They tend to sit lower on the vulva and may extend beyond underwear. Both full and puffy outer lips, as well as thin and loose outer lips, can fit into this category.): Long, dangling inner lips (The inner lips are longer than the outer lips and seem to dangle from the vulva. These inner lips can be an inch long or longer, or they may look like there's extra skin or folds.): Long, dangling outer lips (The outer lips are longer than the inner lips. This is a form of prominent outer lips, though this structure, in particular, tends to involve thinner or looser outer lips that may extend beyond underwear.): Small, closed lips (In some vulvas, "the labia majora and the labia minora blend together so it's not really like two sets of lips; it's more like one,". While they are technically two separate parts, the outer lips are closed so that they conceal the inner lips.): Small, open lips (With this type of vulva, the outer lips are small, but they're set farther apart making them appear slightly open.): Visible inner lips (The outer lips appear curved or pulled outward, leaving almost a window for the inner lips to peek through.)|
-	  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-	  /createentry file={{var::wi_appearance}} key="Male Penis Size Flaccid" Small: Medium: Large: Huge|
-	  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-	  /createentry file={{var::wi_appearance}} key="Male Penis Size Erect" Small: Medium: Large: Huge|
-	  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-	  /createentry file={{var::wi_appearance}} key="Male Hairstyle" Buzzcut|
-	  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-	  /createentry file={{var::wi_appearance}} key="Butt Size" Small: Medium: Large: Huge|
-	  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-	  /createentry file={{var::wi_appearance}} key="Hair Color" Black: Brown: Blond: Red|
-	  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-	  /createentry file={{var::wi_appearance}} key="Hair Length" Bald: Short: Medium: Long|
-	  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-	  /createentry file={{var::wi_appearance}} key="Skin Color" Creamy: White: Brown|
-	  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-	  /createentry file={{var::wi_appearance}} key="Iris Color" Green: Blue: Brown|
-	  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
-	  /createentry file={{var::wi_appearance}} key="Sclera Color" White: Red: Green: Blue: Brown|
-	  /setentryfield file={{var::wi_clothes}} uid={{pipe}} field=key {{noop}}|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_appearance}} key="Male Penis Size Flaccid" Small: Medium: Large: Huge|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_appearance}} key="Male Penis Size Erect" Small: Medium: Large: Huge|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_appearance}} key="Male Hairstyle" Buzzcut|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_appearance}} key="Butt Size" Small: Medium: Large: Huge|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_appearance}} key="Hair Color" Black: Brown: Blond: Red|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_appearance}} key="Hair Length" Bald: Short: Medium: Long|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_appearance}} key="Skin Color" Creamy: White: Brown|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_appearance}} key="Iris Color" Green: Blue: Brown|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
+	/createentry file={{var::wi_appearance}} key="Sclera Color" White: Red: Green: Blue: Brown|
+	/setentryfield file={{var::wi_appearance}} uid={{pipe}} field=key {{noop}}|
 :}|
 //---------|
 
 //---------|
 
 /ife ( 'CMC Variables' not in lorebookList) {:
+	/echo Creating Lorebook "CMC Variables"|
 	/getchatbook name="CMC Variables"|
 	/let key=wi_variables|
-	
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/Templates/Generation%20Rules%20Template.txt|
-	/createentry file={{var::wi_variables}} key="Generation Rules" {{pipe}}|
-	/setentryfield file={{var::wi_variables}} uid={{pipe}} field=key {{noop}}|
-	
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/Templates/Character%20Rules%20Template.txt|
-	/createentry file={{var::wi_variables}} key="Character Rules" {{pipe}}|
-	/setentryfield file={{var::wi_variables}} uid={{pipe}} field=key {{noop}}|
 	
 	/createentry file={{var::wi_variables}} key="F [CANINE] (1/3) Vagina" [canine pussy: commonly referred to as the "cookie"(colloquial term), located nestled between hindquarters(below the anus(usually concealed or obscured behind the fluff of the tail, tail usually hangs down over anus and pussy(obscuring view), tail needs to be moved or lifted to reveal(unless the tail is curled or docked(depends on the breed)))), When not aroused(Not swollen, Almost flush with the body(unnoticeable)), When aroused(Extends(protrudes(either slightly or exaggeratedly(depends per individual)) from the body(by a couple inches, signaling readiness for insertion of male)), puffed up(takes on a more puffy and swollen appearance(so much so that it can be physically grasped))), Outward appearance(characterized by three thick and plump labia arranged in a triangle which create its unique shape(resembles a rounded and upside-down teardrop in shape(rounded at the top, tapered at the bottom(better recognized as a "spade" shape))), usually much darker in color than rest of body(most commonly entirely black in color), velvety texture(soft to the touch, not covered in fur like the rest of body), puffy(squishy, swollen(when aroused), entrance(or slit) resembles a tight and puffy "Y" shape(three pillowy labia folds(arranged in a triangle)))), Internal appearance(pink(bright pink(akin to the inside of a mouth)), fleshy(soft, squishy, tight, elastic(meant to accommodate canine penises(which are usually larger than human penises)), moist(even more so when in heat)), clitoris(located at the bottom(nestled within southernmost labia fold(tapered end))), Vaginal tract(depth varies dramatically between breeds(average depth is between two and five inches(from entrance to cervix), will expand marginally when in heat)))];|
 	/setentryfield file={{var::wi_variables}} uid={{pipe}} field=key {{noop}}|
@@ -239,9 +234,6 @@ Furries is are essentially humans with animal heads and tails. Their hands are h
 	/createentry file={{var::wi_variables}} key="Feral" Ferals are basically animals, or the "normal" version of common mythical and fantasy creatures. They may or may not be sentient, and typically do not wear clothes or accessories. Ferals are often described in dramatic poses to emphasize their markings and overall appearance.|
 	/setentryfield file={{var::wi_variables}} uid={{pipe}} field=key {{noop}}|
 
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/Templates/Empty%20Character%20Card%20Template.json|
-	/createentry file={{var::wi_variables}} key="Empty Character Card: Template" {{pipe}}|
-	/setentryfield file={{var::wi_variables}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_variables}} key="Appearance Trait Template" - Appearance Trait: --apperanceTrait--
   ↳ Details: --apperanceTraitDetails--
@@ -269,6 +261,7 @@ A: --Answer--|
 //---------|
 
 /ife ( 'CMC Personality' not in lorebookList) {:
+	/echo Creating Lorebook "CMC Personality"|
 	/getchatbook name="CMC Personality"|
 	/let key=wi_personality {{pipe}}|
 	
@@ -339,6 +332,7 @@ A: --Answer--|
 
 //---------|
 /ife ( 'CMC Generation Prompts' not in lorebookList) {:
+	/echo Creating Lorebook "CMC Generation Prompts"|
 	/getchatbook name="CMC Generation Prompts"|
 	/let key=wi_gen_prompt {{pipe}}|
 	//Basic Character Information|
