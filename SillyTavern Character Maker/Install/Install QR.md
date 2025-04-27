@@ -54,9 +54,9 @@
 /qr-create set="CMC Logic" label="Generate World Info" {{pipe}}|
 //|-----|
 
-//Generate World Info|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Basic%20World%20Info.md|
-/qr-create set="CMC Logic" label="Generate World Info" {{pipe}}|
+//Generate Basic Character Information|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Basic%20Character%20Information.md|
+/qr-create set="CMC Logic" label="Generate Basic Character Information" {{pipe}}|
 //|-----|
 
 /qr-chat-set-on visible=true "CMC Main"

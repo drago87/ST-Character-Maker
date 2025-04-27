@@ -209,7 +209,7 @@
                 }
               }
             ],
-            "currentTab": 9
+            "currentTab": 6
           },
           {
             "id": "31ee7ab2d3aee3f8",
@@ -380,29 +380,29 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "33bc1fc897340b7b",
+  "active": "8bc572ca56e33884",
   "lastOpenFiles": [
+    "Install/Install WI.md",
+    "Visible QR Buttons/New Chat.md",
     "Install/Install QR.md",
+    "Functions/TempVariables.md",
+    "Generate/Generate Basic Character Information.md",
     "Install/Check LALib.md",
     "Generate/Generate Basic World Info.md",
     "Functions/Selector.md",
     "Functions/Combine List Lorebooks.md",
     "Templates/JED+ Clean Template.md",
     "Functions/Is Real.md",
-    "Visible QR Buttons/New Chat.md",
     "Visible QR Buttons",
     "Install/Install Script choice.md",
     "Functions/Generate with Prompt.md",
-    "Generate/Generate Basic Character Information.md",
     "Functions/Get Character information.md",
-    "Functions/TempVariables.md",
     "Untitled.md",
     "Functions/SaveGen.md",
     "Temp WI.md",
     "test.md",
     "G.md",
     "Templates/JED+ Template.md",
-    "Install/Install WI.md",
     "Functions/Text Parce.md",
     "textParse.md",
     "Information/Feral Cenine.md",

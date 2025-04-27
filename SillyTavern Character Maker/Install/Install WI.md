@@ -172,7 +172,7 @@ Exclude future speculations from your reply.|
 Anthro is a animal that have a human form.
 Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...
 Furry is animal like humans that mostly looks like humans but have certain animal parts.
-Feral is standard animals, fantasy animals or monsters.|
+Feral is standard animals, fantasy animals or monsters.
 Pokémon is the creatures from the Pokémon games and anime.
 Digimon is the creatures from the Digimon games and anime.
 	/setentryfield file={{getvar::wi_variables}} uid={{pipe}} field=key {{noop}}|

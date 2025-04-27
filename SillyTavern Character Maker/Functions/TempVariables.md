@@ -1,4 +1,4 @@
-/let key=do Yes|
+/let key=do {{noop}}|
 /let key=variableName {{noop}}|
 /let key=wi_book {{noop}}|
 /let key=wi_book_key {{noop}}|

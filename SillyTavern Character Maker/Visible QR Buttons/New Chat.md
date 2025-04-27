@@ -23,8 +23,8 @@
 /addvar key=temp "Human"|
 /addvar key=temp "Anthro{{newline}}(Test)"|
 /whilee ( type == 'Help me Decide') {:
-	/buttons labels=["Help me Decide", "Human", "Anthro{{newline}}(Test)", "Demi-Human", "Furry", "Feral", "Pokémon", "Digimon", "Machine"] What type of character are you making? |
-	/re-replace find="/\(.*$/g" replace="" {{pipe}}|
+	/buttons labels=["Help me Decide", "Human", "Anthro\n(Anthro is a animal that have a human form.)", "Demi-Human\n(Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...)", "Furry\n(Furry is animal like humans that mostly looks like humans but have certain animal parts.)", "Feral\n(Feral is standard animals, fantasy animals or monsters.)", "Pokémon", "Digimon", "Machine"] What type of character are you making? |
+	/re-replace find="/(\n\(\|\()[\s\S]*$/g" replace="" {{pipe}}|
 	/setvar key=type {{pipe}}|
 	/ife ( type == ''){:
 		/echo Aborting | /ife ( quickRoll == 'Yes' ) {:
@@ -37,8 +37,15 @@
 		/genraw as=char Respond to the question: What type of character is a {{getvar::inp}}?
 The reply should be in this format:
 '<div>{{getvar::inp}} is a x</div>'
-x is one of the following "Human", "Anthro", "Demi-Human", "Furry", "Feral", "Pokémon(Normal)", "Digimon(Normal)", "Machine"
-INFORMATION: {{getvar::typeExplanation}}
+x is one of the following "Human", "Anthro", "Demi-Human", "Furry", "Feral", "Pokémon", "Digimon", "Machine"
+INFORMATION: 
+Human is a standard human.
+Anthro is a animal that have a human form.
+Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...
+Furry is animal like humans that mostly looks like humans but have certain animal parts.
+Feral is standard animals, fantasy animals or monsters.
+Pokémon is the creatures from the Pokémon games and anime.
+Digimon is the creatures from the Digimon games and anime.
 INSTRUCTION: Only respond in the given format.|
 
 		/setvar key=type {{pipe}}|
