@@ -1,10 +1,10 @@
 /wi-list-books all=true|
-/setvar key=lorebookList {{pipe}}|
+/let key=lorebookList {{pipe}}|
 //---------|
 
 /ife ( 'CMC Clothes' not in lorebookList) {:
   /getchatbook name="CMC Clothes"|
-  /setvar key=wi_clothes {{pipe}}|
+  /let key=wi_clothes {{pipe}}|
   /createentry file={{getvar::wi_clothes}} key="Female Underwear Top" Bare: Bra: Sports Bra: Bralette: Camisole: Crop Top: Training Bra|
   /setentryfield file={{getvar::wi_clothes}} uid={{pipe}} field=key {{noop}}|
   /createentry file={{getvar::wi_clothes}} key="Female Underwear Bottom" Bare: Panties: Bloomer: Thong: Bikini: Briefs: Boyshorts: Hipster|
@@ -34,7 +34,7 @@
 
 /ife ( 'CMC Appearance' not in lorebookList) {:
 	/getchatbook name="CMC Appearance"|
-	/setvar key=wi_appearance|
+	/let key=wi_appearance|
 	/createentry file={{getvar::wi_appearance}} key="Female Hairstyle" Single Braid: Pixie Cut|
 	/setentryfield file={{getvar::wi_clothes}} uid={{pipe}} field=key {{noop}}|
 	/createentry file={{getvar::wi_appearance}} key="Female Brest Size" Flat: Small: Medium: Large: Huge|
@@ -270,7 +270,7 @@ A: --Answer--|
 
 /ife ( 'CMC Personality' not in lorebookList) {:
 	/getchatbook name="CMC Personality"|
-	/setvar key=wi_personality {{pipe}}|
+	/let key=wi_personality {{pipe}}|
 	
 	/createentry file={{getvar::wi_personality}} key="Both Young Main" Lively: Curious: Bouncy: Cheery: Vivid: Spry|
 	/setentryfield file={{getvar::wi_personality}} uid={{pipe}} field=key {{noop}}|
@@ -340,7 +340,7 @@ A: --Answer--|
 //---------|
 /ife ( 'CMC Generation Prompts' not in lorebookList) {:
 	/getchatbook name="CMC Generation Prompts"|
-	/setvar key=wi_gen_prompt {{pipe}}|
+	/let key=wi_gen_prompt {{pipe}}|
 	//Basic Character Information|
   
 	/createentry file={{getvar::wi_gen_prompt}} key="Nationalities: Prompt" Generate a colon-separated list of five Nationalities.|

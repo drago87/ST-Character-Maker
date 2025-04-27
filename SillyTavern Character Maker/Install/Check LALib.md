@@ -3,7 +3,7 @@
 	/extension-state SillyTavern-LALib | /let key=laliben {{pipe}}|
 	/if else={: /popup The Extension LALib needs to be enabled for this to work. :} left=laliben right=true rule=eq {:
 		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Install/Install%20Script%20choice.md|
-		/qr-create set="CMC Temp" label=Install Script {{pipe}}|
+		/qr-create set="CMC Temp" label="Install Script" {{pipe}}|
 		//[[Install Script choice]]|
 		/qr-chat-set-on CMC Temp|
 		/:"CMC Temp.Install Script"|

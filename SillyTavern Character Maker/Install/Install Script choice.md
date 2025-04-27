@@ -12,10 +12,10 @@
 :}|
 /elseif ( selected_btn == 'Automatically') {:
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Install/Install%20WI.md|
-	/qr-create set="CMC Temp" label="Install Wi" {{pipe}}|
+	/qr-create set="CMC Temp" label="Install WI" {{pipe}}|
 	//[[Install WI]]|
 	/:"CMC Temp.Install WI"|
-	/qr-delete set="CMC Temp" label="Install Wi"
+	/qr-delete set="CMC Temp" label="Install WI"
 :}|
 
 /setvar key=qr-list {{pipe}}|
@@ -36,3 +36,5 @@
 		/qr-delete set="CMC Temp" label="Install QR"|
 	:}|
 :}|
+
+/flushvar selected_btn|
