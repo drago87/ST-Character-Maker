@@ -1,7 +1,7 @@
 /qr-set-list|
 
 /buttons labels=["Manually", "Automatically"] Do you want to Manually or Automatically download the World Info/Lore Book?|
-/setvar key=selected_btn {{pipe}}|
+/let key=selected_btn {{pipe}}|
 
 /ife ( selected_btn == 'Manually') {:
 	/popup WIP<div>You need to manually download these files and import them to the World Info</div>
@@ -36,5 +36,3 @@
 		/qr-delete set="CMC Temp" label="Install QR"|
 	:}|
 :}|
-
-/flushvar selected_btn|
