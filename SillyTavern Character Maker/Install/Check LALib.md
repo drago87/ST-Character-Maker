@@ -5,6 +5,7 @@
 		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Install/Install%20Script%20choice.md|
 		/qr-create set="CMC Temp" label=Install Script {{pipe}}|
 		//[[Install Script choice]]|
+		/qr-chat-set-on CMC Temp|
 		/:"CMC Temp.Install Script"|
 		/qr-set-delete CMC Temp|
 	  :}|
