@@ -102,7 +102,7 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "New Chat.md",
+                    "file": "Visible QR Buttons/New Chat.md",
                     "mode": "source",
                     "source": false
                   },
@@ -209,7 +209,7 @@
                 }
               }
             ],
-            "currentTab": 2
+            "currentTab": 4
           },
           {
             "id": "31ee7ab2d3aee3f8",
@@ -380,16 +380,20 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "435a482c9208e3bd",
+  "active": "4c9f302eb2ea703a",
   "lastOpenFiles": [
-    "Install/Install Script choice.md",
+    "Templates/JED+ Clean Template.md",
+    "Functions/Is Real.md",
+    "Visible QR Buttons/New Chat.md",
     "Install/Install QR.md",
-    "New Chat.md",
+    "Visible QR Buttons",
+    "Install/Install Script choice.md",
+    "Install/Check LALib.md",
     "Functions/Generate with Prompt.md",
     "Generate/Generate Basic Information.md",
     "Generate/Generate Basic World Info.md",
     "Functions/Selector.md",
-    "Get Character information.md",
+    "Functions/Get Character information.md",
     "Functions/TempVariables.md",
     "Functions/Combine List Lorebooks.md",
     "Untitled.md",
@@ -397,9 +401,7 @@
     "Temp WI.md",
     "test.md",
     "G.md",
-    "Install/Check LALib.md",
-    "JED+ Clean Template.md",
-    "JED+ Template.md",
+    "Templates/JED+ Template.md",
     "Install/Install WI.md",
     "Functions/Text Parce.md",
     "textParse.md",
@@ -407,7 +409,6 @@
     "Information/Anthro Cenine.md",
     "Information/Furry Canine.md",
     "Information/Feral Equine.md",
-    "Information/Anthro Equine.md",
     "Information",
     "Functions",
     "Install",
