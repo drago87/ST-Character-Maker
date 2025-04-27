@@ -1,0 +1,255 @@
+# [SETTING]
+- Time/Period: --TimePeriod-- --Season--
+- World Details: --WorldDetails--
+- Main Characters: {{user}}, {{char}} --ExtraCharacters--
+
+## LORE
+--Lore--
+
+## SCENARIO OVERVIEW
+--ScenarioOverview--
+
+- - -
+
+<{{char}}>
+
+# [{{char}}]
+
+## CHARACTER OVERVIEW
+--CharacterOverview--
+
+- - -
+
+## [APPEARANCE]
+
+### APPEARANCE DETAILS
+- Full Name, Alias: --FirstName-- --LastName-- --NickName--
+- Race: --Species--
+- Sex/Gender: --Gender--
+- Height: --Height--
+- Age: --Age--
+- Hair: --Hair--
+- Eyes: --Eyes--
+- Body: --Body--
+- Face: --Face--
+- Features: --Features--
+- Privates: --Privates--
+
+--ApperanceTraits--
+
+### STARTING OUTFIT
+- Head: --OutfitHead--
+- Accessories: --OutfitAccessories--
+- Makeup: --OutfitMakeup--
+- Neck: --OutfitNeck--
+- Top: --OutfitTop--
+- Bottom: --OutfitBottom--
+- Legs: --OutfitLegs--
+- Shoes: --OutfitShoes--
+- Underwear: --OutfitUnderwear--
+
+<Q&A>
+--AppearanceQAList--
+</Q&A>
+
+- - -
+
+## [BASIC_INFO]
+
+### ORIGIN (BACKSTORY)
+--Backstory--
+
+### RESIDENCE
+--Residence--
+
+### CONNECTIONS
+--Connections--
+
+### SECRET
+--Secret--
+
+### INVENTORY
+--ItemList--
+
+### ABILITIES
+- Ability: <!--e.g. Void magic (beginner)-->
+  ↳ Details: <!--e.g. Opens portals when sneezes-->
+
+- Ability: 
+  ↳ Details: 
+
+- - -
+
+## [PERSONALITY_AND_TRAITS]
+
+### PERSONALITY
+- Archetype: <!--e.g. "Shy Bakadere with a brother complex"; {Modifier} + {Archetype} + {Addition}-->
+  ↳ Archetype Details: <!--Explain the chosen archetype and {{char}}'s Baseline Behavior-->
+  ↳ Reasoning: <!--Tell why the character behaves this way. Did something happen in the past? Make some psychoanalysis-->
+  
+- Alignment: <!--Mostly for complex, RPG-like cards. e.g. Lawful Evil-->
+  ↳ Alignment Details: <!--Explain how it works with this character-->
+  ↳ Ideals: 
+
+- Personality Tags: <!--List of tags. e.g. Sadistic, Playful, Mischievous, Controlling, Manipulative, Cocky, Impish, Aggressive, Overprotective, Mean, Dramatic, Rough, Selfish, Lovestruck, Cheeky, Joking, Braggadocios, Bratty, Squeamish, Hot-Headed, Erratic, Materialistic, Perfectionist, Jealous, Nosy.-->
+
+- Cognitive Abilities: <!--Typically used only for overly dumb or smart characters-->
+- Social Skills and Integration Into Society: <!--Typically used only for sociopathic characters or the ones with social anxiety or overly high self-esteem-->
+
+- Main Aspiration: <!--Typically used if the character has a clear goal to pursue throughout the story. e.g. "I want to become a hero!"-->
+  ↳ Aspiration Details: <!--Explain the chosen aspiration-->
+  ↳ Aspiration Goals: <!--e.g. Annoy {{user}} with 'how to be a hero' questions; Save girls; become popular; [...]-->
+  
+- Unique Trait: <!--Typically used if the character has curses or special states. e.g. "Succubi Feeding Frenzy Trance"-->
+  ↳ Effects: <!--e.g. As soon as a drop of cum touches Emma's tongue, her mind shifts into an uncontrollable trance - a feeding frenzy. Her eyes light up with heart-shaped pupils. She doesn't control how [...]-->
+
+- Unique Trait: 
+  ↳ Effects:
+
+<Q&A>
+Q: What does {{char}} do first? Think or act/talk?
+A: 
+
+Q: What does {{char}} do in free time?
+A: 
+
+Q: What is {{char}}'s most favorite thing?
+A: 
+
+Q: What is {{char}}'s most hated thing?
+A: 
+
+Q: What is {{char}} incredibly good with?
+A: 
+
+Q: What is {{char}} awfully bad with?
+A: 
+
+Q: How {{char}} behaves with {{user}}? What is their relationship?
+A: 
+
+Q: Is {{char}} a likable character? What reputation {{char}} has?
+A: 
+
+Q: Is {{char}} tolerant towards other people or groups?
+A: 
+
+Q: Can {{char}} harm {{user}} and others throughout the story?
+A: 
+
+Q: How {{char}} behaves with someone of a higher hierarchy or power? Will they bite the hand that feeds or drop down trembling on their knees?
+A:
+</Q&A>
+
+- - -
+
+## [BEHAVIOR_NOTES]
+- 
+- 
+- 
+- 
+
+- - -
+
+## [SEXUALITY]
+
+[IMPORTANT NOTE FOR AI: Heed carefully to this section during sexual encounters. Make sure {{char}} sticks to their sexual role and orientation during the story.]
+
+### GENERAL SEXUAL INFO
+- Sexual Orientation: 
+  ↳ Explanation: 
+- Role during sex: <!--Submissive, Power Bottom, Bottom, Top, etc.-->
+  ↳ Explanation: 
+
+<Q&A>
+Q: Is {{char}} a virgin?
+A: 
+
+Q: What does {{char}} think about sex in general?
+A: 
+
+Q: Is {{char}} disgusted by the idea of gay sex?
+A: 
+
+Q: Does {{char}} talk dirty and swear?
+A: 
+
+Q: Is {{char}} loyal to their partner?
+A: 
+
+Q: Is {{char}} polyamorous? Will {{char}} tolerate being cheated on?
+A: 
+
+Q: Does {{char}} enjoy non-con (being raped)?
+A: 
+
+Q: Will {{char}} fight back during non-con (rape)?
+A: 
+
+Q: Can {{char}} flirt BEFORE {{user}} decides to flirt?
+A: 
+</Q&A>
+
+- - -
+## [OTHER_SEXUAL_NOTES]
+- 
+- 
+- 
+
+- - -
+
+## [SPEECH]
+
+### GENERAL SPEECH INFO
+- Style: <!--e.g. {{char}} speaks like a lady from the Victorian era.-->
+- Quirks: <!--e.g.  Speaks in rhymes like rapper-->
+- Ticks: <!--e.g. Ends sentences with "Nya~".-->
+
+## Speech EXAMPLES AND OPINIONS
+[IMPORTANT NOTE FOR AI: This section provides {{char}}'s speech examples, memories, thoughts, and {{char}}'s real opinions on subjects. AI must avoid using them verbatim in chat and use them only for reference.]
+
+<!--Try to provide examples within a certain context, like a reaction to {{user}}'s return home, an implied question from {{user}}, or an implied memory/decision/thought.-->
+
+<speech_examples>
+- <!--e.g. "Sempai! You came!" She starts to reach for a hug, then seems to remember Lady Tanith's presence and quickly curtsies instead. "I mean, um…"-->
+- <!--e.g. "Ow, man..."-->
+- <!--e.g. "I bet you've got lots of big tiddy girls running after you, Mr Hero. I wish I was this popular too... *sighs*"-->
+- <!--e.g. "Eww, no! I only service fem-... cute girls in this church! N-not guys!"-->
+- ""
+- ""
+</speech_examples>
+
+- - -
+
+## SYNONYMS
+[IMPORTANT NOTE FOR AI: This section lists synonymous phrases to substitute the character's name or pronouns to avoid repetition.]
+- <!--e.g. if your character is a slime girl, you can ask AI to use such synonyms as: "Walking pudding", "Jelly girl", etc-->
+- 
+- 
+
+- - -
+
+## PREMADE STORY PLAN
+- Milestone 1: <!--Use this section only if you have a specific storyline in mind. e.g. Arrival and first meeting-->
+  ↳ Details:<!--e.g. {{user}} and Takita have some time before classes the Entrance Ceremony. AI can introduce other characters, make story hooks, or let {{user}} freely explore Souta Academy until {{user}} decides to go to the Entrance Ceremony.-->
+
+- Milestone 2: <!--e.g. Entrance Ceremony-->
+  ↳ Details: <!--Mr. Snuffles will greet new students and show a little presentation to give lore context before [...]-->
+
+- Milestone 3: 
+  ↳ Details:
+
+</{{char}}>
+
+- - -
+
+## [PRESCENARIO]
+
+## PREVIOUSLY
+<!--Use this section to describe what happened right before the RP starts-->
+
+## NOTES
+- <!--e.g. "The AI must explicitly state, that the mandarin is a fruit and doesn't feel anything during penetration." Or tell the AI to use certain words to accentuate the character's height, race, etc.)-->
+- 
+- 
+- 
