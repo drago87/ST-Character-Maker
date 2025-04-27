@@ -144,12 +144,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "Generate/Generate Basic Information.md",
+                    "file": "Generate/Generate Basic Character Information.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "Generate Basic Information"
+                  "title": "Generate Basic Character Information"
                 }
               },
               {
@@ -209,7 +209,7 @@
                 }
               }
             ],
-            "currentTab": 4
+            "currentTab": 9
           },
           {
             "id": "31ee7ab2d3aee3f8",
@@ -380,22 +380,22 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4c9f302eb2ea703a",
+  "active": "33bc1fc897340b7b",
   "lastOpenFiles": [
+    "Install/Install QR.md",
+    "Install/Check LALib.md",
+    "Generate/Generate Basic World Info.md",
+    "Functions/Selector.md",
+    "Functions/Combine List Lorebooks.md",
     "Templates/JED+ Clean Template.md",
     "Functions/Is Real.md",
     "Visible QR Buttons/New Chat.md",
-    "Install/Install QR.md",
     "Visible QR Buttons",
     "Install/Install Script choice.md",
-    "Install/Check LALib.md",
     "Functions/Generate with Prompt.md",
-    "Generate/Generate Basic Information.md",
-    "Generate/Generate Basic World Info.md",
-    "Functions/Selector.md",
+    "Generate/Generate Basic Character Information.md",
     "Functions/Get Character information.md",
     "Functions/TempVariables.md",
-    "Functions/Combine List Lorebooks.md",
     "Untitled.md",
     "Functions/SaveGen.md",
     "Temp WI.md",
