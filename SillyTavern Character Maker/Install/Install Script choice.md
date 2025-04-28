@@ -3,6 +3,7 @@
 
 /ife ('Character maker install script' in qrList) {:
 	/qr-delete set="CMC Temp" label="Character maker install script"|
+	/qr-update set="CMC Temp" label="Install Script" title="A script that will walk you through the setup."|
 	/qr-chat-set-on CMC Temp|
 :}|
 /qr-set-list all|

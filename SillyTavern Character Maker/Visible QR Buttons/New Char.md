@@ -144,8 +144,8 @@ INSTRUCTION: Only respond in the given format.|
 	/db-disable source=chat character_type|
 :}|
 
-/findentry field=comment file="CMC Logic" Character Template|
-/getentryfield file="CMC Logic" {{pipe}}|
+/findentry field=comment file="CMC Variablers" Character Template|
+/getentryfield file="CMC Variablers" {{pipe}}|
 /var key=message {{pipe}}|
 
 /message-edit message=0 {{var::message}}|

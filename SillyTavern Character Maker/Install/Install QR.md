@@ -1,15 +1,36 @@
-/qr-set-create CMC Main|
+/qr-set-list all|
+/var key=qrList {{pipe}}|
+
+/ife ('CMC Main' in qrList) {:
+	/buttons labels=["Yes", "No"] want to update CMC Main scripts?|
+	/let selected_btn {{pipe}}|
+	/ife ( selected_btn == Yes) {:
+		/qr-chat-set-off CMC Main|
+		/qr-set-create CMC Main|
+	:}|
+:}|
+
+/qr-list CMC Main|
+/let key=qrListContent {{pipe}}|
+
 //New Char|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/New%20Char.md|
-/qr-create set="CMC Main" label="New Character" title="Will make a new character and let you set the Gender, type(Human, Anthro etc..)" {{pipe}}|
+/ife ('New Character' not in qrList) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/New%20Char.md|
+	/qr-create set="CMC Main" label="New Character" title="Will make a new character and let you set the Gender, type(Human, Anthro etc..)" {{pipe}}|
+	/qr-update set="CMC Main" label="New Character" title="Make a character from the beginning."|
+:}|
 //|-----|
 
-//Create Temporary Variables|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Character%20Generation.md|
-/qr-create set="CMC Main" label="Character Generation" {{pipe}}|
+//Create Character Generation|
+/ife ( ('Character Generation' not in qrList) and ('Start Generating' not in qrList) and ('Restart/Continue with a' not in qrList)) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Character%20Generation.md|
+	/qr-create set="CMC Main" label="Character Generation" {{pipe}}|
+	/qr-update set="CMC Main" label="Character Generation" title="Continues/Restart the last Generation or Starts the next Generation."|
+	/qr-chat-set-on CMC Main|
+:}|
 //|-----|
 
-/qr-chat-set-on CMC Main|
+
 
 /qr-set-create CMC Logic|
 
