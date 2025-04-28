@@ -47,8 +47,14 @@
 	/qr-delete set="CMC Temp" label="Install WI"
 :}|
 
-/qr-set-list all|
-/var qrList {{pipe}}|
-/ife ( 'CMC Temp' in qrList ) {:
-	/qr-set-delete CMC Temp|
+/ife ( selected_btn == '') {:
+	/echo Aborting |
+	/break|
+:}|
+/else {:
+	/qr-set-list all|
+	/var qrList {{pipe}}|
+	/ife ( 'CMC Temp' in qrList ) {:
+		/qr-set-delete CMC Temp|
+	:}|
 :}|
