@@ -69,4 +69,9 @@
 /var key=task {{pipe}}|
 /var key=instruct {{pipe}}|
 /var key=content {{pipe}}|
+
+/qr-get set="Character Maker V4" id=38|
+/let key=a {{pipe}}|
+/getat index=id {{var::a}}|
+/setvar key=1a {{pipe}}|
 *|

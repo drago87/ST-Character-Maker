@@ -1,4 +1,19 @@
-//Empty the Database to propare for the new character|
+/:"CMC Logic.TempVariables"|
+/messages 0|
+/let firstMess {{pipe}}|
+/ife ( 'Installation Instruktions' in firstMess) {:
+	/buttons labels=["Yes", "No"] <div>Doing this will delete all progress.</div><div>Do you want to continue?</div>|
+	/var selected_btn {{pipe}}|
+	/ife ( selected_btn == '') {:
+		/echo Aborting|
+		/abort|
+	:}|
+:}|
+
+/setvar key=stepDone 'No'|
+/setvar key=stepVar Step1|
+
+//Empty the Database to prepare for the new character|
 /db-list source=chat field=name |
 /var key=databaseList {{pipe}}|
 /foreach {{var::databaseList}} {:
@@ -134,6 +149,3 @@ INSTRUCTION: Only respond in the given format.|
 /var key=message {{pipe}}|
 
 /message-edit message=0 {{var::message}}|
-
-//[[Generate Basic World Info]]|
-/:"CMC Logic.Generate Basic World Info"|

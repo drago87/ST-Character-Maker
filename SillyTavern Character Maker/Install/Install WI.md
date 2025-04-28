@@ -70,5 +70,17 @@
 :}|
 
 /ife ( 'CMC Information' not in lorebookList) {:
-
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Information.json|
+	/let key=f {{pipe}}|
+	/ife ( 'CMC Generation Prompts' not in databaseList){:
+		/db-add source=chat name="CMC Generation Prompts.json" {{var::f}}|
+		/db-disable source=chat CMC Generation Prompts.json|
+	:}|
+	/else {:
+		/db-update source=chat name="CMC Generation Prompts.json" {{var::f}}|
+		/db-disable source=chat CMC Generation Prompts.json|
+	:}|
 :}|
+
+/popup Download all .json files (Should be 6 of them)  from SillyTavern Data Bank (It will open when you press ok) and import them into the lorebook/World Info.|
+/db|

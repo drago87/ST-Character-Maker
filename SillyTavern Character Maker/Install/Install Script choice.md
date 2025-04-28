@@ -1,25 +1,6 @@
-/qr-set-list|
-
-/buttons labels=["Manually", "Automatically"] Do you want to Manually or Automatically download the World Info/Lore Book?|
-/let key=selected_btn {{pipe}}|
-
-/ife ( selected_btn == 'Manually') {:
-	/popup WIP<div>You need to manually download these files and import them to the World Info</div>
-<div><a href="https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW%20GenRaw.json">Character Maker Combined NSFW GenRaw</a></div>
-<div><a href="https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW%20Variables.json">Character Maker Combined NSFW Variables</a></div>
-<div><a href="https://github.com/drago87/ST-Character-Maker/blob/main/Lorebooks/Character%20Maker%20Combined%20NSFW.json">Character Maker Combined NSFW</a></div>
-
-:}|
-/elseif ( selected_btn == 'Automatically') {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Install/Install%20WI.md|
-	/qr-create set="CMC Temp" label="Install WI" {{pipe}}|
-	//[[Install WI]]|
-	/:"CMC Temp.Install WI"|
-	/qr-delete set="CMC Temp" label="Install WI"
-:}|
-
-/setvar key=qr-list {{pipe}}|
-/ife (('CMC Main' not in qr-list) and ('CMC Logic' not in qr-list)) {:
+/qr-set-list all|
+/let key=qr-list {{pipe}}|
+/ife (('CMC Main' not in qr-list) {:
 	/buttons labels=["Manually", "Automatically"] Do you want to Manually or Automatically download the QR scripts?|
 	/setvar key=selected_btn {{pipe}}|
 	
@@ -35,4 +16,31 @@
 		/:"CMC Temp.Install QR"|
 		/qr-delete set="CMC Temp" label="Install QR"|
 	:}|
+:}|
+
+/buttons labels=["Manually", "Semi Automatically"] Do you want to Manually or Automatically download the World Info/Lore Book?|
+/let key=selected_btn {{pipe}}|
+
+/ife ( selected_btn == 'Manually') {:
+	/popup <div>You need to manually download these files and import them to the World Info</div>
+<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Appearance.json">CMC Appearance</a></div>
+<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Clothes.json">CMC Clothes</a></div>
+<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Generation%20Prompts.json">CMC Generation Prompts</a></div>
+<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Information.json">CMC Information</a></div>
+<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Personality.json">CMC Personality</a></div>
+<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Variablers.json">CMC Variablers</a></div>|
+
+:}|
+/elseif ( selected_btn == 'Semi Automatically') {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Install/Install%20WI.md|
+	/qr-create set="CMC Temp" label="Install WI" {{pipe}}|
+	//[[Install WI]]|
+	/:"CMC Temp.Install WI"|
+	/qr-delete set="CMC Temp" label="Install WI"
+:}|
+
+/qr-set-list all|
+/var qr-list {{pipe}}|
+/ife ( 'CMC Temp' in qr-list ) {:
+	/qr-set-delete CMC Temp|
 :}|

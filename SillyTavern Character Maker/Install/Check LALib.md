@@ -7,6 +7,11 @@
 		//[[Install Script choice]]|
 		/qr-chat-set-on CMC Temp|
 		/:"CMC Temp.Install Script"|
-		/qr-set-delete CMC Temp|
+		/qr-set-list all|
+		/let a {{pipe}}|
+		/ife ( 'CMC Temp' in a ) {:
+			/qr-set-delete CMC Temp|
+		:}|
+		
 	  :}|
 :}|

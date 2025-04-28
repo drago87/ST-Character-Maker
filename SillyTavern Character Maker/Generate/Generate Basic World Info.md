@@ -1,3 +1,6 @@
+/setvar key=stepDone 'No'|
+/setvar key=stepVar Step2|
+
 /:"CMC Logic.TempVariables"|
 /:"CMC Logic.Get Char info"|
 
@@ -184,3 +187,6 @@
 //Scenario Overview|
 
 //-----------|
+
+
+/setvar key=stepDone 'Yes'|

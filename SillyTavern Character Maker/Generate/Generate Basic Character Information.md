@@ -1,3 +1,6 @@
+/setvar key=stepDone 'No'|
+/setvar key=stepVar Step3|
+
 /:"CMC Logic.TempVariables"|
 /:"CMC Logic.Get Char info"|
 
@@ -186,3 +189,5 @@
 //Age|
 
 //-----------|
+
+/setvar key=stepDone 'Yes'|

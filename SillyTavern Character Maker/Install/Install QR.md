@@ -1,11 +1,23 @@
 /qr-set-create CMC Main|
 //New Char|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/New%20Chat.md|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/New%20Char.md|
 /qr-create set="CMC Main" label="New Character" title="Will make a new character and let you set the Gender, type(Human, Anthro etc..)" {{pipe}}|
 //|-----|
 
+//Create Temporary Variables|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/TempVariables.md|
+/qr-create set="CMC Main" label="Character Generation" {{pipe}}|
+//|-----|
+
+/qr-chat-set-on CMC Main|
 
 /qr-set-create CMC Logic|
+
+//Create Temporary Variables|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/TempVariables.md|
+/qr-create set="CMC Logic" label="TempVariables" {{pipe}}|
+//|-----|
+
 //Create Temporary Variables|
 /fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/TempVariables.md|
 /qr-create set="CMC Logic" label="TempVariables" {{pipe}}|
