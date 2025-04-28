@@ -1,9 +1,13 @@
 /qr-set-list all|
 /let key=qrList {{pipe}}|
-/ife (('CMC Main' not in qrList) {:
+/ife ('CMC Main' not in qrList) {:
 	/buttons labels=["Manually", "Automatically"] Do you want to Manually or Automatically download the QR scripts?|
 	/setvar key=selected_btn {{pipe}}|
-	
+
+	/ife ( selected_btn == '') {:
+		/echo Aborting |
+		/break|
+	:}|
 	/ife ( selected_btn == 'Manually') {:
 		/popup WIP<div>You need to manually download these files and import them to Extensions → Quick Reply</div>
 <div><a href="https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Character%20Maker%20V4.json">CMC Logic</a></div>
@@ -21,6 +25,10 @@
 /buttons labels=["Manually", "Semi Automatically"] Do you want to Manually or Automatically download the World Info/Lore Book?|
 /let key=selected_btn {{pipe}}|
 
+/ife ( selected_btn == '') {:
+	/echo Aborting |
+	/break|
+:}|
 /ife ( selected_btn == 'Manually') {:
 	/popup <div>You need to manually download these files and import them to the World Info</div>
 <div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Appearance.json">CMC Appearance</a></div>
