@@ -1,5 +1,10 @@
 /qr-set-list all|
 /let key=qrList {{pipe}}|
+
+/ife ('CMC Main' not in qrList) {:
+	/qr-delete set="CMC Temp" label="Character maker install script"|
+:}|
+
 /ife ('CMC Main' not in qrList) {:
 	/buttons labels=["Manually", "Automatically"] Do you want to Manually or Automatically download the QR scripts?|
 	/setvar key=selected_btn {{pipe}}|
@@ -55,6 +60,7 @@
 	/qr-set-list all|
 	/var qrList {{pipe}}|
 	/ife ( 'CMC Temp' in qrList ) {:
+		/qr-chat-set-off CMC Temp|
 		/qr-set-delete CMC Temp|
 	:}|
 :}|
