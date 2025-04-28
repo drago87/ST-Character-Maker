@@ -1,6 +1,6 @@
 /qr-set-list all|
-/let key=qr-list {{pipe}}|
-/ife (('CMC Main' not in qr-list) {:
+/let key=qrList {{pipe}}|
+/ife (('CMC Main' not in qrList) {:
 	/buttons labels=["Manually", "Automatically"] Do you want to Manually or Automatically download the QR scripts?|
 	/setvar key=selected_btn {{pipe}}|
 	
@@ -40,7 +40,7 @@
 :}|
 
 /qr-set-list all|
-/var qr-list {{pipe}}|
-/ife ( 'CMC Temp' in qr-list ) {:
+/var qrList {{pipe}}|
+/ife ( 'CMC Temp' in qrList ) {:
 	/qr-set-delete CMC Temp|
 :}|
