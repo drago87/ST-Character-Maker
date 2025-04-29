@@ -21,6 +21,9 @@
 /ife ( 'type' in databaseList){:
 	/db-get source=chat type| /setvar key=type {{pipe}}|
 :}|
+/ife ( 'speciesType' in databaseList){:
+	/db-get source=chat speciesType| /setvar key=speciesType {{pipe}}|
+:}|
 /ife ( 'character_type' in databaseList){:
 	/db-get source=chat character_type| /setvar key=character_type {{pipe}}|
 :}|

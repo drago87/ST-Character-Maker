@@ -43,6 +43,8 @@
 //--------|
 *|
 
+--TextParse--
+
 /var key=wi_book "CMC Generation Prompts"|
 /ife ( contextKey != '') {:
 	/findentry field=comment file={{var::wi_book}} {{var::contextKey}}: Context|

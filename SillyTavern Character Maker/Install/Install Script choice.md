@@ -74,3 +74,5 @@
 		:}|
 	:}|
 :}|
+
+/flushvar selected_btn|

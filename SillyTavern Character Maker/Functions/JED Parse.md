@@ -12,8 +12,6 @@
 		/re-replace find="/--WorldDetails--/g" replace="{{getvar::worldDetails}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
-	/re-replace find="/{{user}}\|--User--/g" replace="{\{user}}" {{var::x}}|
-	/var x {{pipe}}|
 	/ife (extraCharacters != '') {:
 		/re-replace find="/--ExtraCharacters--/g" replace=", {{getvar::extraCharacters}}" {{var::x}}|
 		/var x {{pipe}}|
@@ -30,14 +28,6 @@
 		/re-replace find="/--CharacterOverview--/g" replace="{{getvar::characterOverview}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
-	/ife ((export == 'Yes') and (firstName != '')) {:
-		/re-replace find="/{{getvar::firstName}}\|{{char}}\|--FirstName--/g" replace="{\{char}}" {{var::x}}|
-		/var x {{pipe}}|
-	:}|
-	/elseif (firstName != '') {:
-		/re-replace find="/{{getvar::firstName}}\|{{char}}\|--FirstName--/g" replace="{{getvar::firstName}}" {{var::x}}|
-		/var x {{pipe}}|
-	:}|
 	/ife (lastName != '') {:
 		/re-replace find="/--LastName--/g" replace="{{getvar::lastName}}" {{var::x}}|
 		/var x {{pipe}}|
@@ -46,8 +36,8 @@
 		/re-replace find="/--NickName--/g" replace="{{getvar::nickName}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
-	/ife (parcedSpecies != '') {:
-		/re-replace find="/--Species--/g" replace="{{getvar::parcedSpecies}}" {{var::x}}|
+	/ife (parsedSpecies != '') {:
+		/re-replace find="/--Species--/g" replace="{{getvar::parsedSpecies}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (gender != '') {:

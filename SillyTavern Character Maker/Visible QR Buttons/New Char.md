@@ -1,4 +1,4 @@
---Replace--
+--VarReplace--
 /messages 0|
 /let firstMess {{pipe}}|
 /ife ( 'Installation Instructions' in firstMess) {:
@@ -12,6 +12,9 @@
 
 /setvar key=stepDone 'No'|
 /setvar key=stepVar Step1|
+/qr-list CMC Main|
+/getat index=1 {{pipe}}|
+/qr-update set="CMC Main" label={{pipe}} newlabel="Continue Generating Basic Information"|
 
 //Empty the Database to prepare for the new character|
 /db-list source=chat field=name |
@@ -81,70 +84,83 @@ INSTRUCTION: Only respond in the given format.|
 	/setvar key=character_type {{pipe}}|
 :}|
 
-/setvar key=speciesType ["Canine", "Equine", "Feline", "Reptilian", "Aviary", "Leporidae(Rabbit)", "Other"]|
-/setvar key=type None|
+/setvar key=speciesType None|
 /ife ( type != 'Human') {:
-	/buttons labels={{getvar::speciesType}} What type of species should the character be? This will guide later generations. |
+	/buttons labels=["Canine", "Equine", "Feline", "Reptilian", "Aviary", "Leporidae(Rabbit)", "Other"]What type of species should the character be? This will guide later generations. |
 	/re-replace find="/\(.*$/g" replace="" {{pipe}}|
-	/let key=s {{pipe}}|
-	/ife ( s == '') {:
+	/setvar key=speciesType {{pipe}}|
+	/ife ( speciesType == '') {:
 		/echo Aborting|
 		/abort
 	:}|
-	/elseif ( s == 'Other') {:
+	/elseif ( speciesType == 'Other') {:
 		/input rows=8 Write what kind of speciesType the character should be.|
-		/var key=s {{pipe}}|
-		/ife ( s == ''){:
+		/setvar key=speciesType {{pipe}}|
+		/ife ( speciesType == ''){:
 			/echo Aborting |
 			/abort
 		:}|
 	:}|
-	/setvar key=type {{var::s}}|
 :}|
 
 /setvar key=normal_form {{getvar::type}}|
 
-/:"CMC Logic.Is real"|
+/:"CMC Logic.Is Real"|
 
 /db-list source=chat field=name |
-/var key=a {{pipe}}|
+/let key=a {{pipe}}|
 
-/ife ( 'normal_form' not in a){:
+/ife ( ('normal_form' not in a) and (normal_form != '')){:
 	/db-add source=chat name=normal_form {{getvar::normal_form}}|
 	/db-disable source=chat normal_form|
 :}|
-/else {:
+/elseif (normal_form != '') {:
 	/db-update source=chat name=normal_form {{getvar::normal_form}}|
 	/db-disable source=chat normal_form|
 :}|
-/ife ( 'type' not in a){:
+/ife ( ('type' not in a) and (type != '')){:
 	/db-add source=chat name=type {{getvar::type}}|
 	/db-disable source=chat type|
 :}|
-/else {:
+/elseif (type != '') {:
 	/db-update source=chat name=type {{getvar::type}}|
 	/db-disable source=chat type|
 :}|
-/ife ( 'gender' not in a){:
+/ife ( ('speciesType' not in a) and (speciesType != '')){:
+	/db-add source=chat name=speciesType {{getvar::speciesType}}|
+	/db-disable source=chat speciesType|
+:}|
+/elseif (gender != '') {:
+	/db-update source=chat name=speciesType {{getvar::speciesType}}|
+	/db-disable source=chat speciesType|
+:}|
+/ife ( ('gender' not in a) and (gender != '')){:
 	/db-add source=chat name=gender {{getvar::gender}}|
 	/db-disable source=chat gender|
 :}|
-/else {:
+/elseif (gender != '') {:
 	/db-update source=chat name=gender {{getvar::gender}}|
 	/db-disable source=chat gender|
 :}|
-/ife ( 'character_type' not in a){:
+/ife ( ('character_type' not in a) and (character_type != '')){:
 	/db-add source=chat name=character_type {{getvar::character_type}}|
 	/db-disable source=chat character_type|
 :}|
-/else {:
+/elseif (character_type != '') {:
 	/db-update source=chat name=character_type {{getvar::character_type}}|
 	/db-disable source=chat character_type|
 :}|
 
+--JEDParse--
 /findentry field=comment file="CMC Variables" Character Template|
 /getentryfield file="CMC Variables" {{pipe}}|
-/var key=message {{pipe}}|
+/:JEDParse input={{pipe}}|
+/setvar key=t {{pipe}}|
+/:"CMC Logic.Parse"|
+/message-edit message=0 {{pipe}}|
+/flushvar t|
 
-/message-edit message=0 {{var::message}}|
-/qr-update set="CMC Main" id=1 newlabel="Start Generating World Info"|
+/setvar key=stepDone 'Yes'|
+/qr-list CMC Main|
+/getat index=1 {{pipe}}|
+/qr-update set="CMC Main" label={{pipe}} newlabel="Start Generating World Info"|

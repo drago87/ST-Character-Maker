@@ -1,11 +1,12 @@
 /setvar key=stepDone 'No'|
 /setvar key=stepVar Step3|
+/qr-list CMC Main|
+/getat index=1 {{pipe}}|
+/qr-update set="CMC Main" label={{pipe}} newlabel="Continue Generating Character Information"|
 
-/:"CMC Logic.TempVariables"|
+--VarReplace--
+
 /:"CMC Logic.Get Char info"|
-
-//Functions|
-/:"CMC Functions.Text Parse"|
 
 //Character Overview|
 
@@ -190,4 +191,16 @@
 
 //-----------|
 
+--JEDParse--
+/findentry field=comment file="CMC Variables" Character Template|
+/getentryfield file="CMC Variables" {{pipe}}|
+/:JEDParse input={{pipe}}|
+/setvar key=t {{pipe}}|
+/:"CMC Logic.Parse"|
+/message-edit message=0 {{pipe}}|
+/flushvar t|
+
 /setvar key=stepDone 'Yes'|
+/qr-list CMC Main|
+/getat index=1 {{pipe}}|
+/qr-update set="CMC Main" label={{pipe}} newlabel="Start Generating Personality"|
