@@ -1,4 +1,4 @@
-//Replace|
+--Replace--
 /messages 0|
 /let firstMess {{pipe}}|
 /ife ( 'Installation Instructions' in firstMess) {:
