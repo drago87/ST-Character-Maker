@@ -55,10 +55,10 @@
 /qr-create set="CMC Logic" label="Is Real" {{pipe}}|
 //|-----|
 
-//Text Parce|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Text%20Parce.md|
+//Text Parse|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Text%20Parse.md|
 /re-replace find="/--Replace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
-/qr-create set="CMC Logic" label="Text Parce" {{pipe}}|
+/qr-create set="CMC Logic" label="Text Parse" {{pipe}}|
 //|-----|
 
 //Save Gen|
