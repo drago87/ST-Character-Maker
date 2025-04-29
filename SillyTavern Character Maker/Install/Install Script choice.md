@@ -15,7 +15,7 @@
 
 	/ife ( selected_btn == '') {:
 		/echo Aborting |
-		/break|
+		/abort|
 	:}|
 	/elseif ( selected_btn == 'Manually') {:
 		/popup WIP<div>You need to manually download these files and import them to Extensions → Quick Reply</div>
@@ -37,7 +37,7 @@
 	
 	/ife ( selected_btn == '') {:
 		/echo Aborting |
-		/break|
+		/abort|
 	:}|
 	/elseif ( selected_btn == 'Manually') {:
 		/popup <div>You need to manually download these files and import them to the World Info</div>
@@ -59,7 +59,7 @@
 	
 	/ife ( selected_btn == '') {:
 		/echo Aborting |
-		/break|
+		/abort|
 	:}|
 	/else {:
 		/qr-set-list all|

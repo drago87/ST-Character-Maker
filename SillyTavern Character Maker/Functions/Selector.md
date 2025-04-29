@@ -101,7 +101,8 @@
 	/var key=selected_btn {{pipe}}|
 	
 	/ife ( selected_btn == ''){:
-		/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+		/echo Aborting |
+		/abort
 	:}|
 	/elseif (selected_btn == 'Random') {:
 		/find index=true {{var::genState}} {:

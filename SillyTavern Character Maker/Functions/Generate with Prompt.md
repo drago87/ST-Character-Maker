@@ -161,8 +161,8 @@
 
 
 	/ife ( selected_btn == ''){:
-		//[[FlushVar]]|
-		/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+		/echo Aborting |
+		/abort
 	:}|
 	/elseif ( selected_btn == man) {:
 		/ife ( genIsSentence == 'Yes' ){:
@@ -185,8 +185,8 @@
 	    /input labels={{pipe}} Edit the context temporarily.|
 	    /var key=add {{pipe}}|
 	    /ife ( add == ''){:
-		    //[[FlushVar]]|
-			/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+			/echo Aborting |
+			/abort
 		:}|
 	    /else {:
 			/:textParse input="{{var::add}}"|
@@ -198,8 +198,8 @@
 	    /input labels={{pipe}} Edit the prompt temporarily.|
 	    /var key=add {{pipe}}|
 	    /ife ( add == ''){:
-		    //[[FlushVar]]|
-			/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+			/echo Aborting |
+			/abort
 		:}|
 	    /else {:
 			/:textParse input="{{var::add}}"|
@@ -211,8 +211,8 @@
 	    /input labels={{pipe}} Edit the instructions temporarily.|
 	    /var key=add {{pipe}}|
 	    /ife ( add == ''){:
-		    //[[FlushVar]]|
-			/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+			/echo Aborting |
+			/abort
 		:}|
 		/else {:
 			/:textParse input="{{var::add}}"|
@@ -224,8 +224,8 @@
 	    /input default={{pipe}} How would you like to change the prompt permanently?|
 	    /var key=add {{pipe}}|
 	    /ife ( add == ''){:
-		    //[[FlushVar]]|
-			/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+			/echo Aborting |
+			/abort
 	    :}|
 	    /else {:
 			/findentry field=comment file={{var::wi_book}} {{var::genKey}}: Prompt|
@@ -241,8 +241,8 @@
 	    /input default={{pipe}} How would you like to change the instructions permanently?|
 	    /var key=add {{pipe}}|
 	    /ife ( add == ''){:
-		    //[[FlushVar]]|
-			/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+			/echo Aborting |
+			/abort
 	    :}|
 	    /else {:
 			/findentry field=comment file={{var::wi_book}} {{var::genKey}}: Instruction|

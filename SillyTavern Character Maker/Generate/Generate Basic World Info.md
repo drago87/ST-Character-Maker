@@ -94,19 +94,71 @@
 :}|
 //-----------|
 
+//--------|
+/var key=do Yes|
+/var key=variableName "settingType"|
+/ife ( {{var::variableName}} != '') {:
+	/buttons labels=["Yes", "No"] Do you want to redo redo {{getvar::varibleName}}|
+	/var key=do {{pipe}}|
+:}|
+/ife ( do == 'Yes ) {:
+	/var key=wi_book "CMC Variables"|
+	/var key=wi_book_key Setting Type|
+	/var key=combineLorebookEntries No|
+	/var key=inputIsList No|//Yes or No|
+	/var key=outputIsList Yes|//Yes or No|
+	/var key=needOutput Yes|//Yes or No|
+	
+	
+	/ife ( inputIsList == 'Yes') {:
+		/setvar key={{var::variableName}} []|
+		/ife ( combineLorebookEntries == 'Yes') {:
+			/:"CMC Logic.Combine List Lorebooks"
+		:}|
+		/foreach {{var::genOrder}} {:
+			/var key=it {{var::item}}|
+			/getat index={{var::index}} {{var::genOrderContent}}|
+			/var key=content {{pipe}}|
+			/:"CMC Logic.Selector"|
+			/addvar key={{var::variableName}} {{var::output}}|
+		:}|
+	:}|
+	/else {:
+		/var key=it {{var::wi_book_key}}|
+		/:"CMC Logic.Selector"|
+		/setvar key={{getvar::variableName}} {{var::output}}|
+	:}|
+	/ife ( '{{var::variableName}}' in databaseList){:
+		/getvar key={{var::variableName}}|
+		/db-add source=chat name={{var::variableName}} {{pipe}}|
+		/db-disable source=chat {{var::variableName}}|
+	:}|
+	/else {:
+		/getvar key={{var::variableName}}|
+		/db-update source=chat name={{var::variableName}} {{pipe}}|
+		/db-disable source=chat {{var::variableName}}|
+	:}|
+	/var key=context {{noop}}|
+	/var key=examples {{noop}}|
+	/var key=task {{pipe}}|
+	/var key=instruct {{pipe}}|
+	/var key=content {{pipe}}|
+:}|
+//-------|
+
 //World Type|
 /var key=do Yes|
-/var key=variableName "timePeriod"|
+/var key=variableName "worldDetails"|
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes ) {:
-	/var key=genKey "Time Period"|//The name of the Lorebook entry to load|
-	/var key=genIsList Yes|//Yes or No|
-	/var key=outputIsList No|//Yes or No|
-	/var key=genIsSentence No|//Yes or No|
-	/var key=contextKey {{noop}}|//The name of context template to use|
+	/var key=genKey "World Details"|
+	/var key=genIsList Yes|
+	/var key=outputIsList No|
+	/var key=genIsSentence No|
+	/var key=contextKey {{noop}}|
 	
 	
 	/ife (outputIsList == 'Yes') {:

@@ -35,8 +35,8 @@
   /var key=selected_btn {{pipe}}|
 
   /ife ( selected_btn == ''){:
-	//[[FlushVar]]|
-	/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+	/echo Aborting |
+	/break
   :}|
   /elseif ( selected_btn == 'Done') {:
     /pop workingList1|

@@ -1,7 +1,7 @@
-/:"CMC Logic.TempVariables"|
+//Replace|
 /messages 0|
 /let firstMess {{pipe}}|
-/ife ( 'Installation Instruktions' in firstMess) {:
+/ife ( 'Installation Instructions' in firstMess) {:
 	/buttons labels=["Yes", "No"] <div>Doing this will delete all progress.</div><div>Do you want to continue?</div>|
 	/var selected_btn {{pipe}}|
 	/ife ( selected_btn == '') {:
@@ -20,39 +20,34 @@
 	/db-delete source=chat {{var::item}}|
 :}|
 /qr-list CMC Logic|
-/var key=qr-list {{pipe}} |
+/var key=qrList {{pipe}} |
 
 /buttons labels=["Female", "Male", "Futanari"] What gender is the character you are making? |
 /setvar key=gender {{pipe}}|
-/ife ( gender == ''){:
-	/:"CMC Logic.Flushvar"| /echo Aborting |	/abort
+/ife ( gender == '') {:
+	/echo Aborting |
+	/abort
 :}|
 
 
 /setvar key=type "Help me Decide"|
 /findentry field=comment file="CMC Logic" Type Guide|
-/getentryfield file="CMC Logic" {{pipe}}| 
-/setvar key=typeExplanation {{pipe}}|
-/setvar key=temp []|
-/addvar key=temp "Help me Decide"|
-/addvar key=temp "Human"|
-/addvar key=temp "Anthro{{newline}}(Test)"|
+/getentryfield file="CMC Variables" {{pipe}}| 
 /whilee ( type == 'Help me Decide') {:
-	/buttons labels=["Help me Decide", "Human", "Anthro\n(Anthro is a animal that have a human form.)", "Demi-Human\n(Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...)", "Furry\n(Furry is animal like humans that mostly looks like humans but have certain animal parts.)", "Feral\n(Feral is standard animals, fantasy animals or monsters.)", "Pokémon", "Digimon", "Machine"] What type of character are you making? |
+	/buttons labels=["Help me Decide", "Human", "Anthro\n(Anthro is a animal that have a human form.)", "Demi-Human\n(Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...)", "Furry\n(Furry is animal like humans that mostly looks like humans but have certain animal parts.)", "Feral\n(Feral is standard animals, fantasy animals or monsters.)", "Pokémon", "Digimon", "Android/n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
 	/re-replace find="/(\n\(\|\()[\s\S]*$/g" replace="" {{pipe}}|
 	/setvar key=type {{pipe}}|
 	/ife ( type == ''){:
-		/echo Aborting | /ife ( quickRoll == 'Yes' ) {:
-			/setvar key=debug {{getvar::tempDebug}}| :}|
-		/:"CMC Logic.Flushvar"|
+		/echo Aborting|
+		/abort
 	:}|
 	/ife ( type == 'Help me Decide' ){:
 		/input rows=8 What race do you want the character to be?|
-		/setvar key=inp {{pipe}}|
-		/genraw as=char Respond to the question: What type of character is a {{getvar::inp}}?
+		/let key=inp {{pipe}}|
+		/genraw as=char Respond to the question: What type of character is a {{var::inp}}?
 The reply should be in this format:
 '<div>{{getvar::inp}} is a x</div>'
-x is one of the following "Human", "Anthro", "Demi-Human", "Furry", "Feral", "Pokémon", "Digimon", "Machine"
+x is one of the following "Human", "Anthro", "Demi-Human", "Furry", "Feral", "Pokémon", "Digimon", "Android"
 INFORMATION: 
 Human is a standard human.
 Anthro is a animal that have a human form.
@@ -61,15 +56,17 @@ Furry is animal like humans that mostly looks like humans but have certain anima
 Feral is standard animals, fantasy animals or monsters.
 Pokémon is the creatures from the Pokémon games and anime.
 Digimon is the creatures from the Digimon games and anime.
+Android is a robot that looks and acts like a Human.
 INSTRUCTION: Only respond in the given format.|
 
 		/setvar key=type {{pipe}}|
-		/buttons labels=["Continue"]{{getvar::type}}|
+		/popup okButton=Continue result=true {{getvar::type}}|
 		/setvar key=type {{pipe}}|
 		/ife ( type == '' ){:
-			/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+			/echo Aborting |
+			/abort
 		:}|
-		/elseif ( type == 'Continue' ){:
+		/elseif ( type == '1' ){:
 			/setvar key=type "Help me Decide"|
 		:}|
 	:}|
@@ -85,20 +82,20 @@ INSTRUCTION: Only respond in the given format.|
 
 /setvar key=speciesType ["Canine", "Equine", "Feline", "Reptilian", "Aviary", "Leporidae(Rabbit)", "Other"]|
 /setvar key=type None|
-/ife ( type != 'Human'){:
+/ife ( type != 'Human') {:
 	/buttons labels={{getvar::speciesType}} What type of species should the character be? This will guide later generations. |
 	/re-replace find="/\(.*$/g" replace="" {{pipe}}|
-	/var key=s {{pipe}}|
-	/ife ( s == ''){:
-		/echo Aborting | /ife ( quickRoll == 'Yes' ) {:
-		/setvar key=debug {{getvar::tempDebug}}|
+	/let key=s {{pipe}}|
+	/ife ( s == '') {:
+		/echo Aborting|
+		/abort
 	:}|
-	/:"CMC Logic.Flushvar"|
-	/elseif ( s == 'Other'){:
+	/elseif ( s == 'Other') {:
 		/input rows=8 Write what kind of speciesType the character should be.|
 		/var key=s {{pipe}}|
 		/ife ( s == ''){:
-			/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+			/echo Aborting |
+			/abort
 		:}|
 	:}|
 	/setvar key=type {{var::s}}|
@@ -144,8 +141,9 @@ INSTRUCTION: Only respond in the given format.|
 	/db-disable source=chat character_type|
 :}|
 
-/findentry field=comment file="CMC Variablers" Character Template|
-/getentryfield file="CMC Variablers" {{pipe}}|
+/findentry field=comment file="CMC Variables" Character Template|
+/getentryfield file="CMC Variables" {{pipe}}|
 /var key=message {{pipe}}|
 
 /message-edit message=0 {{var::message}}|
+/qr-update set="CMC Main" id=1 newlabel="Start Generating World Info"|

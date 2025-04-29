@@ -183,7 +183,8 @@ A: --Answer--|
   ↳ Details: --abilityDetails--"|
 	/setentryfield file={{var::wi_variables}} uid={{pipe}} field=key {{noop}}|
 
-	/createentry file={{var::wi_variables}} key="Character Template" |
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Templates/JED%2B%20Clean%20Template.md|
+	/createentry file={{var::wi_variables}} key="Character Template" {{pipe}}|
 	/setentryfield file={{var::wi_variables}} uid={{pipe}} field=key {{noop}}|
 
 :}|

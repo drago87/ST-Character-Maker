@@ -1,3 +1,4 @@
+//SetTempVariables|
 /let key=do {{noop}}|
 /let key=variableName {{noop}}|
 /let key=wi_book {{noop}}|
@@ -6,7 +7,6 @@
 /let key=inputIsList {{noop}}|
 /let key=outputIsList {{noop}}|
 /let key=needOutput {{noop}}|
-/let key=genOrder {{noop}}|
 /let key=content {{noop}}|
 /let key=output {{noop}}|
 /let key=wi_temp {{noop}}|
@@ -48,30 +48,6 @@
 /let key=lastId {{noop}}|
 /let key=mess {{noop}}|
 /let key=message {{noop}}|
-
-
-
-
-/*
-/let x ["Test", "Test2"] |
-/getat index=1 {{var::x}} |
-/let key=y {{pipe}}|
-/echo {{var::y}}
-
-/let x ["Test", "Test2"] |
-/len {{var::x}}|
-/var key=x index={{pipe}} Test3|
-/setvar key=a {{var::x}}
-
-/setvar key={{var::variableName}} {{var::output}}|
-/var key=context {{noop}}|
-/var key=examples {{noop}}|
-/var key=task {{pipe}}|
-/var key=instruct {{pipe}}|
-/var key=content {{pipe}}|
-
-/qr-get set="Character Maker V4" id=38|
-/let key=a {{pipe}}|
-/getat index=id {{var::a}}|
-/setvar key=1a {{pipe}}|
-*|
+/let key=databaseList {{noop}}|
+/let key=qrList {{noop}}|
+//-----|
