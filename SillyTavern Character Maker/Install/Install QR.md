@@ -20,7 +20,7 @@
 //New Char|
 /ife ('New Character' not in qrList) {:
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/New%20Char.md|
-	/re-replace find="/\/\/Replace\|/g" replace="{{getvar::tempVars}}" {{pipe}}|
+	/re-replace find="///Replace\|/g" replace="{{getvar::tempVars}}" {{pipe}}|
 	/qr-create set="CMC Main" label="New Character" title="Will make a new character and let you set the Gender, type(Human, Anthro etc..)" {{pipe}}|
 	/qr-update set="CMC Main" label="New Character" title="Make a character from the beginning."|
 :}|
