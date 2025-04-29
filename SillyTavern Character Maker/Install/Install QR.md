@@ -1,5 +1,5 @@
 /qr-set-list all|
-/var key=qrList {{pipe}}|
+/let key=qrList {{pipe}}|
 
 /ife ('CMC Main' in qrList) {:
 	/buttons labels=["Yes", "No"] want to update CMC Main scripts?|

@@ -23,8 +23,12 @@
 <div>Optional Downloads</div><div><a href="https://github.com/drago87/ST-Character-Maker/blob/main/Quick%20Reply%20Buttons/Autorun.json">CMC Autorun</a></div>|
 	:}|
 	/elseif ( selected_btn == 'Automatically') {:
-		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Install/Install%20QR.md|
-		/qr-create set="CMC Temp" label="Install QR" {{pipe}}|
+		/qr-list CMC Temp|
+		/let x {{pipe}}|
+		/ife ('Install QR' not in x) {:
+			/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Install/Install%20QR.md|
+			/qr-create set="CMC Temp" label="Install QR" {{pipe}}|
+		:}|
 		//[[Install QR]]|
 		/:"CMC Temp.Install QR"|
 		/qr-delete set="CMC Temp" label="Install QR"|
