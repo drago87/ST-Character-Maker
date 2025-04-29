@@ -31,7 +31,7 @@
 
 
 /setvar key=type "Help me Decide"|
-/findentry field=comment file="CMC Logic" Type Guide|
+/findentry field=comment file="CMC Variables" Type Guide|
 /getentryfield file="CMC Variables" {{pipe}}| 
 /whilee ( type == 'Help me Decide') {:
 	/buttons labels=["Help me Decide", "Human", "Anthro\n(Anthro is a animal that have a human form.)", "Demi-Human\n(Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...)", "Furry\n(Furry is animal like humans that mostly looks like humans but have certain animal parts.)", "Feral\n(Feral is standard animals, fantasy animals or monsters.)", "Pokémon", "Digimon", "Android/n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |

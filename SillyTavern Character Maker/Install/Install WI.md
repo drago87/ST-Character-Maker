@@ -30,16 +30,16 @@
 	:}|
 :}|
 
-/ife ( 'CMC Variablers' not in lorebookList) {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Variablers.json|
+/ife ( 'CMC Variables' not in lorebookList) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Variables.json|
 	/let key=f {{pipe}}|
-	/ife ( 'CMC Variablers' not in databaseList){:
-		/db-add source=chat name="CMC Variablers.json" {{var::f}}|
-		/db-disable source=chat CMC Variablers.json|
+	/ife ( 'CMC Variables' not in databaseList){:
+		/db-add source=chat name="CMC Variables.json" {{var::f}}|
+		/db-disable source=chat CMC Variables.json|
 	:}|
 	/else {:
-		/db-update source=chat name="CMC Variablers.json" {{var::f}}|
-		/db-disable source=chat CMC Variablers.json|
+		/db-update source=chat name="CMC Variables.json" {{var::f}}|
+		/db-disable source=chat CMC Variables.json|
 	:}|
 :}|
 
