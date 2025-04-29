@@ -50,5 +50,6 @@
 /let key=message {\{noop}}|
 /let key=databaseList {\{noop}}|
 /let key=qrList {\{noop}}|
+/let key=typeGuide {\{noop}}|
 //-----|
 
