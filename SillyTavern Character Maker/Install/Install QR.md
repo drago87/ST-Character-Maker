@@ -9,6 +9,9 @@
 		/qr-set-create CMC Main|
 	:}|
 :}|
+/else {:
+	/qr-set-create CMC Main|
+:}|
 //Create Temporary Variables|
 /fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/TempVariables.md|
 /setvar key=tempVars {{pipe}}|

@@ -5,7 +5,7 @@
 /:"CMC Logic.Get Char info"|
 
 //Functions|
-/:"CMC Functions.Text Parce"|
+/:"CMC Functions.Text Parse"|
 
 //Time Period|
 /var key=do Yes|

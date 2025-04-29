@@ -1,4 +1,4 @@
-/let JEDParce {: input=
+/let JEDParse {: input=
 	/let x {{var::input}}|
 	/ife (timePeriod != '') {:
 		/re-replace find="/--TimePeriod--/g" replace="{{getvar::timePeriod}}" {{var::x}}|
