@@ -30,7 +30,7 @@
 //-----|
 
 //Create SaveGen|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Text%20Parse.md|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/SaveGen.md|
 /setvar key=saveGen {{pipe}}|
 //-----|
 
