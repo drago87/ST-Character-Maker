@@ -46,7 +46,7 @@
 //---------|
 
 /ife ( 'CMC Appearance' not in lorebookList) {:
-	/echo Creating Lorebook 2/5 "CMC Appearance"|
+	/echo Creating Lorebook "CMC Appearance"|
 	/getchatbook name="CMC Appearance"|
 	/let key=wi_appearance|
 	/wait 100|

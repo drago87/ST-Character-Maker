@@ -106,7 +106,7 @@
 	:}|
 	/elseif (selected_btn == 'Random') {:
 		/find index=true {{var::genState}} {:
-	        /test left={{var::item}} rule=eq var="Random"|
+	        /test left={{var::item}} rule=eq right="Random"|
 		:}|
 		/slice start=0 end={{pipe}} {{var::genState}}|
 		/pick items=1 {{var::genState}}|

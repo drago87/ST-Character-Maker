@@ -42,21 +42,21 @@
 	/let key=parcedAge {{getvar::age}} — roughly {{getvar::human_equivalent_age}} in human years.|
 :}|
 
-/ife (character_type == 'none'){:
+/ife (character_type == 'None'){:
 	/setvar key=character_type {{noop}}|
 :}|
 /ife ( normal_form == species ) {:
-    /let key=parsedSpecies {{getvar::species}}|
+    /setvar key=parsedSpecies {{getvar::species}}|
 :}|
 /else {:
-	/ife ( character_type != ''){:
-		/let key=parsedSpecies "{{getvar::normal_form}} {{getvar::species}} {{getvar::character_type}}"|
+	/ife ( (character_type != '') and (character_type != 'Normal')){:
+		/setvar key=parsedSpecies "{{getvar::normal_form}} {{getvar::character_type}} {{getvar::species}}"|
 	:}|
 	/else {:
-		/let key=parsedSpecies "{{getvar::normal_form}} {{getvar::species}}"|
+		/setvar key=parsedSpecies "{{getvar::normal_form}} {{getvar::species}}"|
 	:}|
 :}|
 
 /ife ( real == 'Yes') {:
-	/let key=realParced {{newline}}- Origin: {{getvar::media_type}} – {{getvar::media_name}}|
+	/setvar key=realParced {{newline}}- Origin: {{getvar::media_type}} – {{getvar::media_name}}|
 :}|

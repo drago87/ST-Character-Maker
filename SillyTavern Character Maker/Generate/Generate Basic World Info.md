@@ -8,6 +8,8 @@
 /qr-update set="CMC Main" label={{pipe}} newlabel="Continue Generating Basic World Information"|
 /:"CMC Logic.Get Char info"|
 
+/setvar key=dataBaseNames []|
+
 //Time Period|
 /var key=do Yes|
 /var key=variableName "timePeriod"|
@@ -34,6 +36,7 @@
 	/:"CMC Logic.Generator"|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
 	/var key=examples {{noop}}|
 	/var key=task {{pipe}}|
@@ -77,16 +80,7 @@
 		/setvar key={{var::variableName}} {{var::output}}|
 		
 	:}|
-	/ife ( '{{var::variableName}}' in databaseList){:
-		/getvar key={{var::variableName}}|
-		/db-add source=chat name={{var::variableName}} {{pipe}}|
-		/db-disable source=chat {{var::variableName}}|
-	:}|
-	/else {:
-		/getvar key={{var::variableName}}|
-		/db-update source=chat name={{var::variableName}} {{pipe}}|
-		/db-disable source=chat {{var::variableName}}|
-	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
 	/var key=examples {{noop}}|
 	/var key=task {{pipe}}|
@@ -129,16 +123,7 @@
 		/:"CMC Logic.Selector"|
 		/setvar key={{getvar::variableName}} {{var::output}}|
 	:}|
-	/ife ( '{{var::variableName}}' in databaseList){:
-		/getvar key={{var::variableName}}|
-		/db-add source=chat name={{var::variableName}} {{pipe}}|
-		/db-disable source=chat {{var::variableName}}|
-	:}|
-	/else {:
-		/getvar key={{var::variableName}}|
-		/db-update source=chat name={{var::variableName}} {{pipe}}|
-		/db-disable source=chat {{var::variableName}}|
-	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
 	/var key=examples {{noop}}|
 	/var key=task {{pipe}}|
@@ -172,16 +157,7 @@
 	/:"CMC Logic.Generator"|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
-	/ife ( '{{var::variableName}}' in databaseList){:
-		/getvar key={{var::variableName}}|
-		/db-add source=chat name={{var::variableName}} {{pipe}}|
-		/db-disable source=chat {{var::variableName}}|
-	:}|
-	/else {:
-		/getvar key={{var::variableName}}|
-		/db-update source=chat name={{var::variableName}} {{pipe}}|
-		/db-disable source=chat {{var::variableName}}|
-	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
 	/var key=examples {{noop}}|
 	/var key=task {{pipe}}|
@@ -215,16 +191,7 @@
 	/:"CMC Logic.Generator"|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
-	/ife ( '{{var::variableName}}' in databaseList){:
-		/getvar key={{var::variableName}}|
-		/db-add source=chat name={{var::variableName}} {{pipe}}|
-		/db-disable source=chat {{var::variableName}}|
-	:}|
-	/else {:
-		/getvar key={{var::variableName}}|
-		/db-update source=chat name={{var::variableName}} {{pipe}}|
-		/db-disable source=chat {{var::variableName}}|
-	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
 	/var key=examples {{noop}}|
 	/var key=task {{pipe}}|
@@ -249,6 +216,8 @@
 /:"CMC Logic.Parse"|
 /message-edit message=0 {{pipe}}|
 /flushvar t|
+
+/:"CMC Logic.Save DataBase"|
 
 /setvar key=stepDone 'Yes'|
 /qr-list CMC Main|

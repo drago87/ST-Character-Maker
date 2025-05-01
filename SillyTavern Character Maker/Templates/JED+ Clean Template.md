@@ -28,12 +28,12 @@
 - Sex/Gender: --Gender--
 - Height: --Height--
 - Age: --Age--
-- Hair: --Hair--
-- Eyes: --Eyes--
-- Body: --Body--
+- Hair Descriptors: --Hair--
+- Eyes Descriptors: --Eyes--
 - Face: --Face--
+- Body Descriptors: --Body----Nipples----Breasts----Privates--
+ - Anus Descriptors: --Anus--
 - Features: --Features--
-- Privates: --Privates--
 
 --ApperanceTraits--
 
@@ -76,14 +76,9 @@
 ## [PERSONALITY_AND_TRAITS]
 
 ### PERSONALITY
---Archetype--
-  
---Alignment--
+--Archetype----Alignment--
 
---PersonalityTags--
-
---CognitiveAbilities--
---SocialSkills--
+--PersonalityTags----CognitiveAbilities----SocialSkills--
 
 --MainAspiration--
   

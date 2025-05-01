@@ -60,20 +60,36 @@
 		/re-replace find="/--Eyes--/g" replace="{{getvar::eyes}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
-	/ife (body != '') {:
-		/re-replace find="/--Body--/g" replace="{{getvar::body}}" {{var::x}}|
-		/var x {{pipe}}|
-	:}|
 	/ife (face != '') {:
 		/re-replace find="/--Face--/g" replace="{{getvar::face}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
-	/ife (features != '') {:
-		/re-replace find="/--Features--/g" replace="{{getvar::features}}" {{var::x}}|
+	/ife (body != '') {:
+		/re-replace find="/--Body--/g" replace="{{getvar::body}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/ife (nipples != '') {:
+		/re-replace find="/--Nipples--/g" replace="{{newline}} - Nipple Descriptors: {{getvar::nipples}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/else {:
+		/re-replace find="/--Nipples--/g" replace="" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/ife (breast != '') {:
+		/re-replace find="/--Breasts--/g" replace="{{newline}} - Breast Descriptors: {{getvar::breast}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/else {:
+		/re-replace find="/--Breasts--/g" replace="" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (privates != '') {:
-		/re-replace find="/--Privates--/g" replace="{{getvar::privates}}" {{var::x}}|
+		/re-replace find="/--Privates--/g" replace="{{newline}} - Privates Descriptors: {{getvar::privates}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/ife (features != '') {:
+		/re-replace find="/--Features--/g" replace="{{getvar::features}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (apperanceTraits != '') {:
@@ -133,15 +149,27 @@
 		/var x {{pipe}}|
 	:}|
 	/ife (secret != '') {:
-		/re-replace find="/--Secret--/g" replace="{{getvar::secret}}" {{var::x}}|
+		/re-replace find="/--Secret--/g" replace="### SECRET{{newline}}{{getvar::secret}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/else {:
+		/re-replace find="/--Secret--/g" replace="" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (itemList != '') {:
-		/re-replace find="/--ItemList--/g" replace="{{getvar::itemList}}" {{var::x}}|
+		/re-replace find="/--ItemList--/g" replace="### INVENTORY{{newline}}{{getvar::itemList}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/else {:
+		/re-replace find="/--ItemList--/g" replace="" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (abilities != '') {:
-		/re-replace find="/--Abilities--/g" replace="{{getvar::abilities}}" {{var::x}}|
+		/re-replace find="/--Abilities--/g" replace="### ABILITIES{{newline}}{{getvar::abilities}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/else {:
+		/re-replace find="/--Abilities--/g" replace="" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (archetype != '') {:
@@ -149,19 +177,31 @@
 		/var x {{pipe}}|
 	:}|
 	/ife (alignment != '') {:
-		/re-replace find="/--Alignment--/g" replace="{{getvar::alignment}}" {{var::x}}|
+		/re-replace find="/--Alignment--/g" replace="{{newline}}{{newline}}{{getvar::alignment}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/else {:
+		/re-replace find="/--Alignment--/g" replace="" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (personalityTags != '') {:
-		/re-replace find="/--PersonalityTags--/g" replace="{{getvar::personalityTags}}" {{var::x}}|
+		/re-replace find="/--PersonalityTags--/g" replace="- Personality Tags:{{getvar::personalityTags}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (cognitiveAbilities != '') {:
-		/re-replace find="/--CognitiveAbilities--/g" replace="{{getvar::cognitiveAbilities}}" {{var::x}}|
+		/re-replace find="/--CognitiveAbilities--/g" replace="{{newline}}{{newline}}- Cognitive Abilities: {{getvar::cognitiveAbilities}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/else {:
+		/re-replace find="/--CognitiveAbilities--/g" replace="" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (socialSkills != '') {:
-		/re-replace find="/--SocialSkills--/g" replace="{{getvar::socialSkills}}" {{var::x}}|
+		/re-replace find="/--SocialSkills--/g" replace="{{newline}}{{newline}}- Social Skills and Integration Into Society:{{getvar::socialSkills}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/else {:
+		/re-replace find="/--SocialSkills--/g" replace="" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (mainAspiration != '') {:
@@ -217,7 +257,11 @@
 		/var x {{pipe}}|
 	:}|
 	/ife (storyPlan != '') {:
-		/re-replace find="/--StoryPlan--/g" replace="{{getvar::storyPlan}}" {{var::x}}|
+		/re-replace find="/--StoryPlan--/g" replace="## PREMADE STORY PLAN{{newline}}{{getvar::storyPlan}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/else {:
+		/re-replace find="/--StoryPlan--/g" replace="" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (previously != '') {:

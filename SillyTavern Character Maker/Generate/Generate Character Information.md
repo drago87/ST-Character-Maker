@@ -8,6 +8,8 @@
 
 /:"CMC Logic.Get Char info"|
 
+/setvar key=dataBaseNames []|
+
 //Character Overview|
 
 //Nationality|
@@ -36,6 +38,7 @@
 	/:"CMC Logic.Generator"|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
 	/var key=examples {{noop}}|
 	/var key=task {{pipe}}|
@@ -70,6 +73,7 @@
 	/:"CMC Logic.Generator"|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
 	/var key=examples {{noop}}|
 	/var key=task {{pipe}}|
@@ -105,6 +109,7 @@
 		/:"CMC Logic.Generator"|
 		
 		/setvar key={{var::variableName}} {{var::output}}|
+		/addvar key=dataBaseNames {{var::variableName}}|
 		/var key=context {{noop}}|
 		/var key=examples {{noop}}|
 		/var key=task {{pipe}}|
@@ -140,6 +145,7 @@
 		/:"CMC Logic.Generator"|
 		
 		/setvar key={{var::variableName}} {{var::output}}|
+		/addvar key=dataBaseNames {{var::variableName}}|
 		/var key=context {{noop}}|
 		/var key=examples {{noop}}|
 		/var key=task {{pipe}}|
@@ -175,6 +181,7 @@
 	/:"CMC Logic.Generator"|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
 	/var key=examples {{noop}}|
 	/var key=task {{pipe}}|
@@ -199,6 +206,8 @@
 /:"CMC Logic.Parse"|
 /message-edit message=0 {{pipe}}|
 /flushvar t|
+
+/:"CMC Logic.Save DataBase"|
 
 /setvar key=stepDone 'Yes'|
 /qr-list CMC Main|
