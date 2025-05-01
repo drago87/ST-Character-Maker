@@ -36,10 +36,10 @@
 	
 	
 	/ife (outputIsList == 'Yes') {:
-		/var as=array key={{var::variableName}} []|
+		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
-		/var as=string key={{var::variableName}} {{noop}}|
+		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
 	/:GenerateWithPrompt wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
@@ -157,10 +157,10 @@
 	
 	
 	/ife (outputIsList == 'Yes') {:
-		/var as=array key={{var::variableName}}|
+		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
-		/var as=string key={{var::variableName}} {{noop}}|
+		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
 	/:GenerateWithPrompt wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
@@ -191,10 +191,10 @@
 	
 	
 	/ife (outputIsList == 'Yes') {:
-		/var as=array key={{var::variableName}}|
+		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
-		/var as=string key={{var::variableName}} {{noop}}|
+		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
 	/:GenerateWithPrompt wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|

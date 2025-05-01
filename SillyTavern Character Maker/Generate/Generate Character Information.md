@@ -38,10 +38,10 @@
 	
 	
 	/ife (outputIsList == 'Yes') {:
-		/var as=array key={{var::variableName}} []|
+		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
-		/var as=string key={{var::variableName}} {{noop}}|
+		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
 	/:GenerateWithPrompt wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}|
@@ -73,10 +73,10 @@
 	
 	
 	/ife (outputIsList == 'Yes') {:
-		/var as=array key={{var::variableName}} []|
+		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
-		/var as=string key={{var::variableName}} {{noop}}|
+		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
 	/:GenerateWithPrompt wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}|
@@ -109,10 +109,10 @@
 		/var key=contextKey "Character"|
 		
 		/ife (outputIsList == 'Yes') {:
-			/var as=array key={{var::variableName}} []|
+			/setvar as=array key={{var::variableName}} []|
 		:}|
 		/else {:
-			/var as=string key={{var::variableName}} {{noop}}|
+			/setvar as=string key={{var::variableName}} {{noop}}|
 		:}|
 		//[[Generate with Prompt]]|
 		/:GenerateWithPrompt wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}|
@@ -145,10 +145,10 @@
 		/var key=contextKey "Character"|
 		
 		/ife (outputIsList == 'Yes') {:
-			/var as=array key={{var::variableName}} []|
+			/setvar as=array key={{var::variableName}} []|
 		:}|
 		/else {:
-			/var as=string key={{var::variableName}} {{noop}}|
+			/setvar as=string key={{var::variableName}} {{noop}}|
 		:}|
 		//[[Generate with Prompt]]|
 		/:GenerateWithPrompt wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}|
@@ -181,10 +181,10 @@
 	
 	
 	/ife (outputIsList == 'Yes') {:
-		/var as=array key={{var::variableName}}|
+		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
-		/var as=string key={{var::variableName}} {{noop}}|
+		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
 	/:GenerateWithPrompt wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}|
