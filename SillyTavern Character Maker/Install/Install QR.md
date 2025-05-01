@@ -107,16 +107,6 @@
 /qr-create set="CMC Logic" label="Is Real" {{pipe}}|
 //|-----|
 
-//Save Gen|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/SaveGen.md|
-/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
-/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
-/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
-/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
-/qr-create set="CMC Logic" label="SaveGen" {{pipe}}|
-//|-----|
-
 //Combine List Lorebooks|
 /fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Combine%20List%20Lorebooks.md|
 /re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
@@ -164,3 +154,6 @@
 /flushvar tempVars|
 /flushvar jedParse|
 /flushvar textParse|
+/flushvar genPromt|
+/flushvar genSelect|
+/flushvar saveGen|

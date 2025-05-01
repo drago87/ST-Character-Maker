@@ -21,7 +21,7 @@
 			/ife ( inputIsList == 'Yes') {:
 				/setvar key=output {{getvar::item}}: {{getvar::input}}|
 			:}|
-			/eslse {:
+			/else {:
 				/setvar key=output {{getvar::input}}|
 			:}|
 		:}|
