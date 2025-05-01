@@ -1,13 +1,13 @@
-/let GenerateWithPrompt {: wi_book="CMC Generation Prompts" genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}
+/let GenerateWithPrompt {: wi_book_f="CMC Generation Prompts" wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}
 	
 	--TextParse--
 	
 	--SaveGen--
-	/ife ( contextKey != '') {:
-		/findentry field=comment file={{var::wi_book}} {{var::contextKey}}: Context|
+	/ife ( contextKey_f != '') {:
+		/findentry field=comment file={{var::wi_book_f}} {{var::contextKey_f}}: Context|
 		/let key=wi_uid {{pipe}}|
 		/ife ( wi_uid != '') {:
-			/getentryfield field=content file={{var::wi_book}} {{var::wi_uid}}|
+			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 			/let key=context {{pipe}}|
 			/ife ( real == 'Yes') {:
 				/var key=context {{var::context}}{{var::realParced}}|
@@ -17,19 +17,19 @@
 	:}|
 	
 	/let key=examples {{noop}}|
-	/findentry field=comment file={{var::wi_book}} {{var::genKey}}: Examples|
+	/findentry field=comment file={{var::wi_book_f}} {{var::wi_book_key_f}}: Examples|
 	/var key=wi_uid {{pipe}}|
 	/ife ( wi_uid != '') {:
-		/getentryfield field=content file={{var::wi_book}} {{var::wi_uid}}|
+		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 		/var key=examples {{pipe}}|
 	:}|
-	/findentry field=comment file={{var::wi_book}} {{var::genKey}}: Task|
+	/findentry field=comment file={{var::wi_book_f}} {{var::wi_book_key_f}}: Task|
 	/var key=wi_uid {{pipe}}|
-	/getentryfield field=content file={{var::wi_book}} {{var::wi_uid}}|
+	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 	/let key=task {{pipe}}|
-	/findentry field=comment file={{var::wi_book}} {{var::genKey}}: Instruction|
+	/findentry field=comment file={{var::wi_book_f}} {{var::wi_book_key_f}}: Instruction|
 	/var key=wi_uid {{pipe}}|
-	/getentryfield field=content file={{var::wi_book}} {{var::wi_uid}}|
+	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 	/let key=instruct {{pipe}}|
 	
 	/let key=genState []|
@@ -55,14 +55,14 @@
 	
 	/let t {{noop}}|
 	/whilee ( output == '') {:
-		/echo Generating {{var::genKey}}|
+		/echo Generating {{var::wi_book_key_f}}|
 		/var key=genState []|
 		/genraw "{{var::context}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 	
 		/var key=t {{pipe}}|
 		/reasoning-parse return=content {{var::t}}|
 		/var key=t {{pipe}}|
-		/ife (genIsList == 'Yes') {:
+		/ife (genIsList_f == 'Yes') {:
 			/re-replace find="/\./g" replace="" {{var::t}}|
 			/var key=t {{pipe}}|
 			/to-lower {{var::t}}|
@@ -78,11 +78,11 @@
 			/var key=genState index={{pipe}} {{var::t}}|
 		:}|
 	
-		/ife ( (genKey == 'Time Period') and ( 'Modern Day' not in genState)) {:
+		/ife ( (wi_book_key_f == 'Time Period') and ( 'Modern Day' not in genState)) {:
 			/len {{var::genState}}|
 			/var key=genState index={{pipe}} Modern Day|
 		:}|
-		/ife ((genIsList == 'Yes') and ( man not in genState)) {:
+		/ife ((genIsList_f == 'Yes') and ( man not in genState)) {:
 			/len {{var::genState}}|
 			/var key=genState index={{pipe}} {{var::man}}|
 		:}|
@@ -111,12 +111,12 @@
 			/len {{var::genState}}|
 			/var key=genState index={{pipe}} {{var::eiP}}|
 		:}|
-		/ife (('Done' not in genState) and (((outputIsList == 'Yes') and (tempList != '')) or (needOutput == 'No'))) {:
+		/ife (('Done' not in genState) and (((outputIsList == 'Yes') and (tempList != '')) or (needOutput_f == 'No'))) {:
 			/len {{var::genState}}|
 			/var key=genState index={{pipe}} "Done"|
 		:}|
 	  
-		/buttons labels={{var::genState}} Select the {{var::genKey}} you want {{getvar:firstName}} to have.|
+		/buttons labels={{var::genState}} Select the {{var::wi_book_key_f}} you want {{getvar:firstName}} to have.|
 		/var key=selected_btn {{pipe}}|
 	
 	
@@ -126,16 +126,16 @@
 			/abort
 		:}|
 		/elseif ( selected_btn == man) {:
-			/ife ( genIsSentence == 'Yes' ){:
+			/ife ( genIsSentence_f == 'Yes' ){:
 				/getat index=0 {{var::genState}} |
 				/input default={{pipe}} Edit the output to your liking.|
 			:}|
 			/else {:
 				/ife (outputIsList == 'Yes') {:
-					/input rows=8 What {{var::genKey}} do you like to add to the {{var::genKey}} list?|
+					/input rows=8 What {{var::wi_book_key_f}} do you like to add to the {{var::wi_book_key_f}} list?|
 				:}|
 				/else {:
-					/input rows=8 What {{var::genKey}} do you like to set as {{var::genKey}} list?|
+					/input rows=8 What {{var::wi_book_key_f}} do you like to set as {{var::wi_book_key_f}} list?|
 				:}|
 			:}|
 			/var key=selected_btn {{pipe}}|
@@ -189,11 +189,11 @@
 				/abort
 		    :}|
 		    /else {:
-				/findentry field=comment file={{var::wi_book}} {{var::genKey}}: Prompt|
+				/findentry field=comment file={{var::wi_book_f}} {{var::wi_book_key_f}}: Prompt|
 				/var key=wi_uid {{pipe}}|
 				/:textParse input="{{var::selected_btn}}"|
 				/var key=selected_btn {{pipe}}|
-				/setentryfield file={{getvar::wi_book}} uid={{var::key=wi_uid}} {{pipe}}|
+				/setentryfield file={{getvar::wi_book_f}} uid={{var::key=wi_uid}} {{pipe}}|
 				/var key=prompt {{getvar::selected_btn}}|
 			:}|
 		:}|
@@ -206,16 +206,16 @@
 				/abort
 		    :}|
 		    /else {:
-				/findentry field=comment file={{var::wi_book}} {{var::genKey}}: Instruction|
+				/findentry field=comment file={{var::wi_book_f}} {{var::wi_book_key_f}}: Instruction|
 				/var key=wi_uid {{pipe}}|
 				/:textParse input="{{var::selected_btn}}"|
 				/var key=selected_btn {{pipe}}|
-				/setentryfield file={{var::wi_book}} uid={{var::key=wi_uid}} {{pipe}}|
+				/setentryfield file={{var::wi_book_f}} uid={{var::key=wi_uid}} {{pipe}}|
 				/var key=prompt {{var::selected_btn}}|
 		    :}|
 		:}|
 		/else {:
-			/ife (( genState == 'Done') and (((outputIsList == 'Yes') and (tempList == '')) or (needOutput == 'No'))) {:
+			/ife (( genState == 'Done') and (((outputIsList == 'Yes') and (tempList == '')) or (needOutput_f == 'No'))) {:
 				/:SaveGen input="None"|
 			:}|
 			/else {:

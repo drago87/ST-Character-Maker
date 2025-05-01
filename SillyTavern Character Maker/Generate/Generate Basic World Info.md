@@ -27,7 +27,7 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=genKey "Time Period"|
+	/var key=wi_book_key "Time Period"|
 	/var key=genIsList Yes|//Yes or No|
 	/var key=outputIsList Yes|//Yes or No|
 	/var key=genIsSentence No|//Yes or No|
@@ -42,7 +42,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt genKey={{var::genkey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
+	/:GenerateWithPrompt wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -79,13 +79,13 @@
 			/var key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}} |
 			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book={{var::wi_book}} genKey={{var::genKey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
+			/:GenerateWithSelector wi_book_f={{var::wi_book}} wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
 			/addvar key={{var::variableName}} {{pipe}}|
 		:}|
 	:}|
 	/else {:
 		/var key=it {{getvar::wi_book_key}}|
-		/:GenerateWithSelector wi_book={{var::wi_book}} genKey={{var::genKey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
+		/:GenerateWithSelector wi_book_f={{var::wi_book}} wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
 		/setvar key={{var::variableName}} {{pipe}}|
 		
 	:}|
@@ -107,11 +107,11 @@
 :}|
 /ife ( do == 'Yes' ) {:
 	/var key=wi_book "CMC Variables"|
-	/var key=wi_book_key Setting Type|
+	/var key=wi_book_key "Setting Type"|
 	/var key=combineLorebookEntries No|
-	/var key=inputIsList No|//Yes or No|
-	/var key=outputIsList Yes|//Yes or No|
-	/var key=needOutput Yes|//Yes or No|
+	/var key=inputIsList No|
+	/var key=outputIsList No|
+	/var key=needOutput Yes|
 	
 	
 	/ife ( inputIsList == 'Yes') {:
@@ -123,13 +123,13 @@
 			/var key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}}|
 			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book={{var::wi_book}} genKey={{var::genKey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
+			/:GenerateWithSelector wi_book_f={{var::wi_book}} wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
 			/addvar key={{var::variableName}} {{var::output}}|
 		:}|
 	:}|
 	/else {:
 		/var key=it {{var::wi_book_key}}|
-		/:GenerateWithSelector wi_book={{var::wi_book}} genKey={{var::genKey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
+		/:GenerateWithSelector wi_book_f={{var::wi_book}} wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
 		/setvar key={{getvar::variableName}} {{var::output}}|
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -143,13 +143,13 @@
 
 //World Type|
 /var key=do Yes|
-/var key=variableName "worldDetails"|
+/var key=variableName "worldType"|
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=genKey "World Details"|
+	/var key=wi_book_key "World Type"|
 	/var key=genIsList Yes|
 	/var key=outputIsList No|
 	/var key=genIsSentence No|
@@ -163,7 +163,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt genKey={{var::genkey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
+	/:GenerateWithPrompt wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -183,11 +183,11 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=genKey "World Details"|//The name of the Lorebook entry to load|
-	/var key=genIsList Yes|//Yes or No|
-	/var key=outputIsList Yes|//Yes or No|
-	/var key=genIsSentence No|//Yes or No|
-	/var key=contextKey {{noop}}|//The name of context template to use|
+	/var key=wi_book_key "World Details"|
+	/var key=genIsList No|
+	/var key=outputIsList No|
+	/var key=genIsSentence No|
+	/var key=contextKey {{noop}}|
 	
 	
 	/ife (outputIsList == 'Yes') {:
@@ -197,7 +197,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt genKey={{var::genkey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
+	/:GenerateWithPrompt wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|

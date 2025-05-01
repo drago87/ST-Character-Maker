@@ -1,13 +1,13 @@
-/let GenerateWithSelector {: wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}
+/let GenerateWithSelector {: wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}
 	/let genStat {{noop}}|
 	/ife ( combineLorebookEntries != 'Yes) {:
-		/ife (( inputIsList == 'Yes') and (wi_book_key is list)) {:
-			/findentry field=comment file={{var::wi_book}} {{var::it}}|
-			/getentryfield field=content file={{var::wi_book}} {{pipe}}|
+		/ife (( inputIsList == 'Yes') and (wi_book_key_f is list)) {:
+			/findentry field=comment file={{var::wi_book_f}} {{getvar::it}}|
+			/getentryfield field=content file={{var::wi_book_f}} {{pipe}}|
 		:}|
 		/else {:
-			/findentry field=comment file={{var::wi_book}} {{var::wi_book_key}}: List|
-			/getentryfield field=content file={{var::wi_book}} {{pipe}}|
+			/findentry field=comment file={{var::wi_book_f}} {{var::wi_book_key_f}}: List|
+			/getentryfield field=content file={{var::wi_book_f}} {{pipe}}|
 		:}|
 		/var key=genState {{pipe}}|
 	:}|
@@ -42,7 +42,7 @@
 			/len {{var::genState}}|
 			/var key=genState index={{pipe}} {{getvar::man}}|
 		:}|
-		/ife (('Done' not in genState) and (((outputIsList == 'Yes') and (tempList != '')) or (needOutput == 'No'))) {:
+		/ife (('Done' not in genState) and (((outputIsList == 'Yes') and (tempList != '')) or (needOutput_f == 'No'))) {:
 			/len {{var::genState}}|
 			/var key=genState index={{pipe}} "Done"|
 		:}|
@@ -63,23 +63,23 @@
 			/:SaveGen input="{{var::selected_btn}}"|
 		:}|
 		/elseif ( selected_btn == man) {:
-			/ife ( genIsSentence == 'Yes' ){:
+			/ife ( genIsSentence_f == 'Yes' ){:
 				/getat index=0 {{var::genState}}|
 				/input default={{pipe}} Edit the output to your liking.|
 			:}|
 			/else {:
 				/ife (outputIsList == 'Yes') {:
-					/input rows=8 What {{var::genKey}} do you like to add to the {{var::genKey}} list?|
+					/input rows=8 What {{var::wi_book_key_f}} do you like to add to the {{var::wi_book_key_f}} list?|
 				:}|
 				/else {:
-					/input rows=8 What {{var::genKey}} do you like to set as {{var::genKey}} list?|
+					/input rows=8 What {{var::wi_book_key_f}} do you like to set as {{var::wi_book_key_f}} list?|
 				:}|
 			:}|
 			/var key=selected_btn {{pipe}}|
 			/:SaveGen input="{{var::selected_btn}}"|
 		:}|
 		/else {:
-			/ife (( genState == 'Done') and (((outputIsList == 'Yes') and (tempList == '')) or (needOutput == 'No'))) {:
+			/ife (( genState == 'Done') and (((outputIsList == 'Yes') and (tempList == '')) or (needOutput_f == 'No'))) {:
 				/:SaveGen input="None"|
 			:}|
 			/else {:

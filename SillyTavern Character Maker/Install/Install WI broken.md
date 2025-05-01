@@ -280,45 +280,45 @@ A: --Answer--|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="Ethnicities: Instruction" "INSTRUCTIONS:
-2. Only respond with a colon-separated list and nothing else."|
+1. Only respond with a colon-separated list and nothing else."|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="First Name: Prompt" Generate a colon-separated list of five {{getvar::gender}} first names.|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="First Name: Instruction" "INSTRUCTIONS:
-3. Only respond with a colon-separated list and nothing else."|
+1. Only respond with a colon-separated list and nothing else."|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="Last Name: Prompt" Generate a colon-separated list of five {{getvar::gender}} last names that complement the first name: {{getvar::firstName}}.|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="Last Name: Instruction" "INSTRUCTIONS:
-4. Only respond with a colon-separated list and nothing else."|
+1. Only respond with a colon-separated list and nothing else."|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="Nickname: Prompt" Generate a colon-separated list of five {{getvar::gender}} nicknames that complement the name: {{getvar::firstName}} {{getvar::lname}}.|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="Nickname: Instruction" "INSTRUCTIONS:
-5. The generated nicknames should be a mix of something parents or close friends use.
-6. Only respond with a colon-separated list and nothing else."|
+1. The generated nicknames should be a mix of something parents or close friends use.
+2. Only respond with a colon-separated list and nothing else."|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="Genre: Prompt" Generate a colon-separated list of ten genres.|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="Genre: Instruction" "INSTRUCTIONS:
-7. The generated genres should be a mix of Anime, Film, Fantasy or Sci-Fi genres.
-8. Only respond with a colon-separated list and nothing else."|
+1. The generated genres should be a mix of Anime, Film, Fantasy or Sci-Fi genres.
+2. Only respond with a colon-separated list and nothing else."|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="Time Period: Prompt" Generate a colon-separated list of five time periods and five fictional time periods.|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="Time Period: Instruction" "INSTRUCTIONS:
-9. There should be only one combined list.
-10. Only respond with a colon-separated list and nothing else."|
+1. There should be only one combined list.
+2. Only respond with a colon-separated list and nothing else."|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="World Type: Prompt" Generate a colon-separated list of five world types that could replace X in this sentence.
@@ -348,9 +348,9 @@ The story takes place in a X setting.|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="Student: Instruction" "INSTRUCTIONS:
-3. Acceptable replies are: Preschooler, xth Grader (e.g., 1st Grader, 2nd Grader, etc.), Middle Schooler, High School Student, College Student, or University Student.
-4. Use correct ordinal formatting (e.g., 1st, 2nd, 3rd, 4th, etc.) in 'xth Grader'.
-5. Only respond with the school level label and nothing else."|
+1. Acceptable replies are: Preschooler, xth Grader (e.g., 1st Grader, 2nd Grader, etc.), Middle Schooler, High School Student, College Student, or University Student.
+2. Use correct ordinal formatting (e.g., 1st, 2nd, 3rd, 4th, etc.) in 'xth Grader'.
+3. Only respond with the school level label and nothing else."|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 
@@ -358,7 +358,7 @@ The story takes place in a X setting.|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 	
 	/createentry file={{var::wi_gen_prompt}} key="Study Occupation: Instruction" "INSTRUCTIONS:
-6. Only respond with the colon-separated list and nothing else."|
+1. Only respond with the colon-separated list and nothing else."|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="World Details: Examples" EXAMPLES (for your reference—do not include in the answer):
@@ -369,7 +369,7 @@ The fantasy world of Root, inhabited by monsters and other fictional races.|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 	
 	/createentry file={{var::wi_gen_prompt}} key="World Details: Instruction" "INSTRUCTIONS:
-1. Only respond with the colon-separated list and nothing else."|
+1. Only respond with the world description and nothing else."|
 	/setentryfield file={{var::wi_gen_prompt}} uid={{pipe}} field=key {{noop}}|
 
 	/createentry file={{var::wi_gen_prompt}} key="Lore: Examples" EXAMPLES (for your reference—do not include in the answer):

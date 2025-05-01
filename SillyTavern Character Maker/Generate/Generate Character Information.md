@@ -17,7 +17,7 @@
 --GenPrompt--
 
 --GenSelector--
-/----|
+//----|
 
 //Character Overview|
 
@@ -29,7 +29,7 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=genKey "Nationalities"|
+	/var key=wi_book_key "Nationalities"|
 	/var key=genIsList Yes|//Yes or No|
 	/var key=outputIsList No|//Yes or No|
 	/var key=genIsSentence No|//Yes or No|
@@ -44,7 +44,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+	/:GenerateWithPrompt wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -64,7 +64,7 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=genKey "Ethnicities"|
+	/var key=wi_book_key "Ethnicities"|
 	/var key=genIsList Yes|//Yes or No|
 	/var key=outputIsList No|//Yes or No|
 	/var key=genIsSentence No|//Yes or No|
@@ -79,7 +79,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+	/:GenerateWithPrompt wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -101,7 +101,7 @@
 		/var key=do {{pipe}}|
 	:}|
 	/ife ( do == 'Yes' ) {:
-		/var key=genKey "First Name"|
+		/var key=wi_book_key "First Name"|
 		/var key=genIsList Yes|//Yes or No|
 		/var key=outputIsList No|//Yes or No|
 		/var key=genIsSentence No|//Yes or No|
@@ -115,7 +115,7 @@
 			/var as=string key={{var::variableName}} {{noop}}|
 		:}|
 		//[[Generate with Prompt]]|
-		/:GenerateWithPrompt wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+		/:GenerateWithPrompt wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}|
 		
 		/setvar key={{var::variableName}} {{var::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
@@ -137,7 +137,7 @@
 		/var key=do {{pipe}}|
 	:}|
 	/ife ( do == 'Yes' ) {:
-		/var key=genKey "Last Name"|
+		/var key=wi_book_key "Last Name"|
 		/var key=genIsList Yes|//Yes or No|
 		/var key=genIsSentence No|//Yes or No|
 		/var key=outputIsList No|//Yes or No|
@@ -151,7 +151,7 @@
 			/var as=string key={{var::variableName}} {{noop}}|
 		:}|
 		//[[Generate with Prompt]]|
-		/:GenerateWithPrompt wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+		/:GenerateWithPrompt wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}|
 		
 		/setvar key={{var::variableName}} {{var::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
@@ -172,7 +172,7 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=genKey "Nickname"|
+	/var key=wi_book_key "Nickname"|
 	/var key=genIsList Yes|//Yes or No|
 	/var key=outputIsList No|//Yes or No|
 	/var key=genIsSentence No|//Yes or No|
@@ -187,7 +187,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+	/:GenerateWithPrompt wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
