@@ -35,7 +35,7 @@
 //-----|
 
 //Create GenerateWithPrompt|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Text%20Parse.md|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Generate%20with%20Prompt.md|
 /re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 /re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 /re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
@@ -44,7 +44,7 @@
 //-----|
 
 //Create GenerateWithSelector|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Text%20Parse.md|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Selector.md|
 /re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 /re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 /re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
