@@ -22,7 +22,7 @@
 	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
-/ife ( do == 'Yes ) {:
+/ife ( do == 'Yes' ) {:
 	/var key=genKey "Nationalities"|
 	/var key=genIsList Yes|//Yes or No|
 	/var key=outputIsList No|//Yes or No|
@@ -57,7 +57,7 @@
 	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
-/ife ( do == 'Yes ) {:
+/ife ( do == 'Yes' ) {:
 	/var key=genKey "Ethnicities"|
 	/var key=genIsList Yes|//Yes or No|
 	/var key=outputIsList No|//Yes or No|
@@ -94,7 +94,7 @@
 		/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 	:}|
-	/ife ( do == 'Yes ) {:
+	/ife ( do == 'Yes' ) {:
 		/var key=genKey "First Name"|
 		/var key=genIsList Yes|//Yes or No|
 		/var key=outputIsList No|//Yes or No|
@@ -130,7 +130,7 @@
 		/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 	:}|
-	/ife ( do == 'Yes ) {:
+	/ife ( do == 'Yes' ) {:
 		/var key=genKey "Last Name"|
 		/var key=genIsList Yes|//Yes or No|
 		/var key=genIsSentence No|//Yes or No|
@@ -165,7 +165,7 @@
 	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
-/ife ( do == 'Yes ) {:
+/ife ( do == 'Yes' ) {:
 	/var key=genKey "Nickname"|
 	/var key=genIsList Yes|//Yes or No|
 	/var key=outputIsList No|//Yes or No|

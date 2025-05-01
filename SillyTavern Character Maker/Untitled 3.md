@@ -1,7 +1,62 @@
 /setvar key=stepDone No|
 /setvar key=stepVar Step2|
 
---VarReplace--
+//SetTempVariables|
+/let key=do {{noop}}|
+/let key=variableName {{noop}}|
+/let key=wi_book {{noop}}|
+/let key=wi_book_key {{noop}}|
+/let key=combineLorebookEntries {{noop}}|
+/let key=inputIsList {{noop}}|
+/let key=outputIsList {{noop}}|
+/let key=needOutput {{noop}}|
+/let key=content {{noop}}|
+/let key=output {{noop}}|
+/let key=wi_temp {{noop}}|
+/let key=wi_input_entreis {{noop}}|
+/let key=wi_input_content {{noop}}|
+/let key=workingList1 {{noop}}|
+/let key=workingList2 {{noop}}|
+/let key=genOrder {{noop}}|
+/let key=genOrderContent {{noop}}|
+/let key=selected_btn {{noop}}|
+/let key=parcedInput {{noop}}|
+/let key=workingIndex {{noop}}|
+/let key=workingContent2 {{noop}}|
+/let key=genOrderindex {{noop}}|
+/let key=parce1 {{noop}}|
+/let key=parce2 {{noop}}|
+/let key=t {{noop}}|
+/let key=it {{noop}}|
+/let key=wi_uid {{noop}}|
+/let key=genState {{noop}}|
+/let key=isGeneration {{noop}}|
+/let key=tempList {{noop}}|
+/let key=actionType {{noop}}|
+/let key=man {{noop}}|
+/let key=genKey {{noop}}|
+/let key=genIsList {{noop}}|
+/let key=genIsSentence {{noop}}|
+/let key=contextKey {{noop}}|
+/let key=context {{noop}}|
+/let key=examples {{noop}}|
+/let key=task {{noop}}|
+/let key=instruct {{noop}}|
+/let key=ecT {{noop}}|
+/let key=epT {{noop}}|
+/let key=epP {{noop}}|
+/let key=eiT {{noop}}|
+/let key=eiP {{noop}}|
+/let key=add {{noop}}|
+/let key=lastId {{noop}}|
+/let key=mess {{noop}}|
+/let key=message {{noop}}|
+/let key=databaseList {{noop}}|
+/let key=qrList {{noop}}|
+/let key=typeGuide {{noop}}|
+//-----|
+
+
 
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
@@ -30,10 +85,10 @@
 	
 	
 	/ife (outputIsList == 'Yes') {:
-		/var as=array key={{var::variableName}} []|
+		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
-		/var as=string key={{var::variableName}} {{noop}}|
+		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.Generator"|
@@ -151,10 +206,10 @@
 	
 	
 	/ife (outputIsList == 'Yes') {:
-		/var as=array key={{var::variableName}}|
+		/setvar as=array key={{var::variableName}}|
 	:}|
 	/else {:
-		/var as=string key={{var::variableName}} {{noop}}|
+		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.Generator"|
@@ -185,10 +240,10 @@
 	
 	
 	/ife (outputIsList == 'Yes') {:
-		/var as=array key={{var::variableName}}|
+		/setvar as=array key={{var::variableName}}|
 	:}|
 	/else {:
-		/var as=string key={{var::variableName}} {{noop}}|
+		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.Generator"|
