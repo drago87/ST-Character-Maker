@@ -1,6 +1,6 @@
 /let GenerateWithSelector {: wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}
 	/let genStat {{noop}}|
-	/ife ( combineLorebookEntries != 'Yes) {:
+	/ife ( combineLorebookEntries != 'Yes') {:
 		/ife (( inputIsList == 'Yes') and (wi_book_key_f is list)) {:
 			/findentry field=comment file={{var::wi_book_f}} {{getvar::it}}|
 			/getentryfield field=content file={{var::wi_book_f}} {{pipe}}|
