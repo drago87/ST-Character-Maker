@@ -71,8 +71,8 @@
 /wait 100|
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
-/let qrlabel {{pipe}}|
-/let temp {{noop}}|
+/let key=qrlabel {{pipe}}|
+/let key=temp {{noop}}|
 /ife ( qrlabel != '') {:
 	/qr-get set="CMC Main" label={{var::qrlabel}}|
 	/getat index="message" {{pipe}}|

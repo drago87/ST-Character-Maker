@@ -25,7 +25,7 @@
 /var key=do Yes|
 /var key=variableName "nationality"|
 /ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
+	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
@@ -60,7 +60,7 @@
 /var key=do Yes|
 /var key=variableName "ethnicity"|
 /ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
+	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
@@ -97,7 +97,7 @@
 	/var key=do Yes|
 	/var key=variableName "firstName"|
 	/ife ( {{var::variableName}} != '') {:
-		/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
+		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 	:}|
 	/ife ( do == 'Yes' ) {:
@@ -133,7 +133,7 @@
 	/var key=do Yes|
 	/var key=variableName "lastName"|
 	/ife ( {{var::variableName}} != '') {:
-		/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
+		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 	:}|
 	/ife ( do == 'Yes' ) {:
@@ -168,7 +168,7 @@
 /var key=do Yes|
 /var key=variableName "nickName"|
 /ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
+	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:

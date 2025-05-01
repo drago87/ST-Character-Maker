@@ -23,7 +23,7 @@
 /var key=do Yes|
 /var key=variableName "timePeriod"|
 /ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
+	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
@@ -58,7 +58,7 @@
 /var key=do Yes|
 /var key=variableName "seasons"|
 /ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
+	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
@@ -102,7 +102,7 @@
 /var key=do Yes|
 /var key=variableName "settingType"|
 /ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo redo {{getvar::varibleName}}|
+	/buttons labels=["Yes", "No"] Do you want to redo {{getvar::varibleName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
@@ -145,7 +145,7 @@
 /var key=do Yes|
 /var key=variableName "worldType"|
 /ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
+	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
@@ -179,7 +179,7 @@
 /var key=do Yes|
 /var key=variableName "worldDetails"|
 /ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
+	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:

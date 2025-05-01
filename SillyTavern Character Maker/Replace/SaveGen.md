@@ -9,7 +9,7 @@
 		/setvar key=output {{getvar::tempList}}|
 	:}|
 	/elseif ( isGeneration == 'Yes') {:
-		/ife ( outputIsList == 'Yes) {:
+		/ife ( outputIsList == 'Yes') {:
 			/ife ( inputIsList == 'Yes') {:
 				/addvar key=tempList {{getvar::item}}: {{getvar::input}}|
 			:}|

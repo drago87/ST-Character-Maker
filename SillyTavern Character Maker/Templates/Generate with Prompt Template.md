@@ -3,7 +3,7 @@
 /var key=do Yes|
 /var key=variableName ""|
 /ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo redo {{var::variableName}}|
+	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
