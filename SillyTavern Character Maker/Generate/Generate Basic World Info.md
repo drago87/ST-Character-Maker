@@ -1,11 +1,14 @@
-/setvar key=stepDone 'No'|
+/setvar key=stepDone No|
 /setvar key=stepVar Step2|
 
 --VarReplace--
 
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
-/qr-update set="CMC Main" label={{pipe}} newlabel="Continue Generating Basic World Information"|
+/let qrlabel {{pipe}}|
+/qr-get set="CMC Main" label={{var::qrlabel}}|
+/getat index="message" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating Basic World Information" {{pipe}}|
 /:"CMC Logic.Get Char info"|
 
 /setvar key=dataBaseNames []|
@@ -219,7 +222,10 @@
 
 /:"CMC Logic.Save DataBase"|
 
-/setvar key=stepDone 'Yes'|
+/setvar key=stepDone Yes|
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
-/qr-update set="CMC Main" label={{pipe}} newlabel="Start Generating Basic World Information"|
+/let qrlabel {{pipe}}|
+/qr-get set="CMC Main" label={{var::qrlabel}}|
+/getat index="message" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Basic World Information" {{pipe}}|

@@ -1,8 +1,11 @@
-/setvar key=stepDone 'No'|
+/setvar key=stepDone No|
 /setvar key=stepVar Step3|
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
-/qr-update set="CMC Main" label={{pipe}} newlabel="Continue Generating Character Information"|
+/let qrlabel {{pipe}}|
+/qr-get set="CMC Main" label={{var::qrlabel}}|
+/getat index="message" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating Character Information" {{pipe}}|
 
 --VarReplace--
 
@@ -209,7 +212,18 @@
 
 /:"CMC Logic.Save DataBase"|
 
-/setvar key=stepDone 'Yes'|
+/setvar key=stepDone Yes|
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
-/qr-update set="CMC Main" label={{pipe}} newlabel="Start Generating Personality"|
+/let qrlabel {{pipe}}|
+/qr-get set="CMC Main" label={{var::qrlabel}}|
+/getat index="message" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Personality" {{pipe}}|
+
+/let key=filename {{datetimeformat YYYY-MM-DD HH h mm}}|
+/re-replace find="/\s(?=\d{2}$)/g" replace="h " {{var::filename}}|
+/setvar key=filename {{pipe}}|
+/addvar key=filename " m {{getvar::firstName}} {{getvar::lastName}}"|
+/forcesave
+/renamechat {{getvar::filename}}|
+/flushvar filename|

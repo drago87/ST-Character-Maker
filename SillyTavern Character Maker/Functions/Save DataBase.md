@@ -13,4 +13,4 @@
 	:}|
 :}|
 
-/flush dataBaseNames|
+/flushvar dataBaseNames|

@@ -16,11 +16,14 @@
 	:}|
 :}|
 
-/setvar key=stepDone 'No'|
+/setvar key=stepDone No|
 /setvar key=stepVar Step1|
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
-/qr-update set="CMC Main" label={{pipe}} newlabel="Continue Generating Basic Information"|
+/let qrlabel {{pipe}}|
+/qr-get set="CMC Main" label={{var::qrlabel}}|
+/getat index="message" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating Basic Information" {{pipe}}|
 
 /qr-list CMC Logic|
 /var key=qrList {{pipe}} |
@@ -156,7 +159,10 @@ INSTRUCTION: Only respond in the given format.|
 
 /:"CMC Logic.Save DataBase"|
 
-/setvar key=stepDone 'Yes'|
+/setvar key=stepDone Yes|
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
-/qr-update set="CMC Main" label={{pipe}} newlabel="Start Generating World Info"|
+/let qrlabel {{pipe}}|
+/qr-get set="CMC Main" label={{var::qrlabel}}|
+/getat index="message" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating World Info" {{pipe}}|
