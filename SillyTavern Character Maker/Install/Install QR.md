@@ -147,6 +147,7 @@
 /re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
 /re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
 /re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+/qr-create set="CMC Generate" label="Generate Character Information" {{pipe}}|
 //|-----|
 
 /qr-chat-set-on visible=true "CMC Main"|
