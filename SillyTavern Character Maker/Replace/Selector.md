@@ -1,15 +1,13 @@
 /let GenerateWithSelector {: wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}
-
+	/let genStat {{noop}}|
 	/ife ( combineLorebookEntries != 'Yes) {:
 		/ife (( inputIsList == 'Yes') and (wi_book_key is list)) {:
 			/findentry field=comment file={{var::wi_book}} {{var::it}}|
-			/var key=wi_uid {{pipe}}|
-			/getentryfield field=content file={{var::wi_book}} {{var::wi_uid}}|
+			/getentryfield field=content file={{var::wi_book}} {{pipe}}|
 		:}|
 		/else {:
 			/findentry field=comment file={{var::wi_book}} {{var::wi_book_key}}: List|
-			/var key=wi_uid {{pipe}}|
-			/getentryfield field=content file={{var::wi_book}} {{var::wi_uid}}|
+			/getentryfield field=content file={{var::wi_book}} {{pipe}}|
 		:}|
 		/var key=genState {{pipe}}|
 	:}|
@@ -19,8 +17,10 @@
 	/split find=":" {{var::genState}}|
 	/var as=array key=genState {{pipe}}|
 	
-	/var key=isGeneration 'No'|
-	/var key=output {{noop}}|
+	/let key=selected_btn {{noop}}|
+	
+	/let key=isGeneration 'No'|
+	/let key=output {{noop}}|
 	/setvar as=array key=tempList []|
 	/let actionType {{noop}}|
 	
@@ -30,7 +30,7 @@
 	/else {:
 		/var key=actionType set|
 	:}|
-	/var key=man "Manually {{var::actionType}}"|
+	/let key=man "Manually {{var::actionType}}"|
 	
 	/whilee ( output == '') {:
 		
