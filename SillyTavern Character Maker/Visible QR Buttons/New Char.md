@@ -117,7 +117,7 @@ INSTRUCTION: Only respond in the given format.|
 :}|
 
 /var selected_btn {{noop}}|
-/ife ( type != '' ) {:
+/ife ( speciesType != '' ) {:
 	/buttons labels=["Yes", "No"] Do you want to change the species type?|
 	/var selected_btn {{pipe}}|
 	/ife ( selected_btn == '') {:

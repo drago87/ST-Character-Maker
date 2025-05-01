@@ -17,7 +17,7 @@
 --GenPrompt--
 
 --GenSelector--
-/----|
+//----|
 
 //Time Period|
 /var key=do Yes|
@@ -42,7 +42,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+	/:GenerateWithPrompt genKey={{var::genkey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -79,13 +79,13 @@
 			/var key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}} |
 			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+			/:GenerateWithSelector wi_book={{var::wi_book}} genKey={{var::genKey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
 			/addvar key={{var::variableName}} {{pipe}}|
 		:}|
 	:}|
 	/else {:
 		/var key=it {{getvar::wi_book_key}}|
-		/:GenerateWithSelector wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+		/:GenerateWithSelector wi_book={{var::wi_book}} genKey={{var::genKey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
 		/setvar key={{var::variableName}} {{pipe}}|
 		
 	:}|
@@ -123,13 +123,13 @@
 			/var key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}}|
 			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+			/:GenerateWithSelector wi_book={{var::wi_book}} genKey={{var::genKey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
 			/addvar key={{var::variableName}} {{var::output}}|
 		:}|
 	:}|
 	/else {:
 		/var key=it {{var::wi_book_key}}|
-		/:GenerateWithSelector wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+		/:GenerateWithSelector wi_book={{var::wi_book}} genKey={{var::genKey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
 		/setvar key={{getvar::variableName}} {{var::output}}|
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -163,7 +163,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+	/:GenerateWithPrompt genKey={{var::genkey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -197,7 +197,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+	/:GenerateWithPrompt genKey={{var::genkey}} genIsList={{var::genIsList}} genIsSentence={{var::genIsSentence}} needOutput={{var::needOutput}}  contextKey={{var::contextKey}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|

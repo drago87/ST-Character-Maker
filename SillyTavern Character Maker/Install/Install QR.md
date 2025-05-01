@@ -68,7 +68,7 @@
 	/qr-update set="CMC Main" label="New Character" title="Make a character from the beginning."|
 :}|
 //|-----|
-
+/wait 100|
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
 /let qrlabel {{pipe}}|
