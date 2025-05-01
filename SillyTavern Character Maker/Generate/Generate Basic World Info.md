@@ -42,9 +42,9 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
+	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 	
-	/setvar key={{var::variableName}} {{var::output}}|
+	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
 	/var key=examples {{noop}}|
@@ -79,13 +79,13 @@
 			/var key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}} |
 			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book_f={{var::wi_book}} wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
+			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 			/addvar key={{var::variableName}} {{pipe}}|
 		:}|
 	:}|
 	/else {:
 		/var key=it {{getvar::wi_book_key}}|
-		/:GenerateWithSelector wi_book_f={{var::wi_book}} wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
+		/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 		/setvar key={{var::variableName}} {{pipe}}|
 		
 	:}|
@@ -123,14 +123,14 @@
 			/var key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}}|
 			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book_f={{var::wi_book}} wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
-			/addvar key={{var::variableName}} {{var::output}}|
+			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+			/addvar key={{var::variableName}} {{getvar::output}}|
 		:}|
 	:}|
 	/else {:
 		/var key=it {{var::wi_book_key}}|
-		/:GenerateWithSelector wi_book_f={{var::wi_book}} wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
-		/setvar key={{getvar::variableName}} {{var::output}}|
+		/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+		/setvar key={{getvar::variableName}} {{getvar::output}}|
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
@@ -163,9 +163,9 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
+	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 	
-	/setvar key={{var::variableName}} {{var::output}}|
+	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
 	/var key=examples {{noop}}|
@@ -197,9 +197,9 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_key_f={{var::wi_book_key}} genIsList_f={{var::genIsList}} genIsSentence_f={{var::genIsSentence}} needOutput_f={{var::needOutput}}  contextKey_f={{var::contextKey}}|
+	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 	
-	/setvar key={{var::variableName}} {{var::output}}|
+	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/var key=context {{noop}}|
 	/var key=examples {{noop}}|
