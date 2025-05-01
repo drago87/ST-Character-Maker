@@ -49,7 +49,7 @@
 	/getentryfield file="CMC Variables" {{pipe}}| 
 	/var typeGuide {{pipe}}|
 	/whilee ( type == 'Help me Decide') {:
-		/buttons labels=["Help me Decide", "Human", "Anthro\n(Anthro is a animal that have a human form.)", "Demi-Human\n(Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...)", "Furry\n(Furry is animal like humans that mostly looks like humans but have certain animal parts.)", "Feral\n(Feral is standard animals, fantasy animals or monsters.)", "Pokémon", "Digimon", "Android/n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
+		/buttons labels=["Help me Decide", "Human", "Andromorphic\n(Andromorphic is a animal that have a human form.)", "Demi-Human\n(Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...)", "Furry\n(Furry is animal like humans that mostly looks like humans but have certain animal parts.)", "Feral\n(Feral is standard animals, fantasy animals or monsters.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
 		/re-replace find="/(\n\(\|\()[\s\S]*$/g" replace="" {{pipe}}|
 		/setvar key=type {{pipe}}|
 		/ife ( type == ''){:
@@ -62,10 +62,10 @@
 			/genraw as=char Respond to the question: What type of character is a {{var::inp}}?
 The reply should be in this format:
 '<div>{{getvar::inp}} is a x</div>'
-x is one of the following "Human", "Anthro", "Demi-Human", "Furry", "Feral", "Pokémon", "Digimon", "Android"
+x is one of the following "Human", "Andromorphic", "Demi-Human", "Furry", "Feral", "Pokémon", "Digimon", "Android"
 INFORMATION: 
 Human is a standard human.
-Anthro is a animal that have a human form.
+Andromorphic is a animal that have a human form.
 Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...
 Furry is animal like humans that mostly looks like humans but have certain animal parts.
 Feral is standard animals, fantasy animals or monsters.
@@ -100,7 +100,7 @@ INSTRUCTION: Only respond in the given format.|
 /ife ( (selected_btn == 'Yes') or (character_type == '')) {:
 	/setvar key=character_type None|
 :}|
-/ife (((character_type == 'None') or ( selected_btn == 'Yes')) and (( type == 'Anthro') or ( type == 'Furry')  or ( type == 'Feral'))) {:
+/ife (((character_type == 'None') or ( selected_btn == 'Yes')) and (( type == 'Andromorphic') or ( type == 'Furry')  or ( type == 'Feral'))) {:
 	/buttons labels=["Pokémon", "Digimon", "Normal"] Select the type you want?|
 	/setvar key=character_type {{pipe}}|
 :}|

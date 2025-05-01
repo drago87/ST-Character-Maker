@@ -23,7 +23,7 @@
 ## [APPEARANCE]
 
 ### APPEARANCE DETAILS
-- Full Name, Alias: --FirstName-- --LastName-- --NickName--
+- Full Name--Alias1--: --FirstName-- --LastName----Alias--
 - Race: --Species--
 - Sex/Gender: --Gender--
 - Height: --Height--

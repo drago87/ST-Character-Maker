@@ -32,8 +32,16 @@
 		/re-replace find="/--LastName--/g" replace="{{getvar::lastName}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
-	/ife (nickName != '') {:
-		/re-replace find="/--NickName--/g" replace="{{getvar::nickName}}" {{var::x}}|
+	/ife (alias != '') {:
+		/re-replace find="/--Alias1--/g" replace=", Alias" {{var::x}}|
+		/var x {{pipe}}|
+		/re-replace find="/--Alias--/g" replace=", {{getvar::alias}}" {{var::x}}|
+		/var x {{pipe}}|
+	:}|
+	/else {:
+		/re-replace find="/--Alias1--/g" replace="" {{var::x}}|
+		/var x {{pipe}}|
+		/re-replace find="/--Alias--/g" replace="" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (parsedSpecies != '') {:

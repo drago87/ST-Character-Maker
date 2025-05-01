@@ -58,5 +58,6 @@
 :}|
 
 /ife ( real == 'Yes') {:
-	/setvar key=realParced {{newline}}- Origin: {{getvar::media_type}} – {{getvar::media_name}}|
+	/setvar key=realInfoParced {{newline}}- Origin: {{getvar::media_type}} – {{getvar::media_name}}|
+	/setvar key=realParced {{char}} is a character from the {{getvar::media_type}} _{{getvar::media_name}}._|
 :}|
