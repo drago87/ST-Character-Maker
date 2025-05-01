@@ -1,7 +1,8 @@
-/let GenerateWithPrompt {: wi_book="CMC Generation Prompts" contextKey= genKey=
+/let GenerateWithPrompt {: wi_book="CMC Generation Prompts" genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}
+	
 	--TextParse--
 	
-	"CMC Generation Prompts"|
+	--SaveGen--
 	/ife ( contextKey != '') {:
 		/findentry field=comment file={{var::wi_book}} {{var::contextKey}}: Context|
 		/let key=wi_uid {{pipe}}|
@@ -32,6 +33,7 @@
 	/let key=instruct {{pipe}}|
 	
 	/let key=genState []|
+	/let key=selected_btn {{noop}}|
 	
 	/let key=isGeneration 'Yes'|
 	/let key=output {{noop}}|
@@ -142,74 +144,74 @@
 		/elseif ( selected_btn == ecT) {:
 		    /:textParse input="{{var::context}}"|
 		    /input labels={{pipe}} Edit the context temporarily.|
-		    /var key=add {{pipe}}|
-		    /ife ( add == ''){:
+		    /var key=selected_btn {{pipe}}|
+		    /ife ( selected_btn == ''){:
 				/echo Aborting |
 				/abort
 			:}|
 		    /else {:
-				/:textParse input="{{var::add}}"|
-				/var key=context {{var::pipe}}|
+				/:textParse input="{{var::selected_btn}}"|
+				/var key=context {{pipe}}|
 			:}|
 		:}|
 		/elseif ( selected_btn == epT) {:
 		    /:textParse input="{{getvar::prompt}}"|
 		    /input labels={{pipe}} Edit the prompt temporarily.|
-		    /var key=add {{pipe}}|
-		    /ife ( add == ''){:
+		    /var key=selected_btn {{pipe}}|
+		    /ife ( selected_btn == ''){:
 				/echo Aborting |
 				/abort
 			:}|
 		    /else {:
-				/:textParse input="{{var::add}}"|
+				/:textParse input="{{var::selected_btn}}"|
 				/var key=prompt {{pipe}}|
 			:}|
 		:}|
 		/elseif ( selected_btn == eiT) {:
 		    /:textParse input="{{var::instruct}}"|
 		    /input labels={{pipe}} Edit the instructions temporarily.|
-		    /var key=add {{pipe}}|
-		    /ife ( add == ''){:
+		    /var key=selected_btn {{pipe}}|
+		    /ife ( selected_btn == ''){:
 				/echo Aborting |
 				/abort
 			:}|
 			/else {:
-				/:textParse input="{{var::add}}"|
+				/:textParse input="{{var::selected_btn}}"|
 				/var key=instruct {{pipe}}|
 			:}|
 		:}|
 		/elseif ( selected_btn == epP) {:
 			/:textParse input="{{var::prompt}}"|
 		    /input default={{pipe}} How would you like to change the prompt permanently?|
-		    /var key=add {{pipe}}|
-		    /ife ( add == ''){:
+		    /var key=selected_btn {{pipe}}|
+		    /ife ( selected_btn == ''){:
 				/echo Aborting |
 				/abort
 		    :}|
 		    /else {:
 				/findentry field=comment file={{var::wi_book}} {{var::genKey}}: Prompt|
 				/var key=wi_uid {{pipe}}|
-				/:textParse input="{{var::add}}"|
-				/var key=add {{pipe}}|
+				/:textParse input="{{var::selected_btn}}"|
+				/var key=selected_btn {{pipe}}|
 				/setentryfield file={{getvar::wi_book}} uid={{var::key=wi_uid}} {{pipe}}|
-				/var key=prompt {{getvar::add}}|
+				/var key=prompt {{getvar::selected_btn}}|
 			:}|
 		:}|
 		/elseif ( selected_btn == eiP) {:
 			/:textParse input="{{var::instruct}}"|
 		    /input default={{pipe}} How would you like to change the instructions permanently?|
-		    /var key=add {{pipe}}|
-		    /ife ( add == ''){:
+		    /var key=selected_btn {{pipe}}|
+		    /ife ( selected_btn == ''){:
 				/echo Aborting |
 				/abort
 		    :}|
 		    /else {:
 				/findentry field=comment file={{var::wi_book}} {{var::genKey}}: Instruction|
 				/var key=wi_uid {{pipe}}|
-				/:textParse input="{{var::add}}"|
-				/var key=add {{pipe}}|
+				/:textParse input="{{var::selected_btn}}"|
+				/var key=selected_btn {{pipe}}|
 				/setentryfield file={{var::wi_book}} uid={{var::key=wi_uid}} {{pipe}}|
-				/var key=prompt {{var::add}}|
+				/var key=prompt {{var::selected_btn}}|
 		    :}|
 		:}|
 		/else {:

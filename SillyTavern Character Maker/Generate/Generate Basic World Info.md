@@ -13,6 +13,12 @@
 
 /setvar key=dataBaseNames []|
 
+//Generation Functions|
+--GenPrompt--
+
+--GenSelector--
+/----|
+
 //Time Period|
 /var key=do Yes|
 /var key=variableName "timePeriod"|
@@ -36,7 +42,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:"CMC Logic.Generator"|
+	/:GenerateWithPrompt wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -73,14 +79,14 @@
 			/var key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}} |
 			/var key=content {{pipe}}|
-			/:"CMC Logic.Selector"|
-			/addvar key={{var::variableName}} {{var::output}}|
+			/:GenerateWithSelector wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+			/addvar key={{var::variableName}} {{pipe}}|
 		:}|
 	:}|
 	/else {:
 		/var key=it {{getvar::wi_book_key}}|
-		/:"CMC Logic.Selector"|
-		/setvar key={{var::variableName}} {{var::output}}|
+		/:GenerateWithSelector wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
+		/setvar key={{var::variableName}} {{pipe}}|
 		
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -117,13 +123,13 @@
 			/var key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}}|
 			/var key=content {{pipe}}|
-			/:"CMC Logic.Selector"|
+			/:GenerateWithSelector wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
 			/addvar key={{var::variableName}} {{var::output}}|
 		:}|
 	:}|
 	/else {:
 		/var key=it {{var::wi_book_key}}|
-		/:"CMC Logic.Selector"|
+		/:GenerateWithSelector wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
 		/setvar key={{getvar::variableName}} {{var::output}}|
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -157,7 +163,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:"CMC Logic.Generator"|
+	/:GenerateWithPrompt wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -191,7 +197,7 @@
 		/var as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:"CMC Logic.Generator"|
+	/:GenerateWithPrompt wi_book= genKey= genIsList= genIsSentence= needOutput=  contextKey={{noop}}|
 	
 	/setvar key={{var::variableName}} {{var::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|

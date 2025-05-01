@@ -15,18 +15,41 @@
 
 //Replacers|
 //Create Temporary Variables|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/TempVariables.md|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/TempVariables.md|
 /setvar key=tempVars {{pipe}}|
 //-----|
 
 //Create JEDParse|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/JED%20Parse.md|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/JED%20Parse.md|
 /setvar key=jedParse {{pipe}}|
 //-----|
 
 //Create TextParse|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Text%20Parse.md|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Text%20Parse.md|
 /setvar key=textParse {{pipe}}|
+//-----|
+
+//Create SaveGen|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Text%20Parse.md|
+/setvar key=saveGen {{pipe}}|
+//-----|
+
+//Create GenerateWithPrompt|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Text%20Parse.md|
+/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
+/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+/re-replace find="/--SaveGen--/g" replace="{{getvar::saveGen}}" {{pipe}}|
+/setvar key=genPromt {{pipe}}|
+//-----|
+
+//Create GenerateWithSelector|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Text%20Parse.md|
+/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
+/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+/re-replace find="/--SaveGen--/g" replace="{{getvar::saveGen}}" {{pipe}}|
+/setvar key=genSelect {{pipe}}|
 //-----|
 
 //-----|
@@ -39,6 +62,8 @@
 	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
 	/qr-create set="CMC Main" label="New Character" title="Will make a new character and let you set the Gender, type(Human, Anthro etc..)" {{pipe}}|
 	/qr-update set="CMC Main" label="New Character" title="Make a character from the beginning."|
 :}|
@@ -50,6 +75,8 @@
 	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
 	/qr-create set="CMC Main" label="Character Generation" {{pipe}}|
 	/qr-update set="CMC Main" label="Character Generation" title="Continues/Restart the last Generation or Starts the next Generation."|
 	/qr-chat-set-on CMC Main|
@@ -65,6 +92,8 @@
 /re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 /re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 /re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
 /qr-create set="CMC Logic" label="Get Char info" {{pipe}}|
 //|-----|
 
@@ -73,6 +102,8 @@
 /re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 /re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 /re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
 /qr-create set="CMC Logic" label="Is Real" {{pipe}}|
 //|-----|
 
@@ -81,6 +112,8 @@
 /re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 /re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 /re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
 /qr-create set="CMC Logic" label="SaveGen" {{pipe}}|
 //|-----|
 
@@ -89,23 +122,9 @@
 /re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 /re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 /re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
 /qr-create set="CMC Logic" label="Combine List Lorebooks" {{pipe}}|
-//|-----|
-
-//Generate with Prompt|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Generate%20with%20Prompt.md|
-/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
-/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
-/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-/qr-create set="CMC Logic" label="Generator" {{pipe}}|
-//|-----|
-
-//Generate with Selector|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Selector.md|
-/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
-/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
-/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-/qr-create set="CMC Logic" label="Selector" {{pipe}}|
 //|-----|
 
 //Parse|
@@ -126,6 +145,8 @@
 /re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 /re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 /re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
 /qr-create set="CMC Generate" label="Generate World Info" {{pipe}}|
 //|-----|
 
@@ -134,7 +155,8 @@
 /re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 /re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 /re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-/qr-create set="CMC Generate" label="Generate Character Information" {{pipe}}|
+/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
 //|-----|
 
 /qr-chat-set-on visible=true "CMC Main"|

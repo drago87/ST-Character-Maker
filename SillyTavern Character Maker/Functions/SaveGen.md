@@ -1,7 +1,8 @@
 /let SaveGen {: input=
 	/ife ( input == ''){:
 		//[[FlushVar]]|
-		/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+		/echo Aborting |
+		/abort
 	:}|
 	/let x {{var::input}}|
 	/ife ( input == 'Done') {:
