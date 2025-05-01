@@ -113,9 +113,9 @@
 /qr-create set="CMC Logic" label="Parse" {{pipe}}|
 //|-----|
 
-//Parse|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Parse.md|
-/qr-create set="CMC Logic" label="Parse" {{pipe}}|
+//Save DataBase|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Save%20DataBase.md|
+/qr-create set="CMC Logic" label="Save DataBase" {{pipe}}|
 //|-----|
 
 //Generate|
