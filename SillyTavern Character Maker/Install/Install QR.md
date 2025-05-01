@@ -57,7 +57,7 @@
 /let key=qrListContent {{pipe}}|
 
 //New Char|
-/ife ('New Character' not in qrList) {:
+/ife ('New Character' not in qrListContent) {:
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/New%20Char.md|
 	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
@@ -69,8 +69,19 @@
 :}|
 //|-----|
 
+/qr-list CMC Main|
+/getat index=1 {{pipe}}|
+/let qrlabel {{pipe}}|
+/let temp {{noop}}|
+/ife ( qrlabel != '') {:
+	/qr-get set="CMC Main" label={{var::qrlabel}}|
+	/getat index="message" {{pipe}}|
+	/var key=temp {{pipe}}|
+:}|
+
+
 //Create Character Generation|
-/ife ( ('Character Generation' not in qrList) and ('Start Generating' not in qrList) and ('Restart/Continue with a' not in qrList)) {:
+/ife ('{{var::temp}}' not in qrList) {:
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/Character%20Generation.md|
 	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
@@ -84,71 +95,107 @@
 //|-----|
 
 
+/qr-list CMC Logic|
+/var key=qrListContent {{pipe}}|
 
-/qr-set-create CMC Logic|
+/ife ('CMC Logic' in qrList) {:
+	/buttons labels=["Yes", "No"] want to update CMC Logic scripts?|
+	/let selected_btn {{pipe}}|
+	/ife ( selected_btn == Yes) {:
+		/qr-chat-set-off CMC Logic|
+		/qr-set-create CMC Logic|
+	:}|
+:}|
+/else {:
+	/qr-set-create CMC Logic|
+:}|
 
-//Get Char info|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Get%20Character%20information.md|
-/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
-/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
-/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
-/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
-/qr-create set="CMC Logic" label="Get Char info" {{pipe}}|
-//|-----|
+/ife ( 'Get Char info' not in qrListContent) {:
+	//Get Char info|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Get%20Character%20information.md|
+	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
+	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+	/qr-create set="CMC Logic" label="Get Char info" {{pipe}}|
+	//|-----|
+:}|
 
-//Is Real|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Is%20Real.md|
-/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
-/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
-/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
-/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
-/qr-create set="CMC Logic" label="Is Real" {{pipe}}|
-//|-----|
+/ife ( 'Is Real' not in qrListContent) {:
+	//Is Real|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Is%20Real.md|
+	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
+	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+	/qr-create set="CMC Logic" label="Is Real" {{pipe}}|
+	//|-----|
+:}|
 
-//Combine List Lorebooks|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Combine%20List%20Lorebooks.md|
-/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
-/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
-/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
-/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
-/qr-create set="CMC Logic" label="Combine List Lorebooks" {{pipe}}|
-//|-----|
+/ife ( 'Combine List Lorebooks' not in qrListContent) {:
+	//Combine List Lorebooks|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Combine%20List%20Lorebooks.md|
+	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
+	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+	/qr-create set="CMC Logic" label="Combine List Lorebooks" {{pipe}}|
+	//|-----|
+:}|
 
-//Parse|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Parse.md|
-/qr-create set="CMC Logic" label="Parse" {{pipe}}|
-//|-----|
+/ife ( 'Parse' not in qrListContent) {:
+	//Parse|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Parse.md|
+	/qr-create set="CMC Logic" label="Parse" {{pipe}}|
+	//|-----|
+:}|
 
-//Save DataBase|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Save%20DataBase.md|
-/qr-create set="CMC Logic" label="Save DataBase" {{pipe}}|
-//|-----|
+/ife ( 'Save DataBase' not in qrListContent) {:
+	//Save DataBase|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Save%20DataBase.md|
+	/qr-create set="CMC Logic" label="Save DataBase" {{pipe}}|
+	//|-----|
+:}|
 
 //Generate|
-/qr-set-create CMC Generate|
+/ife ('CMC Generate' in qrList) {:
+	/buttons labels=["Yes", "No"] want to update CMC Generate scripts?|
+	/let selected_btn {{pipe}}|
+	/ife ( selected_btn == Yes) {:
+		/qr-chat-set-off CMC Generate|
+		/qr-set-create CMC Generate|
+	:}|
+:}|
+/else {:
+	/qr-set-create CMC Generate|
+:}|
 
-//Generate World Info|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Basic%20World%20Info.md|
-/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
-/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
-/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
-/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
-/qr-create set="CMC Generate" label="Generate World Info" {{pipe}}|
-//|-----|
+/ife ( 'Generate World Info' not in qrListContent) {:
+	//Generate World Info|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Basic%20World%20Info.md|
+	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
+	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+	/qr-create set="CMC Generate" label="Generate World Info" {{pipe}}|
+	//|-----|
+:}|
 
-//Generate Character Information|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Character%20Information.md|
-/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
-/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
-/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
-/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
-/qr-create set="CMC Generate" label="Generate Character Information" {{pipe}}|
-//|-----|
+/ife ( 'Generate Character Information' not in qrListContent) {:
+	//Generate Character Information|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Character%20Information.md|
+	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
+	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
+	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+	/qr-create set="CMC Generate" label="Generate Character Information" {{pipe}}|
+	//|-----|
+:}|
 
 /qr-chat-set-on visible=true "CMC Main"|
 

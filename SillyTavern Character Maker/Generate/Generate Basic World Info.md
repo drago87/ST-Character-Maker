@@ -231,7 +231,7 @@
 /setvar key=stepDone Yes|
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
-/let qrlabel {{pipe}}|
+/var qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
 /qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Basic World Information" {{pipe}}|
