@@ -42,57 +42,49 @@
 	:}|
 :}|
 /var selected_btn {{noop}}|
-/ife ( type != '' ) {:
+/ife ( normal_form != '' ) {:
 	/buttons labels=["Yes", "No"] Do you want to change the type of character?|
 	/var selected_btn {{pipe}}|
 :}|
-/ife ( (type == '') or ( selected_btn == 'Yes')) {:
-	/setvar key=type "Help me Decide"|
-	/findentry field=comment file="CMC Variables" Type Guide|
-	/getentryfield file="CMC Variables" {{pipe}}| 
+/ife ( (normal_form == '') or ( selected_btn == 'Yes')) {:
+	/setvar key=normal_form "Help me Decide"|
+	/findentry field=comment file="CMC Information" Type Guide|
+	/getentryfield file="CMC Information" {{pipe}}| 
 	/var typeGuide {{pipe}}|
 	/whilee ( type == 'Help me Decide') {:
-		/buttons labels=["Help me Decide", "Human", "Anthropomorphic\n(Anthropomorphic is a animal that have a human form.)", "Demi-Human\n(Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...)", "Furry\n(Furry is animal like humans that mostly looks like humans but have certain animal parts.)", "Feral\n(Feral is standard animals, fantasy animals or monsters.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
+		/buttons labels=["Help me Decide", "Human", "Anthropomorphic\n(Anthropomorphic is a character that combines both human and animal traits, often featuring an animal body with human-like posture, facial expressions, speech, and behavior.)", "Demi-Human\n(Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...)", "Kemonomimi\n(Kemonomimi is a character with animal features like ears and tail but otherwise human appearance.)", "Animalistic\n(Animalistic refers to standard animals, fantasy creatures, or monsters that behave and appear primarily as non-human beings, typically walking on all fours and lacking human speech or reasoning.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
 		/re-replace find="/(\n\(\|\()[\s\S]*$/g" replace="" {{pipe}}|
-		/setvar key=type {{pipe}}|
-		/ife ( type == ''){:
+		/setvar key=normal_form {{pipe}}|
+		/ife ( normal_form == ''){:
 			/echo Aborting|
 			/abort
 		:}|
-		/ife ( type == 'Help me Decide' ){:
+		/ife ( normal_form == 'Help me Decide' ){:
 			/input rows=8 What race do you want the character to be?|
 			/let key=inp {{pipe}}|
 			/genraw as=char Respond to the question: What type of character is a {{var::inp}}?
 The reply should be in this format:
 '<div>{{getvar::inp}} is a x</div>'
-x is one of the following "Human", "Anthropomorphic", "Demi-Human", "Furry", "Feral", "Pokémon", "Digimon", "Android"
+x is one of the following "Human", "Anthropomorphic", "Demi-Human", "Furry", "Animalistic", "Pokémon", "Digimon", "Android"
 INFORMATION: 
-Human is a standard human.
-Andromorphic is a animal that have a human form.
-Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...
-Furry is animal like humans that mostly looks like humans but have certain animal parts.
-Feral is standard animals, fantasy animals or monsters.
-Pokémon is the creatures from the Pokémon games and anime.
-Digimon is the creatures from the Digimon games and anime.
-Android is a robot that looks and acts like a Human.
+{{var::typeGuide}}
 INSTRUCTION: Only respond in the given format.|
 
-			/setvar key=type {{pipe}}|
-			/popup okButton=Continue result=true {{getvar::type}}|
-			/setvar key=type {{pipe}}|
-			/ife ( type == '' ){:
+			/setvar key=normal_form {{pipe}}|
+			/popup okButton=Continue result=true {{getvar::normal_form}}|
+			/setvar key=normal_form {{pipe}}|
+			/ife ( normal_form == '' ){:
 				/echo Aborting |
 				/abort
 			:}|
-			/elseif ( type == '1' ){:
-				/setvar key=type "Help me Decide"|
+			/elseif ( normal_form == '1' ){:
+				/setvar key=normal_form "Help me Decide"|
 			:}|
 		:}|
 	:}|
 	/re-replace find="/\(.*$/g" replace="" {{getvar::type}}|
-	/setvar key=type {{pipe}}|
+	/setvar key=normal_form {{pipe}}|
 :}|
-
 
 
 /var selected_btn {{noop}}|
@@ -107,8 +99,8 @@ INSTRUCTION: Only respond in the given format.|
 /ife ( (selected_btn == 'Yes') or (character_type == '')) {:
 	/setvar key=character_type None|
 :}|
-/ife (((character_type == 'None') or ( selected_btn == 'Yes')) and (( type == 'Anthropomorphic') or ( type == 'Furry')  or ( type == 'Feral'))) {:
-	/buttons labels=["Pokémon", "Digimon", "Normal"] Select the type you want?|
+/ife (((character_type == 'None') or ( selected_btn == 'Yes')) and (( type == 'Anthropomorphic') or ( type == 'Kemonomimi')  or ( type == 'Animalistic'))) {:
+	/buttons labels=["Pokémon", "Digimon", "Animalistic"] Select the type you want?|
 	/setvar key=character_type {{pipe}}|
 	/ife ( character_type == '') {:
 		/echo Aborting|
@@ -144,7 +136,6 @@ INSTRUCTION: Only respond in the given format.|
 			/abort
 		:}|
 	:}|
-	/setvar key=normal_form {{getvar::type}}|
 :}|
 
 
@@ -155,7 +146,6 @@ INSTRUCTION: Only respond in the given format.|
 
 /setvar key=dataBaseNames []|
 /addvar key=dataBaseNames normal_form|
-/addvar key=dataBaseNames type|
 /addvar key=dataBaseNames speciesType|
 /addvar key=dataBaseNames gender|
 /addvar key=dataBaseNames character_type|

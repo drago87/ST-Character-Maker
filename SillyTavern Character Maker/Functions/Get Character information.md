@@ -45,14 +45,14 @@
 	/setvar key=parcedAge {{getvar::age}}|
 :}|
 
-/ife (character_type == 'None'){:
+/ife ((character_type == 'None') or ( character_type ==  normal_form)) {:
 	/setvar key=character_type {{noop}}|
 :}|
 /ife ( normal_form == species ) {:
     /setvar key=parsedSpecies {{getvar::species}}|
 :}|
 /else {:
-	/ife ( (character_type != '') and (character_type != 'Normal')){:
+	/ife ( character_type != '') {:
 		/setvar key=parsedSpecies "{{getvar::normal_form}} {{getvar::character_type}} {{getvar::species}}"|
 	:}|
 	/else {:
@@ -61,6 +61,6 @@
 :}|
 
 /ife ( real == 'Yes') {:
-	/setvar key=realInfoParced {{newline}}- Origin: {{getvar::media_type}} – {{getvar::media_name}}|
-	/setvar key=realParced {{char}} is a character from the {{getvar::media_type}} _{{getvar::media_name}}._|
+	/setvar key=realInfoParced "{{newline}}- Origin: {{getvar::media_type}} – {{getvar::media_name}}"|
+	/setvar key=realParced "{{char}} is a character from the {{getvar::media_type}} _{{getvar::media_name}}._"|
 :}|
