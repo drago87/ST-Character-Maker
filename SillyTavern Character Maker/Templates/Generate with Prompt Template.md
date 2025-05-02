@@ -9,10 +9,10 @@
 /ife ( do == 'Yes' ) {:
 	/var key=wi_book_key ""|
 	/var key=genIsList Yes|//Yes or No|
-	/var key=outputIsList Yes|//Yes or No|
+	/var key=outputIsList No|//Yes or No|
 	/var key=genIsSentence No|//Yes or No|
 	/var key=needOutput Yes|//Yes or No|
-	/var key=contextKey {{noop}}|
+	/var as=array key=contextKey []|
 	
 	
 	/ife (outputIsList == 'Yes') {:
@@ -26,11 +26,6 @@
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
-	/var key=context {{noop}}|
-	/var key=examples {{noop}}|
-	/var key=task {{pipe}}|
-	/var key=instruct {{pipe}}|
-	/var key=content {{pipe}}|
 :}|
 //--------|
 *|

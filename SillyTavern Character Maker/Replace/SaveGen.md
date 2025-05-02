@@ -1,6 +1,5 @@
 /let SaveGen {: input=
 	/ife ( input == ''){:
-		//[[FlushVar]]|
 		/echo Aborting |
 		/abort
 	:}|
@@ -11,27 +10,27 @@
 	/elseif ( isGeneration == 'Yes') {:
 		/ife ( outputIsList == 'Yes') {:
 			/ife ( inputIsList == 'Yes') {:
-				/addvar key=tempList {{getvar::item}}: {{getvar::input}}|
+				/addvar key=tempList {{getvar::item}}: {{var::input}}|
 			:}|
 			/else {:
-				/addvar key=tempList {{getvar::input}}|
+				/addvar key=tempList {{var::input}}|
 			:}|
 		:}|
 		/else {:
 			/ife ( inputIsList == 'Yes') {:
-				/setvar key=output {{getvar::item}}: {{getvar::input}}|
+				/setvar key=output {{getvar::item}}: {{var::input}}|
 			:}|
 			/else {:
-				/setvar key=output {{getvar::input}}|
+				/setvar key=output {{var::input}}|
 			:}|
 		:}|
 	:}|
 	/else {:
 		/ife (outputIsList == 'Yes') {:
-			/addvar key=tempList {{getvar::input}}|
+			/addvar key=tempList {{var::input}}|
 		:}|
 		/else {:
-			/setvar key=output {{getvar::input}}|
+			/setvar key=output {{var::input}}|
 		:}|
 	:}|
 :}||

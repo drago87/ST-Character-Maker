@@ -39,7 +39,10 @@
 
 
 /ife ( human_equivalent_age != 'none') {:
-	/let key=parcedAge {{getvar::age}} — roughly {{getvar::human_equivalent_age}} in human years.|
+	/setvar key=parcedAge {{getvar::age}} — roughly {{getvar::human_equivalent_age}} in human years.|
+:}|
+/else {:
+	/setvar key=parcedAge {{getvar::age}}|
 :}|
 
 /ife (character_type == 'None'){:

@@ -29,7 +29,7 @@
 /ife ( do == 'Yes' ) {:
 	/var key=wi_book_key "Time Period"|
 	/var key=genIsList Yes|//Yes or No|
-	/var key=outputIsList Yes|//Yes or No|
+	/var key=outputIsList No|//Yes or No|
 	/var key=genIsSentence No|//Yes or No|
 	/var key=needOutput Yes|//Yes or No|
 	/var key=contextKey "Character"|
@@ -46,11 +46,6 @@
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
-	/var key=context {{noop}}|
-	/var key=examples {{noop}}|
-	/var key=task {{pipe}}|
-	/var key=instruct {{pipe}}|
-	/var key=content {{pipe}}|
 :}|
 //-----------|
 
@@ -76,7 +71,7 @@
 			/:"CMC Logic.Combine List Lorebooks"
 		:}|
 		/foreach {{getvar::genOrder}} {:
-			/var key=it {{var::item}}|
+			/setvar key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}} |
 			/var key=content {{pipe}}|
 			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
@@ -84,7 +79,7 @@
 		:}|
 	:}|
 	/else {:
-		/var key=it {{getvar::wi_book_key}}|
+		/setvar key=it {{getvar::wi_book_key}}|
 		/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 		/setvar key={{var::variableName}} {{pipe}}|
 		
@@ -102,7 +97,7 @@
 /var key=do Yes|
 /var key=variableName "settingType"|
 /ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo {{getvar::varibleName}}|
+	/buttons labels=["Yes", "No"] Do you want to redo {{var::varibleName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
@@ -120,7 +115,7 @@
 			/:"CMC Logic.Combine List Lorebooks"
 		:}|
 		/foreach {{var::genOrder}} {:
-			/var key=it {{var::item}}|
+			/setvar key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}}|
 			/var key=content {{pipe}}|
 			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
@@ -128,7 +123,7 @@
 		:}|
 	:}|
 	/else {:
-		/var key=it {{var::wi_book_key}}|
+		/setvar key=it {{var::wi_book_key}}|
 		/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 		/setvar key={{getvar::variableName}} {{getvar::output}}|
 	:}|
@@ -201,11 +196,6 @@
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
-	/var key=context {{noop}}|
-	/var key=examples {{noop}}|
-	/var key=task {{pipe}}|
-	/var key=instruct {{pipe}}|
-	/var key=content {{pipe}}|
 :}|
 //-----------|
 

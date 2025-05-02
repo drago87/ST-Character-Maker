@@ -44,15 +44,10 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key_f" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
-	/var key=context {{noop}}|
-	/var key=examples {{noop}}|
-	/var key=task {{pipe}}|
-	/var key=instruct {{pipe}}|
-	/var key=content {{pipe}}|
 :}|
 //-----------|
 
@@ -79,15 +74,10 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key_f" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
-	/var key=context {{noop}}|
-	/var key=examples {{noop}}|
-	/var key=task {{pipe}}|
-	/var key=instruct {{pipe}}|
-	/var key=content {{pipe}}|
 :}|
 //-----------|
 
@@ -115,15 +105,10 @@
 			/setvar as=string key={{var::variableName}} {{noop}}|
 		:}|
 		//[[Generate with Prompt]]|
-		/:GenerateWithPrompt wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key_f" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+		/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 		
 		/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
-		/var key=context {{noop}}|
-		/var key=examples {{noop}}|
-		/var key=task {{pipe}}|
-		/var key=instruct {{pipe}}|
-		/var key=content {{pipe}}|
 	:}|
 	//-----------|
 	
@@ -151,15 +136,10 @@
 			/setvar as=string key={{var::variableName}} {{noop}}|
 		:}|
 		//[[Generate with Prompt]]|
-		/:GenerateWithPrompt wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key_f" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+		/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 		
 		/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
-		/var key=context {{noop}}|
-		/var key=examples {{noop}}|
-		/var key=task {{pipe}}|
-		/var key=instruct {{pipe}}|
-		/var key=content {{pipe}}|
 	:}|
 	//-----------|
 :}|
@@ -187,16 +167,11 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key_f" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
-	/var key=context {{noop}}|
-	/var key=examples {{noop}}|
-	/var key=task {{pipe}}|
-	/var key=instruct {{pipe}}|
-	/var key=content {{pipe}}|
-}:|
+:}|
 //-----------|
 
 //Race|
