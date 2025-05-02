@@ -68,14 +68,14 @@
 	/ife ( inputIsList == 'Yes') {:
 		/setvar key={{var::variableName}} []|
 		/ife ( combineLorebookEntries == 'Yes') {:
-			/:"CMC Logic.Combine List Lorebooks"
+			/:"CMC Logic.Combine List Lorebooks"|
 		:}|
 		/foreach {{getvar::genOrder}} {:
 			/setvar key=it {{var::item}}|
-			/getat index={{var::index}} {{var::genOrderContent}} |
+			/getat index={{var::index}} {{getvar::genContent}} |
 			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
-			/addvar key={{var::variableName}} {{pipe}}|
+			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}} content_f={{var::content}}"|
+			/addvar key={{var::variableName}} {{getvar::output}}|
 		:}|
 	:}|
 	/else {:
@@ -85,11 +85,9 @@
 		
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
-	/var key=context {{noop}}|
-	/var key=examples {{noop}}|
-	/var key=task {{pipe}}|
-	/var key=instruct {{pipe}}|
-	/var key=content {{pipe}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
 :}|
 //-----------|
 
@@ -114,11 +112,11 @@
 		/ife ( combineLorebookEntries == 'Yes') {:
 			/:"CMC Logic.Combine List Lorebooks"
 		:}|
-		/foreach {{var::genOrder}} {:
+		/foreach {{getvar::genOrder}} {:
 			/setvar key=it {{var::item}}|
-			/getat index={{var::index}} {{var::genOrderContent}}|
+			/getat index={{var::index}} {{getvar::genContent}}|
 			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}} content_f={{var::content}}"|
 			/addvar key={{var::variableName}} {{getvar::output}}|
 		:}|
 	:}|
@@ -128,11 +126,9 @@
 		/setvar key={{getvar::variableName}} {{getvar::output}}|
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
-	/var key=context {{noop}}|
-	/var key=examples {{noop}}|
-	/var key=task {{pipe}}|
-	/var key=instruct {{pipe}}|
-	/var key=content {{pipe}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
 :}|
 //-------|
 
@@ -162,11 +158,9 @@
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
-	/var key=context {{noop}}|
-	/var key=examples {{noop}}|
-	/var key=task {{pipe}}|
-	/var key=instruct {{pipe}}|
-	/var key=content {{pipe}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
 :}|
 //-----------|
 

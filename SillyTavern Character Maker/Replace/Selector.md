@@ -1,12 +1,20 @@
-/let GenerateWithSelector {: wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f=  contextKey_f={{noop}}
-	/let genStat {{noop}}|
+/let GenerateWithSelector {: wi_book_f= wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f= useContext_f=  contextKey_f={{noop}} content_f={{noop}}
+	
+	--SaveGen--
+	
+	/let genStat {/{noop}}|
+	/let key=wi_uid {/{noop}}|
+	/let key=find {/{noop}}|
+	
 	/ife ( combineLorebookEntries != 'Yes') {:
 		/ife (( inputIsList == 'Yes') and (wi_book_key_f is list)) {:
-			/findentry field=comment file={{var::wi_book_f}} {{getvar::it}}|
+			/var key=find {{getvar::it}}|
+			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 			/getentryfield field=content file={{var::wi_book_f}} {{pipe}}|
 		:}|
 		/else {:
-			/findentry field=comment file={{var::wi_book_f}} {{var::wi_book_key_f}}: List|
+			/var key=find {{var::wi_book_key_f}}: List|
+			/findentry field=comment file={{var::wi_book_f}} {{var::find}}|
 			/getentryfield field=content file={{var::wi_book_f}} {{pipe}}|
 		:}|
 		/var key=genState {{pipe}}|

@@ -1,4 +1,6 @@
 --VarReplace--
+
+/setvar key=wait 100|
 /messages 0|
 /let firstMess {{pipe}}|
 /ife ( 'Installation Instructions' not in firstMess) {:

@@ -1,7 +1,5 @@
 /let GenerateWithPrompt {: wi_book_f="CMC Generation Prompts" wi_book_key_f= genIsList_f= genIsSentence_f= needOutput_f= useContext_f=  contextKey_f={{noop}}
 	
-	--TextParse--
-	
 	--SaveGen--
 	
 	/let key=wi_uid |
