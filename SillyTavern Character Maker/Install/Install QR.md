@@ -29,6 +29,11 @@
 /setvar key=textParse {{pipe}}|
 //-----|
 
+//Combine Lorbook|
+/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Combine%20List%20Lorebooks.md|
+/setvar key=combineLore {{pipe}}|
+//-----|
+
 //Create SaveGen|
 /fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/SaveGen.md|
 /setvar key=saveGen {{pipe}}|
@@ -40,6 +45,7 @@
 /re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 /re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
 /re-replace find="/--SaveGen--/g" replace="{{getvar::saveGen}}" {{pipe}}|
+/re-replace find="/--CombineLorebook--/g" replace="{{getvar::combineLore}}" {{pipe}}|
 /setvar key=genPromt {{pipe}}|
 //-----|
 
@@ -49,6 +55,7 @@
 /re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 /re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
 /re-replace find="/--SaveGen--/g" replace="{{getvar::saveGen}}" {{pipe}}|
+/re-replace find="/--CombineLorebook--/g" replace="{{getvar::combineLore}}" {{pipe}}|
 /setvar key=genSelect {{pipe}}|
 //-----|
 
@@ -62,8 +69,8 @@
 	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
-	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+	/re-replace find="/--SaveGen--/g" replace="{{getvar::saveGen}}" {{pipe}}|
+	/re-replace find="/--CombineLorebook--/g" replace="{{getvar::combineLore}}" {{pipe}}|
 	/qr-create set="CMC Main" label="New Character" title="Will make a new character and let you set the Gender, type(Human, Anthro etc..)" {{pipe}}|
 	/qr-update set="CMC Main" label="New Character" title="Make a character from the beginning."|
 :}|
@@ -86,8 +93,8 @@
 	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
-	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+	/re-replace find="/--SaveGen--/g" replace="{{getvar::saveGen}}" {{pipe}}|
+	/re-replace find="/--CombineLorebook--/g" replace="{{getvar::combineLore}}" {{pipe}}|
 	/qr-create set="CMC Main" label="Character Generation" {{pipe}}|
 	/qr-update set="CMC Main" label="Character Generation" title="Continues/Restart the last Generation or Starts the next Generation."|
 	/qr-chat-set-on CMC Main|
@@ -116,8 +123,8 @@
 	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
-	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+	/re-replace find="/--SaveGen--/g" replace="{{getvar::saveGen}}" {{pipe}}|
+	/re-replace find="/--CombineLorebook--/g" replace="{{getvar::combineLore}}" {{pipe}}|
 	/qr-create set="CMC Logic" label="Get Char info" {{pipe}}|
 	//|-----|
 :}|
@@ -128,21 +135,9 @@
 	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
 	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
-	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+	/re-replace find="/--SaveGen--/g" replace="{{getvar::saveGen}}" {{pipe}}|
+	/re-replace find="/--CombineLorebook--/g" replace="{{getvar::combineLore}}" {{pipe}}|
 	/qr-create set="CMC Logic" label="Is Real" {{pipe}}|
-	//|-----|
-:}|
-
-/ife ( 'Combine List Lorebooks' not in qrListContent) {:
-	//Combine List Lorebooks|
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Combine%20List%20Lorebooks.md|
-	/re-replace find="/--VarReplace--/g" replace="{{getvar::tempVars}}" {{pipe}}|
-	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
-	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
-	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
-	/qr-create set="CMC Logic" label="Combine List Lorebooks" {{pipe}}|
 	//|-----|
 :}|
 
@@ -181,6 +176,7 @@
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
 	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
 	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+	/re-replace find="/--CombineLorebook--/g" replace="{{getvar::combineLore}}" {{pipe}}|
 	/qr-create set="CMC Generate" label="Generate World Info" {{pipe}}|
 	//|-----|
 :}|
@@ -193,6 +189,7 @@
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
 	/re-replace find="/--GenPrompt--/g" replace="{{getvar::genPromt}}" {{pipe}}|
 	/re-replace find="/--GenSelector--/g" replace="{{getvar::genSelect}}" {{pipe}}|
+	/re-replace find="/--CombineLorebook--/g" replace="{{getvar::combineLore}}" {{pipe}}|
 	/qr-create set="CMC Generate" label="Generate Character Information" {{pipe}}|
 	//|-----|
 :}|
@@ -205,3 +202,4 @@
 /flushvar genPromt|
 /flushvar genSelect|
 /flushvar saveGen|
+/flushvar combineLore|

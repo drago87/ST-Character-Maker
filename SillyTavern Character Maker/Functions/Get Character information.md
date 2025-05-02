@@ -38,13 +38,16 @@
 :}|
 
 
-/ife ( human_equivalent_age != 'none') {:
+/setvar key=parcedAge {{noop}}|
+/ife ( (human_equivalent_age != 'None') and (human_equivalent_age != '') ) {:
 	/setvar key=parcedAge {{getvar::age}} — roughly {{getvar::human_equivalent_age}} in human years.|
 :}|
-/else {:
+/elseif (age != '') {:
 	/setvar key=parcedAge {{getvar::age}}|
 :}|
 
+
+/setvar key=parsedSpecies {{noop}}|
 /ife ((character_type == 'None') or ( character_type ==  normal_form)) {:
 	/setvar key=character_type {{noop}}|
 :}|
