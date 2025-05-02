@@ -14,6 +14,9 @@
 /setvar key=dataBaseNames []|
 
 //Generation Functions|
+
+--CombineLorebook--
+
 --GenPrompt--
 
 --GenSelector--
