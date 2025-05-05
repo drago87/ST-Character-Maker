@@ -1,10 +1,12 @@
---VarReplace--
+/let key=selected_btn {{noop}}|
+/let key=databaseList {{noop}}|
+/let key=qrList {{noop}}|
 
 /setvar key=wait 100|
 /messages 0|
 /let firstMess {{pipe}}|
 /ife ( 'Installation Instructions' not in firstMess) {:
-	/buttons labels=["Yes", "No"] <div>Doing this will delete all progress.</div><div>Do you want to continue?</div>|
+	/buttons labels=["Yes", "No"] <div>Doing this will delete all progress. And all Chat Attachments.</div><div>Do you want to continue?</div>|
 	/var selected_btn {{pipe}}|
 	/ife (( selected_btn == '') or ( selected_btn == 'No')) {:
 		/echo Aborting|

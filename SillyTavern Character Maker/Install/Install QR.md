@@ -40,9 +40,10 @@
 //|-----|
 /wait 100|
 /qr-list CMC Main|
-/getat index=1 {{pipe}}|
+/let key=temp {{pipe}}|
+/getat index=1 {{var::temp}}|
 /let key=qrlabel {{pipe}}|
-/let key=temp {{noop}}|
+/var key=temp {{noop}}|
 /ife ( qrlabel != '') {:
 	/qr-get set="CMC Main" label={{var::qrlabel}}|
 	/getat index="message" {{pipe}}|
@@ -63,10 +64,10 @@
 //|-----|
 
 
-/qr-list CMC Logic|
+/qr-set-list all|
 /var key=qrListContent {{pipe}}|
 
-/ife ('CMC Logic' in qrList) {:
+/ife ('CMC Logic' in qrListContent) {:
 	/buttons labels=["Yes", "No"] want to update CMC Logic scripts?|
 	/let selected_btn {{pipe}}|
 	/ife ( selected_btn == Yes) {:
