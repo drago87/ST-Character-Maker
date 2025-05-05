@@ -1,8 +1,6 @@
 /setvar key=stepDone No|
 /setvar key=stepVar Step2|
 
---VarReplace--
-
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
 /let qrlabel {{pipe}}|
@@ -13,14 +11,6 @@
 
 /setvar key=dataBaseNames []|
 
-//Generation Functions|
-
---CombineLorebook--
-
---GenPrompt--
-
---GenSelector--
-//----|
 
 //Time Period|
 /var key=do Yes|
@@ -30,12 +20,17 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=wi_book_key "Time Period"|
-	/var key=genIsList Yes|//Yes or No|
-	/var key=outputIsList No|//Yes or No|
-	/var key=genIsSentence No|//Yes or No|
-	/var key=needOutput Yes|//Yes or No|
-	/var key=contextKey "Character"|
+	/setvar key=genSettings index=wi_book_key "Time Period"|
+	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=needOutput No|
+	/setvar key=genSettings index=useContext No|
+	/setvar key=genSettings index=contextKey {{noop}}|
+	
+	
+	/getvar key=genSettings index=outputIsList|
+	/let key=outputIsList {{pipe}}|
 	
 	
 	/ife (outputIsList == 'Yes') {:
@@ -45,10 +40,12 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+	/:"CMC Logic.GenerateWithPrompt"|
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar genSettings|
+	/flushvar output|
 :}|
 //-----------|
 
@@ -60,12 +57,18 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=wi_book "CMC Variables"|//The Lorebook Name|
-	/var key=wi_book_key Seasons|//The name of the entry to get|
-	/var key=combineLorebookEntries No|//Combines the lorebook entries|
-	/var key=inputIsList No|//Yes or No|
-	/var key=outputIsList No|//Yes or No|
-	/var key=needOutput No|//Yes or No|
+	/setvar key=genSettings index=wi_book "CMC Variables"|
+	/setvar key=genSettings index=wi_book_key "Seasons"|
+	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=needOutput No|
+	
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=combineLorebookEntries|
+	/let key=combineLorebookEntries {{pipe}}|
 	
 	
 	/ife ( inputIsList == 'Yes') {:
@@ -77,13 +80,13 @@
 			/setvar key=it {{var::item}}|
 			/getat index={{var::index}} {{getvar::genContent}} |
 			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}} content_f={{var::content}}"|
+			/:"CMC Logic.GenerateWithSelector"|
 			/addvar key={{var::variableName}} {{getvar::output}}|
 		:}|
 	:}|
 	/else {:
 		/setvar key=it {{getvar::wi_book_key}}|
-		/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+		/:"CMC Logic.GenerateWithSelector"|
 		/setvar key={{var::variableName}} {{pipe}}|
 		
 	:}|
@@ -91,6 +94,8 @@
 	/flushvar output|
 	/flushvar genOrder|
 	/flushvar genContent|
+	/flushvar it|
+	/flushvar genSettings|
 :}|
 //-----------|
 
@@ -102,12 +107,19 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=wi_book "CMC Variables"|
-	/var key=wi_book_key "Setting Type"|
-	/var key=combineLorebookEntries No|
-	/var key=inputIsList No|
-	/var key=outputIsList No|
-	/var key=needOutput Yes|
+	
+	/setvar key=genSettings index=wi_book "CMC Variables"|
+	/setvar key=genSettings index=wi_book_key "Setting Type"|
+	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=needOutput Yes|
+	
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=combineLorebookEntries|
+	/let key=combineLorebookEntries {{pipe}}|
 	
 	
 	/ife ( inputIsList == 'Yes') {:
@@ -119,13 +131,13 @@
 			/setvar key=it {{var::item}}|
 			/getat index={{var::index}} {{getvar::genContent}}|
 			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}} content_f={{var::content}}"|
+			/:"CMC Logic.GenerateWithSelector"|
 			/addvar key={{var::variableName}} {{getvar::output}}|
 		:}|
 	:}|
 	/else {:
 		/setvar key=it {{var::wi_book_key}}|
-		/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+		/:"CMC Logic.GenerateWithSelector"|
 		/setvar key={{getvar::variableName}} {{getvar::output}}|
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -143,6 +155,19 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
+	
+	/setvar key=genSettings index=wi_book_key "World Type"|
+	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=needOutput No|
+	/setvar key=genSettings index=useContext No|
+	/setvar key=genSettings index=contextKey {{noop}}|
+	
+	
+	/getvar key=genSettings index=outputIsList|
+	/let key=outputIsList {{pipe}}|
+	
 	/var key=wi_book_key "World Type"|
 	/var key=genIsList Yes|
 	/var key=outputIsList No|
@@ -157,7 +182,7 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+	/:"CMC Logic.GenerateWithPrompt"|
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -189,7 +214,7 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+	/:"CMC Logic.GenerateWithPrompt"|
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
