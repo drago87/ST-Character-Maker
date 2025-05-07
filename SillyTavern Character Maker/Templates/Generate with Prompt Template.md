@@ -7,12 +7,18 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=wi_book_key ""|
-	/var key=genIsList Yes|//Yes or No|
-	/var key=outputIsList No|//Yes or No|
-	/var key=genIsSentence No|//Yes or No|
-	/var key=needOutput Yes|//Yes or No|
-	/var as=array key=contextKey []|
+	/getvar key=genSettings index=wi_book ""|
+	/setvar key=genSettings index=wi_book_key ""|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=useContext No|
+	/setvar key=genSettings index=contextKey {{noop}}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=combineLorebookEntries|
+	/let key=combineLorebookEntries {{pipe}}|
 	
 	
 	/ife (outputIsList == 'Yes') {:

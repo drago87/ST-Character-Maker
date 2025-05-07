@@ -28,8 +28,6 @@
 /ife ( useContext_f == '') {:
 	/abort quiet=false Missing useContext setting in input.|
 :}|
-/getvar key=genSettings index=content|
-/let key=content_f {{pipe}}|
 
 /getvar key=genSettings index=contextKey|
 /let key=contextKey_f {{pipe}}|

@@ -10,6 +10,7 @@
 /:"CMC Logic.Get Char info"|
 
 /setvar key=dataBaseNames []|
+/flushvar genSettings|
 
 
 //Time Period|
@@ -157,6 +158,8 @@
 	/flushvar output|
 	/flushvar genOrder|
 	/flushvar genContent|
+	/flushvar genSettings|
+	
 :}|
 //-------|
 
