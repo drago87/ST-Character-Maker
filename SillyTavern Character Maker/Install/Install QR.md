@@ -79,18 +79,18 @@
 	/qr-set-create CMC Logic|
 :}|
 
-//Combine Lorbook|
-/ife ( 'Combine Lorbook' not in qrListContent) {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Combine%20List%20Lorebooks.md|
+//Combine Lorebook|
+/ife ( 'Combine Lorebook' not in qrListContent) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Combine%20List%20Lorebooks.md|
 	
-	/qr-create set="CMC Logic" label="Combine Lorbook" {{pipe}}|
+	/qr-create set="CMC Logic" label="Combine Lorebook" {{pipe}}|
 :}|
 //-----|
 
 
 //Create SaveGen|
 /ife ( 'SaveGen' not in qrListContent) {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/SaveGen.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/SaveGen.md|
 	/qr-create set="CMC Logic" label="SaveGen" {{pipe}}|
 :}|
 //-----|
@@ -98,14 +98,14 @@
 
 //Create GenerateWithPrompt|
 /ife ( 'GenerateWithPrompt' not in qrListContent) {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Generate%20with%20Prompt.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Generate%20with%20Prompt.md|
 	/qr-create set="CMC Logic" label="GenerateWithPrompt" {{pipe}}|
 :}|
 //-----|
 
 //Create GenerateWithSelector|
 /ife ( 'GenerateWithSelector' not in qrListContent) {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Selector.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Selector.md|
 	
 	/qr-create set="CMC Logic" label="GenerateWithSelector" {{pipe}}|
 :}|
