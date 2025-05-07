@@ -41,7 +41,7 @@
 			/:"CMC Logic.Combine List Lorebooks"
 		:}|
 		/foreach {{getvar::genOrder}} {:
-			/var key=it {{var::item}}|
+			/setvar key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}} |
 			/var key=content {{pipe}}|
 			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|

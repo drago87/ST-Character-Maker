@@ -14,7 +14,6 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput No|
 	
-	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
 	/getvar key=genSettings index=combineLorebookEntries|
@@ -27,16 +26,16 @@
 			/:"CMC Logic.Combine List Lorebooks"
 		:}|
 		/foreach {{getvar::genOrder}} {:
-			/var key=it {{var::item}}|
+			/setvar key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}} |
-			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+			/setvar key=genSettings index=content {{pipe}}|
+			/:"CMC Logic.GenerateWithSelector"|
 			/addvar key={{var::variableName}} {{pipe}}|
 		:}|
 	:}|
 	/else {:
-		/var key=it {{getvar::wi_book_key}}|
-		/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+		/setvar key=it {{getvar::wi_book_key}}|
+		/:"CMC Logic.GenerateWithSelector"|
 		/setvar key={{var::variableName}} {{pipe}}|
 		
 	:}|
