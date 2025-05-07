@@ -7,12 +7,18 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=wi_book ""|//The Lorebook Name|
-	/var key=wi_book_key ""|//The name of the entry to get|
-	/var key=combineLorebookEntries No|//Combines the lorebook entries|
-	/var key=inputIsList No|//Yes or No|
-	/var key=outputIsList No|//Yes or No|
-	/var key=needOutput No|//Yes or No|
+	/setvar key=genSettings index=wi_book ""|
+	/setvar key=genSettings index=wi_book_key ""|
+	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=needOutput No|
+	
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=combineLorebookEntries|
+	/let key=combineLorebookEntries {{pipe}}|
 	
 	
 	/ife ( inputIsList == 'Yes') {:
@@ -35,12 +41,11 @@
 		
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
-	/var key=context {{noop}}|
-	/var key=examples {{noop}}|
-	/var key=task {{pipe}}|
-	/var key=instruct {{pipe}}|
-	/var key=content {{pipe}}|
+	/flushvar output|
 	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar it|
+	/flushvar genSettings|
 :}|
 //-------|
 *|

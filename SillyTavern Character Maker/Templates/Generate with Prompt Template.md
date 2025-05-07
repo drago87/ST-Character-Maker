@@ -26,6 +26,10 @@
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
 :}|
 //--------|
 *|

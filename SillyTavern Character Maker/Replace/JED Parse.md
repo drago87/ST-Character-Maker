@@ -17,7 +17,7 @@
 		/var x {{pipe}}|
 	:}|
 	/ife (lore != '') {:
-		/re-replace find="/--Lore--/g" replace="{{getvar::lore}}" {{var::x}}|
+		/re-replace find="/--Lore--/g" replace="## LORE{\\{newline}}{{getvar::lore}}{\\{newline}}{\\{newline}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (scenarioOverview != '') {:

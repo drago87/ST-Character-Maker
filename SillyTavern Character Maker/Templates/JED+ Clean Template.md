@@ -3,7 +3,6 @@
 - World Details: --WorldDetails--
 - Main Characters: --User--, --FirstName-- --ExtraCharacters--
 
-## LORE
 --Lore--
 
 ## SCENARIO OVERVIEW

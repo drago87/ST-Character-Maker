@@ -13,39 +13,52 @@
 
 
 //Time Period|
-/var key=do Yes|
-/var key=variableName "timePeriod"|
+/let key=do Yes|
+/let key=variableName "timePeriod"|
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings index=wi_book "CMC Variables"|
 	/setvar key=genSettings index=wi_book_key "Time Period"|
-	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=inputIsList No|
 	/setvar key=genSettings index=outputIsList No|
-	/setvar key=genSettings index=genIsSentence No|
-	/setvar key=genSettings index=needOutput No|
-	/setvar key=genSettings index=useContext No|
-	/setvar key=genSettings index=contextKey {{noop}}|
+	/setvar key=genSettings index=needOutput Yes|
 	
 	
-	/getvar key=genSettings index=outputIsList|
-	/let key=outputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=combineLorebookEntries|
+	/let key=combineLorebookEntries {{pipe}}|
 	
 	
-	/ife (outputIsList == 'Yes') {:
-		/setvar as=array key={{var::variableName}} []|
+	/ife ( inputIsList == 'Yes') {:
+		/setvar key={{var::variableName}} []|
+		/ife ( combineLorebookEntries == 'Yes') {:
+			/:"CMC Logic.Combine List Lorebooks"
+		:}|
+		/foreach {{getvar::genOrder}} {:
+			/var key=it {{var::item}}|
+			/getat index={{var::index}} {{var::genOrderContent}} |
+			/var key=content {{pipe}}|
+			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+			/addvar key={{var::variableName}} {{pipe}}|
+		:}|
 	:}|
 	/else {:
-		/setvar as=string key={{var::variableName}} {{noop}}|
+		/var key=it {{getvar::wi_book_key}}|
+		/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+		/setvar key={{var::variableName}} {{pipe}}|
+		
 	:}|
-	//[[Generate with Prompt]]|
-	/:"CMC Logic.GenerateWithPrompt"|
-	
-	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
-	/flushvar genSettings|
 	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar it|
+	/flushvar genSettings|
 :}|
 //-----------|
 
@@ -158,6 +171,7 @@
 	
 	/setvar key=genSettings index=wi_book_key "World Type"|
 	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=inputIsTaskList No|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=needOutput No|
@@ -189,6 +203,7 @@
 	/flushvar output|
 	/flushvar genOrder|
 	/flushvar genContent|
+	/flushvar genSettings|
 :}|
 //-----------|
 
@@ -218,6 +233,10 @@
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
 :}|
 //-----------|
 
