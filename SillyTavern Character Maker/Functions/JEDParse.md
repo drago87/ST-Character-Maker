@@ -41,14 +41,12 @@
 /ife (alias != '') {:
 	/messages names=off 0|
 	/re-replace find="/--Alias1--/g" replace=", Alias" {{pipe}}|
-	/message-edit message=0 await=true {{pipe}}|
 	/re-replace find="/--Alias--/g" replace=", {{getvar::alias}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /else {:
 	/messages names=off 0|
 	/re-replace find="/--Alias1--/g" replace="" {{pipe}}|
-	/message-edit message=0 await=true {{pipe}}|
 	/re-replace find="/--Alias--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|

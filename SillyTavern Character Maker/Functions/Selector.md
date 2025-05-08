@@ -1,40 +1,44 @@
 /getvar key=genSettings index=wi_book|
-/var key=wi_book_f {{pipe}}|
+/let key=wi_book_f {{pipe}}|
 /ife ( wi_book_f == '') {:
 	/abort quiet=false Missing wi_book name in input.|
 :}|
 /getvar key=genSettings index=wi_book_key|
-/var key=wi_book_key_f {{pipe}}|
+/let key=wi_book_key_f {{pipe}}|
 /ife ( wi_book_key_f == '') {:
 	/abort quiet=false Missing wi_book_key name in input.|
 :}|
+
 /getvar key=genSettings index=genIsList|
-/var key=genIsList_f {{pipe}}|
+/let key=genIsList_f {{pipe}}|
 /ife ( genIsList_f == '') {:
 	/abort quiet=false Missing genIsList setting in input.|
 :}|
 /getvar key=genSettings index=genIsSentence|
-/var key=genIsSentence_f {{pipe}}|
+/let key=genIsSentence_f {{pipe}}|
 /ife ( genIsSentence_f == '') {:
 	/abort quiet=false Missing genIsSentence setting in input.|
 :}|
+/getvar key=genSettings index=outputIsList|
+/let key=outputIsList_f {{pipe}}|
+/ife ( outputIsList_f == '') {:
+	/abort quiet=false Missing outputIsList name in input.|
+:}|
 /getvar key=genSettings index=needOutput|
-/var key=needOutput_f {{pipe}}|
+/let key=needOutput_f {{pipe}}|
 /ife ( needOutput_f == '') {:
 	/var key=needOutput_f Yes|
 :}|
 /getvar key=genSettings index=useContext|
-/var key=useContext_f {{pipe}}|
+/let key=useContext_f {{pipe}}|
 /ife ( useContext_f == '') {:
 	/abort quiet=false Missing useContext setting in input.|
 :}|
-/getvar key=genSettings index=useContext|
-/var key=useContext_f {{pipe}}|
 /getvar key=genSettings index=content|
-/var key=content_f {{pipe}}|
+/let key=content_f {{pipe}}|
 
 
-/let genStat {{noop}}|
+/let genState {{noop}}|
 /let key=wi_uid {{noop}}|
 /let key=find {{noop}}|
 
@@ -60,11 +64,11 @@
 /let key=selected_btn {{noop}}|
 
 /let key=isGeneration 'No'|
-/let key=output {{noop}}|
+/setvar key=output {{noop}}|
 /setvar as=array key=tempList []|
 /let actionType {{noop}}|
 
-/ife ( outputIsList == 'Yes') {:
+/ife ( outputisList_f == 'Yes') {:
 	/var key=actionType add|
 :}|
 /else {:
@@ -73,7 +77,7 @@
 /let key=man "Manually {{var::actionType}}"|
 
 /whilee ( output == '') {:
-	
+	/echo {{getvar::output}}|
 	/ife ( 'Random' not in genState) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Ramdom"|
@@ -82,24 +86,25 @@
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} {{getvar::man}}|
 	:}|
-	/ife (('Done' not in genState) and (((outputIsList == 'Yes') and (tempList != '')) or (needOutput_f == 'No'))) {:
+	/ife (('Done' not in genState) and (((outputisList_f == 'Yes') and (tempList != '')) or (needOutput_f == 'No'))) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Done"|
 	:}|
-	/buttons labels={{var::genState}} Select the {{var::it}} you want to use.|
+	/buttons labels={{var::genState}} Select the {{getvar::it}} you want to use.|
 	/var key=selected_btn {{pipe}}|
-	
+	/echo test1 {{var::selected_btn}}|
 	/ife ( selected_btn == ''){:
 		/echo Aborting |
 		/abort
 	:}|
 	/elseif (selected_btn == 'Random') {:
 		/find index=true {{var::genState}} {:
-			/test left={{var::item}} rule=eq right="Random"|
+			/test left={{getvar::item}} rule=eq right="Random"|
 		:}|
 		/slice start=0 end={{pipe}} {{var::genState}}|
 		/pick items=1 {{var::genState}}|
 		/var key=selected_btn {{pipe}}|
+		/setvar key=save {{var::selected_btn}}|
 		/:"CMC Logic.SaveGen"|
 	:}|
 	/elseif ( selected_btn == man) {:
@@ -108,7 +113,7 @@
 			/input default={{pipe}} Edit the output to your liking.|
 		:}|
 		/else {:
-			/ife (outputIsList == 'Yes') {:
+			/ife (outputisList_f == 'Yes') {:
 				/input rows=8 What {{var::wi_book_key_f}} do you like to add to the {{var::wi_book_key_f}} list?|
 			:}|
 			/else {:
@@ -116,14 +121,17 @@
 			:}|
 		:}|
 		/var key=selected_btn {{pipe}}|
+		/setvar key=save {{var::selected_btn}}|
 		/:"CMC Logic.SaveGen"|
 	:}|
 	/else {:
-		/ife (( genState == 'Done') and (((outputIsList == 'Yes') and (tempList == '')) or (needOutput_f == 'No'))) {:
+		/ife (( genState == 'Done') and (((outputisList_f == 'Yes') and (tempList == '')) or (needOutput_f == 'No'))) {:
 			/setvar key=save None|
 			/:"CMC Logic.SaveGen"|
 		:}|
 		/else {:
+			/echo test2 {{var::selected_btn}}|
+			/setvar key=save {{var::selected_btn}}|
 			/:"CMC Logic.SaveGen"|
 		:}|
 	:}|

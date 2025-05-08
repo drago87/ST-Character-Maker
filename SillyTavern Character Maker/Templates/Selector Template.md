@@ -10,9 +10,12 @@
 	/setvar key=genSettings index=wi_book ""|
 	/setvar key=genSettings index=wi_book_key ""|
 	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput No|
+	/setvar key=genSettings index=useContext No|
 	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
@@ -34,7 +37,8 @@
 		:}|
 	:}|
 	/else {:
-		/setvar key=it {{getvar::wi_book_key}}|
+		/getvar key=genSettings index=wi_book_key|
+		/setvar key=it {{pipe}}|
 		/:"CMC Logic.GenerateWithSelector"|
 		/setvar key={{var::variableName}} {{pipe}}|
 		
@@ -45,6 +49,9 @@
 	/flushvar genContent|
 	/flushvar it|
 	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //-------|
 *|

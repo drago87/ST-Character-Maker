@@ -1,14 +1,20 @@
 /ife ( save == ''){:
-	/echo Aborting |
+	/echo Aborting SaveGen|
 	/abort
 :}|
 /let x {{getvar::save}}|
+/getvar key=genSettings index=isGeneration|
+/let key=isGeneration_f {{pipe}}|
+/getvar key=genSettings index=outputIsList|
+/let key=outputIsList_f {{pipe}}|
+/getvar key=genSettings index=inputIsList|
+/let key=inputIsList_f {{pipe}}|
 /ife ( save == 'Done') {:
 	/setvar key=output {{getvar::tempList}}|
 :}|
-/elseif ( isGeneration == 'Yes') {:
-	/ife ( outputIsList == 'Yes') {:
-		/ife ( inputIsList == 'Yes') {:
+/elseif ( isGeneration_f == 'Yes') {:
+	/ife ( outputIsList_f == 'Yes') {:
+		/ife ( inputIsList_f == 'Yes') {:
 			/addvar key=tempList {{getvar::item}}: {{getvar::save}}|
 		:}|
 		/else {:
@@ -16,7 +22,7 @@
 		:}|
 	:}|
 	/else {:
-		/ife ( inputIsList == 'Yes') {:
+		/ife ( inputIsList_f == 'Yes') {:
 			/setvar key=output {{getvar::item}}: {{getvar::save}}|
 		:}|
 		/else {:
@@ -25,7 +31,7 @@
 	:}|
 :}|
 /else {:
-	/ife (outputIsList == 'Yes') {:
+	/ife (outputIsList_f == 'Yes') {:
 		/addvar key=tempList {{getvar::save}}|
 	:}|
 	/else {:

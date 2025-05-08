@@ -18,3 +18,13 @@
 		/:"CMC Generate.Generate World Info"|
 	:}|
 :}|
+/ife ( stepVar == 'Step3') {:
+	/ife (stepDone == 'Yes') {:
+		//Load Step2|
+		//:"CMC Generate.Generate Character Information"|
+	:}|
+	/else {:
+		//Load Step3|
+		//:"CMC Generate.Generate World Info"|
+	:}|
+:}|

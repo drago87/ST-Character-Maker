@@ -24,9 +24,12 @@
 	/setvar key=genSettings index=wi_book "CMC Variables"|
 	/setvar key=genSettings index=wi_book_key "Time Period"|
 	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=useContext No|
 	
 	
 	/getvar key=genSettings index=inputIsList|
@@ -44,13 +47,14 @@
 			/setvar key=it {{var::item}}|
 			/getat index={{var::index}} {{var::genOrderContent}} |
 			/var key=content {{pipe}}|
-			/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+			/:"CMC Logic.GenerateWithSelector"|
 			/addvar key={{var::variableName}} {{pipe}}|
 		:}|
 	:}|
 	/else {:
-		/var key=it {{getvar::wi_book_key}}|
-		/:GenerateWithSelector wi_book_f="{{var::wi_book}}" wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+		/getvar key=genSettings index=wi_book_key|
+		/setvar key=it {{pipe}}|
+		/:"CMC Logic.GenerateWithSelector"|
 		/setvar key={{var::variableName}} {{pipe}}|
 		
 	:}|
@@ -60,6 +64,9 @@
 	/flushvar genContent|
 	/flushvar it|
 	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //-----------|
 
@@ -99,7 +106,8 @@
 		:}|
 	:}|
 	/else {:
-		/setvar key=it {{getvar::wi_book_key}}|
+		/getvar key=genSettings index=wi_book_key|
+		/setvar key=it {{pipe}}|
 		/:"CMC Logic.GenerateWithSelector"|
 		/setvar key={{var::variableName}} {{pipe}}|
 		
@@ -110,6 +118,9 @@
 	/flushvar genContent|
 	/flushvar it|
 	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //-----------|
 
@@ -161,6 +172,9 @@
 	/flushvar genSettings|
 	
 :}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
 //-------|
 
 //World Type|
@@ -208,6 +222,9 @@
 	/flushvar genContent|
 	/flushvar genSettings|
 :}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
 //-----------|
 
 //WorldDetails|
@@ -240,6 +257,9 @@
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //-----------|
 
@@ -283,6 +303,9 @@
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
+	:}|
+	/else {:
+		/addvar key=dataBaseNames {{var::variableName}}|
 	:}|
 :}|
 /else {:
