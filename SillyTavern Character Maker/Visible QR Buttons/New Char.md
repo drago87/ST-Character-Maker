@@ -1,6 +1,7 @@
 /let key=selected_btn {{noop}}|
 /let key=databaseList {{noop}}|
 /let key=qrList {{noop}}|
+/let key=typeGuide {{noop}}|
 
 /setvar key=wait 100|
 /messages 0|
@@ -49,6 +50,10 @@
 /ife ( normal_form != '' ) {:
 	/buttons labels=["Yes", "No"] Do you want to change the type of character?|
 	/var selected_btn {{pipe}}|
+	/ife ( selected_btn == '') or ( selected_btn == 'No')) {:
+		/echo Aborting|
+		/abort|
+	:}|
 :}|
 /ife ( (normal_form == '') or ( selected_btn == 'Yes')) {:
 	/setvar key=normal_form "Help me Decide"|
