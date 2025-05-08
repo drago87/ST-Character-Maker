@@ -14,10 +14,7 @@
 :}|
 
 
-//Create JEDParse|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/JED%20Parse.md|
-/setvar key=jedParse {{pipe}}|
-//-----|
+
 
 //Create TextParse|
 /fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Text%20Parse.md|
@@ -32,7 +29,7 @@
 /ife ('New Character' not in qrListContent) {:
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/New%20Char.md|
 	
-	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+	
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
 	/qr-create set="CMC Main" label="New Character" title="Will make a new character and let you set the Gender, type(Human, Anthro etc..)" {{pipe}}|
 	/qr-update set="CMC Main" label="New Character" title="Make a character from the beginning."|
@@ -55,7 +52,7 @@
 /ife ('{{var::temp}}' not in qrList) {:
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/Character%20Generation.md|
 	
-	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+	
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
 	/qr-create set="CMC Main" label="Character Generation" {{pipe}}|
 	/qr-update set="CMC Main" label="Character Generation" title="Continues/Restart the last Generation or Starts the next Generation."|
@@ -115,7 +112,7 @@
 	//Get Char info|
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Get%20Character%20information.md|
 	
-	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+	
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
 	
 	
@@ -127,7 +124,7 @@
 	//Is Real|
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Is%20Real.md|
 	
-	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+	
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
 	
 	
@@ -148,7 +145,12 @@
 	/qr-create set="CMC Logic" label="Save DataBase" {{pipe}}|
 	//|-----|
 :}|
-
+/ife ( 'JEDParse' not in qrListContent) {:
+	//JEDParse|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/JEDParse.md|
+	/qr-create set="CMC Logic" label="JEDParse" {{pipe}}|
+	//|-----|
+:}|
 //Generate|
 /ife ('CMC Generate' in qrList) {:
 	/buttons labels=["Yes", "No"] want to update CMC Generate scripts?|
@@ -166,7 +168,7 @@
 	//Generate World Info|
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Basic%20World%20Info.md|
 	
-	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+	
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
 	/qr-create set="CMC Generate" label="Generate World Info" {{pipe}}|
 	//|-----|
@@ -176,7 +178,7 @@
 	//Generate Character Information|
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Character%20Information.md|
 	
-	/re-replace find="/--JEDParse--/g" replace="{{getvar::jedParse}}" {{pipe}}|
+	
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
 	/qr-create set="CMC Generate" label="Generate Character Information" {{pipe}}|
 	//|-----|
