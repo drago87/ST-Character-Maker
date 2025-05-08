@@ -44,7 +44,7 @@
 	/re-replace find="/--Alias--/g" replace=", {{getvar::alias}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif (export == 'Yes' ) {:
 	/messages names=off 0|
 	/re-replace find="/--Alias1--/g" replace="" {{pipe}}|
 	/re-replace find="/--Alias--/g" replace="" {{pipe}}|
@@ -95,7 +95,7 @@
 	/re-replace find="/--Nipples--/g" replace="{{newline}} - Nipple Descriptors: {{getvar::nipples}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif (export == 'Yes' ) {:
 	/messages names=off 0|
 	/re-replace find="/--Nipples--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -105,7 +105,7 @@
 	/re-replace find="/--Breasts--/g" replace="{{newline}} - Breast Descriptors: {{getvar::breast}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif (export == 'Yes' ) {:
 	/messages names=off 0|
 	/re-replace find="/--Breasts--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -195,7 +195,7 @@
 	/re-replace find="/--Secret--/g" replace="### SECRET{{newline}}{{getvar::secret}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif (export == 'Yes' ) {:
 	/messages names=off 0|
 	/re-replace find="/--Secret--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -205,7 +205,7 @@
 	/re-replace find="/--ItemList--/g" replace="### INVENTORY{{newline}}{{getvar::itemList}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif (export == 'Yes' ) {:
 	/messages names=off 0|
 	/re-replace find="/--ItemList--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -215,7 +215,7 @@
 	/re-replace find="/--Abilities--/g" replace="### ABILITIES{{newline}}{{getvar::abilities}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif (export == 'Yes' ) {:
 	/messages names=off 0|
 	/re-replace find="/--Abilities--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -230,7 +230,7 @@
 	/re-replace find="/--Alignment--/g" replace="{{newline}}{{newline}}{{getvar::alignment}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif (export == 'Yes' ) {:
 	/messages names=off 0|
 	/re-replace find="/--Alignment--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -245,7 +245,7 @@
 	/re-replace find="/--CognitiveAbilities--/g" replace="{{newline}}{{newline}}- Cognitive Abilities: {{getvar::cognitiveAbilities}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif (export == 'Yes' ) {:
 	/messages names=off 0|
 	/re-replace find="/--CognitiveAbilities--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -255,7 +255,7 @@
 	/re-replace find="/--SocialSkills--/g" replace="{{newline}}{{newline}}- Social Skills and Integration Into Society:{{getvar::socialSkills}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif (export == 'Yes' ) {:
 	/messages names=off 0|
 	/re-replace find="/--SocialSkills--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -330,7 +330,7 @@
 	/re-replace find="/--StoryPlan--/g" replace="## PREMADE STORY PLAN{{newline}}{{getvar::storyPlan}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif (export == 'Yes' ) {:
 	/messages names=off 0|
 	/re-replace find="/--StoryPlan--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -350,7 +350,7 @@
 	/re-replace find="/--User1--,\s/g" replace="--User--, " {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif (export == 'Yes' ) {:
 	/messages names=off 0|
 	/re-replace find="/--User1--,\s/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
