@@ -244,21 +244,57 @@
 //-----------|
 
 //Lore|
-
+/buttons labels=["Yes", "No"] Do you want to have Lore for the world?l
+/setvar key=selected_btn {{pipe}}|
+/ife ( selected_btn == 'Yes) {:
+	/flushvar selected_btn|
+	/var key=do Yes|
+	/var key=variableName "lore"|
+	/ife ( {{var::variableName}} != '') {:
+		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
+		/var key=do {{pipe}}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings index=wi_book_key "Lore"|
+		/setvar key=genSettings index=genIsList No|
+		/setvar key=genSettings index=genIsSentence Yes|
+		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=genSettings index=useContext No|
+		/setvar key=genSettings index=contextKey {{noop}}|
+		
+		/getvar key=genSettings index=inputIsList|
+		/let key=inputIsList {{pipe}}|
+		/getvar key=genSettings index=combineLorebookEntries|
+		/let key=combineLorebookEntries {{pipe}}|
+		
+		
+		/ife (outputIsList == 'Yes') {:
+			/setvar as=array key={{var::variableName}} []|
+		:}|
+		/else {:
+			/setvar as=string key={{var::variableName}} {{noop}}|
+		:}|
+		//[[Generate with Prompt]]|
+		/:"CMC Logic.GenerateWithPrompt"|
+		
+		/setvar key={{var::variableName}} {{getvar::output}}|
+		/addvar key=dataBaseNames {{var::variableName}}|
+		/flushvar output|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar genSettings|
+	:}|
+:}|
+/else {:
+	/flushvar selected_btn|
+:}|
 //-----------|
 
 //Scenario Overview|
 
 //-----------|
 
---JEDParse--
-/findentry field=comment file="CMC Variables" Character Template|
-/getentryfield file="CMC Variables" {{pipe}}|
-/:JEDParse input={{pipe}}|
-/setvar key=t {{pipe}}|
-/:"CMC Logic.Parse"|
-/message-edit message=0 {{pipe}}|
-/flushvar t|
+/:"CMC Logic.JEDParse"|
 
 /:"CMC Logic.Save DataBase"|
 

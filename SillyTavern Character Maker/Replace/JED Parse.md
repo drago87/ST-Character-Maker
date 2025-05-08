@@ -77,7 +77,7 @@
 		/var x {{pipe}}|
 	:}|
 	/ife (nipples != '') {:
-		/re-replace find="/--Nipples--/g" replace="{{newline}} - Nipple Descriptors: {{getvar::nipples}}" {{var::x}}|
+		/re-replace find="/--Nipples--/g" replace="{\\{newline}} - Nipple Descriptors: {{getvar::nipples}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/else {:
@@ -85,7 +85,7 @@
 		/var x {{pipe}}|
 	:}|
 	/ife (breast != '') {:
-		/re-replace find="/--Breasts--/g" replace="{{newline}} - Breast Descriptors: {{getvar::breast}}" {{var::x}}|
+		/re-replace find="/--Breasts--/g" replace="{\\{newline}} - Breast Descriptors: {{getvar::breast}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/else {:
@@ -93,7 +93,7 @@
 		/var x {{pipe}}|
 	:}|
 	/ife (privates != '') {:
-		/re-replace find="/--Privates--/g" replace="{{newline}} - Privates Descriptors: {{getvar::privates}}" {{var::x}}|
+		/re-replace find="/--Privates--/g" replace="{\\{newline}} - Privates Descriptors: {{getvar::privates}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/ife (features != '') {:
@@ -185,7 +185,7 @@
 		/var x {{pipe}}|
 	:}|
 	/ife (alignment != '') {:
-		/re-replace find="/--Alignment--/g" replace="{{newline}}{{newline}}{{getvar::alignment}}" {{var::x}}|
+		/re-replace find="/--Alignment--/g" replace="{\\{newline}}{\\{newline}}{{getvar::alignment}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/else {:
@@ -197,7 +197,7 @@
 		/var x {{pipe}}|
 	:}|
 	/ife (cognitiveAbilities != '') {:
-		/re-replace find="/--CognitiveAbilities--/g" replace="{{newline}}{{newline}}- Cognitive Abilities: {{getvar::cognitiveAbilities}}" {{var::x}}|
+		/re-replace find="/--CognitiveAbilities--/g" replace="{\\{newline}}{\\{newline}}- Cognitive Abilities: {{getvar::cognitiveAbilities}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/else {:
@@ -205,7 +205,7 @@
 		/var x {{pipe}}|
 	:}|
 	/ife (socialSkills != '') {:
-		/re-replace find="/--SocialSkills--/g" replace="{{newline}}{{newline}}- Social Skills and Integration Into Society:{{getvar::socialSkills}}" {{var::x}}|
+		/re-replace find="/--SocialSkills--/g" replace="{\\{newline}}{\\{newline}}- Social Skills and Integration Into Society:{{getvar::socialSkills}}" {{var::x}}|
 		/var x {{pipe}}|
 	:}|
 	/else {:

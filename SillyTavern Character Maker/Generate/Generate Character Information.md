@@ -7,17 +7,9 @@
 /getat index="message" {{pipe}}|
 /qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating Character Information" {{pipe}}|
 
---VarReplace--
-
 /:"CMC Logic.Get Char info"|
 
 /setvar key=dataBaseNames []|
-
-//Generation Functions|
---GenPrompt--
-
---GenSelector--
-//----|
 
 //Character Overview|
 
@@ -44,7 +36,7 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+	/:"CMC Logic.GenerateWithPrompt"|
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -74,7 +66,7 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+	/:"CMC Logic.GenerateWithPrompt"|
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -105,7 +97,7 @@
 			/setvar as=string key={{var::variableName}} {{noop}}|
 		:}|
 		//[[Generate with Prompt]]|
-		/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+		/:"CMC Logic.GenerateWithPrompt"|
 		
 		/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
@@ -136,7 +128,7 @@
 			/setvar as=string key={{var::variableName}} {{noop}}|
 		:}|
 		//[[Generate with Prompt]]|
-		/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+		/:"CMC Logic.GenerateWithPrompt"|
 		
 		/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
@@ -167,7 +159,7 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
-	/:GenerateWithPrompt wi_book_key_f="{{var::wi_book_key}}" genIsList_f="{{var::genIsList}}" genIsSentence_f="{{var::genIsSentence}}" needOutput_f="{{var::needOutput}}" contextKey_f="{{var::contextKey}}"|
+	/:"CMC Logic.GenerateWithPrompt"|
 	
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -182,14 +174,11 @@
 
 //-----------|
 
---JEDParse--
-/findentry field=comment file="CMC Variables" Character Template|
-/getentryfield file="CMC Variables" {{pipe}}|
-/:JEDParse input={{pipe}}|
-/setvar key=t {{pipe}}|
-/:"CMC Logic.Parse"|
-/message-edit message=0 {{pipe}}|
-/flushvar t|
+//Race Age|
+
+//-----------|
+
+/:"CMC Logic.JEDParse"|
 
 /:"CMC Logic.Save DataBase"|
 
@@ -205,6 +194,6 @@
 /re-replace find="/\s(?=\d{2}$)/g" replace="h " {{var::filename}}|
 /setvar key=filename {{pipe}}|
 /addvar key=filename " m {{getvar::firstName}} {{getvar::lastName}}"|
-/forcesave
+/forcesave|
 /renamechat {{getvar::filename}}|
 /flushvar filename|

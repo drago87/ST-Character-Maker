@@ -145,6 +145,29 @@ INSTRUCTION: Only respond in the given format.|
 
 /:"CMC Logic.Is Real"|
 
+/buttons labels=["Yes", "No"] Is the character going to be part of a Chat Group?|
+/var selected_btn {{pipe}}|
+/ife ( selected_btn == '') {:
+	/echo Aborting|
+	/abort
+:}|
+/elseif ( selected_btn == 'Yes') {:
+	/setvar key=chatGroup Yes|
+	/buttons labels=["Yes", "No"] Is the user going to be part of the Chat Group?|
+	/var selected_btn {{pipe}}|
+	/ife ( selected_btn == '') {:
+		/echo Aborting|
+		/abort
+	:}|
+	/elseif ( selected_btn == 'Yes') {:
+		/setvar key=user Yes|
+	:}|
+	/else {::}|
+:}|
+/else {:
+	/setvar key=user Yes|
+:}|
+
 /db-list source=chat field=name |
 /let key=a {{pipe}}|
 
@@ -153,15 +176,14 @@ INSTRUCTION: Only respond in the given format.|
 /addvar key=dataBaseNames speciesType|
 /addvar key=dataBaseNames gender|
 /addvar key=dataBaseNames character_type|
+/addvar key=dataBaseNames user|
+/addvar key=dataBaseNames chatGroup|
 
---JEDParse--
+
 /findentry field=comment file="CMC Variables" Character Template|
 /getentryfield file="CMC Variables" {{pipe}}|
-/:JEDParse input={{pipe}}|
-/setvar key=t {{pipe}}|
-/:"CMC Logic.Parse"|
 /message-edit message=0 {{pipe}}|
-/flushvar t|
+/:"CMC Logic.JEDParse"|
 
 /:"CMC Logic.Save DataBase"|
 
