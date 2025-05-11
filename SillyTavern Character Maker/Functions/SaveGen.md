@@ -10,7 +10,12 @@
 /getvar key=genSettings index=inputIsList|
 /let key=inputIsList_f {{pipe}}|
 /ife ( save == 'Done') {:
-	/setvar key=output {{getvar::tempList}}|
+	/ife (tempList != '' ) {:
+		/setvar key=output {{getvar::tempList}}|
+	:}|
+	/else {:
+		/setvar key=output Empty|
+	:}|
 :}|
 /elseif ( isGeneration_f == 'Yes') {:
 	/ife ( outputIsList_f == 'Yes') {:

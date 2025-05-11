@@ -48,14 +48,18 @@
 			/getat index={{var::index}} {{var::genOrderContent}} |
 			/var key=content {{pipe}}|
 			/:"CMC Logic.GenerateWithSelector"|
-			/addvar key={{var::variableName}} {{pipe}}|
+			/ife (output != '') {:
+				/addvar key={{var::variableName}} {{getvar::output}}|
+			:}|
 		:}|
 	:}|
 	/else {:
 		/getvar key=genSettings index=wi_book_key|
 		/setvar key=it {{pipe}}|
 		/:"CMC Logic.GenerateWithSelector"|
-		/setvar key={{var::variableName}} {{pipe}}|
+		/ife (output != '') {:
+			/setvar key={{var::variableName}} {{getvar::output}}|
+		:}|
 		
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -81,6 +85,9 @@
 	/setvar key=genSettings index=wi_book "CMC Variables"|
 	/setvar key=genSettings index=wi_book_key "Seasons"|
 	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=useContext No|
 	/setvar key=genSettings index=inputIsList No|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput No|
@@ -102,14 +109,18 @@
 			/getat index={{var::index}} {{getvar::genContent}} |
 			/var key=content {{pipe}}|
 			/:"CMC Logic.GenerateWithSelector"|
-			/addvar key={{var::variableName}} {{getvar::output}}|
+			/ife (output != '') {:
+				/addvar key={{var::variableName}} {{getvar::output}}|
+			:}|
 		:}|
 	:}|
 	/else {:
 		/getvar key=genSettings index=wi_book_key|
 		/setvar key=it {{pipe}}|
 		/:"CMC Logic.GenerateWithSelector"|
-		/setvar key={{var::variableName}} {{pipe}}|
+		/ife (output != '') {:
+			/setvar key={{var::variableName}} {{getvar::output}}|
+		:}|
 		
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -214,8 +225,9 @@
 	:}|
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.GenerateWithPrompt"|
-	
-	/setvar key={{var::variableName}} {{getvar::output}}|
+	/ife (output != '') {:
+		/setvar key={{var::variableName}} {{getvar::output}}|
+	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar genOrder|
@@ -250,8 +262,9 @@
 	:}|
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.GenerateWithPrompt"|
-	
-	/setvar key={{var::variableName}} {{getvar::output}}|
+	/ife (output != '') {:
+		/setvar key={{var::variableName}} {{getvar::output}}|
+	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar genOrder|
@@ -296,8 +309,9 @@
 		:}|
 		//[[Generate with Prompt]]|
 		/:"CMC Logic.GenerateWithPrompt"|
-		
-		/setvar key={{var::variableName}} {{getvar::output}}|
+		/ife (output != '') {:
+			/setvar key={{var::variableName}} {{getvar::output}}|
+		:}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
 		/flushvar genOrder|
@@ -309,6 +323,8 @@
 	:}|
 :}|
 /else {:
+	/setvar key={{var::variableName}} None|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar selected_btn|
 :}|
 //-----------|

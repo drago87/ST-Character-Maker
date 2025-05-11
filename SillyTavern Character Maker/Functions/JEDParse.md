@@ -18,9 +18,14 @@
 	/re-replace find="/--ExtraCharacters--/g" replace=", {{getvar::extraCharacters}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (lore != '') {:
+/ife ((lore != '') and ( lore != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--Lore--/g" replace="## LORE{{newline}}{{getvar::lore}}{{newline}}{{newline}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif ( lore == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--Lore--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (scenarioOverview != '') {:

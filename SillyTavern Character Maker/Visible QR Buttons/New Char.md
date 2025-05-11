@@ -3,7 +3,7 @@
 /let key=qrList {{noop}}|
 /let key=typeGuide {{noop}}|
 
-/setvar key=wait 100|
+
 /messages 0|
 /let firstMess {{pipe}}|
 /ife ( 'Installation Instructions' not in firstMess) {:
@@ -19,8 +19,17 @@
 	/foreach {{var::databaseList}} {:
 		/db-delete source=chat {{var::item}}|
 	:}|
+	
+	/listvar scope=local return=object |
+	/let  key=flvars {{pipe}}|
+	/foreach {{var::flvars}} {:
+		/getat index=key {{var::item}}|
+		/flushvar {{pipe}}|
+	:}|
+	
 :}|
 
+/setvar key=wait 100|
 /setvar key=stepDone No|
 /setvar key=stepVar Step1|
 /qr-list CMC Main|
@@ -167,10 +176,13 @@ INSTRUCTION: Only respond in the given format.|
 	/elseif ( selected_btn == 'Yes') {:
 		/setvar key=user Yes|
 	:}|
-	/else {::}|
+	/else {:
+		/setvar key=user No|
+	:}|
 :}|
 /else {:
 	/setvar key=user Yes|
+	/setvar key=chatGroup No|
 :}|
 
 /db-list source=chat field=name |

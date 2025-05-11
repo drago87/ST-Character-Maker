@@ -33,14 +33,18 @@
 			/getat index={{var::index}} {{var::genOrderContent}} |
 			/setvar key=genSettings index=content {{pipe}}|
 			/:"CMC Logic.GenerateWithSelector"|
-			/addvar key={{var::variableName}} {{pipe}}|
+			/ife (output != '') {:
+				/addvar key={{var::variableName}} {{getvar::output}}|
+			:}|
 		:}|
 	:}|
 	/else {:
 		/getvar key=genSettings index=wi_book_key|
 		/setvar key=it {{pipe}}|
 		/:"CMC Logic.GenerateWithSelector"|
-		/setvar key={{var::variableName}} {{pipe}}|
+		/ife (output != '') {:
+			/setvar key={{var::variableName}} {{getvar::output}}|
+		:}|
 		
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|

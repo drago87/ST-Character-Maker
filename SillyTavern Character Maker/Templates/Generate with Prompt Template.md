@@ -29,8 +29,9 @@
 	:}|
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.GenerateWithPrompt"|
-	
-	/setvar key={{var::variableName}} {{getvar::output}}|
+	/ife (output != '') {:
+		/setvar key={{var::variableName}} {{getvar::output}}|
+	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar genOrder|

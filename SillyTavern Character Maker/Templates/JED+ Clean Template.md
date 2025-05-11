@@ -3,9 +3,7 @@
 - World Details: --WorldDetails--
 - Main Characters: --User1--, --FirstName-- --ExtraCharacters--
 
---Lore--
-
-## SCENARIO OVERVIEW
+--Lore--## SCENARIO OVERVIEW
 --ScenarioOverview--
 
 - - -

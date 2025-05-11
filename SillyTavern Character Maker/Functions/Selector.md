@@ -77,14 +77,13 @@
 /let key=man "Manually {{var::actionType}}"|
 
 /whilee ( output == '') {:
-	/echo {{getvar::output}}|
 	/ife ( 'Random' not in genState) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Ramdom"|
 	:}|
 	/ife ( man not in genState) {:
 		/len {{var::genState}}|
-		/var key=genState index={{pipe}} {{getvar::man}}|
+		/var key=genState index={{pipe}} {{var::man}}|
 	:}|
 	/ife (('Done' not in genState) and (((outputisList_f == 'Yes') and (tempList != '')) or (needOutput_f == 'No'))) {:
 		/len {{var::genState}}|
@@ -92,7 +91,6 @@
 	:}|
 	/buttons labels={{var::genState}} Select the {{getvar::it}} you want to use.|
 	/var key=selected_btn {{pipe}}|
-	/echo test1 {{var::selected_btn}}|
 	/ife ( selected_btn == ''){:
 		/echo Aborting |
 		/abort
@@ -126,11 +124,10 @@
 	:}|
 	/else {:
 		/ife (( genState == 'Done') and (((outputisList_f == 'Yes') and (tempList == '')) or (needOutput_f == 'No'))) {:
-			/setvar key=save None|
+			/setvar key=save Empty|
 			/:"CMC Logic.SaveGen"|
 		:}|
 		/else {:
-			/echo test2 {{var::selected_btn}}|
 			/setvar key=save {{var::selected_btn}}|
 			/:"CMC Logic.SaveGen"|
 		:}|
