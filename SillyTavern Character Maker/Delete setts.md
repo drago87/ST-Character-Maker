@@ -8,4 +8,7 @@
 
 /qr-create set="CMC Temp" label="Install QR" {{pipe}}|
 
+/:"CMC Temp.Install QR"|
+
+/wait {{getvar::wait}}|
 /qr-set-delete CMC Temp |

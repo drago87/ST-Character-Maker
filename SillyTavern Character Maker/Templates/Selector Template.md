@@ -17,6 +17,9 @@
 	/setvar key=genSettings index=needOutput No|
 	/setvar key=genSettings index=useContext No|
 	
+	
+	/getvar key=genSettings index=wi_book_key|
+	/let key=wi_book_key {{pipe}}|
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
 	/getvar key=genSettings index=combineLorebookEntries|
