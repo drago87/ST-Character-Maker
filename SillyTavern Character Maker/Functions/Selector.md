@@ -79,7 +79,7 @@
 /whilee ( output == '') {:
 	/ife ( 'Random' not in genState) {:
 		/len {{var::genState}}|
-		/var key=genState index={{pipe}} "Ramdom"|
+		/var key=genState index={{pipe}} "Random"|
 	:}|
 	/ife ( man not in genState) {:
 		/len {{var::genState}}|

@@ -5,6 +5,10 @@
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
+	/ife ( do == ''){:
+		/echo Aborting |
+		/abort
+	:}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book ""|
@@ -16,6 +20,7 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput No|
 	/setvar key=genSettings index=useContext No|
+	/wait {{getvar::wait}}|
 	
 	
 	/getvar key=genSettings index=wi_book_key|

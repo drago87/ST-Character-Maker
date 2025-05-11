@@ -19,6 +19,10 @@
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
+	/ife ( do == ''){:
+		/echo Aborting |
+		/abort
+	:}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book "CMC Variables"|
@@ -80,6 +84,10 @@
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
+	/ife ( do == ''){:
+		/echo Aborting |
+		/abort
+	:}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book "CMC Variables"|
@@ -141,6 +149,10 @@
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
+	/ife ( do == ''){:
+		/echo Aborting |
+		/abort
+	:}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book "CMC Variables"|
@@ -152,7 +164,7 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext No|
-	
+	/wait {{getvar::wait}}|
 	
 	/getvar key=genSettings index=wi_book_key|
 	/let key=wi_book_key {{pipe}}|
@@ -198,6 +210,10 @@
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
+	/ife ( do == ''){:
+		/echo Aborting |
+		/abort
+	:}|
 :}|
 /ife ( do == 'Yes' ) {:
 	
@@ -245,6 +261,10 @@
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
+	/ife ( do == ''){:
+		/echo Aborting |
+		/abort
+	:}|
 :}|
 /ife ( do == 'Yes' ) {:
 	
@@ -296,6 +316,10 @@
 	/ife ( {{var::variableName}} != '') {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
+		/ife ( do == ''){:
+			/echo Aborting |
+			/abort
+		:}|
 	:}|
 	/ife ( do == 'Yes' ) {:
 		/setvar key=genSettings index=wi_book_key "Lore"|

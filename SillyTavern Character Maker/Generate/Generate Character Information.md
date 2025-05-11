@@ -14,21 +14,25 @@
 //Character Overview|
 
 //Race/Species|
-/ife () {:
+/ife ( normal_form != 'Human') {:
 	/let key=do Yes|
-	/let key=variableName ""|
+	/let key=variableName "species"|
 	/ife ( {{var::variableName}} != '') {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
+	/ife ( do == ''){:
+		/echo Aborting |
+		/abort
+	:}|
 	:}|
 	/ife ( do == 'Yes' ) {:
-		/setvar key=genSettings index=wi_book ""|
-		/setvar key=genSettings index=wi_book_key ""|
-		/setvar key=genSettings index=genIsList No|
+		/setvar key=genSettings index=wi_book_key "Species"|
+		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=useContext No|
 		/setvar key=genSettings index=contextKey []|
+		/wait {{getvar::wait}}|
 		
 		/getvar key=genSettings index=inputIsList|
 		/let key=inputIsList {{pipe}}|
@@ -53,7 +57,8 @@
 	:}|
 :}|
 /else {:
-	
+	/setvar key=species Human|
+	/addvar key=dataBaseNames species|
 :}|
 //-----------|
 
@@ -63,6 +68,10 @@
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
+	/ife ( do == ''){:
+		/echo Aborting |
+		/abort
+	:}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book_key "Nationalities"|
@@ -71,6 +80,7 @@
 	/setvar key=genSettings index=needOutput Yes|//Yes or No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=genSettings index=contextKey []|
+	/wait {{getvar::wait}}|
 	
 	
 	/getvar key=genSettings index=inputIsList|
@@ -102,6 +112,10 @@
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
+	/ife ( do == ''){:
+		/echo Aborting |
+		/abort
+	:}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/var key=wi_book_key "Ethnicities"|
@@ -110,6 +124,7 @@
 	/var key=genIsSentence No|//Yes or No|
 	/var key=needOutput Yes|//Yes or No|
 	/var key=contextKey "Character"|
+	/wait {{getvar::wait}}|
 	
 	
 	/ife (outputIsList == 'Yes') {:
@@ -134,6 +149,10 @@
 	/ife ( {{var::variableName}} != '') {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
+		/ife ( do == ''){:
+			/echo Aborting |
+			/abort
+		:}|
 	:}|
 	/ife ( do == 'Yes' ) {:
 		/var key=wi_book_key "First Name"|
@@ -142,6 +161,7 @@
 		/var key=genIsSentence No|//Yes or No|
 		/var key=needOutput Yes|//Yes or No|
 		/var key=contextKey "Character"|
+		/wait {{getvar::wait}}|
 		
 		/ife (outputIsList == 'Yes') {:
 			/setvar as=array key={{var::variableName}} []|
@@ -165,6 +185,10 @@
 	/ife ( {{var::variableName}} != '') {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
+		/ife ( do == ''){:
+			/echo Aborting |
+			/abort
+		:}|
 	:}|
 	/ife ( do == 'Yes' ) {:
 		/var key=wi_book_key "Last Name"|
@@ -173,6 +197,7 @@
 		/var key=outputIsList No|//Yes or No|
 		/var key=needOutput Yes|//Yes or No|
 		/var key=contextKey "Character"|
+		/wait {{getvar::wait}}|
 		
 		/ife (outputIsList == 'Yes') {:
 			/setvar as=array key={{var::variableName}} []|
@@ -195,6 +220,10 @@
 /ife ( {{var::variableName}} != '') {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
+	/ife ( do == ''){:
+		/echo Aborting |
+		/abort
+	:}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/var key=wi_book_key "Nickname"|
@@ -203,6 +232,7 @@
 	/var key=genIsSentence No|//Yes or No|
 	/var key=needOutput Yes|//Yes or No|
 	/var key=contextKey "Character"|
+	/wait {{getvar::wait}}|
 	
 	
 	/ife (outputIsList == 'Yes') {:
@@ -219,6 +249,9 @@
 :}|
 //-----------|
 
+//Life stage|
+
+//-----------|
 //Age|
 
 //-----------|
