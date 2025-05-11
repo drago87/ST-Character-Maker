@@ -6,7 +6,7 @@
 
 /messages 0|
 /let firstMess {{pipe}}|
-/ife ( 'Installation Instructions' not in firstMess) {:
+/ife ( ('Installation Instructions' not in firstMess) and (continue != 'Yes')) {:
 	/buttons labels=["Yes", "No"] <div>Doing this will delete all progress. And all Chat Attachments.</div><div>Do you want to continue?</div>|
 	/var selected_btn {{pipe}}|
 	/ife (( selected_btn == '') or ( selected_btn == 'No')) {:
@@ -29,6 +29,7 @@
 	
 :}|
 
+/setvar key=continue Yes|
 /setvar key=wait 100|
 /setvar key=stepDone No|
 /setvar key=stepVar Step1|
@@ -59,7 +60,7 @@
 /ife ( normal_form != '' ) {:
 	/buttons labels=["Yes", "No"] Do you want to change the type of character?|
 	/var selected_btn {{pipe}}|
-	/ife ( selected_btn == '') or ( selected_btn == 'No')) {:
+	/ife ( selected_btn == '') {:
 		/echo Aborting|
 		/abort|
 	:}|
@@ -69,7 +70,7 @@
 	/findentry field=comment file="CMC Information" Type Guide|
 	/getentryfield file="CMC Information" {{pipe}}| 
 	/var typeGuide {{pipe}}|
-	/whilee ( type == 'Help me Decide') {:
+	/whilee ( normal_form == 'Help me Decide') {:
 		/buttons labels=["Help me Decide", "Human", "Anthropomorphic\n(Anthropomorphic is a character that combines both human and animal traits, often featuring an animal body with human-like posture, facial expressions, speech, and behavior.)", "Demi-Human\n(Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...)", "Kemonomimi\n(Kemonomimi is a character with animal features like ears and tail but otherwise human appearance.)", "Animalistic\n(Animalistic refers to standard animals, fantasy creatures, or monsters that behave and appear primarily as non-human beings, typically walking on all fours and lacking human speech or reasoning.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
 		/re-replace find="/(\n\(\|\()[\s\S]*$/g" replace="" {{pipe}}|
 		/setvar key=normal_form {{pipe}}|
@@ -100,7 +101,7 @@ INSTRUCTION: Only respond in the given format.|
 			:}|
 		:}|
 	:}|
-	/re-replace find="/\(.*$/g" replace="" {{getvar::type}}|
+	/re-replace find="/\(.*$/g" replace="" {{getvar::normal_form}}|
 	/setvar key=normal_form {{pipe}}|
 :}|
 
@@ -211,3 +212,5 @@ INSTRUCTION: Only respond in the given format.|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
 /qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating World Info" {{pipe}}|
+
+/flushvar continue|

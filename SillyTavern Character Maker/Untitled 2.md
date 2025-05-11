@@ -1,21 +1,12 @@
-/let getEntry {: entry= hairS= 
-	/let x {{var::hairS}}|
-	/let y {{var::entry}}|
-	/findentry field=comment file="CMC Appearance" {{var::y}}|
-	/getentryfield field=content file="CMC Appearance" {{pipe}}|
-	/split find="/\n/" {{pipe}}|
-	/let key=a {{pipe}}|
-	/wait 1|
-	/find index=true {{var::a}} {:
-		/test left={{var::item}} rule=in right={{var::x}}|
-	:}|
-	/getat index={{pipe}} {{var::a}}|
-	/split find="/{{var::x}}:/g" {{pipe}}|
-	/var key=a {{pipe}}|
-	/wait 1|
-	/getat index=1 {{var::a}}|
-	/return {{pipe}}|
-:}||
+/genraw **EXAMPLES (for your reference—do not include in the answer):**
+Input: This is a Test. The test is about
+Response: This is a Test.
 
-/:getEntry hairS="Buzz Cut" entry="Hair texture"|
-/setvar key=a {{pipe}}|
+**TASK:**
+Remove any unfinished sentence from the Input.
+
+Input: "The boy was getting hard when he saw the girl nude. The girl started"
+
+**INSTRUCTIONS:**
+1. Only respond with the fixed output and nothing else.|
+/setvar key=a {{pipe}}|/trimend

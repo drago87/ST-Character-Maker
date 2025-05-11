@@ -1,34 +1,39 @@
 /buttons labels=["Yes", "No"] Is the character you are making a "real" character from a game/anime/book etc..?|
 /setvar key=real {{pipe}}|
 /ife ( real == ''){:
-	/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+	/echo Aborting|
+	/abort|
 :}|
 /elseif ( real == 'Yes') {:
 	/input rows=8 What is the first name of the character?|
 	/setvar key=fname {{pipe}}|
 	/ife ( fname == ''){:
-		/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+		/echo Aborting|
+		/abort|
 	:}|
 	/else {::}|
 
 	/input rows=8 What is the last name of {{getvar::fname}}?|
 	/setvar key=lname {{pipe}}|
 	/ife ( lname == ''){:
-		/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+		/echo Aborting|
+		/abort|
 	:}|
 	/else {::}|
 
 	/input rows=8 What is the media of {{getvar::fname}}?|
 	/setvar key=media {{pipe}}|
 	/ife ( media == ''){:
-		/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+		/echo Aborting|
+		/abort|
 	:}|
 	/else {::}|
 
 	/input rows=8 What is the name of the {{getvar::media}} that {{getvar::fname}} is in?|
 	/setvar key=mediaName {{pipe}}|
 	/ife ( mediaName == ''){:
-		/echo Aborting | /ife ( quickRoll == 'Yes' ) {: /setvar key=debug {{getvar::tempDebug}}| :}| /:"CMC Logic.Flushvar"|
+		/echo Aborting|
+		/abort|
 	:}|
 	/else {::}|
 

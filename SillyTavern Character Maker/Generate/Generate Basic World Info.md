@@ -139,17 +139,19 @@
 /var key=do Yes|
 /var key=variableName "settingType"|
 /ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo {{var::varibleName}}|
+	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	
 	/setvar key=genSettings index=wi_book "CMC Variables"|
 	/setvar key=genSettings index=wi_book_key "Setting Type"|
 	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=inputIsList No|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=useContext No|
 	
 	
 	/getvar key=genSettings index=wi_book_key|
@@ -176,7 +178,7 @@
 	/else {:
 		/setvar key=it {{var::wi_book_key}}|
 		/:"CMC Logic.GenerateWithSelector"|
-		/setvar key={{getvar::variableName}} {{getvar::output}}|
+		/setvar key={{var::variableName}} {{getvar::output}}|
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
@@ -285,9 +287,9 @@
 //-----------|
 
 //Lore|
-/buttons labels=["Yes", "No"] Do you want to have Lore for the world?l
+/buttons labels=["Yes", "No"] Do you want to have Lore for the world?|
 /setvar key=selected_btn {{pipe}}|
-/ife ( selected_btn == 'Yes) {:
+/ife ( selected_btn == 'Yes') {:
 	/flushvar selected_btn|
 	/var key=do Yes|
 	/var key=variableName "lore"|
@@ -337,47 +339,7 @@
 :}|
 //-----------|
 
-//Scenario Overview|
-/var key=do Yes|
-/var key=variableName ""|
-/ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-	/var key=do {{pipe}}|
-:}|
-/ife ( do == 'Yes' ) {:
-	/input default="Example: user is a neighbor of {{getvar::firstName}} and is often hired by {{getvar::firstName}}'s parents to babysit {{getvar::firstName}}, which has led to [...]" <div>What is this scenario about?</div><div>What is the main idea?</div>|
-	/setvar key=scenarioIde {{pipe}}|
-	/setvar key=genSettings index=wi_book_key "Scenario"|
-	/setvar key=genSettings index=genIsList No|
-	/setvar key=genSettings index=genIsSentence Yes|
-	/setvar key=genSettings index=needOutput Yes|
-	/setvar key=genSettings index=useContext Yes|
-	/setvar key=genSettings index=contextKey {{noop}}|
-	
-	/getvar key=genSettings index=inputIsList|
-	/let key=inputIsList {{pipe}}|
-	/getvar key=genSettings index=combineLorebookEntries|
-	/let key=combineLorebookEntries {{pipe}}|
-	
-	
-	/ife (outputIsList == 'Yes') {:
-		/setvar as=array key={{var::variableName}} []|
-	:}|
-	/else {:
-		/setvar as=string key={{var::variableName}} {{noop}}|
-	:}|
-	//[[Generate with Prompt]]|
-	/:"CMC Logic.GenerateWithPrompt"|
-	/ife (output != '') {:
-		/setvar key={{var::variableName}} {{getvar::output}}|
-	:}|
-	/addvar key=dataBaseNames {{var::variableName}}|
-	/flushvar output|
-	/flushvar genOrder|
-	/flushvar genContent|
-	/flushvar genSettings|
-:}|
-//-----------|
+
 
 /:"CMC Logic.JEDParse"|
 

@@ -13,6 +13,50 @@
 
 //Character Overview|
 
+//Race/Species|
+/ife () {:
+	/let key=do Yes|
+	/let key=variableName ""|
+	/ife ( {{var::variableName}} != '') {:
+		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
+		/var key=do {{pipe}}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings index=wi_book ""|
+		/setvar key=genSettings index=wi_book_key ""|
+		/setvar key=genSettings index=genIsList No|
+		/setvar key=genSettings index=genIsSentence No|
+		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=genSettings index=useContext No|
+		/setvar key=genSettings index=contextKey []|
+		
+		/getvar key=genSettings index=inputIsList|
+		/let key=inputIsList {{pipe}}|
+		
+		
+		/ife (outputIsList == 'Yes') {:
+			/setvar as=array key={{var::variableName}} []|
+		:}|
+		/else {:
+			/setvar as=string key={{var::variableName}} {{noop}}|
+		:}|
+		//[[Generate with Prompt]]|
+		/:"CMC Logic.GenerateWithPrompt"|
+		/ife (output != '') {:
+			/setvar key={{var::variableName}} {{getvar::output}}|
+		:}|
+		/addvar key=dataBaseNames {{var::variableName}}|
+		/flushvar output|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar genSettings|
+	:}|
+:}|
+/else {:
+	
+:}|
+//-----------|
+
 //Nationality|
 /var key=do Yes|
 /var key=variableName "nationality"|
@@ -21,12 +65,16 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/var key=wi_book_key "Nationalities"|
-	/var key=genIsList Yes|//Yes or No|
-	/var key=outputIsList No|//Yes or No|
-	/var key=genIsSentence No|//Yes or No|
-	/var key=needOutput Yes|//Yes or No|
-	/var key=contextKey "Character"|
+	/setvar key=genSettings index=wi_book_key "Nationalities"|
+	/setvar key=genSettings index=genIsList Yes|//Yes or No|
+	/setvar key=genSettings index=genIsSentence No|//Yes or No|
+	/setvar key=genSettings index=needOutput Yes|//Yes or No|
+	/setvar key=genSettings index=useContext Yes|
+	/setvar key=genSettings index=contextKey []|
+	
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
 	
 	
 	/ife (outputIsList == 'Yes') {:
@@ -37,12 +85,17 @@
 	:}|
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.GenerateWithPrompt"|
-	
-	/setvar key={{var::variableName}} {{getvar::output}}|
+	/ife (output != '') {:
+		/setvar key={{var::variableName}} {{getvar::output}}|
+	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
 :}|
 //-----------|
-
+/*
 //Ethnicity|
 /var key=do Yes|
 /var key=variableName "ethnicity"|
@@ -166,10 +219,6 @@
 :}|
 //-----------|
 
-//Race|
-
-//-----------|
-
 //Age|
 
 //-----------|
@@ -197,3 +246,4 @@
 /forcesave|
 /renamechat {{getvar::filename}}|
 /flushvar filename|
+*|

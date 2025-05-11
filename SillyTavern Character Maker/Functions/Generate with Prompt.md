@@ -61,7 +61,7 @@
 	/findentry field=comment file="CMC Information" "Base Information"|
 	/var key=wi_uid {{pipe}}|
 	/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
-	/let key=context {{pipe}}|
+	/var key=context {{pipe}}|
 	/ife ( real == 'Yes') {:
 		/var key=context {{var::context}}{{var::realParced}}|
 	:}|
@@ -76,8 +76,9 @@
 			:}|
 		:}|
 	:}|
+	/var key=context "{{var::context}}{{newline}}{{newline}}"|
 :}|
-
+/setvar key=a1 {{var::context}}|
 /var key=find "{{var::wi_book_key_f}}: Examples"|
 /findentry field=comment file={{var::wi_book_f}} "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
@@ -85,31 +86,40 @@
 	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 	/var key=examples {{pipe}}|
 :}|
+/setvar key=a2 {{var::examples}}|
 /var key=find "{{var::wi_book_key_f}}: Task"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
 /getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 /let key=task {{pipe}}|
+/setvar key=a3 {{var::task}}|
 /var key=find "{{var::wi_book_key_f}}: Instruction"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
 /getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 /let key=instruct {{pipe}}|
+/setvar key=a4 {{var::instruct}}|
 /let key=genState []|
 /let key=selected_btn |
+/let key=man|
 
 /let key=isGeneration 'Yes'|
 /setvar as=array key=tempList []|
 /setvar key=output {{noop}}|
 
-/ife ( outputIsList == 'Yes') {:
-	/let key=actionType add|
+/ife ( genIsSentence != 'Yes') {:
+	/ife ( outputIsList == 'Yes') {:
+		/var key=actionType add|
+	:}|
+	/else {:
+		/var key=actionType set|
+	:}|
+	/var key=man "Manually {{var::actionType}}"|
 :}|
 /else {:
-	/let key=actionType set|
+	/var key=man "Edit output"|
 :}|
-/let key=man "Manually {{var::actionType}}"|
-
+/setvar key=b {{var::context}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}|
 /let t |
 /whilee ( output == '') {:
 	/echo Generating {{var::wi_book_key_f}}|
@@ -152,13 +162,16 @@
 		:}|
 	:}|
 	/else {:
-		/genraw "{{var::context}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+		
+		/genraw length=50 "{{var::context}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/var key=t {{pipe}}|
 		/reasoning-parse return=content {{var::t}}|
 		/var key=t {{pipe}}|
+		/trimend {{var::t}}|
+		/var key=t {{pipe}}|
 	:}|
 	/ife (genIsList_f == 'Yes') {:
-		/split find=":" {{var::t}}|
+		/split find="," {{var::t}}|
 		/var key=t {{pipe}}|
 		/foreach {{var::t}} {:
 			/re-replace find="/\./g" replace="" {{var::item}}|
@@ -179,12 +192,7 @@
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} {{var::t}}|
 	:}|
-
-	/ife ( (wi_book_key_f == 'Time Period') and ( 'Modern Day' not in genState)) {:
-		/len {{var::genState}}|
-		/var key=genState index={{pipe}} Modern Day|
-	:}|
-	/ife ((genIsList_f == 'Yes') and ( man not in genState)) {:
+	/ife ( ((genIsSentence == 'Yes') or (genIsList_f == 'Yes')) and ( man not in genState)) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} {{var::man}}|
 	:}|
