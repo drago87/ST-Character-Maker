@@ -14,7 +14,7 @@
 		/setvar key=output {{getvar::tempList}}|
 	:}|
 	/else {:
-		/setvar key=output Empty|
+		/setvar key=output None|
 	:}|
 :}|
 /elseif ( isGeneration_f == 'Yes') {:

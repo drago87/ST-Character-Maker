@@ -30,6 +30,7 @@
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=inputIsTaskList No|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput Yes|
@@ -325,6 +326,7 @@
 		/setvar key=genSettings index=wi_book_key "Lore"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=genIsSentence Yes|
+		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=useContext No|
 		/setvar key=genSettings index=contextKey {{noop}}|

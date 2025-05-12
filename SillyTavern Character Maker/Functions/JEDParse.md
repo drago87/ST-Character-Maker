@@ -38,18 +38,23 @@
 	/re-replace find="/--CharacterOverview--/g" replace="{{getvar::characterOverview}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (lastName != '') {:
+/ife ( (lastName != '') and (lastName != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--LastName--/g" replace="{{getvar::lastName}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (alias != '') {:
+/elseif (lastName == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--LastName--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife ( (alias != '') and ) (alias != 'None'){:
 	/messages names=off 0|
 	/re-replace find="/--Alias1--/g" replace=", Alias" {{pipe}}|
 	/re-replace find="/--Alias--/g" replace=", {{getvar::alias}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (export == 'Yes' ) {:
+/elseif (alias == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--Alias1--/g" replace="" {{pipe}}|
 	/re-replace find="/--Alias--/g" replace="" {{pipe}}|

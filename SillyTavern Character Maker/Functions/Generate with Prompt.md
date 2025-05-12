@@ -28,9 +28,14 @@
 /ife ( useContext_f == '') {:
 	/abort quiet=false Missing useContext setting in input.|
 :}|
+/getvar key=genSettings index=inputIsTaskList|
+/let key=inputIsTaskList_f {{pipe}}|
+/ife ( inputIsTaskList_f == '') {:
+	/abort quiet=false Missing inputIsTaskList setting in input.|
+:}|
 
 /getvar key=genSettings index=contextKey|
-/let key=contextKey_f {{pipe}}|
+/let as=array key=contextKey_f {{pipe}}|
 
 /let key=wi_uid {{noop}}|
 /let key=actionType {{noop}}|
@@ -39,8 +44,7 @@
 /let key=examples {{noop}}|
 /let key=taskList {{noop}}|
 
-/getvar key=genSettings index=inputIsTaskList|
-/let key=inputIsTaskList_f {{pipe}}|
+
 /ife ( inputIsTaskList_f == 'Yes') {:
 	/var key=find {{var::wi_book_key_f}}: Task List|
 	/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
@@ -72,13 +76,18 @@
 			/var key=wi_uid {{pipe}}|
 			/ife ( wi_uid != '') {:
 				/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
-				/var key=context "{{newline}}{{newline}}{{var::context}}"|
+				/var key=context "{{var::context}}{{newline}}{{newline}}{{pipe}}"|
 			:}|
 		:}|
 	:}|
 	/var key=context "{{var::context}}{{newline}}{{newline}}"|
 :}|
-/setvar key=a1 {{var::context}}|
+/ife (debug == 'Yes') {:
+	/setvar key=a1 {{var::context}}|
+:}|
+/else {:
+	/flushvar a1|
+:}|
 /var key=find "{{var::wi_book_key_f}}: Examples"|
 /findentry field=comment file={{var::wi_book_f}} "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
@@ -86,19 +95,34 @@
 	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 	/var key=examples {{pipe}}|
 :}|
-/setvar key=a2 {{var::examples}}|
+/ife (debug == 'Yes') {:
+	/setvar key=a2 {{var::examples}}|
+:}|
+/else {:
+	/flushvar a2|
+:}|
 /var key=find "{{var::wi_book_key_f}}: Task"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
 /getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 /let key=task {{pipe}}|
-/setvar key=a3 {{var::task}}|
+/ife (debug == 'Yes') {:
+	/setvar key=a3 {{var::task}}|
+:}|
+/else {:
+	/flushvar a3|
+:}|
 /var key=find "{{var::wi_book_key_f}}: Instruction"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
 /getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 /let key=instruct {{pipe}}|
-/setvar key=a4 {{var::instruct}}|
+/ife (debug == 'Yes') {:
+	/setvar key=a4 {{var::instruct}}|
+:}|
+/else {:
+	/flushvar a4|
+:}|
 /let key=genState []|
 /let key=selected_btn |
 /let key=man|
@@ -119,7 +143,12 @@
 /else {:
 	/var key=man "Edit output"|
 :}|
-/setvar key=b {{var::context}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}|
+/ife (debug == 'Yes') {:
+	/setvar key=b {{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}|
+:}|
+/else {:
+	/flushvar b|
+:}|
 /let t |
 /whilee ( output == '') {:
 	/echo Generating {{var::wi_book_key_f}}|
@@ -138,7 +167,7 @@
 				
 				/whilee ( same == 'Yes') {:
 					/let tempItem {{noop}}|
-					/genraw "{{var::context}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+					/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 					/var tempItem {{pipe}}|
 					/reasoning-parse return=content {{var::tempItem}}|
 					/var tempItem {{pipe}}|
@@ -155,7 +184,7 @@
 			:}|
 		:}|
 		/else {:
-			/genraw "{{var::context}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 			/var key=t {{pipe}}|
 			/reasoning-parse return=content {{var::t}}|
 			/var key=t {{pipe}}|
@@ -163,7 +192,7 @@
 	:}|
 	/else {:
 		
-		/genraw length=50 "{{var::context}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+		/genraw length=50 "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/var key=t {{pipe}}|
 		/reasoning-parse return=content {{var::t}}|
 		/var key=t {{pipe}}|
@@ -171,6 +200,7 @@
 		/var key=t {{pipe}}|
 	:}|
 	/ife (genIsList_f == 'Yes') {:
+		/echo Test|
 		/split find="," {{var::t}}|
 		/var key=t {{pipe}}|
 		/foreach {{var::t}} {:
@@ -191,6 +221,10 @@
 	/else {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} {{var::t}}|
+	:}|
+	/ife ( ('Random' not in genState) and (genIsList_f == 'Yes')) {:
+		/len {{var::genState}}|
+		/var key=genState index={{pipe}} "Random"|
 	:}|
 	/ife ( ((genIsSentence == 'Yes') or (genIsList_f == 'Yes')) and ( man not in genState)) {:
 		/len {{var::genState}}|
@@ -214,6 +248,16 @@
 	/ife ( selected_btn == ''){:
 		/echo Aborting |
 		/abort
+	:}|
+	/elseif (selected_btn == 'Random') {:
+		/find index=true {{var::genState}} {:
+			/test left={{getvar::item}} rule=eq right="Random"|
+		:}|
+		/slice start=0 end={{pipe}} {{var::genState}}|
+		/pick items=1 {{var::genState}}|
+		/var key=selected_btn {{pipe}}|
+		/setvar key=save {{var::selected_btn}}|
+		/:"CMC Logic.SaveGen"|
 	:}|
 	/elseif ( selected_btn =='Generate New') {:
 		/var key=t {{noop}}|

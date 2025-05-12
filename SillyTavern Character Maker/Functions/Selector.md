@@ -58,6 +58,12 @@
 /else {:
 	/var key=genState {{var::content}}|
 :}|
+/ife (debug == 'Yes') {:
+	/setvar key=a {{var::genState}}|
+:}|
+/else {:
+	/flushvar a|
+:}|
 /split find=":" {{var::genState}}|
 /var as=array key=genState {{pipe}}|
 
@@ -91,6 +97,14 @@
 	:}|
 	/buttons labels={{var::genState}} Select the {{getvar::it}} you want to use.|
 	/var key=selected_btn {{pipe}}|
+	/re-replace find="/\s\(.*$/g" replace="" {{var::selected_btn}}|
+	/var key=selected_btn {{pipe}}|
+	/ife (debug == 'Yes') {:
+		/setvar key=b {{var::selected_btn}}|
+	:}|
+	/else {:
+		/flushvar b|
+	:}|
 	/ife ( selected_btn == ''){:
 		/echo Aborting |
 		/abort
@@ -124,7 +138,7 @@
 	:}|
 	/else {:
 		/ife (( genState == 'Done') and (((outputisList_f == 'Yes') and (tempList == '')) or (needOutput_f == 'No'))) {:
-			/setvar key=save Empty|
+			/setvar key=save None|
 			/:"CMC Logic.SaveGen"|
 		:}|
 		/else {:

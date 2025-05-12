@@ -14,6 +14,7 @@
 	/setvar key=genSettings index=wi_book ""|
 	/setvar key=genSettings index=wi_book_key ""|
 	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=inputIsTaskList No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext No|
@@ -40,6 +41,9 @@
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //--------|
 *|
