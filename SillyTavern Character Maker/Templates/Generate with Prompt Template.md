@@ -1,5 +1,3 @@
-/* Setup before Selector QR
-//--------|
 /var key=do Yes|
 /var key=variableName ""|
 /ife ( {{var::variableName}} != '') {:
@@ -45,5 +43,3 @@
 /else {:
 	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
-//--------|
-*|

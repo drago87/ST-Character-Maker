@@ -184,6 +184,16 @@
 	//|-----|
 :}|
 
+ife ( 'Generate Character Personality' not in qrListContent) {:
+	//Generate Character Information|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Character%20Information.md|
+	
+	
+	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+	/qr-create set="CMC Generate" label="Generate Character Personality" {{pipe}}|
+	//|-----|
+:}|
+
 /qr-chat-set-on visible=true "CMC Main"|
 /flushvar jedParse|
 /flushvar textParse|

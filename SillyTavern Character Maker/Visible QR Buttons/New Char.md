@@ -198,7 +198,7 @@ INSTRUCTION: Only respond in the given format.|
 /addvar key=dataBaseNames chatGroup|
 
 
-/findentry field=comment file="CMC Variables" Character Template|
+/findentry field=comment file="CMC Templates" Character Template|
 /getentryfield file="CMC Variables" {{pipe}}|
 /message-edit message=0 await=true {{pipe}}|
 /:"CMC Logic.JEDParse"|

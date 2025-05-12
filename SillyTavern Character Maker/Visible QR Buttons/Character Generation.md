@@ -20,11 +20,21 @@
 :}|
 /ife ( stepVar == 'Step3') {:
 	/ife (stepDone == 'Yes') {:
-		//Load Step2|
-		//:"CMC Generate.Generate Character Information"|
+		//Load Step4|
+		/:"CMC Generate.Generate Character Personality"|
 	:}|
 	/else {:
 		//Load Step3|
-		//:"CMC Generate.Generate World Info"|
+		/:"CMC Generate.Generate Character Information"|
+	:}|
+:}|
+/ife ( stepVar == 'Step4') {:
+	/ife (stepDone == 'Yes') {:
+		//Load Step5|
+		//:"CMC Generate.Generate Character Personality"|
+	:}|
+	/else {:
+		//Load Step4|
+		/:"CMC Generate.Generate Character Personality"|
 	:}|
 :}|

@@ -1,6 +1,3 @@
-/setvar key=stepDone No|
-/setvar key=stepVar Step2|
-
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
 /let qrlabel {{pipe}}|
@@ -12,11 +9,23 @@
 /setvar key=dataBaseNames []|
 /flushvar genSettings|
 
+/setvar key=skip Update|
+/ife ( stepDone == 'Yes') {:
+	/buttons labels=["Skip", "Update"] Do you want to skip or update already generated content? You will get a question for each already done if you select Update.|
+	/setvar key=skip {{pipe}}|
+	/ife ( skip == ''){:
+		/echo Aborting |
+		/abort
+	:}|
+:}|
+
+/setvar key=stepDone No|
+/setvar key=stepVar Step2|
 
 //Time Period|
 /let key=do Yes|
 /let key=variableName "timePeriod"|
-/ife ( {{var::variableName}} != '') {:
+/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -82,7 +91,7 @@
 //Seasons|
 /var key=do Yes|
 /var key=variableName "seasons"|
-/ife ( {{var::variableName}} != '') {:
+/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -147,7 +156,7 @@
 //--------|
 /var key=do Yes|
 /var key=variableName "settingType"|
-/ife ( {{var::variableName}} != '') {:
+/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -208,7 +217,7 @@
 //World Type|
 /var key=do Yes|
 /var key=variableName "worldType"|
-/ife ( {{var::variableName}} != '') {:
+/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -259,7 +268,7 @@
 //WorldDetails|
 /var key=do Yes|
 /var key=variableName "worldDetails"|
-/ife ( {{var::variableName}} != '') {:
+/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -314,7 +323,7 @@
 	/flushvar selected_btn|
 	/var key=do Yes|
 	/var key=variableName "lore"|
-	/ife ( {{var::variableName}} != '') {:
+	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:

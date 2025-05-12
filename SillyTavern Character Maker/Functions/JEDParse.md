@@ -220,12 +220,12 @@
 	/re-replace find="/--ItemList--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (abilities != '') {:
+/ife ( (abilities != '') and (abilities != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--Abilities--/g" replace="### ABILITIES{{newline}}{{getvar::abilities}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (export == 'Yes' ) {:
+/elseif (abilities == 'None') {:
 	/messages names=off 0|
 	/re-replace find="/--Abilities--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -235,12 +235,12 @@
 	/re-replace find="/--Archetype--/g" replace="{{getvar::archetype}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (alignment != '') {:
+/ife ( (parsedAlignment != '') and  (parsedAlignment != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Alignment--/g" replace="{{newline}}{{newline}}{{getvar::alignment}}" {{pipe}}|
+	/re-replace find="/--Alignment--/g" replace="{{newline}}{{newline}}{{getvar::parsedAlignment}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (export == 'Yes' ) {:
+/elseif (parsedAlignment == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--Alignment--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -250,34 +250,34 @@
 	/re-replace find="/--PersonalityTags--/g" replace="- Personality Tags:{{getvar::personalityTags}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (cognitiveAbilities != '') {:
+/ife ( (cognitiveAbilities != '') and (cognitiveAbilities != 'None') ) {:
 	/messages names=off 0|
 	/re-replace find="/--CognitiveAbilities--/g" replace="{{newline}}{{newline}}- Cognitive Abilities: {{getvar::cognitiveAbilities}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (export == 'Yes' ) {:
+/elseif (cognitiveAbilities == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--CognitiveAbilities--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (socialSkills != '') {:
+/ife ( (socialSkills != '') and (socialSkills != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--SocialSkills--/g" replace="{{newline}}{{newline}}- Social Skills and Integration Into Society:{{getvar::socialSkills}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (export == 'Yes' ) {:
+/elseif (socialSkills == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--SocialSkills--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (mainAspiration != '') {:
+/ife (parsedAspiration != '') {:
 	/messages names=off 0|
 	/re-replace find="/--MainAspiration--/g" replace="{{getvar::mainAspiration}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (uniqueTraits != '') {:
+/ife (parsedTraits != '') {:
 	/messages names=off 0|
-	/re-replace find="/--UniqueTraits--/g" replace="{{getvar::uniqueTraits}}" {{pipe}}|
+	/re-replace find="/--UniqueTraits--/g" replace="{{getvar::parsedTraits}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (personalityQA != '') {:
@@ -335,12 +335,12 @@
 	/re-replace find="/--Synonyms--/g" replace="{{getvar::synonyms}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (storyPlan != '') {:
+/ife ( (storyPlan != '') and (storyPlan != 'None') ){:
 	/messages names=off 0|
 	/re-replace find="/--StoryPlan--/g" replace="## PREMADE STORY PLAN{{newline}}{{getvar::storyPlan}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (export == 'Yes' ) {:
+/elseif (storyPlan == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--StoryPlan--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -355,12 +355,12 @@
 	/re-replace find="/--Notes--/g" replace="{{getvar::notes}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (user == 'Yes') {:
+/ife ((user != '') and (user == 'Yes')) {:
 	/messages names=off 0|
 	/re-replace find="/--User1--,\s/g" replace="--User--, " {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (export == 'Yes' ) {:
+/elseif ((user != '') and (user != 'Yes')) {:
 	/messages names=off 0|
 	/re-replace find="/--User1--,\s/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|

@@ -267,7 +267,7 @@
 //-----------|
 
 --JEDParse--
-/findentry field=comment file="CMC Variables" Character Template|
+/findentry field=comment file="CMC Templates" Character Template|
 /getentryfield file="CMC Variables" {{pipe}}|
 /:JEDParse input={{pipe}}|
 /setvar key=t {{pipe}}|

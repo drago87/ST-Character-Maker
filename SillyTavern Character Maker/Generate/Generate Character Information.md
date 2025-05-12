@@ -1,5 +1,3 @@
-/setvar key=stepDone No|
-/setvar key=stepVar Step3|
 /qr-list CMC Main|
 /getat index=1 {{pipe}}|
 /let qrlabel {{pipe}}|
@@ -10,6 +8,21 @@
 /:"CMC Logic.Get Char info"|
 
 /setvar key=dataBaseNames []|
+/flushvar genSettings|
+
+/setvar key=skip Update|
+/ife ( stepDone == 'Yes') {:
+	/buttons labels=["Skip", "Update"] Do you want to skip or update already generated content? You will get a question for each already done if you select Update.|
+	/setvar key=skip {{pipe}}|
+	/ife ( skip == ''){:
+		/echo Aborting |
+		/abort
+	:}|
+:}|
+
+
+/setvar key=stepDone No|
+/setvar key=stepVar Step3|
 
 //Character Overview|
 /let key=do {{noop}}|
@@ -18,7 +31,7 @@
 /ife ( normal_form != 'Human') {:
 	/var key=do Yes|
 	/var key=variableName "species"|
-	/ife ( {{var::variableName}} != '') {:
+	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -75,7 +88,7 @@
 	//Nationality|
 	/var key=do Yes|
 	/var key=variableName "nationality"|
-	/ife ( {{var::variableName}} != '') {:
+	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -125,7 +138,7 @@
 	//Ethnicity|
 	/var key=do Yes|
 	/var key=variableName "ethnicity"|
-	/ife ( {{var::variableName}} != '') {:
+	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -196,7 +209,7 @@
 //Life stage|
 /var key=do Yes|
 /var key=variableName "lifeStage"|
-/ife ( {{var::variableName}} != '') {:
+/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -271,7 +284,7 @@
 //Age|
 /var key=do Yes|
 /var key=variableName "age"|
-/ife ( {{var::variableName}} != '') {:
+/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -324,7 +337,7 @@
 /ife ( normal_form != 'Human') {:
 	/var key=do Yes|
 	/var key=variableName "humanEquivalentAge"|
-	/ife ( {{var::variableName}} != '') {:
+	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -387,7 +400,7 @@
 	//First Name|
 	/var key=do Yes|
 	/var key=variableName "firstName"|
-	/ife ( {{var::variableName}} != '') {:
+	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -430,7 +443,7 @@
 	//Last Name|
 	/var key=do Yes|
 	/var key=variableName "lastName"|
-	/ife ( {{var::variableName}} != '') {:
+	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -475,7 +488,7 @@
 //Nickname|
 /var key=do Yes|
 /var key=variableName "alias"|
-/ife ( {{var::variableName}} != '') {:
+/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -515,7 +528,6 @@
 //-----------|
 
 
-/*
 /ife ( nationality == '' ) {:
 	/setvar key=nationality None|
 :}|
@@ -545,4 +557,3 @@
 /forcesave|
 /renamechat {{getvar::filename}}|
 /flushvar filename|
-*|
