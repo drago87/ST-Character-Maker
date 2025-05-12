@@ -313,6 +313,9 @@
 			:}|
 			/else {::}|
 		:}|
+		/elseif ( sel == 'Reset') {:
+			/setvar key=settingModifier {Modifier}|
+		:}|
 		/buttons labels=["Yes", "Reset", "No"] Do you want to Customize the {Archetype} of the formula {Modifier} + {Archetype} + {Addition}?|
 		/var key=sel {{pipe}}|
 		/ife (sel == '') {:
@@ -328,6 +331,9 @@
 			:}|
 			/else {::}|
 		:}|
+		/elseif ( sel == 'Reset') {:
+			/setvar key=settingArchetype {Archetype}|
+		:}|
 		/buttons labels=["Yes", "Reset", "No"] Do you want to Customize the {Addition} of the formula {Modifier} + {Archetype} + {Addition}?|
 		/var key=sel {{pipe}}|
 		/ife (sel == '') {:
@@ -342,6 +348,9 @@
 				/abort
 			:}|
 			/else {::}|
+		:}|
+		/elseif ( sel == 'Reset') {:
+			/setvar key=settingAddition {Addition}|
 		:}|
 		/var key=t {{noop}}|
 	:}|
