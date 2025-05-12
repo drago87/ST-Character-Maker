@@ -108,6 +108,14 @@
 :}|
 //-----|
 
+//Create GenerateWithQ&R|
+/ife ( 'GenerateWithSelector' not in qrListContent) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Selector.md|
+	
+	/qr-create set="CMC Logic" label="GenerateWithSelector" {{pipe}}|
+:}|
+//-----|
+
 /ife ( 'Get Char info' not in qrListContent) {:
 	//Get Char info|
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Get%20Character%20information.md|
@@ -186,7 +194,7 @@
 
 ife ( 'Generate Character Personality' not in qrListContent) {:
 	//Generate Character Information|
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Character%20Information.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Character%20Personality.md|
 	
 	
 	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
