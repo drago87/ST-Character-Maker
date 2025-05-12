@@ -31,7 +31,7 @@
 /ife ( normal_form != 'Human') {:
 	/var key=do Yes|
 	/var key=variableName "species"|
-	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -91,7 +91,7 @@
 	//Nationality|
 	/var key=do Yes|
 	/var key=variableName "nationality"|
-	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -144,7 +144,7 @@
 	//Ethnicity|
 	/var key=do Yes|
 	/var key=variableName "ethnicity"|
-	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -218,7 +218,7 @@
 //Life stage|
 /var key=do Yes|
 /var key=variableName "lifeStage"|
-/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -296,7 +296,7 @@
 //Age|
 /var key=do Yes|
 /var key=variableName "age"|
-/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -352,7 +352,7 @@
 /ife ( normal_form != 'Human') {:
 	/var key=do Yes|
 	/var key=variableName "humanEquivalentAge"|
-	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -418,7 +418,7 @@
 	//First Name|
 	/var key=do Yes|
 	/var key=variableName "firstName"|
-	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -464,7 +464,7 @@
 	//Last Name|
 	/var key=do Yes|
 	/var key=variableName "lastName"|
-	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
@@ -512,7 +512,7 @@
 //Nickname|
 /var key=do Yes|
 /var key=variableName "alias"|
-/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:

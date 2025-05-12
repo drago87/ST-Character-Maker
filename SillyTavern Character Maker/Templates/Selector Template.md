@@ -1,6 +1,6 @@
 /var key=do Yes|
 /var key=variableName ""|
-/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:

@@ -25,7 +25,7 @@
 //Time Period|
 /let key=do Yes|
 /let key=variableName "timePeriod"|
-/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -91,7 +91,7 @@
 //Seasons|
 /var key=do Yes|
 /var key=variableName "seasons"|
-/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -156,7 +156,7 @@
 //--------|
 /var key=do Yes|
 /var key=variableName "settingType"|
-/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -217,7 +217,7 @@
 //World Type|
 /var key=do Yes|
 /var key=variableName "worldType"|
-/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -268,7 +268,7 @@
 //WorldDetails|
 /var key=do Yes|
 /var key=variableName "worldDetails"|
-/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -323,7 +323,7 @@
 	/flushvar selected_btn|
 	/var key=do Yes|
 	/var key=variableName "lore"|
-	/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
+	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
 		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 		/var key=do {{pipe}}|
 		/ife ( do == ''){:
