@@ -211,6 +211,17 @@
 			/else {:
 				/flushvar a3|
 			:}|
+			/var key=find "{{var::wi_book_key_f}}: Instruction"|
+			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
+			/var key=wi_uid {{pipe}}|
+			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+			/let key=instruct {{pipe}}|
+			/ife (debug == 'Yes') {:
+				/setvar key=a4 {{var::instruct}}|
+			:}|
+			/else {:
+				/flushvar a4|
+			:}|
 		:}|
 		/genraw length=50 "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/var key=t {{pipe}}|
