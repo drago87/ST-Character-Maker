@@ -53,6 +53,10 @@
 	/setvar key=genSettings index=contextKey []|
 	/wait {{getvar::wait}}|
 	
+	/setvar key=settingModifier {Modifier}|
+	/setvar key=settingArchetype {Archetype}|
+	/setvar key=settingAddition {Addition}|
+	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
 	

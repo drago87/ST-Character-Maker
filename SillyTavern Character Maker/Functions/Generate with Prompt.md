@@ -191,7 +191,20 @@
 		:}|
 	:}|
 	/else {:
-		
+	
+		/ife (wi_book_key_f == 'Archetype') {:
+			/var key=find "{{var::wi_book_key_f}}: Task"|
+			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
+			/var key=wi_uid {{pipe}}|
+			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+			/let key=task {{pipe}}|
+			/ife (debug == 'Yes') {:
+				/setvar key=a3 {{var::task}}|
+			:}|
+			/else {:
+				/flushvar a3|
+			:}|
+		:}|
 		/genraw length=50 "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/var key=t {{pipe}}|
 		/reasoning-parse return=content {{var::t}}|
@@ -200,7 +213,6 @@
 		/var key=t {{pipe}}|
 	:}|
 	/ife (genIsList_f == 'Yes') {:
-		/echo Test|
 		/split find="," {{var::t}}|
 		/var key=t {{pipe}}|
 		/foreach {{var::t}} {:
@@ -226,7 +238,7 @@
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Random"|
 	:}|
-	/ife ( ((genIsSentence == 'Yes') or (genIsList_f == 'Yes')) and ( man not in genState)) {:
+	/ife ( ((genIsSentence_f == 'Yes') or (genIsList_f == 'Yes')) and ( man not in genState)) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} {{var::man}}|
 	:}|
@@ -234,6 +246,10 @@
 	/ife ( 'Generate New' not in genState) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} Generate New|
+	:}|
+	/ife (( 'Customize Parts of the generation' not in genState) and (wi_book_key_f == 'Archetype' )) {:
+		/len {{var::genState}}|
+		/var key=genState index={{pipe}} Customize Parts of the generation|
 	:}|
 	/ife (('Done' not in genState) and (((outputIsList == 'Yes') and (tempList != '')) or ((outputIsList != 'Yes') and (needOutput_f == 'No')))) {:
 		/len {{var::genState}}|
@@ -258,6 +274,54 @@
 		/var key=selected_btn {{pipe}}|
 		/setvar key=save {{var::selected_btn}}|
 		/:"CMC Logic.SaveGen"|
+	:}|
+	/elseif ( selected_btn =='Customize Parts of the generation') {:
+		/buttons lables=["Yes", "Reset", "No"] Do you want to Customize the {Modifier} of the formula {Modifier} + {Archetype} + {Addition}?|
+		/let key=sel {{pipe}}|
+		/ife (sel == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+		/elseif ( sel == 'Yes') {:
+			/input Write what you want to have as a Modifier.|
+			/setvar key=settingModifier {{pipe}}|
+			/ife (sel == '') {:
+				/echo Aborting |
+				/abort
+			:}|
+			/else {::}|
+		:}|
+		/buttons lables=["Yes", "Reset", "No"] Do you want to Customize the {Archetype} of the formula {Modifier} + {Archetype} + {Addition}?|
+		/var key=sel {{pipe}}|
+		/ife (sel == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+		/elseif ( sel == 'Yes') {:
+			/input Write what you want to have as a Archetype.|
+			/setvar key=settingArchetype {{pipe}}|
+			/ife (sel == '') {:
+				/echo Aborting |
+				/abort
+			:}|
+			/else {::}|
+		:}|
+		/buttons lables=["Yes", "Reset", "No"] Do you want to Customize the {Addition} of the formula {Modifier} + {Archetype} + {Addition}?|
+		/var key=sel {{pipe}}|
+		/ife (sel == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+		/elseif ( sel == 'Yes') {:
+			/input Write what you want to have as a Addition.|
+			/setvar key=settingAddition {{pipe}}|
+			/ife (sel == '') {:
+				/echo Aborting |
+				/abort
+			:}|
+			/else {::}|
+		:}|
+		/var key=t {{noop}}|
 	:}|
 	/elseif ( selected_btn =='Generate New') {:
 		/var key=t {{noop}}|
