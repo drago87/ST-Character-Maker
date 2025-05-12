@@ -8,7 +8,7 @@
 		/:"CMC Main.New Character"|
 	:}|
 :}|
-/ife ( stepVar == 'Step2') {:
+/elseif ( stepVar == 'Step2') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step3|
 		/:"CMC Generate.Generate Character Information"|
@@ -18,7 +18,7 @@
 		/:"CMC Generate.Generate World Info"|
 	:}|
 :}|
-/ife ( stepVar == 'Step3') {:
+/elseif ( stepVar == 'Step3') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step4|
 		/:"CMC Generate.Generate Character Personality"|
@@ -28,7 +28,7 @@
 		/:"CMC Generate.Generate Character Information"|
 	:}|
 :}|
-/ife ( stepVar == 'Step4') {:
+/elseif ( stepVar == 'Step4') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step5|
 		//:"CMC Generate.Generate Character Personality"|
