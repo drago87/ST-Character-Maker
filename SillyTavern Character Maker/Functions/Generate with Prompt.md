@@ -169,7 +169,7 @@
 				/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 				/var key=wi_uid {{pipe}}|
 				/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
-				/let key=task {{pipe}}|
+				/var key=task {{pipe}}|
 				/let key=same Yes|
 				
 				/whilee ( same == 'Yes') {:
@@ -200,31 +200,28 @@
 	/else {:
 	
 		/ife (wi_book_key_f == 'Archetype') {:
-			/echo Test1|
 			/var key=find "{{var::wi_book_key_f}}: Task"|
 			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
 			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
-			/let key=task {{pipe}}|
+			/var key=task {{pipe}}|
 			/ife (debug == 'Yes') {:
 				/setvar key=a3 {{var::task}}|
 			:}|
 			/else {:
 				/flushvar a3|
 			:}|
-			/echo Test2|
 			/var key=find "{{var::wi_book_key_f}}: Instruction"|
 			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
 			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
-			/let key=instruct {{pipe}}|
+			/var key=instruct {{pipe}}|
 			/ife (debug == 'Yes') {:
 				/setvar key=a4 {{var::instruct}}|
 			:}|
 			/else {:
 				/flushvar a4|
 			:}|
-			/echo Test3|
 			/wait 10|
 		:}|
 		/genraw length=50 "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
