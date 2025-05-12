@@ -199,7 +199,7 @@ INSTRUCTION: Only respond in the given format.|
 
 
 /findentry field=comment file="CMC Templates" Character Template|
-/getentryfield file="CMC Variables" {{pipe}}|
+/getentryfield file="CMC Templates" {{pipe}}|
 /message-edit message=0 await=true {{pipe}}|
 /:"CMC Logic.JEDParse"|
 
