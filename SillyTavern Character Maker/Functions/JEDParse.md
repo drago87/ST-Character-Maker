@@ -48,7 +48,7 @@
 	/re-replace find="/--LastName--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife ( (alias != '') and ) (alias != 'None'){:
+/ife ( (alias != '') and (alias != 'None'){:
 	/messages names=off 0|
 	/re-replace find="/--Alias1--/g" replace=", Alias" {{pipe}}|
 	/re-replace find="/--Alias--/g" replace=", {{getvar::alias}}" {{pipe}}|

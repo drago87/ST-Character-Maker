@@ -11,7 +11,7 @@
 /flushvar genSettings|
 
 /setvar key=skip Update|
-/ife ( stepDone == 'Yes') {:
+/ife ( stepDone == 'No') {:
 	/buttons labels=["Skip", "Update"] Do you want to skip or update already generated content? You will get a question for each already done if you select Update.|
 	/setvar key=skip {{pipe}}|
 	/ife ( skip == ''){:
@@ -39,7 +39,10 @@
 			/abort
 		:}|
 	:}|
-	/ife ( do == 'Yes' ) {:
+	/elseif (skip == 'Skip') {:
+		var key=do No|
+	:}|
+	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
 		/setvar key=genSettings index=wi_book_key "Species"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=genIsSentence No|
@@ -96,7 +99,10 @@
 			/abort
 		:}|
 	:}|
-	/ife ( do == 'Yes' ) {:
+	/elseif (skip == 'Skip') {:
+		var key=do No|
+	:}|
+	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
 		/setvar key=genSettings index=wi_book_key "Nationalities"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=genIsSentence No|
@@ -146,7 +152,10 @@
 			/abort
 		:}|
 	:}|
-	/ife ( do == 'Yes' ) {:
+	/elseif (skip == 'Skip') {:
+		var key=do No|
+	:}|
+	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
 		/setvar key=genSettings index=wi_book_key "Ethnicities"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -217,7 +226,10 @@
 		/abort
 	:}|
 :}|
-/ife ( do == 'Yes' ) {:
+/elseif (skip == 'Skip') {:
+	var key=do No|
+:}|
+/ife (( do == 'Yes' ) and (skip == 'Update')) {:
 	/setvar key=genSettings index=wi_book "CMC Variables"|
 	/ife ( normal_form != 'Animalistic') {:
 		/setvar key=genSettings index=wi_book_key "Life Stage Humanoid"|
@@ -292,7 +304,10 @@
 		/abort
 	:}|
 :}|
-/ife ( do == 'Yes' ) {:
+/elseif (skip == 'Skip') {:
+	var key=do No|
+:}|
+/ife (( do == 'Yes' ) and (skip == 'Update')) {:
 	/setvar key=genSettings index=wi_book_key "Age Gen"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -345,7 +360,10 @@
 			/abort
 		:}|
 	:}|
-	/ife ( do == 'Yes' ) {:
+	/elseif (skip == 'Skip') {:
+		var key=do No|
+	:}|
+	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
 		/setvar key=genSettings index=wi_book_key "Age Species"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -408,7 +426,10 @@
 			/abort
 		:}|
 	:}|
-	/ife ( do == 'Yes' ) {:
+	/elseif (skip == 'Skip') {:
+		var key=do No|
+	:}|
+	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
 		/setvar key=genSettings index=wi_book_key "First Name"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -451,7 +472,10 @@
 			/abort
 		:}|
 	:}|
-	/ife ( do == 'Yes' ) {:
+	/elseif (skip == 'Skip') {:
+		var key=do No|
+	:}|
+	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
 		/setvar key=genSettings index=wi_book_key "Last Name"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -496,7 +520,10 @@
 		/abort
 	:}|
 :}|
-/ife ( do == 'Yes' ) {:
+/elseif (skip == 'Skip') {:
+	var key=do No|
+:}|
+/ife (( do == 'Yes' ) and (skip == 'Update')) {:
 	/setvar key=genSettings index=wi_book_key "Nickname"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=inputIsTaskList No|

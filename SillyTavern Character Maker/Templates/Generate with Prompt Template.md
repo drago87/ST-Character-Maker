@@ -1,6 +1,6 @@
 /var key=do Yes|
 /var key=variableName ""|
-/ife ( {{var::variableName}} != '') {:
+/ife ( ({{var::variableName}} != '') and (skip == 'Update')) {:
 	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
 	/var key=do {{pipe}}|
 	/ife ( do == ''){:
@@ -8,7 +8,10 @@
 		/abort
 	:}|
 :}|
-/ife ( do == 'Yes' ) {:
+/elseif (skip == 'Skip') {:
+	var key=do No|
+:}|
+/ife (( do == 'Yes' ) and (skip == 'Update')) {:
 	/setvar key=genSettings index=wi_book ""|
 	/setvar key=genSettings index=wi_book_key ""|
 	/setvar key=genSettings index=genIsList No|
