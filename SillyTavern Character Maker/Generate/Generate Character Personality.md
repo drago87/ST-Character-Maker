@@ -137,6 +137,9 @@
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
+	/flushvar settingModifier|
+	/flushvar settingArchetype|
+	/flushvar settingAddition|
 :}|
 /else {:
 	/addvar key=dataBaseNames {{var::variableName}}|

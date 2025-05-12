@@ -200,6 +200,7 @@
 	/else {:
 	
 		/ife (wi_book_key_f == 'Archetype') {:
+			/echo Test1|
 			/var key=find "{{var::wi_book_key_f}}: Task"|
 			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
@@ -211,6 +212,7 @@
 			/else {:
 				/flushvar a3|
 			:}|
+			/echo Test2|
 			/var key=find "{{var::wi_book_key_f}}: Instruction"|
 			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
@@ -222,6 +224,8 @@
 			/else {:
 				/flushvar a4|
 			:}|
+			/echo Test3|
+			/wait 10|
 		:}|
 		/genraw length=50 "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/var key=t {{pipe}}|
