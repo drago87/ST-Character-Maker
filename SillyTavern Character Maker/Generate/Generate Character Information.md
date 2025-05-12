@@ -10,6 +10,8 @@
 /setvar key=dataBaseNames []|
 /flushvar genSettings|
 
+/setvar key=stepVar Step3|
+
 /setvar key=skip Update|
 /ife ( stepDone == 'No') {:
 	/buttons labels=["Skip", "Update"] Do you want to skip or update already generated content? You will get a question for each already done if you select Update.|
@@ -20,29 +22,38 @@
 	:}|
 :}|
 
-
 /setvar key=stepDone No|
-/setvar key=stepVar Step3|
+
 
 //Character Overview|
 /let key=do {{noop}}|
 /let key=variableName {{noop}}|
 //Race/Species|
 /ife ( normal_form != 'Human') {:
-	/var key=do Yes|
+	/var key=do No|
 	/var key=variableName "species"|
-	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
-		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-		/var key=do {{pipe}}|
-		/ife ( do == ''){:
-			/echo Aborting |
-			/abort
-		:}|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
 	:}|
-	/elseif (skip == 'Skip') {:
-		var key=do No|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
 	:}|
-	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
+	/elseif (skip == 'Update') {:
+		/getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	/ife ( do == 'Yes' ) {:
 		/setvar key=genSettings index=wi_book_key "Species"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=genIsSentence No|
@@ -89,20 +100,21 @@
 
 /ife ( (normal_form != 'Anthropomorphic') and (normal_form != 'Kemonomimi') and (normal_form != 'Animalistic') and (normal_form != 'Pokémon') and (normal_form != 'Digimon')) {:
 	//Nationality|
-	/var key=do Yes|
+	/var key=do No|
 	/var key=variableName "nationality"|
-	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
-		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-		/var key=do {{pipe}}|
-		/ife ( do == ''){:
-			/echo Aborting |
-			/abort
-		:}|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
 	:}|
-	/elseif (skip == 'Skip') {:
-		var key=do No|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
 	:}|
-	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
+	/ife ( do == 'Yes' ) {:
 		/setvar key=genSettings index=wi_book_key "Nationalities"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=genIsSentence No|
@@ -142,20 +154,21 @@
 
 
 	//Ethnicity|
-	/var key=do Yes|
+	/var key=do No|
 	/var key=variableName "ethnicity"|
-	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
-		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-		/var key=do {{pipe}}|
-		/ife ( do == ''){:
-			/echo Aborting |
-			/abort
-		:}|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
 	:}|
-	/elseif (skip == 'Skip') {:
-		var key=do No|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
 	:}|
-	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
+	/ife ( do == 'Yes' ) {:
 		/setvar key=genSettings index=wi_book_key "Ethnicities"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -188,9 +201,13 @@
 	//-----------|
 
 :}|
-/else {:
+/elseif ( skip != 'Skip') {:
 	/setvar key=nationality None|
 	/setvar key=ethnicity None|
+	/addvar key=dataBaseNames nationality|
+	/addvar key=dataBaseNames ethnicity|
+:}|
+/else {:
 	/addvar key=dataBaseNames nationality|
 	/addvar key=dataBaseNames ethnicity|
 :}|
@@ -216,20 +233,21 @@
 //-----------|
 
 //Life stage|
-/var key=do Yes|
+/var key=do No|
 /var key=variableName "lifeStage"|
-/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
-	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-	/var key=do {{pipe}}|
-	/ife ( do == ''){:
-		/echo Aborting |
-		/abort
-	:}|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
 :}|
-/elseif (skip == 'Skip') {:
-	var key=do No|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
 :}|
-/ife (( do == 'Yes' ) and (skip == 'Update')) {:
+/ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book "CMC Variables"|
 	/ife ( normal_form != 'Animalistic') {:
 		/setvar key=genSettings index=wi_book_key "Life Stage Humanoid"|
@@ -294,20 +312,21 @@
 
 
 //Age|
-/var key=do Yes|
+/var key=do No|
 /var key=variableName "age"|
-/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
-	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-	/var key=do {{pipe}}|
-	/ife ( do == ''){:
-		/echo Aborting |
-		/abort
-	:}|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
 :}|
-/elseif (skip == 'Skip') {:
-	var key=do No|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
 :}|
-/ife (( do == 'Yes' ) and (skip == 'Update')) {:
+/ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book_key "Age Gen"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -350,20 +369,21 @@
 
 //Race Age|
 /ife ( normal_form != 'Human') {:
-	/var key=do Yes|
+	/var key=do No|
 	/var key=variableName "humanEquivalentAge"|
-	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
-		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-		/var key=do {{pipe}}|
-		/ife ( do == ''){:
-			/echo Aborting |
-			/abort
-		:}|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
 	:}|
-	/elseif (skip == 'Skip') {:
-		var key=do No|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
 	:}|
-	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
+	/ife ( do == 'Yes' ) {:
 		/setvar key=genSettings index=wi_book_key "Age Species"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -398,8 +418,11 @@
 		/addvar key=dataBaseNames {{var::variableName}}|
 	:}|
 :}|
+/elseif ( skip != 'Skip') {:
+	/setvar key=humanEquivalentAge {{getvar::age}}|
+	/addvar key=dataBaseNames humanEquivalentAge|
+:}|
 /else {:
-	/setvar key=humanEquivalentAge None|
 	/addvar key=dataBaseNames humanEquivalentAge|
 :}|
 //-----------|
@@ -416,20 +439,21 @@
 
 /ife ( real != 'Yes') {:
 	//First Name|
-	/var key=do Yes|
+	/var key=do No|
 	/var key=variableName "firstName"|
-	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
-		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-		/var key=do {{pipe}}|
-		/ife ( do == ''){:
-			/echo Aborting |
-			/abort
-		:}|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
 	:}|
-	/elseif (skip == 'Skip') {:
-		var key=do No|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
 	:}|
-	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
+	/ife ( do == 'Yes' ) {:
 		/setvar key=genSettings index=wi_book_key "First Name"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -462,20 +486,21 @@
 	
 	
 	//Last Name|
-	/var key=do Yes|
+	/var key=do No|
 	/var key=variableName "lastName"|
-	/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
-		/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-		/var key=do {{pipe}}|
-		/ife ( do == ''){:
-			/echo Aborting |
-			/abort
-		:}|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
 	:}|
-	/elseif (skip == 'Skip') {:
-		var key=do No|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
 	:}|
-	/ife (( do == 'Yes' ) and (skip == 'Update')) {:
+	/ife ( do == 'Yes' ) {:
 		/setvar key=genSettings index=wi_book_key "Last Name"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -510,20 +535,21 @@
 :}|
 
 //Nickname|
-/var key=do Yes|
+/var key=do No|
 /var key=variableName "alias"|
-/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
-	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-	/var key=do {{pipe}}|
-	/ife ( do == ''){:
-		/echo Aborting |
-		/abort
-	:}|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
 :}|
-/elseif (skip == 'Skip') {:
-	var key=do No|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
 :}|
-/ife (( do == 'Yes' ) and (skip == 'Update')) {:
+/ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book_key "Nickname"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=inputIsTaskList No|

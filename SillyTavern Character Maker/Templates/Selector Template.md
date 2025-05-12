@@ -1,17 +1,18 @@
-/var key=do Yes|
+/var key=do No|
 /var key=variableName ""|
-/ife ( ( ({{var::variableName}} != '') or ({{var::variableName}} != 'None')) or (skip != 'Skip')) {:
-	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-	/var key=do {{pipe}}|
-	/ife ( do == ''){:
-		/echo Aborting |
-		/abort
-	:}|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
 :}|
-/elseif (skip == 'Skip') {:
-	var key=do No|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
 :}|
-/ife (( do == 'Yes' ) and (skip == 'Update')) {:
+/ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book ""|
 	/setvar key=genSettings index=wi_book_key ""|
 	/setvar key=genSettings index=combineLorebookEntries No|

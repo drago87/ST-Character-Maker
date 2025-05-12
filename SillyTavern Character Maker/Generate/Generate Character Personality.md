@@ -10,6 +10,8 @@
 /setvar key=dataBaseNames []|
 /flushvar genSettings|
 
+/setvar key=stepVar Step4|
+
 /setvar key=skip Update|
 /ife ( stepDone == 'No') {:
 	/buttons labels=["Skip", "Update"] Do you want to skip or update already generated content? You will get a question for each already done if you select Update.|
@@ -21,22 +23,25 @@
 :}|
 
 /setvar key=stepDone No|
-/setvar key=stepVar Step4|
 
 /let key=do {{noop}}|
 /let key=variableName {{noop}}|
 /let selected_btn {{noop}}|
 
 //Archetype|
-/var key=do Yes|
+/var key=do No|
 /var key=variableName "archetype"|
-/ife ( {{var::variableName}} != '') {:
-	/buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}}|
-	/var key=do {{pipe}}|
-	/ife ( do == ''){:
-		/echo Aborting |
-		/abort
-	:}|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book_key "Archetype"|

@@ -42,7 +42,7 @@
 
 //Parse character Age|
 /setvar key=parcedAge {{noop}}|
-/ife ( (humanEquivalentAge != 'None') and (humanEquivalentAge != '') ) {:
+/ife ( ((humanEquivalentAge != 'None') and (humanEquivalentAge != '')) and ( age != humanEquivalentAge) ) {:
 	/setvar key=parcedAge {{getvar::age}} years-old — roughly {{getvar::humanEquivalentAge}} years-old in human years.|
 :}|
 /elseif (age != '') {:
