@@ -276,7 +276,7 @@
 		/:"CMC Logic.SaveGen"|
 	:}|
 	/elseif ( selected_btn =='Customize Parts of the generation') {:
-		/buttons lables=["Yes", "Reset", "No"] Do you want to Customize the {Modifier} of the formula {Modifier} + {Archetype} + {Addition}?|
+		/buttons labels=["Yes", "Reset", "No"] Do you want to Customize the {Modifier} of the formula {Modifier} + {Archetype} + {Addition}?|
 		/let key=sel {{pipe}}|
 		/ife (sel == '') {:
 			/echo Aborting |
@@ -291,7 +291,7 @@
 			:}|
 			/else {::}|
 		:}|
-		/buttons lables=["Yes", "Reset", "No"] Do you want to Customize the {Archetype} of the formula {Modifier} + {Archetype} + {Addition}?|
+		/buttons labels=["Yes", "Reset", "No"] Do you want to Customize the {Archetype} of the formula {Modifier} + {Archetype} + {Addition}?|
 		/var key=sel {{pipe}}|
 		/ife (sel == '') {:
 			/echo Aborting |
@@ -306,7 +306,7 @@
 			:}|
 			/else {::}|
 		:}|
-		/buttons lables=["Yes", "Reset", "No"] Do you want to Customize the {Addition} of the formula {Modifier} + {Archetype} + {Addition}?|
+		/buttons labels=["Yes", "Reset", "No"] Do you want to Customize the {Addition} of the formula {Modifier} + {Archetype} + {Addition}?|
 		/var key=sel {{pipe}}|
 		/ife (sel == '') {:
 			/echo Aborting |
