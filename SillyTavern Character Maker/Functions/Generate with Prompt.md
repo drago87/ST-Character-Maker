@@ -36,6 +36,8 @@
 
 /getvar key=genSettings index=contextKey|
 /let as=array key=contextKey_f {{pipe}}|
+/getvar key=genSettings index=extraContext|
+/let as=array key=extraContext_f {{pipe}}|
 
 /let key=wi_uid {{noop}}|
 /let key=actionType {{noop}}|
@@ -68,6 +70,11 @@
 	/var key=context {{pipe}}|
 	/ife ( real == 'Yes') {:
 		/var key=context {{var::context}}{{var::realParced}}|
+	:}|
+	/ife ( extraContext_f != '') {:
+		/foreach {{var::extraContext_f}} {:
+			/var key=context {{var::context}}{{newline}}{{var::item}}|
+		:}|
 	:}|
 	/ife ( contextKey_f != '') {:
 		/foreach {{var::contextKey_f}} {:
