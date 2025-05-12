@@ -110,9 +110,9 @@
 
 //Create GenerateWithQ&R|
 /ife ( 'GenerateWithSelector' not in qrListContent) {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Selector.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/GenerateWithQ%26A.md|
 	
-	/qr-create set="CMC Logic" label="GenerateWithSelector" {{pipe}}|
+	/qr-create set="CMC Logic" label="GenerateWithQ&A" {{pipe}}|
 :}|
 //-----|
 
