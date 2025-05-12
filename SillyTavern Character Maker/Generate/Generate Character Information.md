@@ -607,6 +607,7 @@
 /re-replace find="/\s(?=\d{2}$)/g" replace="h " {{var::filename}}|
 /setvar key=filename {{pipe}}|
 /addvar key=filename " m {{getvar::firstName}} {{getvar::lastName}}"|
-/forcesave|
+/sendas name={{char}} del|
 /renamechat {{getvar::filename}}|
+/del {{lastMessageId}}|
 /flushvar filename|
