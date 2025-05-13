@@ -199,7 +199,7 @@
 	:}|
 	/else {:
 	
-		/ife (wi_book_key_f == 'Archetype') {:
+		/ife (wi_book_key_f == 'Archetype Base') {:
 			/var key=find "{{var::wi_book_key_f}}: Task"|
 			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
@@ -266,7 +266,7 @@
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} Generate New|
 	:}|
-	/ife (( 'Customize Parts of the generation' not in genState) and (wi_book_key_f == 'Archetype' )) {:
+	/ife (( 'Customize Parts of the generation' not in genState) and (wi_book_key_f == 'Archetype Base' )) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} Customize Parts of the generation|
 	:}|
