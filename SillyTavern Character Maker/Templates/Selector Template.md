@@ -67,4 +67,3 @@
 /else {:
 	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
-//-------|

@@ -359,6 +359,18 @@
 		/setvar key=genSettings index=genIsSentence Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=extra []|
+		/addvar key=extra "**CONTEXT (for your reference—do not include in the answer):**"|
+		/ife (seasons != '') {:
+			/addvar key=extra "- Time/Period: {{getvar::timePeriod}} ,{{getvar::seasons}}"|
+		:}|
+		/else {:
+			/addvar key=extra "- Time/Period: {{getvar::timePeriod}}"|
+		:}|
+		/addvar key=extra "- World Type: {{getvar::worldType}}"|
+		/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
+		/setvar key=genSettings index=extraContext {{getvar::extra}}|
+		/flushvar extra|
 		/setvar key=genSettings index=useContext No|
 		/setvar key=genSettings index=contextKey {{noop}}|
 		

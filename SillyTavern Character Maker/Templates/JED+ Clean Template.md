@@ -100,6 +100,8 @@
 --SexualOrientation--
 --SexualRole--
 
+--Kinks--
+
 <Q&A>
 --SexualityQA--
 </Q&A>

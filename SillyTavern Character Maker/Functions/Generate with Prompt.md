@@ -248,6 +248,29 @@
 			/var key=t {{pipe}}|
 		:}|
 		/var key=genState {{pipe}}|
+		/ife ((wi_book_key_f == 'Personality Tags' ) and (foundTags != '')) {:
+			/split {{getvar::foundTags}}|
+			/let as=array key=tempTags {{pipe}}|
+			/foreach {{var::tempTags}} {:
+				/var key=it {{var::item}}|
+				/find index=true {{var::genState}} {:
+					/test left={{var::item}} rule=eq right="{{var::it}}"|
+				:}|
+				/let key=tempIndex {{pipe}}|
+				/getat index={{var::tempIndex}} genState|
+				/let key=tempItem {{pipe}}|
+				/ife ( (tempIndex != '0') or ( (tempIndex == '0') and (tempItem == it ) ) ) {:
+					/splice start={{var::tempIndex}} delete=1 {{var::genState}}|
+					/var key=genState {{pipe}}|
+					/unshift {{getvar::a0}} Test2|
+					/var key=genState {{pipe}}|
+				:}|
+			:}|
+			/join glue=", " {{var::genState}}|
+			/let key=tempItem {{pipe}}|
+			/var as=array key=genState []|
+			/var key=genState index=0 {{var::tempItem}}|
+		:}|
 	:}|
 	/else {:
 		/len {{var::genState}}|
@@ -274,10 +297,16 @@
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Done"|
 	:}|
-  
-	/buttons labels={{var::genState}} Select the {{var::wi_book_key_f}} you want {{getvar::firstName}} to have.|
-	/var key=selected_btn {{pipe}}|
-
+	
+	/var key=nonBasic ["Identify Personality Tags"]|
+	/ife (wi_book_key_f not in nonBasic) {:
+		/buttons labels={{var::genState}} Select the {{var::wi_book_key_f}} you want {{getvar::firstName}} to have.|
+		/var key=selected_btn {{pipe}}|
+	:}|
+	/elseif ( wi_book_key_f == 'Identify Personality Tags') {:
+		/buttons labels={{var::genState}} Is this a good Personality Tag list for {{getvar::firstName}}?|
+		/var key=selected_btn {{pipe}}|
+	:}|
 
 
 	/ife ( selected_btn == ''){:

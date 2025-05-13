@@ -1,20 +1,13 @@
-/ife (( {{var::variableName}} == '') or ({{var::variableName}} == 'None')) {:
-	/buttons labels=["Yes", "No"] Do you want to set {{var::variableName}} (it's currently empty)?|
-	/var key=do {{pipe}}|
-	/ife (do == '') {:
-		/echo Aborting |
-		/abort
-	:}|
+/find index=true {{var::genState}} {:
+	/test left={{getvar::item}} rule=eq right="Random"|
 :}|
-/elseif (skip == 'Update') {:
-	/getvar key={{var::variableName}}|
-    /buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}} (current value: {{pipe}})?|
-    /var key=do {{pipe}}|
-    /ife (do == '') {:
-        /echo Aborting |
-        /abort
-    :}|
-:}|
-/ife ( do == 'Yes' ) {:
+/slice start=0 end={{pipe}} {{var::genState}}|
 
+/find index=true {{getvar::a}} {:
+	/test left={{var::item}} rule=eq right="Test2"|
 :}|
+/splice start={{pipe}} delete=1 {{getvar::a}}|
+/setvar key=a0 {{pipe}}|
+/wait 100|
+/unshift {{getvar::a0}} Test2|
+/setvar key=a0 {{pipe}}|

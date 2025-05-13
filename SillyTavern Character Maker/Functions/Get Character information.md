@@ -97,8 +97,8 @@
 
 
 /ife ( lastName == '' ) {:
-	/setvar key=lastName None|
+	/setvar key=lastName {{noop}}|
 :}|
-/ife ( ni == '' ) {:
-	/setvar key=lastName None|
+/ife ( nickName == '' ) {:
+	/setvar key=nickName {{noop}}|
 :}|

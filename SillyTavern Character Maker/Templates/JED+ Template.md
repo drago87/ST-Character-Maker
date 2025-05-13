@@ -202,6 +202,10 @@ A:
 - Role during sex: <!--Submissive, Power Bottom, Bottom, Top, etc.-->
   ↳ Explanation: 
 
+- Kink Type: 
+  ↳ Details: 
+  ↳ Effect:
+
 <Q&A>
 Q: Is {{char}} a virgin?
 A: 
