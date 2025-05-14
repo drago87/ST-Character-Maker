@@ -248,7 +248,6 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/setvar key=genSettings index=wi_book "CMC Variables"|
 	/ife ( normal_form != 'Animalistic') {:
 		/setvar key=genSettings index=wi_book_key "Life Stage Humanoid"|
 	:}|

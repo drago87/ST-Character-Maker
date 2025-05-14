@@ -1,7 +1,7 @@
 /getvar key=genSettings index=wi_book|
 /let key=wi_book_f {{pipe}}|
 /ife ( wi_book_f == '') {:
-	/abort quiet=false Missing wi_book name in input.|
+	/var key=wi_book_f "CMC Variables"|
 :}|
 /getvar key=genSettings index=wi_book_key|
 /let key=wi_book_key_f {{pipe}}|

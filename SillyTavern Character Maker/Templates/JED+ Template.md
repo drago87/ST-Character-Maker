@@ -134,7 +134,10 @@ A:
 
 - Personality Tags: <!--List of tags. e.g. Sadistic, Playful, Mischievous, Controlling, Manipulative, Cocky, Impish, Aggressive, Overprotective, Mean, Dramatic, Rough, Selfish, Lovestruck, Cheeky, Joking, Braggadocios, Bratty, Squeamish, Hot-Headed, Erratic, Materialistic, Perfectionist, Jealous, Nosy.-->
 
+- Intelligence Level: <!--How smart the character is-->
 - Cognitive Abilities: <!--Optional. Typically used only for overly dumb or smart characters-->
+
+- Social Behavior: <!-- Normal, Anxious / Avoidant, Manipulative / Narcissistic, Socially Detached / Isolated, Overconfident / Egotistical, Other (Custom)-->
 - Social Skills and Integration Into Society: <!--Optional. Typically used only for sociopathic characters or the ones with social anxiety or overly high self-esteem-->
 
 - Main Aspiration: <!--Typically used if the character has a clear goal to pursue throughout the story. e.g. "I want to become a hero!"-->

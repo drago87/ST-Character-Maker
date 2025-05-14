@@ -250,6 +250,11 @@
 	/re-replace find="/--PersonalityTags--/g" replace="- Personality Tags:{{getvar::personalityTags}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
+/ife ( intelligenceLevel != '') {:
+	/messages names=off 0|
+	/re-replace find="/--IntelligenceLevel--/g" replace="- Personality Tags:{{getvar::intelligenceLevel}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
 /ife ( (cognitiveAbilities != '') and (cognitiveAbilities != 'None') ) {:
 	/messages names=off 0|
 	/re-replace find="/--CognitiveAbilities--/g" replace="{{newline}}{{newline}}- Cognitive Abilities: {{getvar::cognitiveAbilities}}" {{pipe}}|
@@ -258,6 +263,11 @@
 /elseif (cognitiveAbilities == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--CognitiveAbilities--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife ( socialBehavior != '') {:
+	/messages names=off 0|
+	/re-replace find="/--SocialBehavior--/g" replace="- Personality Tags:{{getvar::socialBehavior}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife ( (socialSkills != '') and (socialSkills != 'None')) {:

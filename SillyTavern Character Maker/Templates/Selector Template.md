@@ -13,7 +13,6 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/setvar key=genSettings index=wi_book ""|
 	/setvar key=genSettings index=wi_book_key ""|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|

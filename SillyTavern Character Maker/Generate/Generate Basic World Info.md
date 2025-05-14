@@ -38,7 +38,6 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/setvar key=genSettings index=wi_book "CMC Variables"|
 	/setvar key=genSettings index=wi_book_key "Time Period"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
@@ -108,7 +107,6 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/setvar key=genSettings index=wi_book "CMC Variables"|
 	/setvar key=genSettings index=wi_book_key "Seasons"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
@@ -177,7 +175,6 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/setvar key=genSettings index=wi_book "CMC Variables"|
 	/setvar key=genSettings index=wi_book_key "Setting Type"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|

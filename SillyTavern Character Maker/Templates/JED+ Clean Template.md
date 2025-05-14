@@ -75,7 +75,10 @@
 ### PERSONALITY
 --Archetype----Alignment--
 
---PersonalityTags----CognitiveAbilities----SocialSkills--
+--PersonalityTags---
+
+--IntelligenceLevel--CognitiveAbilities--
+--SocialBehavior----SocialSkills--
 
 --MainAspiration--
   
