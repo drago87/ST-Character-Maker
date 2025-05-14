@@ -1,5 +1,5 @@
 /var key=do No|
-/var key=variableName ""|
+/var key=variableName "CHANGE_THIS"|
 /ife ({{var::variableName}} == '') {:
     /var key=do Yes|
 :}|
@@ -13,7 +13,8 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/setvar key=genSettings index=wi_book_key ""|
+	/setvar key=genSettings index=wi_book "CHANGE/REMOVE_THIS"|
+	/setvar key=genSettings index=wi_book_key "CHANGE_THIS"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=inputIsList No|

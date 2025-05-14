@@ -33,6 +33,12 @@
 /ife ( inputIsTaskList_f == '') {:
 	/abort quiet=false Missing inputIsTaskList setting in input.|
 :}|
+/getvar key=genSettings index=outputIsList|
+/let key=outputIsList_f {{pipe}}|
+/ife ( outputIsList_f == '') {:
+	/var key=outputIsList_f No|
+:}|
+
 
 /getvar key=genSettings index=contextKey|
 /let as=array key=contextKey_f {{pipe}}|
@@ -138,8 +144,8 @@
 /setvar as=array key=tempList []|
 /setvar key=output {{noop}}|
 
-/ife ( genIsSentence != 'Yes') {:
-	/ife ( outputIsList == 'Yes') {:
+/ife ( genIsSentence_f != 'Yes') {:
+	/ife ( outputIsList_f == 'Yes') {:
 		/var key=actionType add|
 	:}|
 	/else {:
@@ -286,7 +292,7 @@
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} Customize Parts of the generation|
 	:}|
-	/ife (('Done' not in genState) and (((outputIsList == 'Yes') and (tempList != '')) or ((outputIsList != 'Yes') and (needOutput_f == 'No')))) {:
+	/ife (('Done' not in genState) and (((outputIsList_f == 'Yes') and (tempList != '')) or ((outputIsList_f != 'Yes') and (needOutput_f == 'No')))) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Done"|
 	:}|
@@ -386,7 +392,7 @@
 			/input default={{pipe}} Edit the output to your liking.|
 		:}|
 		/else {:
-			/ife (outputIsList == 'Yes') {:
+			/ife (outputIsList_f == 'Yes') {:
 				/input rows=8 What {{var::wi_book_key_f}} do you like to add to the {{var::wi_book_key_f}} list?|
 			:}|
 			/else {:
@@ -398,7 +404,7 @@
 		/:"CMC Logic.SaveGen"|
 	:}|
 	/else {:
-		/ife (( genState == 'Done') and (((outputIsList == 'Yes') and (tempList == '')) or (needOutput_f == 'No'))) {:
+		/ife (( genState == 'Done') and (((outputIsList_f == 'Yes') and (tempList == '')) or (needOutput_f == 'No'))) {:
 			/setvar key=save None|
 			/:"CMC Logic.SaveGen"|
 		:}|
