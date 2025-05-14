@@ -106,14 +106,14 @@ A:
 <!--Is your character hiding something?-->
 
 ### INVENTORY
-- Item: <!--e.g. "Club +24"-->
+- Item: <!--Optional. e.g. "Club +24"-->
   ↳ Details: <!--e.g. Club that was given {{char}} by her mother. Bonks {{user}} when angry.-->
 
 - Item: 
   ↳ Details: 
 
 ### ABILITIES
-- Ability: <!--e.g. Void magic (beginner)-->
+- Ability: <!--Optional. e.g. Void magic (beginner)-->
   ↳ Details: <!--e.g. Opens portals when sneezes-->
 
 - Ability: 
@@ -128,14 +128,14 @@ A:
   ↳ Archetype Details: <!--Explain the chosen archetype and {{char}}'s Baseline Behavior-->
   ↳ Reasoning: <!--Tell why the character behaves this way. Did something happen in the past? Make some psychoanalysis-->
   
-- Alignment: <!--Mostly for complex, RPG-like cards. e.g. Lawful Evil-->
+- Alignment: <!--Optional. Mostly for complex, RPG-like cards. e.g. Lawful Evil-->
   ↳ Alignment Details: <!--Explain how it works with this character-->
   ↳ Ideals: 
 
 - Personality Tags: <!--List of tags. e.g. Sadistic, Playful, Mischievous, Controlling, Manipulative, Cocky, Impish, Aggressive, Overprotective, Mean, Dramatic, Rough, Selfish, Lovestruck, Cheeky, Joking, Braggadocios, Bratty, Squeamish, Hot-Headed, Erratic, Materialistic, Perfectionist, Jealous, Nosy.-->
 
-- Cognitive Abilities: <!--Typically used only for overly dumb or smart characters-->
-- Social Skills and Integration Into Society: <!--Typically used only for sociopathic characters or the ones with social anxiety or overly high self-esteem-->
+- Cognitive Abilities: <!--Optional. Typically used only for overly dumb or smart characters-->
+- Social Skills and Integration Into Society: <!--Optional. Typically used only for sociopathic characters or the ones with social anxiety or overly high self-esteem-->
 
 - Main Aspiration: <!--Typically used if the character has a clear goal to pursue throughout the story. e.g. "I want to become a hero!"-->
   ↳ Aspiration Details: <!--Explain the chosen aspiration-->
@@ -202,9 +202,12 @@ A:
 - Role during sex: <!--Submissive, Power Bottom, Bottom, Top, etc.-->
   ↳ Explanation: 
 
-- Kink Type: 
-  ↳ Details: 
-  ↳ Effect:
+- Kink Type: <!--The broad category of the kink or fetish. e.g. Praise, Bondage, Bestiality, Sensory Play-->
+  ↳ Variant: <!--Optional. Used to specify a subtype or target of the kink. e.g. Anal Enema, Womb Enema, Canine, Shibari, Paddling-->
+  ↳ Role: <!--Giver, Receiver, or Switch. Defines whether the character enjoys performing the kink, receiving it, or both-->
+  ↳ Details: <!--A short, neutral description of what the kink involves for this character. Focus on what they enjoy or respond to-->
+  ↳ Effect: <!--How this kink influences the character’s behavior, arousal, emotions, or dynamics during intimacy-->
+  ↳ Conditions: <!--Optional. Describes situational boundaries or requirements, such as specific partner types, emotional states, or settings-->
 
 <Q&A>
 Q: Is {{char}} a virgin?
