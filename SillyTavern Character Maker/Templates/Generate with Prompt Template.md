@@ -42,7 +42,7 @@
 	:}|
 	//[[Generate with Prompt]]|
 	/ife (inputIsList == 'Yes') {:
-		/foreach {{getvar::CHANGE_THIS}} {
+		/foreach {{getvar::CHANGE/REMOVE_THIS}} {:
 			/setvar key={{var::variableName}}Item {{var::item}}|
 			/:"CMC Logic.GenerateWithPrompt"|
 			/addvar key={{var::variableName}} {{getvar::output}}|

@@ -108,14 +108,6 @@
 :}|
 //-----|
 
-//Create GenerateWithQ&R|
-/ife ( 'GenerateWithSelector' not in qrListContent) {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/GenerateWithQ%26A.md|
-	
-	/qr-create set="CMC Logic" label="GenerateWithQ&A" {{pipe}}|
-:}|
-//-----|
-
 /ife ( 'Get Char info' not in qrListContent) {:
 	//Get Char info|
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Get%20Character%20information.md|

@@ -96,10 +96,10 @@
 	/var key=context "{{var::context}}{{newline}}{{newline}}"|
 :}|
 /ife (debug == 'Yes') {:
-	/setvar key=a1 {{var::context}}|
+	/setvar key="00 Context" {{var::context}}|
 :}|
 /else {:
-	/flushvar a1|
+	/flushvar "00 Context"|
 :}|
 /var key=find "{{var::wi_book_key_f}}: Examples"|
 /findentry field=comment file={{var::wi_book_f}} "{{var::find}}"|
@@ -109,10 +109,10 @@
 	/var key=examples {{pipe}}|
 :}|
 /ife (debug == 'Yes') {:
-	/setvar key=a2 {{var::examples}}|
+	/setvar key="01 Examples" {{var::examples}}|
 :}|
 /else {:
-	/flushvar a2|
+	/flushvar "01 Examples"|
 :}|
 /var key=find "{{var::wi_book_key_f}}: Task"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
@@ -120,10 +120,10 @@
 /getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 /let key=task {{pipe}}|
 /ife (debug == 'Yes') {:
-	/setvar key=a3 {{var::task}}|
+	/setvar key="02 Task" {{var::task}}|
 :}|
 /else {:
-	/flushvar a3|
+	/flushvar "02 Task"|
 :}|
 /var key=find "{{var::wi_book_key_f}}: Instruction"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
@@ -131,10 +131,10 @@
 /getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 /let key=instruct {{pipe}}|
 /ife (debug == 'Yes') {:
-	/setvar key=a4 {{var::instruct}}|
+	/setvar key="03 Instruktions" {{var::instruct}}|
 :}|
 /else {:
-	/flushvar a4|
+	/flushvar "03 Instruktions"|
 :}|
 /let key=genState []|
 /let key=selected_btn |
@@ -203,32 +203,6 @@
 		:}|
 	:}|
 	/else {:
-	
-		/ife (wi_book_key_f == 'Archetype Base') {:
-			/var key=find "{{var::wi_book_key_f}}: Task"|
-			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
-			/var key=wi_uid {{pipe}}|
-			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
-			/var key=task {{pipe}}|
-			/ife (debug == 'Yes') {:
-				/setvar key=a3 {{var::task}}|
-			:}|
-			/else {:
-				/flushvar a3|
-			:}|
-			/var key=find "{{var::wi_book_key_f}}: Instruction"|
-			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
-			/var key=wi_uid {{pipe}}|
-			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
-			/var key=instruct {{pipe}}|
-			/ife (debug == 'Yes') {:
-				/setvar key=a4 {{var::instruct}}|
-			:}|
-			/else {:
-				/flushvar a4|
-			:}|
-			/wait 10|
-		:}|
 		/genraw length=50 "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/var key=t {{pipe}}|
 		/reasoning-parse return=content {{var::t}}|
@@ -283,7 +257,11 @@
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} {{var::man}}|
 	:}|
-
+	/let key=nonGuidence ["Age Gen", "Age Species"]|
+	/ife (( 'Guidence' not in genState) and (wi_book_key_f not in nonGuidence)) {:
+		/len {{var::genState}}|
+		/var key=genState index={{pipe}} Guidence|
+	:}|
 	/ife ( 'Generate New' not in genState) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} Generate New|
@@ -297,17 +275,21 @@
 		/var key=genState index={{pipe}} "Done"|
 	:}|
 	
-	/let key=nonBasic ["Identify Personality Tags"]|
+	/let key=nonBasic ["Identify Personality Tag", "Personality QA", "Personality Tags"]|
 	/ife (wi_book_key_f not in nonBasic) {:
 		/buttons labels={{var::genState}} Select the {{var::wi_book_key_f}} you want {{getvar::firstName}} to have.|
 		/var key=selected_btn {{pipe}}|
 	:}|
-	/elseif ( wi_book_key_f == 'Identify Personality Tags') {:
+	/elseif ( wi_book_key_f == 'Identify Personality Tag') {:
 		/buttons labels={{var::genState}} <div>Are these the correct Personality tags found in {{getvar::firstName}}'s Archetype?</div><div>{{getvar::archetype}}</div>|
 		/var key=selected_btn {{pipe}}|
 	:}|
 	/elseif (wi_book_key_f == 'Personality Tags') {:
 		/buttons labels={{var::genState}} Is this list of Personality Traits correct for {{getvar::firstName}}?|
+		/var key=selected_btn {{pipe}}|
+	:}|
+	/elseif (wi_book_key_f == 'Personality QA') {:
+		/buttons labels={{var::genState}} <div>Is this a good Answer by {{getvar::firstName}} for the question:</div><div>{{getvar::question}}</div>|
 		/var key=selected_btn {{pipe}}|
 	:}|
 
@@ -325,6 +307,37 @@
 		/var key=selected_btn {{pipe}}|
 		/setvar key=save {{var::selected_btn}}|
 		/:"CMC Logic.SaveGen"|
+	:}|
+	/elseif (selected_btn == 'Guidence') {:
+		/let key=gu {{noop}}|
+		/ife (guidence != '') {:
+			/buttons labels=["Remove", "Set", "Change", "Cancel"] What do you want to do with the respons guidence?|
+			/var key=gu {{pipe}}|
+		:}|
+		/else {:
+			/buttons labels=["Set", "Cancel"] What do you want to do with the respons guidence?|
+			/var key=gu {{pipe}}|
+		:}|
+		/ife ( gu == ''){:
+			/echo Aborting |
+			/abort
+		:}|
+		/elseif ( gu == 'Remove') {:
+			/setvar key=guidence {{noop}}|
+		:}|
+		/elseif ( gu == 'Set') {:
+			/input Write what you want the response shoud be guided towards.|
+			/setvar key=guidence "The response should be guided toward: {{pipe}}"|
+		:}|
+		/elseif ( gu == 'Change') {:
+			/input default={{getvar::guidence}} Edit what you want the response shoud be guided towards.|
+			/setvar key=guidence "{{pipe}}"|
+		:}|
+		/var key=find "{{var::wi_book_key_f}}: Task"|
+		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
+		/var key=wi_uid {{pipe}}|
+		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/let key=task {{pipe}}|
 	:}|
 	/elseif ( selected_btn =='Customize Parts of the generation') {:
 		/buttons labels=["Yes", "Reset", "No"] Do you want to Customize the {Modifier} of the formula {Modifier} + {Archetype} + {Addition}?|
@@ -380,6 +393,28 @@
 		:}|
 		/elseif ( sel == 'Reset') {:
 			/setvar key=settingAddition {Addition}|
+		:}|
+		/var key=find "{{var::wi_book_key_f}}: Task"|
+		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
+		/var key=wi_uid {{pipe}}|
+		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/var key=task {{pipe}}|
+		/ife (debug == 'Yes') {:
+			/setvar key="02 Task" {{var::task}}|
+		:}|
+		/else {:
+			/flushvar "02 Task"|
+		:}|
+		/var key=find "{{var::wi_book_key_f}}: Instruction"|
+		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
+		/var key=wi_uid {{pipe}}|
+		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/var key=instruct {{pipe}}|
+		/ife (debug == 'Yes') {:
+			/setvar key="03 Instruktions" {{var::instruct}}|
+		:}|
+		/else {:
+			/flushvar "03 Instruktions"|
 		:}|
 		/var key=t {{noop}}|
 	:}|

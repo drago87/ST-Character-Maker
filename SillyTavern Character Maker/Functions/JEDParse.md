@@ -3,9 +3,14 @@
 	/re-replace find="/--TimePeriod--/g" replace="{{getvar::timePeriod}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (season != '') {:
+/ife (seasons != '') {:
 	/messages names=off 0|
-	/re-replace find="/--Season--/g" replace="{{getvar::season}}" {{pipe}}|
+	/re-replace find="/--Season--/g" replace="{{getvar::seasons}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif ( seasons == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--Season--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (worldDetails != '') {:
