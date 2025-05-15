@@ -164,33 +164,58 @@
 	/qr-set-create CMC Generate|
 :}|
 
-/ife ( 'Generate World Info' not in qrListContent) {:
-	//Generate World Info|
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Basic%20World%20Info.md|
-	
-	
-	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-	/qr-create set="CMC Generate" label="Generate World Info" {{pipe}}|
+
+/ife ( 'Step1 Generate Core Identity' not in qrListContent) {:
+	/fetch |
+	/qr-create set="CMC Generate" label="Step1 Generate Core Identity" {{pipe}}|
 	//|-----|
 :}|
 
-/ife ( 'Generate Character Information' not in qrListContent) {:
-	//Generate Character Information|
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Character%20Information.md|
-	
-	
-	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-	/qr-create set="CMC Generate" label="Generate Character Information" {{pipe}}|
+/ife ( 'Step2 Generate World-Setting Information' not in qrListContent) {:
+	/fetch |
+	/qr-create set="CMC Generate" label="Step2 Generate World-Setting Information" {{pipe}}|
 	//|-----|
 :}|
 
-ife ( 'Generate Character Personality' not in qrListContent) {:
-	//Generate Character Information|
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Generate%20Character%20Personality.md|
-	
-	
-	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
-	/qr-create set="CMC Generate" label="Generate Character Personality" {{pipe}}|
+/ife ( 'Step3 Generate Appearance-Anatomy' not in qrListContent) {:
+	/fetch |
+	/qr-create set="CMC Generate" label="Step3 Generate Appearance-Anatomy" {{pipe}}|
+	//|-----|
+:}|
+
+/ife ( 'Step4 Generate Mental Traits-Personality' not in qrListContent) {:
+	/fetch |
+	/qr-create set="CMC Generate" label="Step4 Generate Mental Traits-Personality" {{pipe}}|
+	//|-----|
+:}|
+
+/ife ( 'Step5 Generate Aspirational-Unique Traits' not in qrListContent) {:
+	/fetch |
+	/qr-create set="CMC Generate" label="Step5 Generate Aspirational-Unique Traits" {{pipe}}|
+	//|-----|
+:}|
+
+/ife ( 'Step6 Generate Speech Patterns' not in qrListContent) {:
+	/fetch |
+	/qr-create set="CMC Generate" label="Step6 Generate Speech Patterns" {{pipe}}|
+	//|-----|
+:}|
+
+/ife ( 'Step7 Generate External Interaction' not in qrListContent) {:
+	/fetch |
+	/qr-create set="CMC Generate" label="Step7 Generate External Interaction" {{pipe}}|
+	//|-----|
+:}|
+
+/ife ( 'Step8 Generate Sexual Information' not in qrListContent) {:
+	/fetch |
+	/qr-create set="CMC Generate" label="Step8 Generate Sexual Information" {{pipe}}|
+	//|-----|
+:}|
+
+/ife ( 'Step9 Generate Extras' not in qrListContent) {:
+	/fetch |
+	/qr-create set="CMC Generate" label="Step9 Generate Extras" {{pipe}}|
 	//|-----|
 :}|
 

@@ -10,7 +10,7 @@
 /setvar key=dataBaseNames []|
 /flushvar genSettings|
 
-/setvar key=stepVar Step3|
+/setvar key=stepVar Step1|
 
 /setvar key=skip Update|
 /ife ( stepDone == 'No') {:
