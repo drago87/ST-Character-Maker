@@ -3,12 +3,13 @@ Step0 Generate Basic information
 Step1 Generate Core Identity
 Step2 Generate World-Setting Information
 Step3 Generate Appearance-Anatomy
-Step4 Generate Mental Traits-Personality
-Step5 Generate Aspirational-Unique Traits
-Step6 Generate Speech Patterns
-Step7 Generate External Interaction
-Step8 Generate Sexual Information
-Step9 Generate Extras
+Step4 Outfit
+Step5 Generate Mental Traits-Personality
+Step6 Generate Aspirational-Unique Traits
+Step7 Generate Speech Patterns
+Step8 Generate External Interaction
+Step9 Generate Sexual Information
+Step10 Generate Extras
 *|
 
 /ife ( (stepVar == 'Step0') or (stepVar == '')) {:
@@ -44,76 +45,86 @@ Step9 Generate Extras
 /elseif ( stepVar == 'Step3') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step4|
-		/:"CMC Generate.Step4 Generate Mental Traits-Personality"|
+		/:"CMC Generate.Step4 Outfit"|
 	:}|
 	/else {:
 		//Load Step3|
 		/:"CMC Generate.Step3 Generate Appearance-Anatomy"|
 	:}|
 :}|
-/elseif ( stepVar == 'Step4') {:
+/elseif ( stepVar == 'Step3') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step5|
-		/:"CMC Generate.Step5 Generate Aspirational-Unique Traits"|
+		/:"CMC Generate.Step5 Generate Mental Traits-Personality"|
 	:}|
 	/else {:
-		//Load Step4|
-		/:"CMC Generate.Step4 Generate Mental Traits-Personality"|
+		//Load Step3|
+		/:"CMC Generate.Step4 Outfit"|
 	:}|
 :}|
 /elseif ( stepVar == 'Step5') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step6|
-		/:"CMC Generate.Step6 Generate Speech Patterns"|
+		/:"CMC Generate.Step6 Generate Aspirational-Unique Traits"|
 	:}|
 	/else {:
 		//Load Step5|
-		/:"CMC Generate.Step5 Generate Aspirational-Unique Traits"|
+		/:"CMC Generate.Step5 Generate Mental Traits-Personality"|
 	:}|
 :}|
 /elseif ( stepVar == 'Step6') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step7|
-		/:"CMC Generate.Step7 Generate External Interaction"|
+		/:"CMC Generate.Step7 Generate Speech Patterns"|
 	:}|
 	/else {:
 		//Load Step6|
-		/:"CMC Generate.Step6 Generate Speech Patterns"|
+		/:"CMC Generate.Step6 Generate Aspirational-Unique Traits"|
 	:}|
 :}|
 /elseif ( stepVar == 'Step7') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step8|
-		/:"CMC Generate.Step8 Generate Sexual Information"|
+		/:"CMC Generate.Step8 Generate External Interaction"|
 	:}|
 	/else {:
 		//Load Step7|
-		/:"CMC Generate.Step7 Generate External Interaction"|
+		/:"CMC Generate.Step7 Generate Speech Patterns"|
 	:}|
 :}|
 /elseif ( stepVar == 'Step8') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step9|
-		/:"CMC Generate.Step9 Generate Extras"|
+		/:"CMC Generate.Step9 Generate Sexual Information"|
 	:}|
 	/else {:
 		//Load Step8|
-		/:"CMC Generate.Step8 Generate Sexual Information"|
+		/:"CMC Generate.Step8 Generate External Interaction"|
 	:}|
 :}|
 /elseif ( stepVar == 'Step9') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step10|
-		//:"CMC Generate."|
+		/:"CMC Generate.Step10 Generate Extras"|
 	:}|
 	/else {:
 		//Load Step9|
-		/:"CMC Generate.Step9 Generate Extras"|
+		/:"CMC Generate.Step9 Generate Sexual Information"|
 	:}|
 :}|
 /elseif ( stepVar == 'Step10') {:
-	/ife (stepDone == 'No') {:
+	/ife (stepDone == 'Yes') {:
 		//Load Step10|
+		//:"CMC Generate."|
+	:}|
+	/else {:
+		//Load Step10|
+		/:"CMC Generate.Step10 Generate Extras"|
+	:}|
+:}|
+/elseif ( stepVar == 'Step11') {:
+	/ife (stepDone == 'No') {:
+		//Load Step11|
 		//:"CMC Generate."|
 	:}|
 :}|

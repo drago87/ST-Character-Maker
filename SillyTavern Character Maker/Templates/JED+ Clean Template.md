@@ -22,14 +22,14 @@
 ### APPEARANCE DETAILS
 - Full Name--Alias1--: --FirstName-- --LastName----Alias--
 - Race: --Species--
-- Sex/Gender: --Gender--
-- Height: --Height--
+- Sex/Gender: --Gender----Futanari--
+--Length--- Height: --Height--
 - Age: --Age--
 - Hair Descriptors: --Hair--
 - Eyes Descriptors: --Eyes--
 - Face: --Face--
 - Body Descriptors: --Body----Nipples----Breasts----Privates--
- - Anus Descriptors: --Anus--
+- Anus Descriptors: --Anus--
 - Features: --Features--
 
 --ApperanceTraits--
@@ -43,11 +43,7 @@
 - Bottom: --OutfitBottom--
 - Legs: --OutfitLegs--
 - Shoes: --OutfitShoes--
-- Underwear: --OutfitUnderwear--
-
-<Q&A>
---AppearanceQAList--
-</Q&A>
+- Underwear: --OutfitUnderwear----AppearanceQA--
 
 - - -
 
@@ -82,16 +78,7 @@
 
 --MainAspiration--
   
---UniqueTraits--
-
-<Q&A>
---PersonalityQA--
-</Q&A>
-
-- - -
-
-## [BEHAVIOR_NOTES]
---BehaviorNotes--
+--UniqueTraits----PersonalityQA----BehaviorNotes--
 
 - - -
 
@@ -103,11 +90,7 @@
 --SexualOrientation--
 --SexualRole--
 
---Kinks--
-
-<Q&A>
---SexualityQA--
-</Q&A>
+--Kinks----SexualityQA--
 
 - - -
 ## [OTHER_SEXUAL_NOTES]
@@ -115,6 +98,10 @@
 
 - - -
 
+## Additional Character Q&A
+--ExtraQA--
+
+---
 ## [SPEECH]
 
 ### GENERAL SPEECH INFO

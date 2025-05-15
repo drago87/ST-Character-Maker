@@ -3,7 +3,7 @@
 /let qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
-/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating Basic World Information" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating World & Setting Information" {{pipe}}|
 /:"CMC Logic.Get Char info"|
 
 /setvar key=dataBaseNames []|
@@ -331,6 +331,243 @@
 :}|
 //-----------|
 
+//Residence|
+/var key=do No|
+/var key=variableName "residence"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings index=wi_book_key "Residence"|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=inputIsTaskList No|
+	/setvar key=genSettings index=genIsSentence Yes|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/ife (seasons != 'None') {:
+		/addvar key=extra "- Time Period: {{getvar::timePeriod}} — Season: {{getvar::seasons}}"|
+	:}|
+	/else {:
+		/addvar key=extra "- Time Period: {{getvar::timePeriod}}"|
+	:}|
+	/addvar key=extra "- World Type: {{getvar::worldType}}"|
+	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/flushvar extra|
+	/setvar key=genSettings index=contextKey []|
+	/wait {{getvar::wait}}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=outputIsList {{pipe}}|
+	
+	
+	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+	//[[Generate with Prompt]]|
+	/:"CMC Logic.GenerateWithPrompt"|
+	/setvar key={{var::variableName}} {{getvar::output}}|
+
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+//-----------|
+
+//Occupation|
+/var key=do No|
+/var key=variableName "occupationBase"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings index=wi_book_key "Occupation Base"|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=inputIsTaskList No|
+	/setvar key=genSettings index=genIsSentence Yes|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/addvar key=extra "- Time Period: {{getvar::timePeriod}} —  World Type: {{getvar::worldType}}"|
+	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
+	/addvar key=extra "- Residence: {{getvar::residence}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/flushvar extra|
+	/setvar key=genSettings index=contextKey []|
+	/wait {{getvar::wait}}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=outputIsList {{pipe}}|
+	
+	
+	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+	//[[Generate with Prompt]]|
+	/:"CMC Logic.GenerateWithPrompt"|
+	/setvar key={{var::variableName}} {{getvar::output}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+:}|
+
+/var key=do No|
+/var key=variableName "occupationDuties"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings index=wi_book_key "Occupation Duties"|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=inputIsTaskList No|
+	/setvar key=genSettings index=genIsSentence Yes|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/addvar key=extra "- Time Period: {{getvar::timePeriod}} —  World Type: {{getvar::worldType}}"|
+	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
+	/addvar key=extra "- Residence: {{getvar::residence}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/flushvar extra|
+	/setvar key=genSettings index=contextKey []|
+	/wait {{getvar::wait}}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=outputIsList {{pipe}}|
+	
+	
+	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+	//[[Generate with Prompt]]|
+	/:"CMC Logic.GenerateWithPrompt"|
+	/setvar key={{var::variableName}} {{getvar::output}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+:}|
+
+/var key=do No|
+/var key=variableName "occupationSkills"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings index=wi_book_key "Occupation Skills"|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=inputIsTaskList No|
+	/setvar key=genSettings index=genIsSentence Yes|
+	/setvar key=genSettings index=needOutput No|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/addvar key=extra "- Occupation: {{getvar::occupationBase}}"|
+	/addvar key=extra "- Duties: {{getvar::occupationDuties}}"|
+	/addvar key=extra "- Time Period: {{getvar::timePeriod}} —  World Type: {{getvar::worldType}}"|
+	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/flushvar extra|
+	/setvar key=genSettings index=contextKey []|
+	/wait {{getvar::wait}}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=outputIsList {{pipe}}|
+	
+	
+	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+	//[[Generate with Prompt]]|
+	/:"CMC Logic.GenerateWithPrompt"|
+	/setvar key={{var::variableName}} {{getvar::output}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+:}|
+//-----------|
+
+/findentry field=comment file="CMC Templates" "Occupation Template"|
+/let key=wi_uid {{pipe}}|
+/getentryfield field=content file=CMC Templates {{var::wi_uid}}|
+/let key=template {{pipe}}|
+/ife (occupationSkills != 'None') {:
+	/re-replace find="/--OccupationSkills--/g" replace="  - Skills: {{getvar::occupationSkills}}" {{var::template}}|
+	/setvar key=parsedOccupation {{pipe}}|
+:}|
+/else {:
+	/re-replace find="/--OccupationSkills--/g" replace="" {{var::template}}|
+	/setvar key=parsedOccupation {{pipe}}|
+:}|
+ /addvar key=dataBaseNames parsedOccupation|
+
 //Lore|
 /buttons labels=["Yes", "No"] Do you want to have Lore for the world?|
 /setvar key=selected_btn {{pipe}}|
@@ -357,7 +594,6 @@
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=extra []|
-		/addvar key=extra "**CONTEXT (for your reference—do not include in the answer):**"|
 		/ife (seasons != '') {:
 			/addvar key=extra "- Time/Period: {{getvar::timePeriod}} ,{{getvar::seasons}}"|
 		:}|
@@ -368,7 +604,7 @@
 		/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/flushvar extra|
-		/setvar key=genSettings index=useContext No|
+		/setvar key=genSettings index=useContext Yes|
 		/setvar key=genSettings index=contextKey {{noop}}|
 		
 		/getvar key=genSettings index=inputIsList|
@@ -405,6 +641,72 @@
 :}|
 //-----------|
 
+
+
+//Backstory|
+/var key=do No|
+/var key=variableName "backstory"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings index=wi_book_key "Backstory"|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=inputIsTaskList No|
+	/setvar key=genSettings index=genIsSentence Yes|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/ife (seasons != 'None') {:
+		/addvar key=extra "- Time Period: {{getvar::timePeriod}} — Season: {{getvar::seasons}}"|
+	:}|
+	/else {:
+		/addvar key=extra "- Time Period: {{getvar::timePeriod}}"|
+	:}|
+	/addvar key=extra "- World Type: {{getvar::worldType}}"|
+	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/flushvar extra|
+	/setvar key=genSettings index=contextKey []|
+	/wait {{getvar::wait}}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=outputIsList {{pipe}}|
+	
+	
+	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+	//[[Generate with Prompt]]|
+	/:"CMC Logic.GenerateWithPrompt"|
+	/setvar key={{var::variableName}} {{getvar::output}}|
+
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+//-----------|
+
 //Scenario Overview|
 /var key=do Yes|
 /var key=variableName "scenarioOverview"|
@@ -413,13 +715,38 @@
 	/var key=do {{pipe}}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/input default="Example: user is a neighbor of {{getvar::firstName}} and is often hired by {{getvar::firstName}}'s parents to babysit {{getvar::firstName}}, which has led to [...]" <div>What is this scenario about?</div><div>What is the main idea?</div>|
-	/setvar key=scenarioIde {{pipe}}|
-	/setvar key=genSettings index=wi_book_key "Scenario"|
+	
+	/buttons labels=["User Input", "No Input"] Do you want to have to it generate a Scenario Overview by itself (You can still give it some guidence) or do you want to give it something to work from?|
+	/let key=choice {{pipe}}|
+	/ife (choice == '') {:
+		/echo Aborting |
+		/abort
+	:}|
+	/ife (choice == 'User Input') {:
+		/input default="Example: user is a neighbor of {{getvar::firstName}} and is often hired by {{getvar::firstName}}'s parents to babysit {{getvar::firstName}}, which has led to [...]" <div>What is this scenario about?</div><div>What is the main idea?</div>|
+		/setvar key=scenarioIde {{pipe}}|
+		/setvar key=genSettings index=wi_book_key "Scenario User"|
+	:}|
+	/else {:
+		/setvar key=genSettings index=wi_book_key "Scenario Create"|
+	:}|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/ife (seasons != 'None') {:
+		/addvar key=extra "- Time Period: {{getvar::timePeriod}} — Season: {{getvar::seasons}}"|
+	:}|
+	/else {:
+		/addvar key=extra "- Time Period: {{getvar::timePeriod}}"|
+	:}|
+	/addvar key=extra "- World Type: {{getvar::worldType}}"|
+	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
+	/addvar key=extra "- Residence: {{getvar::residence}}"|
+	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/flushvar extra|
 	/setvar key=genSettings index=contextKey {{noop}}|
 	
 	/getvar key=genSettings index=inputIsList|
@@ -457,4 +784,4 @@
 /var qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
-/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Basic World Information" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Appearance & Anatomy" {{pipe}}|

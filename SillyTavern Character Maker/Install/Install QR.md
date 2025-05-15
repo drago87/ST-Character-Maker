@@ -166,56 +166,62 @@
 
 
 /ife ( 'Step1 Generate Core Identity' not in qrListContent) {:
-	/fetch |
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step1%20Generate%20Core%20Identity.md|
 	/qr-create set="CMC Generate" label="Step1 Generate Core Identity" {{pipe}}|
 	//|-----|
 :}|
 
 /ife ( 'Step2 Generate World-Setting Information' not in qrListContent) {:
-	/fetch |
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step2%20Generate%20World%20%26%20Setting%20Information.md|
 	/qr-create set="CMC Generate" label="Step2 Generate World-Setting Information" {{pipe}}|
 	//|-----|
 :}|
 
 /ife ( 'Step3 Generate Appearance-Anatomy' not in qrListContent) {:
-	/fetch |
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step3%20Generate%20Appearance%20%26%20Anatomy.md|
 	/qr-create set="CMC Generate" label="Step3 Generate Appearance-Anatomy" {{pipe}}|
 	//|-----|
 :}|
 
-/ife ( 'Step4 Generate Mental Traits-Personality' not in qrListContent) {:
-	/fetch |
-	/qr-create set="CMC Generate" label="Step4 Generate Mental Traits-Personality" {{pipe}}|
+/ife ( 'Step4 Generate Appearance-Anatomy' not in qrListContent) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step3%20Generate%20Appearance%20%26%20Anatomy.md|
+	/qr-create set="CMC Generate" label="Step4 Generate Outfit" {{pipe}}|
 	//|-----|
 :}|
 
-/ife ( 'Step5 Generate Aspirational-Unique Traits' not in qrListContent) {:
-	/fetch |
-	/qr-create set="CMC Generate" label="Step5 Generate Aspirational-Unique Traits" {{pipe}}|
+/ife ( 'Step5 Generate Mental Traits-Personality' not in qrListContent) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step5%20Generate%20Mental%20Traits%20%26%20Personality.md|
+	/qr-create set="CMC Generate" label="Step5 Generate Mental Traits-Personality" {{pipe}}|
 	//|-----|
 :}|
 
-/ife ( 'Step6 Generate Speech Patterns' not in qrListContent) {:
-	/fetch |
-	/qr-create set="CMC Generate" label="Step6 Generate Speech Patterns" {{pipe}}|
+/ife ( 'Step6 Generate Aspirational-Unique Traits' not in qrListContent) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step6%20Generate%20Aspirational%20%26%20Unique%20Traits.md|
+	/qr-create set="CMC Generate" label="Step6 Generate Aspirational-Unique Traits" {{pipe}}|
 	//|-----|
 :}|
 
-/ife ( 'Step7 Generate External Interaction' not in qrListContent) {:
-	/fetch |
-	/qr-create set="CMC Generate" label="Step7 Generate External Interaction" {{pipe}}|
+/ife ( 'Step7 Generate Speech Patterns' not in qrListContent) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step7%20Speech%20Patterns.md|
+	/qr-create set="CMC Generate" label="Step7 Generate Speech Patterns" {{pipe}}|
 	//|-----|
 :}|
 
-/ife ( 'Step8 Generate Sexual Information' not in qrListContent) {:
-	/fetch |
-	/qr-create set="CMC Generate" label="Step8 Generate Sexual Information" {{pipe}}|
+/ife ( 'Step8 Generate External Interaction' not in qrListContent) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step8%20External%20Interaction.md|
+	/qr-create set="CMC Generate" label="Step8 Generate External Interaction" {{pipe}}|
 	//|-----|
 :}|
 
-/ife ( 'Step9 Generate Extras' not in qrListContent) {:
-	/fetch |
-	/qr-create set="CMC Generate" label="Step9 Generate Extras" {{pipe}}|
+/ife ( 'Step9 Generate Sexual Information' not in qrListContent) {:
+	/fetch https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step9%20Sexual%20Information.md|
+	/qr-create set="CMC Generate" label="Step9 Generate Sexual Information" {{pipe}}|
+	//|-----|
+:}|
+
+/ife ( 'Step10 Generate Extras' not in qrListContent) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step10%20Extras.md|
+	/qr-create set="CMC Generate" label="Step10 Generate Extras" {{pipe}}|
 	//|-----|
 :}|
 

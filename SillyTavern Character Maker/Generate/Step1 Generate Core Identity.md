@@ -3,7 +3,7 @@
 /let qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
-/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating Character Information" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating Core Identity" {{pipe}}|
 
 /:"CMC Logic.Get Char info"|
 
@@ -579,7 +579,6 @@
 :}|
 //-----------|
 
-
 /ife ( nationality == '' ) {:
 	/setvar key=nationality None|
 :}|
@@ -600,7 +599,7 @@
 /var qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
-/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Personality" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating World & Setting Information" {{pipe}}|
 
 /let key=filename {{datetimeformat YYYY-MM-DD HH h mm}}|
 /re-replace find="/\s(?=\d{2}$)/g" replace="h " {{var::filename}}|

@@ -49,13 +49,28 @@
 	/var selected_btn {{pipe}}|
 :}|
 /ife ( (gender == '') or ( selected_btn == 'Yes')) {:
-	/buttons labels=["Female", "Male", "Futanari"] What gender is the character you are making? |
+	/buttons labels=["Female", "Male"] What gender is the character you are making? |
 	/setvar key=gender {{pipe}}|
 	/ife ( gender == '') {:
 		/echo Aborting |
 		/abort
 	:}|
 :}|
+/var selected_btn {{noop}}|
+/ife ( futanari != '' ) {:
+	/buttons labels=["Yes", "No"] Do you want to change the futanari choice?|
+	/var selected_btn {{pipe}}|
+:}|
+/ife ( (futanari == '') or ( selected_btn == 'Yes')) {:
+	/buttons labels=["Yes", "No"] Is the character you are making a futanari? |
+	/setvar key=futunari {{pipe}}|
+	/ife ( gender == '') {:
+		/echo Aborting |
+		/abort
+	:}|
+:}|
+
+
 /var selected_btn {{noop}}|
 /ife ( normal_form != '' ) {:
 	/buttons labels=["Yes", "No"] Do you want to change the type of character?|
@@ -193,6 +208,7 @@ INSTRUCTION: Only respond in the given format.|
 /addvar key=dataBaseNames normal_form|
 /addvar key=dataBaseNames speciesType|
 /addvar key=dataBaseNames gender|
+/addvar key=dataBaseNames futanari|
 /addvar key=dataBaseNames character_type|
 /addvar key=dataBaseNames user|
 /addvar key=dataBaseNames chatGroup|

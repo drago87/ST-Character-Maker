@@ -75,6 +75,26 @@
 	/re-replace find="/--Gender--/g" replace="{{getvar::gender}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
+/ife ((futanari != '') and (futanari == 'Yes')) {:
+	/messages names=off 0|
+	/re-replace find="/--Futanari--/g" replace=" Futanari" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/else {:
+	/messages names=off 0|
+	/re-replace find="/--Futanari--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife ((length != '') and (length != 'None')) {:
+	/messages names=off 0|
+	/re-replace find="/--Length--/g" replace="{{getvar::length}}{{newline}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (length == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--Length--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
 /ife (height != '') {:
 	/messages names=off 0|
 	/re-replace find="/--Height--/g" replace="{{getvar::height}}" {{pipe}}|

@@ -1,37 +1,28 @@
+Code and Prompt Done       ✅
+Code and Prompt Not Done❌
+
 ### 1. **Core Identity**
 
 Establishes the biological, cultural, and temporal framework of the character.
 
-1. **Species**
-    
-2. **Nationality**
-    
-3. **Ethnicity**
-    
-4. **Gender**
-    
-5. **Age**
-    
-6. **Name** (`--FirstName--`, `--LastName--`, `--Alias--`)
+1. **Species** ✅
+2. **Nationality** ✅
+3. **Ethnicity** ✅
+4. **Gender** ✅
+5. **Age** ✅
+6. **Name** ✅
 
 ### 2. World & Setting Information
 
-7. **TimePeriod**
-    
-8. **Season**
-    
-9. **World Type** (`--WorldType--`)
-    
-10. **World Details** (`--WorldDetails--`)
-    
-11. **Residence**
-    
-12. **Lore**
-    
-13. **Backstory**
-    
-14. **Scenario Overview**
-    
+7. **Time Period** ✅
+8. **Season** ✅
+9. **World Type** ✅
+10. **World Details** ✅
+11. **Residence** ✅
+12. **Occupation** ✅
+13. **Lore** ✅
+14. **Backstory** ✅
+15. **Scenario Overview** ✅
 
 ---
 
@@ -39,168 +30,138 @@ Establishes the biological, cultural, and temporal framework of the character.
 
 Builds physical traits dependent on species, age, and gender.
 
-15. **Height**
-    
-16. **Face**, **Hair**, **Eyes**
-    
-17. **Body**
-    
-18. **Features**
-    
-19. **Nipples**, **Breasts**, **Privates**, **Anus** _(if applicable)_
-    
-20. **Appearance Traits**
-    
-21. **Outfit Parts** (`--OutfitHead--` → `--OutfitUnderwear--`)
-    
+16. **Length** ❌
+17. **Height** ❌
+18. **Face** ❌
+19. **Hair** ❌
+20. **Eyes** ❌
+21. **Body** ❌
+22. **Features** ❌
+23. **Nipples**, **Breasts**, **Privates**, **Anus** ❌
+24. **Appearance Traits** ❌
 
 ---
 
-### 🧠 4. **Mental Traits & Personality**
+### 4. Outfit
+25. **Outfit Head** ❌
+26. **Outfit Accessories** ❌
+27. **Outfit Makeup** ❌
+28. **Outfit Neck** ❌
+29. **Outfit Top** ❌
+30. **Outfit Bottom** ❌
+31. **Outfit Legs** ❌
+32. **Outfit Shoes** ❌
+33. **Outfit Underwear** ❌
+
+---
+
+### 🧠 5. **Mental Traits & Personality**
 
 Informed by age, species, backstory, and alignment.
 
-22. **Archetype** (`Modifier + Archetype + Addition`)
-    
-23. **Archetype Details**
-    
-24. **Reasoning** (psychological background for behavior)
-    
-25. **Alignment**
-    
-26. **Alignment Details**
-    
-27. **Ideals**
-    
-28. **Personality Tags**
-    
-29. **Intelligence Level**
-    
-30. **Cognitive Abilities**
-    
-31. **Social Behavior**
-    
-32. **Social Skills and Integration**
-    
+34. **Archetype** ✅
+35. **Archetype Details** ✅
+36. **Reasoning** ✅
+37. **Alignment** ✅
+38. **Alignment Details** ✅
+39. **Ideals** ✅
+40. **Personality Tags** ✅
+41. **Intelligence Level** ✅
+42. **Cognitive Abilities** ✅
+43. **Social Behavior** ✅
+44. **Social Skills and Integration** ✅
 
 ---
 
-### 🌟 5. **Aspirational & Unique Traits**
+### 🌟 6. **Aspirational & Unique Traits**
 
 Defines goals, internal rules, and magical/abnormal states.
 
-33. **Main Aspiration**
-    
-34. **Aspiration Details**
-    
-35. **Aspiration Goals**
-    
-36. **Unique Trait(s)**
-    
-37. **Unique Trait Effect(s)**
-    
+45. **Main Aspiration** ✅
+46. **Aspiration Details**  ✅
+47. **Aspiration Goals**  ✅
+48. **Unique Trait(s)**  ✅
+49. **Unique Trait Effect(s)**  ✅
 
 ---
 
-### 💬 6. **Speech Patterns**
+### 💬 7. **Speech Patterns**
 
 Based on age, intelligence, archetype, and social level.
 
-38. **Speech Style**
-    
-39. **Speech Quirks**
-    
-40. **Speech Tics**
-    
-41. **Speech Examples**
-    
+50. **Speech Style** ❌
+51. **Speech Quirks** ❌
+52. **Speech Tics** ❌
+53. **Speech Examples** ❌
 
 ---
 
-### 🧩 7. **External Interaction**
+### 🧩 8. **External Interaction**
 
 How the character fits into the world and with others.
 
-42. **Connections**
-    
-43. **Abilities**
-    
-44. **Items / Equipment**
-    
-45. **Secrets**
-    
-46. **Reputation** _(optional expansion from alignment/social behavior)_
-    
+54. **Connections** ❌
+55. **Abilities** ❌
+56. **Items / Equipment** ❌
+57. **Secrets** ❌
+58. **Reputation** ❌
 
 ---
 
-### 🔥 8. **Sexual Information** _(if applicable)_
+### 🔥 9. **Sexual Information** _(if applicable)_
 
 Informed by age, gender, maturity, and world tone.
 
-47. **Sexual Orientation**
-    
-48. **Sexual Role**
-    
-49. **Kinks**
-    
-50. **Sexual Notes**
-    
+59. **Sexual Orientation** ❌
+60. **Sexual Role** ❌
+61. **Kinks** ❌
+62. **Sexual Notes** ❌
 
 ---
 
-### 🧠 9. **Optional Extras**
+### 🧠 10. **Optional Extras**
 
 Narrative scaffolding and additional logic or design hooks.
 
-51. **Behavior Notes**
-    
-52. **Appearance QA List**
-    
-53. **Personality QA**
-    
-54. **Sexuality QA**
-    
-55. **Story Plan**
-    
-56. **Previously...**
-    
-57. **Notes**
-    
-58. **Synonyms**
-    
-59. **Extra Characters**
-    
-60. **--User1--** (handled last for external interactions)
-
-
+63. **Behavior Notes** ❌
+64. **Appearance QA** ❌
+65. **Personality QA** ✅
+66. **Sexuality QA** ❌
+67. **Extra QA** ❌
+68. **Story Plan** ❌
+69. **Previously...** ❌
+70. **Notes** ❌
+71. **Synonyms** ❌
+72. **Extra Characters** ❌
+73. **--User--** ❌
 
 ## 🌍 World & Setting Information
 
-| Trait                                  | Recommended Dependencies                                                                                                                                                      |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **TimePeriod**                         | Base Information, **Species** _(determines available technology, culture, and naming conventions)_                                                                            |
-| **Season**                             | Base Information _(affects current climate, outfit choices, emotional tone)_                                                                                                  |
-| **World Type** (`--WorldType--`)       | **TimePeriod**, **Species** _(defines fantasy, sci-fi, or realistic logic)_                                                                                                   |
-| **World Details** (`--WorldDetails--`) | **World Type**, **TimePeriod**, **Nationality**, **Species** _(adds magic, history, conflicts, geography)_                                                                    |
-| **Residence**                          | **World Details**, **Species**, **Nationality**, **Ethnicity** _(determines environment and local norms)_                                                                     |
-| **Lore**                               | **World Type**, **World Details**, **TimePeriod**, **Species**, optionally **Residence**                                                                                      |
-| **Backstory**                          | **Base Information**, **Species**, **TimePeriod**, **World Details**, **Residence**, **Age**, **Gender** _(provides emotional + narrative foundation for behavior and goals)_ |
-| **Scenario Overview**                  | **Backstory**, **World Details**, **Residence**, **TimePeriod**                                                                                                               |
+| Trait                 | Recommended Dependencies                                                                                                                                                      |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TimePeriod**        | Base Information, **Species** _(determines available technology, culture, and naming conventions)_                                                                            |
+| **Season**            | Base Information _(affects current climate, outfit choices, emotional tone)_                                                                                                  |
+| **World Type**        | **TimePeriod**, **Species** _(defines fantasy, sci-fi, or realistic logic)_                                                                                                   |
+| **World Details**     | **World Type**, **TimePeriod**, **Nationality**, **Species** _(adds magic, history, conflicts, geography)_                                                                    |
+| **Residence**         | **World Details**, **Species**, **Nationality**, **Ethnicity** _(determines environment and local norms)_                                                                     |
+| **Lore**              | **World Type**, **World Details**, **TimePeriod**, **Species**, optionally **Residence**                                                                                      |
+| **Backstory**         | **Base Information**, **Species**, **TimePeriod**, **World Details**, **Residence**, **Age**, **Gender** _(provides emotional + narrative foundation for behavior and goals)_ |
+| **Scenario Overview** | **Backstory**, **World Details**, **Residence**, **TimePeriod**                                                                                                               |
 
 ---
 ## 📏 Appearance Section
 
-| Trait                                            | Recommended Dependencies                                                              |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------- |
-| **Height**                                       | Base Information _(Age, Gender, Species define scale and stature)_                    |
-| **Body**                                         | Base Information, **Height** _(build, proportion)_                                    |
-| **Face**                                         | Base Information, **Species**                                                         |
-| **Hair**                                         | Base Information, **Ethnicity**, **Age** _(texture, color trends)_                    |
-| **Eyes**                                         | Base Information, **Species**, **Ethnicity** _(eye shape, rare traits)_               |
-| **Features**                                     | Base Information, **Height**, **Body**, **Face** _(scars, tails, fangs, etc.)_        |
-| **Appearance Traits**                            | Base Information, **Features**, **Body** _(quirky traits, stylized detail)_           |
-| **Nipples**, **Breasts**, **Privates**, **Anus** | Base Information, **Gender**, **Body**, **Life Stage** _(anatomical maturity + type)_ |
+| Trait                                            | Recommended Dependencies                                                                |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------- |
+| **Length**                                       | Base Information, **Species**, **Age** _(Only for non-humanoids or multi-form species)_ |
+| **Height**                                       | Base Information _(Age, Gender, Species define scale and stature)_                      |
+| **Body**                                         | Base Information, **Height** _(build, proportion)_                                      |
+| **Face**                                         | Base Information, **Species**                                                           |
+| **Hair**                                         | Base Information, **Ethnicity**, **Age** _(texture, color trends)_                      |
+| **Eyes**                                         | Base Information, **Species**, **Ethnicity** _(eye shape, rare traits)_                 |
+| **Features**                                     | Base Information, **Height**, **Body**, **Face** _(scars, tails, fangs, etc.)_          |
+| **Appearance Traits**                            | Base Information, **Features**, **Body** _(quirky traits, stylized detail)_             |
+| **Nipples**, **Breasts**, **Privates**, **Anus** | Base Information, **Gender**, **Body**, **Life Stage** _(anatomical maturity + type)_   |
 
 ---
 
@@ -290,3 +251,23 @@ Narrative scaffolding and additional logic or design hooks.
 |**Story Plan**|**Backstory**, **Aspiration**, **Connections**|
 |**Previously**|**Story Plan**, **Reputation**|
 |**Synonyms**|**Name**, **Archetype**|
+
+### **EXAMPLES (for your reference—do not include in the answer):**
+
+#### **Example (Height – Biped, Metric):**
+
+1.52 m, 1.60 m, 1.68 m, 1.74 m, 1.82 m
+
+#### **Example (Height – Biped, Imperial):**
+
+5'0", 5'3", 5'6", 5'8", 6'0"
+
+---
+
+#### **Example (Length – Animal/Quadruped, Metric):**
+
+2.1 m, 2.4 m, 2.8 m, 3.0 m, 3.3 m
+
+#### **Example (Length – Animal/Quadruped, Imperial):**
+
+6'11", 7'10", 9'2", 9'10", 10'10"

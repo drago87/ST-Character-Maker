@@ -27,3 +27,64 @@
 /let key=do {{noop}}|
 /let key=variableName {{noop}}|
 /let selected_btn {{noop}}|
+
+//**Length**|
+
+//-----------|
+
+//**Height**|
+
+//-----------|
+
+//**Face**|
+
+//-----------|
+
+//**Hair**|
+
+//-----------|
+
+//**Eyes**|
+
+//-----------|
+
+//**Body**|
+
+//-----------|
+
+//**Features**|
+
+//-----------|
+
+//**Nipples**|
+
+//-----------|
+
+//**Breasts**|
+
+//-----------|
+
+//**Privates**|
+
+//-----------|
+
+//**Anus**|
+
+//-----------|
+
+//**Appearance Traits**|
+
+//-----------|
+
+
+/:"CMC Logic.JEDParse"|
+
+/:"CMC Logic.Save DataBase"|
+
+/setvar key=stepDone Yes|
+/qr-list CMC Main|
+/getat index=1 {{pipe}}|
+/var qrlabel {{pipe}}|
+/qr-get set="CMC Main" label={{var::qrlabel}}|
+/getat index="message" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Outfit" {{pipe}}|

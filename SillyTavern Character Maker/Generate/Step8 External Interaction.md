@@ -3,7 +3,7 @@
 /let qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
-/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating Appearance & Anatomy" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating External Interaction" {{pipe}}|
 
 /:"CMC Logic.Get Char info"|
 
@@ -27,3 +27,38 @@
 /let key=do {{noop}}|
 /let key=variableName {{noop}}|
 /let selected_btn {{noop}}|
+
+//Connections|
+
+//--------|
+
+//Abilities|
+
+//--------|
+
+//Items / Equipment|
+
+//--------|
+
+//Secrets|
+
+//--------|
+
+//Reputation|
+
+//--------|
+
+
+/*
+/:"CMC Logic.JEDParse"|
+
+/:"CMC Logic.Save DataBase"|
+
+/setvar key=stepDone Yes|
+/qr-list CMC Main|
+/getat index=1 {{pipe}}|
+/var qrlabel {{pipe}}|
+/qr-get set="CMC Main" label={{var::qrlabel}}|
+/getat index="message" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Sexual Information" {{pipe}}|
+*|
