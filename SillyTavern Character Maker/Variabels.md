@@ -50,6 +50,9 @@ appearancePussy
 appearanceCock
 appearanceGenitals
 appearanceAnus
+appearanceTraits
+appearanceTraitsDetails
+appearanceTraitsEffect
 
 To change
 character_type -> characterType

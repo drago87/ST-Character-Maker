@@ -154,7 +154,7 @@
 
 /ife ( 'Get Basic Type Context' not in qrListContent) {:
 	//JEDParse|
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/JEDParse.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Get%20Basic%20Type%20Context.md|
 	/qr-create set="CMC Logic" label="Get Basic Type Context" {{pipe}}|
 	//|-----|
 :}|

@@ -70,8 +70,14 @@
 		/setvar key=extra []|
 		/addvar key=extra "- Unit Type: {{getvar::unitType}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
+		/setvar key=extra []|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
+		:}|
+		/else {:
+			/setvar key=genSettings index=contextKey []|
+		:}|
 		/flushvar extra|
-		/setvar key=genSettings index=contextKey []|
 		/wait {{getvar::wait}}|
 		
 		/getvar key=genSettings index=inputIsList|
@@ -80,7 +86,7 @@
 		/let key=outputIsList {{pipe}}|
 		
 		
-		/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 			/setvar as=array key={{var::variableName}} []|
 		:}|
 		/else {:
@@ -133,8 +139,14 @@
 		/setvar key=extra []|
 		/addvar key=extra "- Unit Type: {{getvar::unitType}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
+		/setvar key=extra []|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
+		:}|
+		/else {:
+			/setvar key=genSettings index=contextKey []|
+		:}|
 		/flushvar extra|
-		/setvar key=genSettings index=contextKey []|
 		/wait {{getvar::wait}}|
 		
 		/getvar key=genSettings index=inputIsList|
@@ -143,7 +155,7 @@
 		/let key=outputIsList {{pipe}}|
 		
 		
-		/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 			/setvar as=array key={{var::variableName}} []|
 		:}|
 		/else {:
@@ -194,18 +206,10 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
-		/ife ( (characterType != 'Animalistic') and (characterType != 'None')) {:
-			/addvar key=extra "{{getvar::characterArchetype}} {{getvar::characterType}}"|
-		:}|
-		/else {:
-			/addvar key=extra "{{getvar::characterArchetype}} Animalistic"|
-		:}|
+	/:"CMC Logic.Get Basic Type Context"|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	:}|
-	/elseif (characterArchetype == 'Tauric') {:
-		/addvar key=extra "Tauric"|
-	:}|
-	/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
@@ -215,7 +219,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
@@ -259,18 +263,10 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
-		/ife ( (characterType != 'Animalistic') and (characterType != 'None')) {:
-			/addvar key=extra "{{getvar::characterArchetype}} {{getvar::characterType}}"|
-		:}|
-		/else {:
-			/addvar key=extra "{{getvar::characterArchetype}} Animalistic"|
-		:}|
+	/:"CMC Logic.Get Basic Type Context"|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	:}|
-	/elseif (characterArchetype == 'Tauric') {:
-		/addvar key=extra "Tauric"|
-	:}|
-	/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
@@ -280,7 +276,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
@@ -324,18 +320,10 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
-		/ife ( (characterType != 'Animalistic') and (characterType != 'None')) {:
-			/addvar key=extra "{{getvar::characterArchetype}} {{getvar::characterType}}"|
-		:}|
-		/else {:
-			/addvar key=extra "{{getvar::characterArchetype}} Animalistic"|
-		:}|
+	/:"CMC Logic.Get Basic Type Context"|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	:}|
-	/elseif (characterArchetype == 'Tauric') {:
-		/addvar key=extra "Tauric"|
-	:}|
-	/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
@@ -345,7 +333,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
@@ -389,18 +377,10 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
-		/ife ( (characterType != 'Animalistic') and (characterType != 'None')) {:
-			/addvar key=extra "{{getvar::characterArchetype}} {{getvar::characterType}}"|
-		:}|
-		/else {:
-			/addvar key=extra "{{getvar::characterArchetype}} Animalistic"|
-		:}|
+	/:"CMC Logic.Get Basic Type Context"|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	:}|
-	/elseif (characterArchetype == 'Tauric') {:
-		/addvar key=extra "Tauric"|
-	:}|
-	/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
@@ -410,7 +390,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
@@ -457,18 +437,10 @@
 	/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
-	/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
-		/ife ( (characterType != 'Animalistic') and (characterType != 'None')) {:
-			/addvar key=extra "{{getvar::characterArchetype}} {{getvar::characterType}}"|
-		:}|
-		/else {:
-			/addvar key=extra "{{getvar::characterArchetype}} Animalistic"|
-		:}|
+	/:"CMC Logic.Get Basic Type Context"|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	:}|
-	/elseif (characterArchetype == 'Tauric') {:
-		/addvar key=extra "Tauric"|
-	:}|
-	/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
@@ -478,7 +450,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
@@ -527,18 +499,10 @@
 		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
-		/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
-			/ife ( (characterType != 'Animalistic') and (characterType != 'None')) {:
-				/addvar key=extra "{{getvar::characterArchetype}} {{getvar::characterType}}"|
-			:}|
-			/else {:
-				/addvar key=extra "{{getvar::characterArchetype}} Animalistic"|
-			:}|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		:}|
-		/elseif (characterArchetype == 'Tauric') {:
-			/addvar key=extra "Tauric"|
-		:}|
-		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		/flushvar extra|
 		/wait {{getvar::wait}}|
 		
@@ -548,7 +512,7 @@
 		/let key=outputIsList {{pipe}}|
 		
 		
-		/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 			/setvar as=array key={{var::variableName}} []|
 		:}|
 		/else {:
@@ -598,18 +562,10 @@
 		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
-		/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
-			/ife ( (characterType != 'Animalistic') and (characterType != 'None')) {:
-				/addvar key=extra "{{getvar::characterArchetype}} {{getvar::characterType}}"|
-			:}|
-			/else {:
-				/addvar key=extra "{{getvar::characterArchetype}} Animalistic"|
-			:}|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		:}|
-		/elseif (characterArchetype == 'Tauric') {:
-			/addvar key=extra "Tauric"|
-		:}|
-		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		/flushvar extra|
 		/wait {{getvar::wait}}|
 		
@@ -619,7 +575,7 @@
 		/let key=outputIsList {{pipe}}|
 		
 		
-		/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 			/setvar as=array key={{var::variableName}} []|
 		:}|
 		/else {:
@@ -681,22 +637,14 @@
 		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
-		/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
-			/ife ( (characterType != 'Animalistic') and (characterType != 'None')) {:
-				/addvar key=extra "{{getvar::characterArchetype}} {{getvar::characterType}}"|
-			:}|
-			/else {:
-				/addvar key=extra "{{getvar::characterArchetype}} Animalistic"|
-			:}|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		:}|
-		/elseif (characterArchetype == 'Tauric') {:
-			/addvar key=extra "Tauric"|
-		:}|
+		/flushvar extra|
 		/ife (futanari == 'Yes') {:
 			/setvar key=logicBasedInstruction "6. Ensure description accounts for proximity to other anatomy but focuses **only** on the vulva.{{newline}}7. {{getvar::firstName}} is a futanari so they have both a pussy and a cock. Only describe the pussy here — do not mention the penis."|
 		:}|
-		/setvar key=genSettings index=contextKey {{getvar::extra}}|
-		/flushvar extra|
 		/wait {{getvar::wait}}|
 		
 		/getvar key=genSettings index=inputIsList|
@@ -705,7 +653,7 @@
 		/let key=outputIsList {{pipe}}|
 		
 		
-		/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 			/setvar as=array key={{var::variableName}} []|
 		:}|
 		/else {:
@@ -766,22 +714,14 @@
 		/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
-		/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
-			/ife ( (characterType != 'Animalistic') and (characterType != 'None')) {:
-				/addvar key=extra "{{getvar::characterArchetype}} {{getvar::characterType}}"|
-			:}|
-			/else {:
-				/addvar key=extra "{{getvar::characterArchetype}} Animalistic"|
-			:}|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		:}|
-		/elseif (characterArchetype == 'Tauric') {:
-			/addvar key=extra "Tauric"|
-		:}|
+		/flushvar extra|
 		/ife (futanari == 'Yes') {:
 			/setvar key=logicBasedInstruction "7. {{getvar::firstName}} is a futanari, so she has both a pussy and a cock. Describe only the cock here — do not mention the pussy directly, but ensure anatomical placement and proportions account for its presence."|
 		:}|
-		/setvar key=genSettings index=contextKey {{getvar::extra}}|
-		/flushvar extra|
 		/wait {{getvar::wait}}|
 		
 		/getvar key=genSettings index=inputIsList|
@@ -790,7 +730,7 @@
 		/let key=outputIsList {{pipe}}|
 		
 		
-		/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 			/setvar as=array key={{var::variableName}} []|
 		:}|
 		/else {:
@@ -851,18 +791,10 @@
 		/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
-		/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
-			/ife ( (characterType != 'Animalistic') and (characterType != 'None')) {:
-				/addvar key=extra "{{getvar::characterArchetype}} {{getvar::characterType}}"|
-			:}|
-			/else {:
-				/addvar key=extra "{{getvar::characterArchetype}} Animalistic"|
-			:}|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		:}|
-		/elseif (characterArchetype == 'Tauric') {:
-			/addvar key=extra "Tauric"|
-		:}|
-		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		/flushvar extra|
 		/wait {{getvar::wait}}|
 		
@@ -872,7 +804,7 @@
 		/let key=outputIsList {{pipe}}|
 		
 		
-		/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 			/setvar as=array key={{var::variableName}} []|
 		:}|
 		/else {:
@@ -939,6 +871,7 @@
 			/addvar key=logicBasedInstruction "{{newline}}7. {{getvar::firstName}} has a tail. Describe the anus in relation to the tail's base if visible."
 		:}|
 	:}|
+	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|
 	/ife (extra != '') {:
 		/setvar key=genSettings index=contextKey {{getvar::extra}}|
@@ -952,7 +885,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
@@ -974,8 +907,231 @@
 //-----------|
 
 //**Appearance Traits**|
+/var key=do No|
+/var key=variableName "appearanceTraits"|
+/buttons labels=["Yes", "No"] Do you want {{getvar::firstName}} to have any Appearance Traits?|
+/var selected_btn {{pipe}}|
+/ife ( selected_btn == 'Yes') {:
+	/ife ({{var::variableName}} == '') {:
+		/var key=do Yes|
+	:}|
+	/elseif (skip == 'Update') {:
+		/getvar key={{var::variableName}}|
+		/buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+		/var key=do {{pipe}}|
+		/ife (do == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings index=wi_book_key "Appearance Trait Type"|
+		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=inputIsTaskList No|
+		/setvar key=genSettings index=genIsSentence No|
+		/setvar key=genSettings index=needOutput No|
+		/setvar key=genSettings index=outputIsList Yes|
+		/setvar key=genSettings index=useContext Yes|
+		/setvar key=extra []|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
+		:}|
+		/flushvar extra|
+		/wait {{getvar::wait}}|
+		
+		/getvar key=genSettings index=inputIsList|
+		/let key=inputIsList {{pipe}}|
+		/getvar key=genSettings index=inputIsList|
+		/let key=outputIsList {{pipe}}|
+		
+		
+		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
+			/setvar as=array key={{var::variableName}} []|
+		:}|
+		/else {:
+			/setvar as=string key={{var::variableName}} {{noop}}|
+		:}|
+		//[[Generate with Prompt]]|
+		/:"CMC Logic.GenerateWithPrompt"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+		/addvar key=dataBaseNames {{var::variableName}}|
+		/flushvar output|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar genSettings|
+		/flushvar logicBasedInstruction|
+	:}|
+	/else {:
+		/addvar key=dataBaseNames {{var::variableName}}|
+	:}|
+:}|
+/else {:
+	/setvar key=appearanceTraits None|
+	/addvar key=dataBaseNames appearanceTraits|
+:}|
 
-//-----------|
+/ife ((appearanceTraits != '') and (appearanceTraits != 'None'))
+	//Descriptions|
+	/var key=do No|
+	/var key=variableName "appearanceTraitsDetails"|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
+	:}|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings index=wi_book_key "Appearance Trait Details"|
+		/setvar key=genSettings index=genIsList No|
+		/setvar key=genSettings index=inputIsTaskList No|
+		/setvar key=genSettings index=inputIsList Yes|
+		/setvar key=genSettings index=genIsSentence Yes|
+		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=genSettings index=outputIsList No|
+		/setvar key=genSettings index=useContext Yes|
+		/setvar key=extra []|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
+		:}|
+		/flushvar extra|
+		/wait {{getvar::wait}}|
+		
+		/getvar key=genSettings index=inputIsList|
+		/let key=inputIsList {{pipe}}|
+		/getvar key=genSettings index=inputIsList|
+		/let key=outputIsList {{pipe}}|
+		
+		
+		/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+			/setvar as=array key={{var::variableName}} []|
+		:}|
+		/else {:
+			/setvar as=string key={{var::variableName}} {{noop}}|
+		:}|
+		//[[Generate with Prompt]]|
+		/ife (inputIsList == 'Yes') {:
+			/foreach {{getvar::appearanceTraits}} {:
+				/setvar key=appearanceTrait {{var::item}}|
+				/:"CMC Logic.GenerateWithPrompt"|
+				/addvar key={{var::variableName}} {{getvar::output}}|
+				/flushvar output|
+			:}|
+			/flushvar appearanceTrait|
+		:}|
+		/else {:
+			/:"CMC Logic.GenerateWithPrompt"|
+			/setvar key={{var::variableName}} {{getvar::output}}|
+		:}|
+		/addvar key=dataBaseNames {{var::variableName}}|
+		/flushvar output|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar genSettings|
+	:}|
+	/else {:
+		/addvar key=dataBaseNames {{var::variableName}}|
+	:}|
+	
+	//|
+	/var key=do No|
+	/var key=variableName "appearanceTraitsEffect"|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
+	:}|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings index=wi_book_key "Appearance Trait Effect"|
+		/setvar key=genSettings index=genIsList No|
+		/setvar key=genSettings index=inputIsTaskList No|
+		/setvar key=genSettings index=inputIsList Yes|
+		/setvar key=genSettings index=genIsSentence Yes|
+		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=genSettings index=outputIsList No|
+		/setvar key=genSettings index=useContext Yes|
+		/setvar key=extra []|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
+		:}|
+		/flushvar extra|
+		/wait {{getvar::wait}}|
+		
+		/getvar key=genSettings index=inputIsList|
+		/let key=inputIsList {{pipe}}|
+		/getvar key=genSettings index=inputIsList|
+		/let key=outputIsList {{pipe}}|
+		
+		
+		/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+			/setvar as=array key={{var::variableName}} []|
+		:}|
+		/else {:
+			/setvar as=string key={{var::variableName}} {{noop}}|
+		:}|
+		//[[Generate with Prompt]]|
+		/ife (inputIsList == 'Yes') {:
+			/foreach {{getvar::appearanceTraits}} {:
+				/setvar key=appearanceTrait {{var::item}}|
+				/getvar key=appearanceTraitsDetails index={{var::index}}|
+				/setvar key=appearanceTraitDetails {{pipe}}|
+				/:"CMC Logic.GenerateWithPrompt"|
+				/addvar key={{var::variableName}} {{getvar::output}}|
+				/flushvar output|
+			:}|
+			/flushvar appearanceTrait|
+			/flushvar appearanceTraitsDetails|
+		:}|
+		/else {:
+			/:"CMC Logic.GenerateWithPrompt"|
+			/setvar key={{var::variableName}} {{getvar::output}}|
+		:}|
+		/addvar key=dataBaseNames {{var::variableName}}|
+		/flushvar output|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar genSettings|
+	:}|
+	/else {:
+		/addvar key=dataBaseNames {{var::variableName}}|
+	:}|
+	//-----------|
+:}|
+/else {:
+	/setvar key=appearanceTraitsDetails None|
+	/setvar key=appearanceTraitsEffect None|
+	/addvar key=dataBaseNames appearanceTraitsDetails|
+	/addvar key=dataBaseNames appearanceTraitsEffect|
+:}|
+/setvar key=parsedAppearanceTraits {{noop}}|
+/ife (appearanceTraits != 'None') {:
+	/setvar key=parsedAppearanceTraits ### APPEARANCE TRAITS|
+	/foreach {{getvar::appearanceTraits}} {:
+		/getvar key=appearanceTraitsDetails index={{var::index}}|
+		/let key=details {{pipe}}|
+		/getvar key=appearanceTraitsEffect index={{var::index}}|
+		/let key=effect {{pipe}}|
+		/addvar key=parsedAppearanceTraits "
+
+- Appearance Trait: {{var::item}}
+  - Details: {{var::details}}
+  - Effect: {{var::effect}}"
+	:}|
+:}|
 
 
 /:"CMC Logic.JEDParse"|

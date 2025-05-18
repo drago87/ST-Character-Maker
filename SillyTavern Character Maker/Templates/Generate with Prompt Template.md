@@ -24,8 +24,12 @@
 	/setvar key=extra []|//Remove if Not Used|
 	/addvar key=extra ""|//Remove if Not Used|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|//Remove if Not Used|
-	/flushvar extra| //Remove if Not Used|
-	/setvar key=genSettings index=contextKey []|
+	/setvar key=extra []|
+	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
+	:}|
+	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
 	/getvar key=genSettings index=inputIsList|

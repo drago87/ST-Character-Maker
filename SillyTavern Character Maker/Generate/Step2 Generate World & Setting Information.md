@@ -374,7 +374,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
@@ -433,7 +433,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
@@ -485,7 +485,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
@@ -538,7 +538,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:
@@ -686,7 +686,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:

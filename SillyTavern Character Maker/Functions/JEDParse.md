@@ -174,9 +174,9 @@
 	/re-replace find="/--Features--/g" replace="{{getvar::appearanceFeatures}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (apperanceTraits != '') {:
+/ife ((parsedAppearanceTraits != '') and (parsedAppearanceTraits != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--ApperanceTraits--/g" replace="{{getvar::apperanceTraits}}" {{pipe}}|
+	/re-replace find="/--ApperanceTraits--/g" replace="{{newline}}{{newline}}{{getvar::parsedAppearanceTraits}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (outfitHead != '') {:

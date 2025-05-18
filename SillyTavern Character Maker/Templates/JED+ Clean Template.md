@@ -32,9 +32,9 @@
 - Body: --Body----Breasts----Nipples----Pussy----Cock----Genitals--
 - Anus: --Anus--
 
-- Features: --Features--
+- Features: --Features----ApperanceTraits--
 
---ApperanceTraits--
+
 
 ### STARTING OUTFIT
 - Head: --OutfitHead--
