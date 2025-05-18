@@ -47,6 +47,9 @@ appearanceBody
 appearanceBreasts
 appearanceNipples
 appearancePussy
+appearanceCock
+appearanceGenitals
+appearanceAnus
 
 To change
 character_type -> characterType

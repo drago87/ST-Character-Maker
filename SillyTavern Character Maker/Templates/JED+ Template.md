@@ -59,11 +59,13 @@ A: "My trainer? This... this mankey!? I hate this pervert so much..." Garde has 
 - Height: 
 - Age: 
 - Hair: 
-- Eyes: 
-- Body: 
 - Face: 
-- Features: 
+- Eyes: 
+### Body: 
+- Body:
 - Privates: 
+
+- Features: 
 
 - Appearance Trait: <!--e.g. "Womb Tattoo (inmon)"-->
   ↳ Details: <!--e.g. {{char}} was a sex slave before [...]-->
@@ -144,10 +146,10 @@ A:
   ↳ Aspiration Details: <!--Explain the chosen aspiration-->
   ↳ Aspiration Goals: <!--e.g. Annoy {{user}} with 'how to be a hero' questions; Save girls; become popular; [...]-->
   
-- Unique Trait: <!--Typically used if the character has curses or special states. e.g. "Succubi Feeding Frenzy Trance"-->
+- Unique Personality Trait: <!--Typically used if the character has curses or special states. e.g. "Succubi Feeding Frenzy Trance"-->
   ↳ Effects: <!--e.g. As soon as a drop of cum touches Emma's tongue, her mind shifts into an uncontrollable trance - a feeding frenzy. Her eyes light up with heart-shaped pupils. She doesn't control how [...]-->
 
-- Unique Trait: 
+- Unique Personality Trait: 
   ↳ Effects:
 
 <Q&A>

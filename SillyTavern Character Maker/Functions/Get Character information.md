@@ -37,7 +37,8 @@
 //Parse Real Character info|
 /ife ( real == 'Yes') {:
 	/setvar key=realInfoParced "{{newline}}- Origin: {{getvar::media_type}} – {{getvar::media_name}}"|
-	/setvar key=realParced "{{char}} is a character from the {{getvar::media_type}} _{{getvar::media_name}}._"|
+	/setvar key=realParced "{{getvar::firstName}} is a character from the {{getvar::media_type}} _{{getvar::media_name}}_."|
+	/setvar key=realParcedContext "{{newline}}{{getvar::name}} is a character from the {{getvar::media_type}} _{{getvar::media_name}}_. Use your knowledge about {{getvar::name}} and the {{getvar::media_type}} _{{getvar::media_name}}_ when doing the assigned **TASK**"|
 :}|
 //-----------|
 
@@ -63,6 +64,10 @@
 
 /ife ( lastName == '' ) {:
 	/setvar key=lastName {{noop}}|
+	/setvar key=name {{getvar::firstName}}|
+:}|
+/elseif ((firstName != '') and (lastName != '') ) {:
+	/setvar key=name {{getvar::firstName}} {{getvar::lastName}}|
 :}|
 /ife ( alias == '' ) {:
 	/setvar key=alias {{noop}}|

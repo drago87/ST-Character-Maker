@@ -639,12 +639,18 @@
 	:}|
 //-----------|
 :}|
+/else {:
+	/setvar key=appearanceBreasts None|
+	/setvar key=appearanceNipples None|
+	/addvar key=dataBaseNames appearanceBreasts|
+	/addvar key=dataBaseNames appearanceNipples|
+:}|
 
-
+//**Pussy**|
+/var key=do No|
+/var key=variableName "appearancePussy"|
 /ife (gender != 'Male') {:
-	//**Pussy**|
-	/var key=do No|
-	/var key=variableName "appearancePussy"|
+	
 	/ife ({{var::variableName}} == '') {:
 	    /var key=do Yes|
 	:}|
@@ -720,11 +726,16 @@
 	:}|
 	//-----------|
 :}|
+/else {:
+	/setvar key={{var::variableName}} None|
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
 
-/elseif (gender != 'Female') {:
-	//**Cock**|
-	/var key=do No|
-	/var key=variableName "appearanceCock"|
+
+//**Cock**|
+/var key=do No|
+/var key=variableName "appearanceCock"|
+/if (gender != 'Female') {:
 	/ife ({{var::variableName}} == '') {:
 	    /var key=do Yes|
 	:}|
@@ -768,7 +779,6 @@
 		:}|
 		/ife (futanari == 'Yes') {:
 			/setvar key=logicBasedInstruction "7. {{getvar::firstName}} is a futanari, so she has both a pussy and a cock. Describe only the cock here — do not mention the pussy directly, but ensure anatomical placement and proportions account for its presence."|
-"|
 		:}|
 		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		/flushvar extra|
@@ -801,10 +811,16 @@
 	:}|
 	//-----------|
 :}|
-/elseif (futanari == 'Yes') {:
-	//**Privates Sync**|
-	/var key=do No|
-	/var key=variableName "appearanceGenitals"|
+/else {:
+	/setvar key={{var::variableName}} None|
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+
+//**Privates Sync**|
+/var key=do No|
+/var key=variableName "appearanceGenitals"|
+/if (futanari == 'Yes') {:
+	
 	/ife ({{var::variableName}} == '') {:
 	    /var key=do Yes|
 	:}|
@@ -877,11 +893,84 @@
 	:}|
 	//-----------|
 :}|
+/else {:
+	/setvar key={{var::variableName}} None|
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
 
 
 
 //**Anus**|
-
+/var key=do No|
+/var key=variableName "appearanceAnus"|
+/ife ({{var::variableName}} == '') {:
+	/var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+	/getvar key={{var::variableName}}|
+	/buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	/var key=do {{pipe}}|
+	/ife (do == '') {:
+		/echo Aborting |
+		/abort
+	:}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings index=wi_book_key "Appearance Anus"|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=inputIsTaskList No|
+	/setvar key=genSettings index=genIsSentence Yes|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
+	/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+	/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/ife (futanari == 'Yes') {:
+		/setvar key=logicBasedInstruction "6. {{getvar::firstName}} is a futanari. The anus should be described neutrally and anatomically, with no reference to the cock or pussy."|
+	:}|
+	/ife ('Tail' in appearanceFeatures) {:
+		/ife (logicBasedInstruction == '') {:
+			/setvar key=logicBasedInstruction "6. {{getvar::firstName}} has a tail. Describe the anus in relation to the tail's base if visible."|
+		:}|
+		/else {:
+			/addvar key=logicBasedInstruction "{{newline}}7. {{getvar::firstName}} has a tail. Describe the anus in relation to the tail's base if visible."
+		:}|
+	:}|
+	/:"CMC Logic.Get Basic Type Context"|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
+	:}|
+	/flushvar extra|
+	/wait {{getvar::wait}}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=outputIsList {{pipe}}|
+	
+	
+	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+	//[[Generate with Prompt]]|
+	/:"CMC Logic.GenerateWithPrompt"|
+	/setvar key={{var::variableName}} {{getvar::output}}|
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+	/flushvar logicBasedInstruction|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
 //-----------|
 
 //**Appearance Traits**|

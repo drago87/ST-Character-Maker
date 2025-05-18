@@ -40,8 +40,8 @@ Builds physical traits dependent on species, age, and gender.
 22. **Body** ✅
 23. **Breasts** ✅
 24. **Nipples** ✅
-25. **Pussy** ❌
-26. **Cock** ❌
+25. **Pussy** ✅
+26. **Cock** ✅
 27. **Anus** ❌
 28. **Appearance Traits** ❌
 
@@ -259,12 +259,3 @@ Narrative scaffolding and additional logic or design hooks.
 
 
 
-Generate the Sync Prompt with the goal that i should only use Sync if the character is a Futanari (And as this will only be used to generate when futanari = Yes there is no need for the logicBasedInstruction unless there is a need for another if statement)
-
-
-Lets update the Cock Prompt so that it generate the following information
-The cock when it is flaccid
-The cock when it is erect
-The balls
-different features (Knot, ridges etc..)
-Any other important information?
