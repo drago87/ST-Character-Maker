@@ -29,7 +29,7 @@
 /let key=do {{noop}}|
 /let key=variableName {{noop}}|
 //Race/Species|
-/ife ( normal_form != 'Human') {:
+/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Android')) {:
 	/var key=do No|
 	/var key=variableName "species"|
 	/ife ({{var::variableName}} == '') {:
@@ -61,6 +61,42 @@
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=useContext No|
 		/setvar key=genSettings index=contextKey []|
+		/ife (characterArchetype == 'Demi-Human') {:
+			/setvar key=speciesExamples Elf, Dwarf, Vampire, Succubus, Angel, Demon, Halfling, Fairy
+		:}|
+		/elseif ((characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')) {:
+			
+			/let key=find "Reproductive {{getvar::animalBase}}: List"
+			/findentry field=comment file="CMC Variables" {{var::find}}|
+			/getentryfield file="CMC Information" {{pipe}}| 
+			/let key=temp {{pipe}}|
+			/split find="/\n/" {{var::temp}}|
+			/var key=temp {{pipe}}|
+			/setvar key=speciesExamples []|
+			/ife (parsedAnimalType != animalBase) {:
+				/foreach {{var::temp}} {:
+					/re-replace find="/(\s*\([^)]*\))/g" replace="" {{var::item}}|
+					/let key=tempItem {{pipe}}|
+					/ife (('general' not in tempItem)) {:
+						/addvar key=speciesExamples {{var::tempItem}}|
+					:}|
+				:}|
+			:}|
+			/else {:
+				/foreach {{var::temp}} {:
+					/re-replace find="/^([^\(]+)/g" replace="" {{var::item}}|
+					/addvar key=speciesExamples {{pipe}}|
+				:}|
+			:}|
+			/join {{getvar::speciesExamples}}|
+			/setvar key=speciesExamples {{pipe}}|
+		:}|
+		/elseif (characterArchetype == 'Pokémon') {:
+			/setvar key=speciesExamples "Pikachu, Charizard, Bulbasaur, Squirtle, Jigglypuff, Mewtwo, Eevee, Gengar, Lucario, Snorlax"|
+		:}|
+		/elseif (characterArchetype == 'Digimon') {:
+			/setvar key=speciesExamples "Agumon, Gabumon, Patamon, Gatomon, Greymon, Garurumon, Angemon, Tentomon, Biyomon, Omnimon"|
+		:}|
 		/wait {{getvar::wait}}|
 		
 		/getvar key=genSettings index=inputIsList|
@@ -94,11 +130,24 @@
 :}|
 //-----------|
 
+/ife (characterArchetype == 'Demi-Human') {:
+	/setvar key=animalBase {{getvar::species}}|
+	/addvar key=dataBaseNames animalBase|
+	/ife ( ((gender == 'Female') or (futanari == 'Yes')) and (privatesFemale != 'None') ) {:
+		/setvar key=privatesFemale {{getvar::species}}|
+		/addvar key=dataBaseNames privatesFemale|
+	:}|
+	/ife ( ((gender == 'Male') or (futanari == 'Yes')) and (privatesFemale != 'None') ) {:
+		/setvar key=privatesMale {{getvar::species}}|
+		/addvar key=dataBaseNames privatesMale|
+	:}|
+:}|
 
 
 
 
-/ife ( (normal_form != 'Anthropomorphic') and (normal_form != 'Kemonomimi') and (normal_form != 'Animalistic') and (normal_form != 'Pokémon') and (normal_form != 'Digimon')) {:
+
+/ife ( (characterArchetype != 'Anthropomorphic') and (characterArchetype != 'Beastkin') and (characterArchetype != 'Animalistic') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')) {:
 	//Nationality|
 	/var key=do No|
 	/var key=variableName "nationality"|
@@ -248,7 +297,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/ife ( normal_form != 'Animalistic') {:
+	/ife ( characterArchetype != 'Animalistic') {:
 		/setvar key=genSettings index=wi_book_key "Life Stage Humanoid"|
 	:}|
 	/else {:
@@ -332,7 +381,7 @@
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext Yes|
-	/ife ( normal_form != 'Animalistic') {:
+	/ife ( characterArchetype != 'Animalistic') {:
 		/setvar key=genSettings index=contextKey ["Life Stage Humanoid"]|
 	:}|
 	/else {:
@@ -367,7 +416,7 @@
 //-----------|
 
 //Race Age|
-/ife ( normal_form != 'Human') {:
+/ife ( characterArchetype != 'Human') {:
 	/var key=do No|
 	/var key=variableName "humanEquivalentAge"|
 	/ife ({{var::variableName}} == '') {:

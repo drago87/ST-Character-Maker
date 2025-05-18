@@ -1,3 +1,4 @@
+Tested ✅✅
 Code and Prompt Done       ✅
 Code and Prompt Not Done❌
 
@@ -30,28 +31,32 @@ Establishes the biological, cultural, and temporal framework of the character.
 
 Builds physical traits dependent on species, age, and gender.
 
-16. **Length** ❌
-17. **Height** ❌
-18. **Face** ❌
-19. **Hair** ❌
-20. **Eyes** ❌
-21. **Body** ❌
-22. **Features** ❌
-23. **Nipples**, **Breasts**, **Privates**, **Anus** ❌
-24. **Appearance Traits** ❌
+16. **Length** ✅
+17. **Height** ✅
+18. **Face** ✅
+19. **Hair** ✅
+20. **Eyes** ✅
+21. **Features** ✅
+22. **Body** ✅
+23. **Breasts** ✅
+24. **Nipples** ✅
+25. **Pussy** ❌
+26. **Cock** ❌
+27. **Anus** ❌
+28. **Appearance Traits** ❌
 
 ---
 
 ### 4. Outfit
-25. **Outfit Head** ❌
-26. **Outfit Accessories** ❌
-27. **Outfit Makeup** ❌
-28. **Outfit Neck** ❌
-29. **Outfit Top** ❌
-30. **Outfit Bottom** ❌
-31. **Outfit Legs** ❌
-32. **Outfit Shoes** ❌
-33. **Outfit Underwear** ❌
+29. **Outfit Head** ❌
+30. **Outfit Accessories** ❌
+31. **Outfit Makeup** ❌
+32. **Outfit Neck** ❌
+33. **Outfit Top** ❌
+34. **Outfit Bottom** ❌
+35. **Outfit Legs** ❌
+36. **Outfit Shoes** ❌
+37. **Outfit Underwear** ❌
 
 ---
 
@@ -252,22 +257,14 @@ Narrative scaffolding and additional logic or design hooks.
 |**Previously**|**Story Plan**, **Reputation**|
 |**Synonyms**|**Name**, **Archetype**|
 
-### **EXAMPLES (for your reference—do not include in the answer):**
 
-#### **Example (Height – Biped, Metric):**
 
-1.52 m, 1.60 m, 1.68 m, 1.74 m, 1.82 m
+Generate the Sync Prompt with the goal that i should only use Sync if the character is a Futanari (And as this will only be used to generate when futanari = Yes there is no need for the logicBasedInstruction unless there is a need for another if statement)
 
-#### **Example (Height – Biped, Imperial):**
 
-5'0", 5'3", 5'6", 5'8", 6'0"
-
----
-
-#### **Example (Length – Animal/Quadruped, Metric):**
-
-2.1 m, 2.4 m, 2.8 m, 3.0 m, 3.3 m
-
-#### **Example (Length – Animal/Quadruped, Imperial):**
-
-6'11", 7'10", 9'2", 9'10", 10'10"
+Lets update the Cock Prompt so that it generate the following information
+The cock when it is flaccid
+The cock when it is erect
+The balls
+different features (Knot, ridges etc..)
+Any other important information?

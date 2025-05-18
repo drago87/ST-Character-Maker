@@ -1,43 +1,9 @@
 /db-list source=chat field=name |
 /let key=databaseList {{pipe}}|
-/ife ( 'lastName' in databaseList){:
-	/db-get source=chat lastName| /setvar key=firstName {{pipe}}|
-:}|
-/ife ( 'lastName' in databaseList){:
-	/db-get source=chat lastName| /setvar key=lastName {{pipe}}|
-:}|
-/ife ( 'alias' in databaseList){:
-	/db-get source=chat alias| /setvar key=alias {{pipe}}|
-:}|
-/ife ( 'age' in databaseList){:
-	/db-get source=chat age| /setvar key=age {{pipe}}|
-:}|
-/ife ( 'humanEquivalentAge' in databaseList){:
-	/db-get source=chat humanEquivalentAge| /setvar key=humanEquivalentAge {{pipe}}|
-:}|
-/ife ( 'species' in databaseList){:
-	/db-get source=chat species| /setvar key=species {{pipe}}|
-:}|
-/ife ( 'normal_form' in databaseList){:
-	/db-get source=chat normal_form| /setvar key=normal_form {{pipe}}|
-:}|
-/ife ( 'speciesType' in databaseList){:
-	/db-get source=chat speciesType| /setvar key=speciesType {{pipe}}|
-:}|
-/ife ( 'character_type' in databaseList){:
-	/db-get source=chat character_type| /setvar key=character_type {{pipe}}|
-:}|
-/ife ( 'real' in databaseList){:
-	/db-get source=chat real| /setvar key=real {{pipe}}|
-:}|
-/ife ( 'media_type' in databaseList){:
-	/db-get source=chat media_type| /setvar key=media_type {{pipe}}|
-:}|
-/ife ( 'media_name' in databaseList){:
-	/db-get source=chat media_name| /setvar key=media_name {{pipe}}|
-:}|
-/ife ( 'lifeStage' in databaseList){:
-	/db-get source=chat lifeStage| /setvar key=lifeStage {{pipe}}|
+
+/foreach {{getvar::databaseList}} {:
+	/db-get source=chat {{var::item}}| 
+	/setvar key={{var::item}} {{pipe}}|
 :}|
 
 //Parse character Age|
@@ -50,22 +16,21 @@
 :}|
 //-----------|
 
+/ife (parsedAnimalType == 'None') {:
+	/setvar key=parsedAnimalType {{noop}}|
+:}|
+
 
 //Parse character Species|
 /setvar key=parsedSpecies {{noop}}|
-/ife ((character_type == 'None') or ( character_type ==  normal_form)) {:
-	/setvar key=character_type {{noop}}|
+/ife ((characterType == 'None') or ( characterType ==  characterArchetype)) {:
+	/setvar key=characterType {{noop}}|
 :}|
-/ife ( normal_form == species ) {:
+/ife ( characterArchetype == species ) {:
     /setvar key=parsedSpecies {{getvar::species}}|
 :}|
 /else {:
-	/ife ( character_type != '') {:
-		/setvar key=parsedSpecies "{{getvar::normal_form}} {{getvar::character_type}} {{getvar::species}}"|
-	:}|
-	/else {:
-		/setvar key=parsedSpecies "{{getvar::normal_form}} {{getvar::species}}"|
-	:}|
+	/setvar key=parsedSpecies "{{getvar::characterArchetype}} {{getvar::species}}"|
 :}|
 //-----------|
 
@@ -99,6 +64,6 @@
 /ife ( lastName == '' ) {:
 	/setvar key=lastName {{noop}}|
 :}|
-/ife ( nickName == '' ) {:
-	/setvar key=nickName {{noop}}|
+/ife ( alias == '' ) {:
+	/setvar key=alias {{noop}}|
 :}|

@@ -615,7 +615,7 @@
 
 /var key=do No|
 /var key=variableName "cognitiveAbilities"|
-/ife (( 'Average' not in intelligenceLevel) or (normal_form == 'Animalistic') ) {:
+/ife (( 'Average' not in intelligenceLevel) or (characterArchetype == 'Animalistic') ) {:
 	/ife ({{var::variableName}} == '') {:
 	    /var key=do Yes|
 	:}|
@@ -750,7 +750,7 @@
 
 /var key=do No|
 /var key=variableName "socialSkills"|
-/ife (( 'Average' not in intelligenceLevel) or (normal_form == 'Animalistic') ) {:
+/ife (( 'Average' not in intelligenceLevel) or (characterArchetype == 'Animalistic') ) {:
 	/ife ({{var::variableName}} == '') {:
 	    /var key=do Yes|
 	:}|

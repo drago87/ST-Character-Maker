@@ -25,11 +25,13 @@
 - Sex/Gender: --Gender----Futanari--
 --Length--- Height: --Height--
 - Age: --Age--
-- Hair Descriptors: --Hair--
-- Eyes Descriptors: --Eyes--
+- Hair: --Hair--
+- Eyes: --Eyes--
 - Face: --Face--
-- Body Descriptors: --Body----Nipples----Breasts----Privates--
-- Anus Descriptors: --Anus--
+### Body: 
+- Body: --Body----Breasts----Nipples----Pussy----Cock----Genitals--
+- Anus: --Anus--
+
 - Features: --Features--
 
 --ApperanceTraits--

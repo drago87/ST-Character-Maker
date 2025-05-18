@@ -6,7 +6,7 @@
 - Life Stage: Teen
 - Age: 20 years-old — roughly 18 years-old in human years.
 - Gender: Female
-- Species: Kemonomimi T-rex
+- Species: Beastkin T-rex
 - Intelligence Level: Dumb
 - Social Behavior: Innocent
 
@@ -39,10 +39,10 @@ Generate a list of potential unique traits that describe unusual states, mental 
 - Life Stage: Teen
 - Age: 20 years-old — roughly 18 years-old in human years.
 - Gender: Female
-- Species: Kemonomimi T-rex
+- Species: Beastkin T-rex
 
 - Archetype: Playful Tomboy who always carries a sketchbook
-  ↳ Archetype Details: Suzuki, a playful teenage T-rex kemonomimi with a sketchbook always in tow, often charges into spontaneous adventures fueled by her boundless curiosity.
+  ↳ Archetype Details: Suzuki, a playful teenage T-rex Beastkin with a sketchbook always in tow, often charges into spontaneous adventures fueled by her boundless curiosity.
   ↳ Reasoning: As an only child growing up, Suzuki developed a sketchbook to cope with feelings of isolation and a craving for adventure.
 
 - Alignment: Chaotic good

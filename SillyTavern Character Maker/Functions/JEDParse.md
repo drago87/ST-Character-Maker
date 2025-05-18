@@ -135,24 +135,43 @@
 	/re-replace find="/--Nipples--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (breast != '') {:
+/ife ( (breast != '') and (breast != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--Breasts--/g" replace="{{newline}} - Breast Descriptors: {{getvar::breast}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (export == 'Yes' ) {:
+/elseif (breast == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--Breasts--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (privates != '') {:
+/ife ((appearanceGenitals != '') and (appearanceGenitals != '') and (futanari == 'yes')) {:
 	/messages names=off 0|
-	/re-replace find="/--Privates--/g" replace="{{newline}} - Privates Descriptors: {{getvar::privates}}" {{pipe}}|
+	/re-replace find="/--Genitals--/g" replace="{{newline}} - Genitals: {{getvar::appearanceGenitals}}" {{pipe}}|
+	/re-replace find="/--Pussy--/g" replace="" {{pipe}}|
+	/re-replace find="/--Cock--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (features != '') {:
+/elseif (appearancePussy != '') {:
 	/messages names=off 0|
-	/re-replace find="/--Features--/g" replace="{{getvar::features}}" {{pipe}}|
+	/re-replace find="/--Pussy--/g" replace="{{newline}} - Pussy: {{getvar::appearancePussy}}" {{pipe}}|
+	/re-replace find="/--Cock--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (appearanceCock != '') {:
+	/messages names=off 0|
+	/re-replace find="/--Cock--/g" replace="{{newline}} - Cock: {{getvar::appearanceCock}}" {{pipe}}|
+	/re-replace find="/--Pussy--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (appearanceAnus != '') {:
+	/messages names=off 0|
+	/re-replace find="/--Anus--/g" replace="{{getvar::appearanceAnus}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (appearanceFeatures != '') {:
+	/messages names=off 0|
+	/re-replace find="/--Features--/g" replace="{{getvar::appearanceFeatures}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (apperanceTraits != '') {:
