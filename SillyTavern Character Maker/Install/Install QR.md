@@ -151,6 +151,13 @@
 	/qr-create set="CMC Logic" label="JEDParse" {{pipe}}|
 	//|-----|
 :}|
+
+/ife ( 'Get Basic Type Context' not in qrListContent) {:
+	//JEDParse|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/JEDParse.md|
+	/qr-create set="CMC Logic" label="Get Basic Type Context" {{pipe}}|
+	//|-----|
+:}|
 //Generate|
 /ife ('CMC Generate' in qrList) {:
 	/buttons labels=["Yes", "No"] want to update CMC Generate scripts?|
