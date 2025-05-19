@@ -101,6 +101,11 @@ A:
 ### RESIDENCE
 <!--If location is important to the story. You can describe the city, house, rooms, etc.-->
 
+### OCCUPATION
+- Occupation:
+  - Duties:
+  - Skills:
+
 ### CONNECTIONS
 <!--Relatives, servants, etc, if necessary-->
 

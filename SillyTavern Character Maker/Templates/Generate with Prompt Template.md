@@ -51,6 +51,7 @@
 			/:"CMC Logic.GenerateWithPrompt"|
 			/addvar key={{var::variableName}} {{getvar::output}}|
 			/flushvar output|
+			/flushvar guidance|
 		:}|
 		/flushvar {{var::variableName}}Item|
 	:}|
@@ -60,6 +61,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|

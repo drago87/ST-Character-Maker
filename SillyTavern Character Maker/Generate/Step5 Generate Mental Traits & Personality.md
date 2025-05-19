@@ -134,6 +134,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -198,6 +199,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -283,6 +285,7 @@
 			:}|
 			/addvar key=dataBaseNames {{var::variableName}}|
 			/flushvar output|
+			/flushvar guidance|
 			/flushvar genOrder|
 			/flushvar genContent|
 			/flushvar it|
@@ -345,6 +348,7 @@
 			:}|
 			/addvar key=dataBaseNames {{var::variableName}}|
 			/flushvar output|
+			/flushvar guidance|
 			/flushvar genOrder|
 			/flushvar genContent|
 			/flushvar genSettings|
@@ -410,6 +414,7 @@
 			:}|
 			/addvar key=dataBaseNames {{var::variableName}}|
 			/flushvar output|
+			/flushvar guidance|
 			/flushvar genOrder|
 			/flushvar genContent|
 			/flushvar genSettings|
@@ -479,6 +484,7 @@
 		/setvar key={{var::variableName}} {{getvar::output}}|
 	:}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -532,6 +538,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -603,6 +610,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar it|
@@ -663,6 +671,7 @@
 		:}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -739,6 +748,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar it|
@@ -802,6 +812,7 @@
 		:}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|

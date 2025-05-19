@@ -1,17 +1,21 @@
 /db-list source=chat field=name |
 /let key=databaseList {{pipe}}|
 
-/foreach {{getvar::databaseList}} {:
+/foreach {{var::databaseList}} {:
 	/db-get source=chat {{var::item}}| 
 	/setvar key={{var::item}} {{pipe}}|
 :}|
 
 //Parse character Age|
 /setvar key=parcedAge {{noop}}|
-/ife ( ((humanEquivalentAge != 'None') and (humanEquivalentAge != '')) and ( age != humanEquivalentAge) ) {:
+
+/ife ((humanEquivalentAge == age) and (age != '')) {:
+	/setvar key=parcedAge {{getvar::age}} years-old|
+:}|
+/elseif ((humanEquivalentAge != '') and (humanEquivalentAge != 'None') and (humanEquivalentAge != age)) {:
 	/setvar key=parcedAge {{getvar::age}} years-old — roughly {{getvar::humanEquivalentAge}} years-old in human years.|
 :}|
-/elseif (age != '') {:
+/else (age != '') {:
 	/setvar key=parcedAge {{getvar::age}} years-old|
 :}|
 //-----------|

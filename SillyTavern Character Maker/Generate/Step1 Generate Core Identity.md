@@ -116,6 +116,7 @@
 		:}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -191,6 +192,7 @@
 		:}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -347,6 +349,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar it|
@@ -406,6 +409,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -414,6 +418,16 @@
 	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //-----------|
+
+/ife ((humanEquivalentAge == age) and (age != '')) {:
+	/setvar key=parcedAge {{getvar::age}} years-old|
+:}|
+/elseif ((humanEquivalentAge != '') and (humanEquivalentAge != 'None') and (humanEquivalentAge != age)) {:
+	/setvar key=parcedAge {{getvar::age}} years-old — roughly {{getvar::humanEquivalentAge}} years-old in human years.|
+:}|
+/else (age != '') {:
+	/setvar key=parcedAge {{getvar::age}} years-old|
+:}|
 
 //Race Age|
 /ife ( characterArchetype != 'Human') {:
@@ -458,6 +472,7 @@
 		:}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -477,11 +492,14 @@
 
 //Parse character Age|
 /setvar key=parcedAge {{noop}}|
-/ife ( (humanEquivalentAge != 'None') and (humanEquivalentAge != '') ) {:
-	/setvar key=parcedAge {{getvar::age}} — roughly {{getvar::humanEquivalentAge}} in human years.|
+/ife ((humanEquivalentAge == age) and (age != '')) {:
+	/setvar key=parcedAge {{getvar::age}} years-old|
 :}|
-/elseif (age != '') {:
-	/setvar key=parcedAge {{getvar::age}}|
+/elseif ((humanEquivalentAge != '') and (humanEquivalentAge != 'None') and (humanEquivalentAge != age)) {:
+	/setvar key=parcedAge {{getvar::age}} years-old — roughly {{getvar::humanEquivalentAge}} years-old in human years.|
+:}|
+/else (age != '') {:
+	/setvar key=parcedAge {{getvar::age}} years-old|
 :}|
 //-----------|
 

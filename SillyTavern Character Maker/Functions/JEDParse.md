@@ -102,7 +102,7 @@
 :}|
 /ife (age != '') {:
 	/messages names=off 0|
-	/re-replace find="/--Age--/g" replace="{{getvar::age}}" {{pipe}}|
+	/re-replace find="/--Age--/g" replace="{{getvar::parcedAge}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (hair != '') {:
@@ -237,6 +237,11 @@
 /ife (residence != '') {:
 	/messages names=off 0|
 	/re-replace find="/--Residence--/g" replace="{{getvar::residence}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife ((parsedOccupation != '') and (parsedOccupation != 'None')) {:
+	/messages names=off 0|
+	/re-replace find="/--Connections--/g" replace="{{getvar::parsedOccupation}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (connections != '') {:

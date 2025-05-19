@@ -31,7 +31,7 @@
 /getvar key=genSettings index=inputIsTaskList|
 /let key=inputIsTaskList_f {{pipe}}|
 /ife ( inputIsTaskList_f == '') {:
-	/abort quiet=false Missing inputIsTaskList setting in input.|
+	/var inputIsTaskList_f No|
 :}|
 /getvar key=genSettings index=outputIsList|
 /let key=outputIsList_f {{pipe}}|
@@ -105,23 +105,23 @@
 :}|
 
 /ife (debug == 'Yes') {:
-	/setvar key="00 Context" {{var::context}}|
+	/setvar key="01 Context" {{var::context}}|
 :}|
 /else {:
-	/flushvar "00 Context"|
+	/flushvar "01 Context"|
 :}|
 /var key=find "{{var::wi_book_key_f}}: Examples"|
 /findentry field=comment file={{var::wi_book_f}} "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
-/ife ( wi_uid != '') {:
+/ife (( wi_uid != '') or ( wi_uid == 0)) {:
 	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 	/var key=examples {{pipe}}|
 :}|
 /ife (debug == 'Yes') {:
-	/setvar key="01 Examples" {{var::examples}}|
+	/setvar key="02 Examples" {{var::examples}}|
 :}|
 /else {:
-	/flushvar "01 Examples"|
+	/flushvar "02 Examples"|
 :}|
 /var key=find "{{var::wi_book_key_f}}: Task"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
@@ -129,10 +129,10 @@
 /getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 /let key=task {{pipe}}|
 /ife (debug == 'Yes') {:
-	/setvar key="02 Task" {{var::task}}|
+	/setvar key="03 Task" {{var::task}}|
 :}|
 /else {:
-	/flushvar "02 Task"|
+	/flushvar "03 Task"|
 :}|
 /var key=find "{{var::wi_book_key_f}}: Instruction"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
@@ -140,10 +140,10 @@
 /getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 /let key=instruct {{pipe}}|
 /ife (debug == 'Yes') {:
-	/setvar key="03 Instruktions" {{var::instruct}}|
+	/setvar key="04 Instruktions" {{var::instruct}}|
 :}|
 /else {:
-	/flushvar "03 Instruktions"|
+	/flushvar "04 Instruktions"|
 :}|
 /let key=genState []|
 /let key=selected_btn |
@@ -164,12 +164,6 @@
 :}|
 /else {:
 	/var key=man "Edit output"|
-:}|
-/ife (debug == 'Yes') {:
-	/setvar key=b {{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}|
-:}|
-/else {:
-	/flushvar b|
 :}|
 /let t |
 /whilee ( output == '') {:
@@ -212,7 +206,7 @@
 		:}|
 	:}|
 	/else {:
-		/genraw length=50 "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+		/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/var key=t {{pipe}}|
 		/reasoning-parse return=content {{var::t}}|
 		/var key=t {{pipe}}|
@@ -222,20 +216,25 @@
 	/ife (genIsList_f == 'Yes') {:
 		/split find="," {{var::t}}|
 		/var key=t {{pipe}}|
-		/foreach {{var::t}} {:
-			/re-replace find="/\./g" replace="" {{var::item}}|
-			/let key=t1 {{pipe}}|
-			/re-replace find="/_/g" replace=" " {{pipe}}|
-			/var key=t1 {{pipe}}|
-			/to-lower {{var::t1}}|
-			/var key=t1 {{pipe}}|
-			/re-replace find="/\b([a-z])/" cmd="/to-upper $1" replace="$1" {{var::t1}}|
-			/var key=t1 {{pipe}}|
-			/wait 1|
-			/setat index={{var::index}} value={{var::t}} {{var::t1}}|
-			/var key=t {{pipe}}|
+		/ife ((wi_book_key_f != 'Height') and (wi_book_key_f != 'Length')) {:
+			/foreach {{var::t}} {:
+				/re-replace find="/\./g" replace="" {{var::item}}|
+				/let key=t1 {{pipe}}|
+				/re-replace find="/_/g" replace=" " {{pipe}}|
+				/var key=t1 {{pipe}}|
+				/to-lower {{var::t1}}|
+				/var key=t1 {{pipe}}|
+				/re-replace find="/\b([a-z])/" cmd="/to-upper $1" replace="$1" {{var::t1}}|
+				/var key=t1 {{pipe}}|
+				/wait 1|
+				/setat index={{var::index}} value={{var::t}} {{var::t1}}|
+				/var key=t {{pipe}}|
+			:}|
+			/var key=genState {{pipe}}|
 		:}|
-		/var key=genState {{pipe}}|
+		/else {:
+			/var key=genState {{var::t}}|
+		:}|
 		/ife ((wi_book_key_f == 'Personality Tags' ) and (foundTags != '')) {:
 			/split {{getvar::foundTags}}|
 			/let key=temp {{pipe}}|
@@ -258,6 +257,10 @@
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} {{var::t}}|
 	:}|
+	
+	/ife (debug == 'Yes') {:
+		/setvar key="00 Genraw" "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+	:}|
 	/ife ( ('Random' not in genState) and (genIsList_f == 'Yes')) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Random"|
@@ -266,10 +269,10 @@
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} {{var::man}}|
 	:}|
-	/let key=nonGuidence ["Age Gen", "Age Species"]|
-	/ife (( 'Guidence' not in genState) and (wi_book_key_f not in nonGuidence)) {:
+	/let key=nonGuidance ["Age Gen", "Age Species"]|
+	/ife (( 'Guidance' not in genState) and (wi_book_key_f not in nonGuidance)) {:
 		/len {{var::genState}}|
-		/var key=genState index={{pipe}} Guidence|
+		/var key=genState index={{pipe}} Guidance|
 	:}|
 	/ife ( 'Generate New' not in genState) {:
 		/len {{var::genState}}|
@@ -317,14 +320,14 @@
 		/setvar key=save {{var::selected_btn}}|
 		/:"CMC Logic.SaveGen"|
 	:}|
-	/elseif (selected_btn == 'Guidence') {:
+	/elseif (selected_btn == 'Guidance') {:
 		/let key=gu {{noop}}|
-		/ife (guidence != '') {:
-			/buttons labels=["Remove", "Set", "Change", "Cancel"] What do you want to do with the respons guidence?|
+		/ife (guidance != '') {:
+			/buttons labels=["Remove", "Set", "Change", "Cancel"] What do you want to do with the respons guidance?|
 			/var key=gu {{pipe}}|
 		:}|
 		/else {:
-			/buttons labels=["Set", "Cancel"] What do you want to do with the respons guidence?|
+			/buttons labels=["Set", "Cancel"] What do you want to do with the respons guidance?|
 			/var key=gu {{pipe}}|
 		:}|
 		/ife ( gu == ''){:
@@ -332,21 +335,21 @@
 			/abort
 		:}|
 		/elseif ( gu == 'Remove') {:
-			/setvar key=guidence {{noop}}|
+			/setvar key=guidance {{noop}}|
 		:}|
 		/elseif ( gu == 'Set') {:
 			/input Write what you want the response shoud be guided towards.|
-			/setvar key=guidence "The response should be guided toward: {{pipe}}"|
+			/setvar key=guidance "The response should be guided toward: {{pipe}}"|
 		:}|
 		/elseif ( gu == 'Change') {:
-			/input default={{getvar::guidence}} Edit what you want the response shoud be guided towards.|
-			/setvar key=guidence "{{pipe}}"|
+			/input default={{getvar::guidance}} Edit what you want the response shoud be guided towards.|
+			/setvar key=guidance "{{pipe}}"|
 		:}|
 		/var key=find "{{var::wi_book_key_f}}: Task"|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
 		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
-		/let key=task {{pipe}}|
+		/var key=task {{pipe}}|
 	:}|
 	/elseif ( selected_btn =='Customize Parts of the generation') {:
 		/buttons labels=["Yes", "Reset", "No"] Do you want to Customize the {Modifier} of the formula {Modifier} + {Archetype} + {Addition}?|
@@ -409,10 +412,10 @@
 		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 		/var key=task {{pipe}}|
 		/ife (debug == 'Yes') {:
-			/setvar key="02 Task" {{var::task}}|
+			/setvar key="03 Task" {{var::task}}|
 		:}|
 		/else {:
-			/flushvar "02 Task"|
+			/flushvar "03 Task"|
 		:}|
 		/var key=find "{{var::wi_book_key_f}}: Instruction"|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
@@ -420,10 +423,10 @@
 		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 		/var key=instruct {{pipe}}|
 		/ife (debug == 'Yes') {:
-			/setvar key="03 Instruktions" {{var::instruct}}|
+			/setvar key="04 Instruktions" {{var::instruct}}|
 		:}|
 		/else {:
-			/flushvar "03 Instruktions"|
+			/flushvar "04 Instruktions"|
 		:}|
 		/var key=t {{noop}}|
 	:}|

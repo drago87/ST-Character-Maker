@@ -90,6 +90,7 @@
 		/addvar key={{var::variableName}} {{getvar::output}}|
 	:}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -160,6 +161,7 @@
 		/addvar key={{var::variableName}} {{getvar::output}}|
 	:}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -231,6 +233,7 @@
 		/setvar key={{var::variableName}} {{getvar::output}}|
 	:}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -293,6 +296,7 @@
 		/setvar key={{var::variableName}} {{getvar::output}}|
 	:}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -362,6 +366,7 @@
 				/setat index={{pipe}} key=tempTraits {{getvar::output}}|
 				/var key=tempTraits {{pipe}}|
 				/flushvar output|
+				/flushvar guidance|
 			:}|
 			/setvar key={{var::variableName}} {{var::tempTraits}}|
 			/flushvar {{var::variableName}}Item|
@@ -371,6 +376,7 @@
 			/setvar key={{var::variableName}} {{getvar::output}}|
 		:}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|

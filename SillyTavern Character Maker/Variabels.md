@@ -54,6 +54,12 @@ appearanceTraits
 appearanceTraitsDetails
 appearanceTraitsEffect
 
+Base Context
+ExtraInput
+
+Type Context
+logicBasedInstruction for injection into the Instructions
+
 To change
 character_type -> characterType
 normal_form -> characterArchetype

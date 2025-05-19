@@ -35,7 +35,6 @@
 - Features: --Features----ApperanceTraits--
 
 
-
 ### STARTING OUTFIT
 - Head: --OutfitHead--
 - Accessories: --OutfitAccessories--
@@ -56,6 +55,9 @@
 
 ### RESIDENCE
 --Residence--
+
+### OCCUPATION
+--Occupation--
 
 ### CONNECTIONS
 --Connections--

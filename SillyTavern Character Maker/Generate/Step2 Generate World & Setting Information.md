@@ -81,6 +81,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar it|
@@ -149,6 +150,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar it|
@@ -213,6 +215,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -268,6 +271,7 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -322,6 +326,85 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+//-----------|
+
+//--User--'s Role|
+/var key=do No|
+/var key=variableName "userRole"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings index=wi_book_key "User Role"|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=inputIsTaskList No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=useContext Yes|
+	/ife (user == 'No') {:
+		/setvar key=extra []|
+		/addvar key=extra "--User-- is a Narrator"|
+		/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	:}|
+	/setvar key=extra []|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
+	:}|
+	/flushvar extra|
+	/wait {{getvar::wait}}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=outputIsList {{pipe}}|
+	
+	/buttons labels=["Male", "Female", "Gender Neutral", "Anything"] What gender should the generation assume is?|
+	/setvar key=guidance {{pipe}}|
+	/ife ( guidance == ''){:
+		/echo Aborting |
+		/abort
+	:}|
+	/elseif (( guidance == 'Male') or ( guidance == 'Female')) {:
+		/setvar key=guidance "The response should be guided toward: --User-- is a {{getvar::guidance}}"|
+	:}|
+	/elseif ( guidance == 'Gender Neutral') {:
+		/setvar key=guidance "The response should be guided toward: --User-- is gender neutral and should be described using neutral language and tone, avoiding gendered assumptions."
+	:}|
+	/elseif ( guidance == 'Anything') {:
+		/flushvar guidance|
+	:}|
+	
+	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+	//[[Generate with Prompt]]|
+	/:"CMC Logic.GenerateWithPrompt"|
+	/setvar key={{var::variableName}} {{getvar::output}}|
+	
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -363,6 +446,10 @@
 	:}|
 	/addvar key=extra "- World Type: {{getvar::worldType}}"|
 	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
+	/ife (user == 'Yes') {:
+		/addvar key=extra "- --User--'s Role: {{getvar::userRole}}"|
+		/setvar key=logicBasedInstruction "7. Only include --User-- in the description if their role implies shared or nearby living space — such as a family member they still live with, a roommate, or a close neighbor.{{newline}}8. If --User-- is not part of the same household or residential area, do not reference them at all in this section."|
+	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
 	/setvar key=genSettings index=contextKey []|
@@ -386,6 +473,8 @@
 
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar logicBasedInstruction|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -412,7 +501,7 @@
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book_key "Occupation Base"|
-	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=inputIsTaskList No|
 	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput Yes|
@@ -443,6 +532,7 @@
 	/:"CMC Logic.GenerateWithPrompt"|
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -495,6 +585,7 @@
 	/:"CMC Logic.GenerateWithPrompt"|
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -548,6 +639,7 @@
 	/:"CMC Logic.GenerateWithPrompt"|
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -556,10 +648,10 @@
 
 /findentry field=comment file="CMC Templates" "Occupation Template"|
 /let key=wi_uid {{pipe}}|
-/getentryfield field=content file=CMC Templates {{var::wi_uid}}|
+/getentryfield field=content file="CMC Templates" {{var::wi_uid}}|
 /let key=template {{pipe}}|
 /ife (occupationSkills != 'None') {:
-	/re-replace find="/--OccupationSkills--/g" replace="  - Skills: {{getvar::occupationSkills}}" {{var::template}}|
+	/re-replace find="/--OccupationSkills--/g" replace="{{newline}}  - Skills: {{getvar::occupationSkills}}" {{var::template}}|
 	/setvar key=parsedOccupation {{pipe}}|
 :}|
 /else {:
@@ -626,6 +718,7 @@
 		:}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -640,7 +733,6 @@
 	/flushvar selected_btn|
 :}|
 //-----------|
-
 
 
 //Backstory|
@@ -675,6 +767,9 @@
 	:}|
 	/addvar key=extra "- World Type: {{getvar::worldType}}"|
 	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
+	/ife (user == 'Yes') {:
+		/addvar key=extra "- --User--'s Role: {{getvar::userRole}}"|
+	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
 	/setvar key=genSettings index=contextKey []|
@@ -698,6 +793,7 @@
 
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -745,6 +841,18 @@
 	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
 	/addvar key=extra "- Residence: {{getvar::residence}}"|
 	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
+	/ife (user == 'Yes') {:
+		/addvar key=extra "- --User--'s Role: {{getvar::userRole}}"|
+		/getvar key=genSettings index=wi_book_key|
+		/let key=inputIsList {{pipe}}|
+		/ife (inputIsList =='Scenario User') {:
+			/setvar key=logicBasedInstruction "6. Any mention of user should be replaced with '--User--'.{{newline}}7. Consider how the --User--'s Role ({{getvar::userRole}}) influences the character’s tone, visibility, or behavior — are they being watched, admired, judged, or misunderstood?"|
+		:}|
+		/elseif (inputIsList =='Scenario Create') {:
+			/setvar key=logicBasedInstruction "5. Introduce a conflict, discovery, or dynamic involving --User-- if applicable, but do not assign them a name or alias.{{newline}}6. Always refer to them as --User--, not by a proper name or description. Maintain placeholder syntax exactly.{{newline}}7. Consider how the --User--'s Role ({{getvar::userRole}}) influences the character’s tone, visibility, or behavior — are they being watched, admired, judged, or misunderstood?"|
+		:}|
+
+	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
 	/setvar key=genSettings index=contextKey {{noop}}|
@@ -768,6 +876,8 @@
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar logicBasedInstruction|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|

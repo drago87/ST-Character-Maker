@@ -71,6 +71,7 @@
 		/addvar key=extra "- Unit Type: {{getvar::unitType}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
+		/:"CMC Logic.Get Basic Type Context"|
 		/ife (extra != '') {:
 			/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		:}|
@@ -98,6 +99,7 @@
 			/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -140,6 +142,7 @@
 		/addvar key=extra "- Unit Type: {{getvar::unitType}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
+		/:"CMC Logic.Get Basic Type Context"|
 		/ife (extra != '') {:
 			/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		:}|
@@ -167,6 +170,7 @@
 			/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -230,6 +234,7 @@
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -287,6 +292,7 @@
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -344,6 +350,7 @@
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -401,6 +408,7 @@
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -461,6 +469,7 @@
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -523,6 +532,7 @@
 		/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -586,6 +596,7 @@
 		/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -664,6 +675,7 @@
 		/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -741,6 +753,7 @@
 		/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -815,6 +828,7 @@
 		/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -896,6 +910,7 @@
 	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
+	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
@@ -956,6 +971,7 @@
 		/setvar key={{var::variableName}} {{getvar::output}}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -1022,6 +1038,7 @@
 				/:"CMC Logic.GenerateWithPrompt"|
 				/addvar key={{var::variableName}} {{getvar::output}}|
 				/flushvar output|
+				/flushvar guidance|
 			:}|
 			/flushvar appearanceTrait|
 		:}|
@@ -1031,6 +1048,7 @@
 		:}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
@@ -1092,6 +1110,7 @@
 				/:"CMC Logic.GenerateWithPrompt"|
 				/addvar key={{var::variableName}} {{getvar::output}}|
 				/flushvar output|
+				/flushvar guidance|
 			:}|
 			/flushvar appearanceTrait|
 			/flushvar appearanceTraitsDetails|
@@ -1102,6 +1121,7 @@
 		:}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
+		/flushvar guidance|
 		/flushvar genOrder|
 		/flushvar genContent|
 		/flushvar genSettings|
