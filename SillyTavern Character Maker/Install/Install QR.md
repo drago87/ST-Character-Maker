@@ -221,7 +221,7 @@
 :}|
 
 /ife ( 'Step9 Generate Sexual Information' not in qrListContent) {:
-	/fetch https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step9%20Sexual%20Information.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step9%20Sexual%20Information.md|
 	/qr-create set="CMC Generate" label="Step9 Generate Sexual Information" {{pipe}}|
 	//|-----|
 :}|
