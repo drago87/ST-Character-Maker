@@ -616,7 +616,7 @@
 //**Pussy**|
 /var key=do No|
 /var key=variableName "appearancePussy"|
-/ife (gender != 'Male') {:
+/ife ((gender == 'Female') or (futanari == 'Yes')) {:
 	
 	/ife ({{var::variableName}} == '') {:
 	    /var key=do Yes|
@@ -695,7 +695,7 @@
 //**Cock**|
 /var key=do No|
 /var key=variableName "appearanceCock"|
-/if (gender != 'Female') {:
+/if ((gender == 'Male') or futanari == 'Yes' ) {:
 	/ife ({{var::variableName}} == '') {:
 	    /var key=do Yes|
 	:}|
@@ -724,6 +724,11 @@
 		:}|
 		/addvar key=extra "- Male Genital Type:: {{getvar::privatesMale}}"|
 		/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
+		/ife (futanari == 'Yes') {:
+			/addvar key=extra "Important: {{getvar::firstName}} is a futanari, so she has both a pussy and a cock."|
+			
+			/setvar key=logicBasedInstruction "7. {{getvar::firstName}} is a futanari, so she has both a pussy and a cock. Describe only the cock here — do not mention the pussy directly, but ensure anatomical placement and proportions account for its presence."|
+		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
 		/:"CMC Logic.Get Basic Type Context"|
@@ -731,9 +736,7 @@
 			/setvar key=genSettings index=contextKey {{getvar::extra}}|
 		:}|
 		/flushvar extra|
-		/ife (futanari == 'Yes') {:
-			/setvar key=logicBasedInstruction "7. {{getvar::firstName}} is a futanari, so she has both a pussy and a cock. Describe only the cock here — do not mention the pussy directly, but ensure anatomical placement and proportions account for its presence."|
-		:}|
+		
 		/wait {{getvar::wait}}|
 		
 		/getvar key=genSettings index=inputIsList|
@@ -798,9 +801,10 @@
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
 		/addvar key=extra "- Pussy Appearance: {{getvar::appearancePussy}}"|
+		/addvar key=extra "- Female Genital Type:: {{getvar::privatesFemale}}"|
 		/addvar key=extra "- Cock Appearance: {{getvar::appearanceCock}}"|
 		/addvar key=extra "- Male Genital Type:: {{getvar::privatesMale}}"|
-		/addvar key=extra "- Female Genital Type:: {{getvar::privatesFemale}}"|
+		
 		/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|

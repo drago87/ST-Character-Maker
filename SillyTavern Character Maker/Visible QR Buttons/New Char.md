@@ -102,7 +102,7 @@
 			/genraw as=char Respond to the question: What type of character is a {{var::inp}}?
 The reply should be in this format:
 '<div>{{getvar::inp}} is a x</div>'
-x is one of the following "Human", "Anthropomorphic", "Demi-Human", "Tauric", "Beastkin ", "Animalistic", "Pokémon", "Digimon", "Android"
+x is one of the following "Human", "Anthropomorphic", "Demi-Human", "Tauric", "Beastkin", "Animalistic", "Pokémon", "Digimon", "Android"
 INFORMATION: 
 {{var::typeGuide}}
 INSTRUCTION: Only respond in the given format.|

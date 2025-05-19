@@ -685,6 +685,7 @@
 		/setvar key=genSettings index=genIsSentence Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=genSettings index=useContext Yes|
 		/setvar key=extra []|
 		/ife (seasons != '') {:
 			/addvar key=extra "- Time/Period: {{getvar::timePeriod}} ,{{getvar::seasons}}"|
@@ -696,7 +697,6 @@
 		/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/flushvar extra|
-		/setvar key=genSettings index=useContext Yes|
 		/setvar key=genSettings index=contextKey {{noop}}|
 		
 		/getvar key=genSettings index=inputIsList|

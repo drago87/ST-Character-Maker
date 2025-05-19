@@ -6,10 +6,10 @@ Code and Prompt Not Done❌
 
 Establishes the biological, cultural, and temporal framework of the character.
 
-1. **Species** ✅✅
-2. **Nationality** ✅✅
-3. **Ethnicity** ✅✅
-4. **Gender** ✅✅
+1. **Gender** ✅✅
+2. **Species** ✅✅
+3. **Nationality** ✅✅
+4. **Ethnicity** ✅✅
 5. **Age** ✅✅
 6. **Name** ✅✅
 
@@ -263,18 +263,3 @@ There is still one problem. This is the new output
 1.38 m, 1.44 m, 1.51 m, 1.56 m, 1.
 
 
-
-
-
-
-
-
-## **response:**  
-german, British, French, Russian, Indian
-
-
-3 Do not include the name, Life stage, Age, Gender, Or species
-
- ## **response:** 
-  
-canadian, Australian, South african, New zealander, Irish
