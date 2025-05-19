@@ -261,3 +261,20 @@ Now it works better the problem with the capital M was that i parsed all generat
 
 There is still one problem. This is the new output
 1.38 m, 1.44 m, 1.51 m, 1.56 m, 1.
+
+
+
+
+
+
+
+
+## **response:**  
+german, British, French, Russian, Indian
+
+
+3 Do not include the name, Life stage, Age, Gender, Or species
+
+ ## **response:** 
+  
+canadian, Australian, South african, New zealander, Irish

@@ -228,8 +228,13 @@ INSTRUCTION: Only respond in the given format.|
 	/abort
 :}|
 /elseif ( selected_btn == 'Yes') {:
-	/buttons labels=["Mammal", "Reptile", "Bird", "Fish", "Amphibian", "Invertebrate", "Fantasy"] What type of species should the characters Privates be? This will guide later generations.
-	/let key=find {{pipe}}: List|
+	/buttons labels=["Mammal", "Reptile", "Bird", "Fish", "Amphibian", "Invertebrate", "Fantasy"] What type of species should the characters Privates be? This will guide later generations.|
+	/let key=t {{pipe}}|
+	/ife (t == '') {:
+		/echo Aborting |
+		/abort
+	:}|
+	/let key=find {{var::t}}: List|
 	/findentry field=comment file="CMC Variables" {{var::find}}|
 	/getentryfield field=content file="CMC Variables" {{pipe}}|
 	/split find="/\n/" {{pipe}} |
@@ -247,7 +252,7 @@ INSTRUCTION: Only respond in the given format.|
 	/ife ( temp == 'Use Base Type') {:
 		/setvar key=temp {{getvar::animalBase}}|
 	:}|
-	/ife (futanari == 'Yes) {:
+	/ife (futanari == 'Yes') {:
 		/buttons labels=["Yes", "No"] Do you want to use the same type of Privates for the Male and Female parts?|
 		/var selected_btn {{pipe}}|
 		/ife ( selected_btn == '') {:

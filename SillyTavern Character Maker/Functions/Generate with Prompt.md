@@ -184,6 +184,12 @@
 					/let tempItem {{noop}}|
 					/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 					/var tempItem {{pipe}}|
+					/ife (debug == 'Yes') {:
+						/setvar key="05 Output" {{var::tempItem}}|
+					:}|
+					/else {:
+						/flushvar "05 Output"|
+					:}|
 					/reasoning-parse return=content {{var::tempItem}}|
 					/var tempItem {{pipe}}|
 					/ife (tempItem not in t) {:
@@ -201,6 +207,12 @@
 		/else {:
 			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 			/var key=t {{pipe}}|
+			/ife (debug == 'Yes') {:
+				/setvar key="05 Output" {{var::t}}|
+			:}|
+			/else {:
+				/flushvar "05 Output"|
+			:}|
 			/reasoning-parse return=content {{var::t}}|
 			/var key=t {{pipe}}|
 		:}|
@@ -208,6 +220,12 @@
 	/else {:
 		/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/var key=t {{pipe}}|
+		/ife (debug == 'Yes') {:
+			/setvar key="05 Output" {{var::t}}|
+		:}|
+		/else {:
+			/flushvar "05 Output"|
+		:}|
 		/reasoning-parse return=content {{var::t}}|
 		/var key=t {{pipe}}|
 		/trimend {{var::t}}|
