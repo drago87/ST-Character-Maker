@@ -14,13 +14,6 @@
 :}|
 
 
-
-
-//Create TextParse|
-/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Replace/Text%20Parse.md|
-/setvar key=textParse {{pipe}}|
-//-----|
-
 //-----|
 /qr-list CMC Main|
 /let key=qrListContent {{pipe}}|
@@ -240,5 +233,3 @@
 :}|
 
 /qr-chat-set-on visible=true "CMC Main"|
-/flushvar jedParse|
-/flushvar textParse|
