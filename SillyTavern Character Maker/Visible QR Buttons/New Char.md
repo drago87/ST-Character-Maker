@@ -371,10 +371,7 @@ INSTRUCTION: Only respond in the given format.|
 :}|
 /addvar key=dataBaseNames user|
 /addvar key=dataBaseNames chatGroup|
-
-
-/db-list source=chat field=name |
-/let key=a {{pipe}}|
+/addvar key=dataBaseNames wait|
 
 
 /findentry field=comment file="CMC Templates" Character Template|
