@@ -70,13 +70,11 @@
 
 
 /ife ( useContext_f == 'Yes') {:
-	/findentry field=comment file="CMC Information" "Base Information"|
-	/var key=wi_uid {{pipe}}|
-	/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
+	/setvar key=gen Yes|
+	/:"CMC Logic.Get Char info"|
+	/:"CMC Logic.Set Base Context"
 	/var key=context {{pipe}}|
-	/ife ( real == 'Yes') {:
-		/var key=context {{var::context}}{{var::realParced}}|
-	:}|
+	/flushvar gen|
 	/ife ( extraContext_f != '') {:
 		/foreach {{var::extraContext_f}} {:
 			/var key=context {{var::context}}{{newline}}{{var::item}}|

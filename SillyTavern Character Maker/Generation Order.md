@@ -16,21 +16,21 @@ Generation can only use information from things above it
    
    Basic about the Character below here
 
-10. **Species** No Base Context, No ExtraInput, No Type Context
-11. **Nationality**  Base Context, No ExtraInput, No Type Context, (Only for Human, Android)
-12. **Ethnicity** Base Context, No ExtraInput, No Type Context, (Only for Human, Android)
-13. **Life Stage** See the end, No Base Context, No ExtraInput, No Type Context
-14. **Age** Base Context, No ExtraInput, Life Stage Context (Instead of Type Context, See the end)
-15. **Human Equivalent Age** If not Human (Characters mental age in comparison to a Human)
-16. **First Name** Base Context, No ExtraInput, No Type Context
-17. **Last Name** Base Context, No ExtraInput, No Type Context
-18. **Alias** Base Context, No ExtraInput, No Type Context
+10. **Time Period** See end, No Base Context, No ExtraInput, No Type Context
+11. **Setting Type** Realistic, Fantasy or Science Fiction
+12. **Species** No Base Context, No ExtraInput, No Type Context
+13. **Nationality**  Base Context, No ExtraInput, No Type Context, (Only for Human, Android)
+14. **Ethnicity** Base Context, No ExtraInput, No Type Context, (Only for Human, Android)
+15. **Life Stage** See the end, No Base Context, No ExtraInput, No Type Context
+16. **Age** Base Context, No ExtraInput, Life Stage Context (Instead of Type Context, See the end)
+17. **Human Equivalent Age** If not Human (Characters mental age in comparison to a Human)
+18. **First Name** Base Context, No ExtraInput, No Type Context
+19. **Last Name** Base Context, No ExtraInput, No Type Context
+20. **Alias** Base Context, No ExtraInput, No Type Context
     
     Would Info Below this (Done)
 
-19. **Time Period** See end, No Base Context, No ExtraInput, No Type Context
-20. **Season** Spring, Summer, Autumn, Winter or None (If None will not be included in Base Context or ExtraInput)
-21. **Setting Type** Realistic, Fantasy or Science Fiction
+21. **Season** Spring, Summer, Autumn, Winter or None (If None will not be included in Base Context or ExtraInput)
 22. **World Type** No Base Context, No ExtraInput, No Type Context
 23. **World Details** No Base Context, No ExtraInput, No Type Context
 24. **User Role**  Base Context, ExtraInput (if user is a Narrator: --User-- is a Narrator), No Type Context

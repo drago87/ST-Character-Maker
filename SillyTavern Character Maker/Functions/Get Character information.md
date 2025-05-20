@@ -1,11 +1,12 @@
-/db-list source=chat field=name |
-/let key=databaseList {{pipe}}|
-
-/foreach {{var::databaseList}} {:
-	/db-get source=chat {{var::item}}| 
-	/setvar key={{var::item}} {{pipe}}|
+/ife (gen != 'Yes') {:
+	/db-list source=chat field=name |
+	/let key=databaseList {{pipe}}|
+	
+	/foreach {{var::databaseList}} {:
+		/db-get source=chat {{var::item}}| 
+		/setvar key={{var::item}} {{pipe}}|
+	:}|
 :}|
-
 /ife ( lastName == '' ) {:
 	/setvar key=lastName {{noop}}|
 	/setvar key=name {{getvar::firstName}}|

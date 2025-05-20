@@ -1169,3 +1169,4 @@
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
 /qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Outfit" {{pipe}}|
+/forcesave|

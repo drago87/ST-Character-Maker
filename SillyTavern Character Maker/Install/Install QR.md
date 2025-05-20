@@ -94,7 +94,7 @@
 
 //Create Set Base Context|
 /ife ( 'Set Base Context' not in qrListContent) {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/SaveGen.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Set%20Base%20Context.md|
 	/qr-create set="CMC Logic" label="Set Base Context" {{pipe}}|
 :}|
 //-----|

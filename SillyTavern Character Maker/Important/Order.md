@@ -257,9 +257,4 @@ Narrative scaffolding and additional logic or design hooks.
 |**Previously**|**Story Plan**, **Reputation**|
 |**Synonyms**|**Name**, **Archetype**|
 
-Now it works better the problem with the capital M was that i parsed all generated lists to make the first letter a capital one
-
-There is still one problem. This is the new output
-1.38 m, 1.44 m, 1.51 m, 1.56 m, 1.
-
-
+No need to flip Setting Type and Species as it is simple to omit Setting Type from Species

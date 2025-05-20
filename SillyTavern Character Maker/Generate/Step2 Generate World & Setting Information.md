@@ -22,76 +22,6 @@
 /setvar key=stepDone No|
 /setvar key=stepVar Step2|
 
-//Time Period|
-/let key=do No|
-/let key=variableName "timePeriod"|
-/ife ({{var::variableName}} == '') {:
-    /var key=do Yes|
-:}|
-/elseif (skip == 'Update') {:
-    /getvar key={{var::variableName}}|
-    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
-    /var key=do {{pipe}}|
-    /ife (do == '') {:
-        /echo Aborting |
-        /abort
-    :}|
-:}|
-/ife ( do == 'Yes' ) {:
-	/setvar key=genSettings index=wi_book_key "Time Period"|
-	/setvar key=genSettings index=combineLorebookEntries No|
-	/setvar key=genSettings index=genIsSentence No|
-	/setvar key=genSettings index=inputIsList No|
-	/setvar key=genSettings index=inputIsTaskList No|
-	/setvar key=genSettings index=genIsList Yes|
-	/setvar key=genSettings index=outputIsList No|
-	/setvar key=genSettings index=needOutput Yes|
-	/setvar key=genSettings index=useContext No|
-	
-	
-	/getvar key=genSettings index=inputIsList|
-	/let key=inputIsList {{pipe}}|
-	/getvar key=genSettings index=combineLorebookEntries|
-	/let key=combineLorebookEntries {{pipe}}|
-	
-	
-	/ife ( inputIsList == 'Yes') {:
-		/setvar key={{var::variableName}} []|
-		/ife ( combineLorebookEntries == 'Yes') {:
-			/:"CMC Logic.Combine List Lorebooks"
-		:}|
-		/foreach {{getvar::genOrder}} {:
-			/setvar key=it {{var::item}}|
-			/getat index={{var::index}} {{var::genOrderContent}} |
-			/var key=content {{pipe}}|
-			/:"CMC Logic.GenerateWithSelector"|
-			/ife (output != '') {:
-				/addvar key={{var::variableName}} {{getvar::output}}|
-			:}|
-		:}|
-	:}|
-	/else {:
-		/getvar key=genSettings index=wi_book_key|
-		/setvar key=it {{pipe}}|
-		/:"CMC Logic.GenerateWithSelector"|
-		/ife (output != '') {:
-			/setvar key={{var::variableName}} {{getvar::output}}|
-		:}|
-		
-	:}|
-	/addvar key=dataBaseNames {{var::variableName}}|
-	/flushvar output|
-	/flushvar guidance|
-	/flushvar genOrder|
-	/flushvar genContent|
-	/flushvar it|
-	/flushvar genSettings|
-:}|
-/else {:
-	/addvar key=dataBaseNames {{var::variableName}}|
-:}|
-//-----------|
-
 //Seasons|
 /var key=do No|
 /var key=variableName "seasons"|
@@ -160,71 +90,6 @@
 	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //-----------|
-
-//--------|
-/var key=do No|
-/var key=variableName "settingType"|
-/ife ({{var::variableName}} == '') {:
-    /var key=do Yes|
-:}|
-/elseif (skip == 'Update') {:
-    /getvar key={{var::variableName}}|
-    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
-    /var key=do {{pipe}}|
-    /ife (do == '') {:
-        /echo Aborting |
-        /abort
-    :}|
-:}|
-/ife ( do == 'Yes' ) {:
-	/setvar key=genSettings index=wi_book_key "Setting Type"|
-	/setvar key=genSettings index=combineLorebookEntries No|
-	/setvar key=genSettings index=genIsSentence No|
-	/setvar key=genSettings index=genIsList Yes|
-	/setvar key=genSettings index=inputIsList No|
-	/setvar key=genSettings index=outputIsList No|
-	/setvar key=genSettings index=needOutput Yes|
-	/setvar key=genSettings index=useContext No|
-	/wait {{getvar::wait}}|
-	
-	/getvar key=genSettings index=wi_book_key|
-	/let key=wi_book_key {{pipe}}|
-	/getvar key=genSettings index=inputIsList|
-	/let key=inputIsList {{pipe}}|
-	/getvar key=genSettings index=combineLorebookEntries|
-	/let key=combineLorebookEntries {{pipe}}|
-	
-	
-	/ife ( inputIsList == 'Yes') {:
-		/setvar key={{var::variableName}} []|
-		/ife ( combineLorebookEntries == 'Yes') {:
-			/:"CMC Logic.Combine List Lorebooks"
-		:}|
-		/foreach {{getvar::genOrder}} {:
-			/setvar key=it {{var::item}}|
-			/getat index={{var::index}} {{getvar::genContent}}|
-			/var key=content {{pipe}}|
-			/:"CMC Logic.GenerateWithSelector"|
-			/addvar key={{var::variableName}} {{getvar::output}}|
-		:}|
-	:}|
-	/else {:
-		/setvar key=it {{var::wi_book_key}}|
-		/:"CMC Logic.GenerateWithSelector"|
-		/setvar key={{var::variableName}} {{getvar::output}}|
-	:}|
-	/addvar key=dataBaseNames {{var::variableName}}|
-	/flushvar output|
-	/flushvar guidance|
-	/flushvar genOrder|
-	/flushvar genContent|
-	/flushvar genSettings|
-	
-:}|
-/else {:
-	/addvar key=dataBaseNames {{var::variableName}}|
-:}|
-//-------|
 
 //World Type|
 /var key=do No|
@@ -895,3 +760,4 @@
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
 /qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Appearance & Anatomy" {{pipe}}|
+/forcesave|
