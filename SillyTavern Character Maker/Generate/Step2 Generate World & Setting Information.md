@@ -9,6 +9,8 @@
 /setvar key=dataBaseNames []|
 /flushvar genSettings|
 
+/setvar key=stepVar Step2|
+
 /setvar key=skip Update|
 /ife ( stepDone == 'No') {:
 	/buttons labels=["Skip", "Update"] Do you want to skip or update already generated content? You will get a question for each already done if you select Update.|
@@ -20,7 +22,10 @@
 :}|
 
 /setvar key=stepDone No|
-/setvar key=stepVar Step2|
+
+
+/let key=do {{noop}}|
+/let key=variableName {{noop}}|
 
 //Seasons|
 /var key=do No|

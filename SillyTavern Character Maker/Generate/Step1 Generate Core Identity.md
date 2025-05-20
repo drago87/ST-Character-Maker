@@ -31,8 +31,8 @@
 
 
 //Time Period|
-/let key=do No|
-/let key=variableName "timePeriod"|
+/var key=do No|
+/var key=variableName "timePeriod"|
 /ife ({{var::variableName}} == '') {:
     /var key=do Yes|
 :}|
