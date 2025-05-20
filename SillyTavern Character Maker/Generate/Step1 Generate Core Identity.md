@@ -387,38 +387,65 @@
 		/addvar key=dataBaseNames {{var::variableName}}|
 	:}|
 	//-----------|
+	
+	/ife ((( nationality != '') and ( nationality != 'None')) and (( ethnicity != '') and ( ethnicity != 'None'))) {:
+		/genraw "## **TASK:**  
+Using the inputs below, combine them into a natural descriptor of origin.
+
+## **INPUT:**  
+Ethnicity: {{getvar::ethnicity}}
+Nationality: {{getvar::nationality}}
+
+## **INSTRUCTIONS:**  
+1. Return a short phrase in the format: `{{ethnicity}} from {{placeName}}`.
+2. Convert the nationality to the most likely place name if needed (e.g., “American” → “America”).
+3. Use proper capitalization.
+4. Do not include any extra text, punctuation, or formatting — return the phrase only."|
+   /setvar key=parsedOrigin {{pipe}}|
+	:}|
+	/ife ((( nationality != '') and ( nationality != 'None')) and (( ethnicity == '') or ( ethnicity == 'None'))) {:
+		/genraw "## **TASK:**
+Generate a natural origin phrase from a single nationality.
+
+## **INPUT:**
+Nationality: {{getvar::nationality}}
+
+## **INSTRUCTIONS:**  
+1. Convert the nationality to a proper place name (e.g., “French” → “France”).
+2. Return the phrase in the format: `From {{placeName}}`.
+3. Use correct capitalization and no extra text or punctuation."|
+		/setvar key=parsedOrigin {{pipe}}|
+	:}|
+	/ife ((( ethnicity != '') and ( ethnicity != 'None')) and (( nationality == '') or ( nationality == 'None'))) {:
+		/genraw "## **TASK:**
+Create a short origin phrase using only the character's ethnicity.
+
+## **INPUT:**
+Ethnicity: {{getvar::ethnicity}}
+
+## **INSTRUCTIONS:**  
+1. Format the phrase as: `Of {{ethnicity}} origin`.
+2. Use capitalization as appropriate.
+3. Return only the phrase — no commentary or extras.
+"|
+		/setvar key=parsedOrigin {{pipe}}|
+	:}||
+	/addvar key=dataBaseNames parsedOrigin
 
 :}|
 /elseif ( skip != 'Skip') {:
 	/setvar key=nationality None|
 	/setvar key=ethnicity None|
+	/setvar key=parsedOrigin None|
 	/addvar key=dataBaseNames nationality|
 	/addvar key=dataBaseNames ethnicity|
+	/addvar key=dataBaseNames parsedOrigin|
 :}|
 /else {:
 	/addvar key=dataBaseNames nationality|
 	/addvar key=dataBaseNames ethnicity|
+	/addvar key=dataBaseNames parsedOrigin|
 :}|
-
-
-//Parse Nationality and Ethnicity|
-/ife ( nationality == 'None' ) {:
-	/setvar key=nationality {{noop}}|
-:}|
-/ife ( ethnicity == 'None' ) {:
-	/setvar key=ethnicity {{noop}}|
-:}|
-
-/ife ( (nationality != '') and ( ethnicity != '')) {:
-	/setvar key=parsedOrigin "- Origin: {{getvar::ethnicity}} from {{getvar::nationality}}"|
-:}|
-/elseif ( (nationality != '') and ( ethnicity != '')) {:
-	/setvar key=parsedOrigin "- Origin: "From {{getvar::nationality}}"|
-:}|
-/else {:
-	/setvar key=parsedOrigin {{noop}}|
-:}|
-//-----------|
 
 //Life stage|
 /var key=do No|
@@ -664,6 +691,10 @@
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=genSettings index=contextKey []|
+		/ife () {:
+			4. Use {{getvar::nationality}} and/or {{getvar::ethnicity}} to influence cultural tone, spelling, or structure of the names when applicable — but do not include country names or descriptors in the output.
+
+		:}|
 		/wait {{getvar::wait}}|
 		
 		/getvar key=genSettings index=inputIsList|

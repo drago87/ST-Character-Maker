@@ -72,7 +72,7 @@
 /ife ( useContext_f == 'Yes') {:
 	/setvar key=gen Yes|
 	/:"CMC Logic.Get Char info"|
-	/:"CMC Logic.Set Base Context"
+	/:"CMC Logic.Set Base Context"|
 	/var key=context {{pipe}}|
 	/flushvar gen|
 	/ife ( extraContext_f != '') {:

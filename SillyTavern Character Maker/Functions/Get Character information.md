@@ -65,14 +65,6 @@
 /ife ( ethnicity == 'None' ) {:
 	/setvar key=ethnicity {{noop}}|
 :}|
-
-/ife ( ((nationality != '') and (nationality != 'Nope')) and (( ethnicity != '') and ( ethnicity != 'Nope'))) {:
-	/setvar key=parsedOrigin "{{getvar::ethnicity}} from {{getvar::nationality}}"|
-:}|
-/elseif ( ((nationality != '') and (nationality != 'Nope')) and (( ethnicity == '') or ( ethnicity == 'Nope'))) {:
-	/setvar key=parsedOrigin "From {{getvar::nationality}}"|
-:}|
-/else {:
+/ife ( parsedOrigin == 'None' ) {:
 	/setvar key=parsedOrigin {{noop}}|
 :}|
-//-----------|
