@@ -397,7 +397,7 @@ Ethnicity: {{getvar::ethnicity}}
 Nationality: {{getvar::nationality}}
 
 ## **INSTRUCTIONS:**  
-1. Return a short phrase in the format: `{{ethnicity}} from {{placeName}}`.
+1. Return a short phrase in the format: `{ethnicity} from {placeName}`.
 2. Convert the nationality to the most likely place name if needed (e.g., “American” → “America”).
 3. Use proper capitalization.
 4. Do not include any extra text, punctuation, or formatting — return the phrase only."|
@@ -410,9 +410,9 @@ Generate a natural origin phrase from a single nationality.
 ## **INPUT:**
 Nationality: {{getvar::nationality}}
 
-## **INSTRUCTIONS:**  
+## **INSTRUCTIONS:**
 1. Convert the nationality to a proper place name (e.g., “French” → “France”).
-2. Return the phrase in the format: `From {{placeName}}`.
+2. Return the phrase in the format: `From {placeName}`.
 3. Use correct capitalization and no extra text or punctuation."|
 		/setvar key=parsedOrigin {{pipe}}|
 	:}|
@@ -423,11 +423,11 @@ Create a short origin phrase using only the character's ethnicity.
 ## **INPUT:**
 Ethnicity: {{getvar::ethnicity}}
 
-## **INSTRUCTIONS:**  
-1. Format the phrase as: `Of {{ethnicity}} origin`.
-2. Use capitalization as appropriate.
-3. Return only the phrase — no commentary or extras.
-"|
+## **INSTRUCTIONS:**
+1. Return the phrase in this exact format: `Of {ethnicity} origin`
+2. Do **not** include quotation marks, punctuation, or formatting characters like ` or *
+3. The phrase should start with a capital letter and contain no extra text.
+4. Output only the phrase — no explanation, no bullet points, no markdown."|
 		/setvar key=parsedOrigin {{pipe}}|
 	:}||
 	/addvar key=dataBaseNames parsedOrigin

@@ -59,10 +59,10 @@
 	/var key=genState {{var::content}}|
 :}|
 /ife (debug == 'Yes') {:
-	/setvar key=a {{var::genState}}|
+	/setvar key="06 Selector" {{var::genState}}|
 :}|
 /else {:
-	/flushvar a|
+	/flushvar 06 Selector|
 :}|
 /split find=":" {{var::genState}}|
 /var as=array key=genState {{pipe}}|
@@ -111,7 +111,7 @@
 	:}|
 	/elseif (selected_btn == 'Random') {:
 		/find index=true {{var::genState}} {:
-			/test left={{getvar::item}} rule=eq right="Random"|
+			/test left={{var::item}} rule=eq right="Random"|
 		:}|
 		/slice start=0 end={{pipe}} {{var::genState}}|
 		/pick items=1 {{var::genState}}|

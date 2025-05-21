@@ -21,7 +21,7 @@
 
 ### APPEARANCE DETAILS
 - Full Name--Alias1--: --FirstName-- --LastName----Alias--
-- Race: --Species--
+- Race: --Species----Origin--
 - Sex/Gender: --Gender----Futanari--
 --Length--- Height: --Height--
 - Age: --Age--

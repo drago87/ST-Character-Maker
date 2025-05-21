@@ -276,17 +276,22 @@
 	
 	/ife (debug == 'Yes') {:
 		/setvar key="00 Genraw" "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+		/setvar key="01 Context" {{var::context}}|
+		/setvar key="02 Examples" {{var::examples}}|
+		/setvar key="03 Task" {{var::task}}|
+		/setvar key="04 Instruktions" {{var::instruct}}|
 	:}|
 	/ife ( ('Random' not in genState) and (genIsList_f == 'Yes')) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Random"|
 	:}|
-	/ife ( ((genIsSentence_f == 'Yes') or (genIsList_f == 'Yes')) and ( man not in genState)) {:
+	/let key=manualBlacklist ["seasons"]|
+	/ife ( (wi_book_key_f not in manualBlacklist) and ( man not in genState)) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} {{var::man}}|
 	:}|
-	/let key=nonGuidance ["Age Gen", "Age Species"]|
-	/ife (( 'Guidance' not in genState) and (wi_book_key_f not in nonGuidance)) {:
+	/let key=guidenceBlacklist ["Age Gen", "Age Species"]|
+	/ife (( 'Guidance' not in genState) and (wi_book_key_f not in guidenceBlacklist)) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} Guidance|
 	:}|
@@ -303,8 +308,8 @@
 		/var key=genState index={{pipe}} "Done"|
 	:}|
 	
-	/let key=nonBasic ["Identify Personality Tag", "Personality QA", "Personality Tags"]|
-	/ife (wi_book_key_f not in nonBasic) {:
+	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags"]|
+	/ife (wi_book_key_f not in basicBlacklist) {:
 		/buttons labels={{var::genState}} Select the {{var::wi_book_key_f}} you want {{getvar::firstName}} to have.|
 		/var key=selected_btn {{pipe}}|
 	:}|
@@ -328,9 +333,10 @@
 	:}|
 	/elseif (selected_btn == 'Random') {:
 		/find index=true {{var::genState}} {:
-			/test left={{getvar::item}} rule=eq right="Random"|
+			/test left={{var::item}} rule=eq right="Random"|
 		:}|
-		/slice start=0 end={{pipe}} {{var::genState}}|
+		/let key=i {{pipe}}|
+		/slice start=0 end={{var::i}} {{var::genState}}|
 		/pick items=1 {{var::genState}}|
 		/var key=selected_btn {{pipe}}|
 		/setvar key=save {{var::selected_btn}}|

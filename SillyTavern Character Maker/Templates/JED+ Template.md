@@ -55,6 +55,7 @@ A: "My trainer? This... this mankey!? I hate this pervert so much..." Garde has 
 ### APPEARANCE DETAILS
 - Full Name, Alias:
 - Race: 
+- Origin:
 - Sex/Gender: 
 - Height: 
 - Age: 

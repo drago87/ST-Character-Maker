@@ -1,0 +1,1 @@
+Did some generation tests and the output seamed kind of dark for the World Details. Would it be good to have mood (bad word) variable that we can have the user set before generating the world details. (This variable will only effect how dark the generation should be) This should only effect World Details and Lore and be included in the Character Sheet

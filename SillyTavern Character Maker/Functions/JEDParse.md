@@ -70,6 +70,16 @@
 	/re-replace find="/--Species--/g" replace="{{getvar::parsedSpecies}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
+/ife ((parsedOrigin != '') and (parsedOrigin != 'None')) {:
+	/messages names=off 0|
+	/re-replace find="/--Origin--/g" replace="- Origin: {{getvar::parsedOrigin}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif  (parsedOrigin == 'None'){:
+	/messages names=off 0|
+	/re-replace find="/--Origin--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
 /ife (gender != '') {:
 	/messages names=off 0|
 	/re-replace find="/--Gender--/g" replace="{{getvar::gender}}" {{pipe}}|
@@ -80,7 +90,7 @@
 	/re-replace find="/--Futanari--/g" replace=" Futanari" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif  (futanari == 'No'){:
 	/messages names=off 0|
 	/re-replace find="/--Futanari--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -241,7 +251,7 @@
 :}|
 /ife ((parsedOccupation != '') and (parsedOccupation != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Connections--/g" replace="{{getvar::parsedOccupation}}" {{pipe}}|
+	/re-replace find="/--Occupation--/g" replace="{{getvar::parsedOccupation}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (connections != '') {:
