@@ -269,6 +269,9 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
+	/addvar key=extra "- Face Description: {{getvar::appearanceFace}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|
 	/ife (extra != '') {:
 		/setvar key=genSettings index=contextKey {{getvar::extra}}|
@@ -327,6 +330,9 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
+	/addvar key=extra "- Face Description: {{getvar::appearanceFace}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|
 	/ife (extra != '') {:
 		/setvar key=genSettings index=contextKey {{getvar::extra}}|
@@ -377,7 +383,12 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
-	/setvar key=genSettings index=wi_book_key "Appearance Features"|
+	/ife ((characterArchetype == 'Human') or (characterArchetype == 'Human')) {:
+		/setvar key=genSettings index=wi_book_key "Appearance Features Humanoid"|
+	:}|
+	/else {:
+		/setvar key=genSettings index=wi_book_key "Appearance Features Other"|
+	:}|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
 	/setvar key=genSettings index=genIsSentence Yes|
@@ -443,7 +454,9 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+	/ife (appearanceFeatures != 'None') {:
+		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|
@@ -458,6 +471,9 @@
 	/getvar key=genSettings index=inputIsList|
 	/let key=outputIsList {{pipe}}|
 	
+	/ife (( characterArchetype != 'Human') and ( characterArchetype != 'Android')) {:
+				/setvar key=logicBasedInstruction "7. If {{getvar::parsedSpecies}} includes non-human structures (e.g., tail, wings, digitigrade limbs), align posture, stance, and silhouette accordingly using {{getvar::appearanceFeatures}}."|
+			:}|
 	
 	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
@@ -506,7 +522,9 @@
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
-		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		/ife (appearanceFeatures != 'None') {:
+			/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
 		/:"CMC Logic.Get Basic Type Context"|
@@ -570,7 +588,9 @@
 		/setvar key=extra []|
 		/addvar key=extra "- Breasts: {{getvar::appearanceBreasts}}"|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
-		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		/ife (appearanceFeatures != 'None') {:
+			/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
 		/:"CMC Logic.Get Basic Type Context"|
@@ -641,7 +661,9 @@
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
-		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		/ife (appearanceFeatures != 'None') {:
+			/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		:}|
 		/addvar key=extra "- Female  Genital Type: {{getvar::privatesFemale}}"|
 		/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
 		/ife (futanari == 'Yes') {:
@@ -655,7 +677,7 @@
 		:}|
 		/flushvar extra|
 		/ife (futanari == 'Yes') {:
-			/setvar key=logicBasedInstruction "6. Ensure description accounts for proximity to other anatomy but focuses **only** on the vulva.{{newline}}7. {{getvar::firstName}} is a futanari so they have both a pussy and a cock. Only describe the pussy here — do not mention the penis."|
+			/setvar key=logicBasedInstruction "7. Ensure description accounts for proximity to other anatomy but focuses **only** on the vulva.{{newline}}8. {{getvar::firstName}} is a futanari so they have both a pussy and a cock. Only describe the pussy here — do not mention the penis."|
 		:}|
 		/wait {{getvar::wait}}|
 		
@@ -696,7 +718,7 @@
 //**Cock**|
 /var key=do No|
 /var key=variableName "appearanceCock"|
-/if ((gender == 'Male') or futanari == 'Yes' ) {:
+/ife ((gender == 'Male') or (futanari == 'Yes' )) {:
 	/ife ({{var::variableName}} == '') {:
 	    /var key=do Yes|
 	:}|
@@ -719,7 +741,9 @@
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
-		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		/ife (appearanceFeatures != 'None') {:
+			/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		:}|
 		/ife (futanari == 'Yes') {:
 			/addvar key=extra "- Pussy Appearance: {{getvar::appearancePussy}}"|
 		:}|
@@ -728,7 +752,7 @@
 		/ife (futanari == 'Yes') {:
 			/addvar key=extra "Important: {{getvar::firstName}} is a futanari, so she has both a pussy and a cock."|
 			
-			/setvar key=logicBasedInstruction "7. {{getvar::firstName}} is a futanari, so she has both a pussy and a cock. Describe only the cock here — do not mention the pussy directly, but ensure anatomical placement and proportions account for its presence."|
+			/setvar key=logicBasedInstruction "8. {{getvar::firstName}} is a futanari, so she has both a pussy and a cock. Describe only the cock here — do not mention the pussy directly, but ensure anatomical placement and proportions account for its presence."|
 		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -776,7 +800,7 @@
 //**Privates Sync**|
 /var key=do No|
 /var key=variableName "appearanceGenitals"|
-/if (futanari == 'Yes') {:
+/ife (futanari == 'Yes') {:
 	
 	/ife ({{var::variableName}} == '') {:
 	    /var key=do Yes|
@@ -800,7 +824,9 @@
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
-		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		/ife (appearanceFeatures != 'None') {:
+			/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		:}|
 		/addvar key=extra "- Pussy Appearance: {{getvar::appearancePussy}}"|
 		/addvar key=extra "- Female Genital Type:: {{getvar::privatesFemale}}"|
 		/addvar key=extra "- Cock Appearance: {{getvar::appearanceCock}}"|
@@ -850,7 +876,6 @@
 :}|
 
 
-
 //**Anus**|
 /var key=do No|
 /var key=variableName "appearanceAnus"|
@@ -876,15 +901,17 @@
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
 	/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
-	/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+	/ife (appearanceFeatures != 'None') {:
+		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+	:}|
 	/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/ife (futanari == 'Yes') {:
-		/setvar key=logicBasedInstruction "6. {{getvar::firstName}} is a futanari. The anus should be described neutrally and anatomically, with no reference to the cock or pussy."|
+		/setvar key=logicBasedInstruction "7. {{getvar::firstName}} is a futanari. The anus should be described neutrally and anatomically, with no reference to the cock or pussy."|
 	:}|
 	/ife ('Tail' in appearanceFeatures) {:
 		/ife (logicBasedInstruction == '') {:
-			/setvar key=logicBasedInstruction "6. {{getvar::firstName}} has a tail. Describe the anus in relation to the tail's base if visible."|
+			/setvar key=logicBasedInstruction "7. {{getvar::firstName}} has a tail. Describe the anus in relation to the tail's base if visible."|
 		:}|
 		/else {:
 			/addvar key=logicBasedInstruction "{{newline}}7. {{getvar::firstName}} has a tail. Describe the anus in relation to the tail's base if visible."
@@ -945,6 +972,8 @@
 		:}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=appearanceTraitsDetails {{noop}}|
+		/setvar key=appearanceTraitsEffect {{noop}}|
 		/setvar key=genSettings index=wi_book_key "Appearance Trait Type"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -1047,10 +1076,6 @@
 			:}|
 			/flushvar appearanceTrait|
 		:}|
-		/else {:
-			/:"CMC Logic.GenerateWithPrompt"|
-			/setvar key={{var::variableName}} {{getvar::output}}|
-		:}|
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
 		/flushvar guidance|
@@ -1118,7 +1143,7 @@
 				/flushvar guidance|
 			:}|
 			/flushvar appearanceTrait|
-			/flushvar appearanceTraitsDetails|
+			/flushvar appearanceTraitDetails|
 		:}|
 		/else {:
 			/:"CMC Logic.GenerateWithPrompt"|

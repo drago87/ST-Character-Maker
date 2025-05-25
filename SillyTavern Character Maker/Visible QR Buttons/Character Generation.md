@@ -45,21 +45,21 @@ Step10 Generate Extras
 /elseif ( stepVar == 'Step3') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step4|
-		/:"CMC Generate.Step4 Outfit"|
+		/:"CMC Generate.Step4 Generate Outfit"|
 	:}|
 	/else {:
 		//Load Step3|
 		/:"CMC Generate.Step3 Generate Appearance-Anatomy"|
 	:}|
 :}|
-/elseif ( stepVar == 'Step3') {:
+/elseif ( stepVar == 'Step4') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step5|
 		/:"CMC Generate.Step5 Generate Mental Traits-Personality"|
 	:}|
 	/else {:
-		//Load Step3|
-		/:"CMC Generate.Step4 Outfit"|
+		//Load Step4|
+		/:"CMC Generate.Step4 Generate Outfit"|
 	:}|
 :}|
 /elseif ( stepVar == 'Step5') {:

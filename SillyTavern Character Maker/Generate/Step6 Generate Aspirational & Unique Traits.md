@@ -28,6 +28,8 @@
 /let key=variableName {{noop}}|
 /let selected_btn {{noop}}|
 
+/flushvar guidance|
+
 //Main Aspiration|
 /var key=do No|
 /var key=variableName "aspirationMain"|
@@ -50,20 +52,21 @@
 	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
-	/setvar key=genSettings index=useContext No|
+	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
 	/addvar key=extra "{{newline}}{{getvar::parsedArchetype}}"|
 	/ife (parsedAlignment != 'None') {:
 		/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 	:}|
-	/addvar key=extra "- Intelligence Level: {{getvar::intelligenceLevel}}"|
-	/ife (cognitiveAbilities != 'None') {:
-		/addvar key=extra "- Cognitive Abilities: {{getvar::cognitiveAbilities}}{{newline}}"|
+	/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
+	/ife (personalitycognitiveAbilities != 'None') {:
+		/addvar key=extra "- Cognitive Abilities: {{getvar::personalitycognitiveAbilities}}{{newline}}"|
 	:}|
-	/addvar key=extra "- Social Behavior: {{getvar::socialBehavior}}"|
-	/ife (socialSkills != 'None') {:
-		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::socialSkills}}{{newline}}"|
+	/addvar key=extra "- Social Behavior: {{getvar::personalitySocialBehavior}}"|
+	/ife (personalitySocialSkills != 'None') {:
+		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}{{newline}}"|
 	:}|
+	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
 	/setvar key=genSettings index=contextKey []|
@@ -89,11 +92,15 @@
 		/:"CMC Logic.GenerateWithPrompt"|
 		/addvar key={{var::variableName}} {{getvar::output}}|
 	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //--------|
 
@@ -126,14 +133,15 @@
 	/ife (parsedAlignment != 'None') {:
 		/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 	:}|
-	/addvar key=extra "- Intelligence Level: {{getvar::intelligenceLevel}}"|
-	/ife (cognitiveAbilities != 'None') {:
-		/addvar key=extra "- Cognitive Abilities: {{getvar::cognitiveAbilities}}{{newline}}"|
+	/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
+	/ife (personalitycognitiveAbilities != 'None') {:
+		/addvar key=extra "- Cognitive Abilities: {{getvar::personalitycognitiveAbilities}}{{newline}}"|
 	:}|
-	/addvar key=extra "- Social Behavior: {{getvar::socialBehavior}}"|
-	/ife (socialSkills != 'None') {:
-		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::socialSkills}}{{newline}}"|
+	/addvar key=extra "- Social Behavior: {{getvar::personalitySocialBehavior}}"|
+	/ife (personalitySocialSkills != 'None') {:
+		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}{{newline}}"|
 	:}|
+	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
 	/addvar key=extra "- Main Aspiration: {{getvar::aspirationMain}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
@@ -160,11 +168,15 @@
 		/:"CMC Logic.GenerateWithPrompt"|
 		/addvar key={{var::variableName}} {{getvar::output}}|
 	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //--------|
 
@@ -193,20 +205,24 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext No|
 	/setvar key=extra []|
+	/addvar key=extra "- Time Period: {{getvar::timePeriod}}"|
+	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
 	/addvar key=extra "{{newline}}{{getvar::parsedArchetype}}"|
 	/ife (parsedAlignment != 'None') {:
 		/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 	:}|
-	/addvar key=extra "- Intelligence Level: {{getvar::intelligenceLevel}}"|
-	/ife (cognitiveAbilities != 'None') {:
-		/addvar key=extra "- Cognitive Abilities: {{getvar::cognitiveAbilities}}{{newline}}"|
+	/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
+	/ife (personalitycognitiveAbilities != 'None') {:
+		/addvar key=extra "- Cognitive Abilities: {{getvar::personalitycognitiveAbilities}}{{newline}}"|
 	:}|
-	/addvar key=extra "- Social Behavior: {{getvar::socialBehavior}}"|
-	/ife (socialSkills != 'None') {:
-		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::socialSkills}}{{newline}}"|
+	/addvar key=extra "- Social Behavior: {{getvar::personalitySocialBehavior}}"|
+	/ife (personalitySocialSkills != 'None') {:
+		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}{{newline}}"|
 	:}|
+	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
 	/addvar key=extra "- Main Aspiration: {{getvar::aspirationMain}}"|
-	/addvar key=extra "  ↳ Aspiration Details: {{getvar::aspirationDetails}}"|
+	/addvar key=extra "  - Aspiration Details: {{getvar::aspirationDetails}}"|
+	//addvar key=extra " - Scenario Overview: {{getvar::scenarioOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
 	/setvar key=genSettings index=contextKey []|
@@ -232,11 +248,15 @@
 		/:"CMC Logic.GenerateWithPrompt"|
 		/setvar key={{var::variableName}} {{getvar::output}}|
 	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //--------|
 
@@ -244,6 +264,7 @@
 /findentry field=comment file="CMC Templates" "Aspiration Template"|
 /getentryfield field=content file="CMC Templates" {{pipe}}|
 /setvar key=parsedAspiration {{pipe}}|
+/addvar key=dataBaseNames parsedAspiration|
 
 
 //Unique Traits|
@@ -270,10 +291,10 @@
 	/setvar key=genSettings index=outputIsList Yes|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/addvar key=extra "- Intelligence Level: {{getvar::intelligenceLevel}}"|
-	/addvar key=extra "- Social Behavior: {{getvar::socialBehavior}}"|
-	/ife (socialSkills != 'None') {:
-		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::socialSkills}}{{newline}}"|
+	/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
+	/addvar key=extra "- Social Behavior: {{getvar::personalitySocialBehavior}}"|
+	/ife (personalitySocialSkills != 'None') {:
+		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}{{newline}}"|
 	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
@@ -295,11 +316,15 @@
 	/ife (output != '') {:
 		/setvar key={{var::variableName}} {{getvar::output}}|
 	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 
 /var key=do No|
@@ -330,13 +355,13 @@
 		/ife (parsedAlignment != 'None') {:
 			/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 		:}|
-		/addvar key=extra "- Intelligence Level: {{getvar::intelligenceLevel}}"|
-		/ife (cognitiveAbilities != 'None') {:
-			/addvar key=extra "- Cognitive Abilities: {{getvar::cognitiveAbilities}}{{newline}}"|
+		/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
+		/ife (personalitycognitiveAbilities != 'None') {:
+			/addvar key=extra "- Cognitive Abilities: {{getvar::personalitycognitiveAbilities}}{{newline}}"|
 		:}|
-		/addvar key=extra "- Social Behavior: {{getvar::socialBehavior}}"|
-		/ife (socialSkills != 'None') {:
-			/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::socialSkills}}{{newline}}"|
+		/addvar key=extra "- Social Behavior: {{getvar::personalitySocialBehavior}}"|
+		/ife (personalitySocialSkills != 'None') {:
+			/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}{{newline}}"|
 		:}|
 		/addvar key=extra "{{newline}}{{getvar::parsedAspiration}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
@@ -350,6 +375,14 @@
 		/let key=outputIsList {{pipe}}|
 		
 		
+		/ife (settingType == 'Realistic'){:
+			/setvar key=logicBasedInstruction "7. Avoid supernatural, magical, or heroic-fantasy phrasing in goals. Focus on emotionally grounded, plausible actions."|
+		:}|
+		/else {:
+			/setvar key=logicBasedInstruction "7. You may include exaggerated, symbolic, or physically extreme behaviors suited to the world context."|
+		:}|
+		
+		
 		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 			/setvar as=array key={{var::variableName}} []|
 		:}|
@@ -358,23 +391,19 @@
 		:}|
 		//[[Generate with Prompt]]|
 		/ife (inputIsList == 'Yes') {:
-			/let key=tempTraits []|
 			/foreach {{getvar::uniqueTraits}} {:
 				/setvar key={{var::variableName}}Item {{var::item}}|
 				/:"CMC Logic.GenerateWithPrompt"|
-				/len tempTraits|
-				/setat index={{pipe}} key=tempTraits {{getvar::output}}|
-				/var key=tempTraits {{pipe}}|
-				/flushvar output|
-				/flushvar guidance|
+			/addvar key={{var::variableName}} {{getvar::output}}|
+			/flushvar output|
 			:}|
-			/setvar key={{var::variableName}} {{var::tempTraits}}|
 			/flushvar {{var::variableName}}Item|
 		:}|
 		/else {:
 			/:"CMC Logic.GenerateWithPrompt"|
 			/setvar key={{var::variableName}} {{getvar::output}}|
 		:}|
+		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
 		/flushvar guidance|
 		/flushvar genOrder|
@@ -384,6 +413,7 @@
 :}|
 /else {:
 	/setvar key={{var::variableName}} None|
+	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //--------|
 
@@ -405,8 +435,9 @@
 /else {:
 	/setvar key=parsedTraits None|
 :}|
+/addvar key=dataBaseNames parsedTraits|
 
-/*
+
 /:"CMC Logic.JEDParse"|
 
 /:"CMC Logic.Save DataBase"|
@@ -419,4 +450,3 @@
 /getat index="message" {{pipe}}|
 /qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Speech Patterns" {{pipe}}|
 /forcesave|
-*|

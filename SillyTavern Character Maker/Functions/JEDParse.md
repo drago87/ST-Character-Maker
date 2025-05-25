@@ -115,63 +115,65 @@
 	/re-replace find="/--Age--/g" replace="{{getvar::parcedAge}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (hair != '') {:
+/ife (appearanceHair != '') {:
 	/messages names=off 0|
-	/re-replace find="/--Hair--/g" replace="{{getvar::hair}}" {{pipe}}|
+	/re-replace find="/--Hair--/g" replace="{{getvar::appearanceHair}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (eyes != '') {:
+/ife (appearanceEyes != '') {:
 	/messages names=off 0|
-	/re-replace find="/--Eyes--/g" replace="{{getvar::eyes}}" {{pipe}}|
+	/re-replace find="/--Eyes--/g" replace="{{getvar::appearanceEyes}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (face != '') {:
+/ife (appearanceFace != '') {:
 	/messages names=off 0|
-	/re-replace find="/--Face--/g" replace="{{getvar::face}}" {{pipe}}|
+	/re-replace find="/--Face--/g" replace="{{getvar::appearanceFace}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (body != '') {:
+/ife (appearanceBody != '') {:
 	/messages names=off 0|
-	/re-replace find="/--Body--/g" replace="{{getvar::body}}" {{pipe}}|
+	/re-replace find="/--Body--/g" replace="{{newline}} - Body: {{getvar::appearanceBody}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (nipples != '') {:
+/ife ( (appearanceBreasts != '') and (appearanceBreasts != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Nipples--/g" replace="{{newline}} - Nipple Descriptors: {{getvar::nipples}}" {{pipe}}|
+	/re-replace find="/--Breasts--/g" replace="{{newline}} - Breast: {{getvar::appearanceBreasts}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (export == 'Yes' ) {:
-	/messages names=off 0|
-	/re-replace find="/--Nipples--/g" replace="" {{pipe}}|
-	/message-edit message=0 await=true {{pipe}}|
-:}|
-/ife ( (breast != '') and (breast != 'None')) {:
-	/messages names=off 0|
-	/re-replace find="/--Breasts--/g" replace="{{newline}} - Breast Descriptors: {{getvar::breast}}" {{pipe}}|
-	/message-edit message=0 await=true {{pipe}}|
-:}|
-/elseif (breast == 'None' ) {:
+/elseif (appearanceBreasts == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--Breasts--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife ((appearanceGenitals != '') and (appearanceGenitals != '') and (futanari == 'yes')) {:
+/ife (appearanceNipples != '') {:
+	/messages names=off 0|
+	/re-replace find="/--Nipples--/g" replace="{{newline}} - Nipple: {{getvar::appearanceNipples}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (appearanceNipples == 'None' ) {:
+	/messages names=off 0|
+	/re-replace find="/--Nipples--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife ((appearanceGenitals != '') and (appearanceGenitals != 'None') and (futanari == 'yes')) {:
 	/messages names=off 0|
 	/re-replace find="/--Genitals--/g" replace="{{newline}} - Genitals: {{getvar::appearanceGenitals}}" {{pipe}}|
 	/re-replace find="/--Pussy--/g" replace="" {{pipe}}|
 	/re-replace find="/--Cock--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (appearancePussy != '') {:
+/elseif ((appearancePussy != '') and (appearancePussy != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--Pussy--/g" replace="{{newline}} - Pussy: {{getvar::appearancePussy}}" {{pipe}}|
 	/re-replace find="/--Cock--/g" replace="" {{pipe}}|
+	/re-replace find="/--Genitals--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (appearanceCock != '') {:
+/elseif ((appearanceCock != '') and (appearanceCock != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--Cock--/g" replace="{{newline}} - Cock: {{getvar::appearanceCock}}" {{pipe}}|
 	/re-replace find="/--Pussy--/g" replace="" {{pipe}}|
+	/re-replace find="/--Genitals--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (appearanceAnus != '') {:
@@ -189,49 +191,59 @@
 	/re-replace find="/--ApperanceTraits--/g" replace="{{newline}}{{newline}}{{getvar::parsedAppearanceTraits}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (outfitHead != '') {:
+/ife (outfitHeadDescription != '') {:
 	/messages names=off 0|
-	/re-replace find="/--OutfitHead--/g" replace="{{getvar::outfitHead}}" {{pipe}}|
+	/re-replace find="/--OutfitHead--/g" replace="{{getvar::outfitHeadDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (outfitAccessories != '') {:
+/ife (parsedAccessories != '') {:
 	/messages names=off 0|
-	/re-replace find="/--OutfitAccessories--/g" replace="{{getvar::outfitAccessories}}" {{pipe}}|
+	/re-replace find="/--OutfitAccessories--/g" replace="{{getvar::parsedAccessories}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (outfitMakeup != '') {:
+/ife (parsedMakeup != '') {:
 	/messages names=off 0|
-	/re-replace find="/--OutfitMakeup--/g" replace="{{getvar::outfitMakeup}}" {{pipe}}|
+	/re-replace find="/--OutfitMakeup--/g" replace="{{getvar::parsedMakeup}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (outfitNeck != '') {:
+/ife (outfitNeckDescription != '') {:
 	/messages names=off 0|
-	/re-replace find="/--OutfitNeck--/g" replace="{{getvar::outfitNeck}}" {{pipe}}|
+	/re-replace find="/--OutfitNeck--/g" replace="{{getvar::outfitNeckDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (outfitTop != '') {:
+/ife (outfitTopDescription != '') {:
 	/messages names=off 0|
-	/re-replace find="/--OutfitTop--/g" replace="{{getvar::outfitTop}}" {{pipe}}|
+	/re-replace find="/--OutfitTop--/g" replace="{{getvar::outfitTopDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (outfitBottom != '') {:
 	/messages names=off 0|
-	/re-replace find="/--OutfitBottom--/g" replace="{{getvar::outfitBottom}}" {{pipe}}|
+	/re-replace find="/--OutfitBottom--/g" replace="{{getvar::outfitBottomDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (outfitLegs != '') {:
+/ife (outfitLegsDescription != '') {:
 	/messages names=off 0|
-	/re-replace find="/--OutfitLegs--/g" replace="{{getvar::outfitLegs}}" {{pipe}}|
+	/re-replace find="/--OutfitLegs--/g" replace="{{getvar::outfitLegsDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (outfitShoes != '') {:
+/ife (outfitShoesDescription != '') {:
 	/messages names=off 0|
-	/re-replace find="/--OutfitShoes--/g" replace="{{getvar::outfitShoes}}" {{pipe}}|
+	/re-replace find="/--OutfitShoes--/g" replace="{{getvar::outfitShoesDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (outfitUnderwear != '') {:
+/ife ( (outfitUnderwearTopDescription != '') and (outfitUnderwearTopDescription != 'Skip')) {:
 	/messages names=off 0|
-	/re-replace find="/--OutfitUnderwear--/g" replace="{{getvar::outfitUnderwear}}" {{pipe}}|
+	/re-replace find="/--OutfitUnderwearTop--/g" replace="{{newline}}- Underwear (Top):  {{getvar::outfitUnderwearTopDescription}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (outfitUnderwearTopDescription != 'Skip') {:
+	/messages names=off 0|
+	/re-replace find="/--OutfitUnderwearTop--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (outfitUnderwearBottomDescription != '') {:
+	/messages names=off 0|
+	/re-replace find="/--OutfitUnderwearBottom--/g" replace="{{getvar::outfitUnderwearBottomDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (appearanceQAList != '') {:
@@ -306,35 +318,35 @@
 :}|
 /ife (personalityTags != '') {:
 	/messages names=off 0|
-	/re-replace find="/--PersonalityTags--/g" replace="- Personality Tags:{{getvar::personalityTags}}" {{pipe}}|
+	/re-replace find="/--PersonalityTags--/g" replace="- Personality Tags: {{getvar::personalityTags}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife ( intelligenceLevel != '') {:
+/ife ( personalityIntelligenceLevel != '') {:
 	/messages names=off 0|
-	/re-replace find="/--IntelligenceLevel--/g" replace="- Personality Tags:{{getvar::intelligenceLevel}}" {{pipe}}|
+	/re-replace find="/--IntelligenceLevel--/g" replace="- Intelligence Level: {{getvar::personalityIntelligenceLevel}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife ( (cognitiveAbilities != '') and (cognitiveAbilities != 'None') ) {:
+/ife ( (personalitycognitiveAbilities != '') and (personalitycognitiveAbilities != 'None') ) {:
 	/messages names=off 0|
-	/re-replace find="/--CognitiveAbilities--/g" replace="{{newline}}{{newline}}- Cognitive Abilities: {{getvar::cognitiveAbilities}}" {{pipe}}|
+	/re-replace find="/--CognitiveAbilities--/g" replace="{{newline}}{{newline}}- Cognitive Abilities: {{getvar::personalitycognitiveAbilities}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (cognitiveAbilities == 'None' ) {:
+/elseif (personalitycognitiveAbilities == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--CognitiveAbilities--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife ( socialBehavior != '') {:
+/ife ( personalitySocialBehavior != '') {:
 	/messages names=off 0|
-	/re-replace find="/--SocialBehavior--/g" replace="- Personality Tags:{{getvar::socialBehavior}}" {{pipe}}|
+	/re-replace find="/--SocialBehavior--/g" replace="- Social Behavior: {{getvar::personalitySocialBehavior}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife ( (socialSkills != '') and (socialSkills != 'None')) {:
+/ife ( (personalitySocialSkills != '') and (personalitySocialSkills != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--SocialSkills--/g" replace="{{newline}}{{newline}}- Social Skills and Integration Into Society:{{getvar::socialSkills}}" {{pipe}}|
+	/re-replace find="/--SocialSkills--/g" replace="{{newline}}{{newline}}- Social Skills and Integration Into Society:{{getvar::personalitySocialSkills}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (socialSkills == 'None' ) {:
+/elseif (personalitySocialSkills == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--SocialSkills--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -379,24 +391,24 @@
 	/re-replace find="/--SexualNotes--/g" replace="{{getvar::sexualNotes}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (speachStyle != '') {:
+/ife (speechStyle != '') {:
 	/messages names=off 0|
-	/re-replace find="/--SpeachStyle--/g" replace="{{getvar::speachStyle}}" {{pipe}}|
+	/re-replace find="/--SpeechStyle--/g" replace="{{getvar::speechStyle}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (speachQuirks != '') {:
+/ife (speechQuirks != '') {:
 	/messages names=off 0|
-	/re-replace find="/--SpeachQuirks--/g" replace="{{getvar::speachQuirks}}" {{pipe}}|
+	/re-replace find="/--SpeechQuirks--/g" replace="{{getvar::speechQuirks}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (speachTics != '') {:
+/ife (speechTics != '') {:
 	/messages names=off 0|
-	/re-replace find="/--SpeachTics--/g" replace="{{getvar::speachTics}}" {{pipe}}|
+	/re-replace find="/--SpeechTics--/g" replace="{{getvar::speechTics}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (speachExamples != '') {:
+/ife (speechExampleString != '') {:
 	/messages names=off 0|
-	/re-replace find="/--SpeachExamples--/g" replace="{{getvar::speachExamples}}" {{pipe}}|
+	/re-replace find="/--SpeechExamples--/g" replace="{{getvar::speechExampleString}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (synonyms != '') {:

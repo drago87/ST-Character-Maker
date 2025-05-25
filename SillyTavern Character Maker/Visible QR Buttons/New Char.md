@@ -66,7 +66,7 @@
 :}|
 /ife ( (futanari == '') or ( selected_btn == 'Yes')) {:
 	/buttons labels=["Yes", "No"] Is the character you are making a futanari? |
-	/setvar key=futunari {{pipe}}|
+	/setvar key=futanari {{pipe}}|
 	/ife ( gender == '') {:
 		/echo Aborting |
 		/abort
@@ -206,12 +206,12 @@ INSTRUCTION: Only respond in the given format.|
 	:}|
 :}|
 /else {:
-	/setvar key=speciesGroup None|
+	/setvar key=speciesGroup Humanoid|
 :}|
 /ife ( (characterArchetype == 'Human') and (characterArchetype == 'Demi-Human') and (characterArchetype == 'Android')) {:
-	/setvar key=parsedAnimalType None|
+	/setvar key=parsedAnimalType Humanoid|
 :}|
-/ife (((characterArchetype == Anthropomorphic) or (characterArchetype == Anthropomorphic)) and ((characterType == 'Pokémon') or (characterType == 'Digimon') or (characterType == 'Animalistic'))) {:
+/elseif (((characterArchetype == Anthropomorphic) or (characterArchetype == Anthropomorphic)) and ((characterType == 'Pokémon') or (characterType == 'Digimon') or (characterType == 'Animalistic'))) {:
 	/setvar key=parsedAnimalType {{getvar::characterType}}|
 :}|
 /elseif (animalBase != speciesGroup) {:

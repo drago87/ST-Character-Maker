@@ -10,7 +10,7 @@
 /setvar key=dataBaseNames []|
 /flushvar genSettings|
 
-/setvar key=stepVar Step6|
+/setvar key=stepVar Step5|
 
 /setvar key=skip Update|
 /ife ( stepDone == 'No') {:
@@ -30,7 +30,7 @@
 
 //Archetype|
 /var key=do No|
-/var key=variableName "archetype"|
+/var key=variableName "personalityArchetype"|
 /ife ({{var::variableName}} == '') {:
     /var key=do Yes|
 :}|
@@ -69,14 +69,15 @@
 	:}|
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.GenerateWithPrompt"|
-	/ife (output != '') {:
-		/setvar key={{var::variableName}} {{getvar::output}}|
-	:}|
+	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
+	/flushvar settingModifier|
+	/flushvar settingArchetype|
+	/flushvar settingAddition|
 :}|
 /else {:
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -86,7 +87,7 @@
 
 //Archetype Details|
 /var key=do No|
-/var key=variableName "archetypeDetails"|
+/var key=variableName "personalityArchetypeDetails"|
 /ife ({{var::variableName}} == '') {:
     /var key=do Yes|
 :}|
@@ -107,15 +108,11 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/addvar key=extra "- Archetype: {{getvar::archetype}}"|
+	/addvar key=extra "- Archetype: {{getvar::personalityArchetype}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
 	/setvar key=genSettings index=contextKey []|
 	/wait {{getvar::wait}}|
-	
-	/setvar key=settingModifier {Modifier}|
-	/setvar key=settingArchetype {Archetype}|
-	/setvar key=settingAddition {Addition}|
 	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
@@ -129,9 +126,7 @@
 	:}|
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.GenerateWithPrompt"|
-	/ife (output != '') {:
-		/setvar key={{var::variableName}} {{getvar::output}}|
-	:}|
+	/setvar key={{var::variableName}} {{getvar::output}}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar guidance|
@@ -150,7 +145,7 @@
 
 //Reasoning|
 /var key=do No|
-/var key=variableName "archetypeReasoning"|
+/var key=variableName "personalityArchetypeReasoning"|
 /ife ({{var::variableName}} == '') {:
     /var key=do Yes|
 :}|
@@ -171,8 +166,7 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/addvar key=extra "- Archetype: {{getvar::archetype}}"|
-	/addvar key=extra "  ↳ Archetype Details: {{getvar::archetypeDetails}}"|
+	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
 	/setvar key=genSettings index=contextKey []|
@@ -215,6 +209,7 @@
 /findentry field=comment file="CMC Templates" "Archetype Template"|
 /getentryfield field=content file="CMC Templates" {{pipe}}|
 /setvar key=parsedArchetype {{pipe}}|
+/addvar key=dataBaseNames parsedArchetype|
 
 /ife (( alignmentChoice == '') or ( alignmentChoice == 'Yes')) {:
 	/buttons labels=["Yes", "No"] Do you want to select and generate an Alignment and its details?|
@@ -226,7 +221,7 @@
 	/elseif ( selected_btn == 'Yes') {:
 		//Alignment|
 		/var key=do No|
-		/var key=variableName "alignment"|
+		/var key=variableName "personalityAlignment"|
 		/ife ({{var::variableName}} == '') {:
 		    /var key=do Yes|
 		:}|
@@ -299,7 +294,7 @@
 		
 		//Alignment Details|
 		/var key=do No|
-		/var key=variableName "alignmentDetails"|
+		/var key=variableName "personalityAlignmentDetails"|
 		/ife ({{var::variableName}} == '') {:
 		    /var key=do Yes|
 		:}|
@@ -364,7 +359,7 @@
 		
 		//Alignment Ideals|
 		/var key=do No|
-		/var key=variableName "alignmentIdeals"|
+		/var key=variableName "personalityAlignmentIdeals"|
 		/ife ({{var::variableName}} == '') {:
 		    /var key=do Yes|
 		:}|
@@ -428,13 +423,21 @@
 		//--------|
 	:}|
 	/else {:
-		/setvar key=alignment Nope|
-		/setvar key=alignmentDetails Nope|
-		/setvar key=alignmentIdeals Nope|
+		/setvar key=personalityAlignment Nope|
+		/addvar key=dataBaseNames personalityAlignment|
+		/setvar key=personalityAlignmentDetails Nope|
+		/addvar key=dataBaseNames personalityAlignmentDetails|
+		/setvar key=personalityAlignmentIdeals Nope|
+		/addvar key=dataBaseNames personalityAlignmentIdeals|
 	:}|
 :}|
+/else {:
+	/addvar key=dataBaseNames personalityAlignment|
+	/addvar key=dataBaseNames personalityAlignmentDetails|
+	/addvar key=dataBaseNames personalityAlignmentIdeals|
+:}|
 
-/ife (( alignment != 'Nope') and ( alignment != '')) {:
+/ife (( personalityAlignment != 'Nope') and ( personalityAlignment != '')) {:
 	/findentry field=comment file="CMC Templates" "Alignment Template"|
 	/getentryfield field=content file="CMC Templates" {{pipe}}|
 	/setvar key=parsedAlignment {{pipe}}|
@@ -442,10 +445,11 @@
 /else {:
 	/setvar key=parsedAlignment None|
 :}|
+/addvar key=dataBaseNames parsedAlignment|
 
 //Personality Tags|
 /var key=do No|
-/var key=variableName "foundTags"|
+/var key=variableName "personalityFoundTags"|
 /ife ({{var::variableName}} == '') {:
     /var key=do Yes|
 :}|
@@ -549,9 +553,10 @@
 //--------|
 
 
+
 //Cognitive Abilities|
 /var key=do No|
-/var key=variableName "intelligenceLevel"|
+/var key=variableName "personalityIntelligenceLevel"|
 /ife ({{var::variableName}} == '') {:
     /var key=do Yes|
 :}|
@@ -622,8 +627,8 @@
 
 
 /var key=do No|
-/var key=variableName "cognitiveAbilities"|
-/ife (( 'Average' not in intelligenceLevel) or (characterArchetype == 'Animalistic') ) {:
+/var key=variableName "personalitycognitiveAbilities"|
+/ife (( 'Average' not in personalityIntelligenceLevel) or (characterArchetype == 'Animalistic') ) {:
 	/ife ({{var::variableName}} == '') {:
 	    /var key=do Yes|
 	:}|
@@ -648,7 +653,7 @@
 		/ife (parsedAlignment != 'None') {:
 			/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 		:}|
-		/addvar key=extra "- Intelligence Level: {{getvar::intelligenceLevel}}"|
+		/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/flushvar extra|
 		/setvar key=genSettings index=contextKey []|
@@ -689,7 +694,7 @@
 
 //Social Skills and Integration Into Society|
 /var key=do No|
-/var key=variableName "socialBehavior"|
+/var key=variableName "personalitySocialBehavior"|
 /ife ({{var::variableName}} == '') {:
     /var key=do Yes|
 :}|
@@ -759,8 +764,8 @@
 :}|
 
 /var key=do No|
-/var key=variableName "socialSkills"|
-/ife (( 'Average' not in intelligenceLevel) or (characterArchetype == 'Animalistic') ) {:
+/var key=variableName "personalitySocialSkills"|
+/ife (( 'Average' not in personalityIntelligenceLevel) or (characterArchetype == 'Animalistic') ) {:
 	/ife ({{var::variableName}} == '') {:
 	    /var key=do Yes|
 	:}|
@@ -785,11 +790,11 @@
 		/ife (parsedAlignment != 'None') {:
 			/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 		:}|
-		/addvar key=extra "- Intelligence Level: {{getvar::intelligenceLevel}}"|
-		/ife (cognitiveAbilities != 'None') {:
-			/addvar key=extra "- Cognitive Abilities: {{getvar::cognitiveAbilities}}{{newline}}"|
+		/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
+		/ife (personalitycognitiveAbilities != 'None') {:
+			/addvar key=extra "- Cognitive Abilities: {{getvar::personalitycognitiveAbilities}}{{newline}}"|
 		:}|
-		/addvar key=extra "- Social Behavior: {{getvar::socialBehavior}}"|
+		/addvar key=extra "- Social Behavior: {{getvar::personalitySocialBehavior}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/flushvar extra|
 		/setvar key=genSettings index=contextKey []|
@@ -828,7 +833,6 @@
 //--------|
 
 
-/*
 
 /:"CMC Logic.JEDParse"|
 
@@ -842,4 +846,3 @@
 /getat index="message" {{pipe}}|
 /qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Aspirational & Unique Traits" {{pipe}}|
 /forcesave|
-*|

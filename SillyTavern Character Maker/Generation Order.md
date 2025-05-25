@@ -4,28 +4,28 @@ Generation can only use information from things above it
 
   Character Setup below here (Done)
   
-1. **Gender** Male or Female
+1. **Gender** Male or Female, Part of Base Context
 2. **Futanari** Yes or No
-3. **Character Archetype** Human, Anthropomorphic, Demi-Human, Tauric, Beastkin, Animalistic, Pokémon, Digimon, Android
+3. **Character Archetype** Human, Anthropomorphic, Demi-Human, Tauric, Beastkin, Animalistic, Pokémon, Digimon, Android, Part of Base Context
 4. **Character Type** Pokémon, Digimon, Animalistic
-5. **Animal Base** Humanoid (For Human), Synthetic (For Synthetic), Mammal, Reptile, Bird, Fish, Amphibian, Invertebrate, Fantasy
+5. **Animal Base** Humanoid (For Human), Synthetic (For Android), Mammal, Reptile, Bird, Fish, Amphibian, Invertebrate, Fantasy
 6. **Species Group** See list at the end
 7. **Privates Female** Same as Species Group
 8. **Privates Male** Same as Species Group
-9. **Real** Yes or No See end for information
+9. **Real** Yes or No See end for information, Part of Base Context
    
    Basic about the Character below here
 
 10. **Time Period** See end, No Base Context, No ExtraInput, No Type Context
 11. **Setting Type** Realistic, Fantasy or Science Fiction
-12. **Species** No Base Context, No ExtraInput, No Type Context
-13. **Nationality**  Base Context, No ExtraInput, No Type Context, (Only for Human, Android)
-14. **Ethnicity** Base Context, No ExtraInput, No Type Context, (Only for Human, Android)
-15. **Life Stage** See the end, No Base Context, No ExtraInput, No Type Context
-16. **Age** Base Context, No ExtraInput, Life Stage Context (Instead of Type Context, See the end)
-17. **Human Equivalent Age** If not Human (Characters mental age in comparison to a Human)
-18. **First Name** Base Context, No ExtraInput, No Type Context
-19. **Last Name** Base Context, No ExtraInput, No Type Context
+12. **Species** No Base Context, No ExtraInput, No Type Context, Part of Base Context
+13. **Nationality**  Base Context, No ExtraInput, No Type Context, (Only for Human, Android), Part of Base Context
+14. **Ethnicity** Base Context, No ExtraInput, No Type Context, (Only for Human, Android), Part of Base Context
+15. **Life Stage** See the end, No Base Context, No ExtraInput, No Type Context, Part of Base Context
+16. **Age** Base Context, No ExtraInput, Life Stage Context (Instead of Type Context, See the end), Part of Base Context
+17. **Human Equivalent Age** If not Human (Characters mental age in comparison to a Human), Part of Base Context
+18. **First Name** Base Context, No ExtraInput, No Type Context, Part of Base Context
+19. **Last Name** Base Context, No ExtraInput, No Type Context, Part of Base Context
 20. **Alias** Base Context, No ExtraInput, No Type Context
     
     Would Info Below this (Done)
@@ -73,36 +73,36 @@ Generation can only use information from things above it
 54. **Outfit Bottom** 
 55. **Outfit Legs** 
 56. **Outfit Shoes** 
-57. **Outfit Underwear** 
+57. **Outfit Underwear (Top)** 
+58. **Outfit Underwear (Top)** 
     
     Personality Below this (partly done but need to go over it again as things have moved)
 
-58. **Archetype** 
-59. **Archetype Details** 
-60. **Reasoning** 
-61. **Alignment** 
-62. **Alignment Details** 
-63. **Ideals** 
-64. **Personality Tags** 
-65. **Intelligence Level** 
-66. **Cognitive Abilities** 
-67. **Social Behavior** 
-68. **Social Skills and Integration** 
+59. **Archetype** 
+60. **Archetype Details** 
+61. **Reasoning** 
+62. **Alignment** 
+63. **Alignment Details** 
+64. **Ideals** 
+65. **Personality Tags** 
+66. **Intelligence Level** 
+67. **Cognitive Abilities** 
+68. **Social Behavior** 
+69. **Social Skills and Integration** 
     
     Aspiration and Personality Traits (partly done but need to go over it again as things have moved)
 
-69. **Main Aspiration** 
-70. **Aspiration Details**  
-71. **Aspiration Goals**  
-72. **Unique Trait(s)**  
-73. **Unique Trait Effect(s)**  
+70. **Main Aspiration** 
+71. **Aspiration Details**  
+72. **Aspiration Goals**  
+73. **Unique Trait(s)**  
+74. **Unique Trait Effect(s)**  
     
-    Speech (Not Done)
+    Speech
 
-74. **Speech Style** 
-75. **Speech Quirks** 
-76. **Speech Tics** 
-77. **Speech Examples** 
+75. **Speech Style** 
+76. **Speech Quirks** 
+77. **Speech Tics** 
     
     An extra category for stuff not fitting above (Not Done)
 
@@ -122,15 +122,16 @@ Generation can only use information from things above it
     Ending Stuff (Not Done)
 
 87. **Behavior Notes** 
-88. **Appearance Q&A** 
-89. **Personality Q&A** 
-90. **Sexuality Q&A** 
-91. **Extra Q&A** 
-92. **Story Plan** 
-93. **Previously...** 
-94. **Notes** 
-95. **Synonyms** 
-96. **Extra Characters** 
+88. **Speech Examples** 
+89. **Appearance Q&A** 
+90. **Personality Q&A** 
+91. **Sexuality Q&A** 
+92. **Extra Q&A** 
+93. **Story Plan** 
+94. **Previously...** 
+95. **Notes** 
+96. **Synonyms** 
+97. **Extra Characters** 
 
 
 Species Group can be one of these depending on what the user picked for Animal Base  

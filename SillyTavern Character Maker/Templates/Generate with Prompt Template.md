@@ -16,7 +16,7 @@
 	/setvar key=genSettings index=wi_book "CHANGE/REMOVE_THIS"|
 	/setvar key=genSettings index=wi_book_key "CHANGE_THIS"|
 	/setvar key=genSettings index=genIsList No|
-	/setvar key=genSettings index=inputIsTaskList No|
+	
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
@@ -38,7 +38,7 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
 	/else {:

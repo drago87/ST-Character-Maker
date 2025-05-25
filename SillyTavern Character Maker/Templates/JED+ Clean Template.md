@@ -28,7 +28,7 @@
 - Hair: --Hair--
 - Eyes: --Eyes--
 - Face: --Face--
-### Body: 
+### Body
 - Body: --Body----Breasts----Nipples----Pussy----Cock----Genitals--
 - Anus: --Anus--
 
@@ -43,8 +43,8 @@
 - Top: --OutfitTop--
 - Bottom: --OutfitBottom--
 - Legs: --OutfitLegs--
-- Shoes: --OutfitShoes--
-- Underwear: --OutfitUnderwear----AppearanceQA--
+- Shoes: --OutfitShoes----OutfitUnderwearTop--
+- Underwear (Bottom): --OutfitUnderwearBottom----AppearanceQA--
 
 - - -
 
@@ -75,9 +75,9 @@
 ### PERSONALITY
 --Archetype----Alignment--
 
---PersonalityTags---
+--PersonalityTags--
 
---IntelligenceLevel--CognitiveAbilities--
+--IntelligenceLevel----CognitiveAbilities--
 --SocialBehavior----SocialSkills--
 
 --MainAspiration--
@@ -109,15 +109,15 @@
 ## [SPEECH]
 
 ### GENERAL SPEECH INFO
-- Style: --SpeachStyle--
-- Quirks: --SpeachQuirks--
-- Ticks: --SpeachTics--
+- Style: --SpeechStyle--
+- Quirks: --SpeechQuirks--
+- Ticks: --SpeechTics--
 
 ## Speech EXAMPLES AND OPINIONS
 [IMPORTANT NOTE FOR AI: This section provides --FirstName--'s speech examples, memories, thoughts, and --FirstName--'s real opinions on subjects. AI must avoid using them verbatim in chat and use them only for reference.]
 
 <speech_examples>
---SpeachExamples--
+--SpeechExamples--
 </speech_examples>
 
 - - -

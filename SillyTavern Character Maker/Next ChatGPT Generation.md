@@ -1,1 +1,7 @@
-Did some generation tests and the output seamed kind of dark for the World Details. Would it be good to have mood (bad word) variable that we can have the user set before generating the world details. (This variable will only effect how dark the generation should be) This should only effect World Details and Lore and be included in the Character Sheet
+You are back to using {{random:{{getvar::randomTags}}}} twice
+
+1. Output must be **1 short line**, describing 1 or 2 tics joined by “or” or “and”, reflecting the {{random:{{getvar::randomTags}}}} trait. The tic should be directly influenced by the {{random:{{getvar::randomTags}}}} trait — only use archetype or age if necessary to reinforce the tag. No bullets, no lists, no full sentences.
+
+could become
+
+1. Output must be **1 short line**, describing 1 or 2 tics joined by “or” or “and”, reflecting the "Humorous" trait. The tic should be directly influenced by the "Hesitant" trait — only use archetype or age if necessary to reinforce the tag. No bullets, no lists, no full sentences.

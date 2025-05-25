@@ -28,18 +28,21 @@
 /ife ( useContext_f == '') {:
 	/abort quiet=false Missing useContext setting in input.|
 :}|
-/getvar key=genSettings index=inputIsTaskList|
-/let key=inputIsTaskList_f {{pipe}}|
-/ife ( inputIsTaskList_f == '') {:
-	/var inputIsTaskList_f No|
-:}|
 /getvar key=genSettings index=outputIsList|
 /let key=outputIsList_f {{pipe}}|
 /ife ( outputIsList_f == '') {:
 	/var key=outputIsList_f No|
 :}|
-
-
+/getvar key=genSettings index=maxSizeOfList|
+/let key=maxSizeOfList_f {{pipe}}|
+/ife ( (outputIsList_f == 'Yes') and (maxSizeOfList_f == '')) {:
+	
+:}|
+/elseif ( (outputIsList_f == 'Yes') and (maxSizeOfList_f is string)) {:
+	/abort quiet=false maxSizeOfList needs to be empty or Number.|
+:}|
+/getvar key=genSettings index=random|
+/let as=array key=random_f {{pipe}}|
 /getvar key=genSettings index=contextKey|
 /let as=array key=contextKey_f {{pipe}}|
 /getvar key=genSettings index=extraContext|
@@ -50,23 +53,6 @@
 /let key=context {{noop}}|
 /let key=find {{noop}}|
 /let key=examples {{noop}}|
-/let key=taskList {{noop}}|
-
-
-/ife ( inputIsTaskList_f == 'Yes') {:
-	/var key=find {{var::wi_book_key_f}}: Task List|
-	/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
-	/var key=wi_uid {{pipe}}|
-	/ife ( wi_uid != '') {:
-		/getentryfield field=content file="CMC Generation Prompts" {{var::wi_uid}}|
-		/var key=taskList {{pipe}}|
-		/split find=":" {{var::taskList}}|
-		/var key=taskList {{pipe}}|
-		/ife ( taskList == '') {:
-			/abort quiet=false No task list named {{var::find}}.|
-		:}|
-	:}|
-:}|
 
 
 /ife ( useContext_f == 'Yes') {:
@@ -75,12 +61,16 @@
 	/:"CMC Logic.Set Base Context"|
 	/var key=context {{pipe}}|
 	/flushvar gen|
-	/ife ( extraContext_f != '') {:
-		/foreach {{var::extraContext_f}} {:
-			/var key=context {{var::context}}{{newline}}{{var::item}}|
-		:}|
+:}|
+/ife (( useContext_f == 'No') and ( extraContext_f != '')) {:
+/var key=context "### **CONTEXT (for your reference—do not include in the answer):**"
+:}|
+/ife ( extraContext_f != '') {:
+	/foreach {{var::extraContext_f}} {:
+		/var key=context {{var::context}}{{newline}}{{var::item}}|
 	:}|
 :}|
+
 /ife ( contextKey_f != '') {:
 	/foreach {{var::contextKey_f}} {:
 		/var key=find "{{var::item}}: Context"|
@@ -165,58 +155,68 @@
 :}|
 /let t |
 /whilee ( output == '') {:
-	/echo Generating {{var::wi_book_key_f}}|
-	/var key=genState []|
-	/ife (genIsList_f == 'Yes') {:
-		/ife ( inputIsTaskList_f == 'Yes') {:
-			/foreach {{var::taskList}} {:
-				/setvar key=item {{var::item}}|
-				/var key=find "{{var::wi_book_key_f}}: Task"|
-				/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
-				/var key=wi_uid {{pipe}}|
-				/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
-				/var key=task {{pipe}}|
-				/let key=same Yes|
-				
-				/whilee ( same == 'Yes') {:
-					/let tempItem {{noop}}|
-					/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
-					/var tempItem {{pipe}}|
-					/ife (debug == 'Yes') {:
-						/setvar key="05 Output" {{var::tempItem}}|
-					:}|
-					/else {:
-						/flushvar "05 Output"|
-					:}|
-					/reasoning-parse return=content {{var::tempItem}}|
-					/var tempItem {{pipe}}|
-					/ife (tempItem not in t) {:
-						/ife (t != '') {:
-							/var key=t "{{var::t}}: {{var::tempItem}}"|
-						:}|
-						/else {:
-							/var key=t "{{var::tempItem}}"|
-						:}|
-						/var same No|
-					:}|
-				:}|
-			:}|
-		:}|
-		/else {:
-			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
-			/var key=t {{pipe}}|
-			/ife (debug == 'Yes') {:
-				/setvar key="05 Output" {{var::t}}|
-			:}|
-			/else {:
-				/flushvar "05 Output"|
-			:}|
-			/reasoning-parse return=content {{var::t}}|
-			/var key=t {{pipe}}|
+	/ife ( (outputIsList_f == 'Yes') and (maxSizeOfList_f is number)) {:
+		/len {{getvar::tempList}}|
+		/let key=len {{pipe}}|
+		/ife (len == maxSizeOfList_f) {:
+			/setvar key=save Done|
+			/:"CMC Logic.SaveGen"|
+			/break|
 		:}|
 	:}|
-	/else {:
+	/echo Generating {{var::wi_book_key_f}}|
+	/ife ((random_f != '') and ( wi_book_key == 'Speech Single Ticks')) {:
+		/var key=instruct {{noop}}|
+		/pick {{var::random_f}}|
+		/setvar key=rand {{pipe}}|
+	:}|
+	/var key=genState []|
+	/ife (genIsList_f == 'Yes') {:
 		/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+		/var key=t {{pipe}}|
+		/re-replace find="/^[;\s]+/g" replace="" {{var::t}}|
+		/var key=t {{pipe}}|
+		/ife (debug == 'Yes') {:
+			/setvar key="05 Output" {{var::t}}|
+		:}|
+		/else {:
+			/flushvar "05 Output"|
+		:}|
+		/reasoning-parse return=content {{var::t}}|
+		/var key=t {{pipe}}|
+	:}|
+	/else {:
+		/ife ( wi_book_key_f == 'Speech Examples') {:
+			/let key=d Not Done|
+			/whilee (d == 'Not Done') {:
+				/split {{var::random_f}}|
+				/pick {{pipe}}|
+				/setvar key=target {{pipe}}|
+				/ife (('--User--' in speechPromptClaim) and (target == '--User--')) {:
+				:}|
+				/else {:
+					/var key=d Done|
+				:}|
+			:}|
+			/re-replace find="/{target}/g" replace="{{getvar::target}}" {{getvar::speechPromptClaim}}|
+			/setvar key=speechPromptClaimRand {{pipe}}|
+		:}|
+		/var key=find "{{var::wi_book_key_f}}: Task"|
+		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
+		/var key=wi_uid {{pipe}}|
+		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/var key=task {{pipe}}|
+		/var key=find "{{var::wi_book_key_f}}: Instruction"|
+		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
+		/var key=wi_uid {{pipe}}|
+		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/var key=instruct {{pipe}}|
+		/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+		/var key=t {{pipe}}|
+		/re-replace find="/^[;\s]+/g" replace="" {{var::t}}|
+		/var key=t {{pipe}}|
+		/re-replace find="/^\*/g" replace="" {{var::t}}|
+		/re-replace find="/\*$/g" replace="" {{pipe}}|
 		/var key=t {{pipe}}|
 		/ife (debug == 'Yes') {:
 			/setvar key="05 Output" {{var::t}}|
@@ -251,8 +251,8 @@
 		/else {:
 			/var key=genState {{var::t}}|
 		:}|
-		/ife ((wi_book_key_f == 'Personality Tags' ) and (foundTags != '')) {:
-			/split {{getvar::foundTags}}|
+		/ife ((wi_book_key_f == 'Personality Tags' ) and (personalityFoundTags != '')) {:
+			/split {{getvar::personalityFoundTags}}|
 			/let key=temp {{pipe}}|
 			/reverse {{var::temp}}|
 			/var key=temp {{pipe}}|
@@ -281,6 +281,14 @@
 		/setvar key="03 Task" {{var::task}}|
 		/setvar key="04 Instruktions" {{var::instruct}}|
 	:}|
+	
+	
+	/ife (('Outfit' in wi_book_key_f) and ('Description' not in wi_book_key_f)) {:
+		/unshift genState "None"|
+		/var key=genState {{pipe}}|
+	:}|
+	
+	
 	/ife ( ('Random' not in genState) and (genIsList_f == 'Yes')) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Random"|
@@ -303,12 +311,13 @@
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} Customize Parts of the generation|
 	:}|
-	/ife (('Done' not in genState) and (((outputIsList_f == 'Yes') and (tempList != '')) or ((outputIsList_f != 'Yes') and (needOutput_f == 'No')))) {:
+	/let key=forsedOutputWhitelist ["Appearance Features Humanoid", "Appearance Features Other"]|
+	/ife (('Done' not in genState) and (((outputIsList_f == 'Yes') and (tempList != '')) or ((outputIsList_f != 'Yes') and (needOutput_f == 'No')) or ( wi_book_key_f in forsedOutputWhitelist))) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Done"|
 	:}|
 	
-	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags"]|
+	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags", "Speech Examples"]|
 	/ife (wi_book_key_f not in basicBlacklist) {:
 		/buttons labels={{var::genState}} Select the {{var::wi_book_key_f}} you want {{getvar::firstName}} to have.|
 		/var key=selected_btn {{pipe}}|
@@ -323,6 +332,10 @@
 	:}|
 	/elseif (wi_book_key_f == 'Personality QA') {:
 		/buttons labels={{var::genState}} <div>Is this a good Answer by {{getvar::firstName}} for the question:</div><div>{{getvar::question}}</div>|
+		/var key=selected_btn {{pipe}}|
+	:}|
+	/elseif (wi_book_key_f == 'Speech Examples') {:
+		/buttons labels={{var::genState}} <div>Is this a good reaction to:</div><div>{{getvar::speechPromptClaimRand}}</div>|
 		/var key=selected_btn {{pipe}}|
 	:}|
 
@@ -375,7 +388,7 @@
 	:}|
 	/elseif ( selected_btn =='Customize Parts of the generation') {:
 		/buttons labels=["Yes", "Reset", "No"] Do you want to Customize the {Modifier} of the formula {Modifier} + {Archetype} + {Addition}?|
-		/let key=sel {{pipe}}|
+		/let key=sel "{{pipe}}"|
 		/ife (sel == '') {:
 			/echo Aborting |
 			/abort
@@ -387,7 +400,9 @@
 				/echo Aborting |
 				/abort
 			:}|
-			/else {::}|
+			/else {:
+				/setvar key=settingModifier "{Modifier} = {{getvar::settingModifier}}"|
+			:}|
 		:}|
 		/elseif ( sel == 'Reset') {:
 			/setvar key=settingModifier {Modifier}|
@@ -405,7 +420,9 @@
 				/echo Aborting |
 				/abort
 			:}|
-			/else {::}|
+			/else {:
+				/setvar key=settingArchetype "{Archetype} = {{getvar::settingArchetype}}"|
+			:}|
 		:}|
 		/elseif ( sel == 'Reset') {:
 			/setvar key=settingArchetype {Archetype}|
@@ -423,7 +440,9 @@
 				/echo Aborting |
 				/abort
 			:}|
-			/else {::}|
+			/else {:
+				/setvar key=settingAddition "{Addition} = {{getvar::settingAddition}}"|
+			:}|
 		:}|
 		/elseif ( sel == 'Reset') {:
 			/setvar key=settingAddition {Addition}|

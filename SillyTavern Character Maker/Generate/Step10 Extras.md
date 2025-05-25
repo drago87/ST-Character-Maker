@@ -27,6 +27,7 @@
 /let key=do {{noop}}|
 /let key=variableName {{noop}}|
 /let selected_btn {{noop}}|
+/let key=len {{noop}}|
 
 
 //Behavior Notes|
@@ -43,6 +44,185 @@
 	:}|
 :}|
 //--------|
+
+
+//Speech Examples|
+/var key=do No|
+/var key=variableName "speechExampleList"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/flushvar speechExample|
+	/flushvar speechExampleList|
+	/setvar key=genSettings index=wi_book_key "Speech Examples"|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=inputIsList Yes|
+	/setvar key=genSettings index=genIsSentence Yes|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=useContext Yes|
+	/findentry field=comment file="CMC Variables" "Someone Random"|
+	/let key=wi_uid {{pipe}}|
+	/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+	/setvar key=genSettings index=random {{pipe}}|
+	/setvar key=extra []|
+	/addvar key=extra "- Speech Style: {{getvar::speechStyle}}"|
+	/addvar key=extra "- Speech Quirks: {{getvar::speechQuirks}}"|
+	/addvar key=extra "- Speech Tics: {{getvar::speechTics}}"|
+	
+	
+	/addvar key=extra "- Personality Trait Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
+	/ife (cognitiveAbilities != 'None') {:
+		/addvar key=extra "- Cognitive Abilities: {{getvar::cognitiveAbilities}}{{newline}}"|
+	:}|
+	
+	/ife (personalitySocialSkills != 'None') {:
+		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}"|
+	:}|
+	/ife (personalitySocialBehavior != 'Normal') {:
+		/addvar key=extra "- Social Behavior: {{getvar::personalitySocialBehavior}}"|
+	:}|
+	
+	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
+	/ife (user != 'No') {:
+		/addvar key=extra "- User Role: {{getvar::userRole}}"|
+	:}|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/flushvar extra|
+	/setvar key=genSettings index=contextKey []|
+	
+	/setvar key=logicBasedInstruction {{noop}}|
+	/ife (cognitiveAbilities != 'None') {:
+		/addvar key=logicBasedInstruction "6. Adjust vocabulary, pacing, or complexity to reflect the character’s cognitive abilities."|
+	:}|
+	/ife (socialSkills != 'None') {:
+		/ife (logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction "{{newline}}7. "|
+		:}|
+		/else {:
+			/addvar key=logicBasedInstruction "6. "|
+		:}|
+		/addvar key=logicBasedInstruction "Reflect the character’s social integration level in tone, phrasing, or use of social cues like sarcasm, awkwardness, or formality."|
+	:}|
+	
+	/wait {{getvar::wait}}|
+	/ife (qestions != '') {:
+		/buttons labels=["Yes", "No"] Do you want to redo the situations?|
+		/var key=selected_btn {{pipe}}|
+		/ife ( selected_btn == ''){:
+			/echo Aborting |
+			/abort
+		:}|
+		/elseif ( selected_btn == 'Yes'){:
+			/flushvar qestions|
+		:}|
+	:}|
+	
+	/ife (qestions == '') {: 
+		/findentry field=comment file="CMC Questions" "Speech Situation: Q"|
+		/let key=wi_uid {{pipe}}|
+		/getentryfield field=content file="CMC Questions" {{var::wi_uid}}|
+		/let key=unfilteredQuestions {{pipe}}|
+		/split find="{{newline}}" {{var::unfilteredQuestions}}|
+		/var key=unfilteredQuestions {{pipe}}|
+	
+	
+		/setvar key=qestions []|
+		/foreach {{var::unfilteredQuestions}} {:
+			/ife (( user != 'Yes') and ('--User--' not in item)) or ( user == 'Yes') {:
+				/buttons labels=["Yes", "No"] <div>Do you want to have this situation?</div><div>{{var::item}}</div><div>{target} will be randomized</div>|
+				/let key=exp {{pipe}}|
+				/ife ( exp == ''){:
+					/echo Aborting |
+					/abort
+				:}|
+				/elseif ( exp == 'Yes') {:
+					/addvar key=qestions {{var::item}}|
+				:}|
+			:}| 
+		:}|
+	:}|
+	/let key=stop Yes|
+	/whilee (stop != 'No') {:
+		/buttons labels=["Yes", "No"] Do you want to add another situation?|
+		/var key=stop {{pipe}}|
+		/ife ( stop == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+		/ife ( stop == 'Yes') {:
+			/input default="What would you do if " <div>What is the situation you want {{getvar::firstName}} to react to?</div><div>if you use '{target}' it will be randomized.</div><div>It will be a continuation of this sentence</div><div>What would you do if</div><div>How would you react if</div><div>What would you think if</div><div>What would you say if</div>|
+			/let key=q {{pipe}}|
+			/ife ( q == '') {:
+				/echo Aborting |
+				/abort
+			:}|
+			/addvar key=qestions {{var::q}}|
+		:}|
+	:}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=outputIsList {{pipe}}|
+	
+	
+	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+	//[[Generate with Prompt]]|
+	/ife (inputIsList == 'Yes') {:
+		/foreach {{getvar::qestions}} {:
+			/setvar key=speechPromptClaim {{var::item}}|
+			/:"CMC Logic.GenerateWithPrompt"|
+			/addvar key={{var::variableName}} {{getvar::output}}|
+			/flushvar output|
+			/flushvar guidance|
+		:}|
+		/flushvar speechPromptClaim|
+	:}|
+	/else {:
+		/:"CMC Logic.GenerateWithPrompt"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+	:}|
+	/flushvar output|
+	/flushvar guidance|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+	/flushvar qestions|
+:}|
+//--------|
+
+/setvar key=speechExample []|
+/ife (speechExampleList != '') {:
+	/foreach {{getvar::speechExampleList}} {:
+		/addvar key=speechExample "- {{var::item}}"|
+	:}|
+	/join glue="{{newline}}" {{getvar::speechExample}}|
+	/setvar key=speechExampleString {{pipe}}|
+:}|
+/addvar key=dataBaseNames speechExampleString|
+/flushvar speechExampleList|
+
+/buttons multiple=true labels={{getvar::speechExample}} <div>Select what you want to use as the example speech for the following Q&A.</div>Reccomended 3-5|
+/setvar key=parsedSpeechExamples {{pipe}}|
+/join glue="{{newline}}" {{getvar::parsedSpeechExamples}}|
+/setvar key=parsedSpeechExamples {{pipe}}|
+/addvar key=dataBaseNames parsedSpeechExamples|
 
 //Appearance QA|
 
@@ -74,7 +254,6 @@
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings index=wi_book_key "Personality QA"|
 	/setvar key=genSettings index=genIsList No|
-	/setvar key=genSettings index=inputIsTaskList No|
 	/setvar key=genSettings index=inputIsList Yes|
 	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput Yes|
@@ -103,7 +282,7 @@
 	/ife (qestions == '') {: 
 		/findentry field=comment file="CMC Questions" "Personality: Q"|
 		/let key=wi_uid {{pipe}}|
-		/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
+		/getentryfield field=content file="CMC Questions" {{var::wi_uid}}|
 		/let key=unfilteredQuestions {{pipe}}|
 		/split find="\n" {{var::unfilteredQuestions}}|
 		/var key=unfilteredQuestions {{pipe}}|

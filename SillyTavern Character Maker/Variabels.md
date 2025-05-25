@@ -42,17 +42,54 @@ height
 appearanceFace
 appearanceHair
 appearanceEyes
-appearanceFeatures
+appearanceFeatures - can be None
 appearanceBody
-appearanceBreasts
-appearanceNipples
-appearancePussy
-appearanceCock
-appearanceGenitals
+appearanceBreasts - can be None
+appearanceNipples - can be None
+appearancePussy - can be None (One of Pussy, Cock will have content)
+appearanceCock - can be None (One of Pussy, Cock will have content)
+appearanceGenitals - can be None(Will only be None of futanari = No, if futanari = Yes the appearanceGenitals will be the only one that is used)
 appearanceAnus
-appearanceTraits
-appearanceTraitsDetails
-appearanceTraitsEffect
+appearanceTraits - can be None
+appearanceTraitsDetails - Will be None if appearanceTraits = None
+appearanceTraitsEffect - Will be None if appearanceTraits = None
+
+outfitHeadDescription
+parsedAccessories
+parsedMakeup
+outfitNeckDescription
+outfitTopDescription
+outfitBottomDescription
+outfitLegsDescription
+outfitShoesDescription
+outfitUnderwearTopDescription - Can be Skip if appearanceBreasts = None
+outfitUnderwearBottomDescription
+
+personalityArchetype
+personalityArchetypeDetails
+personalityArchetypeReasoning
+parsedArchetype - The way Archetype, ArchetypeDetails, ArchetypeReasoning will be displayed in the Character Sheet
+personalityAlignment - Can be None
+personalityAlignmentDetails - Will be None if personalityAlignment = None
+personalityAlignmentIdeals - Will be None if personalityAlignment = None
+parsedAlignment - The way Alignment, AlignmentDetails, AlignmentIdeals will be displayed in the Character Sheet Will be None if personalityAlignment = None
+personalityFoundTags = Tags found in personalityArchetype
+personalityTags
+personalityIntelligenceLevel - Very Dumb, Dumb, Below Average, Average, Above Average, Smart, Genius
+personalitycognitiveAbilities - Will be None if personalityIntelligenceLevel = Below Average, Average or Above Average
+personalitySocialBehavior - Normal, Anxious / Avoidant, Manipulative / Narcissistic, Socially Detached / Isolated, Overconfident / Egotistical or user input
+personalitySocialSkills - Will be None if  personalitySocialBehavior = Normal
+
+aspirationMain
+aspirationDetails
+aspirationGoals
+uniqueTraits - A list over uniqueTraits
+uniqueTraitsEffects - A list over the effects of uniqueTraits
+parsedTraits - The way uniqueTraits and uniqueTraitsEffects will be displayed in the character sheet
+
+speechStyle - Not implemented yet
+speechQuirks - Not implemented yet
+speechTicks - Not implemented yet
 
 Base Context
 ExtraInput
@@ -60,7 +97,4 @@ ExtraInput
 Type Context
 logicBasedInstruction for injection into the Instructions
 
-To change
-character_type -> characterType
-normal_form -> characterArchetype
-speciesType -> animalBase
+
