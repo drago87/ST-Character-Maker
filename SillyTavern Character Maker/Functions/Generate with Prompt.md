@@ -48,6 +48,7 @@
 /getvar key=genSettings index=extraContext|
 /let as=array key=extraContext_f {{pipe}}|
 
+
 /let key=wi_uid {{noop}}|
 /let key=actionType {{noop}}|
 /let key=context {{noop}}|
@@ -65,7 +66,9 @@
 /ife (( useContext_f == 'No') and ( extraContext_f != '')) {:
 /var key=context "### **CONTEXT (for your reference—do not include in the answer):**"
 :}|
+
 /ife ( extraContext_f != '') {:
+
 	/foreach {{var::extraContext_f}} {:
 		/var key=context {{var::context}}{{newline}}{{var::item}}|
 	:}|
@@ -172,6 +175,17 @@
 	:}|
 	/var key=genState []|
 	/ife (genIsList_f == 'Yes') {:
+		/var key=task {{noop}}|
+		/var key=find "{{var::wi_book_key_f}}: Task"|
+		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
+		/var key=wi_uid {{pipe}}|
+		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/var key=task {{pipe}}|
+		/var key=find "{{var::wi_book_key_f}}: Instruction"|
+		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
+		/var key=wi_uid {{pipe}}|
+		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/var key=instruct {{pipe}}|
 		/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/var key=t {{pipe}}|
 		/re-replace find="/^[;\s]+/g" replace="" {{var::t}}|
@@ -201,6 +215,7 @@
 			/re-replace find="/{target}/g" replace="{{getvar::target}}" {{getvar::speechPromptClaim}}|
 			/setvar key=speechPromptClaimRand {{pipe}}|
 		:}|
+		/var key=task {{noop}}|
 		/var key=find "{{var::wi_book_key_f}}: Task"|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
@@ -317,7 +332,7 @@
 		/var key=genState index={{pipe}} "Done"|
 	:}|
 	
-	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags", "Speech Examples"]|
+	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags", "Speech Examples", "Ability Proficiency", "Ability Description"]|
 	/ife (wi_book_key_f not in basicBlacklist) {:
 		/buttons labels={{var::genState}} Select the {{var::wi_book_key_f}} you want {{getvar::firstName}} to have.|
 		/var key=selected_btn {{pipe}}|
@@ -336,6 +351,14 @@
 	:}|
 	/elseif (wi_book_key_f == 'Speech Examples') {:
 		/buttons labels={{var::genState}} <div>Is this a good reaction to:</div><div>{{getvar::speechPromptClaimRand}}</div>|
+		/var key=selected_btn {{pipe}}|
+	:}|
+	/elseif (wi_book_key_f == 'Ability Proficiency') {:
+		/buttons labels={{var::genState}} <div>Does this feel like the right level or state for {{getvar::firstName}}'s {{getvar::abilityName}}?</div>|
+		/var key=selected_btn {{pipe}}|
+	:}|
+	/elseif (wi_book_key_f == 'Ability Description') {:
+		/buttons labels={{var::genState}} <div>Does this feel a good description for: {{getvar::abilityName}}?</div>|
 		/var key=selected_btn {{pipe}}|
 	:}|
 
@@ -380,6 +403,7 @@
 			/input default={{getvar::guidance}} Edit what you want the response shoud be guided towards.|
 			/setvar key=guidance "{{pipe}}"|
 		:}|
+		/var key=task {{noop}}|
 		/var key=find "{{var::wi_book_key_f}}: Task"|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
@@ -447,6 +471,7 @@
 		/elseif ( sel == 'Reset') {:
 			/setvar key=settingAddition {Addition}|
 		:}|
+		/var key=task {{noop}}|
 		/var key=find "{{var::wi_book_key_f}}: Task"|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
@@ -475,8 +500,10 @@
 		/var key=t {{noop}}|
 	:}|
 	/elseif ( selected_btn == man) {:
+		/echo genIsSentence_f = {{var::genIsSentence_f}}|
 		/ife ( genIsSentence_f == 'Yes' ){:
-			/getat index=0 {{var::genState}} |
+			
+			/getat index=0 {{var::genState}}|
 			/input default={{pipe}} Edit the output to your liking.|
 		:}|
 		/else {:

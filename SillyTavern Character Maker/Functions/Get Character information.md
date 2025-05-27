@@ -9,10 +9,10 @@
 :}|
 /ife ( lastName == '' ) {:
 	/setvar key=lastName {{noop}}|
-	/setvar key=name {{getvar::firstName}}|
+	/setvar key=parsedName {{getvar::firstName}}|
 :}|
 /elseif ((firstName != '') and (lastName != '') ) {:
-	/setvar key=name {{getvar::firstName}} {{getvar::lastName}}|
+	/setvar key=parsedName {{getvar::firstName}} {{getvar::lastName}}|
 :}|
 /ife ( alias == '' ) {:
 	/setvar key=alias {{noop}}|

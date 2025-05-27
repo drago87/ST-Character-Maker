@@ -87,9 +87,18 @@ uniqueTraits - A list over uniqueTraits
 uniqueTraitsEffects - A list over the effects of uniqueTraits
 parsedTraits - The way uniqueTraits and uniqueTraitsEffects will be displayed in the character sheet
 
-speechStyle - Not implemented yet
-speechQuirks - Not implemented yet
-speechTicks - Not implemented yet
+speechStyle
+speechQuirks
+speechTicks
+
+abilityNames
+abilityProficiencies
+abilityDetails
+parsedAbilities
+ItemNames
+ItemDetails
+parsedItems
+
 
 Base Context
 ExtraInput

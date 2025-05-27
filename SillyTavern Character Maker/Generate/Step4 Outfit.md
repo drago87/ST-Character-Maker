@@ -27,6 +27,7 @@
 	/flushvar outfitAccessories|
 	/flushvar outfitMakeup|
 	/flushvar outfitNeck|
+	/flushvar outfitOnePiece|
 	/flushvar outfitTop|
 	/flushvar outfitBottom|
 	/flushvar outfitLegs|
@@ -37,6 +38,7 @@
 	/flushvar outfitAccessoriesDescription|
 	/flushvar outfitMakeupDescription|
 	/flushvar outfitNeckDescription|
+	/flushvar outfitOnePieceDescription|
 	/flushvar outfitTopDescription|
 	/flushvar outfitBottomDescription|
 	/flushvar outfitLegsDescription|
@@ -50,6 +52,7 @@
 	/flushvar outfitAccessories|
 	/flushvar outfitMakeup|
 	/flushvar outfitNeck|
+	/flushvar outfitOnePiece|
 	/flushvar outfitTop|
 	/flushvar outfitBottom|
 	/flushvar outfitLegs|
@@ -60,6 +63,7 @@
 	/flushvar outfitAccessoriesDescription|
 	/flushvar outfitMakeupDescription|
 	/flushvar outfitNeckDescription|
+	/flushvar outfitOnePieceDescription|
 	/flushvar outfitTopDescription|
 	/flushvar outfitBottomDescription|
 	/flushvar outfitLegsDescription|
@@ -81,6 +85,7 @@
 /flushvar outfitAccessories|
 /flushvar outfitMakeup|
 /flushvar outfitNeck|
+/flushvar outfitOnePiece|
 /flushvar outfitTop|
 /flushvar outfitBottom|
 /flushvar outfitLegs|
@@ -91,6 +96,7 @@
 /flushvar outfitAccessoriesDescription|
 /flushvar outfitMakeupDescription|
 /flushvar outfitNeckDescription|
+/flushvar outfitOnePieceDescription|
 /flushvar outfitTopDescription|
 /flushvar outfitBottomDescription|
 /flushvar outfitLegsDescription|
@@ -727,6 +733,150 @@
 		/addvar key=dataBaseNames outfitNeckDescription|
 	:}|
 	//--------|
+	
+	//Outfit One-Piece|
+	/var key=do No|
+	/var key=variableName "outfitOnePiece"|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
+	:}|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings index=wi_book_key "Outfit One-Piece"|
+		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=inputIsTaskList No|
+		/setvar key=genSettings index=genIsSentence No|
+		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=genSettings index=outputIsList No|
+		/setvar key=genSettings index=useContext Yes|
+		/setvar key=extra []|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
+		:}|
+		/flushvar extra|
+		/wait {{getvar::wait}}|
+		
+		/getvar key=genSettings index=inputIsList|
+		/let key=inputIsList {{pipe}}|
+		/getvar key=genSettings index=inputIsList|
+		/let key=outputIsList {{pipe}}|
+		
+		/setvar key=guidance "The response should be guided toward: {{var::overallOutfit}}"|
+		
+		/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+			/setvar as=array key={{var::variableName}} []|
+		:}|
+		/else {:
+			/setvar as=string key={{var::variableName}} {{noop}}|
+		:}|
+		//[[Generate with Prompt]]|
+		/:"CMC Logic.GenerateWithPrompt"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+		
+		/addvar key=dataBaseNames {{var::variableName}}|
+		/flushvar output|
+		/flushvar guidance|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar genSettings|
+	:}|
+	/else {:
+		/addvar key=dataBaseNames {{var::variableName}}|
+	:}|
+	//--------|
+	
+	//Outfit One-Piece Description|
+	/ife (outfitOnePiece != 'None') {:
+		/var key=do No|
+		/var key=variableName "outfitOnePieceDescription"|
+		/ife ({{var::variableName}} == '') {:
+		    /var key=do Yes|
+		:}|
+		/elseif (skip == 'Update') {:
+		    /getvar key={{var::variableName}}|
+		    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+		    /var key=do {{pipe}}|
+		    /ife (do == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings index=wi_book_key "Outfit One-Piece Description"|
+			/setvar key=genSettings index=genIsList No|
+			/setvar key=genSettings index=inputIsList No|
+			/setvar key=genSettings index=inputIsTaskList No|
+			/setvar key=genSettings index=genIsSentence Yes|
+			/setvar key=genSettings index=needOutput Yes|
+			/setvar key=genSettings index=outputIsList No|
+			/setvar key=genSettings index=useContext Yes|
+			/setvar key=extra []|
+			/ife ( appearanceFeatures != 'None') {:
+				/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+			:}|
+			/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
+			/ife ( appearanceBreasts != 'None') {:
+				/addvar key=extra "- Breasts: {{getvar::appearanceBreasts}}"|
+			:}|
+			/setvar key=genSettings index=extraContext {{getvar::extra}}|
+			/setvar key=extra []|
+			/:"CMC Logic.Get Basic Type Context"|
+			/ife (extra != '') {:
+				/setvar key=genSettings index=contextKey {{getvar::extra}}|
+			:}|
+			/flushvar extra|
+			/wait {{getvar::wait}}|
+			
+			/ife (( characterArchetype != 'Human') and ( characterArchetype != 'Android')) {:
+				/setvar key=logicBasedInstruction "8. If {{getvar::appearanceFeatures}} includes wings, tail bases, dorsal fins, fur crests, or unusual body shapes, describe how the garment is shaped or opened to accommodate those features."|
+			:}|
+			/elseif (( characterArchetype == 'Human') or ( characterArchetype == 'Android')) {:
+				/setvar key=logicBasedInstruction "8. If {{getvar::appearanceFeatures}} includes medical gear, prosthetics, or cybernetics on the torso or pelvis, describe how the garment adjusts to fit, support, or conceal them."|
+			:}|
+			
+			/getvar key=genSettings index=inputIsList|
+			/let key=inputIsList {{pipe}}|
+			/getvar key=genSettings index=inputIsList|
+			/let key=outputIsList {{pipe}}|
+			
+			/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+				/setvar as=array key={{var::variableName}} []|
+			:}|
+			/else {:
+				/setvar as=string key={{var::variableName}} {{noop}}|
+			:}|
+			//[[Generate with Prompt]]|
+			
+			/:"CMC Logic.GenerateWithPrompt"|
+			/setvar key={{var::variableName}} {{getvar::output}}|
+			
+			/addvar key=dataBaseNames {{var::variableName}}|
+			/flushvar output|
+			/flushvar logicBasedInstruction|
+			/flushvar guidance|
+			/flushvar genOrder|
+			/flushvar genContent|
+			/flushvar genSettings|
+		:}|
+		/else {:
+			/addvar key=dataBaseNames {{var::variableName}}|
+		:}|
+	:}|
+	/else {:
+		/setvar key=outfitTopDescription None|
+		/addvar key=dataBaseNames outfitTopDescription|
+	:}|
+	//--------|
+	
 	
 	//Outfit Top|
 	/var key=do No|

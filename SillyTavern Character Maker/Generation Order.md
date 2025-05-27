@@ -63,7 +63,7 @@ Generation can only use information from things above it
 47. **Appearance Traits Details** Base Context, No ExtraInput, Type Context
 48. **Appearance Traits Effect** Base Context, No ExtraInput, Type Context
     
-    Outfit Below this (Not Done)
+    Outfit Below this (Done)
 
 49. **Outfit Head** 
 50. **Outfit Accessories** 
@@ -76,7 +76,7 @@ Generation can only use information from things above it
 57. **Outfit Underwear (Top)** 
 58. **Outfit Underwear (Top)** 
     
-    Personality Below this (partly done but need to go over it again as things have moved)
+    Personality Below this Done)
 
 59. **Archetype** 
 60. **Archetype Details** 
@@ -90,7 +90,7 @@ Generation can only use information from things above it
 68. **Social Behavior** 
 69. **Social Skills and Integration** 
     
-    Aspiration and Personality Traits (partly done but need to go over it again as things have moved)
+    Aspiration and Personality Traits (Done)
 
 70. **Main Aspiration** 
 71. **Aspiration Details**  
@@ -98,31 +98,31 @@ Generation can only use information from things above it
 73. **Unique Trait(s)**  
 74. **Unique Trait Effect(s)**  
     
-    Speech
+    Speech (Done)
 
 75. **Speech Style** 
 76. **Speech Quirks** 
 77. **Speech Tics** 
     
-    An extra category for stuff not fitting above (Not Done)
+    An extra category for stuff not fitting above (Done)
 
 78. **Connections** 
 79. **Abilities** 
 80. **Items / Equipment** 
 81. **Secrets** 
-82. **Reputation** 
     
     NSFW Stuff (Not Done)
 
-83. **Sexual Orientation** 
-84. **Sexual Role** 
+82. **Sexual Orientation** 
+83. **Sexual Role** 
+84. **Libido**
 85. **Kinks** 
 86. **Sexual Notes** 
     
     Ending Stuff (Not Done)
 
 87. **Behavior Notes** 
-88. **Speech Examples** 
+88. **Speech Examples** (Done)
 89. **Appearance Q&A** 
 90. **Personality Q&A** 
 91. **Sexuality Q&A** 

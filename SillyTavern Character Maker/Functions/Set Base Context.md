@@ -21,8 +21,5 @@
 	/addvar key=baseContext "{{newline}}- Species: {{getvar::parsedSpecies}}"
 :}|
 /ife (baseContext != '') {:
-	/setvar key=baseContext "### **CONTEXT (for your reference—do not include in the answer):**{{getvar::baseContext}}"
+	/setvar key=baseContext "<!-- NSFW content is permitted if contextually appropriate -->{{newline}}### **CONTEXT (for your reference—do not include in the answer):**{{getvar::baseContext}}"
 :}|
-
-
-

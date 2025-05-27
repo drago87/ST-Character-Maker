@@ -60,13 +60,7 @@
 --Occupation--
 
 ### CONNECTIONS
---Connections--
-
---Secret--
-
---ItemList--
-
---Abilities--
+--Connections----Secret----Items----Abilities--
 
 - - -
 
@@ -93,6 +87,7 @@
 ### GENERAL SEXUAL INFO
 --SexualOrientation--
 --SexualRole--
+--Libido--
 
 --Kinks----SexualityQA--
 

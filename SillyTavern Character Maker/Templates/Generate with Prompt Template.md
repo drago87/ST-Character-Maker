@@ -32,10 +32,36 @@
 	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
+	
+	/setvar key=logicBasedInstruction {{noop}}|
+	/setvar key=x 7|
+	
+	/ife (settingType == 'Realistic') {:
+		/incvar x|
+		/ife ( user == 'Yes') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Replace_This_With_The_Rule"|
+		
+	:}|
+	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
 	/getvar key=genSettings index=inputIsList|
 	/let key=outputIsList {{pipe}}|
+	
+	/setvar key=logicBasedInstruction {{noop}}|
+	/setvar key=x 7|
+	
+	/ife (variable == 'conent') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Rule"|
+		
+	:}|
+	/flushvar x|
 	
 	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:

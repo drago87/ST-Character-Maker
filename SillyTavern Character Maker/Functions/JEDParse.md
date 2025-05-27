@@ -271,32 +271,32 @@
 	/re-replace find="/--Connections--/g" replace="{{getvar::connections}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (secret != '') {:
+/ife ((parsedSecret != '') and (parsedSecret != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Secret--/g" replace="### SECRET{{newline}}{{getvar::secret}}" {{pipe}}|
+	/re-replace find="/--Secret--/g" replace="{{newline}}{{newline}}{{getvar::parsedSecret}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (export == 'Yes' ) {:
+/elseif (parsedSecret == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--Secret--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (itemList != '') {:
+/ife ((parsedItems != '') and (parsedItems != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--ItemList--/g" replace="### INVENTORY{{newline}}{{getvar::itemList}}" {{pipe}}|
+	/re-replace find="/--Items--/g" replace="### INVENTORY{{newline}}{{getvar::parsedItems}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (export == 'Yes' ) {:
+/elseif (parsedItems == 'None' ) {:
 	/messages names=off 0|
-	/re-replace find="/--ItemList--/g" replace="" {{pipe}}|
+	/re-replace find="/--Items--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife ( (abilities != '') and (abilities != 'None')) {:
+/ife ( (parsedAbilities != '') and (parsedAbilities != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Abilities--/g" replace="### ABILITIES{{newline}}{{getvar::abilities}}" {{pipe}}|
+	/re-replace find="/--Abilities--/g" replace="### ABILITIES{{newline}}{{getvar::parsedAbilities}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (abilities == 'None') {:
+/elseif (parsedAbilities == 'None') {:
 	/messages names=off 0|
 	/re-replace find="/--Abilities--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -379,6 +379,11 @@
 /ife (sexualRole != '') {:
 	/messages names=off 0|
 	/re-replace find="/--SexualRole--/g" replace="{{getvar::sexualRole}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (sexualLibido != '') {:
+	/messages names=off 0|
+	/re-replace find="/--Libido--/g" replace="- Libido: {{getvar::sexualLibido}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (sexualityQA != '') {:
