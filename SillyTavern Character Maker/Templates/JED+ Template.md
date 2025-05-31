@@ -3,16 +3,16 @@
 <!--This template is extremely excessive. DELETE the parts you don't need or add new sections to the template.-->
 <!-- KEEP all the [] notes. -->
 
-<!--'↳' shows connected information (for visual clarity only)-->
+<!--'-' shows connected information (for visual clarity only)-->
 
 <!-- #, ##, ###, #### Indicate h1, h2, h3, h4 headings. AI understands it. This thing is required to show nesting.
 
 <!-- Example:
 # Setting (h1, level 1)
 # {{char}} (h1, level 1)
-	↳ ## Appearance (h2, level 2)
-		↳ ## Starting Outfit (h3, level 3)
-	↳ ## Personality (h2, level 2)
+	- ## Appearance (h2, level 2)
+		- ## Starting Outfit (h3, level 3)
+	- ## Personality (h2, level 2)
 -->
 
 <!--Hint: Use "Citation" instead or with descriptions where possible to let your character describe themselves on their own-->
@@ -69,12 +69,12 @@ A: "My trainer? This... this mankey!? I hate this pervert so much..." Garde has 
 - Features: 
 
 - Appearance Trait: <!--e.g. "Womb Tattoo (inmon)"-->
-  ↳ Details: <!--e.g. {{char}} was a sex slave before [...]-->
-  ↳ Effect: <!--e.g. During [...] {{char}} has unresistabe sexual cravings. This will result in [...]-->
+  - Details: <!--e.g. {{char}} was a sex slave before [...]-->
+  - Effect: <!--e.g. During [...] {{char}} has unresistabe sexual cravings. This will result in [...]-->
   
 - Appearance Trait: 
-  ↳ Details:
-  ↳ Effect: 
+  - Details:
+  - Effect: 
 
 ### STARTING OUTFIT
 - Head: 
@@ -115,17 +115,17 @@ A:
 
 ### INVENTORY
 - Item: <!--Optional. e.g. "Club +24"-->
-  ↳ Details: <!--e.g. Club that was given {{char}} by her mother. Bonks {{user}} when angry.-->
+  - Details: <!--e.g. Club that was given {{char}} by her mother. Bonks {{user}} when angry.-->
 
 - Item: 
-  ↳ Details: 
+  - Details: 
 
 ### ABILITIES
 - Ability: <!--Optional. e.g. Void magic (beginner)-->
-  ↳ Details: <!--e.g. Opens portals when sneezes-->
+  - Details: <!--e.g. Opens portals when sneezes-->
 
 - Ability: 
-  ↳ Details: 
+  - Details: 
 
 - - -
 
@@ -133,12 +133,12 @@ A:
 
 ### PERSONALITY
 - Archetype: <!--e.g. "Shy Bakadere with a brother complex"; {Modifier} + {Archetype} + {Addition}-->
-  ↳ Archetype Details: <!--Explain the chosen archetype and {{char}}'s Baseline Behavior-->
-  ↳ Reasoning: <!--Tell why the character behaves this way. Did something happen in the past? Make some psychoanalysis-->
+  - Archetype Details: <!--Explain the chosen archetype and {{char}}'s Baseline Behavior-->
+  - Reasoning: <!--Tell why the character behaves this way. Did something happen in the past? Make some psychoanalysis-->
   
 - Alignment: <!--Optional. Mostly for complex, RPG-like cards. e.g. Lawful Evil-->
-  ↳ Alignment Details: <!--Explain how it works with this character-->
-  ↳ Ideals: 
+  - Alignment Details: <!--Explain how it works with this character-->
+  - Ideals: 
 
 - Personality Tags: <!--List of tags. e.g. Sadistic, Playful, Mischievous, Controlling, Manipulative, Cocky, Impish, Aggressive, Overprotective, Mean, Dramatic, Rough, Selfish, Lovestruck, Cheeky, Joking, Braggadocios, Bratty, Squeamish, Hot-Headed, Erratic, Materialistic, Perfectionist, Jealous, Nosy.-->
 
@@ -149,14 +149,14 @@ A:
 - Social Skills and Integration Into Society: <!--Optional. Typically used only for sociopathic characters or the ones with social anxiety or overly high self-esteem-->
 
 - Main Aspiration: <!--Typically used if the character has a clear goal to pursue throughout the story. e.g. "I want to become a hero!"-->
-  ↳ Aspiration Details: <!--Explain the chosen aspiration-->
-  ↳ Aspiration Goals: <!--e.g. Annoy {{user}} with 'how to be a hero' questions; Save girls; become popular; [...]-->
+  - Aspiration Details: <!--Explain the chosen aspiration-->
+  - Aspiration Goals: <!--e.g. Annoy {{user}} with 'how to be a hero' questions; Save girls; become popular; [...]-->
   
 - Unique Personality Trait: <!--Typically used if the character has curses or special states. e.g. "Succubi Feeding Frenzy Trance"-->
-  ↳ Effects: <!--e.g. As soon as a drop of cum touches Emma's tongue, her mind shifts into an uncontrollable trance - a feeding frenzy. Her eyes light up with heart-shaped pupils. She doesn't control how [...]-->
+  - Effects: <!--e.g. As soon as a drop of cum touches Emma's tongue, her mind shifts into an uncontrollable trance - a feeding frenzy. Her eyes light up with heart-shaped pupils. She doesn't control how [...]-->
 
 - Unique Personality Trait: 
-  ↳ Effects:
+  - Effects:
 
 <Q&A>
 Q: What does {{char}} do first? Think or act/talk?
@@ -213,16 +213,33 @@ A:
 
 ### GENERAL SEXUAL INFO
 - Sexual Orientation: <!--Straight, Gay/Lesbian, Bisexual, Pansexual-->
-  ↳ Explanation: 
+  - Explanation: 
 - Role during sex: <!--Submissive, Power Bottom, Bottom, Top, etc.-->
-  ↳ Explanation: 
+  - Explanation: 
 
+- Libido:
+
+### SEXUAL INVENTORY
+- Item: <!--Optional. e.g. "Club +24"-->
+  - Details: <!--e.g. Club that was given {{char}} by her mother. Bonks {{user}} when angry.-->
+
+- Item: 
+  - Details: 
+
+### SEXUAL ABILITIES
+- Ability: <!--Optional. e.g. Void magic (beginner)-->
+  - Details: <!--e.g. Opens portals when sneezes-->
+
+- Ability: 
+  - Details: 
+
+### KINKS
 - Kink Type: <!--The broad category of the kink or fetish. e.g. Praise, Bondage, Bestiality, Sensory Play-->
-  ↳ Variant: <!--Optional. Used to specify a subtype or target of the kink. e.g. Anal Enema, Womb Enema, Canine, Shibari, Paddling-->
-  ↳ Role: <!--Giver, Receiver, or Switch. Defines whether the character enjoys performing the kink, receiving it, or both-->
-  ↳ Details: <!--A short, neutral description of what the kink involves for this character. Focus on what they enjoy or respond to-->
-  ↳ Effect: <!--How this kink influences the character’s behavior, arousal, emotions, or dynamics during intimacy-->
-  ↳ Conditions: <!--Optional. Describes situational boundaries or requirements, such as specific partner types, emotional states, or settings-->
+  - Variant: <!--Optional. Used to specify a subtype or target of the kink. e.g. Anal Enema, Womb Enema, Canine, Shibari, Paddling-->
+  - Role: <!--Giver, Receiver, or Switch. Defines whether the character enjoys performing the kink, receiving it, or both-->
+  - Details: <!--A short, neutral description of what the kink involves for this character. Focus on what they enjoy or respond to-->
+  - Effect: <!--How this kink influences the character’s behavior, arousal, emotions, or dynamics during intimacy-->
+  - Conditions: <!--Optional. Describes situational boundaries or requirements, such as specific partner types, emotional states, or settings-->
 
 <Q&A>
 Q: Is {{char}} a virgin?
@@ -294,13 +311,13 @@ A:
 
 ## PREMADE STORY PLAN
 - Milestone 1: <!--Use this section only if you have a specific storyline in mind. e.g. Arrival and first meeting-->
-  ↳ Details:<!--e.g. {{user}} and Takita have some time before classes the Entrance Ceremony. AI can introduce other characters, make story hooks, or let {{user}} freely explore Souta Academy until {{user}} decides to go to the Entrance Ceremony.-->
+  - Details:<!--e.g. {{user}} and Takita have some time before classes the Entrance Ceremony. AI can introduce other characters, make story hooks, or let {{user}} freely explore Souta Academy until {{user}} decides to go to the Entrance Ceremony.-->
 
 - Milestone 2: <!--e.g. Entrance Ceremony-->
-  ↳ Details: <!--Mr. Snuffles will greet new students and show a little presentation to give lore context before [...]-->
+  - Details: <!--Mr. Snuffles will greet new students and show a little presentation to give lore context before [...]-->
 
 - Milestone 3: 
-  ↳ Details:
+  - Details:
 
 </{{char}}>
 

@@ -86,10 +86,7 @@
 
 ### GENERAL SEXUAL INFO
 --SexualOrientation--
---SexualRole--
---Libido--
-
---Kinks----SexualityQA--
+--Libido----SexualItems----SexualAbilities----Kinks----SexualityQA--
 
 - - -
 ## [OTHER_SEXUAL_NOTES]

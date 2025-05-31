@@ -167,6 +167,16 @@
 			/break|
 		:}|
 	:}|
+	
+	/ife ((wi_book_key_f == 'Sexual Notes') and ((tempList != '') or (sexualNotes != ''))) {:
+		/setvar key=blackListGen "Avoid duplicating or restating the following existing notes:{{newline}}[ALREADY GENERATED SEXUAL NOTES AVOID THESE]\""|
+		/foreach {{getvar::sexualNotes}} {:
+			/addvar key=blackListGen "{{newline}}- {{var::item}}"|
+		:}|
+		/foreach {{getvar::tempList}} {:
+			/addvar key=blackListGen "{{newline}}- {{var::item}}"|
+		:}|
+	:}|
 	/echo Generating {{var::wi_book_key_f}}|
 	/ife ((random_f != '') and ( wi_book_key == 'Speech Single Ticks')) {:
 		/var key=instruct {{noop}}|
@@ -327,14 +337,20 @@
 		/var key=genState index={{pipe}} Customize Parts of the generation|
 	:}|
 	/let key=forsedOutputWhitelist ["Appearance Features Humanoid", "Appearance Features Other"]|
-	/ife (('Done' not in genState) and (((outputIsList_f == 'Yes') and (tempList != '')) or ((outputIsList_f != 'Yes') and (needOutput_f == 'No')) or ( wi_book_key_f in forsedOutputWhitelist))) {:
+	/ife ((wi_book_key_f is string) and (('Done' not in genState) and (((outputIsList_f == 'Yes') and (tempList != '')) or ((outputIsList_f != 'Yes') and (needOutput_f == 'No')) or ( wi_book_key_f in forsedOutputWhitelist)))) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Done"|
 	:}|
 	
+	/getvar key=genSettings index=buttonPrompt|
+	/let key=buttonPrompt_f {{pipe}}|
+	/ife ( buttonPrompt_f == '') {:
+		/var key=buttonPrompt_f "Select the {{var::wi_book_key_f}} you want {{getvar::firstName}} to have."|
+	:}|
+	
 	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags", "Speech Examples", "Ability Proficiency", "Ability Description"]|
 	/ife (wi_book_key_f not in basicBlacklist) {:
-		/buttons labels={{var::genState}} Select the {{var::wi_book_key_f}} you want {{getvar::firstName}} to have.|
+		/buttons labels={{var::genState}} {{var::buttonPrompt_f}}|
 		/var key=selected_btn {{pipe}}|
 	:}|
 	/elseif ( wi_book_key_f == 'Identify Personality Tag') {:

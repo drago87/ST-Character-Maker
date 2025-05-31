@@ -43,17 +43,39 @@
 /let key=find {{noop}}|
 
 /ife ( combineLorebookEntries != 'Yes') {:
+	/let key=tempGenState {{noop}}|
 	/ife (( inputIsList == 'Yes') and (wi_book_key_f is list)) {:
 		/var key=find {{getvar::it}}|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/getentryfield field=content file={{var::wi_book_f}} {{pipe}}|
+		/var key=genState {{pipe}}|
+	:}|
+	/elseif (wi_book_key_f is list) {:
+		/foreach {{var::wi_book_key_f}} {:
+			/var key=find {{var::item}}: List|
+			/findentry field=comment file={{var::wi_book_f}} {{var::find}}|
+			/let key=UID {{pipe}}|
+			/getentryfield field=content file={{var::wi_book_f}} {{var::UID}}|
+			/let key=tempL {{pipe}}|
+			/ife (index > 0) {:
+				/var key=tempGenState "{{var::tempGenState}}: {{var::tempL}}"|
+			:}|
+			/else {:
+				/var key=tempGenState "{{var::tempL}}"|
+			:}|
+		:}|
+		/var key=genState {{var::tempGenState}}|
 	:}|
 	/else {:
+	
 		/var key=find {{var::wi_book_key_f}}: List|
+		/echo find: {{var::find}}|
 		/findentry field=comment file={{var::wi_book_f}} {{var::find}}|
-		/getentryfield field=content file={{var::wi_book_f}} {{pipe}}|
+		/let key=UID {{pipe}}|
+		/getentryfield field=content file={{var::wi_book_f}} {{var::UID}}|
+		/var key=genState {{pipe}}|
 	:}|
-	/var key=genState {{pipe}}|
+	
 :}|
 /else {:
 	/var key=genState {{var::content}}|
@@ -91,19 +113,25 @@
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} {{var::man}}|
 	:}|
-	/ife (('Done' not in genState) and (((outputisList_f == 'Yes') and (tempList != '')) or (needOutput_f == 'No'))) {:
+	/ife ( (wi_book_key_f is string) and (('Done' not in genState) and (((outputisList_f == 'Yes') and (tempList != '')) or (needOutput_f == 'No')))) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Done"|
 	:}|
-	/buttons labels={{var::genState}} Select the {{getvar::it}} you want to use.|
-	/var key=selected_btn {{pipe}}|
-	/re-replace find="/\s\(.*$/g" replace="" {{var::selected_btn}}|
-	/var key=selected_btn {{pipe}}|
-	/ife (debug == 'Yes') {:
-		/setvar key=b {{var::selected_btn}}|
+	
+	/getvar key=genSettings index=buttonPrompt|
+	/let key=buttonPrompt_f {{pipe}}|
+	/ife ( buttonPrompt_f == '') {:
+		/var key=buttonPrompt_f "Select the {{getvar::wi_book_key_f}} you want {{getvar::it}} to have."|
+	:}|
+	
+	/ife (wi_book_key_f is list) {:
+		/buttons multiple=true labels={{var::genState}} {{var::buttonPrompt_f}}|
+		/var key=selected_btn {{pipe}}|
 	:}|
 	/else {:
-		/flushvar b|
+		/buttons labels={{var::genState}} {{var::buttonPrompt_f}}|
+		/var key=selected_btn {{pipe}}|
+		/re-replace find="/\s\(.*$/g" replace="" {{var::selected_btn}}|
 	:}|
 	/ife ( selected_btn == ''){:
 		/echo Aborting |

@@ -16,14 +16,14 @@
 	/setvar key=genSettings index=wi_book "CHANGE/REMOVE_THIS"|
 	/setvar key=genSettings index=wi_book_key "CHANGE_THIS"|
 	/setvar key=genSettings index=genIsList No|
-	
+	/setvar key=genSettings index=inputIsList No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext No|
-	/setvar key=extra []|//Remove if Not Used|
-	/addvar key=extra ""|//Remove if Not Used|
-	/setvar key=genSettings index=extraContext {{getvar::extra}}|//Remove if Not Used|
+	/setvar key=extra []|//Remove if not in use|
+	/addvar key=extra ""|//Remove if not in use|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|//Remove if not in use|
 	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
 	/ife (extra != '') {:
@@ -34,7 +34,7 @@
 	
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 7|
+	/setvar key=x 7|//Change this to the last number in Insturctions|
 	
 	/ife (settingType == 'Realistic') {:
 		/incvar x|
@@ -72,12 +72,17 @@
 	:}|
 	//[[Generate with Prompt]]|
 	/ife (inputIsList == 'Yes') {:
-		/foreach {{getvar::CHANGE/REMOVE_THIS}} {:
+		/let key=tempOutputList []|
+		/foreach {{getvar::CHANGE_REMOVE_THIS}} {:
 			/setvar key={{var::variableName}}Item {{var::item}}|
 			/:"CMC Logic.GenerateWithPrompt"|
-			/addvar key={{var::variableName}} {{getvar::output}}|
+			/len {{var::tempOutputList}}|
+			/var key=tempOutputList index={{pipe}} {{getvar::output}}|
 			/flushvar output|
 			/flushvar guidance|
+		:}|
+		/foreach {{tempOutputList}} {:
+			/addvar key={{var::variableName}} {{var::item}}|
 		:}|
 		/flushvar {{var::variableName}}Item|
 	:}|

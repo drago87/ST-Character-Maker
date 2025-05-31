@@ -99,6 +99,16 @@ ItemNames
 ItemDetails
 parsedItems
 
+sexualOrientation
+sexualOrientationExplanation
+sexualRole
+sexualRoleExplanation
+parsedSexualOrientation
+libido
+sexualKinkTypes
+sexualKinkVariants
+sexualNotes
+parsedSexualKinks
 
 Base Context
 ExtraInput

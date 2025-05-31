@@ -121,10 +121,10 @@ Generation can only use information from things above it
     
     Ending Stuff (Not Done)
 
-87. **Behavior Notes** 
+87. **Behavior Notes** (Not tested)
 88. **Speech Examples** (Done)
 89. **Appearance Q&A** 
-90. **Personality Q&A** 
+90. **Personality Q&A**  (Done)
 91. **Sexuality Q&A** 
 92. **Extra Q&A** 
 93. **Story Plan** 
