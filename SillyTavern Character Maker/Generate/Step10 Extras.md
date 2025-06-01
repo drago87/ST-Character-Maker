@@ -50,12 +50,70 @@
         /abort
     :}|
 :}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
+	/setvar key=genSettings index=wi_book "CMC Rules"|
+	/setvar key=keys []|
+	/addvar key=keys "Shared Behavior Rules"|
+	/ife ((gender == 'Female') or (futanari == 'Yes')) {:
+		/addvar key=keys "Female Behavior Rules"|
+	:}|
+	/ife ((gender == 'Male') or (futanari == 'Yes')) {:
+		/addvar key=keys "Male Behavior Rules"|
+	:}|
+	
+	/setvar key=genSettings index=wi_book_key {{getvar::keys}}|
+	/flushvar keys|
+	/setvar key=genSettings index=combineLorebookEntries Yes|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=needOutput No|
+	/setvar key=genSettings index=useContext No|
+	/wait {{getvar::wait}}|
+	
+	
+	/getvar key=genSettings index=wi_book_key|
+	/let key=wi_book_key {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=combineLorebookEntries|
+	/let key=combineLorebookEntries {{pipe}}|
+	
+	
+	
+	/setvar key=genSettings index=buttonPrompt "Select the Behavior you want {{getvar::firstName}} to follow."|
+	/setvar key=it Behavior Rules|
+	/:"CMC Logic.GenerateWithSelector"|
+	/setvar key={{var::variableName}} {{getvar::output}}|
+	
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar it|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+
+
+/var key=do No|
+/buttons labels=["Yes", "No"] Do you want to generate or add more Behavior Rules?|
+/var key=do {{pipe}}|
+/ife (do == '') {:
+	/echo Aborting |
+	/abort
+:}|
 
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Behavior Notes"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=genIsSentence Yes|
-	/setvar key=genSettings index=needOutput No|
+	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList Yes|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
@@ -65,10 +123,14 @@
 			/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 		:}|
 		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
+		/addvar key=extra "- Appearance Features: {{getvar::appearanceFeatures}}"|
+		/ife (parsedAbilities != None) {:
+			/addvar key=extra "{{newline}}**Appearance Traits**{{newline}}{{getvar::parsedAppearanceTraits}}"|
+		:}|
 		/ife (parsedAbilities != None) {:
 			/addvar key=extra "{{newline}}**Abilities**{{newline}}{{getvar::parsedAbilities}}"|
 		:}|
-		/ife (parsedAbilities != None) {:
+		/ife (parsedItems != None) {:
 			/addvar key=extra "{{newline}}**Items or Gear**{{newline}}{{getvar::parsedItems}}"|
 		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
@@ -87,31 +149,13 @@
 	/let key=inputIsList {{pipe}}|
 	/getvar key=genSettings index=inputIsList|
 	/let key=outputIsList {{pipe}}|
-	
-	
-	
-	
-	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
-		/setvar as=array key={{var::variableName}} []|
+	/setvar key=genSettings index=buttonPrompt "Is this a good behavior rule for {{getvar::firstName}} to follow?"|
+	/:"CMC Logic.GenerateWithPrompt"|
+	/foreach {{getvar::output}} {:
+		/addvar key={{var::variableName}} {{var::item}}|
 	:}|
-	/else {:
-		/setvar as=string key={{var::variableName}} {{noop}}|
-	:}|
-	//[[Generate with Prompt]]|
-	/ife (inputIsList == 'Yes') {:
-		/foreach {{getvar::CHANGE/REMOVE_THIS}} {:
-			/setvar key={{var::variableName}}Item {{var::item}}|
-			/:"CMC Logic.GenerateWithPrompt"|
-			/addvar key={{var::variableName}} {{getvar::output}}|
-			/flushvar output|
-			/flushvar guidance|
-		:}|
-		/flushvar {{var::variableName}}Item|
-	:}|
-	/else {:
-		/:"CMC Logic.GenerateWithPrompt"|
-		/setvar key={{var::variableName}} {{getvar::output}}|
-	:}|
+	
+
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar guidance|
@@ -128,7 +172,7 @@
 
 ## [BEHAVIOR_NOTES]
 [IMPORTANT NOTE FOR AI: This section governs how --FirstName-- behaves moment to moment. In all interactions—especially intimate or emotionally charged scenes—adhere closely to the personality, social behavior, sexual role, and emotional boundaries established in this profile. Do not deviate from {{char}}’s defined orientation, role, or behavioral patterns unless a clear, in-character transformation is justified.]"|
-	/foreach {{getvar::behaviorNotesList}} {:
+	/foreach {{getvar::behaviorNotes}} {:
 		/addvar key=behaviorNotes "{{newline}}- {{var::item}}"|
 	:}|
 :}|
@@ -151,6 +195,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/flushvar speechExample|
 	/flushvar speechExampleList|
 	/setvar key=genSettings index=wi_book_key "Speech Examples"|
@@ -341,6 +386,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Personality QA"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsList Yes|
@@ -493,6 +539,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book "CMC Rules"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|

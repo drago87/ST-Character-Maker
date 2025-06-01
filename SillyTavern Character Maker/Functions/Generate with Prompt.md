@@ -104,6 +104,7 @@
 /var key=find "{{var::wi_book_key_f}}: Examples"|
 /findentry field=comment file={{var::wi_book_f}} "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
+/echo wi_uid: {{var::wi_uid}}|
 /ife (( wi_uid != '') or ( wi_uid == 0)) {:
 	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 	/var key=examples {{pipe}}|
@@ -171,6 +172,15 @@
 	/ife ((wi_book_key_f == 'Sexual Notes') and ((tempList != '') or (sexualNotes != ''))) {:
 		/setvar key=blackListGen "Avoid duplicating or restating the following existing notes:{{newline}}[ALREADY GENERATED SEXUAL NOTES AVOID THESE]\""|
 		/foreach {{getvar::sexualNotes}} {:
+			/addvar key=blackListGen "{{newline}}- {{var::item}}"|
+		:}|
+		/foreach {{getvar::tempList}} {:
+			/addvar key=blackListGen "{{newline}}- {{var::item}}"|
+		:}|
+	:}|
+	/elseif ((wi_book_key_f == 'Behavior Notes') and ((tempList != '') or (behaviorNotes != ''))) {:
+		/setvar key=blackListGen "Avoid duplicating or restating the following existing notes:{{newline}}[ALREADY GENERATED BEHAVIOR NOTES AVOID THESE]\""|
+		/foreach {{getvar::behaviorNotes}} {:
 			/addvar key=blackListGen "{{newline}}- {{var::item}}"|
 		:}|
 		/foreach {{getvar::tempList}} {:

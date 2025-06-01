@@ -68,3 +68,26 @@
 /ife ( parsedOrigin == 'None' ) {:
 	/setvar key=parsedOrigin {{noop}}|
 :}|
+
+
+/ife (gender = 'Female') {:
+	/setvar key=subjPronoun she|
+	/setvar key=objPronoun her|
+	/setvar key=possAdjPronoun her|
+	/setvar key=possPronoun hers|
+	/setvar key=reflexivePronoun herself|
+:}|
+/elseif (gender = 'Male') {:
+	/setvar key=subjPronoun he|
+	/setvar key=objPronoun him|
+	/setvar key=possAdjPronoun his|
+	/setvar key=possPronoun his|
+	/setvar key=reflexivePronoun himself|
+:}|
+/else {:
+	/setvar key=subjPronoun they|
+	/setvar key=objPronoun them|
+	/setvar key=possAdjPronoun their|
+	/setvar key=possPronoun theirs|
+	/setvar key=reflexivePronoun themself|
+:}|

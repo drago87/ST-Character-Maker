@@ -150,6 +150,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Head"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -211,6 +212,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Head Description"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsTaskList No|
@@ -288,6 +290,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Accessories"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -349,6 +352,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Accessories Description"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsList Yes|
@@ -449,6 +453,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Makeup"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -510,6 +515,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Makeup Description"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsList Yes|
@@ -610,6 +616,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Neck"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -671,6 +678,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Neck Description"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsList No|
@@ -750,6 +758,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit One-Piece"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -811,6 +820,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit One-Piece Description"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsList No|
@@ -894,6 +904,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Top"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -955,6 +966,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Top Description"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsList No|
@@ -1037,6 +1049,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Bottom"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -1098,6 +1111,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Bottom Description"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsList No|
@@ -1177,6 +1191,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Legwear"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -1238,6 +1253,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Legwear Description"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsList No|
@@ -1317,6 +1333,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Shoes"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -1378,6 +1395,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Shoes Description"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsList No|
@@ -1458,6 +1476,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Underwear Top"|
 			/setvar key=genSettings index=genIsList Yes|
 			/setvar key=genSettings index=inputIsTaskList No|
@@ -1519,6 +1538,7 @@
 			    :}|
 			:}|
 			/ife ( do == 'Yes' ) {:
+				/setvar key=genSettings {}|
 				/setvar key=genSettings index=wi_book_key "Outfit Underwear Top Description"|
 				/setvar key=genSettings index=genIsList No|
 				/setvar key=genSettings index=inputIsList No|
@@ -1608,6 +1628,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Underwear Bottom"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -1669,6 +1690,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Underwear Bottom Description"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsList No|

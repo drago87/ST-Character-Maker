@@ -48,6 +48,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Speech Style"|
 	/setvar key=genSettings index=genIsList No|
 	
@@ -129,6 +130,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Speech Quirks"|
 	/setvar key=genSettings index=genIsList No|
 	
@@ -209,6 +211,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Speech Single Ticks"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=genIsSentence Yes|
@@ -292,6 +295,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Speech Tics"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=genIsSentence No|

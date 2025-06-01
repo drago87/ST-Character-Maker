@@ -44,6 +44,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Archetype Base"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -101,6 +102,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Archetype Details"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -159,6 +161,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Archetype Reasoning"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -235,6 +238,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Alignment"|
 			/setvar key=genSettings index=combineLorebookEntries No|
 			/setvar key=genSettings index=genIsSentence No|
@@ -308,6 +312,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Alignment Details"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsTaskList No|
@@ -373,6 +378,7 @@
 		    :}|
 		:}|
 		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Alignment Ideals"|
 			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=inputIsTaskList No|
@@ -463,6 +469,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Identify Personality Tag"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -509,6 +516,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Personality Tags"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -570,6 +578,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Intelligence Level"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
@@ -642,6 +651,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Cognitive Abilities"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -708,6 +718,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Social Behavior"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
@@ -779,6 +790,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Social Profile"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsTaskList No|

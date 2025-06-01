@@ -188,7 +188,12 @@
 :}|
 /ife ((parsedAppearanceTraits != '') and (parsedAppearanceTraits != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--ApperanceTraits--/g" replace="{{newline}}{{newline}}{{getvar::parsedAppearanceTraits}}" {{pipe}}|
+	/re-replace find="/--ApperanceTraits--/g" replace="{{newline}}{{newline}}### APPEARANCE TRAITS{{newline}}{{getvar::parsedAppearanceTraits}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (parsedAppearanceTraits != 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--ApperanceTraits--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (outfitHeadDescription != '') {:

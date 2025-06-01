@@ -44,6 +44,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Connections"|
 	/setvar key=genSettings index=genIsList No|
 	
@@ -178,6 +179,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Ability Names"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=genIsSentence No|
@@ -288,6 +290,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Ability Proficiency"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsList Yes|
@@ -408,6 +411,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Ability Details"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsList Yes|
@@ -547,6 +551,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Item or Equipment Names"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=genIsSentence No|
@@ -657,6 +662,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Item or Equipment Description"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsList Yes|
@@ -794,6 +800,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Secrets"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=genIsSentence Yes|

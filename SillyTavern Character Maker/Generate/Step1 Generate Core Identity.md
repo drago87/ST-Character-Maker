@@ -46,6 +46,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Time Period"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
@@ -116,6 +117,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Setting Type"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
@@ -191,6 +193,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Species"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=genIsSentence No|
@@ -302,6 +305,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Nationalities"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=genIsSentence No|
@@ -357,6 +361,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Ethnicities"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -463,6 +468,7 @@ Ethnicity: {{getvar::ethnicity}}
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/ife ( characterArchetype != 'Animalistic') {:
 		/setvar key=genSettings index=wi_book_key "Life Stage Humanoid"|
 	:}|
@@ -542,6 +548,7 @@ Ethnicity: {{getvar::ethnicity}}
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Age Gen"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -610,6 +617,7 @@ Ethnicity: {{getvar::ethnicity}}
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Age Species"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -684,6 +692,7 @@ Ethnicity: {{getvar::ethnicity}}
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "First Name"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -735,6 +744,7 @@ Ethnicity: {{getvar::ethnicity}}
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Last Name"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -784,6 +794,7 @@ Ethnicity: {{getvar::ethnicity}}
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Nickname"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=inputIsTaskList No|

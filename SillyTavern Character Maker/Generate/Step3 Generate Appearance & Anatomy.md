@@ -61,6 +61,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Length"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -132,6 +133,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Height"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -203,6 +205,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Appearance Face"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -261,6 +264,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Appearance Hair"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -322,6 +326,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Appearance Eyes"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -383,6 +388,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/ife ((characterArchetype == 'Human') or (characterArchetype == 'Human')) {:
 		/setvar key=genSettings index=wi_book_key "Appearance Features Humanoid"|
 	:}|
@@ -446,6 +452,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Appearance Body"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -513,6 +520,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Breasts"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -578,6 +586,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Nipples"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -652,6 +661,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Pussy"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -732,6 +742,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Cock"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -815,6 +826,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Genitals Sync"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -892,6 +904,7 @@
 	:}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Appearance Anus"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
@@ -972,6 +985,7 @@
 		:}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=appearanceTraitsDetails {{noop}}|
 		/setvar key=appearanceTraitsEffect {{noop}}|
 		/setvar key=genSettings index=wi_book_key "Appearance Trait Type"|
@@ -1037,6 +1051,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Trait Details"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -1103,6 +1118,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Trait Effect"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsTaskList No|
@@ -1169,20 +1185,24 @@
 :}|
 /setvar key=parsedAppearanceTraits {{noop}}|
 /ife (appearanceTraits != 'None') {:
-	/setvar key=parsedAppearanceTraits ### APPEARANCE TRAITS|
+	/setvar key=parsedAppearanceTraits |
 	/foreach {{getvar::appearanceTraits}} {:
+		/ife (index > 0) {:
+			/addvar key=parsedAppearanceTraits "{{newline}}{{newline}}"|
+		:}|
 		/getvar key=appearanceTraitsDetails index={{var::index}}|
 		/let key=details {{pipe}}|
 		/getvar key=appearanceTraitsEffect index={{var::index}}|
 		/let key=effect {{pipe}}|
-		/addvar key=parsedAppearanceTraits "
-
-- Appearance Trait: {{var::item}}
+		/addvar key=parsedAppearanceTraits "- Appearance Trait: {{var::item}}
   - Details: {{var::details}}
   - Effect: {{var::effect}}"
 	:}|
 :}|
-
+/else {:
+	/setvar key=parsedAppearanceTraits None|
+:}|
+/addvar key=dataBaseNames parsedAppearanceTraits|
 
 /:"CMC Logic.JEDParse"|
 

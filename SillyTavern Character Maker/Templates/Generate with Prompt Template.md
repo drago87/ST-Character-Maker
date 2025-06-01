@@ -13,6 +13,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book "CHANGE/REMOVE_THIS"|
 	/setvar key=genSettings index=wi_book_key "CHANGE_THIS"|
 	/setvar key=genSettings index=genIsList No|

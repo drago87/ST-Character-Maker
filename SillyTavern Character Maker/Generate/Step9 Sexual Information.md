@@ -44,6 +44,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Sexual Orientation"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
@@ -113,6 +114,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Sexual Orientation Explanation"|
 	/setvar key=genSettings index=genIsList No|
 	
@@ -192,6 +194,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Sexual Role"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
@@ -261,6 +264,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Sexual Role Explanation"|
 	/setvar key=genSettings index=genIsList No|
 	
@@ -358,6 +362,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Libido"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
@@ -429,6 +434,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Kink Type"|
 	/setvar key=genSettings index=genIsList Yes|
 	
@@ -530,6 +536,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Kink Variant"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=inputIsList Yes|
@@ -639,7 +646,8 @@
         /abort
     :}|
 :}|
-/ife ( do == 'Yes' ) {:|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Kink Roles"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
@@ -716,6 +724,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Kink Details"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsList Yes|
@@ -845,6 +854,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Kink Effect"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsList Yes|
@@ -972,6 +982,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Kink Conditions"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsList Yes|
@@ -1113,6 +1124,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Sexual Ability Names"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=genIsSentence No|
@@ -1223,6 +1235,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Sexual Ability Proficiency"|
 		/setvar key=genSettings index=genIsList Yes|
 		/setvar key=genSettings index=inputIsList Yes|
@@ -1343,6 +1356,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Sexual Ability Details"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsList Yes|
@@ -1483,6 +1497,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Sexual Item or Equipment Names"|
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=genIsSentence No|
@@ -1593,6 +1608,7 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Sexual Item or Equipment Description"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsList Yes|
@@ -1732,6 +1748,7 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book "CMC Rules"|
 	/setvar key=keys []|
 	/addvar key=keys "Sexual Narration Rules"|
@@ -1809,6 +1826,7 @@
 :}|
 
 /ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Sexual Notes"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsList No|
