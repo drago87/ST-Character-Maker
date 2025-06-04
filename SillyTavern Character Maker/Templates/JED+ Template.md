@@ -46,7 +46,7 @@ A: "My trainer? This... this mankey!? I hate this pervert so much..." Garde has 
 # [{{char}}]
 
 ## CHARACTER OVERVIEW
-<!--Describe the overall idea for your scenario here-->
+<!--Describe the overall idea for your character here-->
 
 - - -
 

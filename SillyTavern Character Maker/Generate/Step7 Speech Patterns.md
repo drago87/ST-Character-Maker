@@ -139,6 +139,7 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "{{getvar::parsedArchetype}}"|
 	/addvar key=extra "- Personality Trait Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
@@ -221,6 +222,7 @@
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=genSettings index=random {{getvar::randomTags}}|
 	/setvar key=extra []|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	//addvar key=extra "{{getvar::parsedArchetype}}"|
 	//addvar key=extra "- Personality Trait Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|

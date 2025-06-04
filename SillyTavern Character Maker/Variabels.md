@@ -53,6 +53,7 @@ appearanceAnus
 appearanceTraits - can be None
 appearanceTraitsDetails - Will be None if appearanceTraits = None
 appearanceTraitsEffect - Will be None if appearanceTraits = None
+parsedAppearanceTraits - Will be None if appearanceTraits = None
 
 outfitHeadDescription
 parsedAccessories
@@ -104,11 +105,14 @@ sexualOrientationExplanation
 sexualRole
 sexualRoleExplanation
 parsedSexualOrientation
+parsedSexualRole
 libido
 sexualKinkTypes
 sexualKinkVariants
 sexualNotes
 parsedSexualKinks
+parsedSexualAbilities
+parsedSexualItems
 
 Base Context
 ExtraInput

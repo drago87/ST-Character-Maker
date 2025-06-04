@@ -751,6 +751,111 @@
 :}|
 //-----------|
 
+//Character Overview|
+/var key=do No|
+/var key=variableName "characterOverview"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
+	/buttons labels=["User Input", "No Input"] Do you want to have to it generate a Character Overview by itself (You can still give it some guidence) or do you want to give it something to work from?|
+	/let key=choice {{pipe}}|
+	/ife (choice == '') {:
+		/echo Aborting |
+		/abort
+	:}|
+	/ife (choice == 'User Input') {:
+		/input default="Example: {{getvar::firstName}} is shy around new people but observant, often staying quiet unless asked something directly." <div>What is this scenario about?</div><div>What is the main idea?</div>|
+		/setvar key=characterOverviewIde {{pipe}}|
+		/setvar key=genSettings index=wi_book_key "Character Overview User"|
+	:}|
+	/else {:
+		/setvar key=genSettings index=wi_book_key "Character Overview Create"|
+	:}|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=useContext No|
+	/setvar key=extra []|//Remove if not in use|
+	/addvar key=extra ""|//Remove if not in use|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|//Remove if not in use|
+	/setvar key=extra []|
+	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
+	:}|
+	/flushvar extra|
+	/wait {{getvar::wait}}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=outputIsList {{pipe}}|
+	
+	/setvar key=logicBasedInstruction {{noop}}|
+	/setvar key=x 7|
+	
+	/ife (variable == 'conent') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Rule"|
+		
+	:}|
+	/flushvar x|
+	
+	
+	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+	//[[Generate with Prompt]]|
+	/ife (inputIsList == 'Yes') {:
+		/let key=tempOutputList []|
+		/foreach {{getvar::CHANGE_REMOVE_THIS}} {:
+			/setvar key={{var::variableName}}Item {{var::item}}|
+			/:"CMC Logic.GenerateWithPrompt"|
+			/len {{var::tempOutputList}}|
+			/var key=tempOutputList index={{pipe}} {{getvar::output}}|
+			/flushvar output|
+			/flushvar guidance|
+		:}|
+		/foreach {{tempOutputList}} {:
+			/addvar key={{var::variableName}} {{var::item}}|
+		:}|
+		/flushvar {{var::variableName}}Item|
+	:}|
+	/else {:
+		/:"CMC Logic.GenerateWithPrompt"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar guidance|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+//-----------|
+
 //Scenario Overview|
 /var key=do Yes|
 /var key=variableName "scenarioOverview"|

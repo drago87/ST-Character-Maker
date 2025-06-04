@@ -104,7 +104,6 @@
 /var key=find "{{var::wi_book_key_f}}: Examples"|
 /findentry field=comment file={{var::wi_book_f}} "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
-/echo wi_uid: {{var::wi_uid}}|
 /ife (( wi_uid != '') or ( wi_uid == 0)) {:
 	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 	/var key=examples {{pipe}}|
@@ -144,6 +143,10 @@
 /let key=isGeneration 'Yes'|
 /setvar as=array key=tempList []|
 /setvar key=output {{noop}}|
+/setvar key=previousMilestones {{noop}}|
+/setvar key=blackListGen {{noop}}|
+/setvar key=mileS {{noop}}|
+/setvar key=guidance|
 
 /ife ( genIsSentence_f != 'Yes') {:
 	/ife ( outputIsList_f == 'Yes') {:
@@ -164,27 +167,47 @@
 		/let key=len {{pipe}}|
 		/ife (len == maxSizeOfList_f) {:
 			/setvar key=save Done|
+			/flushvar guidance|
 			/:"CMC Logic.SaveGen"|
 			/break|
 		:}|
 	:}|
+	/ife (wi_book_key_f == 'Story Plan Details') {:
+		/len {{getvar::tempOutputList}}|
+		/add {{pipe}} 1|
+		/setvar key=mileS "Milestone {{pipe}}"|
+	:}|
 	
 	/ife ((wi_book_key_f == 'Sexual Notes') and ((tempList != '') or (sexualNotes != ''))) {:
-		/setvar key=blackListGen "Avoid duplicating or restating the following existing notes:{{newline}}[ALREADY GENERATED SEXUAL NOTES AVOID THESE]\""|
+		/setvar key=blackListGen "Avoid duplicating or restating the following existing notes:{{newline}}[ALREADY GENERATED SEXUAL NOTES AVOID THESE]{{newline}}\""|
 		/foreach {{getvar::sexualNotes}} {:
 			/addvar key=blackListGen "{{newline}}- {{var::item}}"|
 		:}|
 		/foreach {{getvar::tempList}} {:
 			/addvar key=blackListGen "{{newline}}- {{var::item}}"|
 		:}|
+		/addvar key=blackListGen "{{newline}}\""|
 	:}|
 	/elseif ((wi_book_key_f == 'Behavior Notes') and ((tempList != '') or (behaviorNotes != ''))) {:
-		/setvar key=blackListGen "Avoid duplicating or restating the following existing notes:{{newline}}[ALREADY GENERATED BEHAVIOR NOTES AVOID THESE]\""|
+		/setvar key=blackListGen "Avoid duplicating or restating the following existing notes:{{newline}}[ALREADY GENERATED BEHAVIOR NOTES AVOID THESE]{{newline}}\""|
 		/foreach {{getvar::behaviorNotes}} {:
 			/addvar key=blackListGen "{{newline}}- {{var::item}}"|
 		:}|
 		/foreach {{getvar::tempList}} {:
 			/addvar key=blackListGen "{{newline}}- {{var::item}}"|
+		:}|
+		/addvar key=blackListGen "{{newline}}\""|
+	:}|
+	/elseif (( wi_book_key_f == 'Story Plan Details') and ((tempList != '') or (storyPlanMilestonesList != ''))) {:
+		/setvar key=previousMilestones "{{newline}}**REFERENCE ONLY:** Earlier milestones are provided below for pacing continuity. Do not mention or duplicate them:"|
+		/foreach {{getvar::storyPlanMilestonesList}} {:
+			/ife (index > 0) {:
+				/addvar key=previousMilestones "{{newline}}"|
+			:}|
+			/add {{var::index}} 1|
+			/let key=i {{pipe}}|
+			/getvar key=tempOutputList index={{var::index}}|
+			/addvar key=previousMilestones "{{newline}}- Milestone {{var::i}}: {{var::item}}{{newline}}  - Details: {{pipe}}"|
 		:}|
 	:}|
 	/echo Generating {{var::wi_book_key_f}}|
@@ -220,7 +243,7 @@
 		/var key=t {{pipe}}|
 	:}|
 	/else {:
-		/ife ( wi_book_key_f == 'Speech Examples') {:
+		/ife ( wi_book_key_f == 'Speech Examples QA') {:
 			/let key=d Not Done|
 			/whilee (d == 'Not Done') {:
 				/split {{var::random_f}}|
@@ -358,7 +381,7 @@
 		/var key=buttonPrompt_f "Select the {{var::wi_book_key_f}} you want {{getvar::firstName}} to have."|
 	:}|
 	
-	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags", "Speech Examples", "Ability Proficiency", "Ability Description"]|
+	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags", "Speech Examples QA", "Ability Proficiency", "Ability Description"]|
 	/ife (wi_book_key_f not in basicBlacklist) {:
 		/buttons labels={{var::genState}} {{var::buttonPrompt_f}}|
 		/var key=selected_btn {{pipe}}|
@@ -375,7 +398,7 @@
 		/buttons labels={{var::genState}} <div>Is this a good Answer by {{getvar::firstName}} for the question:</div><div>{{getvar::question}}</div>|
 		/var key=selected_btn {{pipe}}|
 	:}|
-	/elseif (wi_book_key_f == 'Speech Examples') {:
+	/elseif (wi_book_key_f == 'Speech Examples QA') {:
 		/buttons labels={{var::genState}} <div>Is this a good reaction to:</div><div>{{getvar::speechPromptClaimRand}}</div>|
 		/var key=selected_btn {{pipe}}|
 	:}|
@@ -402,6 +425,7 @@
 		/pick items=1 {{var::genState}}|
 		/var key=selected_btn {{pipe}}|
 		/setvar key=save {{var::selected_btn}}|
+		/flushvar guidance|
 		/:"CMC Logic.SaveGen"|
 	:}|
 	/elseif (selected_btn == 'Guidance') {:
@@ -423,7 +447,7 @@
 		:}|
 		/elseif ( gu == 'Set') {:
 			/input Write what you want the response shoud be guided towards.|
-			/setvar key=guidance "The response should be guided toward: {{pipe}}"|
+			/setvar key=guidance "**NOTE:** Use the following guidance as loose inspiration only. Do not copy it directly.{{newline}}[{{pipe}}]"|
 		:}|
 		/elseif ( gu == 'Change') {:
 			/input default={{getvar::guidance}} Edit what you want the response shoud be guided towards.|
@@ -542,16 +566,23 @@
 		:}|
 		/var key=selected_btn {{pipe}}|
 		/setvar key=save {{var::selected_btn}}|
+		/flushvar guidance|
 		/:"CMC Logic.SaveGen"|
 	:}|
 	/else {:
 		/ife (( genState == 'Done') and (((outputIsList_f == 'Yes') and (tempList == '')) or (needOutput_f == 'No'))) {:
 			/setvar key=save None|
+			/flushvar guidance|
 			/:"CMC Logic.SaveGen"|
 		:}|
 		/else {:
 			/setvar key=save {{var::selected_btn}}|
+			/flushvar guidance|
 			/:"CMC Logic.SaveGen"|
 		:}|
 	:}|
 :}|
+/flushvar previousMilestones|
+/flushvar blackListGen|
+/flushvar mileS|
+/flushvar guidance|

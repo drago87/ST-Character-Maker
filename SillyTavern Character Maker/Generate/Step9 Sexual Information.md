@@ -128,6 +128,7 @@
 	/ife (user == 'Yes') {:
 		/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 	:}|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"|
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -278,6 +279,7 @@
 	/ife (user == 'Yes') {:
 		/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 	:}|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -348,7 +350,7 @@
 
 //Libido|
 /var key=do No|
-/var key=variableName "libido"|
+/var key=variableName "sexualLibido"|
 /ife ({{var::variableName}} == '') {:
     /var key=do Yes|
 :}|
@@ -444,6 +446,7 @@
 	/setvar key=genSettings index=useContext No|
 	/setvar key=extra []|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -546,6 +549,7 @@
 	/setvar key=genSettings index=useContext No|
 	/setvar key=extra []|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -734,6 +738,7 @@
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
 	/ife (user == 'Yes') {:
@@ -864,6 +869,7 @@
 	/setvar key=genSettings index=useContext No|
 	/setvar key=extra []|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
 	/ife (user == 'Yes') {:
@@ -992,6 +998,7 @@
 	/setvar key=genSettings index=useContext No|
 	/setvar key=extra []|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
 	/ife (user == 'Yes') {:
@@ -1137,6 +1144,7 @@
 	/ife (user == 'Yes') {:
 		/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 	:}|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -1249,6 +1257,7 @@
 		/ife (user == 'Yes') {:
 			/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 		:}|
+		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}} (do not directly turn into ability names; use only as influence)"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -1370,6 +1379,7 @@
 		/ife (user == 'Yes') {:
 			/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 		:}|
+		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -1510,6 +1520,7 @@
 	/ife (user == 'Yes') {:
 		/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 	:}|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -1622,6 +1633,7 @@
 		/ife (user == 'Yes') {:
 			/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 		:}|
+		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -1836,10 +1848,11 @@
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/addvar key=extra "{{getvar::parsedSexualOrientation}}"|
 	/addvar key=extra "{{getvar::parsedSexualRole}}"|
-	/addvar key=extra "- Libido: {{getvar::libido}}"|
+	/addvar key=extra "- Libido: {{getvar::sexualLibido}}"|
 	/ife (parsedSexualKinks != 'None') {:
 		/addvar key=extra "{{getvar::parsedSexualKinks}}"|
 	:}|
@@ -1898,7 +1911,6 @@
 //--------|
 
 
-/*
 /:"CMC Logic.JEDParse"|
 
 /:"CMC Logic.Save DataBase"|
@@ -1911,4 +1923,3 @@
 /getat index="message" {{pipe}}|
 /qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Extras" {{pipe}}|
 /forcesave|
-*|

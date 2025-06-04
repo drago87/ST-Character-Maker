@@ -1,7 +1,7 @@
 # [SETTING]
 - Time/Period: --TimePeriod-- --Season--
 - World Details: --WorldDetails--
-- Main Characters: --User1--, --FirstName-- --ExtraCharacters--
+- Main Characters: --User1--, --FirstName----ExtraCharacters--
 
 --Lore--## SCENARIO OVERVIEW
 --ScenarioOverview--
@@ -116,11 +116,7 @@
 
 ## SYNONYMS
 [IMPORTANT NOTE FOR AI: This section lists synonymous phrases to substitute the character's name or pronouns to avoid repetition.]
---Synonyms--
-
-- - -
-
---StoryPlan--
+--Synonyms----StoryPlan--
 
 </--FirstName-->
 

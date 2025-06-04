@@ -55,7 +55,8 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/addvar key=extra "{{newline}}{{getvar::parsedArchetype}}"|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
+	/addvar key=extra "{{getvar::parsedArchetype}}"|
 	/ife (parsedAlignment != 'None') {:
 		/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 	:}|
@@ -131,7 +132,8 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext No|
 	/setvar key=extra []|
-	/addvar key=extra "{{newline}}{{getvar::parsedArchetype}}"|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
+	/addvar key=extra "{{getvar::parsedArchetype}}"|
 	/ife (parsedAlignment != 'None') {:
 		/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 	:}|
@@ -210,7 +212,8 @@
 	/setvar key=extra []|
 	/addvar key=extra "- Time Period: {{getvar::timePeriod}}"|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
-	/addvar key=extra "{{newline}}{{getvar::parsedArchetype}}"|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
+	/addvar key=extra "{{getvar::parsedArchetype}}"|
 	/ife (parsedAlignment != 'None') {:
 		/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 	:}|
@@ -356,7 +359,8 @@
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=extra []|
-		/addvar key=extra "{{newline}}{{getvar::parsedArchetype}}"|
+		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
+		/addvar key=extra "{{getvar::parsedArchetype}}"|
 		/ife (parsedAlignment != 'None') {:
 			/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 		:}|

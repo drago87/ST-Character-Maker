@@ -18,9 +18,14 @@
 	/re-replace find="/--WorldDetails--/g" replace="{{getvar::worldDetails}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (extraCharacters != '') {:
+/ife ((parsedExtraCharacters != '') and (parsedExtraCharacters != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--ExtraCharacters--/g" replace=", {{getvar::extraCharacters}}" {{pipe}}|
+	/re-replace find="/--ExtraCharacters--/g" replace="{{newline}}{{getvar::parsedExtraCharacters}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (parsedExtraCharacters == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--ExtraCharacters--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife ((lore != '') and ( lore != 'None')) {:
@@ -72,7 +77,7 @@
 :}|
 /ife ((parsedOrigin != '') and (parsedOrigin != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Origin--/g" replace="- Origin: {{getvar::parsedOrigin}}" {{pipe}}|
+	/re-replace find="/--Origin--/g" replace="{{newline}}- Origin: {{getvar::parsedOrigin}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /elseif  (parsedOrigin == 'None'){:
@@ -191,7 +196,7 @@
 	/re-replace find="/--ApperanceTraits--/g" replace="{{newline}}{{newline}}### APPEARANCE TRAITS{{newline}}{{getvar::parsedAppearanceTraits}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (parsedAppearanceTraits != 'None') {:
+/elseif (parsedAppearanceTraits == 'None') {:
 	/messages names=off 0|
 	/re-replace find="/--ApperanceTraits--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -241,7 +246,7 @@
 	/re-replace find="/--OutfitUnderwearTop--/g" replace="{{newline}}- Underwear (Top):  {{getvar::outfitUnderwearTopDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (outfitUnderwearTopDescription != 'Skip') {:
+/elseif (outfitUnderwearTopDescription == 'Skip') {:
 	/messages names=off 0|
 	/re-replace find="/--OutfitUnderwearTop--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -251,9 +256,9 @@
 	/re-replace find="/--OutfitUnderwearBottom--/g" replace="{{getvar::outfitUnderwearBottomDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (appearanceQAList != '') {:
+/ife (appearanceQA != '') {:
 	/messages names=off 0|
-	/re-replace find="/--AppearanceQAList--/g" replace="{{getvar::appearanceQAList}}" {{pipe}}|
+	/re-replace find="/--AppearanceQA--/g" replace="{{newline}}{{newline}}</Q&A>{{newline}}{{getvar::appearanceQA}}{{newline}}</Q&A>" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (backstory != '') {:
@@ -306,9 +311,9 @@
 	/re-replace find="/--Abilities--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (archetype != '') {:
+/ife (parsedArchetype != '') {:
 	/messages names=off 0|
-	/re-replace find="/--Archetype--/g" replace="{{getvar::archetype}}" {{pipe}}|
+	/re-replace find="/--Archetype--/g" replace="{{getvar::parsedArchetype}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife ( (parsedAlignment != '') and  (parsedAlignment != 'None')) {:
@@ -368,12 +373,20 @@
 :}|
 /ife (personalityQA != '') {:
 	/messages names=off 0|
-	/re-replace find="/--PersonalityQA--/g" replace="{{getvar::personalityQA}}" {{pipe}}|
+	/re-replace find="/--PersonalityQA--/g" replace="{{newline}}{{newline}}<Q&A>{{newline}}{{getvar::personalityQA}}{{newline}}</Q&A>" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (behaviorNotes != '') {:
+/ife ((parsedBehaviorNotes != '') and (parsedBehaviorNotes != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--BehaviorNotes--/g" replace="{{getvar::behaviorNotes}}" {{pipe}}|
+	/re-replace find="/--BehaviorNotes--/g" replace="{newline}}{newline}}- - -
+
+## [BEHAVIOR_NOTES]
+[IMPORTANT NOTE FOR AI: This section governs how --FirstName-- behaves moment to moment. In all interactions—especially intimate or emotionally charged scenes—adhere closely to the personality, social behavior, sexual role, and emotional boundaries established in this profile. Do not deviate from {{char}}’s defined orientation, role, or behavioral patterns unless a clear, in-character transformation is justified.]{{newline}}{{newline}}{{getvar::parsedBehaviorNotes}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (parsedBehaviorNotes == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--BehaviorNotes--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (parsedSexualOrientation != '') {:
@@ -388,7 +401,7 @@
 :}|
 /ife ((parsedSexualItems != '') and (parsedSexualItems != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Items--/g" replace="{{newline}}{{newline}}### SEXUAL INVENTORY{{newline}}{{getvar::parsedSexualItems}}" {{pipe}}|
+	/re-replace find="/--SexualItems--/g" replace="{{newline}}{{newline}}### SEXUAL INVENTORY{{newline}}{{getvar::parsedSexualItems}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /elseif (parsedSexualItems == 'None' ) {:
@@ -416,14 +429,30 @@
 	/re-replace find="/--Kinks--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (sexualityQA != '') {:
+/ife ((sexualityQA != '') and (sexualityQA != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--SexualityQA--/g" replace="{{newline}}{{newline}}{{getvar::sexualityQA}}" {{pipe}}|
+	/re-replace find="/--SexualityQA--/g" replace="{{newline}}{{newline}}<Q&A>{{newline}}{{getvar::sexualityQA}}{{newline}}</Q&A>" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (sexualNotes != '') {:
+/elseif (sexualityQA != 'None') {:
 	/messages names=off 0|
-	/re-replace find="/--SexualNotes--/g" replace="{{getvar::sexualNotes}}" {{pipe}}|
+	/re-replace find="/--SexualityQA--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife ((parsedSexualityNotes == '') and (parsedSexualityNotes != 'None')) {:
+	/messages names=off 0|
+	/re-replace find="/--SexualNotes--/g" replace="{{getvar::parsedSexualityNotes}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (parsedSexualityNotes == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--SexualNotes--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+
+/ife (parsedSexualityNotes != 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--SexualNotes--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (speechStyle != '') {:
@@ -446,17 +475,22 @@
 	/re-replace find="/--SpeechExamples--/g" replace="{{getvar::speechExampleString}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (synonyms != '') {:
+/ife ((parsedSynonyms != '') and (parsedSynonyms != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Synonyms--/g" replace="{{getvar::synonyms}}" {{pipe}}|
+	/re-replace find="/--Synonyms--/g" replace="{{getvar::parsedSynonyms}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife ( (storyPlan != '') and (storyPlan != 'None') ){:
+/ife (parsedSynonyms != 'None') {:
 	/messages names=off 0|
-	/re-replace find="/--StoryPlan--/g" replace="## PREMADE STORY PLAN{{newline}}{{getvar::storyPlan}}" {{pipe}}|
+	/re-replace find="/--Synonyms--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (storyPlan == 'None' ) {:
+/ife ( (parsedStoryPlan != '') and (parsedStoryPlan != 'None') ){:
+	/messages names=off 0|
+	/re-replace find="/--StoryPlan--/g" replace="{{newline}}{{newline}}- - -{{newline}}{{newline}}## PREMADE STORY PLAN{{newline}}{{getvar::parsedStoryPlan}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (parsedStoryPlan == 'None' ) {:
 	/messages names=off 0|
 	/re-replace find="/--StoryPlan--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -466,9 +500,14 @@
 	/re-replace find="/--Previously--/g" replace="{{getvar::previously}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (notes != '') {:
+/ife ((parsedNotes != '') and (parsedNotes != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Notes--/g" replace="{{getvar::notes}}" {{pipe}}|
+	/re-replace find="/--Notes--/g" replace="{{getvar::parsedNotes}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (parsedNotes == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--Notes--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife ((user != '') and (user == 'Yes')) {:

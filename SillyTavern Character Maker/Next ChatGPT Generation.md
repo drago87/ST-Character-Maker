@@ -1,1 +1,1 @@
-I would want the updates applied to the Kink Effect Prompt
+The child, The girl, The young one, The ten-year-old, The student, The daughter, The small figure, The quiet kid, The brown-haired girl, The curious one, The shy girl

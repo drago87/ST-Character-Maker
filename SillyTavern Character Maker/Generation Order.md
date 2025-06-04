@@ -111,27 +111,28 @@ Generation can only use information from things above it
 80. **Items / Equipment** 
 81. **Secrets** 
     
-    NSFW Stuff (Not Done)
+    NSFW Stuff (Done)
 
 82. **Sexual Orientation** 
 83. **Sexual Role** 
 84. **Libido**
-85. **Kinks** 
-86. **Sexual Notes** 
+85. **Abilities** 
+86. **Items / Equipment** 
+87. **Kinks** 
+88. **Sexual Notes** 
     
     Ending Stuff (Not Done)
 
-87. **Behavior Notes** (Not tested)
-88. **Speech Examples** (Done)
-89. **Appearance Q&A** 
-90. **Personality Q&A**  (Done)
-91. **Sexuality Q&A** 
-92. **Extra Q&A** 
-93. **Story Plan** 
-94. **Previously...** 
-95. **Notes** 
-96. **Synonyms** 
-97. **Extra Characters** 
+89. **Behavior Notes** (Done)
+90. **Speech Examples** (Done)
+91. **Appearance Q&A** (Dona)
+92. **Personality Q&A**  (Done)
+93. **Sexuality Q&A** (Done)
+94. **Story Plan** 
+95. **Previously...** 
+96. **Notes** (Done)
+97. **Synonyms** 
+98. **Extra Characters** 
 
 
 Species Group can be one of these depending on what the user picked for Animal Base  

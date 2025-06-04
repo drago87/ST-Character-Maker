@@ -58,6 +58,7 @@
 	/ife (user == 'Yes') {:
 		/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 	:}|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -192,6 +193,7 @@
 	/ife (user == 'Yes') {:
 		/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 	:}|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -304,6 +306,7 @@
 		/ife (user == 'Yes') {:
 			/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 		:}|
+		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}} (do not directly turn into ability names; use only as influence)"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -425,6 +428,7 @@
 		/ife (user == 'Yes') {:
 			/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 		:}|
+		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -564,6 +568,7 @@
 	/ife (user == 'Yes') {:
 		/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 	:}|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -676,6 +681,7 @@
 		/ife (user == 'Yes') {:
 			/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 		:}|
+		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -813,6 +819,7 @@
 		/ife (user == 'Yes') {:
 			/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 		:}|
+		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 		/ife (parsedAbilities != None) {:
 			/addvar key=extra "{{newline}}**Abilities**{{newline}}{{getvar::parsedAbilities}}"|

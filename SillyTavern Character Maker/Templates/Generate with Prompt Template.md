@@ -33,19 +33,6 @@
 	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
-	
-	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 7|//Change this to the last number in Insturctions|
-	
-	/ife (settingType == 'Realistic') {:
-		/incvar x|
-		/ife ( user == 'Yes') {:
-			/addvar key=logicBasedInstruction {{newline}}|
-		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Replace_This_With_The_Rule"|
-		
-	:}|
-	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
 	/getvar key=genSettings index=inputIsList|

@@ -320,6 +320,7 @@
 			/setvar key=genSettings index=needOutput Yes|
 			/setvar key=genSettings index=useContext Yes|
 			/setvar key=extra []|
+			/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 			/addvar key=extra "{{getvar::parsedArchetype}}"|
 			/addvar key=extra "- Alignment: {{getvar::alignment}}"|
 			/setvar key=genSettings index=extraContext {{getvar::extra}}|
@@ -386,6 +387,7 @@
 			/setvar key=genSettings index=needOutput Yes|
 			/setvar key=genSettings index=useContext Yes|
 			/setvar key=extra []|
+			/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 			/addvar key=extra "{{getvar::parsedArchetype}}"|
 			/addvar key=extra "- Alignment: {{getvar::alignment}}"|
 			/addvar key=extra "  ↳ Ideals: {{getvar::alignmentDetails}}"|
@@ -501,6 +503,14 @@
 	/flushvar genSettings|
 :}|
 
+/split {{getvar::personalityFoundTags}}|
+/buttons labels={{pipe}} Witch of these are the Main personality trait of {{getvar::firstName}}?|
+/setvar key=personalityMainTrait {{pipe}}|
+/ife (personalityMainTrait == '') {:
+    /echo Aborting |
+	/abort
+:}|
+/addvar key=dataBaseNames personalityMainTrait|
 /var key=do No|
 /var key=variableName "personalityTags"|
 /ife ({{var::variableName}} == '') {:
@@ -524,6 +534,7 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
+	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "{{getvar::parsedArchetype}}"|
 	/ife (parsedAlignment != 'None') {:
 		/addvar key=extra "{{getvar::parsedAlignment}}"|
@@ -659,7 +670,8 @@
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=extra []|
-		/addvar key=extra "{{newline}}{{getvar::parsedArchetype}}"|
+		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
+		/addvar key=extra "{{getvar::parsedArchetype}}"|
 		/ife (parsedAlignment != 'None') {:
 			/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 		:}|
