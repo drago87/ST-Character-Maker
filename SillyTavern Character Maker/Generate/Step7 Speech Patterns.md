@@ -71,6 +71,7 @@
 	/addvar key=extra "- Time Period: {{getvar::timePeriod}}"|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
 	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
+	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
@@ -153,6 +154,7 @@
 	/addvar key=extra "- Time Period: {{getvar::timePeriod}}"|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
 	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
+	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
@@ -236,6 +238,7 @@
 	/addvar key=extra "- Time Period: {{getvar::timePeriod}}"|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
 	//addvar key=extra "- Backstory: {{getvar::backstory}}"|
+	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|

@@ -536,6 +536,7 @@
 	/setvar key=extra []|
 	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "{{getvar::parsedArchetype}}"|
+	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 	/ife (parsedAlignment != 'None') {:
 		/addvar key=extra "{{getvar::parsedAlignment}}"|
 	:}|
@@ -598,6 +599,10 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
 	/wait {{getvar::wait}}|
 	
 	
@@ -676,6 +681,7 @@
 			/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 		:}|
 		/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
+		/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/flushvar extra|
 		/setvar key=genSettings index=contextKey []|
@@ -739,6 +745,11 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext No|
+	/setvar key=extra []|
+	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
+	
 	/wait {{getvar::wait}}|
 	
 	

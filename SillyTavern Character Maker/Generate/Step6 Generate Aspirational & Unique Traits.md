@@ -69,6 +69,7 @@
 		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}{{newline}}"|
 	:}|
 	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
+	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
 	/setvar key=genSettings index=contextKey []|
@@ -147,6 +148,7 @@
 	:}|
 	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
 	/addvar key=extra "- Main Aspiration: {{getvar::aspirationMain}}"|
+	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
 	/setvar key=genSettings index=contextKey []|
@@ -229,6 +231,7 @@
 	/addvar key=extra "- Main Aspiration: {{getvar::aspirationMain}}"|
 	/addvar key=extra "  - Aspiration Details: {{getvar::aspirationDetails}}"|
 	//addvar key=extra " - Scenario Overview: {{getvar::scenarioOverview}}"|
+	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
 	/setvar key=genSettings index=contextKey []|
@@ -303,6 +306,7 @@
 	/ife (personalitySocialSkills != 'None') {:
 		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}{{newline}}"|
 	:}|
+	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
 	/setvar key=genSettings index=contextKey []|
@@ -373,6 +377,7 @@
 			/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}{{newline}}"|
 		:}|
 		/addvar key=extra "{{newline}}{{getvar::parsedAspiration}}"|
+		/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/flushvar extra|
 		/setvar key=genSettings index=contextKey []|

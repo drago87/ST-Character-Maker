@@ -133,6 +133,7 @@
 		/ife (parsedItems != None) {:
 			/addvar key=extra "{{newline}}**Items or Gear**{{newline}}{{getvar::parsedItems}}"|
 		:}|
+		/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|

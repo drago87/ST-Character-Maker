@@ -768,14 +768,15 @@
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
-	/buttons labels=["User Input", "No Input"] Do you want to have to it generate a Character Overview by itself (You can still give it some guidence) or do you want to give it something to work from?|
+	/buttons labels=["User Input", "No Input"] Do you want to have to it generate a Character Overview by itself (You can still give it some guidance) or do you want to give it something to work from?|
 	/let key=choice {{pipe}}|
 	/ife (choice == '') {:
 		/echo Aborting |
 		/abort
 	:}|
 	/ife (choice == 'User Input') {:
-		/input default="Example: {{getvar::firstName}} is shy around new people but observant, often staying quiet unless asked something directly." <div>What is this scenario about?</div><div>What is the main idea?</div>|
+		/input default="Example: She's a quiet but observant teen who often sketches in the margins of her notebooks. She's not confrontational, but notices everything — and tends to show up when people least expect it."
+<div>What is this character like in daily life?</div><div>How would others describe them?</div>|
 		/setvar key=characterOverviewIde {{pipe}}|
 		/setvar key=genSettings index=wi_book_key "Character Overview User"|
 	:}|
@@ -788,11 +789,13 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext No|
-	/setvar key=extra []|//Remove if not in use|
-	/addvar key=extra ""|//Remove if not in use|
-	/setvar key=genSettings index=extraContext {{getvar::extra}}|//Remove if not in use|
 	/setvar key=extra []|
-	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
+	/addvar key=extra "- Occupation: {{getvar::occupation}}"|
+	/addvar key=extra "- Residence: {{getvar::residence}}"|
+	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
+	/:"CMC Logic.Get Basic Type Context"|
 	/ife (extra != '') {:
 		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	:}|
