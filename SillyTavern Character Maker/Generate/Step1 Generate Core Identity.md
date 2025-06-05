@@ -700,7 +700,7 @@ Ethnicity: {{getvar::ethnicity}}
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=genSettings index=contextKey []|
-		/ife () {:
+		/ife (( nationality != 'None') and ( ethnicity != 'None')) {:
 			4. Use {{getvar::nationality}} and/or {{getvar::ethnicity}} to influence cultural tone, spelling, or structure of the names when applicable — but do not include country names or descriptors in the output.
 
 		:}|
@@ -847,10 +847,10 @@ Ethnicity: {{getvar::ethnicity}}
 /getat index="message" {{pipe}}|
 /qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating World & Setting Information" {{pipe}}|
 
-/let key=filename {{datetimeformat YYYY-MM-DD HH h mm}}|
-/re-replace find="/\s(?=\d{2}$)/g" replace="h " {{var::filename}}|
+/setvar key=filename/setvar key=filename {{date}}, {{isotime}}|
+/re-replace find="/:/g" replace="h" {{pipe}}|
 /setvar key=filename {{pipe}}|
-/addvar key=filename " m {{getvar::firstName}} {{getvar::lastName}}"|
+/addvar key=filename "m {{getvar::firstName}} {{getvar::lastName}}"|
 /sendas name={{char}} del|
 /renamechat {{getvar::filename}}|
 /del {{lastMessageId}}|
