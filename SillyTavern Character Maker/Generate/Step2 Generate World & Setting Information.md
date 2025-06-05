@@ -318,7 +318,7 @@
 	/getvar key=genSettings index=inputIsList|
 	/let key=outputIsList {{pipe}}|
 	
-	/buttons labels=["Male", "Female", "Gender Neutral", "Anything"] What gender should the generation assume is?|
+	/buttons labels=["Male", "Female", "Gender Neutral", "Anything"] What gender should the generation assume --User-- is?|
 	/setvar key=guidance {{pipe}}|
 	/ife ( guidance == ''){:
 		/echo Aborting |

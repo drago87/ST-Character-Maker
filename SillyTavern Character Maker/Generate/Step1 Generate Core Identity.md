@@ -394,48 +394,42 @@
 	//-----------|
 	
 	/ife ((( nationality != '') and ( nationality != 'None')) and (( ethnicity != '') and ( ethnicity != 'None'))) {:
-		/genraw "## **TASK:**  
-Using the inputs below, combine them into a natural descriptor of origin.
-
-## **INPUT:**  
-Ethnicity: {{getvar::ethnicity}}
-Nationality: {{getvar::nationality}}
-
-## **INSTRUCTIONS:**  
-1. Return a short phrase in the format: `{ethnicity} from {placeName}`.
-2. Convert the nationality to the most likely place name if needed (e.g., “American” → “America”).
-3. Use proper capitalization.
-4. Do not include any extra text, punctuation, or formatting — return the phrase only."|
-   /setvar key=parsedOrigin {{pipe}}|
+		/let key=find Origin1: Task|
+		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/let key=task|
+		/var key=find Origin1: Instruction|
+		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/let key=instruct|
+		/genraw "{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+		/setvar key=parsedOrigin {{pipe}}|
 	:}|
 	/ife ((( nationality != '') and ( nationality != 'None')) and (( ethnicity == '') or ( ethnicity == 'None'))) {:
-		/genraw "## **TASK:**
-Generate a natural origin phrase from a single nationality.
-
-## **INPUT:**
-Nationality: {{getvar::nationality}}
-
-## **INSTRUCTIONS:**
-1. Convert the nationality to a proper place name (e.g., “French” → “France”).
-2. Return the phrase in the format: `From {placeName}`.
-3. Use correct capitalization and no extra text or punctuation."|
+		/let key=find Origin2: Task|
+		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/let key=task|
+		/var key=find Origin2: Instruction|
+		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/let key=instruct|
+		/genraw "{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/setvar key=parsedOrigin {{pipe}}|
 	:}|
 	/ife ((( ethnicity != '') and ( ethnicity != 'None')) and (( nationality == '') or ( nationality == 'None'))) {:
-		/genraw "## **TASK:**
-Create a short origin phrase using only the character's ethnicity.
-
-## **INPUT:**
-Ethnicity: {{getvar::ethnicity}}
-
-## **INSTRUCTIONS:**
-1. Return the phrase in this exact format: `Of {ethnicity} origin`
-2. Do **not** include quotation marks, punctuation, or formatting characters like ` or *
-3. The phrase should start with a capital letter and contain no extra text.
-4. Output only the phrase — no explanation, no bullet points, no markdown."|
+		/let key=find Origin3: Task|
+		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/let key=task|
+		/var key=find Origin3: Instruction|
+		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/let key=instruct|
+		/genraw "{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/setvar key=parsedOrigin {{pipe}}|
 	:}||
-	/addvar key=dataBaseNames parsedOrigin
+	/addvar key=dataBaseNames parsedOrigin|
 
 :}|
 /elseif ( skip != 'Skip') {:

@@ -146,7 +146,9 @@
 /setvar key=previousMilestones {{noop}}|
 /setvar key=blackListGen {{noop}}|
 /setvar key=mileS {{noop}}|
-/setvar key=guidance|
+/ife ( wi_book_key_f != 'User Role' ) {:
+	/setvar key=guidance|
+:}|
 
 /ife ( genIsSentence_f != 'Yes') {:
 	/ife ( outputIsList_f == 'Yes') {:

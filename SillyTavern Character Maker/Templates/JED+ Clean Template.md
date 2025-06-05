@@ -1,7 +1,7 @@
 # [SETTING]
 - Time/Period: --TimePeriod-- --Season--
 - World Details: --WorldDetails--
-- Main Characters: --User1--, --FirstName----ExtraCharacters--
+- Main Characters: --User1----FirstName----ExtraCharacters--
 
 --Lore--## SCENARIO OVERVIEW
 --ScenarioOverview--
