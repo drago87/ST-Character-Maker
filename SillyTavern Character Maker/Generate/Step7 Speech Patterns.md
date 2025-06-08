@@ -57,6 +57,7 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
+	/addvar key=extra "- Main Personality Trait{{getvar::personalityMainTrait}}"|
 	/addvar key=extra "- Personality Trait Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
 	/ife (personalitycognitiveAbilities != 'None') {:
@@ -81,17 +82,32 @@
 	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
-	/ife (settingType == 'Realistic'){:
-			/setvar key=logicBasedInstruction "6. Avoid anachronistic or fantastical speech patterns — stay grounded in the character's setting and time period."|
-		:}|
-		/else {:
-			/setvar key=logicBasedInstruction "6. You may include stylized, thematic, or exaggerated phrasing appropriate for the world’s tone or genre."|
-		:}|
-	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
 	/getvar key=genSettings index=inputIsList|
 	/let key=outputIsList {{pipe}}|
+	
+	
+	/setvar key=logicBasedInstruction {{noop}}|
+	/setvar key=x 9|
+	
+	/ife (settingType == 'Realistic') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Avoid anachronistic or fantastical speech patterns — stay grounded in the character's setting and time period."|
+		
+	:}|
+	/ife (settingType != 'Realistic') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include stylized, thematic, or exaggerated phrasing appropriate for the world’s tone or genre."|
+		
+	:}|
+	/flushvar x|
 	
 	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
@@ -140,7 +156,6 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "{{getvar::parsedArchetype}}"|
 	/addvar key=extra "- Personality Trait Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
@@ -157,7 +172,7 @@
 	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
-	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
+	/:"CMC Logic.Get Basic Type Context"|
 	/ife (extra != '') {:
 		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	:}|

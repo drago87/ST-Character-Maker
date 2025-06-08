@@ -6,94 +6,50 @@
 :}|
 /elseif ( real == 'Yes') {:
 	/input rows=8 What is the first name of the character?|
-	/setvar key=fname {{pipe}}|
-	/ife ( fname == ''){:
+	/setvar key=firstName {{pipe}}|
+	/ife ( firstName == ''){:
 		/echo Aborting|
 		/abort|
 	:}|
 	/else {::}|
 
-	/input rows=8 What is the last name of {{getvar::fname}}?|
-	/setvar key=lname {{pipe}}|
-	/ife ( lname == ''){:
+	/input rows=8 What is the last name of {{getvar::firstName}}?|
+	/setvar key=lastName {{pipe}}|
+	/ife ( lastName == ''){:
 		/echo Aborting|
 		/abort|
 	:}|
 	/else {::}|
 
-	/input rows=8 What is the media of {{getvar::fname}}?|
-	/setvar key=media {{pipe}}|
+	/input rows=8 What is the media of {{getvar::firstName}}?|
+	/setvar key=media_type {{pipe}}|
 	/ife ( media == ''){:
 		/echo Aborting|
 		/abort|
 	:}|
 	/else {::}|
 
-	/input rows=8 What is the name of the {{getvar::media}} that {{getvar::fname}} is in?|
+	/input rows=8 What is the name of the {{getvar::media_type}} that {{getvar::firstName}} is in?|
 	/setvar key=mediaName {{pipe}}|
 	/ife ( mediaName == ''){:
 		/echo Aborting|
 		/abort|
 	:}|
 	/else {::}|
-
 	
-	/db-list source=chat field=name |
-	/setvar key=a {{pipe}}|
-	/ife ( 'real' not in a){:
-		/db-add source=chat name=real {{getvar::real}}| /db-disable source=chat real|
-	:}|
-	/else {:
-		/db-update source=chat name=real {{getvar::real}}| /db-disable source=chat real|
-	:}|
-	/ife ( 'first_name' not in a){:
-		/db-add source=chat name=first_name {{getvar::fname}}| /db-disable source=chat first_name|
-	:}|
-	/else {:
-		/db-update source=chat name=first_name {{getvar::fname}}| /db-disable source=chat first_name|
-	:}|
-	/ife ( 'last_name' not in a){:
-		/db-add source=chat name=last_name {{getvar::lname}}| /db-disable source=chat last_name|
-	:}|
-	/else {:
-		/db-update source=chat name=last_name {{getvar::lname}}| /db-disable source=chat last_name|
-	:}|
-	/ife ( 'media_type' not in a){:
-		/db-add source=chat name=media_type {{getvar::media}}| /db-disable source=chat media_type|
-	:}|
-	/else {:
-		/db-update source=chat name=media_type {{getvar::media}}| /db-disable source=chat media_type|
-	:}|
-	/ife ( 'media_name' not in a){:
-		/db-add source=chat name=media_name {{getvar::mediaName}}| /db-disable source=chat media_name|
-	:}|
-	/else {:
-		/db-update source=chat name=media_name {{getvar::mediaName}}| /db-disable source=chat media_name|
-	:}|
+	
+	/setvar key=parsedMedia "{{getvar::firstName}} is a character from the {{getvar::media_type}} _{{getvar::media_name}}_."|
+	
+	/addvar key=dataBaseNames real|
+	/addvar key=dataBaseNames firstName|
+	/addvar key=dataBaseNames lastName|
+	/addvar key=dataBaseNames media_type|
+	/addvar key=dataBaseNames media_name|
 :}|
 /else {:
-	/db-list source=chat field=name |
-	/setvar key=a {{pipe}}|
-
-	/ife ( 'real' not in a){:
-		/db-add source=chat name=real {{getvar::real}}|
-		/db-disable source=chat real|
-	:}|
-	/else {:
-		/db-update source=chat name=real {{getvar::real}}| /db-disable source=chat real|
-	:}|
-	/ife ( 'media_type' not in a){:
-		/db-add source=chat name=media_type None|
-		/db-disable source=chat media_type|
-	:}|
-	/else {:
-		/db-update source=chat name=media_type None| /db-disable source=chat media_type|
-	:}|
-	/ife ( 'media_name' not in a){:
-		/db-add source=chat name=media_name None|
-		/db-disable source=chat media_name|
-	:}|
-	/else {:
-		/db-update source=chat name=media_name None| /db-disable source=chat media_name|
-	:}|
+	/addvar key=dataBaseNames real|
+	/setvar key=media_type None|
+	/addvar key=dataBaseNames media_type|
+	/setvar key=media_name None|
+	/addvar key=dataBaseNames media_name|
 :}|

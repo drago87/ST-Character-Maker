@@ -13,7 +13,7 @@
 # [--FirstName--]
 
 ## CHARACTER OVERVIEW
---CharacterOverview--
+--CharacterOverview----Real--
 
 - - -
 
@@ -30,9 +30,7 @@
 - Face: --Face--
 ### Body
 - Body: --Body----Breasts----Nipples----Pussy----Cock----Genitals--
-- Anus: --Anus--
-
-- Features: --Features----ApperanceTraits--
+- Anus: --Anus----Features----ApperanceTraits--
 
 
 ### STARTING OUTFIT
@@ -40,8 +38,7 @@
 - Accessories: --OutfitAccessories--
 - Makeup: --OutfitMakeup--
 - Neck: --OutfitNeck--
-- Top: --OutfitTop--
-- Bottom: --OutfitBottom--
+--OutfitMainwear----OutfitTop----OutfitBottom--
 - Legs: --OutfitLegs--
 - Shoes: --OutfitShoes----OutfitUnderwearTop--
 - Underwear (Bottom): --OutfitUnderwearBottom----AppearanceQA--

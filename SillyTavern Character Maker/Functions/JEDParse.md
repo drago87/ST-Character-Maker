@@ -48,6 +48,16 @@
 	/re-replace find="/--CharacterOverview--/g" replace="{{getvar::characterOverview}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
+/ife ((parsedMedia != '') and (parsedMedia != 'None')) {:
+	/messages names=off 0|
+	/re-replace find="/--Real--/g" replace="**Media Origin**: {{getvar::parsedMedia}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (parsedMedia != 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--Real--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
 /ife ( (lastName != '') and (lastName != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--LastName--/g" replace="{{getvar::lastName}}" {{pipe}}|
@@ -186,9 +196,14 @@
 	/re-replace find="/--Anus--/g" replace="{{getvar::appearanceAnus}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (appearanceFeatures != '') {:
+/ife ((appearanceFeatures != '') and (appearanceFeatures != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Features--/g" replace="{{getvar::appearanceFeatures}}" {{pipe}}|
+	/re-replace find="/--Features--/g" replace="{{newline}}{{newline}}- Features: {{getvar::appearanceFeatures}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (appearanceFeatures != 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--Features--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife ((parsedAppearanceTraits != '') and (parsedAppearanceTraits != 'None')) {:
@@ -221,14 +236,34 @@
 	/re-replace find="/--OutfitNeck--/g" replace="{{getvar::outfitNeckDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (outfitTopDescription != '') {:
+/ife ((outfitMainwearDescription != '') and (outfitMainwearDescription != 'Skip')) {:
 	/messages names=off 0|
-	/re-replace find="/--OutfitTop--/g" replace="{{getvar::outfitTopDescription}}" {{pipe}}|
+	/re-replace find="/--OutfitMainwear--/g" replace="- Mainwear: {{getvar::outfitMainwearDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (outfitBottom != '') {:
+/elseif (outfitMainwearDescription == 'Skip') {:
 	/messages names=off 0|
-	/re-replace find="/--OutfitBottom--/g" replace="{{getvar::outfitBottomDescription}}" {{pipe}}|
+	/re-replace find="/--OutfitMainwear--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife ((outfitTopDescription != '') and (outfitTopDescription != 'Skip')) {:
+	/messages names=off 0|
+	/re-replace find="/--OutfitTop--/g" replace="- Top: {{getvar::outfitTopDescription}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (outfitTopDescription == 'Skip') {:
+	/messages names=off 0|
+	/re-replace find="/--OutfitTop--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife ((outfitBottomDescription != '') and (outfitBottomDescription != 'Skip')) {:
+	/messages names=off 0|
+	/re-replace find="/--OutfitBottom--/g" replace="{{newline}}- Bottom: {{getvar::outfitBottomDescription}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (outfitBottomDescription == 'Skip') {:
+	/messages names=off 0|
+	/re-replace find="/--OutfitBottom--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (outfitLegsDescription != '') {:

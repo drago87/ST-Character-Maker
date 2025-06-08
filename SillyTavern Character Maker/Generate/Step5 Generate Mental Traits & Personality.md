@@ -52,6 +52,15 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=genSettings index=contextKey []|
+	/setvar key=extra []|
+	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
+	/:"CMC Logic.Get Basic Type Context"|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
+	:}|
+	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
 	/setvar key=settingModifier {Modifier}|
@@ -208,6 +217,15 @@
 	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //--------|
+
+/split {{getvar::personalityFoundTags}}|
+/buttons labels={{pipe}} Witch of these are the Main personality trait of {{getvar::firstName}}?|
+/setvar key=personalityMainTrait {{pipe}}|
+/ife (personalityMainTrait == '') {:
+    /echo Aborting |
+	/abort
+:}|
+/addvar key=dataBaseNames personalityMainTrait|
 
 /findentry field=comment file="CMC Templates" "Archetype Template"|
 /getentryfield field=content file="CMC Templates" {{pipe}}|
@@ -503,14 +521,7 @@
 	/flushvar genSettings|
 :}|
 
-/split {{getvar::personalityFoundTags}}|
-/buttons labels={{pipe}} Witch of these are the Main personality trait of {{getvar::firstName}}?|
-/setvar key=personalityMainTrait {{pipe}}|
-/ife (personalityMainTrait == '') {:
-    /echo Aborting |
-	/abort
-:}|
-/addvar key=dataBaseNames personalityMainTrait|
+
 /var key=do No|
 /var key=variableName "personalityTags"|
 /ife ({{var::variableName}} == '') {:

@@ -1,1 +1,1 @@
-The child, The girl, The young one, The ten-year-old, The student, The daughter, The small figure, The quiet kid, The brown-haired girl, The curious one, The shy girl
+Frequently punctuates statements with "bam!" or "boom!" and uses hand gestures to emphasize her words.

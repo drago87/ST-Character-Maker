@@ -146,7 +146,7 @@
 /setvar key=previousMilestones {{noop}}|
 /setvar key=blackListGen {{noop}}|
 /setvar key=mileS {{noop}}|
-/ife ( wi_book_key_f != 'User Role' ) {:
+/ife (( wi_book_key_f != 'User Role' ) and ('Outfit' not in wi_book_key_f)) {:
 	/setvar key=guidance|
 :}|
 
@@ -552,7 +552,6 @@
 		/var key=t {{noop}}|
 	:}|
 	/elseif ( selected_btn == man) {:
-		/echo genIsSentence_f = {{var::genIsSentence_f}}|
 		/ife ( genIsSentence_f == 'Yes' ){:
 			
 			/getat index=0 {{var::genState}}|

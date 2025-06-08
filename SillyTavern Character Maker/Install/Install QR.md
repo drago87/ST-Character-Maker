@@ -191,7 +191,7 @@
 :}|
 
 /ife ( 'Step4 Generate Appearance-Anatomy' not in qrListContent) {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step3%20Generate%20Appearance%20%26%20Anatomy.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step4%20Outfit.md|
 	/qr-create set="CMC Generate" label="Step4 Generate Outfit" {{pipe}}|
 	//|-----|
 :}|

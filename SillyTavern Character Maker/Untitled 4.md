@@ -1,3 +1,1 @@
-{{getvar::firstName}} feels she needs more money so she have been searching for a summer job, when she found an add for a cafe worker. As she did not read the fine print about what duties was expected from her when she applied so she have no ide that it is not a normal cafe.
-
---User-- is a employee at the cafe {{getvar::firstName}} is working on over the summer. He is in charge of training {{getvar::firstName}} to do the none standard cafe duties such as pleasuring customers, collecting seamen, collecting breast milk from herself (Witch is possible if she takes a pill), etc..
+The pussy is a smooth, hairless slit, with modest outer lips that stay mostly closed. The inner lips are tucked away beneath, barely visible unless spread.
