@@ -132,6 +132,7 @@
 		/buttons labels={{var::genState}} {{var::buttonPrompt_f}}|
 		/var key=selected_btn {{pipe}}|
 		/re-replace find="/\s\(.*$/g" replace="" {{var::selected_btn}}|
+		/var key=selected_btn {{pipe}}|
 	:}|
 	/ife ( selected_btn == ''){:
 		/echo Aborting |

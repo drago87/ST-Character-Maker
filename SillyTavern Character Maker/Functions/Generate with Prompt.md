@@ -213,7 +213,7 @@
 		:}|
 	:}|
 	/echo Generating {{var::wi_book_key_f}}|
-	/ife ((random_f != '') and ( wi_book_key == 'Speech Single Ticks')) {:
+	/ife ((random_f is list) and ( wi_book_key_f == 'Speech Single Ticks')) {:
 		/var key=instruct {{noop}}|
 		/pick {{var::random_f}}|
 		/setvar key=rand {{pipe}}|
@@ -372,7 +372,7 @@
 		/var key=genState index={{pipe}} Customize Parts of the generation|
 	:}|
 	/let key=forsedOutputWhitelist ["Appearance Features Humanoid", "Appearance Features Other"]|
-	/ife ((wi_book_key_f is string) and (('Done' not in genState) and (((outputIsList_f == 'Yes') and (tempList != '')) or ((outputIsList_f != 'Yes') and (needOutput_f == 'No')) or ( wi_book_key_f in forsedOutputWhitelist)))) {:
+	/ife ((wi_book_key_f is string) and (('Done' not in genState) and (((outputIsList_f == 'Yes') and (tempList != '')) or ((outputIsList_f != 'Yes') or (needOutput_f == 'No')) or ( wi_book_key_f in forsedOutputWhitelist)))) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Done"|
 	:}|
@@ -571,8 +571,13 @@
 		/:"CMC Logic.SaveGen"|
 	:}|
 	/else {:
-		/ife (( genState == 'Done') and (((outputIsList_f == 'Yes') and (tempList == '')) or (needOutput_f == 'No'))) {:
-			/setvar key=save None|
+		/ife (( selected_btn == 'Done') and ((outputIsList_f == 'Yes') and (tempList == '') or (needOutput_f == 'No'))) {:
+			/ife (needOutput_f == 'No') {:
+				/setvar key=save Done|
+			:}|
+			/else {:
+				/setvar key=save None|
+			:}|
 			/flushvar guidance|
 			/:"CMC Logic.SaveGen"|
 		:}|

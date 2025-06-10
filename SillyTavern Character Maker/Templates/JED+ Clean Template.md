@@ -57,7 +57,7 @@
 --Occupation--
 
 ### CONNECTIONS
---Connections----Secret----Items----Abilities--
+--Connections----Items----Abilities----Secret--
 
 - - -
 

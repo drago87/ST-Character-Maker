@@ -10,7 +10,7 @@
 /setvar key=dataBaseNames []|
 /flushvar genSettings|
 
-/setvar key=stepVar Step7|
+/setvar key=stepVar Step8|
 
 /setvar key=skip Update|
 /ife ( stepDone == 'No') {:
@@ -70,15 +70,24 @@
 	/wait {{getvar::wait}}|
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 9|
+	/setvar key=x 10|
 	
-	/ife (settingType == 'Realistic') {:
+	/ife (user == 'Yes') {:
 		/incvar x|
-		/ife ( user == 'Yes') {:
+		/ife ( logicBasedInstruction == '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. If a connection is --User--, keep the name exactly as `--User--`. Do not invent or complete it. You may include a shared surname if appropriate (e.g., `--User-- Andersson`), but never create a new first name for --User--."|
-		
+		/addvar key=logicBasedInstruction "{{getvar::x}}. If a connection is --User--, write their name **exactly** as `--User--` with no surname."|
+		/incvar x|
+		/ife ( logicBasedInstruction == '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Use only valid relationships to {{getvar::firstName}} (e.g., `Friend of {{getvar::firstName}}`, `Mentor of {{getvar::firstName}}`, etc.)."|
+		/incvar x|
+		/ife ( logicBasedInstruction == '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Do **not** add a full name, inferred gender, or descriptive label like “Andersson” — --User-- must stay anonymous in all contexts."|
 	:}|
 	/ife ((characterArchetype == 'Human') or (characterArchetype == 'Android') or (characterArchetype == 'Beastkin') or (characterArchetype == 'Demi-Human')) {:
 		/incvar x|
@@ -195,6 +204,8 @@
 	:}|
 	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
+	/addvar key=extra "{{getvar::parsedOccupation}}"|
+	/addvar key=extra "- Scenario Overview: {{getvar::scenarioOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|
@@ -276,7 +287,7 @@
 
 /getvar key=abilityNames index=0|
 /var key=do {{pipe}}|
-/ife ((do != '') or (do != 'None')) {:
+/ife ((do != '') and (do != 'None')) {:
 	/var key=do No|
 	/var key=variableName "abilityProficiencies"|
 	/ife ({{var::variableName}} == '') {:
@@ -308,6 +319,8 @@
 		:}|
 		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}} (do not directly turn into ability names; use only as influence)"|
+		/addvar key=extra "{{getvar::parsedOccupation}}"|
+	/addvar key=extra "- Scenario Overview: {{getvar::scenarioOverview}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
 		/:"CMC Logic.Get Basic Type Context"|
@@ -430,6 +443,8 @@
 		:}|
 		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
+		/addvar key=extra "{{getvar::parsedOccupation}}"|
+	/addvar key=extra "- Scenario Overview: {{getvar::scenarioOverview}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
 		/:"CMC Logic.Get Basic Type Context"|
@@ -570,6 +585,8 @@
 	:}|
 	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
+	/addvar key=extra "{{getvar::parsedOccupation}}"|
+	/addvar key=extra "- Scenario Overview: {{getvar::scenarioOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|
@@ -651,7 +668,7 @@
 
 /getvar key=itemNames index=0|
 /var key=do {{pipe}}|
-/ife ((do != '') or (do != 'None')) {:
+/ife ((do != '') and (do != 'None')) {:
 	/var key=do No|
 	/var key=variableName "itemDetails"|
 	/ife ({{var::variableName}} == '') {:
@@ -683,6 +700,8 @@
 		:}|
 		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
+		/addvar key=extra "{{getvar::parsedOccupation}}"|
+	/addvar key=extra "- Scenario Overview: {{getvar::scenarioOverview}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
 		/:"CMC Logic.Get Basic Type Context"|
@@ -829,7 +848,7 @@
 		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
-	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
+	/:"CMC Logic.Get Basic Type Context"|
 	/ife (extra != '') {:
 		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	:}|

@@ -18,7 +18,7 @@
 	:}|
 :}|
 /elseif ( isGeneration_f == 'Yes') {:
-	/ife ( outputIsList_f == 'Yes') {:
+	/ife (( outputIsList_f == 'Yes') {:
 		/ife ( inputIsList_f == 'Yes') {:
 			/addvar key=tempList {{getvar::item}}: {{getvar::save}}|
 		:}|

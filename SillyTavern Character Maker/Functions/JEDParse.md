@@ -451,15 +451,15 @@
 :}|
 /elseif (parsedSexualAbilities == 'None') {:
 	/messages names=off 0|
-	/re-replace find="/--Abilities--/g" replace="" {{pipe}}|
+	/re-replace find="/--SexualAbilities--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife ((parsedSexualKinks != '') and (parsedSexualKinks != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Kinks--/g" replace="{{newline}}{{newline}}### Kinks{{getvar::parsedSexualKinks}}" {{pipe}}|
+	/re-replace find="/--Kinks--/g" replace="{{newline}}{{newline}}### Kinks{{newline}}{{getvar::parsedSexualKinks}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/else {:
+/elseif  (parsedSexualKinks == 'None'){:
 	/messages names=off 0|
 	/re-replace find="/--Kinks--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -474,18 +474,12 @@
 	/re-replace find="/--SexualityQA--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife ((parsedSexualityNotes == '') and (parsedSexualityNotes != 'None')) {:
+/ife ((parsedSexualityNotes != '') and (parsedSexualityNotes != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--SexualNotes--/g" replace="{{getvar::parsedSexualityNotes}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /elseif (parsedSexualityNotes == 'None') {:
-	/messages names=off 0|
-	/re-replace find="/--SexualNotes--/g" replace="" {{pipe}}|
-	/message-edit message=0 await=true {{pipe}}|
-:}|
-
-/ife (parsedSexualityNotes != 'None') {:
 	/messages names=off 0|
 	/re-replace find="/--SexualNotes--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|

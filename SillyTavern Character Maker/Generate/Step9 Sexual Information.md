@@ -146,6 +146,88 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
+	/setvar key=logicBasedInstruction {{noop}}|
+	/setvar key=x 8|
+	
+	/ife (sexualOrientation == 'Heterosexual') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Focus attraction toward the opposite sex — emphasize traditionally masculine or feminine traits depending on character’s gender and age."|
+		
+	:}|
+	/elseif (sexualOrientation == 'Pansexual') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Describe attraction to a broad range of gender expressions or bodies — avoid reducing attraction to a binary or to one physical archetype."|
+		
+	:}|
+	/elseif (sexualOrientation == 'Asexual') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Emphasize lack of innate sexual attraction; describe emotional or aesthetic triggers only if relevant."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Describe how attraction requires deep bonding, or what is **not** felt."|
+		
+	:}|
+	/elseif (sexualOrientation == 'Demisexual') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Attraction must require **deep emotional connection** before any physical or sexual interest is felt."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Describe how attraction requires deep bonding, or what is **not** felt."|
+		
+	:}|
+	/elseif (sexualOrientation == 'Bi-curious') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Express curiosity or tentative interest in same-gender or non-typical partners — use uncertain or exploratory language."|
+		
+	:}|
+	/elseif (sexualOrientation == 'Xenosexual') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Attraction should focus on **non-human humanoid** or **hybrid forms** (e.g., beastkin, aliens, demi-humans). Highlight features like mixed anatomy, unusual physiology, or hybrid charm — avoid feral or quadrupedal attraction."|
+		
+	:}|
+	/elseif (sexualOrientation == 'Zoosexual') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Attraction should be directed toward **fully animalistic**, **feral**, or **quadrupedal bodies**. Emphasize instinctual behavior, physical traits (e.g., fur, gait, size), or dominance/submission cues — avoid humanoid references."|
+		
+	:}|
+	
+	
+	/ife ((settingType == 'Realistic') and (sexualOrientation != 'Zoosexual') and (sexualOrientation != 'Xenosexual')) {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Avoid references to alien, hybrid, or feral attraction unless justified by species context. Keep tone grounded in biologically plausible preferences."|
+		
+	:}|
+	/flushvar x|
+	
+	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
 	:}|
@@ -281,6 +363,8 @@
 	:}|
 	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
+	/addvar key=extra "- Sexual Orientation: {{getvar::sexualOrientation}}"|
+	/addvar key=extra "- Orientation Explanation: {{getvar::sexualOrientationExplanation}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|
@@ -291,13 +375,232 @@
 	/wait {{getvar::wait}}|
 	
 	
-	
-	
-	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
 	/getvar key=genSettings index=inputIsList|
 	/let key=outputIsList {{pipe}}|
+	
+	
+	/setvar key=logicBasedInstruction {{noop}}|
+	/setvar key=x 7|
+	
+	/ife (sexualRole == 'Dominant') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character must take control during intimacy — they lead, direct, and handle their partner confidently."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Show active physical or verbal dominance (e.g., restraint, commands, assertive touch)."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Personality tags may affect tone (e.g., cold, nurturing, aggressive), but role remains in control."|
+		
+	:}|
+	/elseif (sexualRole == 'Top') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character takes the physically active or giving role during sex, initiating contact or stimulation."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. May or may not control dynamics — focus on action and assertive engagement."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags like playful, impatient, or intense may shape *how* they act, not whether they do."|
+		
+	:}|
+	/elseif (sexualRole == 'Submissive') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character must yield control and respond to a dominant partner’s actions or guidance."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Show willingness to follow, wait, or obey — describe receptive body language or behavior."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags may affect how passivity is expressed (e.g., shy, eager, stoic), but they should not lead."|
+		
+	:}|
+	/elseif (sexualRole == 'Bottom') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character takes a physically passive or receiving role — they are touched, penetrated, or held."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. May be sexually assertive in tone or feedback, but should not initiate or guide."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags should shape *emotional reaction* or tone of passivity (e.g., needy, playful, tense)."|
+		
+	:}|
+	/elseif (sexualRole == 'Switch') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character is flexible — describe adaptive behavior that shifts based on mood or partner energy."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Show role fluidity: confident control in one moment, eager submission in the next."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags can influence preference or transitions (e.g., impulsive = faster switching)."|
+		
+	:}|
+	/elseif (sexualRole == 'Service Top') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character takes an active role, but their focus is on fulfilling their partner’s needs or preferences — not on dominance."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Use actions like initiating stimulation or adjusting pace for the other’s benefit."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags may reflect devotion, calm precision, or eager support — never controlling ego."|
+		
+	:}|
+	/elseif (sexualRole == 'Power Bottom') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character is physically submissive but emotionally or behaviorally assertive."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Describe how they guide the encounter from below: giving feedback, demanding more, controlling pace from a passive position."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags should enhance their bold, teasing, or confident tone without contradicting positional passivity."|
+		
+	:}|
+	/elseif (sexualRole == 'Soft Dom') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character is dominant, but emotionally nurturing and attentive — they lead while offering care and reassurance."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Show steady control paired with kindness (e.g., praise, soft restraint, protective behavior)."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags like gentle, warm, or empathetic reinforce tone without reducing authority."|
+		
+	:}|
+	/elseif (sexualRole == 'Brat') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character resists control playfully or provocatively — they provoke dominance, not avoid it."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Emphasize teasing, defiance, or button-pushing behavior followed by eventual surrender."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags like impulsive, tomboyish, or stubborn shape style of resistance, not goal (being overpowered)."|
+		
+	:}|
+	/elseif (sexualRole == 'Pillow Princess') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character prefers to receive pleasure passively and rarely initiates."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Show behavior like lying back, encouraging attention, or expressing enjoyment without active contribution."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags may amplify tone (e.g., shy = quiet, bratty = mildly demanding), but never initiate."|
+		
+	:}|
+	/elseif (sexualRole == 'Owner') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character asserts possessive, long-term dominance — focus on symbolic or emotional control, not just physical."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Show hierarchical behavior: giving permission, claiming, or marking territory (e.g., collars, commands)."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags like cold, obsessive, or refined may shift dominance tone."|
+		
+	:}|
+	/elseif (sexualRole == 'Pet') {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Character expresses obedience and affection through submissive, creature-like behavior."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Emphasize emotional dependence, eagerness to please, or physical submission through posture or vocalization."|
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags like clingy, shy, or cheerful can shape expression of petlike behavior — never switch to control."|
+		
+	:}|
+	/flushvar x|
 	
 	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
@@ -682,10 +985,21 @@
 		/let key=tempOutputList []|
 		/foreach {{getvar::sexualKinkTypes}} {:
 			/setvar key=it {{var::item}}|
+			/findentry field=comment file="CMC Information" "Kink Role Prompt"|
+			/getentryfield field=content file="CMC Information" {{pipe}}|
+			/genraw {{pipe}}|
+			/let key=kinkTemp {{pipe}}|
+			/setvar key=kinkExp {{noop}}|
+			/split {{var::kinkTemp}}|
+			/foreach {{pipe}} {:
+				/addvar key=kinkExp <div>{{var::item}}</div>|
+			:}|
+			/setvar key=genSettings index=buttonPrompt "Select the {{var::wi_book_key}} you want {{getvar::it}} to have.{{getvar::kinkExp}}"|
 			/:"CMC Logic.GenerateWithSelector"|
 			/len {{var::tempOutputList}}|
 			/var key=tempOutputList index={{pipe}} {{getvar::output}}|
 			/flushvar output|
+			/flushvar kinkExp|
 			/flushvar guidance|
 			/flushvar kinkType|
 			/flushvar kinkVariant|
@@ -1227,7 +1541,7 @@
 
 /getvar key=sexualAbilityNames index=0|
 /var key=do {{pipe}}|
-/ife ((do != '') or (do != 'None')) {:
+/ife ((do != '') and (do != 'None')) {:
 	/var key=do No|
 	/var key=variableName "sexualAbilityProficiencies"|
 	/ife ({{var::variableName}} == '') {:
@@ -1469,7 +1783,7 @@
 :}|
 
 
-/ife (sexualAbilityNames != 'None') {:
+/ife ((sexualAbilityNames != 'None') and (sexualAbilityNamesProficiencies is list)) {:
 	/setvar key=parsedSexualAbilities []|
 	/foreach {{getvar::sexualAbilityNamesProficiencies}} {:
 		/let key=trait {{var::item}}|
@@ -1603,7 +1917,7 @@
 
 /getvar key=sexualItemNames index=0|
 /var key=do {{pipe}}|
-/ife ((do != '') or (do != 'None')) {:
+/ife ((do != '') and (do != 'None')) {:
 	/var key=do No|
 	/var key=variableName "sexualItemDetails"|
 	/ife ({{var::variableName}} == '') {:
@@ -1797,7 +2111,7 @@
 	/ife ( inputIsList == 'Yes') {:
 		/setvar key={{var::variableName}} []|
 		/ife ( combineLorebookEntries == 'Yes') {:
-			/:"CMC Logic.Combine List Lorebooks"
+			/:"CMC Logic.Combine List Lorebooks"|
 		:}|
 		/foreach {{getvar::genOrder}} {:
 			/setvar key=it {{var::item}}|
@@ -1812,6 +2126,7 @@
 	/else {:
 		/getvar key=genSettings index=wi_book_key|
 		/setvar key=it {{pipe}}|
+		/setvar key=genSettings index=buttonPrompt "Select the Sexual Rules you want {{getvar::firstName}} to have."|
 		/:"CMC Logic.GenerateWithSelector"|
 		/ife (output != '') {:
 			/setvar key={{var::variableName}} {{getvar::output}}|
@@ -1859,8 +2174,8 @@
 	/ife (parsedSexualItems != 'None') {:
 		/addvar key=extra "{{getvar::parsedSexualItems}}"|
 	:}|
-	/ife (parsedSexualAblilities != 'None') {:
-		/addvar key=extra "{{getvar::parsedSexualAblilities}}"|
+	/ife (parsedSexualAbilities != 'None') {:
+		/addvar key=extra "{{getvar::parsedSexualAbilities}}"|
 	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|

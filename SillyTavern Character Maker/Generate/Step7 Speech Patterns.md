@@ -10,7 +10,7 @@
 /setvar key=dataBaseNames []|
 /flushvar genSettings|
 
-/setvar key=stepVar Step6|
+/setvar key=stepVar Step7|
 
 /setvar key=skip Update|
 /ife ( stepDone == 'No') {:
@@ -239,7 +239,6 @@
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=genSettings index=random {{getvar::randomTags}}|
 	/setvar key=extra []|
-	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	//addvar key=extra "{{getvar::parsedArchetype}}"|
 	//addvar key=extra "- Personality Trait Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/addvar key=extra "- Intelligence Level: {{getvar::personalityIntelligenceLevel}}"|
@@ -388,5 +387,5 @@
 /var qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
-/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Aspirational & Unique Traits" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating External Interaction" {{pipe}}|
 /forcesave|
