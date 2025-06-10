@@ -53,12 +53,8 @@
 	/setvar key=genSettings index=wi_book "CMC Rules"|
 	/setvar key=keys []|
 	/addvar key=keys "Shared Behavior Rules"|
-	/ife ((gender == 'Female') or (futanari == 'Yes')) {:
-		/addvar key=keys "Female Behavior Rules"|
-	:}|
-	/ife ((gender == 'Male') or (futanari == 'Yes')) {:
-		/addvar key=keys "Male Behavior Rules"|
-	:}|
+	/addvar key=keys "Female Behavior Rules"|
+	/addvar key=keys "Male Behavior Rules"|
 	
 	/setvar key=genSettings index=wi_book_key {{getvar::keys}}|
 	/flushvar keys|
@@ -85,7 +81,9 @@
 	/setvar key=it Behavior Rules|
 	/:"CMC Logic.GenerateWithSelector"|
 	/setvar key={{var::variableName}} {{getvar::output}}|
-	
+	/ife ({{var::variableName}} == 'Remove') {:
+		/setvar key={{var::variableName}} []|
+	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar genOrder|
@@ -104,6 +102,10 @@
 	/var key=do {{pipe}}|
 	/ife (do == '') {:
 		/echo Aborting |
+		/abort
+	:}|
+	/elseif (( do == 'No') and (behaviorNotes == '')) {:
+		/echo There needs to be some Behavior Rules |
 		/abort
 	:}|
 :}|
@@ -154,6 +156,11 @@
 	/:"CMC Logic.GenerateWithPrompt"|
 	/foreach {{getvar::output}} {:
 		/addvar key={{var::variableName}} {{var::item}}|
+	:}|
+	
+	/ife (behaviorNotes == '') {:
+		/echo There needs to be some Behavior Rules|
+		/abort
 	:}|
 	
 

@@ -1,15 +1,20 @@
-/ife ( save == ''){:
-	/echo Aborting SaveGen|
-	/abort
-:}|
-/let x {{getvar::save}}|
 /getvar key=genSettings index=isGeneration|
 /let key=isGeneration_f {{pipe}}|
 /getvar key=genSettings index=outputIsList|
 /let key=outputIsList_f {{pipe}}|
 /getvar key=genSettings index=inputIsList|
 /let key=inputIsList_f {{pipe}}|
-/ife ( save == 'Done') {:
+/getvar key=genSettings index=wi_book|
+/let key=wi_book_f {{pipe}}|
+/ife (( save == '') and (wi_book_f != 'CMC Rules')) {:
+	/echo Aborting SaveGen|
+	/abort
+:}|
+/elseif (wi_book_f == 'CMC Rules')) {:
+	/setvar key=output Remove|
+:}|
+/let x {{getvar::save}}|
+/elseif ( save == 'Done') {:
 	/ife (tempList != '' ) {:
 		/setvar key=output {{getvar::tempList}}|
 	:}|

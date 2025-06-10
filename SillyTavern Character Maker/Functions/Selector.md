@@ -105,6 +105,12 @@
 /let key=man "Manually {{var::actionType}}"|
 
 /whilee ( output == '') {:
+	
+	/foreach {{var::genState}} {:
+		/re-replace find="/\b([a-z])/" cmd="/to-upper $1" replace="$1" {{var::item}}|
+		/var key=genState index={{var::index}} {{pipe}}|
+	:}|
+	
 	/ife ( 'Random' not in genState) {:
 		/len {{var::genState}}|
 		/var key=genState index={{pipe}} "Random"|
@@ -134,7 +140,7 @@
 		/re-replace find="/\s\(.*$/g" replace="" {{var::selected_btn}}|
 		/var key=selected_btn {{pipe}}|
 	:}|
-	/ife ( selected_btn == ''){:
+	/ife (( selected_btn == '') and (wi_book_f != 'CMC Rules')) {:
 		/echo Aborting |
 		/abort
 	:}|
