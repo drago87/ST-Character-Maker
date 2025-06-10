@@ -232,13 +232,17 @@
 	//|-----|
 :}|
 
+
+
 /qr-set-list global|
 /let qrGlobal {{pipe}}|
 
-/ife ( 'Auto Add QR to Character' not in qrGlobal) {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step10%20Extras.md|
+/ife ( 'CMC Automate' not in qrGlobal) {:
+	/qr-set-create CMC Automate|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Install/Auto%20Add%20QR%20to%20Character.md|
 	/qr-create set="CMC Automate" label="Auto Add QR to Character" {{pipe}}|
 	/qr-set visible=false "CMC Automate"|
+	/qr-update hidden=false new=true set="CMC Automate" label="Auto Add QR to Character"|
 	//|-----|
 :}|
 
