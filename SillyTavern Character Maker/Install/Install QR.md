@@ -237,8 +237,8 @@
 
 /ife ( 'Auto Add QR to Character' not in qrGlobal) {:
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step10%20Extras.md|
-	/qr-create set="CMC Generate" label="Auto Add QR to Character" {{pipe}}|
-	/qr-set visible=false 
+	/qr-create set="CMC Automate" label="Auto Add QR to Character" {{pipe}}|
+	/qr-set visible=false "CMC Automate"|
 	//|-----|
 :}|
 
