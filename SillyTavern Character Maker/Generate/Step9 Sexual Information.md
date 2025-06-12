@@ -2076,24 +2076,10 @@
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book "CMC Rules"|
-	/setvar key=keys []|
-	/addvar key=keys "Sexual Narration Rules"|
-	/ife (user == 'Yes') {:
-		/addvar key=keys "Sexual --User-- Rules"|
-	:}|
-	/ife ((gender == 'Female') or (futanari == 'Yes')) {:
-		/addvar key=keys "Sexual Female Rules"|
-	:}|
-	/ife ((gender == 'Male') or (futanari == 'Yes')) {:
-		/addvar key=keys "Sexual Male Rules"|
-	:}|
-	
-	/setvar key=genSettings index=wi_book_key {{getvar::keys}}|
-	/flushvar keys|
-	/setvar key=genSettings index=combineLorebookEntries Yes|
+	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=inputIsList No|
-	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput No|
 	/setvar key=genSettings index=useContext No|
@@ -2108,30 +2094,104 @@
 	/let key=combineLorebookEntries {{pipe}}|
 	
 	
-	/ife ( inputIsList == 'Yes') {:
+	/len {{getvar::sexualNotes}}|
+	/let key=len {{pipe}}|
+	
+	/ife ( len == 0) {:
 		/setvar key={{var::variableName}} []|
-		/ife ( combineLorebookEntries == 'Yes') {:
-			/:"CMC Logic.Combine List Lorebooks"|
+		/setvar key=genSettings index=wi_book_key "Initiation Style"|
+		/setvar key=genSettings index=buttonPrompt "Select the Initiation Style you want {{getvar::firstName}} to follow."|
+		/setvar key=it Behavior Rules|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Initiation Style:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::sexualNotes}}|
+	/let key=len {{pipe}}|
+	/ife ( len == 1) {:
+		/setvar key=genSettings index=wi_book_key "Touch Preference"|
+		/setvar key=genSettings index=buttonPrompt "Select the Touch Preference you want {{getvar::firstName}} to follow."|
+		/setvar key=it Behavior Rules|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Touch Preference:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::sexualNotes}}|
+	/let key=len {{pipe}}|
+	/ife ( len == 2) {:
+		/setvar key=genSettings index=wi_book_key "Verbal Tone During Intimacy"|
+		/setvar key=genSettings index=buttonPrompt "Select the Verbal Tone During Intimacy you want {{getvar::firstName}} to follow."|
+		/setvar key=it Behavior Rules|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Verbal Tone During Intimacy:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::sexualNotes}}|
+	/let key=len {{pipe}}|
+	/ife ( len == 3) {:
+		/setvar key=genSettings index=wi_book_key "Emotional Layer"|
+		/setvar key=genSettings index=buttonPrompt "Select the Emotional Layer you want {{getvar::firstName}} to follow."|
+		/setvar key=it Behavior Rules|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Emotional Layer:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::sexualNotes}}|
+	/let key=len {{pipe}}|
+	/ife ( len == 4) {:
+		/setvar key=genSettings index=wi_book_key "Control Preference"|
+		/setvar key=genSettings index=buttonPrompt "Select the Control Preference (General, not role-linked) you want {{getvar::firstName}} to follow."|
+		/setvar key=it Behavior Rules|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Control Preference (General, not role-linked):** {{getvar::output}}"|
+	:}|
+	/len {{getvar::sexualNotes}}|
+	/let key=len {{pipe}}|
+	/ife ( len >= 5) {:
+		/var key=do No|
+		/buttons labels=["Yes", "No"] Do you want to generate or add more sexual Rules?|
+		/var key=do {{pipe}}|
+		/ife (do == '') {:
+			/echo Aborting |
+			/abort
 		:}|
-		/foreach {{getvar::genOrder}} {:
-			/setvar key=it {{var::item}}|
-			/getat index={{var::index}} {{var::genOrderContent}} |
-			/setvar key=genSettings index=content {{pipe}}|
-			/:"CMC Logic.GenerateWithSelector"|
-			/ife (output != '') {:
-				/addvar key={{var::variableName}} {{getvar::output}}|
+		/ife (do == 'Yes') {:
+			/setvar key=genSettings {}|
+			/setvar key=genSettings index=wi_book_key "Sexual Notes"|
+			/setvar key=genSettings index=genIsList No|
+			/setvar key=genSettings index=inputIsList No|
+			/setvar key=genSettings index=genIsSentence Yes|
+			/setvar key=genSettings index=needOutput Yes|
+			/setvar key=genSettings index=outputIsList Yes|
+			/setvar key=genSettings index=useContext Yes|
+			/setvar key=extra []|
+			/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
+			/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
+			/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
+			/addvar key=extra "{{getvar::parsedSexualOrientation}}"|
+			/addvar key=extra "{{getvar::parsedSexualRole}}"|
+			/addvar key=extra "- Libido: {{getvar::sexualLibido}}"|
+			/ife (parsedSexualKinks != 'None') {:
+				/addvar key=extra "{{getvar::parsedSexualKinks}}"|
+			:}|
+			/ife (parsedSexualItems != 'None') {:
+				/addvar key=extra "{{getvar::parsedSexualItems}}"|
+			:}|
+			/ife (parsedSexualAbilities != 'None') {:
+				/addvar key=extra "{{getvar::parsedSexualAbilities}}"|
+			:}|
+			/setvar key=genSettings index=extraContext {{getvar::extra}}|
+			/setvar key=extra []|
+			/:"CMC Logic.Get Basic Type Context"|
+			/ife (extra != '') {:
+				/setvar key=genSettings index=contextKey {{getvar::extra}}|
+			:}|
+			/flushvar extra|
+			/wait {{getvar::wait}}|
+			/setvar key=genSettings index=buttonPrompt "Is this a good behavior rule you want {{getvar::firstName}} to follow?"|
+			/setvar key=it Behavior Rules|
+			/setvar key=blackListGen {{noop}}|
+			/:"CMC Logic.GenerateWithPrompt"|
+			/foreach {{getvar::output}} {:
+				/addvar key={{var::variableName}} "{{var::output}}"|
 			:}|
 		:}|
-	:}|
-	/else {:
-		/getvar key=genSettings index=wi_book_key|
-		/setvar key=it {{pipe}}|
-		/setvar key=genSettings index=buttonPrompt "Select the Sexual Rules you want {{getvar::firstName}} to have."|
-		/:"CMC Logic.GenerateWithSelector"|
-		/ife (output != '') {:
-			/setvar key={{var::variableName}} {{getvar::output}}|
-		:}|
-		
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
@@ -2144,75 +2204,6 @@
 	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 
-/var key=do No|
-/buttons labels=["Yes", "No"] Do you want to generate or add more sexual Rules?|
-/var key=do {{pipe}}|
-/ife (do == '') {:
-	/echo Aborting |
-	/abort
-:}|
-
-/ife ( do == 'Yes' ) {:
-	/setvar key=genSettings {}|
-	/setvar key=genSettings index=wi_book_key "Sexual Notes"|
-	/setvar key=genSettings index=genIsList No|
-	/setvar key=genSettings index=inputIsList No|
-	/setvar key=genSettings index=genIsSentence Yes|
-	/setvar key=genSettings index=needOutput Yes|
-	/setvar key=genSettings index=outputIsList Yes|
-	/setvar key=genSettings index=useContext Yes|
-	/setvar key=extra []|
-	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
-	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
-	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
-	/addvar key=extra "{{getvar::parsedSexualOrientation}}"|
-	/addvar key=extra "{{getvar::parsedSexualRole}}"|
-	/addvar key=extra "- Libido: {{getvar::sexualLibido}}"|
-	/ife (parsedSexualKinks != 'None') {:
-		/addvar key=extra "{{getvar::parsedSexualKinks}}"|
-	:}|
-	/ife (parsedSexualItems != 'None') {:
-		/addvar key=extra "{{getvar::parsedSexualItems}}"|
-	:}|
-	/ife (parsedSexualAbilities != 'None') {:
-		/addvar key=extra "{{getvar::parsedSexualAbilities}}"|
-	:}|
-	/setvar key=genSettings index=extraContext {{getvar::extra}}|
-	/setvar key=extra []|
-	/:"CMC Logic.Get Basic Type Context"|
-	/ife (extra != '') {:
-		/setvar key=genSettings index=contextKey {{getvar::extra}}|
-	:}|
-	/flushvar extra|
-	/wait {{getvar::wait}}|
-	
-	
-	
-	
-	/getvar key=genSettings index=inputIsList|
-	/let key=inputIsList {{pipe}}|
-	/getvar key=genSettings index=inputIsList|
-	/let key=outputIsList {{pipe}}|
-	
-	
-	
-	//[[Generate with Prompt]]|
-	/setvar key=blackListGen {{noop}}|
-	/:"CMC Logic.GenerateWithPrompt"|
-	/foreach {{getvar::output}} {:
-		/addvar key={{var::variableName}} {{var::item}}|
-	:}|
-	
-	/addvar key=dataBaseNames {{var::variableName}}|
-	/flushvar output|
-	/flushvar guidance|
-	/flushvar genOrder|
-	/flushvar genContent|
-	/flushvar genSettings|
-:}|
-/else {:
-	/addvar key=dataBaseNames {{var::variableName}}|
-:}|
 
 /setvar key=parsedSexualityNotes {{noop}}|
 /ife (sexualNotes is list) {:

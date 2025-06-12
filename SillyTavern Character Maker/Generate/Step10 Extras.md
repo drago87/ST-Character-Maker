@@ -47,18 +47,15 @@
         /echo Aborting |
         /abort
     :}|
+    /ife (do == 'Yes') {:
+	    /flushvar {{getvar::variableName}}|
+    :}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book "CMC Rules"|
-	/setvar key=keys []|
-	/addvar key=keys "Shared Behavior Rules"|
-	/addvar key=keys "Female Behavior Rules"|
-	/addvar key=keys "Male Behavior Rules"|
 	
-	/setvar key=genSettings index=wi_book_key {{getvar::keys}}|
-	/flushvar keys|
-	/setvar key=genSettings index=combineLorebookEntries Yes|
+	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=inputIsList No|
 	/setvar key=genSettings index=genIsList Yes|
@@ -74,101 +71,103 @@
 	/let key=inputIsList {{pipe}}|
 	/getvar key=genSettings index=combineLorebookEntries|
 	/let key=combineLorebookEntries {{pipe}}|
+	/len {{getvar::behaviorNotes}}|
+	/var key=len {{pipe}}|
 	
-	
-	
-	/setvar key=genSettings index=buttonPrompt "Select the Behavior you want {{getvar::firstName}} to follow."|
-	/setvar key=it Behavior Rules|
-	/:"CMC Logic.GenerateWithSelector"|
-	/setvar key={{var::variableName}} {{getvar::output}}|
-	/ife ({{var::variableName}} == 'Remove') {:
+	/ife ( len == 0) {:
 		/setvar key={{var::variableName}} []|
+		/setvar key=genSettings index=wi_book_key "Emotional Responsiveness"|
+		/setvar key=genSettings index=buttonPrompt "Select the Emotional Responsiveness you want {{getvar::firstName}} to follow."|
+		/setvar key=it Behavior Rules|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Emotional Responsiveness:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::behaviorNotes}}|
+	/var key=len {{pipe}}|
+	/ife ( len == 1) {:
+		/setvar key=genSettings index=wi_book_key "Conflict Handling"|
+		/setvar key=genSettings index=buttonPrompt "Select the Conflict Handling you want {{getvar::firstName}} to follow."|
+		/setvar key=it Behavior Rules|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Conflict Handling:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::behaviorNotes}}|
+	/var key=len {{pipe}}|
+	/ife ( len == 2) {:
+		/setvar key=genSettings index=wi_book_key "Social Openness"|
+		/setvar key=genSettings index=buttonPrompt "Select the Social Openness you want {{getvar::firstName}} to follow."|
+		/setvar key=it Behavior Rules|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Social Openness:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::behaviorNotes}}|
+	/var key=len {{pipe}}|
+	/ife ( len == 3) {:
+		/setvar key=genSettings index=wi_book_key "Empathy Attunement"|
+		/setvar key=genSettings index=buttonPrompt "Select the Empathy & Attunement you want {{getvar::firstName}} to follow."|
+		/setvar key=it Behavior Rules|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Empathy & Attunement:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::behaviorNotes}}|
+	/var key=len {{pipe}}|
+	/ife ( len == 4) {:
+		/setvar key=genSettings index=wi_book_key "Verbal Style Communication"|
+		/setvar key=genSettings index=buttonPrompt "Select the Verbal Style / Communication you want {{getvar::firstName}} to follow."|
+		/setvar key=it Behavior Rules|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Verbal Style / Communication:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::behaviorNotes}}|
+	/var key=len {{pipe}}|
+	/ife ( len == 5) {:
+		/setvar key=genSettings index=wi_book_key "Physical Expressiveness"|
+		/setvar key=genSettings index=buttonPrompt "Select the Physical Expressiveness you want {{getvar::firstName}} to follow."|
+		/setvar key=it Behavior Rules|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Physical Expressiveness:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::behaviorNotes}}|
+	/var key=len {{pipe}}|
+	/ife ( len >= 6) {:
+	/var key=do No|
+		/buttons labels=["Yes", "No"] Do you want to generate or add more behavior Rules?|
+		/var key=do {{pipe}}|
+		/ife (do == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+		/ife (do == 'Yes') {:
+			/setvar key=genSettings {}|
+			/setvar key=genSettings index=wi_book "CMC Generation Prompts"|
+			/setvar key=genSettings index=genIsSentence Yes|
+			/setvar key=genSettings index=outputIsList Yes|
+			/setvar key=genSettings index=needOutput No|
+			/setvar key=genSettings index=useContext Yes|
+			/setvar key=extra []|
+			/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"|
+			/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
+			/setvar key=genSettings index=extraContext {{getvar::extra}}|
+			/setvar key=extra []|
+			/:"CMC Logic.Get Basic Type Context"|
+			/ife (extra != '') {:
+				/setvar key=genSettings index=contextKey {{getvar::extra}}|
+			:}|
+			/flushvar extra|
+			/setvar key=genSettings index=wi_book_key "Behavior Notes"|
+			/setvar key=genSettings index=buttonPrompt "Is this a good behavior rule you want {{getvar::firstName}} to follow?"|
+			/setvar key=it Behavior Rules|
+			/:"CMC Logic.GenerateWithPrompt"|
+			/foreach {{getvar::output}} {:
+				/addvar key={{var::variableName}} "{{var::output}}"|
+			:}|
+		:}|
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar it|
-	/flushvar genSettings|
-:}|
-/else {:
-	/addvar key=dataBaseNames {{var::variableName}}|
-:}|
-
-
-/var key=do No|
-/ife ((parsedBehaviorNotes == '') or (skip == 'Update')) {:
-	/buttons labels=["Yes", "No"] Do you want to generate or add more Behavior Rules?|
-	/var key=do {{pipe}}|
-	/ife (do == '') {:
-		/echo Aborting |
-		/abort
-	:}|
-	/elseif (( do == 'No') and (behaviorNotes == '')) {:
-		/echo There needs to be some Behavior Rules |
-		/abort
-	:}|
-:}|
-/ife ( do == 'Yes' ) {:
-	/setvar key=genSettings {}|
-	/setvar key=genSettings index=wi_book_key "Behavior Notes"|
-	/setvar key=genSettings index=genIsList No|
-	/setvar key=genSettings index=genIsSentence Yes|
-	/setvar key=genSettings index=needOutput Yes|
-	/setvar key=genSettings index=outputIsList Yes|
-	/setvar key=genSettings index=useContext Yes|
-	/setvar key=extra []|
-		/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
-		/addvar key=extra "- Backstory: {{getvar::backstory}}"|
-		/ife (user == 'Yes') {:
-			/addvar key=extra "- User's Role: {{getvar::userRole}}"|
-		:}|
-		/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
-		/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
-		/addvar key=extra "- Appearance Features: {{getvar::appearanceFeatures}}"|
-		/ife (parsedAbilities != None) {:
-			/addvar key=extra "{{newline}}**Appearance Traits**{{newline}}{{getvar::parsedAppearanceTraits}}"|
-		:}|
-		/ife (parsedAbilities != None) {:
-			/addvar key=extra "{{newline}}**Abilities**{{newline}}{{getvar::parsedAbilities}}"|
-		:}|
-		/ife (parsedItems != None) {:
-			/addvar key=extra "{{newline}}**Items or Gear**{{newline}}{{getvar::parsedItems}}"|
-		:}|
-		/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
-		/setvar key=genSettings index=extraContext {{getvar::extra}}|
-	/setvar key=extra []|
-	/:"CMC Logic.Get Basic Type Context"|
-	/ife (extra != '') {:
-		/setvar key=genSettings index=contextKey {{getvar::extra}}|
-	:}|
-	/flushvar extra|
-	/wait {{getvar::wait}}|
-	
-	
-	
-	
-	/getvar key=genSettings index=inputIsList|
-	/let key=inputIsList {{pipe}}|
-	/getvar key=genSettings index=inputIsList|
-	/let key=outputIsList {{pipe}}|
-	/setvar key=genSettings index=buttonPrompt "Is this a good behavior rule for {{getvar::firstName}} to follow?"|
-	/:"CMC Logic.GenerateWithPrompt"|
-	/foreach {{getvar::output}} {:
-		/addvar key={{var::variableName}} {{var::item}}|
-	:}|
-	
-	/ife (behaviorNotes == '') {:
-		/echo There needs to be some Behavior Rules|
-		/abort
-	:}|
-	
-
-	/addvar key=dataBaseNames {{var::variableName}}|
-	/flushvar output|
-	/flushvar guidance|
-	/flushvar genOrder|
-	/flushvar genContent|
 	/flushvar genSettings|
 :}|
 /else {:
@@ -204,6 +203,9 @@
         /echo Aborting |
         /abort
     :}|
+    /ife (do == 'Yes') {:
+	    /flushvar {{getvar::variableName}}|
+    :}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
@@ -216,10 +218,6 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
-	/findentry field=comment file="CMC Variables" "Someone Random"|
-	/let key=wi_uid {{pipe}}|
-	/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
-	/setvar key=genSettings index=random {{pipe}}|
 	/setvar key=extra []|
 	/addvar key=extra "- Speech Style: {{getvar::speechStyle}}"|
 	/addvar key=extra "- Speech Quirks: {{getvar::speechQuirks}}"|
@@ -227,8 +225,8 @@
 	
 	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"|
 	/addvar key=extra "- Personality Trait Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
-	/ife (cognitiveAbilities != 'None') {:
-		/addvar key=extra "- Cognitive Abilities: {{getvar::cognitiveAbilities}}{{newline}}"|
+	/ife (personalitycognitiveAbilities != 'None') {:
+		/addvar key=extra "- Cognitive Abilities: {{getvar::personalitycognitiveAbilities}}{{newline}}"|
 	:}|
 	
 	/ife (personalitySocialSkills != 'None') {:
@@ -288,14 +286,14 @@
 		/foreach {{var::unfilteredQuestions}} {:
 			/var key=pop {{var::pop}}<div>{{var::item}}</div>| 
 		:}|
-		/popup wide=true okButton="Continue" <div>Here is the questions you have to choose from during generation. {taget} is going to get randomised each time you redo the generation.<div></div>You will also be able to add your own.</div>{{var::pop}}|
+		/popup wide=true okButton="Continue" <div>Here is the questions you have to choose from during generation.</div><div>{taget} is going to get randomised each time you redo the generation.</div><div>You will also be able to add your own.</div><div>---</div>{{var::pop}}|
 		/let key=filteredQuestions []|
 		/foreach {{var::unfilteredQuestions}} {:
 			/ife (( user != 'Yes') and ('--User--' not in item)) or ( user == 'Yes') {:
 				/var key=filteredQuestions index={{var::index}} {{var::item}}|
 			:}| 
 		:}|
-		/buttons labels={{var::filteredQuestions}} multiple=true Choose questions or prompts that will help define how {{getvar::firstName}} talks or reacts in conversation.|
+		/buttons labels={{var::filteredQuestions}} multiple=true <div>Choose questions or prompts that will help define how {{getvar::firstName}} talks or reacts in conversation.</div><div>{target} will be a randomized person/entity</div><div>It is reccomended to select</div><div>**6–10** of **“What would you say if...”** questions</div></div><div>and</div><div>**3–6** of **“What is your opinion...”** questions</div>|
 		/setvar key=speechQuestions {{pipe}}|
 		/ife (speechQuestions == '') {:
 			/echo Aborting |
@@ -311,14 +309,11 @@
 			/abort
 		:}|
 		/ife ( stop == 'Yes') {:
-			/input default="What would you do if " 
+			/input default="What would you say if " 
 <div>You can use <code>{target}</code> to insert a randomized name or entity.</div><div>What situation or opinion do you want {{getvar::firstName}} to respond to?</div>
 <div style="text-align: center;">
   <p>Your input will be used to complete one of the following phrases:</p>
   <div>
-    <div>What would you do if...</div>
-    <div>How would you react if...</div>
-    <div>What would you think if...</div>
     <div>What would you say if...</div>
     <div>What is your opinion on...</div>
   </div>
@@ -331,6 +326,27 @@
 			/addvar key=speechQuestions {{var::q}}|
 		:}|
 	:}|
+	
+	
+	/findentry field=comment file="CMC Variables" "Someone Random"|
+	/let key=wi_uid {{pipe}}|
+	/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+	/let key=rnd {{pipe}}|
+	/var key=do {{noop}}|
+	/whilee (do != 'Done') {:
+		/let key=work {{var::rnd}}|
+		/input rows=1 <div>Input a person/entity to add to the randomization</div><div>{{var::work}}</div><div>Press cancel when done</div>|
+		/var key=do {{pipe}}|
+		/ife (do == '') {:
+			/var key=do "Done"|
+		:}|
+		/else {:
+			/var key=rnd {{var::rnd}}, {{var::do}}|
+		:}|
+	:}|
+	
+	/setvar key=genSettings index=random {{var::rnd}}|
+	
 	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
@@ -349,7 +365,9 @@
 		/foreach {{getvar::speechQuestions}} {:
 			/setvar key=speechPromptClaim {{var::item}}|
 			/:"CMC Logic.GenerateWithPrompt"|
-			/addvar key={{var::variableName}} {{getvar::output}}|
+			/re-replace find="/^\"/g" replace="" {{getvar::output}}|
+			/re-replace find="/\"$/g" replace="" {{pipe}}|
+			/addvar key={{var::variableName}} "\"{{pipe}}\""|
 			/flushvar output|
 			/flushvar guidance|
 		:}|
@@ -380,13 +398,7 @@
 :}|
 /addvar key=dataBaseNames speechExampleString|
 
-/ife (parsedSpeechExamples == '') {:
-	/buttons multiple=true labels={{getvar::speechExample}} <div>Select what you want to use as the example speech for the following Q&A.</div>Reccomended 3-5|
-	/setvar key=parsedSpeechExamples {{pipe}}|
-	/join glue="{{newline}}" {{getvar::parsedSpeechExamples}}|
-	/setvar key=parsedSpeechExamples {{pipe}}|
-:}|
-/addvar key=dataBaseNames parsedSpeechExamples|
+
 //Appearance QA|
 /var key=do No|
 /var key=variableName "appearanceQAList"|
@@ -400,6 +412,9 @@
     /ife (do == '') {:
         /echo Aborting |
         /abort
+    :}|
+    /ife (do == 'Yes') {:
+	    /flushvar {{getvar::variableName}}|
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
@@ -546,7 +561,9 @@
 		/foreach {{getvar::appearanceQuestions}} {:
 			/setvar key=question {{var::item}}|
 			/:"CMC Logic.GenerateWithPrompt"|
-			/addvar key={{var::variableName}} Q: {{getvar::question}}{{newline}}A: {{getvar::output}}|
+			/re-replace find="/^\"/g" replace="" {{getvar::output}}|
+			/re-replace find="/\"$/g" replace="" {{pipe}}|
+			/addvar key={{var::variableName}} "Q: \"{{getvar::question}}\"{{newline}}A: \"{{getvar::pipe}}\""|
 			/flushvar output|
 			/flushvar guidance|
 		:}|
@@ -590,6 +607,9 @@
         /echo Aborting |
         /abort
     :}|
+    /ife (do == 'Yes') {:
+	    /flushvar {{getvar::variableName}}|
+    :}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
@@ -607,8 +627,8 @@
 		/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 	:}|
 	/addvar key=extra "- Intelligence Level: {{getvar::intelligenceLevel}}"|
-	/ife (cognitiveAbilities != 'None') {:
-		/addvar key=extra "- Cognitive Abilities: {{getvar::cognitiveAbilities}}{{newline}}"|
+	/ife (personalitycognitiveAbilities != 'None') {:
+		/addvar key=extra "- Cognitive Abilities: {{getvar::personalitycognitiveAbilities}}{{newline}}"|
 	:}|
 	/addvar key=extra "- Social Behavior: {{getvar::socialBehavior}}"|
 	/ife (socialSkills != 'None') {:
@@ -707,7 +727,9 @@
 		/foreach {{getvar::personalityQuestions}} {:
 			/setvar key=question {{var::item}}|
 			/:"CMC Logic.GenerateWithPrompt"|
-			/addvar key={{var::variableName}} Q: {{getvar::question}}{{newline}}A: {{getvar::output}}|
+			/re-replace find="/^\"/g" replace="" {{getvar::output}}|
+			/re-replace find="/\"$/g" replace="" {{pipe}}|
+			/addvar key={{var::variableName}} "Q: \"{{getvar::question}}\"{{newline}}A: \"{{getvar::pipe}}\""|
 			/flushvar output|
 			/flushvar guidance|
 		:}|
@@ -751,6 +773,9 @@
         /echo Aborting |
         /abort
     :}|
+    /ife (do == 'Yes') {:
+	    /flushvar {{getvar::variableName}}|
+    :}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
@@ -768,8 +793,8 @@
 		/addvar key=extra "{{newline}}{{getvar::parsedAlignment}}{{newline}}"|
 	:}|
 	/addvar key=extra "- Intelligence Level: {{getvar::intelligenceLevel}}"|
-	/ife (cognitiveAbilities != 'None') {:
-		/addvar key=extra "- Cognitive Abilities: {{getvar::cognitiveAbilities}}{{newline}}"|
+	/ife (personalitycognitiveAbilities != 'None') {:
+		/addvar key=extra "- Cognitive Abilities: {{getvar::personalitycognitiveAbilities}}{{newline}}"|
 	:}|
 	/addvar key=extra "- Social Behavior: {{getvar::socialBehavior}}"|
 	/ife (socialSkills != 'None') {:
@@ -882,7 +907,9 @@
 			/setvar key=question {{var::item}}|
 			/setvar key=genSettings index=buttonPrompt "<div>Is this a good Answer by {{getvar::firstName}} for the question:</div><div>{{getvar::question}}</div>"|
 			/:"CMC Logic.GenerateWithPrompt"|
-			/addvar key={{var::variableName}} Q: {{getvar::question}}{{newline}}A: {{getvar::output}}|
+			/re-replace find="/^\"/g" replace="" {{getvar::output}}|
+			/re-replace find="/\"$/g" replace="" {{pipe}}|
+			/addvar key={{var::variableName}} "Q: \"{{getvar::question}}\"{{newline}}A: \"{{getvar::pipe}}\""|
 			/flushvar output|
 			/flushvar guidance|
 		:}|
@@ -935,6 +962,9 @@
 	        /echo Aborting |
 	        /abort
 	    :}|
+    /ife (do == 'Yes') {:
+	    /flushvar {{getvar::variableName}}|
+    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
 		/setvar key=genSettings {}|
@@ -1014,6 +1044,9 @@
 	    /ife (do == '') {:
 	        /echo Aborting |
 	        /abort
+	    :}|
+	    /ife (do == 'Yes') {:
+		    /flushvar {{getvar::variableName}}|
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
@@ -1124,6 +1157,9 @@
         /echo Aborting |
         /abort
     :}|
+    /ife (do == 'Yes') {:
+	    /flushvar {{getvar::variableName}}|
+    :}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
@@ -1184,6 +1220,9 @@
         /echo Aborting |
         /abort
     :}|
+    /ife (do == 'Yes') {:
+	    /flushvar {{getvar::variableName}}|
+    :}|
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
@@ -1197,35 +1236,47 @@
 	/setvar key=genSettings index=useContext No|
 	/wait {{getvar::wait}}|
 	
+	/len {{getvar::notes}}|
+	/var key=len {{pipe}}|
 	
-	/setvar key={{var::variableName}} []|
-	
-	/setvar key=genSettings index=wi_book_key "Narration Formatting Rule"|
-	/setvar key=it "Narration Formatting Rule"|
-	/setvar key=genSettings index=buttonPrompt "Select one — determines how the LLM structures output"|
-	/:"CMC Logic.GenerateWithSelector"|
-	/addvar key={{var::variableName}} {{getvar::output}}|
-	
-	/setvar key=genSettings index=wi_book_key "Narrative Tone Rule"|
-	/setvar key=it "Narrative Tone Rule"|
-	/setvar key=genSettings index=buttonPrompt "Select one — how expressive or reserved the model writes"|
-	/:"CMC Logic.GenerateWithSelector"|
-	/addvar key={{var::variableName}} {{getvar::output}}|
-	
-	/setvar key=genSettings index=wi_book_key "Perspective Rule"|
-	/setvar key=it "Perspective Rule"|
-	/setvar key=genSettings index=buttonPrompt "Select one — POV handling"|
-	/:"CMC Logic.GenerateWithSelector"|
-	/addvar key={{var::variableName}} {{getvar::output}}|
-	
-	/setvar key=genSettings index=wi_book_key ["Output Style Behavior"]|
-	/setvar key=it "Output Style Behavior"|
-	/setvar key=genSettings index=buttonPrompt "Select one or more — controls structure and generation behavior"|
-	/:"CMC Logic.GenerateWithSelector"|
-	/foreach {{getvar::output}} {:
-		/addvar key={{var::variableName}} {{var::item}}|
+	/ife ( len == 0) {:
+		/setvar key={{var::variableName}} []|
+		
+		/setvar key=genSettings index=wi_book_key "Narration Formatting Rule"|
+		/setvar key=it "Narration Formatting Rule"|
+		/setvar key=genSettings index=buttonPrompt "Select one — determines how the LLM structures output"|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} {{getvar::output}}|
 	:}|
-	
+	/len {{getvar::notes}}|
+	/var key=len {{pipe}}|
+	/ife ( len == 1) {:
+		/setvar key=genSettings index=wi_book_key "Narrative Tone Rule"|
+		/setvar key=it "Narrative Tone Rule"|
+		/setvar key=genSettings index=buttonPrompt "Select one — how expressive or reserved the model writes"|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} {{getvar::output}}|
+	:}|
+	/len {{getvar::notes}}|
+	/var key=len {{pipe}}|
+	/ife ( len == 2) {:
+		/setvar key=genSettings index=wi_book_key "Perspective Rule"|
+		/setvar key=it "Perspective Rule"|
+		/setvar key=genSettings index=buttonPrompt "Select one — POV handling"|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} {{getvar::output}}|
+	:}|
+	/len {{getvar::notes}}|
+	/var key=len {{pipe}}|
+	/ife ( len >= 4) {:
+		/setvar key=genSettings index=wi_book_key ["Output Style Behavior"]|
+		/setvar key=it "Output Style Behavior"|
+		/setvar key=genSettings index=buttonPrompt "Select one or more — controls structure and generation behavior"|
+		/:"CMC Logic.GenerateWithSelector"|
+		/foreach {{getvar::output}} {:
+			/addvar key={{var::variableName}} {{var::item}}|
+		:}|
+	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar genOrder|
@@ -1266,6 +1317,9 @@
     /ife (do == '') {:
         /echo Aborting |
         /abort
+    :}|
+    /ife (do == 'Yes') {:
+	    /flushvar {{getvar::variableName}}|
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
@@ -1391,6 +1445,9 @@
 	        /echo Aborting |
 	        /abort
 	    :}|
+	    /ife (do == 'Yes') {:
+		    /flushvar {{getvar::variableName}}|
+	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
 		/setvar key=genSettings {}|
@@ -1463,6 +1520,106 @@
 :}|
 /addvar key=dataBaseNames parsedExtraCharacters|
 
+//--------|
+
+//WRITING INSTRUCTIONS|
+
+/var key=do No|
+/var key=variableName "writingInstruct"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+    /ife (do == 'Yes') {:
+	    /flushvar {{getvar::variableName}}|
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
+	/setvar key=genSettings index=wi_book "CMC Rules"|
+	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=needOutput No|
+	/setvar key=genSettings index=useContext No|
+	/wait {{getvar::wait}}|
+	
+	
+	/getvar key=genSettings index=wi_book_key|
+	/let key=wi_book_key {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=combineLorebookEntries|
+	/let key=combineLorebookEntries {{pipe}}|
+	/len {{getvar::writingInstruct}}|
+	/var key=len {{pipe}}|
+	
+	/ife ( len == 0) {:
+		/setvar key={{var::variableName}} []|
+		/setvar key=genSettings index=wi_book_key "Formatting Style"|
+		/getvar key=genSettings index=wi_book_key|
+		/setvar key=it {{pipe}}|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Formatting Style:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::writingInstruct}}|
+	/var key=len {{pipe}}|
+	/ife ( len == 1) {:
+		/setvar key=genSettings index=wi_book_key "Explicitness Level"|
+		/getvar key=genSettings index=wi_book_key|
+		/setvar key=it {{pipe}}|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Explicitness Level:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::writingInstruct}}|
+	/var key=len {{pipe}}|
+	/ife ( len == 2) {:
+		/setvar key=genSettings index=wi_book_key "User Input Style"|
+		/getvar key=genSettings index=wi_book_key|
+		/setvar key=it {{pipe}}|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**User Input Style:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::writingInstruct}}|
+	/var key=len {{pipe}}|
+	/ife ( len == 3) {:
+		/setvar key=genSettings index=wi_book_key "Response Length"|
+		/getvar key=genSettings index=wi_book_key|
+		/setvar key=it {{pipe}}|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Response Length:** {{getvar::output}}"|
+	:}|
+	/len {{getvar::writingInstruct}}|
+	/var key=len {{pipe}}|
+	/ife ( len == 4) {:
+		/setvar key=genSettings index=wi_book_key "Consent Reaction Tone"|
+		/getvar key=genSettings index=wi_book_key|
+		/setvar key=it {{pipe}}|
+		/:"CMC Logic.GenerateWithSelector"|
+		/addvar key={{var::variableName}} "**Consent & Reaction Tone:** {{getvar::output}}"|
+	:}|
+		
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar it|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+
+/setvar key=
 //--------|
 
 

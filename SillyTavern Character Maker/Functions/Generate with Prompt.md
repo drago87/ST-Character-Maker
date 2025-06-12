@@ -246,6 +246,7 @@
 	:}|
 	/else {:
 		/ife ( wi_book_key_f == 'Speech Examples QA') {:
+			/*
 			/let key=d Not Done|
 			/whilee (d == 'Not Done') {:
 				/split {{var::random_f}}|
@@ -257,8 +258,21 @@
 					/var key=d Done|
 				:}|
 			:}|
-			/re-replace find="/{target}/g" replace="{{getvar::target}}" {{getvar::speechPromptClaim}}|
-			/setvar key=speechPromptClaimRand {{pipe}}|
+			*|
+			/split {{var::random_f}}|
+			/let key=targ {{pipe}}|
+			/ife ('{target}' in speechPromptClaim) {:
+				/buttons labels={{var::targ}} <div>Select the person/entity you want to replace '{target}' with in this sentence:</div><div>{{getvar::speechPromptClaim}}</div>|
+				/setvar key=target {{pipe}}|
+				/re-replace find="/{target}/g" replace="{{getvar::target}}" {{getvar::speechPromptClaim}}|
+				/setvar key=speechPromptClaimRand {{pipe}}|
+			:}|
+			/else {:
+				/getat index=0 {{var::targ}}|
+				/setvar key=target {{pipe}}|
+				/re-replace find="/{target}/g" replace="{{getvar::target}}" {{getvar::speechPromptClaim}}|
+				/setvar key=speechPromptClaimRand {{pipe}}|
+			:}|
 		:}|
 		/var key=task {{noop}}|
 		/var key=find "{{var::wi_book_key_f}}: Task"|
@@ -402,6 +416,10 @@
 	:}|
 	/elseif (wi_book_key_f == 'Speech Examples QA') {:
 		/buttons labels={{var::genState}} <div>Is this a good reaction to:</div><div>{{getvar::speechPromptClaimRand}}</div>|
+		/var key=selected_btn {{pipe}}|
+	:}|
+	/elseif (wi_book_key_f == 'Appearance QA') {:
+		/buttons labels={{var::genState}} <div>Is this a good answer to:</div><div>{{getvar::question}}</div>|
 		/var key=selected_btn {{pipe}}|
 	:}|
 	/elseif (wi_book_key_f == 'Ability Proficiency') {:

@@ -42,6 +42,8 @@
 /let key=wi_uid {{noop}}|
 /let key=find {{noop}}|
 
+/let key=exRules ["Explicitness Level", "User Input Style", "Response Length", "Consent Reaction Tone", "Emotional Responsiveness", "Conflict Handling", "Social Openness", "Empathy Attunement", "Verbal Style Communication", "Physical Expressiveness", "Narration Formatting Rule", "Narrative Tone Rule", "Perspective Rule" ]|
+
 /ife ( combineLorebookEntries != 'Yes') {:
 	/let key=tempGenState {{noop}}|
 	/ife (( inputIsList == 'Yes') and (wi_book_key_f is list)) {:
@@ -66,10 +68,16 @@
 		:}|
 		/var key=genState {{var::tempGenState}}|
 	:}|
+	/elseif (wi_book_key_f in exRules) {:
+		/var key=find {{var::wi_book_key_f}}|
+		/findentry field=comment file={{var::wi_book_f}} {{var::find}}|
+		/let key=UID {{pipe}}|
+		/getentryfield field=content file={{var::wi_book_f}} {{var::UID}}|
+		/var key=genState {{pipe}}|
+	:}|
 	/else {:
 	
 		/var key=find {{var::wi_book_key_f}}: List|
-		/echo find: {{var::find}}|
 		/findentry field=comment file={{var::wi_book_f}} {{var::find}}|
 		/let key=UID {{pipe}}|
 		/getentryfield field=content file={{var::wi_book_f}} {{var::UID}}|
@@ -86,8 +94,34 @@
 /else {:
 	/flushvar 06 Selector|
 :}|
-/split find=":" {{var::genState}}|
-/var as=array key=genState {{pipe}}|
+/let key=exemptRules ["Text Style Rules", "Graphical Detail Rules"]|
+/ife (wi_book_key_f in exemptRules) {:
+	/split find="{{newline}}" {{var::genState}}|
+	/var as=array key=genState {{pipe}}|
+:}|
+/elseif (wi_book_key_f in exRules) {:
+	/split find="{{newline}}" {{var::genState}}|
+	/let key=tempArr {{pipe}}|
+	/var key=genState []|
+	/let key=userSkip ["Consent Reaction Tone"]|
+	/foreach {{var::tempArr}} {:
+		/ife (wi_book_key_f not in userSkip) {:
+			
+			/len {{var::genState}}|
+			/var key=genState index={{pipe}} {{var::item}}|
+		:}|
+		/else {:
+			/ife ('--User--' not in item) {:
+				/len {{var::genState}}|
+				/var key=genState index={{pipe}} {{var::item}}|
+			:}|
+		:}|
+	:}|
+:}|
+/else {:
+	/split find=":" {{var::genState}}|
+	/var as=array key=genState {{pipe}}|
+:}|
 
 /let key=selected_btn {{noop}}|
 
@@ -137,8 +171,10 @@
 	/else {:
 		/buttons labels={{var::genState}} {{var::buttonPrompt_f}}|
 		/var key=selected_btn {{pipe}}|
-		/re-replace find="/\s\(.*$/g" replace="" {{var::selected_btn}}|
-		/var key=selected_btn {{pipe}}|
+		/ife (wi_book_key_f not in exemptRules) {:
+			/re-replace find="/\s\(.*$/g" replace="" {{var::selected_btn}}|
+			/var key=selected_btn {{pipe}}|
+		:}|
 	:}|
 	/ife (( selected_btn == '') and (wi_book_f != 'CMC Rules')) {:
 		/echo Aborting |

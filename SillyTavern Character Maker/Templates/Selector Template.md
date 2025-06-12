@@ -53,9 +53,7 @@
 		/getvar key=genSettings index=wi_book_key|
 		/setvar key=it {{pipe}}|
 		/:"CMC Logic.GenerateWithSelector"|
-		/ife (output != '') {:
-			/setvar key={{var::variableName}} {{getvar::output}}|
-		:}|
+		/setvar key={{var::variableName}} {{getvar::output}}|
 		
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
