@@ -79,5 +79,5 @@
 /:"CMC Logic.Save DataBase"|
 
 /setvar key=stepDone Yes|
-/qr-update set="CMC Main" label="Character Export" hidden=false title="Exports the character to the DataBase and saves it as a .json file tha can be imported to ST"|
+/qr-update set="CMC Main" label="Character Export" hidden=false title="Exports the character to the DataBase and saves it as a .json file that can be imported to ST as a character (Without a image)"|
 /forcesave|
