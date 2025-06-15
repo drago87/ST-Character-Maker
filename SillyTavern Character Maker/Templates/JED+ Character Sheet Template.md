@@ -93,11 +93,6 @@
 ## [OTHER_SEXUAL_NOTES]
 --SexualNotes-- 
 
-- - -
-
-## Additional Character Q&A
---ExtraQA--
-
 ---
 ## [SPEECH]
 

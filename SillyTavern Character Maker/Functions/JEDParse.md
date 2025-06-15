@@ -509,7 +509,7 @@
 	/re-replace find="/--Synonyms--/g" replace="{{getvar::parsedSynonyms}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (parsedSynonyms != 'None') {:
+/elseif (parsedSynonyms == 'None') {:
 	/messages names=off 0|
 	/re-replace find="/--Synonyms--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|

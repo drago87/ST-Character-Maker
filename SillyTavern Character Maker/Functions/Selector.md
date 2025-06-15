@@ -42,8 +42,8 @@
 /let key=wi_uid {{noop}}|
 /let key=find {{noop}}|
 
-/let key=exRules ["Explicitness Level", "User Input Style", "Response Length", "Consent Reaction Tone", "Emotional Responsiveness", "Conflict Handling", "Social Openness", "Empathy Attunement", "Verbal Style Communication", "Physical Expressiveness", "Narration Formatting Rule", "Narrative Tone Rule", "Perspective Rule" ]|
-
+/let key=exRules ["Explicitness Level", "User Input Style", "Response Length", "Consent Reaction Tone", "Emotional Responsiveness", "Conflict Handling", "Social Openness", "Empathy Attunement", "Verbal Style Communication", "Physical Expressiveness", "Narration Formatting Rule", "Narrative Tone Rule", "Perspective Rule", "Formatting Style" ]|
+/echo wi_book_key_f: {{var::wi_book_key_f}}|
 /ife ( combineLorebookEntries != 'Yes') {:
 	/let key=tempGenState {{noop}}|
 	/ife (( inputIsList == 'Yes') and (wi_book_key_f is list)) {:
@@ -76,7 +76,6 @@
 		/var key=genState {{pipe}}|
 	:}|
 	/else {:
-	
 		/var key=find {{var::wi_book_key_f}}: List|
 		/findentry field=comment file={{var::wi_book_f}} {{var::find}}|
 		/let key=UID {{pipe}}|
@@ -106,7 +105,6 @@
 	/let key=userSkip ["Consent Reaction Tone"]|
 	/foreach {{var::tempArr}} {:
 		/ife (wi_book_key_f not in userSkip) {:
-			
 			/len {{var::genState}}|
 			/var key=genState index={{pipe}} {{var::item}}|
 		:}|

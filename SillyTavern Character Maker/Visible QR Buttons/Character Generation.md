@@ -10,6 +10,7 @@ Step7 Generate Speech Patterns
 Step8 Generate External Interaction
 Step9 Generate Sexual Information
 Step10 Generate Extras
+Step11 First Message
 *|
 
 /ife ( (stepVar == 'Step0') or (stepVar == '')) {:
@@ -115,7 +116,7 @@ Step10 Generate Extras
 /elseif ( stepVar == 'Step10') {:
 	/ife (stepDone == 'Yes') {:
 		//Load Step10|
-		//:"CMC Generate."|
+		/:"CMC Generate.Step11 First Message"|
 	:}|
 	/else {:
 		//Load Step10|
@@ -125,6 +126,6 @@ Step10 Generate Extras
 /elseif ( stepVar == 'Step11') {:
 	/ife (stepDone == 'No') {:
 		//Load Step11|
-		//:"CMC Generate."|
+		/:"CMC Generate.Step11 First Message"|
 	:}|
 :}|

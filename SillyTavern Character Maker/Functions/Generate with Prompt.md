@@ -176,8 +176,13 @@
 	:}|
 	/ife (wi_book_key_f == 'Story Plan Details') {:
 		/len {{getvar::tempOutputList}}|
-		/add {{pipe}} 1|
-		/setvar key=mileS "Milestone {{pipe}}"|
+		/let len={{pipe}}|
+		/ife (len > 0 ) {:
+			/setvar key=mileS "Milestone {{var::len}}"|
+		:}|
+		/else {:
+			/setvar key=mileS "Start"|
+		:}|
 	:}|
 	
 	/ife ((wi_book_key_f == 'Sexual Notes') and ((tempList != '') or (sexualNotes != ''))) {:
@@ -206,10 +211,14 @@
 			/ife (index > 0) {:
 				/addvar key=previousMilestones "{{newline}}"|
 			:}|
-			/add {{var::index}} 1|
-			/let key=i {{pipe}}|
-			/getvar key=tempOutputList index={{var::index}}|
-			/addvar key=previousMilestones "{{newline}}- Milestone {{var::i}}: {{var::item}}{{newline}}  - Details: {{pipe}}"|
+			/ife (index > 0) {:
+				/getvar key=tempOutputList index={{var::index}}|
+				/addvar key=previousMilestones "{{newline}}- Milestone {{var::index}}: {{var::item}}{{newline}}  - Details: {{pipe}}"|
+			:}|
+			/else {:
+				/getvar key=tempOutputList index={{var::index}}|
+				/addvar key=previousMilestones "{{newline}}- Start: {{var::item}}{{newline}}  - Details: {{pipe}}"|
+			:}|
 		:}|
 	:}|
 	/echo Generating {{var::wi_book_key_f}}|
@@ -285,8 +294,21 @@
 		/var key=wi_uid {{pipe}}|
 		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 		/var key=instruct {{pipe}}|
-		/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
-		/var key=t {{pipe}}|
+		/ife (wi_book_key_f != 'First Message') {:
+			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+			/var key=t {{pipe}}|
+		:}|
+		/elseif (wi_book_key_f == 'First Message') {:
+			/messages names=off 0|
+			/setvar key=fullCharacterSheet {{pipe}}|
+			/re-replace find="/--FirstName--/g" replace="{{getvar::firstName}}" {{getvar::fullCharacterSheet}}|
+			/setvar key=fullCharacterSheet {{pipe}}|
+			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}{{newline}}{{newline}}## [CHARACTER_SHEET_REFERENCE]
+Below is the full character sheet for {{getvar::firstName}}. Use it to understand {{getvar::subjPronoun}}’s personality, tone, and behavioral cues. This is reference only — do not quote or summarize it.
+
+{{getvar::fullCharacterSheet}}"|
+			/var key=t {{pipe}}|
+		:}|
 		/re-replace find="/^[;\s]+/g" replace="" {{var::t}}|
 		/var key=t {{pipe}}|
 		/re-replace find="/^\*/g" replace="" {{var::t}}|
@@ -397,7 +419,7 @@
 		/var key=buttonPrompt_f "Select the {{var::wi_book_key_f}} you want {{getvar::firstName}} to have."|
 	:}|
 	
-	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags", "Speech Examples QA", "Ability Proficiency", "Ability Description"]|
+	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags", "Speech Examples QA", "Ability Proficiency", "Ability Description", "Appearance QA"]|
 	/ife (wi_book_key_f not in basicBlacklist) {:
 		/buttons labels={{var::genState}} {{var::buttonPrompt_f}}|
 		/var key=selected_btn {{pipe}}|

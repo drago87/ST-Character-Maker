@@ -53,6 +53,17 @@
 :}|
 //|-----|
 
+//Export Character|
+/ife ('Export Character' not in qrList) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/Character%20Generation.md|
+	
+	
+	/re-replace find="/--TextParse--/g" replace="{{getvar::textParse}}" {{pipe}}|
+	/qr-create set="CMC Main" label="Character Export" {{pipe}}|
+	/qr-update set="CMC Main" label="Character Export" hidden=true title="Exports the character to the DataBase and saves it as a .json file tha can be imported to ST"|
+:}|
+//|-----|
+
 
 /qr-set-list all|
 /var key=qrListContent {{pipe}}|
