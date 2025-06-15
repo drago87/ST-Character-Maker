@@ -44,12 +44,10 @@
 	:}|
 	/elseif ( selected_btn == 'Manually') {:
 		/popup <div>You need to manually download these files and import them to the World Info</div>
-	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Appearance.json">CMC Appearance</a></div>
-	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Clothes.json">CMC Clothes</a></div>
-	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Generation%20Prompts.json">CMC Generation Prompts</a></div>
-	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Information.json">CMC Information</a></div>
-	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Personality.json">CMC Personality</a></div>
-	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/CMC%20Variablers.json">CMC Variablers</a></div>|
+	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Generation%20Prompts.json">CMC Generation Prompts</a></div>
+	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Information.json">CMC Information</a></div>
+	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Personality.json">CMC Personality</a></div>
+	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Variablers.json">CMC Variablers</a></div>|
 	
 	:}|
 	/elseif ( selected_btn == 'Semi Automatically') {:
