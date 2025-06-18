@@ -3,8 +3,10 @@
 	/let key=databaseList {{pipe}}|
 	
 	/foreach {{var::databaseList}} {:
-		/db-get source=chat {{var::item}}| 
-		/setvar key={{var::item}} {{pipe}}|
+		/ife ('.json' not in item) {:
+			/db-get source=chat {{var::item}}| 
+			/setvar key={{var::item}} {{pipe}}|
+		:}|
 	:}|
 :}|
 /ife ( lastName == '' ) {:

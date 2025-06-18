@@ -1,3 +1,14 @@
+/let key=models ["dans-personalityengine-v1.1.0-12b-q6_k"]|
+/buttons labels={{var::models}} Select the model you want to download the model lorebook prompts for.|
+/let key=model {{pipe}}|
+/ife (model == '') {:
+	/echo Aborting |
+	/abort
+:}|
+/elseif (model == 'dans-personalityengine-v1.1.0-12b-q6_k') {:
+	/popup <div>Prompt are tested with this model.</div><div><a href="https://huggingface.co/bartowski/Dans-PersonalityEngine-V1.1.0-12b-GGUF/blob/main/Dans-PersonalityEngine-V1.1.0-12b-Q6_K.gguf">Dans-PersonalityEngine-V1.1.0-12b-Q6_K.gguf</a></div>|
+:}|
+
 /qr-list CMC Temp|
 /let key=qrList {{pipe}}|
 
@@ -46,7 +57,9 @@
 		/popup <div>You need to manually download these files and import them to the World Info</div>
 	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Generation%20Prompts.json">CMC Generation Prompts</a></div>
 	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Information.json">CMC Information</a></div>
-	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Personality.json">CMC Personality</a></div>
+	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Questions.json">CMC Questions</a></div>
+	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Rules.json">CMC Rules</a></div>
+	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Templates.json">CMC Templates</a></div>
 	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Variablers.json">CMC Variablers</a></div>|
 	
 	:}|

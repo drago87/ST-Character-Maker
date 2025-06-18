@@ -196,12 +196,12 @@
 	/re-replace find="/--Anus--/g" replace="{{getvar::appearanceAnus}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife ((appearanceFeatures != '') and (appearanceFeatures != 'None')) {:
+/ife ((parsedAppearanceFeatures != '') and (parsedAppearanceFeatures != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Features--/g" replace="{{newline}}{{newline}}- Features: {{getvar::appearanceFeatures}}" {{pipe}}|
+	/re-replace find="/--Features--/g" replace="{{newline}}{{newline}}{{getvar::parsedAppearanceFeatures}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (appearanceFeatures != 'None') {:
+/elseif (parsedAppearanceFeatures != 'None') {:
 	/messages names=off 0|
 	/re-replace find="/--Features--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -221,9 +221,14 @@
 	/re-replace find="/--OutfitHead--/g" replace="{{getvar::outfitHeadDescription}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (parsedAccessories != '') {:
+/ife ((parsedAccessories != '') and (parsedAccessories == 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--OutfitAccessories--/g" replace="{{getvar::parsedAccessories}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif ((parsedAccessories != '') and (parsedAccessories != 'None')) {:
+	/messages names=off 0|
+	/re-replace find="/--OutfitAccessories--/g" replace="{{newline}}{{getvar::parsedAccessories}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (parsedMakeup != '') {:

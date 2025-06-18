@@ -6,7 +6,6 @@
 /let key=inputIsList_f {{pipe}}|
 /getvar key=genSettings index=wi_book|
 /let key=wi_book_f {{pipe}}|
-
 /ife ( save == '') {:
 	/echo Aborting SaveGen|
 	/abort

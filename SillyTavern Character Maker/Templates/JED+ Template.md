@@ -66,7 +66,13 @@ A: "My trainer? This... this mankey!? I hate this pervert so much..." Garde has 
 - Body:
 - Privates: 
 
-- Features: 
+- Feature: 
+  - Placement: 
+  - Description: 
+
+- Feature: 
+  - Placement: 
+  - Description: 
 
 - Appearance Trait: <!--e.g. "Womb Tattoo (inmon)"-->
   - Details: <!--e.g. {{char}} was a sex slave before [...]-->

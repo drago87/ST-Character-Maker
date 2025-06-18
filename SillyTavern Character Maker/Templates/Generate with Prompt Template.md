@@ -58,6 +58,9 @@
 	/else {:
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
+
+	/setvar key=genSettings index=buttonPrompt CHANGE_THIS_PROMPT|//Remove if not in use|
+
 	//[[Generate with Prompt]]|
 	/ife (inputIsList == 'Yes') {:
 		/let key=tempOutputList []|
@@ -69,7 +72,7 @@
 			/flushvar output|
 			/flushvar guidance|
 		:}|
-		/foreach {{tempOutputList}} {:
+		/foreach {{var::tempOutputList}} {:
 			/addvar key={{var::variableName}} {{var::item}}|
 		:}|
 		/flushvar {{var::variableName}}Item|

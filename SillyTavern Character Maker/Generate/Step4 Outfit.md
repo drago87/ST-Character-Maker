@@ -333,11 +333,14 @@
 /wait {{getvar::wait}}|
 /setvar key=parsedAccessories {{noop}}|
 /ife (outfitAccessoriesDescription == 'None') {:
-	/addvar key=parsedAccessories " {{getvar::outfitAccessoriesDescription}}"|
+	/addvar key=parsedAccessories "{{getvar::outfitAccessoriesDescription}}"|
 :}|
 /elseif (outfitAccessoriesDescription is list) {:
 	/foreach {{getvar::outfitAccessoriesDescription}} {:
-		/addvar key=parsedAccessories "{{newline}}  - {{var::item}}"|
+		/ife (index > 0) {:
+			/addvar key=parsedAccessories {{newline}}|
+		:}|
+		/addvar key=parsedAccessories "  - {{var::item}}"|
 	:}|
 :}|
 /addvar key=dataBaseNames parsedAccessories|
