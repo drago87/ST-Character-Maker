@@ -90,7 +90,7 @@
 	/var typeGuide {{pipe}}|
 	/whilee ( characterArchetype == 'Help me Decide') {:
 		/buttons labels=["Help me Decide", "Human", "Anthropomorphic\n(Anthropomorphic is a character that combines both human and animal traits, often featuring an animal body with human-like posture, facial expressions, speech, and behavior.)", "Demi-Human\n(Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...)", "Tauric\n(Tauric are hybrid species with a humanoid upper body and an animal-like lower body, such as centaurs, lamias, and mermaids.)", "Beastkin\n(Beastkin is a character with animal features like ears and tail but otherwise human appearance.)", "Animalistic\n(Animalistic refers to standard animals, fantasy creatures, or monsters that behave and appear primarily as non-human beings, typically walking on all fours and lacking human speech or reasoning.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
-		/re-replace find="/(\n\(\|\()[\s\S]*$/g" replace="" {{pipe}}|
+		/re-replace find="/(\n\()[\s\S]*$/g" replace="" {{pipe}}|
 		/setvar key=characterArchetype {{pipe}}|
 		/ife ( characterArchetype == ''){:
 			/echo Aborting|

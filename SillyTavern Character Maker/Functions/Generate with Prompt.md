@@ -81,12 +81,12 @@
 		/var key=wi_uid {{pipe}}|
 		/ife ( wi_uid != '') {:
 			/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
-			/let key=c {{pipe}}|
+			/let key=cInfo {{pipe}}|
 			/ife (context != '') {:
-				/var key=context "{{var::context}}{{newline}}{{newline}}{{var:c}}"|
+				/var key=context "{{var::context}}{{newline}}{{newline}}{{var::cInfo}}"|
 			:}|
 			/else {:
-				/var key=context "{{var:c}}"|
+				/var key=context "{{var::cInfo}}"|
 			:}|
 		:}|
 	:}|
@@ -379,7 +379,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 	:}|
 	
 	
-	/ife (('Outfit' in wi_book_key_f) and ('Description' not in wi_book_key_f)) {:
+	/ife (('Outfit' in wi_book_key_f) and ('Description' not in wi_book_key_f) and ('Outfit Accessories' not in wi_book_key_f)) {:
 		/unshift genState "None"|
 		/var key=genState {{pipe}}|
 	:}|
@@ -419,7 +419,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		/var key=buttonPrompt_f "Select the {{var::wi_book_key_f}} you want {{getvar::firstName}} to have."|
 	:}|
 	
-	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags", "Speech Examples QA", "Ability Proficiency", "Ability Description", "Appearance QA"]|
+	/let key=basicBlacklist ["Identify Personality Tag", "Personality QA", "Personality Tags", "Speech Examples QA", "Ability Proficiency", "Ability Description", "Appearance QA", "Appearance Features Other", "Appearance Features Humanoid"]|
 	/ife (wi_book_key_f not in basicBlacklist) {:
 		/buttons labels={{var::genState}} {{var::buttonPrompt_f}}|
 		/var key=selected_btn {{pipe}}|
@@ -449,7 +449,15 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		/var key=selected_btn {{pipe}}|
 	:}|
 	/elseif (wi_book_key_f == 'Ability Description') {:
-		/buttons labels={{var::genState}} <div>Does this feel a good description for: {{getvar::abilityName}}?</div>|
+		/buttons labels={{var::genState}} <div>Does this feel like a good description for: {{getvar::abilityName}}?</div>|
+		/var key=selected_btn {{pipe}}|
+	:}|
+	/elseif ((wi_book_key_f == 'Appearance Features Other') or (wi_book_key_f == 'Appearance Features Humanoid')) {:
+		/let key=oTemp {{noop}}|
+		/foreach {{getvar::tempList}} {:
+			/var key=oTemp "{{var::oTemp}}<div>{{var::item}}</div>"
+		:}|
+		/buttons labels={{var::genState}} <div>Select the Appearance Feature you want {{getvar::firstName}} to have</div><div>Here is the ones already Selected</div>{{var::oTemp}}|
 		/var key=selected_btn {{pipe}}|
 	:}|
 
@@ -473,11 +481,25 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 	/elseif (selected_btn == 'Guidance') {:
 		/let key=gu {{noop}}|
 		/ife (guidance != '') {:
-			/buttons labels=["Remove", "Set", "Change", "Cancel"] What do you want to do with the respons guidance?|
+			/buttons labels=["Remove", "Set", "Change", "Cancel"] <div>What would you like to do with the kink guidance?</div>
+<div>
+  <ul>
+    <li><strong>Remove</strong> – Delete the current guidance entirely.</li>
+    <li><strong>Set</strong> – Write a sentence or phrase, and it will be auto-tagged into kink categories.</li>
+    <li><strong>Change</strong> – Manually edit the existing guidance.</li>
+    <li><strong>Cancel</strong> – Keep the current guidance as is.</li>
+  </ul>
+</div>|
 			/var key=gu {{pipe}}|
 		:}|
 		/else {:
-			/buttons labels=["Set", "Cancel"] What do you want to do with the respons guidance?|
+			/buttons labels=["Set", "Cancel"] <div>No kink guidance has been set yet.</div>
+<div>
+  <ul>
+    <li><strong>Set</strong> – Write a sentence or phrase describing a kink theme or interest. It will be automatically tagged into kink categories.</li>
+    <li><strong>Cancel</strong> – Skip this for now and continue without setting any guidance.</li>
+  </ul>
+</div>|
 			/var key=gu {{pipe}}|
 		:}|
 		/ife ( gu == ''){:
@@ -489,7 +511,26 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		:}|
 		/elseif ( gu == 'Set') {:
 			/input Write what you want the response shoud be guided towards.|
-			/setvar key=guidance "**NOTE:** Use the following guidance as loose inspiration only. Do not copy it directly.{{newline}}[{{pipe}}]"|
+			/setvar key=guideTemp {{pipe}}|
+			/ife (wi_book_key_f == 'Kink Type') {:
+				/var key=find "Kink Type Guidance"|
+				/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+				/var key=wi_uid {{pipe}}|
+				/getentryfield field=content file="CMC Generation Prompts" {{var::wi_uid}}|
+				/let key=mainPrompt {{pipe}}|
+				/var key=find "Kink Information"|
+				/findentry field=comment file="CMC Information Prompts" "{{var::find}}"|
+				/var key=wi_uid {{pipe}}|
+				/getentryfield field=content file="CMC Information Prompts" {{var::wi_uid}}|
+				/let key=infoPrompt {{pipe}}|
+				/genraw "{{var::infoPrompt}}{{newline}}{{newline}}{{var::mainPrompt}}"|
+				/setvar key=guideTemp {{pipe}}|
+				/setvar key=guidance "**Kink Guidance Input:** [{{getvar::guideTemp}}]{{newline}}This reflects a core kink or arousal theme relevant to the character. At least one kink type in the output must reflect this input — directly or as a clear reinterpretation. [**IMPORTANT** Start with this!]"|
+			:}|
+			/else {:
+				/setvar key=guidance "**NOTE:** Use the following guidance as loose inspiration only. Do not copy it directly.{{newline}}[{{setvar::guideTemp}}]"|
+			:}|
+			/flushvar guideTemp|
 		:}|
 		/elseif ( gu == 'Change') {:
 			/input default={{getvar::guidance}} Edit what you want the response shoud be guided towards.|

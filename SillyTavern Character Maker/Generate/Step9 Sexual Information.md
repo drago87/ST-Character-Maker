@@ -749,6 +749,7 @@
 	/setvar key=genSettings index=useContext No|
 	/setvar key=extra []|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
+	/addvar key=extra "- Species: {{getvar::parsedSpecies}}"|
 	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
 	/addvar key=extra "- Personality Tags: {{getvar::personalityFoundTags}}, {{getvar::personalityTags}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
@@ -761,14 +762,14 @@
 	
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 5|
+	/setvar key=x 7|
 	
 	/ife (settingType == 'Realistic') {:
 		/incvar x|
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Use only variants grounded in real-world kink practice. Avoid fantasy, magical, or alien elements."|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Only include kinks that are grounded in real-world physical, psychological, or social dynamics. Avoid magical, alien, or non-physical elements."|
 		
 	:}|
 	/elseif (settingType == 'Fantasy') {:
@@ -776,7 +777,7 @@
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include magical, monster-based, or mythic expressions if they align with {{getvar::kinkType}}."|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include magical, mythic, or creature-based kink categories if they match the species or emotional tone."|
 		
 	:}|
 	/elseif (settingType == 'Science Fiction') {:
@@ -784,7 +785,7 @@
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include cybernetic, psionic, biotech, or alien-themed kink variants if relevant to {{getvar::kinkType}}."|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include alien, biotech, cybernetic, psionic, or synthetic kink categories if appropriate to the character’s setting or biology."|
 		
 	:}|
 	
@@ -995,6 +996,85 @@
 				/addvar key=kinkExp <div>{{var::item}}</div>|
 			:}|
 			/setvar key=genSettings index=buttonPrompt "Select the {{var::wi_book_key}} you want {{getvar::it}} to have.{{getvar::kinkExp}}"|
+			/:"CMC Logic.GenerateWithSelector"|
+			/len {{var::tempOutputList}}|
+			/var key=tempOutputList index={{pipe}} {{getvar::output}}|
+			/flushvar output|
+			/flushvar kinkExp|
+			/flushvar guidance|
+			/flushvar kinkType|
+			/flushvar kinkVariant|
+			/flushvar kinkRole|
+			/flushvar kinkDetail|
+			/flushvar kinkEffect|
+			/flushvar kinkCondition|
+		:}|
+		/foreach {{var::tempOutputList}} {:
+			/addvar key={{var::variableName}} {{var::item}}|
+		:}|
+	:}|
+	/else {:
+		/:"CMC Logic.GenerateWithSelector"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar it|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+
+/var key=do No|
+/var key=variableName "sexualKinkAwareness"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
+	/setvar key=genSettings index=wi_book_key "Kink Awareness"|
+	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=inputIsList Yes|
+	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=useContext No|
+	/wait {{getvar::wait}}|
+	
+	
+	/getvar key=genSettings index=wi_book_key|
+	/let key=wi_book_key {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=combineLorebookEntries|
+	/let key=combineLorebookEntries {{pipe}}|
+	
+	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+	
+	
+	/ife (inputIsList == 'Yes') {:
+		/let key=tempOutputList []|
+		/foreach {{getvar::sexualKinkTypes}} {:
+			/setvar key=it {{var::item}}|
+			/setvar key=genSettings index=buttonPrompt "Select the {{var::wi_book_key}} you want {{getvar::it}} to have."|
 			/:"CMC Logic.GenerateWithSelector"|
 			/len {{var::tempOutputList}}|
 			/var key=tempOutputList index={{pipe}} {{getvar::output}}|
@@ -1357,6 +1437,24 @@
 			:}|
 			/getvar key=sexualKinkRoles index={{var::index}}|
 			/setvar key=kinkRole {{pipe}}|
+			/getvar key=sexualKinkAwareness index={{var::index}}|
+			/setvar key=kinkAwareness {{pipe}}|
+			/ife ('Unaware' in kinkAwareness) {:
+				/setvar key=kinkAwarenessSimple Unaware|
+				/setvar key=kinkAwarenessExplanation "Only describe unconscious or involuntary triggers. Do not reference the kink as something the character is aware of or can verbalize."|
+			:}|
+			/elseif ('Suppressed' in kinkAwareness) {:
+				/setvar key=kinkAwarenessSimple Suppressed|
+				/setvar key=kinkAwarenessExplanation "Describe the kink as repressed or emotionally avoided. Triggers may involve loss of control, emotional breakdown, or unintended intimacy."|
+			:}|
+			/elseif ('Curious' in kinkAwareness) {:
+				/setvar key=kinkAwarenessSimple Curious|
+				/setvar key=kinkAwarenessExplanation "The kink should surface in confusing or playful ways. The character may follow curiosity or instinct without naming the kink."|
+			:}|
+			/else {:
+				/setvar key=kinkAwarenessSimple Aware|
+				/setvar key=kinkAwarenessExplanation "Use straightforward situational or emotional boundaries that match the role, personality, and setting."|
+			:}|
 			/getvar key=sexualKinkDetails index={{var::index}}|
 			/setvar key=kinkDetail {{pipe}}|
 			/getvar key=sexualKinkEffects index={{var::index}}|

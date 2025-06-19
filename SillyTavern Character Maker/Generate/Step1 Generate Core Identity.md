@@ -206,9 +206,9 @@
 		:}|
 		/elseif ((characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')) {:
 			
-			/let key=find "Reproductive {{getvar::animalBase}}: List"
+			/let key=find "Reproductive {{getvar::animalBase}}: List"|
 			/findentry field=comment file="CMC Variables" {{var::find}}|
-			/getentryfield file="CMC Information" {{pipe}}| 
+			/getentryfield file="CMC Variables" {{pipe}}| 
 			/let key=temp {{pipe}}|
 			/split find="/\n/" {{var::temp}}|
 			/var key=temp {{pipe}}|

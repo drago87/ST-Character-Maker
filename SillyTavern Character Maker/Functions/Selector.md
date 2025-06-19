@@ -43,7 +43,6 @@
 /let key=find {{noop}}|
 
 /let key=exRules ["Explicitness Level", "User Input Style", "Response Length", "Consent Reaction Tone", "Emotional Responsiveness", "Conflict Handling", "Social Openness", "Empathy Attunement", "Verbal Style Communication", "Physical Expressiveness", "Narration Formatting Rule", "Narrative Tone Rule", "Perspective Rule", "Formatting Style" ]|
-/echo wi_book_key_f: {{var::wi_book_key_f}}|
 /ife ( combineLorebookEntries != 'Yes') {:
 	/let key=tempGenState {{noop}}|
 	/ife (( inputIsList == 'Yes') and (wi_book_key_f is list)) {:
@@ -211,6 +210,17 @@
 			/:"CMC Logic.SaveGen"|
 		:}|
 		/else {:
+			/ife (wi_book_key_f == 'Kink Awareness') {:
+				/ife (selected_btn == 'Unaware') {:
+					/var key=selected_btn "Unaware (**IMPORTANT: The character does not consciously know about this kink. Do not mention it in dialogue or inner thoughts unless discovery is explicitly triggered.**)"|
+				:}|
+				/ife (selected_btn == 'Suppressed') {:
+					/var key=selected_btn "Suppressed (**IMPORTANT: The character avoids thinking about this kink and will not admit to it unless emotionally or situationally forced.**)"|
+				:}|
+				/ife (selected_btn == 'Curious') {:
+					/var key=selected_btn "Curious (**IMPORTANT: The character feels drawn to this kink but doesn’t recognize it as a kink yet. Express through confused reactions, not direct acknowledgment.**)"|
+				:}|
+			:}|
 			/setvar key=save {{var::selected_btn}}|
 			/:"CMC Logic.SaveGen"|
 		:}|

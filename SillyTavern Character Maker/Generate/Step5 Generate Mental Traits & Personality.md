@@ -121,8 +121,12 @@
 	/setvar key=extra []|
 	/addvar key=extra "- Archetype: {{getvar::personalityArchetype}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
+	/:"CMC Logic.Get Basic Type Context"|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
+	:}|
 	/flushvar extra|
-	/setvar key=genSettings index=contextKey []|
 	/wait {{getvar::wait}}|
 	
 	/getvar key=genSettings index=inputIsList|
@@ -218,12 +222,33 @@
 :}|
 //--------|
 
-/split {{getvar::personalityFoundTags}}|
-/buttons labels={{pipe}} Witch of these are the Main personality trait of {{getvar::firstName}}?|
-/setvar key=personalityMainTrait {{pipe}}|
+
 /ife (personalityMainTrait == '') {:
-    /echo Aborting |
-	/abort
+	/let key=find "Identify Personality Tag: Examples"|
+	/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+	/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+	/let key=example {{pipe}}|
+	
+	/var key=find "Identify Personality Tag: Task"|
+	/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+	/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+	/let key=task {{pipe}}|
+	
+	/var key=find "Identify Personality Tag: Instruction"|
+	/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+	/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+	/let key=instruction {{pipe}}|
+	
+	/genraw "{{var::example}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruction}}"|
+	/setvar key=personalityFoundTags {{pipe}}|
+	
+	/split {{getvar::personalityFoundTags}}|
+	/buttons labels={{pipe}} Witch of these are the Main personality trait of {{getvar::firstName}}?|
+	/setvar key=personalityMainTrait {{pipe}}|
+	/ife (personalityMainTrait == '') {:
+	    /echo Aborting |
+		/abort
+	:}|
 :}|
 /addvar key=dataBaseNames personalityMainTrait|
 

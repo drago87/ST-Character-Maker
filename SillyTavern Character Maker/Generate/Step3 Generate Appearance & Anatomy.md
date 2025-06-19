@@ -61,11 +61,11 @@
 	/else {:
 		/setvar key=genSettings index=wi_book_key "Appearance Features Other"|
 	:}|
-	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=inputIsTaskList No|
-	/setvar key=genSettings index=genIsSentence Yes|
-	/setvar key=genSettings index=needOutput Yes|
-	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=needOutput No|
+	/setvar key=genSettings index=outputIsList Yes|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
 	/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
@@ -106,11 +106,8 @@
 :}|
 //-----------|
 
+
 //Features Type|
-/:"CMC Logic.Get Char info"|
-//Features Type|
-/let key=do {{noop}}|
-/let key=variableName {{noop}}|
 /var key=do No|
 /var key=variableName "appearanceFeaturesTypes"|
 /ife ({{var::variableName}} == '') {:
@@ -165,10 +162,8 @@
 			/setvar key=feature {{var::item}}|
 			/setvar key=genSettings index=buttonPrompt Is this the feature type you want for the {{getvar::feature}}?|
 			/:"CMC Logic.GenerateWithPrompt"|
-			/echo Output: {{getvar::output}}|
 			/len {{var::tempOutputList}}|
 			/var key=tempOutputList index={{pipe}} {{getvar::output}}|
-			/echo tempOutputList: {{var::tempOutputList}}|
 			/flushvar output|
 			/flushvar guidance|
 		:}|
@@ -766,7 +761,7 @@
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
 	/ife (appearanceFeatures != 'None') {:
-		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
 	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -874,7 +869,7 @@
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 		/addvar key=extra "- Breasts: {{getvar::appearanceBody}}"|
 		/ife (appearanceFeatures != 'None') {:
-			/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+			/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
 		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -970,7 +965,7 @@
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 		/addvar key=extra "- Breasts: {{getvar::appearanceBreasts}}"|
 		/ife (appearanceFeatures != 'None') {:
-			/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+			/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
 		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -1081,7 +1076,7 @@
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 		/ife (appearanceFeatures != 'None') {:
-			/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+			/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
 		:}|
 		/addvar key=extra "- Female  Genital Type: {{getvar::privatesFemale}}"|
 		/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
@@ -1278,7 +1273,7 @@
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 		/ife (appearanceFeatures != 'None') {:
-			/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+			/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
 		:}|
 		/ife (futanari == 'Yes') {:
 			/addvar key=extra "- Pussy Appearance: {{getvar::appearancePussy}}"|
@@ -1465,7 +1460,7 @@
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 		/ife (appearanceFeatures != 'None') {:
-			/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+			/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
 		:}|
 		/addvar key=extra "- Pussy Appearance: {{getvar::appearancePussy}}"|
 		/addvar key=extra "- Female Genital Type:: {{getvar::privatesFemale}}"|
@@ -1543,7 +1538,7 @@
 	/setvar key=extra []|
 	/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 	/ife (appearanceFeatures != 'None') {:
-		/addvar key=extra "- Features: {{getvar::appearanceFeatures}}"|
+		/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
 	:}|
 	/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
