@@ -528,12 +528,12 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 				/setvar key=guidance "**Kink Guidance Input:** [{{getvar::guideTemp}}]{{newline}}This reflects a core kink or arousal theme relevant to the character. At least one kink type in the output must reflect this input — directly or as a clear reinterpretation. [**IMPORTANT** Start with this!]"|
 			:}|
 			/else {:
-				/setvar key=guidance "**NOTE:** Use the following guidance as loose inspiration only. Do not copy it directly.{{newline}}[{{setvar::guideTemp}}]"|
+				/setvar key=guidance "**NOTE:** Use the following guidance as loose inspiration only. Do not copy it directly but it is **IMPORTANT** to use it as inspiration.{{newline}}[{{getvar::guideTemp}}]"|
 			:}|
 			/flushvar guideTemp|
 		:}|
 		/elseif ( gu == 'Change') {:
-			/input default={{getvar::guidance}} Edit what you want the response shoud be guided towards.|
+			/input default={{getvar::guidance}} Edit what you want the response should be guided towards.|
 			/setvar key=guidance "{{pipe}}"|
 		:}|
 		/var key=task {{noop}}|
@@ -543,7 +543,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 		/var key=task {{pipe}}|
 	:}|
-	/elseif ( selected_btn =='Customize Parts of the generation') {:
+	/elseif ( selected_btn == 'Customize Parts of the generation') {:
 		/buttons labels=["Yes", "Reset", "No"] Do you want to Customize the {Modifier} of the formula {Modifier} + {Archetype} + {Addition}?|
 		/let key=sel "{{pipe}}"|
 		/ife (sel == '') {:

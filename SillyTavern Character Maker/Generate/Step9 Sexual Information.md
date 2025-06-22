@@ -45,7 +45,12 @@
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
-	/setvar key=genSettings index=wi_book_key "Sexual Orientation"|
+	/ife ((characterArchetype == 'Human') or (characterArchetype == 'Android') or (characterArchetype == 'Demi-Human') or (characterArchetype == 'Anthropomorphic')) {:
+		/setvar key=genSettings index=wi_book_key "Sexual Orientation Humanoid"|
+	:}|
+	/elseif ((characterArchetype == 'Human') or (characterArchetype == 'Android') or (characterArchetype == 'Demi-Human') or (characterArchetype == 'Anthropomorphic')) {:
+		/setvar key=genSettings index=wi_book_key "Sexual Orientation"|
+	:}|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=inputIsList No|
@@ -1279,7 +1284,7 @@
 	
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 9|
+	/setvar key=x 10|
 	
 	/ife (settingType == 'Realistic') {:
 		/incvar x|
@@ -1331,6 +1336,7 @@
 			:}|
 			/else {:
 				/setvar key=kinkVariantTask ", specifically the {{getvar::kinkVariant}} form"|
+				/setvar key=kinkVariantInstr {{noop}}|
 			:}|
 			/getvar key=sexualKinkRoles index={{var::index}}|
 			/setvar key=kinkRole {{pipe}}|
@@ -1343,6 +1349,7 @@
 			/flushvar guidance|
 			/flushvar kinkType|
 			/flushvar kinkVariant|
+			/flushvar kinkVariantTask|
 			/flushvar kinkRole|
 			/flushvar kinkDetail|
 			/flushvar kinkEffect|
@@ -1431,9 +1438,11 @@
 			/ife (kinkVariant == 'None') {:
 				/setvar key=kinkVariantTask {{noop}}|
 				/setvar key=kinkVariantInstr "Describe the general expression of {{getvar::kinkType}} without assuming a specific form or target."|
+				/setvar key=kinkVariant {{noop}}|
 			:}|
 			/else {:
-				/setvar key=kinkVariantTask ", specifically the {{getvar::kinkVariant}} form"|
+				/setvar key=kinkVariantTask ", specifically the **{{getvar::kinkVariant}}** form"|
+				/setvar key=kinkVariant " or **{{getvar::kinkVariant}}**"|
 			:}|
 			/getvar key=sexualKinkRoles index={{var::index}}|
 			/setvar key=kinkRole {{pipe}}|
@@ -1441,19 +1450,61 @@
 			/setvar key=kinkAwareness {{pipe}}|
 			/ife ('Unaware' in kinkAwareness) {:
 				/setvar key=kinkAwarenessSimple Unaware|
-				/setvar key=kinkAwarenessExplanation "Only describe unconscious or involuntary triggers. Do not reference the kink as something the character is aware of or can verbalize."|
+				/setvar key=kinkAwarenessExplanation "Do not describe {{getvar::firstName}} as aware of the kink. The condition should describe how {{getvar::subjPronoun}} might encounter it unknowingly — through emotional vulnerability, social pressure, dares, curiosity, or deliberate exposure. Triggers may involve being manipulated, tricked, or subtly guided based on personality traits like naïveté, pride, or impulsiveness. Avoid any language that implies consent, intention, or recognition."|
+				/setvar key=kinkRule "5. Frame the trigger in **internal**, **emotional**, or **situational** terms:
+    - Use phrasing like:
+        - “Only when…”
+        - “May respond if…”
+        - “Being guided…”
+        - “Manipulation by trusted figures…”
+        - “Can be persuaded to try…”
+        - “Social pressures…”
+        - “Occurs when emotionally disoriented…”
+        - “Without realizing…” or “Unaware of…”
+        - “Instinctively complies…”"|
+				
 			:}|
 			/elseif ('Suppressed' in kinkAwareness) {:
 				/setvar key=kinkAwarenessSimple Suppressed|
-				/setvar key=kinkAwarenessExplanation "Describe the kink as repressed or emotionally avoided. Triggers may involve loss of control, emotional breakdown, or unintended intimacy."|
+				/setvar key=kinkAwarenessExplanation "Describe the kink as emotionally repressed or intellectually avoided. {{getvar::subjPronoun}} will not initiate or discuss it willingly, and may avoid or deny any reaction even when exposed. Conditions should involve high emotional stress, loss of control, intoxication, or emotionally charged intimacy. Do not imply open consent or conscious participation unless the scene involves a breakthrough or collapse of internal restraint."|
+				/setvar key=kinkRule "5. Frame the trigger in **emotional repression**, **vulnerability**, or **loss of control**:
+    - Use phrasing like:
+        - “Never unless…”  
+        - “Only when emotionally overwhelmed…”  
+        - “Only after prolonged intimacy…”  
+        - “When caught off guard…”  
+        - “Reacts despite herself…”  
+        - “May deflect but comply under pressure…”  
+        - “Requires emotional collapse or exposure…”"|
 			:}|
 			/elseif ('Curious' in kinkAwareness) {:
 				/setvar key=kinkAwarenessSimple Curious|
-				/setvar key=kinkAwarenessExplanation "The kink should surface in confusing or playful ways. The character may follow curiosity or instinct without naming the kink."|
+				/setvar key=kinkAwarenessExplanation "Frame the kink as something that draws {{getvar::subjPronoun}} in through instinct, fascination, or playful confusion — but not as a kink {{getvar::subjPronoun}} consciously identifies with. Describe conditions where {{getvar::subjPronoun}} might explore it “by accident,” mimic others, or follow a partner’s lead without fully understanding why. Never describe the kink as named, understood, or formally accepted."|
+				/setvar key=kinkRule "5. Frame the trigger in **confused interest**, **playful testing**, or **unrecognized arousal**:
+    - Use phrasing like:
+        - “May try it playfully…”  
+        - “Treats it like a joke or dare…”  
+        - “Feels drawn to it but doesn’t know why…”  
+        - “Only engages when it feels innocent or exploratory…”  
+        - “Curiosity overrides hesitation…”  
+        - “Goes along without naming it…”  
+        - “Triggered by teasing or subtle encouragement…”"|
 			:}|
 			/else {:
 				/setvar key=kinkAwarenessSimple Aware|
-				/setvar key=kinkAwarenessExplanation "Use straightforward situational or emotional boundaries that match the role, personality, and setting."|
+				/setvar key=kinkAwarenessExplanation "Use clear, situational or emotional boundaries that match the character’s personality, species, and role. Conditions may include consent requirements, scene setting, power dynamics, or trust levels. Do not include denial, confusion, or repression — {{getvar::subjPronoun}} knows this is a kink and will approach it with intent or known hesitation."|
+				/setvar key=kinkRule "5. Frame the trigger in conscious preference, negotiated context, or emotional readiness:
+    - Use phrasing like:
+        - “Only when she feels safe and respected…”
+        - “Engages after mutual consent…”
+        - “Reserves for trusted partners…”
+        - “Initiates when emotionally confident…”
+        - “Can express interest directly…”
+        - “Triggered by deliberate partner dynamics…”
+        - “May prepare in advance or initiate without prompting…”
+        - “Seeks it out when alone or in private…”
+        - “Ready to engage whenever the opportunity arises…”
+        - “Will request it openly when the moment feels right…”"|
 			:}|
 			/getvar key=sexualKinkDetails index={{var::index}}|
 			/setvar key=kinkDetail {{pipe}}|
@@ -1470,6 +1521,7 @@
 			/flushvar kinkDetail|
 			/flushvar kinkEffect|
 			/flushvar kinkCondition|
+			/flushvar kinkRule|
 		:}|
 		/foreach {{var::tempOutputList}} {:
 			/addvar key={{var::variableName}} {{var::item}}|
@@ -1504,6 +1556,8 @@
 		:}|
 		/getvar key=sexualKinkRoles index={{var::index}}|
 		/addvar key=parsedSexualKinks "{{newline}}  - Role: {{pipe}}"|
+		/getvar key=sexualKinkAwareness index={{var::index}}|
+		/addvar key=parsedSexualKinks "{{newline}}  - Awareness: {{pipe}}"|
 		/getvar key=sexualKinkDetails index={{var::index}}|
 		/addvar key=parsedSexualKinks "{{newline}}  - Details: {{pipe}}"|
 		/getvar key=sexualKinkEffects index={{var::index}}|
@@ -2156,10 +2210,12 @@
 
 //Sexual Notes|
 
+/len {{getvar::sexualNotes}}|
+/let key=len {{pipe}}|
 
 /var key=do No|
 /var key=variableName "sexualNotes"|
-/ife ({{var::variableName}} == '') {:
+/ife (({{var::variableName}} == '') or (len <= 5)) {:
     /var key=do Yes|
 :}|
 /elseif (skip == 'Update') {:
@@ -2193,7 +2249,7 @@
 	
 	
 	/len {{getvar::sexualNotes}}|
-	/let key=len {{pipe}}|
+	/var key=len {{pipe}}|
 	
 	/ife ( len == 0) {:
 		/setvar key={{var::variableName}} []|
@@ -2204,7 +2260,7 @@
 		/addvar key={{var::variableName}} "**Initiation Style:** {{getvar::output}}"|
 	:}|
 	/len {{getvar::sexualNotes}}|
-	/let key=len {{pipe}}|
+	/var key=len {{pipe}}|
 	/ife ( len == 1) {:
 		/setvar key=genSettings index=wi_book_key "Touch Preference"|
 		/setvar key=genSettings index=buttonPrompt "Select the Touch Preference you want {{getvar::firstName}} to follow."|
@@ -2213,7 +2269,7 @@
 		/addvar key={{var::variableName}} "**Touch Preference:** {{getvar::output}}"|
 	:}|
 	/len {{getvar::sexualNotes}}|
-	/let key=len {{pipe}}|
+	/var key=len {{pipe}}|
 	/ife ( len == 2) {:
 		/setvar key=genSettings index=wi_book_key "Verbal Tone During Intimacy"|
 		/setvar key=genSettings index=buttonPrompt "Select the Verbal Tone During Intimacy you want {{getvar::firstName}} to follow."|
@@ -2222,7 +2278,7 @@
 		/addvar key={{var::variableName}} "**Verbal Tone During Intimacy:** {{getvar::output}}"|
 	:}|
 	/len {{getvar::sexualNotes}}|
-	/let key=len {{pipe}}|
+	/var key=len {{pipe}}|
 	/ife ( len == 3) {:
 		/setvar key=genSettings index=wi_book_key "Emotional Layer"|
 		/setvar key=genSettings index=buttonPrompt "Select the Emotional Layer you want {{getvar::firstName}} to follow."|
@@ -2231,7 +2287,7 @@
 		/addvar key={{var::variableName}} "**Emotional Layer:** {{getvar::output}}"|
 	:}|
 	/len {{getvar::sexualNotes}}|
-	/let key=len {{pipe}}|
+	/var key=len {{pipe}}|
 	/ife ( len == 4) {:
 		/setvar key=genSettings index=wi_book_key "Control Preference"|
 		/setvar key=genSettings index=buttonPrompt "Select the Control Preference (General, not role-linked) you want {{getvar::firstName}} to follow."|
@@ -2240,7 +2296,7 @@
 		/addvar key={{var::variableName}} "**Control Preference (General, not role-linked):** {{getvar::output}}"|
 	:}|
 	/len {{getvar::sexualNotes}}|
-	/let key=len {{pipe}}|
+	/var key=len {{pipe}}|
 	/ife ( len >= 5) {:
 		/var key=do No|
 		/buttons labels=["Yes", "No"] Do you want to generate or add more sexual Rules?|
@@ -2306,10 +2362,12 @@
 /setvar key=parsedSexualityNotes {{noop}}|
 /ife (sexualNotes is list) {:
 	/foreach {{getvar::sexualNotes}} {:
-		/ife (index > 0) {:
-			/addvar key=parsedSexualityNotes {{newline}}|
+		/ife ('None' not in item) {:
+			/ife (index > 0) {:
+				/addvar key=parsedSexualityNotes {{newline}}|
+			:}|
+			/addvar key=parsedSexualityNotes "- {{var::item}}"|
 		:}|
-		/addvar key=parsedSexualityNotes "- {{var::item}}"|
 	:}|
 :}|
 //--------|

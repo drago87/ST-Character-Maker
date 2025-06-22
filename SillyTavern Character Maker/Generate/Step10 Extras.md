@@ -33,10 +33,11 @@
 
 
 //Behavior Notes|
-
+/len {{getvar::behaviorNotes}}|
+/var key=len {{pipe}}|
 /var key=do No|
 /var key=variableName "behaviorNotes"|
-/ife ({{var::variableName}} == '') {:
+/ife (({{var::variableName}} == '') or (len <= 6)) {:
     /var key=do Yes|
 :}|
 /elseif (skip == 'Update') {:
@@ -188,11 +189,14 @@
 :}
 //--------|
 
-
+/len {{getvar::speechQuestions}}|
+/let key=sQLen {{pipe}}|
+/len {{getvar::speechExampleList}}|
+/let key=sELen {{pipe}}|
 //Speech Examples|
 /var key=do No|
 /var key=variableName "speechExampleList"|
-/ife ({{var::variableName}} == '') {:
+/ife (({{var::variableName}} == '') or (sQLen != sELen)) {:
     /var key=do Yes|
 :}|
 /elseif (skip == 'Update') {:
@@ -203,7 +207,7 @@
         /echo Aborting |
         /abort
     :}|
-    /ife (do == 'Yes') {:
+    /elseif (do == 'Yes') {:
 	    /flushvar {{getvar::variableName}}|
     :}|
 :}|
@@ -354,37 +358,44 @@
 	/let key=outputIsList {{pipe}}|
 	
 	
-	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
+	/ife (((inputIsList== 'Yes') or (outputIsList == 'Yes') and ({{var::variableName}} is not list))) {:
 		/setvar as=array key={{var::variableName}} []|
-	:}|
-	/else {:
-		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	//[[Generate with Prompt]]|
 	/ife (inputIsList == 'Yes') {:
+		/let key=tempOutputList []|
 		/foreach {{getvar::speechQuestions}} {:
-			/setvar key=speechPromptClaim {{var::item}}|
-			/:"CMC Logic.GenerateWithPrompt"|
-			/ife ((output != '') and (output != 'None')) {:
-				/re-replace find="/^\"/g" replace="" {{getvar::output}}|
-				/re-replace find="/\"$/g" replace="" {{pipe}}|
-				/addvar key={{var::variableName}} "\"{{pipe}}\""|
+			/len {{getvar::speechExampleList}}|
+			/var key=sELen {{pipe}}|
+			/ife (sELen == 0) {:
+				/setvar as=array key={{var::variableName}} []|
+			:}|
+			
+			/ife ((index > sELen) or ((index == 0) and (sELen == 0))) {:
+				/setvar key=speechPromptClaim {{var::item}}|
+				/:"CMC Logic.GenerateWithPrompt"|
+				/ife ((output != '') and (output != 'None')) {:
+					/re-replace find="/^\"/g" replace="" {{getvar::output}}|
+					/re-replace find="/\"$/g" replace="" {{pipe}}|
+					/let key=tOut {{pipe}}|
+					/len {{var::tempOutputList}}|
+					/var key=tempOutputList index={{pipe}}
+					/var key=tempOutputList "\"{{var::tOut}}\""|
+				:}|
 			:}|
 			/flushvar output|
 			/flushvar guidance|
 		:}|
+		/foreach {{var::tempOutputList}} {:
+			/addvar key={{var::variableName}} {{var::item}}|
+		:}|
 		/flushvar speechPromptClaim|
-	:}|
-	/else {:
-		/:"CMC Logic.GenerateWithPrompt"|
-		/setvar key={{var::variableName}} {{getvar::output}}|
 	:}|
 	/flushvar output|
 	/flushvar guidance|
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
-	/flushvar speechQuestions|
 :}|
 //--------|
 
@@ -402,9 +413,13 @@
 
 
 //Appearance QA|
+/len {{getvar::appearanceQuestions}}|
+/let key=aQLen {{pipe}}|
+/len {{getvar::appearanceQAList}}|
+/let key=aQALen {{pipe}}|
 /var key=do No|
 /var key=variableName "appearanceQAList"|
-/ife ({{var::variableName}} == '') {:
+/ife (({{var::variableName}} == '') or (aQLen != aQALen)) {:
     /var key=do Yes|
 :}|
 /elseif (skip == 'Update') {:
@@ -559,22 +574,30 @@
 	:}|
 	//[[Generate with Prompt]]|
 	/ife (inputIsList == 'Yes') {:
+		/let key=tempOutputList []|
 		/foreach {{getvar::appearanceQuestions}} {:
+			/len {{pipe}}|
+			/let key=len {{pipe}}|
+			/ife (len == 0) {:
+				/setvar as=array key={{var::variableName}} []|
+			:}|
+			/ife ((index > len) or ((index == 0) and (len == 0))) {:
 			/setvar key=question {{var::item}}|
 			/:"CMC Logic.GenerateWithPrompt"|
 			/ife ((output != '') and (output != 'None')) {:
 				/re-replace find="/^\"/g" replace="" {{getvar::output}}|
 				/re-replace find="/\"$/g" replace="" {{pipe}}|
-				/addvar key={{var::variableName}} "Q: \"{{getvar::question}}\"{{newline}}A: \"{{pipe}}\""|
+				/let key=tOut {{pipe}}|
+				/len {{var::tempOutputList}}|
+				/var key=tempOutputList index={{pipe}} "Q: \"{{getvar::question}}\"{{newline}}A: \"{{var::tOut}}\""|
 			:}|
 			/flushvar output|
 			/flushvar guidance|
 		:}|
+		/foreach {{var::tempOutputList}} {:
+			/addvar key={{var::variableName}} {{var::item}}|
+		:}|
 		/flushvar {{var::variableName}}Item|
-	:}|
-	/else {:
-		/:"CMC Logic.GenerateWithPrompt"|
-		/setvar key={{var::variableName}} {{getvar::output}}|
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
@@ -597,9 +620,13 @@
 //--------|
 
 //Personality Q&A|
+/len {{getvar::personalityQuestions}}|
+/let key=pQLen {{pipe}}|
+/len {{getvar::personalityQAList}}|
+/let key=pQALen {{pipe}}|
 /var key=do No|
 /var key=variableName "personalityQAList"|
-/ife ({{var::variableName}} == '') {:
+/ife (({{var::variableName}} == '') or (pQLen != pQALen)) {:
     /var key=do Yes|
 :}|
 /elseif (skip == 'Update') {:
@@ -727,22 +754,30 @@
 	:}|
 	//[[Generate with Prompt]]|
 	/ife (inputIsList == 'Yes') {:
+		/let key=tempOutputList []|
 		/foreach {{getvar::personalityQuestions}} {:
-			/setvar key=question {{var::item}}|
-			/:"CMC Logic.GenerateWithPrompt"|
-			/ife ((output != '') and (output != 'None')) {:
-				/re-replace find="/^\"/g" replace="" {{getvar::output}}|
-				/re-replace find="/\"$/g" replace="" {{pipe}}|
-				/addvar key={{var::variableName}} "Q: \"{{getvar::question}}\"{{newline}}A: \"{{pipe}}\""|
+			/getvar key={{var::variableName}}|
+			/len {{pipe}}|
+			/let key=len {{pipe}}|
+			/ife (len == 0) {:
+				/setvar as=array key={{var::variableName}} []|
+			:}|
+			
+			/ife ((index > len) or ((index == 0) and (len == 0))) {:
+				/setvar key=question {{var::item}}|
+				/:"CMC Logic.GenerateWithPrompt"|
+				/ife ((output != '') and (output != 'None')) {:
+					/re-replace find="/^\"/g" replace="" {{getvar::output}}|
+					/re-replace find="/\"$/g" replace="" {{pipe}}|
+					/let key=tOut {{pipe}}|
+					/len {{var::tempOutputList}}|
+					/var key=tempOutputList index={{pipe}} "Q: \"{{getvar::question}}\"{{newline}}A: \"{{var::tOut}}\""|
+				:}|
 			:}|
 			/flushvar output|
 			/flushvar guidance|
 		:}|
 		/flushvar {{var::variableName}}Item|
-	:}|
-	/else {:
-		/:"CMC Logic.GenerateWithPrompt"|
-		/setvar key={{var::variableName}} {{getvar::output}}|
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
@@ -765,9 +800,14 @@
 /addvar key=dataBaseNames personalityQA|
 
 //Sexuality QA|
+/len {{getvar::sexualityQuestions}}|
+/let key=seQLen {{pipe}}|
+/len {{getvar::sexualityQAList}}|
+/let key=seQALen {{pipe}}|
+
 /var key=do No|
 /var key=variableName "sexualityQAList"|
-/ife ({{var::variableName}} == '') {:
+/ife (({{var::variableName}} == '') or (seQLen != seQALen)) {:
     /var key=do Yes|
 :}|
 /elseif (skip == 'Update') {:
@@ -908,23 +948,35 @@
 	:}|
 	//[[Generate with Prompt]]|
 	/ife (inputIsList == 'Yes') {:
+		/let key=tempOutputList []|
 		/foreach {{getvar::sexualityQuestions}} {:
-			/setvar key=question {{var::item}}|
-			/setvar key=genSettings index=buttonPrompt "<div>Is this a good Answer by {{getvar::firstName}} for the question:</div><div>{{getvar::question}}</div>"|
-			/:"CMC Logic.GenerateWithPrompt"|
-			/ife ((output != '') and (output != 'None')) {:
-				/re-replace find="/^\"/g" replace="" {{getvar::output}}|
-				/re-replace find="/\"$/g" replace="" {{pipe}}|
-				/addvar key={{var::variableName}} "Q: \"{{getvar::question}}\"{{newline}}A: \"{{pipe}}\""|
+			/getvar key={{var::variableName}}|
+			/len {{pipe}}|
+			/let key=len {{pipe}}|
+			/ife (len == 0) {:
+				/setvar as=array key={{var::variableName}} []|
+			:}|
+			
+			/ife ((index > len) or ((index == 0) and (len == 0))) {:
+				/setvar key=question {{var::item}}|
+				/setvar key=genSettings index=buttonPrompt "<div>Is this a good Answer by {{getvar::firstName}} for the question:</div><div>{{getvar::question}}</div>"|
+				/:"CMC Logic.GenerateWithPrompt"|
+				/ife ((output != '') and (output != 'None')) {:
+					/re-replace find="/^\"/g" replace="" {{getvar::output}}|
+					/re-replace find="/\"$/g" replace="" {{pipe}}|
+					/let key=tOut {{pipe}}|
+					/len {{var::tempOutputList}}|
+					/var key=tempOutputList index={{pipe}} "Q: \"{{getvar::question}}\"{{newline}}A: \"{{var::tOut}}\""|
+				:}|
+			:}|
+			
+			/foreach {{var::tempOutputList}} {:
+				/addvar key={{var::variableName}} {{var::item}}|
 			:}|
 			/flushvar output|
 			/flushvar guidance|
 		:}|
 		/flushvar {{var::variableName}}Item|
-	:}|
-	/else {:
-		/:"CMC Logic.GenerateWithPrompt"|
-		/setvar key={{var::variableName}} {{getvar::output}}|
 	:}|
 	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
@@ -1190,9 +1242,9 @@
 	
 :}|
 /else {:
-	/setvar key=storyPlanMilestones Nope|
+	/setvar key=storyPlanMilestones None|
 	/addvar key=dataBaseNames storyPlanMilestones|
-	/setvar key=storyPlanDetails Nope|
+	/setvar key=storyPlanDetails None|
 	/addvar key=dataBaseNames storyPlanDetails|
 :}|
 
@@ -1215,7 +1267,7 @@
 	:}|
 :}|
 /else {:
-	/setvar key=parsedStoryPlan Nope|
+	/setvar key=parsedStoryPlan None|
 	/addvar key=dataBaseNames parsedStoryPlan|
 :}|
 /addvar key=dataBaseNames parsedStoryPlan|
@@ -1527,7 +1579,7 @@
 
 /var key=do No|
 /var key=variableName "writingInstruct"|
-/ife (({{var::variableName}} == '') and ({{var::variableName}} is list)) {:
+/ife (({{var::variableName}} == '') or ({{var::variableName}} is list)) {:
     /var key=do Yes|
 :}|
 /elseif (skip == 'Update') {:
@@ -1624,7 +1676,19 @@
 //--------|
 
 
-
+/setvar key=parsedWritingInstruct {{noop}}|
+/ife ((writingInstruct != '') and (writingInstruct is list)) {:
+	/foreach {{getvar::writingInstruct}} {:
+		/ife (index > 0) {:
+			/addvar key=parsedWritingInstruct {{newline}}|
+		:}|
+		/addvar key=parsedWritingInstruct "- {{var::item}}"|
+	:}|
+:}|
+/else {:
+	/setvar key=parsedWritingInstruct None|
+	/addvar key=dataBaseNames parsedWritingInstruct|
+:}|
 
 
 /:"CMC Logic.JEDParse"|

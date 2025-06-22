@@ -65,10 +65,19 @@
 	/ife (inputIsList == 'Yes') {:
 		/let key=tempOutputList []|
 		/foreach {{getvar::CHANGE_REMOVE_THIS}} {:
-			/setvar key={{var::variableName}}Item {{var::item}}|
-			/:"CMC Logic.GenerateWithPrompt"|
-			/len {{var::tempOutputList}}|
-			/var key=tempOutputList index={{pipe}} {{getvar::output}}|
+			/getvar key={{var::variableName}}|
+			/len {{pipe}}|
+			/let key=len {{pipe}}|
+			/ife (len == 0) {:
+				/setvar as=array key={{var::variableName}} []|
+			:}|
+			
+			/ife ((index > len) or ((index == 0) and (len == 0))) {:
+				/setvar key={{var::variableName}}Item {{var::item}}|
+				/:"CMC Logic.GenerateWithPrompt"|
+				/len {{var::tempOutputList}}|
+				/var key=tempOutputList index={{pipe}} {{getvar::output}}|
+			:}|
 			/flushvar output|
 			/flushvar guidance|
 		:}|

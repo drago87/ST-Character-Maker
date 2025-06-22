@@ -546,11 +546,16 @@
 :}|
 /ife ((user != '') and (user == 'Yes')) {:
 	/messages names=off 0|
-	/re-replace find="/--User1--,\s/g" replace="--User--, " {{pipe}}|
+	/re-replace find="/--User1--/g" replace="--User--, " {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /elseif ((user != '') and (user != 'Yes')) {:
 	/messages names=off 0|
 	/re-replace find="/--User1--,\s/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife ((parsedWritingInstruct != '') and (parsedWritingInstruct != 'Nope')) {:
+	/messages names=off 0|
+	/re-replace find="/--WritingInstuctions--/g" replace="{{getvar::parsedWritingInstruct}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|

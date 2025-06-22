@@ -121,7 +121,7 @@ Generation can only use information from things above it
 87. **Kinks** 
 88. **Sexual Notes** 
     
-    Ending Stuff (Not Done)
+    Ending Stuff (Done)
 
 89. **Behavior Notes** (Done)
 90. **Speech Examples** (Done)
@@ -239,3 +239,4 @@ Elderly (advanced aging, increased frailty, sexuality: limited activity, identit
 
 Time Period ( or a user input)
 Prehistoric, Babylon, Ancient Egypt, Ancient Rome, Early Middle Ages, High Middle Ages, Late Middle Ages, Renaissance, Age of Discovery, Baroque period, Enlightenment, Victorian era, Edwardian era, Belle Époque, The Roaring Twenties, Interwar period, Post-WWII era, Cold War era, 1960s, 1970s, 1980s, 1990s, 2000s, Modern Day, Steampunk, Cyberpunk, Space Age, Post-Apocalyptic, Dystopian, Lovecraftian, Eldritch
+
