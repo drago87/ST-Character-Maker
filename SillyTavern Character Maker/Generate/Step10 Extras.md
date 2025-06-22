@@ -391,6 +391,7 @@
 		:}|
 		/flushvar speechPromptClaim|
 	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
 	/flushvar output|
 	/flushvar guidance|
 	/flushvar genOrder|
