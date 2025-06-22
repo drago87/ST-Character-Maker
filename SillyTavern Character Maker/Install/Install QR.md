@@ -243,6 +243,12 @@
 	//|-----|
 :}|
 
+/ife ( 'Step11 First Message' not in qrListContent) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step11%20First%20Message.md|
+	/qr-create set="CMC Generate" label="Step11 First Message" {{pipe}}|
+	//|-----|
+:}|
+
 
 
 /qr-set-list global|
