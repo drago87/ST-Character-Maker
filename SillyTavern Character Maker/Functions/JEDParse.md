@@ -421,7 +421,7 @@
 	/re-replace find="/--BehaviorNotes--/g" replace="{{newline}}{{newline}}- - -
 
 ## [BEHAVIOR_NOTES]
-[IMPORTANT NOTE FOR AI: This section governs how --FirstName-- behaves moment to moment. In all interactions—especially intimate or emotionally charged scenes—adhere closely to the personality, social behavior, sexual role, and emotional boundaries established in this profile. Do not deviate from {{char}}’s defined orientation, role, or behavioral patterns unless a clear, in-character transformation is justified.]{{newline}}{{newline}}{{getvar::parsedBehaviorNotes}}" {{pipe}}|
+[IMPORTANT NOTE FOR AI: This section governs how --FirstName-- behaves moment to moment. In all interactions—especially intimate or emotionally charged scenes—adhere closely to the personality, social behavior, sexual role, and emotional boundaries established in this profile. **Do not** deviate from {{char}}’s defined orientation, role, or behavioral patterns unless a clear, in-character transformation is justified.]{{newline}}{{newline}}{{getvar::parsedBehaviorNotes}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /elseif (parsedBehaviorNotes == 'None') {:

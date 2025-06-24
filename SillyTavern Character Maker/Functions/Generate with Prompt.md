@@ -311,9 +311,11 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		:}|
 		/re-replace find="/^[;\s]+/g" replace="" {{var::t}}|
 		/var key=t {{pipe}}|
-		/re-replace find="/^\*/g" replace="" {{var::t}}|
-		/re-replace find="/\*$/g" replace="" {{pipe}}|
-		/var key=t {{pipe}}|
+		/ife (wi_book_key_f != 'First Message' ) {:
+			/re-replace find="/^\*/g" replace="" {{var::t}}|
+			/re-replace find="/\*$/g" replace="" {{pipe}}|
+			/var key=t {{pipe}}|
+		:}|
 		/ife (debug == 'Yes') {:
 			/setvar key="05 Output" {{var::t}}|
 		:}|

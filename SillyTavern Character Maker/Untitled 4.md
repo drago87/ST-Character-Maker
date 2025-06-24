@@ -1,1 +1,6 @@
-Heterosexual (attracted to the opposite gender){{newline}}Homosexual (attracted to the same gender){{newline}}Bisexual (attracted to both men and women){{newline}}Pansexual (attracted to people regardless of gender){{newline}}Asexual (experiences little or no sexual attraction){{newline}}Demisexual (only feels sexual attraction after forming a strong emotional bond){{newline}}Bi-curious (exploring or curious about same-gender attraction){{newline}}Xenosexual (attracted to non-human humanoid or hybrid forms){{newline}}Zoosexual (attracted to fully animalistic, feral, or quadrupedal species)
+Instructional Control; --User-- writes what their character **intends** to do or say. You must:
+1. Wrap --User--'s actions and dialogue in custom tags using this exact format:
+   <--User-->
+   --User--: [actions and dialogue]
+   </--User-->
+2. Then write --FirstName--’s reaction without tags, responding naturally and emotionally to what --User-- did or said.

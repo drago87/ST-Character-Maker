@@ -1678,17 +1678,29 @@
 
 
 /setvar key=parsedWritingInstruct {{noop}}|
+/setvar key=parsedWritingInstructFirstMessage {{noop}}|
 /ife ((writingInstruct != '') and (writingInstruct is list)) {:
 	/foreach {{getvar::writingInstruct}} {:
 		/ife (index > 0) {:
 			/addvar key=parsedWritingInstruct {{newline}}|
+			/ife ('--User--' not in item) {:
+				/addvar key=parsedWritingInstructFirstMessage {{newline}}|
+			:}|
 		:}|
 		/addvar key=parsedWritingInstruct "- {{var::item}}"|
+		/ife ('--User--' not in item) {:
+			/addvar key=parsedWritingInstructFirstMessage "- {{var::item}}"|
+		:}|
 	:}|
+	/addvar key=dataBaseNames parsedWritingInstruct|
+	/addvar key=dataBaseNames parsedWritingInstructFirstMessage|
 :}|
 /else {:
 	/setvar key=parsedWritingInstruct None|
 	/addvar key=dataBaseNames parsedWritingInstruct|
+	/setvar key=parsedWritingInstructFirstMessage None|
+	/addvar key=dataBaseNames parsedWritingInstructFirstMessage|
+	
 :}|
 
 

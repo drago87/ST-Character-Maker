@@ -25,13 +25,23 @@
 /re-replace find="/\n/g" replace="\r\n" {{getvar::firstMessage}}|
 /re-replace find="/\"/g" replace="\\\"" {{pipe}}|
 /let key=firstMessageFixed {{pipe}}|
+/let key=postHist "{\{original}}
+## **RESPONSE RULES:**
+You MUST follow the writing instructions below with **exact formatting**:
+{{getvar::parsedWritingInstruct}}
+
+Each rule is **mandatory** — do not simplify, guess, or loosely interpret. Match the exact phrasing, punctuation, and tone shown in every line. If a style element is ambiguous, assume it must be followed literally."|
+/re-replace find="/\n/g" replace="\r\n" {{var::postHist}}|
+/re-replace find="/\"/g" replace="\\\"" {{pipe}}|
+/re-replace find="--FirstName--/g" replace="{/{char}}" {{pipe}}|
+/var key=postHist {{pipe}}|
 /findentry field=comment file="CMC Templates" "Character Card Template"|
 /getentryfield field=content file="CMC Templates" {{pipe}}|
 /re-replace find="/--CharName--/g" replace="{{getvar::firstName}}" {{pipe}}|
 /re-replace find="/--Summary--/g" replace="" {{pipe}}|
 /re-replace find="/--Scenario--/g" replace="" {{pipe}}|
 /re-replace find="/--Example_Dial--/g" replace="" {{pipe}}|
-/re-replace find="/--Main_Prompt--/g" replace="" {{pipe}}|
+/re-replace find="/--Main_Prompt--/g" replace="{{var::postHist}}" {{pipe}}|
 /re-replace find="/--Post_Hist--/g" replace="" {{pipe}}|
 /re-replace find="/--Alt_Greet1--/g" replace="" {{pipe}}|
 /re-replace find="/--Char_Notes--/g" replace="" {{pipe}}|

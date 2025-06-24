@@ -73,7 +73,7 @@
 	/sendas name={{char}} {{getvar::firstMessage}}
 :}|
 /else {:
-	/message-edit message=0 await=true {{getvar::firstMessage}}|
+	/message-edit message=1 await=true {{getvar::firstMessage}}|
 :}|
 
 /:"CMC Logic.Save DataBase"|

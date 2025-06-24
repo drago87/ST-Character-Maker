@@ -92,7 +92,7 @@
 /else {:
 	/flushvar 06 Selector|
 :}|
-/let key=exemptRules ["Text Style Rules", "Graphical Detail Rules"]|
+/let key=exemptRules ["Text Style Rules", "Graphical Detail Rules", "Response Length"]|
 /ife (wi_book_key_f in exemptRules) {:
 	/split find="{{newline}}" {{var::genState}}|
 	/var as=array key=genState {{pipe}}|

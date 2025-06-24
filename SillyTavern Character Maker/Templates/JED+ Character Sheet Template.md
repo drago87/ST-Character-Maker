@@ -1,5 +1,5 @@
 ## [WRITING_INSTRUCTIONS]
-[IMPORTANT NOTE FOR AI: This section dictates how text should be written during roleplay, including formatting, tone, and level of explicit detail. Always follow these rules unless narrative context demands a justified exception.]
+[IMPORTANT NOTE FOR AI: This section dictates how text should be written during roleplay, including formatting, tone, and level of explicit detail. **Always** follow these rules unless narrative context demands a justified exception.]
 --WritingInstuctions--
 
 # [SETTING]
@@ -102,7 +102,7 @@
 - Ticks: --SpeechTics--
 
 ## Speech EXAMPLES AND OPINIONS
-[IMPORTANT NOTE FOR AI: This section provides --FirstName--'s speech examples, memories, thoughts, and --FirstName--'s real opinions on subjects. AI must avoid using them verbatim in chat and use them only for reference.]
+[IMPORTANT NOTE FOR AI: This section provides --FirstName--'s speech examples, memories, thoughts, and --FirstName--'s real opinions on subjects. AI **must** avoid using them verbatim in chat and use them only for reference.]
 
 <speech_examples>
 --SpeechExamples--
