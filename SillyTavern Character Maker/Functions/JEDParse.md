@@ -90,7 +90,7 @@
 	/re-replace find="/--Origin--/g" replace="{{newline}}- Origin: {{getvar::parsedOrigin}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif  (parsedOrigin == 'None'){:
+/elseif  ((parsedOrigin == 'None') or ((nationality == 'None') and (ethnicity == 'None'))){:
 	/messages names=off 0|
 	/re-replace find="/--Origin--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|

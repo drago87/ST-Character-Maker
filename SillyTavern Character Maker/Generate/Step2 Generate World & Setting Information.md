@@ -97,63 +97,7 @@
 :}|
 //-----------|
 
-//World Type|
-/var key=do No|
-/var key=variableName "worldType"|
-/ife ({{var::variableName}} == '') {:
-    /var key=do Yes|
-:}|
-/elseif (skip == 'Update') {:
-    /getvar key={{var::variableName}}|
-    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
-    /var key=do {{pipe}}|
-    /ife (do == '') {:
-        /echo Aborting |
-        /abort
-    :}|
-:}|
-/ife ( do == 'Yes' ) {:
-	/setvar key=genSettings {}|
-	/setvar key=genSettings index=wi_book_key "World Type"|
-	/setvar key=genSettings index=genIsList Yes|
-	/setvar key=genSettings index=inputIsTaskList No|
-	/setvar key=genSettings index=outputIsList No|
-	/setvar key=genSettings index=genIsSentence No|
-	/setvar key=genSettings index=needOutput Yes|
-	/setvar key=genSettings index=useContext No|
-	/setvar key=genSettings index=contextKey {{noop}}|
-	
-	
-	/getvar key=genSettings index=inputIsList|
-	/let key=inputIsList {{pipe}}|
-	/getvar key=genSettings index=combineLorebookEntries|
-	/let key=combineLorebookEntries {{pipe}}|
-	
-	
-	/ife (outputIsList == 'Yes') {:
-		/setvar as=array key={{var::variableName}} []|
-	:}|
-	/else {:
-		/setvar as=string key={{var::variableName}} {{noop}}|
-	:}|
-	//[[Generate with Prompt]]|
-	/:"CMC Logic.GenerateWithPrompt"|
-	/ife (output != '') {:
-		/setvar key={{var::variableName}} {{getvar::output}}|
-	:}|
-	/addvar key=dataBaseNames {{var::variableName}}|
-	/flushvar output|
-	/flushvar guidance|
-	/flushvar genOrder|
-	/flushvar genContent|
-	/flushvar genSettings|
-:}|
-/else {:
-	/addvar key=dataBaseNames {{var::variableName}}|
-:}|
-//-----------|
-
-//|
+//World Tone|
 /var key=do No|
 /var key=variableName "worldTone"|
 /ife ({{var::variableName}} == '') {:
@@ -218,6 +162,62 @@
 	/flushvar genContent|
 	/flushvar it|
 	/flushvar genSettings|
+:}|
+//-----------|
+
+//World Type|
+/var key=do No|
+/var key=variableName "worldType"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
+	/setvar key=genSettings index=wi_book_key "World Type"|
+	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=inputIsTaskList No|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=useContext No|
+	/setvar key=genSettings index=contextKey {{noop}}|
+	
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=combineLorebookEntries|
+	/let key=combineLorebookEntries {{pipe}}|
+	
+	
+	/ife (outputIsList == 'Yes') {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+	//[[Generate with Prompt]]|
+	/:"CMC Logic.GenerateWithPrompt"|
+	/ife (output != '') {:
+		/setvar key={{var::variableName}} {{getvar::output}}|
+	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar guidance|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
 :}|
 //-----------|
 
@@ -301,11 +301,15 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/addvar key=extra "- World Tone: {{getvar::worldTone}}"|
+	/addvar key=extra "- World Type: {{getvar::worldType}}"|
+	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
 	/ife (user == 'No') {:
-		/setvar key=extra []|
 		/addvar key=extra "--User-- is a Narrator"|
-		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	:}|
+	
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/ife (extra != '') {:
 		/setvar key=genSettings index=contextKey {{getvar::extra}}|
@@ -319,18 +323,42 @@
 	/let key=outputIsList {{pipe}}|
 	
 	/buttons labels=["Male", "Female", "Gender Neutral", "Anything"] What gender should the generation assume --User-- is?|
-	/setvar key=guidance {{pipe}}|
-	/ife ( guidance == ''){:
+	/setvar key=userGender {{pipe}}|
+	/ife ( userGender == ''){:
 		/echo Aborting |
 		/abort
 	:}|
-	/elseif (( guidance == 'Male') or ( guidance == 'Female')) {:
-		/setvar key=guidance "The response should be guided toward: --User-- is a {{getvar::guidance}}"|
+	/elseif (( userGender == 'Male') or ( userGender == 'Female')) {:
+		/ife (userGender = 'Female') {:
+			/setvar key=userSubjPronoun she|
+			/setvar key=userObjPronoun her|
+			/setvar key=userPossAdjPronoun her|
+			/setvar key=userPossPronoun hers|
+			/setvar key=userReflexivePronoun herself|
+		:}|
+		/elseif (userGender = 'Male') {:
+			/setvar key=userSubjPronoun he|
+			/setvar key=userObjPronoun him|
+			/setvar key=userPossAdjPronoun his|
+			/setvar key=userPossPronoun his|
+			/setvar key=userReflexivePronoun himself|
+		:}|
+		/setvar key=guidance "The response should be guided toward: --User-- is a {{getvar::userGender}}"|
 	:}|
-	/elseif ( guidance == 'Gender Neutral') {:
+	/elseif ( userGender == 'Gender Neutral') {:
+		/setvar key=userSubjPronoun they|
+		/setvar key=userObjPronoun them|
+		/setvar key=userPossAdjPronoun their|
+		/setvar key=userPossPronoun theirs|
+		/setvar key=userReflexivePronoun themself|
 		/setvar key=guidance "The response should be guided toward: --User-- is gender neutral and should be described using neutral language and tone, avoiding gendered assumptions."
 	:}|
-	/elseif ( guidance == 'Anything') {:
+	/elseif ( userGender == 'Anything') {:
+		/setvar key=userSubjPronoun they|
+		/setvar key=userObjPronoun them|
+		/setvar key=userPossAdjPronoun their|
+		/setvar key=userPossPronoun theirs|
+		/setvar key=userReflexivePronoun themself|
 		/flushvar guidance|
 	:}|
 	

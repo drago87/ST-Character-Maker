@@ -190,18 +190,18 @@ INSTRUCTION: Only respond in the given format.|
 		/setvar key=speciesGroup {{getvar::animalBase}}|
 	:}|
 	/else {:
-		/let key=find {{getvar::speciesGroup}}: List|
+		/let key=find {{getvar::animalBase}}: List|
 		/findentry field=comment file="CMC Variables" {{var::find}}|
 		/getentryfield field=content file="CMC Variables" {{pipe}}|
 		/split find="/\n/" {{pipe}} |
 		/setvar key=speciesGroup {{pipe}}|
 		/buttons labels={{getvar::speciesGroup}} Select the Species Group you want to use for later when generating the Species.|
 		/setvar key=speciesGroup {{pipe}}|
-		/ife ( temp == '') {:
+		/ife ( speciesGroup == '') {:
 			/echo Aborting|
 			/abort
 		:}|
-		/re-replace find="/\(.*$/g" replace="" {{getvar::temp}}|
+		/re-replace find="/\(.*$/g" replace="" {{getvar::speciesGroup}}|
 		/setvar key=speciesGroup {{pipe}}|
 	:}|
 :}|

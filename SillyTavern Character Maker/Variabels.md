@@ -8,7 +8,7 @@ parsedAnimalType
 privatesFemale
 privatesMale
 chatGroup - will probably never use
-user - will probably never use 
+user - Yes or No. Yes the user is a character. No the user is a Narrator
 
 species
 nationality
@@ -27,6 +27,7 @@ seasons - Can be None
 settingType
 worldType - Can be None
 worldDetails
+userRole
 residence
 occupationBase
 occupationDuties
@@ -69,7 +70,8 @@ outfitUnderwearBottomDescription
 personalityArchetype
 personalityArchetypeDetails
 personalityArchetypeReasoning
-parsedArchetype - The way Archetype, ArchetypeDetails, ArchetypeReasoning will be displayed in the Character Sheet
+personalityArchetypeMainPersonality
+parsedArchetype - The way Archetype, ArchetypeDetails, ArchetypeReasoning and MainPersonality will be displayed in the Character Sheet
 personalityAlignment - Can be None
 personalityAlignmentDetails - Will be None if personalityAlignment = None
 personalityAlignmentIdeals - Will be None if personalityAlignment = None
@@ -113,6 +115,24 @@ sexualNotes
 parsedSexualKinks
 parsedSexualAbilities
 parsedSexualItems
+
+behaviorNotes
+parsedBehaviorNotes
+speechExampleList
+speechExampleString
+appearanceQAList
+appearanceQA
+personalityQAList
+personalityQA
+sexualityQAList
+sexualityQA
+previously
+storyPlanMilestones
+parsedStoryPlan
+notes
+synonyms
+writingInstruct
+parsedWritingInstruct
 
 Base Context
 ExtraInput

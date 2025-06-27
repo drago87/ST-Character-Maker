@@ -9,7 +9,7 @@
 		:}|
 	:}|
 :}|
-/ife ( lastName == '' ) {:
+/ife (( lastName == '' ) or ( lastName == 'None' )) {:
 	/setvar key=lastName {{noop}}|
 	/setvar key=parsedName {{getvar::firstName}}|
 :}|
