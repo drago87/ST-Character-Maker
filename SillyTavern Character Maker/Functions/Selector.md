@@ -93,8 +93,12 @@
 	/flushvar 06 Selector|
 :}|
 /let key=exemptRules ["Text Style Rules", "Graphical Detail Rules", "Response Length"]|
-/ife (wi_book_key_f in exemptRules) {:
+/ife ((wi_book_key_f in exemptRules) or ('Sexual Orientation' in wi_book_key_f)) {:
 	/split find="{{newline}}" {{var::genState}}|
+	/var as=array key=genState {{pipe}}|
+:}|
+/elseif (wi_book_key_f == 'Sentient Level') {:
+	/split find="---" {{var::genState}}|
 	/var as=array key=genState {{pipe}}|
 :}|
 /elseif (wi_book_key_f in exRules) {:

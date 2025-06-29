@@ -72,7 +72,7 @@
 
 --PersonalityTags--
 
---IntelligenceLevel----CognitiveAbilities--
+--IntelligenceLevel----CognitiveAbilities----SentientLevel--
 --SocialBehavior----SocialSkills--
 
 --MainAspiration--

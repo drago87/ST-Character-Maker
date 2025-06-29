@@ -431,8 +431,8 @@
 		/setvar key=genSettings index=wi_book_key "Ability Details"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsList Yes|
-		/setvar key=genSettings index=genIsSentence yes|
-		/setvar key=genSettings index=needOutput yes|
+		/setvar key=genSettings index=genIsSentence Yes|
+		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=outputIsList No|
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=extra []|
@@ -688,8 +688,8 @@
 		/setvar key=genSettings index=wi_book_key "Item or Equipment Description"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsList Yes|
-		/setvar key=genSettings index=genIsSentence yes|
-		/setvar key=genSettings index=needOutput yes|
+		/setvar key=genSettings index=genIsSentence Yes|
+		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=outputIsList No|
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=extra []|

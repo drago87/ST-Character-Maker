@@ -66,19 +66,16 @@
 /ife ( ethnicity == 'None' ) {:
 	/setvar key=ethnicity {{noop}}|
 :}|
-/ife ( parsedOrigin == 'None' ) {:
-	/setvar key=parsedOrigin {{noop}}|
-:}|
 
 
-/ife (gender = 'Female') {:
+/ife (gender == 'Female') {:
 	/setvar key=subjPronoun she|
 	/setvar key=objPronoun her|
 	/setvar key=possAdjPronoun her|
 	/setvar key=possPronoun hers|
 	/setvar key=reflexivePronoun herself|
 :}|
-/elseif (gender = 'Male') {:
+/elseif (gender == 'Male') {:
 	/setvar key=subjPronoun he|
 	/setvar key=objPronoun him|
 	/setvar key=possAdjPronoun his|

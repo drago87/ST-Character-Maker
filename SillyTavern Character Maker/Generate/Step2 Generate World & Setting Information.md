@@ -343,7 +343,7 @@
 			/setvar key=userPossPronoun his|
 			/setvar key=userReflexivePronoun himself|
 		:}|
-		/setvar key=guidance "The response should be guided toward: --User-- is a {{getvar::userGender}}"|
+		/setvar key=userIdentityDescriptor "--User-- is a {{getvar::userGender}}"|
 	:}|
 	/elseif ( userGender == 'Gender Neutral') {:
 		/setvar key=userSubjPronoun they|
@@ -351,7 +351,7 @@
 		/setvar key=userPossAdjPronoun their|
 		/setvar key=userPossPronoun theirs|
 		/setvar key=userReflexivePronoun themself|
-		/setvar key=guidance "The response should be guided toward: --User-- is gender neutral and should be described using neutral language and tone, avoiding gendered assumptions."
+		/setvar key=userIdentityDescriptor "--User-- is gender neutral and should be described using neutral language and tone, avoiding gendered assumptions."
 	:}|
 	/elseif ( userGender == 'Anything') {:
 		/setvar key=userSubjPronoun they|
@@ -359,7 +359,7 @@
 		/setvar key=userPossAdjPronoun their|
 		/setvar key=userPossPronoun theirs|
 		/setvar key=userReflexivePronoun themself|
-		/flushvar guidance|
+		/setvar key=userIdentityDescriptor "--User--’s gender is unspecified and should be described using flexible or inclusive language, avoiding gendered pronouns or assumptions."|
 	:}|
 	
 	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
@@ -484,8 +484,12 @@
 	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
 	/addvar key=extra "- Residence: {{getvar::residence}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
+	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
+	:}|
 	/flushvar extra|
-	/setvar key=genSettings index=contextKey []|
 	/wait {{getvar::wait}}|
 	
 	/getvar key=genSettings index=inputIsList|
@@ -916,7 +920,7 @@
 		/abort
 	:}|
 	/ife (choice == 'User Input') {:
-		/input default="Example: user is a neighbor of {{getvar::firstName}} and is often hired by {{getvar::firstName}}'s parents to babysit {{getvar::firstName}}, which has led to [...]" <div>What is this scenario about?</div><div>What is the main idea?</div>|
+		/input default="Example: --User-- is a neighbor of {{getvar::firstName}} and is often hired by {{getvar::firstName}}'s parents to babysit {{getvar::firstName}}, which has led to [...]" <div>What is this scenario about?</div><div>What is the main idea?</div>|
 		/setvar key=scenarioIde {{pipe}}|
 		/setvar key=genSettings index=wi_book_key "Scenario User"|
 	:}|

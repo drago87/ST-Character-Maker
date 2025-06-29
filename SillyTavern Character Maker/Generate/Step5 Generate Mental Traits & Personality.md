@@ -28,6 +28,87 @@
 /let key=variableName {{noop}}|
 /let selected_btn {{noop}}|
 
+//Sentient Level|
+/ife ((characterArchetype == 'Animalistic') or (characterArchetype == 'Pokémon')) {:
+	/var key=do No|
+	/var key=variableName "sentientLevel"|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
+	:}|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
+		/setvar key=genSettings index=wi_book_key "Sentient Level"|
+		/setvar key=genSettings index=combineLorebookEntries No|
+		/setvar key=genSettings index=genIsSentence No|
+		/setvar key=genSettings index=inputIsList No|
+		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=outputIsList No|
+		/setvar key=genSettings index=needOutput No|
+		/setvar key=genSettings index=useContext No|
+		/wait {{getvar::wait}}|
+		
+		
+		/getvar key=genSettings index=wi_book_key|
+		/let key=wi_book_key {{pipe}}|
+		/getvar key=genSettings index=inputIsList|
+		/let key=inputIsList {{pipe}}|
+		/getvar key=genSettings index=combineLorebookEntries|
+		/let key=combineLorebookEntries {{pipe}}|
+		
+		
+		
+		/getvar key=genSettings index=wi_book_key|
+		/setvar key=it {{pipe}}|
+		/setvar key=genSettings index=buttonPrompt "Select how much {{getvar::firstName}} thinks and behaves like an animal versus a person."|
+		/:"CMC Logic.GenerateWithSelector"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+			
+		
+		/addvar key=dataBaseNames {{var::variableName}}|
+		/flushvar output|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar it|
+		/flushvar genSettings|
+	:}|
+	/else {:
+		/addvar key=dataBaseNames {{var::variableName}}|
+	:}|
+:}|
+/else {:
+	/setvar key=sentientLevel None|
+	/addvar key=dataBaseNames sentientLevel|
+:}|
+
+/ife (sentientLevel != 'None') {:
+	/setvar key=parsedSentientLevel {{noop}}|
+	/split find="{{newline}}" {{getvar::sentientLevel}}|
+	/let key=temp {{pipe}}||
+	/foreach {{var::temp}} {:
+		/ife (index == 0) {:
+			/addvar key=parsedSentientLevel "- Animalistic Level: {{var::item}}{{newline}}  - Description:"|
+		:}|
+		/ife (index >= 1) {:
+			/addvar key=parsedSentientLevel "{{newline}}    {{var::item}}"|
+		:}|
+	:}|
+	/addvar key=dataBaseNames parsedSentientLevel|
+:}|
+/else {:
+	/setvar key=parsedSentientLevel None|
+	/addvar key=dataBaseNames parsedSentientLevel|
+:}|
+//-----|
+
 //Archetype|
 /var key=do No|
 /var key=variableName "personalityArchetype"|

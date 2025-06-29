@@ -1809,6 +1809,8 @@
 	/addvar key=dataBaseNames parsedMakeup|
 	/setvar key=outfitNeckDescription None|
 	/addvar key=dataBaseNames outfitNeckDescription|
+	/setvar key=outfitMainwearDescription Skip|
+	/addvar key=dataBaseNames outfitTopDescription|
 	/setvar key=outfitTopDescription Skip|
 	/addvar key=dataBaseNames outfitTopDescription|
 	/setvar key=outfitBottomDescription Skip|

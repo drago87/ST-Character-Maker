@@ -405,7 +405,7 @@
 		/genraw "{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/setvar key=parsedOrigin {{pipe}}|
 	:}|
-	/ife ((( nationality != '') and ( nationality != 'None')) and (( ethnicity == '') or ( ethnicity == 'None'))) {:
+	/elseif ((( nationality != '') and ( nationality != 'None')) and (( ethnicity == '') or ( ethnicity == 'None'))) {:
 		/let key=find Origin2: Task|
 		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
 		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
@@ -417,7 +417,7 @@
 		/genraw "{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/setvar key=parsedOrigin {{pipe}}|
 	:}|
-	/ife ((( ethnicity != '') and ( ethnicity != 'None')) and (( nationality == '') or ( nationality == 'None'))) {:
+	/elseif ((( ethnicity != '') and ( ethnicity != 'None')) and (( nationality == '') or ( nationality == 'None'))) {:
 		/let key=find Origin3: Task|
 		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
 		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
@@ -428,7 +428,10 @@
 		/let key=instruct|
 		/genraw "{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/setvar key=parsedOrigin {{pipe}}|
-	:}||
+	:}|
+	/else {:
+		/setvar key=parsedOrigin None|
+	:}|
 	/addvar key=dataBaseNames parsedOrigin|
 
 :}|

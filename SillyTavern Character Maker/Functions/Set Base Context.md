@@ -5,7 +5,7 @@
 /ife (realParcedContext != '') {:
 	/addvar key=baseContext "{{newline}}{{getvar::realParcedContext}}"|
 :}|
-/ife (parsedOrigin != '') {:
+/ife ((parsedOrigin != '') and (parsedOrigin != 'None')) {:
 	/addvar key=baseContext "{{newline}}- Origin: {{getvar::parsedOrigin}}"
 :}|
 /ife (lifeStage != '') {:

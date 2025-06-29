@@ -45,11 +45,26 @@
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
-	/ife ((characterArchetype == 'Human') or (characterArchetype == 'Android') or (characterArchetype == 'Demi-Human') or (characterArchetype == 'Anthropomorphic')) {:
+	/ife ((characterArchetype == 'Human') or (characterArchetype == 'Android') or (characterArchetype == 'Demi-Human') or (characterArchetype == 'Beastkin')) {:
 		/setvar key=genSettings index=wi_book_key "Sexual Orientation Humanoid"|
 	:}|
-	/elseif ((characterArchetype == 'Human') or (characterArchetype == 'Android') or (characterArchetype == 'Demi-Human') or (characterArchetype == 'Anthropomorphic')) {:
-		/setvar key=genSettings index=wi_book_key "Sexual Orientation"|
+	/elseif (characterArchetype == 'Anthropomorphic') {:
+		/setvar key=genSettings index=wi_book_key "Sexual Orientation Anthropomorphic"|
+	:}|
+	/elseif (characterArchetype == 'Tauric') {:
+		/setvar key=genSettings index=wi_book_key "Sexual Orientation Tauric"|
+	:}|
+	/elseif (characterArchetype == 'Animalistic') {:
+		/setvar key=genSettings index=wi_book_key "Sexual Orientation Animalistic"|
+	:}|
+	/elseif (characterArchetype == 'Pokémon') {:
+		/setvar key=genSettings index=wi_book_key "Sexual Orientation Pokémon"|
+	:}|
+	/elseif (characterArchetype == 'Digimon') {:
+		/setvar key=genSettings index=wi_book_key "Sexual Orientation Digimon"|
+	:}|
+	/else {:
+		/setvar key=genSettings index=wi_book_key "Sexual Orientation Humanoid"|
 	:}|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
@@ -914,6 +929,7 @@
 		/let key=tempOutputList []|
 		/foreach {{getvar::sexualKinkTypes}} {:
 			/setvar key=kinkType {{var::item}}|
+			/setvar key=genSettings index=buttonPrompt "Select the kink variant for '{{var::item}}' you want {{getvar::firstName}} to have. 'Optional'"|
 			/:"CMC Logic.GenerateWithPrompt"|
 			/len {{var::tempOutputList}}|
 			/var key=tempOutputList index={{pipe}} {{getvar::output}}|
@@ -1202,10 +1218,12 @@
 			/ife (kinkVariant == 'None') {:
 				/setvar key=kinkVariantTask {{noop}}|
 				/setvar key=kinkVariantInstr "Describe the general expression of {{getvar::kinkType}} without assuming a specific form or target."|
+				/setvar key=genSettings index=buttonPrompt "Select the description for '{{var::item}}' you want {{getvar::firstName}} to have."|
 			:}|
 			/else {:
 				/setvar key=kinkVariantTask ", specifically the **{{getvar::kinkVariant}}** form"|
 				/setvar key=kinkVariantInstr "Focus the description on how {{getvar::firstName}} experiences the {{getvar::kinkVariant}} form of the kink."|
+				/setvar key=genSettings index=buttonPrompt "Select the description for '{{var::item}}: {{getvar::kinkVariant}}' you want {{getvar::firstName}} to have."|
 			:}|
 			/getvar key=sexualKinkRoles index={{var::index}}|
 			/setvar key=kinkRole {{pipe}}|
@@ -1333,10 +1351,12 @@
 			/ife (kinkVariant == 'None') {:
 				/setvar key=kinkVariantTask {{noop}}|
 				/setvar key=kinkVariantInstr "Describe the general expression of {{getvar::kinkType}} without assuming a specific form or target."|
+				/setvar key=genSettings index=buttonPrompt "Select the effect '{{var::item}}' have on {{getvar::firstName}}."|
 			:}|
 			/else {:
 				/setvar key=kinkVariantTask ", specifically the {{getvar::kinkVariant}} form"|
 				/setvar key=kinkVariantInstr {{noop}}|
+				/setvar key=genSettings index=buttonPrompt "Select the effect '{{var::item}}: {{getvar::kinkVariant}}' have on {{getvar::firstName}}."|
 			:}|
 			/getvar key=sexualKinkRoles index={{var::index}}|
 			/setvar key=kinkRole {{pipe}}|
@@ -1396,7 +1416,7 @@
 	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput No|
 	/setvar key=genSettings index=outputIsList No|
-	/setvar key=genSettings index=useContext No|
+	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
 	/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
 	/addvar key=extra "- Main Personality Trait: {{getvar::personalityMainTrait}}"| 
@@ -1405,8 +1425,12 @@
 	/ife (user == 'Yes') {:
 		/addvar key=extra "- User's Role: {{getvar::userRole}}"|
 	:}|
+	/ife (parsedSentientLevel != 'None') {:
+		/addvar key=extra {{getvar::parsedSentientLevel}}|
+	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
+	/:"CMC Logic.Get Basic Type Context"|
 	/ife (extra != '') {:
 		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	:}|
@@ -1436,75 +1460,53 @@
 			/getvar key=sexualKinkVariants index={{var::index}}|
 			/setvar key=kinkVariant {{pipe}}|
 			/ife (kinkVariant == 'None') {:
-				/setvar key=kinkVariantTask {{noop}}|
-				/setvar key=kinkVariantInstr "Describe the general expression of {{getvar::kinkType}} without assuming a specific form or target."|
-				/setvar key=kinkVariant {{noop}}|
+				/setvar key=kinkDisplay {{getvar::kinkType}}|
+				/setvar key=kinkReference **{{getvar::kinkType}}**|
+				/setvar key=kinkMention **Never mention {{getvar::kinkType}} by name** — use only general terms like “the act,” “intimate encounter,” or “physical closeness” if necessary.|
+				/setvar key=genSettings index=buttonPrompt "Is this the kink condition for {{getvar::kinkDisplay}} you want {{getvar::firstName}}."|
 			:}|
 			/else {:
-				/setvar key=kinkVariantTask ", specifically the **{{getvar::kinkVariant}}** form"|
-				/setvar key=kinkVariant " or **{{getvar::kinkVariant}}**"|
+				/setvar key=kinkDisplay {{getvar::kinkType}}|({{getvar::kinkVariant}})
+				/setvar key=kinkReference **{{getvar::kinkType}}** or **{{getvar::kinkVariant}}**|
+				/setvar key=kinkMention **Never mention {{getvar::kinkType}} or {{getvar::kinkVariant}} by name** — refer only to “the act,” “private exchange,” or similar indirect phrasing.|
+				/setvar key=genSettings index=buttonPrompt "Select the type variant for '{{var::item}}' you want {{getvar::firstName}} to have."|
+			:}|
+			/ife ('Fully Animalistic' in parsedSentientLevel) {:
+				/setvar key=sentienceInstruction {{getvar::firstName}} is **Fully Animalistic** — he does not speak, plan, or reflect on his actions. All behavior must be framed as instinctual, biologically driven, and emotionally reactive.|
+			:}|
+			/elseif ('Semi-Sapient' in parsedSentientLevel) {:
+				/setvar key=sentienceInstruction {{getvar::firstName}} is **Semi-Sapient** — he does not speak, but recognizes routines and emotional patterns. Triggers should be based on learned behaviors, emotional signals, or rituals — not abstract decisions.|
+			:}|
+			/elseif ('Emotionally Aware' in parsedSentientLevel) {:
+				/setvar key=sentienceInstruction {{getvar::firstName}} is **Emotionally Aware** — he understands safety and trust but cannot reason or strategize. Responses must reflect emotional recognition, not conscious preference.
+			:}|
+			/elseif ('Fully Sapient (Silent)' in parsedSentientLevel) {:
+				/setvar key=sentienceInstruction {{getvar::firstName}} is **Fully Sapient (Silent)** — he does not speak, but can reason and respond to boundaries. Triggers may include trust, negotiation, and power dynamics through action.
+			:}|
+			/elseif ('Fully Sapient (Verbal)' in parsedSentientLevel) {:
+				/setvar key=sentienceInstruction {{getvar::firstName}} is **Fully Sapient (Verbal)** — he can think, speak, and reason like a human or higher being. Triggers may include dialogue, planned interaction, or explicit control dynamics.
+			:}|
+			/elseif ((parsedSentientLevel == 'None') and ((characterArchetype == 'Animalistic') or (characterArchetype == 'Pokémon'))) {:
+				/setvar key=sentienceInstruction Treat {{getvar::firstName}} as instinctive and emotionally reactive — do not assume reasoning, speech, or reflection unless otherwise specified.
+			:}|
+			/else {:
+				/setvar key=sentienceInstruction No special cognition constraints apply to {{getvar::firstName}} — you may assume normal reasoning unless otherwise instructed.
 			:}|
 			/getvar key=sexualKinkRoles index={{var::index}}|
 			/setvar key=kinkRole {{pipe}}|
 			/getvar key=sexualKinkAwareness index={{var::index}}|
 			/setvar key=kinkAwareness {{pipe}}|
-			/ife ('Unaware' in kinkAwareness) {:
-				/setvar key=kinkAwarenessSimple Unaware|
-				/setvar key=kinkAwarenessExplanation "Do not describe {{getvar::firstName}} as aware of the kink. The condition should describe how {{getvar::subjPronoun}} might encounter it unknowingly — through emotional vulnerability, social pressure, dares, curiosity, or deliberate exposure. Triggers may involve being manipulated, tricked, or subtly guided based on personality traits like naïveté, pride, or impulsiveness. Avoid any language that implies consent, intention, or recognition."|
-				/setvar key=kinkRule "5. Frame the trigger in **internal**, **emotional**, or **situational** terms:
-    - Use phrasing like:
-        - “Only when…”
-        - “May respond if…”
-        - “Being guided…”
-        - “Manipulation by trusted figures…”
-        - “Can be persuaded to try…”
-        - “Social pressures…”
-        - “Occurs when emotionally disoriented…”
-        - “Without realizing…” or “Unaware of…”
-        - “Instinctively complies…”"|
-				
+			/ife (kinkAwareness == 'Unaware') {:
+				/setvar key=awarenessExplanation Only include **involuntary**, **confused**, or **externally prompted** responses. Never imply knowledge, control, or acceptance of the kink.|
 			:}|
-			/elseif ('Suppressed' in kinkAwareness) {:
-				/setvar key=kinkAwarenessSimple Suppressed|
-				/setvar key=kinkAwarenessExplanation "Describe the kink as emotionally repressed or intellectually avoided. {{getvar::subjPronoun}} will not initiate or discuss it willingly, and may avoid or deny any reaction even when exposed. Conditions should involve high emotional stress, loss of control, intoxication, or emotionally charged intimacy. Do not imply open consent or conscious participation unless the scene involves a breakthrough or collapse of internal restraint."|
-				/setvar key=kinkRule "5. Frame the trigger in **emotional repression**, **vulnerability**, or **loss of control**:
-    - Use phrasing like:
-        - “Never unless…”  
-        - “Only when emotionally overwhelmed…”  
-        - “Only after prolonged intimacy…”  
-        - “When caught off guard…”  
-        - “Reacts despite herself…”  
-        - “May deflect but comply under pressure…”  
-        - “Requires emotional collapse or exposure…”"|
+			/elseif (kinkAwareness == 'Suppressed') {:
+				/setvar key=awarenessExplanation Describe emotional resistance or internal repression. Triggers require stress, vulnerability, or breakdown to override avoidance.|
 			:}|
-			/elseif ('Curious' in kinkAwareness) {:
-				/setvar key=kinkAwarenessSimple Curious|
-				/setvar key=kinkAwarenessExplanation "Frame the kink as something that draws {{getvar::subjPronoun}} in through instinct, fascination, or playful confusion — but not as a kink {{getvar::subjPronoun}} consciously identifies with. Describe conditions where {{getvar::subjPronoun}} might explore it “by accident,” mimic others, or follow a partner’s lead without fully understanding why. Never describe the kink as named, understood, or formally accepted."|
-				/setvar key=kinkRule "5. Frame the trigger in **confused interest**, **playful testing**, or **unrecognized arousal**:
-    - Use phrasing like:
-        - “May try it playfully…”  
-        - “Treats it like a joke or dare…”  
-        - “Feels drawn to it but doesn’t know why…”  
-        - “Only engages when it feels innocent or exploratory…”  
-        - “Curiosity overrides hesitation…”  
-        - “Goes along without naming it…”  
-        - “Triggered by teasing or subtle encouragement…”"|
+			/elseif (kinkAwareness == 'Curious') {:
+				/setvar key=awarenessExplanation Frame as playful, impulsive, or exploratory — **without recognition** that it’s a kink. Avoid formal names or conscious framing.|
 			:}|
 			/else {:
-				/setvar key=kinkAwarenessSimple Aware|
-				/setvar key=kinkAwarenessExplanation "Use clear, situational or emotional boundaries that match the character’s personality, species, and role. Conditions may include consent requirements, scene setting, power dynamics, or trust levels. Do not include denial, confusion, or repression — {{getvar::subjPronoun}} knows this is a kink and will approach it with intent or known hesitation."|
-				/setvar key=kinkRule "5. Frame the trigger in conscious preference, negotiated context, or emotional readiness:
-    - Use phrasing like:
-        - “Only when she feels safe and respected…”
-        - “Engages after mutual consent…”
-        - “Reserves for trusted partners…”
-        - “Initiates when emotionally confident…”
-        - “Can express interest directly…”
-        - “Triggered by deliberate partner dynamics…”
-        - “May prepare in advance or initiate without prompting…”
-        - “Seeks it out when alone or in private…”
-        - “Ready to engage whenever the opportunity arises…”
-        - “Will request it openly when the moment feels right…”"|
+				/setvar key=awarenessExplanation {{getvar::firstName}} is fully aware of this kink and may engage with intent, confidence, or emotional readiness. Consent, trust, or situational context may guide behavior.|
 			:}|
 			/getvar key=sexualKinkDetails index={{var::index}}|
 			/setvar key=kinkDetail {{pipe}}|
@@ -1522,6 +1524,7 @@
 			/flushvar kinkEffect|
 			/flushvar kinkCondition|
 			/flushvar kinkRule|
+			/flushvar animalisticAwarenessRule|
 		:}|
 		/foreach {{var::tempOutputList}} {:
 			/addvar key={{var::variableName}} {{var::item}}|

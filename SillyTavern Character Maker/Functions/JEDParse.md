@@ -160,7 +160,7 @@
 	/re-replace find="/--Breasts--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (appearanceNipples != '') {:
+/ife ((appearanceNipples != '') and (appearanceNipples != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--Nipples--/g" replace="{{newline}} - Nipple: {{getvar::appearanceNipples}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -386,6 +386,15 @@
 	/re-replace find="/--CognitiveAbilities--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
+/ife ((parsedSentientLevel != '') and (parsedSentientLevel != 'None')) {:
+/messages names=off 0|
+	/re-replace find="/--SentientLevel--/g" replace="{{newline}}### ANIMALISTIC COGNITION{{newline}}{{getvar::parsedSentientLevel}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (parsedSentientLevel == 'None' ) {:
+	/messages names=off 0|
+	/re-replace find="/--SentientLevel--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
 /ife ( personalitySocialBehavior != '') {:
 	/messages names=off 0|
 	/re-replace find="/--SocialBehavior--/g" replace="- Social Behavior: {{getvar::personalitySocialBehavior}}" {{pipe}}|
@@ -393,7 +402,7 @@
 :}|
 /ife ( (personalitySocialSkills != '') and (personalitySocialSkills != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--SocialSkills--/g" replace="{{newline}}{{newline}}- Social Skills and Integration Into Society:{{getvar::personalitySocialSkills}}" {{pipe}}|
+	/re-replace find="/--SocialSkills--/g" replace="{{newline}}{{newline}}- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /elseif (personalitySocialSkills == 'None' ) {:
@@ -406,9 +415,14 @@
 	/re-replace find="/--MainAspiration--/g" replace="{{getvar::mainAspiration}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (parsedTraits != '') {:
+/ife ((parsedTraits != '') and (parsedTraits != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--UniqueTraits--/g" replace="{{getvar::parsedTraits}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (parsedTraits == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--UniqueTraits--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (personalityQA != '') {:

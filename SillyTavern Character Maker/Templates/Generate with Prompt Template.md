@@ -74,6 +74,7 @@
 			
 			/ife ((index > len) or ((index == 0) and (len == 0))) {:
 				/setvar key={{var::variableName}}Item {{var::item}}|
+				/setvar key=genSettings index=buttonPrompt "Select the type variant for '{{var::item}}' you want {{getvar::firstName}} to have."|
 				/:"CMC Logic.GenerateWithPrompt"|
 				/len {{var::tempOutputList}}|
 				/var key=tempOutputList index={{pipe}} {{getvar::output}}|
