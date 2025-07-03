@@ -36,13 +36,78 @@
 	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
-	/setvar key=genSettings index=useContext No|
+	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/addvar key=extra "{{getvar::parsedApperance}}"|
+	/addvar key=extra "{{getvar::parsedSentientLevel"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
+	:}|
+	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
 	/getvar key=genSettings index=inputIsList|
 	/let key=outputIsList {{pipe}}|
+	
+	
+	/setvar key=logicBasedInstruction {{noop}}|
+	/setvar key=x 9|
+	
+	/incvar x|
+	/ife ( logicBasedInstruction != '') {:
+		/addvar key=logicBasedInstruction {{newline}}|
+	:}|
+	/getvar key=writingInstruct index=0|
+	/re-replace find="/\*\*Formatting Style:\*\*\s/g" replace="" {{pipe}}|
+	/addvar key=logicBasedInstruction "{{getvar::x}}. {{pipe}}"|
+	/ife (('Fully Animalistic' in parsedSentientLevel) or ('Semi-Sapient' in parsedSentientLevel)) {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Do **not** include a visual impression that involves posture, clothing, or emotional expression — use physical behaviors like stance, motion, or instinctual cues instead."|
+		
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Do **not** include dialogue or speech. Replace the final line with a physical reaction or animal sound (e.g., snort, tail flick, attentive glance)."|
+		
+	:}|
+	/elseif ('Emotionally Aware' in parsedSentientLevel) {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		  /addvar key=logicBasedInstruction "{{getvar::x}}. Avoid explicit speech or internal thoughts, but you **may** show emotion through posture, proximity, vocal sounds, or learned routine behavior. Final line should still be a **non-verbal** cue."|
+	:}|
+	/else {:
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. Include a quick visual impression of {{getvar::firstName}} — posture, outfit, or energy."|
+		
+		/incvar x|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "{{getvar::x}}. End with a single in-character line of dialogue, in quotes. Keep it short and expressive — no more than 15 words unless otherwise specified."|
+		
+	:}|
+	/flushvar x|
+	
+	/ife (('Fully Animalistic' in parsedSentientLevel) or ('Semi-Sapient' in parsedSentientLevel)) {:
+		/setvar key=sceneChecklist "```{{newline}}Your scene must:{{newline}}- Describe where {{getvar::firstName}} is.{{newline}}- What {{getvar::subjPronoun}} is physically doing or reacting to.{{newline}}- What’s around {{getvar::objPronoun}} — include surroundings, weather, scent, or movement.{{newline}}- Use only instinctual behavior or physical signals — no dialogue, thoughts, or human-style emotion.{{newline}}```"|
+	:}|
+	
+	/else {:
+		/setvar key=sceneChecklist "```{{newline}}Your scene must:{{newline}}- Describe where {{getvar::firstName}} is.{{newline}}- What {{getvar::subjPronoun}} is doing or feeling.{{newline}}- What’s around {{getvar::objPronoun}} (setting, tone, mood).{{newline}}- How {{getvar::firstName}} looks — posture, expression, outfit, or notable traits.{{newline}}- End with a single in-character line of dialogue that reflects {{getvar::possAdjPronoun}} personality and tone.```"|
+	:}|
 	
 	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:

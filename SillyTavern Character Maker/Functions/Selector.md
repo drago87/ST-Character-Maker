@@ -92,17 +92,11 @@
 /else {:
 	/flushvar 06 Selector|
 :}|
-/let key=exemptRules ["Text Style Rules", "Graphical Detail Rules", "Response Length"]|
-/ife ((wi_book_key_f in exemptRules) or ('Sexual Orientation' in wi_book_key_f)) {:
-	/split find="{{newline}}" {{var::genState}}|
-	/var as=array key=genState {{pipe}}|
-:}|
-/elseif (wi_book_key_f == 'Sentient Level') {:
+
+
+
+/ife (wi_book_key_f in exRules) {:
 	/split find="---" {{var::genState}}|
-	/var as=array key=genState {{pipe}}|
-:}|
-/elseif (wi_book_key_f in exRules) {:
-	/split find="{{newline}}" {{var::genState}}|
 	/let key=tempArr {{pipe}}|
 	/var key=genState []|
 	/let key=userSkip ["Consent Reaction Tone"]|
@@ -120,7 +114,7 @@
 	:}|
 :}|
 /else {:
-	/split find=":" {{var::genState}}|
+	/split find="---" {{var::genState}}|
 	/var as=array key=genState {{pipe}}|
 :}|
 
@@ -164,6 +158,8 @@
 	/ife ( buttonPrompt_f == '') {:
 		/var key=buttonPrompt_f "Select the {{getvar::wi_book_key_f}} you want {{getvar::it}} to have."|
 	:}|
+	
+	/let key=exemptRules ["Text Style Rules", "Graphical Detail Rules", "Response Length"]|
 	
 	/ife (wi_book_key_f is list) {:
 		/buttons multiple=true labels={{var::genState}} {{var::buttonPrompt_f}}|

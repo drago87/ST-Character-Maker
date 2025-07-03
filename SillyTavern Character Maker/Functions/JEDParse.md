@@ -112,7 +112,7 @@
 :}|
 /ife ((length != '') and (length != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Length--/g" replace="{{getvar::length}}{{newline}}" {{pipe}}|
+	/re-replace find="/--Length--/g" replace="- Lenght: {{getvar::length}}{{newline}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /elseif (length == 'None') {:
@@ -120,7 +120,12 @@
 	/re-replace find="/--Length--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/ife (height != '') {:
+/ife ((height != '') and (height != 'None')) {:
+	/messages names=off 0|
+	/re-replace find="/--Height--/g" replace="- Height: {{getvar::height}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (height == 'None') {:
 	/messages names=off 0|
 	/re-replace find="/--Height--/g" replace="{{getvar::height}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -395,6 +400,7 @@
 	/messages names=off 0|
 	/re-replace find="/--SentientLevel--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
+:}|
 /ife ( personalitySocialBehavior != '') {:
 	/messages names=off 0|
 	/re-replace find="/--SocialBehavior--/g" replace="- Social Behavior: {{getvar::personalitySocialBehavior}}" {{pipe}}|
@@ -520,12 +526,13 @@
 :}|
 /ife (speechExampleString != '') {:
 	/messages names=off 0|
-	/re-replace find="/--SpeechExamples--/g" replace="{{getvar::speechExampleString}}" {{pipe}}|
+	/re-replace find="/--SpeechExamples--/g" replace="{{newline}}{{newline}}## Speech EXAMPLES AND OPINIONS
+[IMPORTANT NOTE FOR AI: This section provides --FirstName--'s speech examples, memories, thoughts, and --FirstName--'s real opinions on subjects. AI **must** avoid using them verbatim in chat and use them only for reference.]{{newline}}{{newline}}<speech_examples>{{newline}}{{getvar::speechExampleString}}{{newline}}</speech_examples>" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife ((parsedSynonyms != '') and (parsedSynonyms != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Synonyms--/g" replace="{{getvar::parsedSynonyms}}" {{pipe}}|
+	/re-replace find="/--Synonyms--/g" replace="{{newline}}{{newline}}- - -{{newline}}{{newline}}## SYNONYMS{{newline}}[IMPORTANT NOTE FOR AI: This section lists synonymous phrases to substitute the character's name or pronouns to avoid repetition.]{{newline}}{{getvar::parsedSynonyms}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /elseif (parsedSynonyms == 'None') {:

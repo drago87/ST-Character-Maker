@@ -1597,6 +1597,49 @@
 :}|
 //-----------|
 
+/setvar key=parsedApperance {{noop}}|
+/addvar key=parsedApperance ### Appearance|
+/ife (length != 'None') {:
+	/addvar key=parsedApperance "{{newline}} - Length: {{getvar::length}}"|
+:}|
+/ife (height != 'None') {:
+	/addvar key=parsedApperance "{{newline}} - Height: {{getvar::height}}"|
+:}|
+/ife (appearanceHair != 'None') {:
+	/addvar key=parsedApperance "{{newline}} - Hair: {{getvar::appearanceHair}}"|
+:}|
+/ife (appearanceEyes != 'None') {:
+	/addvar key=parsedApperance "{{newline}} - Eyes: {{getvar::appearanceEyes}}"|
+:}|
+/ife (appearanceFace != 'None') {:
+	/addvar key=parsedApperance "{{newline}} - Face: {{getvar::}}"|
+:}|
+/addvar key=parsedApperance "{{newline}}### Body{{newline}}- Body:"|
+/ife (appearanceBody != 'None') {:
+	/addvar key=parsedApperance "{{newline}}  - Body: {{getvar::appearanceBody}}"|
+:}|
+/ife (appearanceBreasts != 'None') {:
+	/addvar key=parsedApperance "{{newline}}  - Breasts: {{getvar::appearanceBreasts}}"|
+:}|
+/ife (appearanceNipples != 'None') {:
+	/addvar key=parsedApperance "{{newline}}  - Nipples: {{getvar::appearanceNipples}}"|
+:}|
+/ife (appearanceGenitals != 'None') {:
+	/addvar key=parsedApperance "{{newline}}  - Genitals: {{getvar::appearanceGenitals}}"|
+:}|
+/ife ((appearanceGenitals == 'None') and (appearancePussy != 'None')) {:
+	/addvar key=parsedApperance "{{newline}}  - Pussy: {{getvar::appearancePussy}}"|
+:}|
+/ife ((appearanceGenitals == 'None') and (appearanceCock != 'None')) {:
+	/addvar key=parsedApperance "{{newline}}  - Cock: {{getvar::appearanceCock}}"|
+:}|
+/ife (appearanceAnus != 'None') {:
+	/addvar key=parsedApperance "{{newline}}  - Anus: {{getvar::appearanceAnus}}"|
+:}|
+/addvar key=parsedApperance "{{newline}}"|
+/setvar key=dataBaseNames parsedApperance|
+
+
 //**Appearance Traits**|
 /var key=do No|
 /var key=variableName "appearanceTraits"|

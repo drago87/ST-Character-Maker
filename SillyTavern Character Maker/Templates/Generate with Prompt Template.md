@@ -41,7 +41,7 @@
 	/setvar key=logicBasedInstruction {{noop}}|
 	/setvar key=x 7|
 	
-	/ife (variable == 'conent') {:
+	/ife (variable == 'content') {:
 		/incvar x|
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|

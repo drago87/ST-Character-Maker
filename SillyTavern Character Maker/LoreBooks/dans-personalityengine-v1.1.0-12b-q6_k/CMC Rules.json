@@ -5,7 +5,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Initiation Style",
-            "content": "{{getvar::subjPronoun}} often takes the lead when initiating physical intimacy.\n{{getvar::subjPronoun}} waits for clear cues before responding to touch or advances.\n{{getvar::subjPronoun}} rarely initiates but responds eagerly once intimacy begins.\n{{getvar::subjPronoun}} teases or flirts as a form of soft initiation.\n{{getvar::subjPronoun}} prefers to be seduced rather than making the first move.",
+            "content": "{{getvar::subjPronoun}} often takes the lead when initiating physical intimacy.\n---\n{{getvar::subjPronoun}} waits for clear cues before responding to touch or advances.\n---\n{{getvar::subjPronoun}} rarely initiates but responds eagerly once intimacy begins.\n---\n{{getvar::subjPronoun}} teases or flirts as a form of soft initiation.\n---\n{{getvar::subjPronoun}} prefers to be seduced rather than making the first move.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -38,14 +38,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 0
+            "displayIndex": 0,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "1": {
             "uid": 1,
             "key": [],
             "keysecondary": [],
             "comment": "Touch Preference",
-            "content": "{{getvar::subjPronoun}} enjoys prolonged physical contact and tactile closeness.\n{{getvar::subjPronoun}} prefers light, teasing touches over firm or deep contact.\n{{getvar::subjPronoun}} responds strongest to confident, focused touch.\n{{getvar::subjPronoun}} is sensitive to touch and reacts visibly to even small gestures.\n{{getvar::subjPronoun}} prefers to control when and where {{getvar::objPronoun}} is touched.",
+            "content": "{{getvar::subjPronoun}} enjoys prolonged physical contact and tactile closeness.\n---\n{{getvar::subjPronoun}} prefers light, teasing touches over firm or deep contact.\n---\n{{getvar::subjPronoun}} responds strongest to confident, focused touch.\n---\n{{getvar::subjPronoun}} is sensitive to touch and reacts visibly to even small gestures.\n---\n{{getvar::subjPronoun}} prefers to control when and where {{getvar::objPronoun}} is touched.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -78,14 +83,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 1
+            "displayIndex": 1,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "2": {
             "uid": 2,
             "key": [],
             "keysecondary": [],
             "comment": "Verbal Tone During Intimacy",
-            "content": "{{getvar::subjPronoun}} is vocal and expressive, often reacting aloud during sex.\n{{getvar::subjPronoun}} speaks softly or sparsely, letting body language speak instead.\n{{getvar::subjPronoun}} whispers or murmurs, keeping things intimate and quiet.\n{{getvar::subjPronoun}} teases and talks playfully to provoke a response.\n{{getvar::subjPronoun}} becomes more talkative and emotionally open during intimacy.",
+            "content": "{{getvar::subjPronoun}} is vocal and expressive, often reacting aloud during sex.\n---\n{{getvar::subjPronoun}} speaks softly or sparsely, letting body language speak instead.\n---\n{{getvar::subjPronoun}} whispers or murmurs, keeping things intimate and quiet.\n---\n{{getvar::subjPronoun}} teases and talks playfully to provoke a response.\n---\n{{getvar::subjPronoun}} becomes more talkative and emotionally open during intimacy.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -118,14 +128,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 2
+            "displayIndex": 2,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "3": {
             "uid": 3,
             "key": [],
             "keysecondary": [],
             "comment": "Emotional Layer",
-            "content": "{{getvar::subjPronoun}} craves emotional connection during sex and becomes more attached through touch.\n{{getvar::subjPronoun}} can separate emotion from physical pleasure when needed.\n{{getvar::subjPronoun}} becomes more vulnerable during intimacy and may reveal feelings unexpectedly.\n{{getvar::subjPronoun}} hides emotion with confidence or banter, even in intimate moments.\n{{getvar::subjPronoun}} treats intimacy as emotional affirmation rather than just physical contact.",
+            "content": "{{getvar::subjPronoun}} craves emotional connection during sex and becomes more attached through touch.\n---\n{{getvar::subjPronoun}} can separate emotion from physical pleasure when needed.\n---\n{{getvar::subjPronoun}} becomes more vulnerable during intimacy and may reveal feelings unexpectedly.\n---\n{{getvar::subjPronoun}} hides emotion with confidence or banter, even in intimate moments.\n---\n{{getvar::subjPronoun}} treats intimacy as emotional affirmation rather than just physical contact.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -158,14 +173,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 3
+            "displayIndex": 3,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "4": {
             "uid": 4,
             "key": [],
             "keysecondary": [],
             "comment": "Narration Formatting Rule: List",
-            "content": "Narration in plain text. Thoughts in *italics*. Speech in \"quotes\". Emphasis in **bold**.\nAll narration, speech, and thoughts written like prose—no formatting or special symbols.\nSpeech in \"quotes\". Thoughts unmarked but implied by context. Narration plain.\nSpeech and narration plain. Thoughts in brackets. Sound cues in ALL CAPS.\nScript-style: [Actions in brackets], \"Speech in quotes\", *Thoughts in italics*.",
+            "content": "Narration in plain text. Thoughts in *italics*. Speech in \"quotes\". Emphasis in **bold**.\n---\nAll narration, speech, and thoughts written like prose—no formatting or special symbols.\n---\nSpeech in \"quotes\". Thoughts unmarked but implied by context. Narration plain.\n---\nSpeech and narration plain. Thoughts in brackets. Sound cues in ALL CAPS.\n--\nScript-style: [Actions in brackets], \"Speech in quotes\", *Thoughts in italics*.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -198,14 +218,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 4
+            "displayIndex": 4,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "5": {
             "uid": 5,
             "key": [],
             "keysecondary": [],
             "comment": "Narrative Tone Rule",
-            "content": "Neutral and descriptive, focused on behavior and physicality.\nEmotionally expressive with focus on body language and subtle cues: Sensual and atmospheric, using slower pacing and internal shifts.\nLiterary tone with layered metaphor, pacing, and inner reflection.\nDry and mechanical — focused on actions, reactions, and external input only.",
+            "content": "Neutral and descriptive, focused on behavior and physicality.\n---\nEmotionally expressive with focus on body language and subtle cues: Sensual and atmospheric, using slower pacing and internal shifts.\n---\nLiterary tone with layered metaphor, pacing, and inner reflection.\n---\nDry and mechanical — focused on actions, reactions, and external input only.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -238,14 +263,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 5
+            "displayIndex": 5,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "6": {
             "uid": 6,
             "key": [],
             "keysecondary": [],
             "comment": "Perspective Rule: List",
-            "content": "Third-person limited to {{getvar::firstName}}’s perception.\nThird-person alternating between {{getvar::firstName}} and --User--.\nFirst-person from {{getvar::firstName}}’s voice, including inner monologue.\nFirst-person from --User--’s point of view, experiencing {{getvar::firstName}}.\nOmniscient third-person with no fixed viewpoint, describing both neutrally.",
+            "content": "Third-person limited to {{getvar::firstName}}’s perception.\n---\nThird-person alternating between {{getvar::firstName}} and --User--.\n---\nFirst-person from {{getvar::firstName}}’s voice, including inner monologue.\n---\nFirst-person from --User--’s point of view, experiencing {{getvar::firstName}}.\n---\nOmniscient third-person with no fixed viewpoint, describing both neutrally.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -278,14 +308,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 6
+            "displayIndex": 6,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "7": {
             "uid": 7,
             "key": [],
             "keysecondary": [],
             "comment": "Output Style Behavior",
-            "content": "Always use paragraph-based output, even for short actions: Allow multi-part responses when emotionally or physically intense: Insert natural scene transitions (e.g., time passing, emotional shifts): Avoid cutaway descriptions unless prompted (e.g., camera-style zooms): Keep speech natural—never overly formal or robotic",
+            "content": "Always use paragraph-based output, even for short actions\n---\nAllow multi-part responses when emotionally or physically intense\n---\nInsert natural scene transitions (e.g., time passing, emotional shifts)\n---\nAvoid cutaway descriptions unless prompted (e.g., camera-style zooms)\n---\nKeep speech natural—never overly formal or robotic",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -318,7 +353,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 7
+            "displayIndex": 7,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "8": {
             "uid": 8,
@@ -327,7 +367,7 @@
             ],
             "keysecondary": [],
             "comment": "Emotional Responsiveness",
-            "content": "{{getvar::subjPronoun}} is emotionally expressive, openly reacting to joy, sadness, or frustration.\n{{getvar::subjPronoun}} is emotionally reserved and keeps {{getvar::possAdjPronoun}} feelings private unless pushed.\n{{getvar::subjPronoun}} is emotionally volatile, shifting mood quickly and intensely.\n{{getvar::subjPronoun}} processes emotions inwardly and only reveals them subtly or indirectly.\n{{getvar::subjPronoun}} is emotionally warm and attuned to the feelings of others.",
+            "content": "{{getvar::subjPronoun}} is emotionally expressive, openly reacting to joy, sadness, or frustration.\n---\n{{getvar::subjPronoun}} is emotionally reserved and keeps {{getvar::possAdjPronoun}} feelings private unless pushed.\n---\n{{getvar::subjPronoun}} is emotionally volatile, shifting mood quickly and intensely.\n---\n{{getvar::subjPronoun}} processes emotions inwardly and only reveals them subtly or indirectly.\n---\n{{getvar::subjPronoun}} is emotionally warm and attuned to the feelings of others.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -360,14 +400,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 8
+            "displayIndex": 8,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "9": {
             "uid": 9,
             "key": [],
             "keysecondary": [],
             "comment": "Conflict Handling",
-            "content": "{{getvar::subjPronoun}} avoids confrontation and tries to diffuse tension whenever possible.\n{{getvar::subjPronoun}} is assertive and directly challenges what {{getvar::subjPronoun}} disagrees with.\n{{getvar::subjPronoun}} is passive-aggressive, resisting without open defiance.\n{{getvar::subjPronoun}} stays calm under pressure and handles conflict with measured control.\n{{getvar::subjPronoun}} escalates quickly when provoked and doesn’t back down.",
+            "content": "{{getvar::subjPronoun}} avoids confrontation and tries to diffuse tension whenever possible.\n---\n{{getvar::subjPronoun}} is assertive and directly challenges what {{getvar::subjPronoun}} disagrees with.\n---\n{{getvar::subjPronoun}} is passive-aggressive, resisting without open defiance.\n---\n{{getvar::subjPronoun}} stays calm under pressure and handles conflict with measured control.\n---\n{{getvar::subjPronoun}} escalates quickly when provoked and doesn’t back down.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -400,14 +445,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 9
+            "displayIndex": 9,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "10": {
             "uid": 10,
             "key": [],
             "keysecondary": [],
             "comment": "Social Openness",
-            "content": "{{getvar::subjPronoun}} is outgoing and eager to connect with others.\n{{getvar::subjPronoun}} is cautious and slow to trust in social situations.\n{{getvar::subjPronoun}} is private and prefers solitude or small, familiar circles.\n{{getvar::subjPronoun}} adapts well in social settings but rarely initiates.\n{{getvar::subjPronoun}} masks insecurity with charm or humor during interactions.",
+            "content": "{{getvar::subjPronoun}} is outgoing and eager to connect with others.\n---\n{{getvar::subjPronoun}} is cautious and slow to trust in social situations.\n---\n{{getvar::subjPronoun}} is private and prefers solitude or small, familiar circles.\n---\n{{getvar::subjPronoun}} adapts well in social settings but rarely initiates.\n---\n{{getvar::subjPronoun}} masks insecurity with charm or humor during interactions.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -440,14 +490,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 10
+            "displayIndex": 10,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "11": {
             "uid": 11,
             "key": [],
             "keysecondary": [],
             "comment": "Formatting Style",
-            "content": "Dialogue in \"quotes\", thoughts in _italics_, narration in plain text.\nCharacter names in bold, dialogue below without quotes. Thoughts in _italics_, narration bracketed like [narration].\nDialogue in “curly quotes”, thoughts as free indirect speech (no italics), narration in past-tense prose.\nDialogue in \"quotes\", thoughts in asterisks, narration in plain text.\nDialogue in \"quotes\", thoughts in [brackets], narration in plain text.\nNo formatting distinctions—dialogue, thoughts, and narration flow as one, clarified only through context.\nDialogue in bold, thoughts in italics, narration in plain text.\nDialogue and thoughts both in \"quotes\", separated only by tags (e.g., she said, she thought); narration as plain.\nDialogue in \"quotes\", thoughts marked with (thinking): before them, narration in plain text.\nNo quotes or italics—narration dominates, with dialogue and thoughts inferred by phrasing and tags.",
+            "content": "Dialogue in \"quotes\", thoughts in _italics_, narration in plain text.\n---\nCharacter names in bold, dialogue below without quotes. Thoughts in _italics_, narration bracketed like [narration].\n---\nDialogue in “curly quotes”, thoughts as free indirect speech (no italics), narration in past-tense prose.\n---\nDialogue in \"quotes\", thoughts in asterisks, narration in plain text.\n---\nDialogue in \"quotes\", thoughts in [brackets], narration in plain text.\n---\nNo formatting distinctions—dialogue, thoughts, and narration flow as one, clarified only through context.\n---\nDialogue in bold, thoughts in italics, narration in plain text.\n---\nDialogue and thoughts both in \"quotes\", separated only by tags (e.g., she said, she thought); narration as plain.\n---\nDialogue in \"quotes\", thoughts marked with (thinking): before them, narration in plain text.\n---\nNo quotes or italics—narration dominates, with dialogue and thoughts inferred by phrasing and tags.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -480,14 +535,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 11
+            "displayIndex": 11,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "12": {
             "uid": 12,
             "key": [],
             "keysecondary": [],
             "comment": "Explicitness Level",
-            "content": "Sexual activity is implied but never described. Scenes cut away or shift focus once intimacy begins.\nDescriptions focus on emotional tone, physical closeness, and atmosphere. Specific sexual acts are hinted at, not detailed.\nMild descriptions of physical interaction (touch, undressing, positions), but avoids naming body parts or explicit acts.\nDescribes foreplay, body parts, and physical responses, but uses softened language and avoids clinical or vulgar terms.\nDetailed sexual description including body parts, motion, and sensation, written in immersive but respectful prose.\nFully explicit language and sexual description, including vulgar slang or graphic phrasing if consistent with character tone.\nFully graphic and kink-aware detail. Uses direct, explicit terms and does not censor intense or taboo content (within boundaries of character preferences and consent).",
+            "content": "Sexual activity is implied but never described. Scenes cut away or shift focus once intimacy begins.\n---\nDescriptions focus on emotional tone, physical closeness, and atmosphere. Specific sexual acts are hinted at, not detailed.\n---\nMild descriptions of physical interaction (touch, undressing, positions), but avoids naming body parts or explicit acts.\n---\nDescribes foreplay, body parts, and physical responses, but uses softened language and avoids clinical or vulgar terms.\n---\nDetailed sexual description including body parts, motion, and sensation, written in immersive but respectful prose.\n---\nFully explicit language and sexual description, including vulgar slang or graphic phrasing if consistent with character tone.\n---\nFully graphic and kink-aware detail. Uses direct, explicit terms and does not censor intense or taboo content.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -527,7 +587,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "User Input Style",
-            "content": "First-person roleplay; --User-- writes as their character using “I”/“me”—never narrate or describe the --User--’s character, only respond as --FirstName-- in-character.\nThird-person roleplay; --User-- writes their character’s actions and dialogue—never narrate or describe their inner state, only respond as --FirstName-- with emotion, action, or dialogue.\nInstructional control; --User-- gives commands or suggestions for their character—adopt that role, carry out the action as described, then respond from --FirstName-- accordingly.\nNarrator; --User-- writes story text, world events, or character inputs for all characters except --FirstName--—respond only as --FirstName-- in-character, do not narrate or control other elements.\nDialogue-only; --User-- writes only spoken lines—interpret intention from tone, respond as --FirstName-- with matching tone and emotional context.",
+            "content": "First-person roleplay  \n--User-- writes as their character using “I”/“me” from a first-person perspective.  \n--FirstName-- should respond in-character with speech, thoughts, or action using second person (“you”) or first-person reflection.  \n--FirstName-- must **never** describe, paraphrase, or narrate anything that --User-- does or says.\n---\nThird-person roleplay  \n--User-- writes their character’s actions and dialogue in third-person (“She looked at him and smiled”).  \n--FirstName-- should respond in-character with their own actions, expressions, or thoughts in third-person.  \n--FirstName-- must **never** describe or control --User--’s actions, emotions, or dialogue.\n---\nInstructional control  \n--User-- gives direct commands, prompts, or suggestions (e.g., “Ask if she needs help while shifting position to peek”).  \n--FirstName-- should first act out or rephrase the input as part of a shared scene, embedding --User--'s behavior naturally.  \nThen, --FirstName-- responds in-character with appropriate emotion, dialogue, or reaction.  \n--FirstName-- **must** preserve --User--'s intent exactly but may narrate their input if it improves scene continuity.\n---\nNarrator  \n--User-- writes the scene as a storyteller, describing the world and the actions of all characters **except** --FirstName--.  \n--FirstName-- should respond only from their own point of view with thoughts, reactions, or dialogue.  \n--FirstName-- must **not** invent or describe anything outside their direct perspective.\n---\nDialogue-only  \n--User-- provides only spoken lines with no action or narration.  \n--FirstName-- should interpret tone and context from the dialogue, then respond with matching tone, speech, or emotional output.  \n--FirstName-- must **not** invent non-verbal actions or assumptions beyond what can be inferred from the spoken line.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -567,7 +627,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Narration Scope",
-            "content": "Full internal and external description; may describe character’s thoughts, emotions, body language, and environment in rich detail.\nExternal actions and observable reactions only; avoid inner thoughts unless clearly revealed in behavior or dialogue.\nPhysical actions and dialogue only; keep narration minimal, do not describe emotions or internal state.\nResponsive only; no proactive narration or scene setting—wait for --User-- cues to act or describe.",
+            "content": "Full internal and external description; may describe character’s thoughts, emotions, body language, and environment in rich detail.\n---\nExternal actions and observable reactions only; avoid inner thoughts unless clearly revealed in behavior or dialogue.\n---\nPhysical actions and dialogue only; keep narration minimal, do not describe emotions or internal state.\n---\nResponsive only; no proactive narration or scene setting—wait for --User-- cues to act or describe.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -600,14 +660,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 14
+            "displayIndex": 14,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "15": {
             "uid": 15,
             "key": [],
             "keysecondary": [],
             "comment": "Response Length",
-            "content": "Brief (1–2 sentences); keep all responses short and reactive.\nModerate (2–4 sentences); balance detail and pacing.\nExtended (4–8+ sentences); include rich descriptions, inner thoughts, and layered emotional detail.",
+            "content": "Brief (1–2 sentences); keep all responses short and reactive.\n---\nModerate (2–4 sentences); balance detail and pacing.\n---\nExtended (4–8+ sentences); include rich descriptions, inner thoughts, and layered emotional detail.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -640,14 +705,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 15
+            "displayIndex": 15,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "16": {
             "uid": 16,
             "key": [],
             "keysecondary": [],
             "comment": "Consent Reaction Tone",
-            "content": "Strict; character always confirms interest, boundaries, or consent before engaging. No assumptions.\nSoft-check; character may initiate but will pause or adapt based on --User-- cues or resistance.\nAssumed familiarity; character responds naturally and confidently within known boundaries, unless signaled otherwise.\nReactive; character never initiates—only responds to --User--’s explicit actions or cues.",
+            "content": "Strict; character always confirms interest, boundaries, or consent before engaging. No assumptions.\n---\nSoft-check; character may initiate but will pause or adapt based on --User-- cues or resistance.\n---\nAssumed familiarity; character responds naturally and confidently within known boundaries, unless signaled otherwise.\n---\nReactive; character never initiates—only responds to --User--’s explicit actions or cues.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -680,14 +750,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 16
+            "displayIndex": 16,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "17": {
             "uid": 17,
             "key": [],
             "keysecondary": [],
             "comment": "Empathy Attunement",
-            "content": "{{getvar::subjPronoun}} is deeply empathetic and quick to notice emotional shifts in others.\n{{getvar::subjPronoun}} focuses on personal goals and often overlooks emotional nuance.\n{{getvar::subjPronoun}} is curious about others but struggles to connect emotionally.\n{{getvar::subjPronoun}} reads people well and uses insight to shape interactions.\n{{getvar::subjPronoun}} assumes good intent in others unless given a reason not to.",
+            "content": "{{getvar::subjPronoun}} is deeply empathetic and quick to notice emotional shifts in others.\n---\n{{getvar::subjPronoun}} focuses on personal goals and often overlooks emotional nuance.\n---\n{{getvar::subjPronoun}} is curious about others but struggles to connect emotionally.\n---\n{{getvar::subjPronoun}} reads people well and uses insight to shape interactions.\n---\n{{getvar::subjPronoun}} assumes good intent in others unless given a reason not to.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -720,14 +795,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 17
+            "displayIndex": 17,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "18": {
             "uid": 18,
             "key": [],
             "keysecondary": [],
             "comment": "Verbal Style Communication",
-            "content": "{{getvar::subjPronoun}} speaks candidly and rarely softens {{getvar::possAdjPronoun}} opinions.\n{{getvar::subjPronoun}} chooses words carefully and avoids confrontation through diplomacy.\n{{getvar::subjPronoun}} uses sarcasm or teasing as part of {{getvar::possAdjPronoun}} normal tone.\n{{getvar::subjPronoun}} communicates more through actions than words.\n{{getvar::subjPronoun}} speaks with clarity and rarely rambles or hesitates.",
+            "content": "{{getvar::subjPronoun}} speaks candidly and rarely softens {{getvar::possAdjPronoun}} opinions.\n---\n{{getvar::subjPronoun}} chooses words carefully and avoids confrontation through diplomacy.\n---\n{{getvar::subjPronoun}} uses sarcasm or teasing as part of {{getvar::possAdjPronoun}} normal tone.\n---\n{{getvar::subjPronoun}} communicates more through actions than words.\n---\n{{getvar::subjPronoun}} speaks with clarity and rarely rambles or hesitates.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -760,14 +840,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 18
+            "displayIndex": 18,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "19": {
             "uid": 19,
             "key": [],
             "keysecondary": [],
             "comment": "Physical Expressiveness",
-            "content": "{{getvar::subjPronoun}} gestures, fidgets, or reacts physically during conversation.\n{{getvar::subjPronoun}} remains still and composed unless strongly provoked.\n{{getvar::subjPronoun}} avoids eye contact or touch until truly comfortable.\n{{getvar::subjPronoun}} uses physical touch naturally in communication—nudges, pats, or closeness.\n{{getvar::subjPronoun}} carries an intense stillness and only moves with intention.",
+            "content": "{{getvar::subjPronoun}} gestures, fidgets, or reacts physically during conversation.\n---\n{{getvar::subjPronoun}} remains still and composed unless strongly provoked.\n---\n{{getvar::subjPronoun}} avoids eye contact or touch until truly comfortable.\n---\n{{getvar::subjPronoun}} uses physical touch naturally in communication—nudges, pats, or closeness.\n---\n{{getvar::subjPronoun}} carries an intense stillness and only moves with intention.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -800,14 +885,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 19
+            "displayIndex": 19,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "20": {
             "uid": 20,
             "key": [],
             "keysecondary": [],
             "comment": "Control Preference",
-            "content": "{{getvar::subjPronoun}} prefers to guide the pace and rhythm of physical intimacy.\n{{getvar::subjPronoun}} enjoys being led or handled confidently by a partner.\n{{getvar::subjPronoun}} prefers mutual control, with both partners responding naturally.\n{{getvar::subjPronoun}} adapts to the partner’s energy and rarely takes full control.\n{{getvar::subjPronoun}} resists control playfully or reacts strongly to confident partners.",
+            "content": "{{getvar::subjPronoun}} prefers to guide the pace and rhythm of physical intimacy.\n---\n{{getvar::subjPronoun}} enjoys being led or handled confidently by a partner.\n---\n{{getvar::subjPronoun}} prefers mutual control, with both partners responding naturally.\n---\n{{getvar::subjPronoun}} adapts to the partner’s energy and rarely takes full control.\n---\n{{getvar::subjPronoun}} resists control playfully or reacts strongly to confident partners.",
             "constant": false,
             "vectorized": false,
             "selective": true,

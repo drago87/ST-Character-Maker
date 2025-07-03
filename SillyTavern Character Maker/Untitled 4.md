@@ -1,6 +1,33 @@
-Instructional Control; --User-- writes what their character **intends** to do or say. You must:
-1. Wrap --User--'s actions and dialogue in custom tags using this exact format:
-   <--User-->
-   --User--: [actions and dialogue]
-   </--User-->
-2. Then write --FirstName--’s reaction without tags, responding naturally and emotionally to what --User-- did or said.
+Storm stood at the entrance to his spacious stall, head high and alert. He had sensed a presence drawing nearer, an unfamiliar yet captivating scent mingling with the earthy scents of the sanctuary. As a new caretaker approached his stall, he whinnied a soft greeting, the sound resonating through his barrel-like chest. The approaching figure moved with a grace that caught his interest, stirring a flicker of intrigue in the depths of his dark, knowing eyes. With nostrils flaring and ears swiveling forward, he waited patiently for the visitor to draw near.
+---
+As the sun began its morning ascent, casting a golden glow over the peaceful meadow, Storm stood alert and calm within his stall. His coat glistened with a healthy sheen, a product of the sanctuary's loving care over his years in their keeping. With the measured movements of age, the mature stallion lifted his head as the barn door creaked open, nostrils flaring as he caught a whiff of --User-- approaching, a new scent amongst the familiar odors of the stable. A low, soft nicker emanated from his throat, a greeting and an inquiry all at once. Storm turned to face the stall's entrance, hooves shifting slightly in the bedding, ready to meet this newcomer to his routine with curiosity and dignity befitting his elder status.
+---
+In the tranquil embrace of the sanctuary barn, the aging stallion's nostrils flared as he sensed an unfamiliar presence. A faint rustling of straw alerted him to footsteps drawing near, followed by the gentle squeak of a rusted latch as someone approached his stall door. Storm's ears pricked forward, the dark orbs of his liquid eyes wide as he regarded the new arrival.
+---
+As the sun rises over the sprawling horse sanctuary, casting a golden glow across the weathered wooden fences, a new figure appears in the distance - a caretaker striding purposefully toward the barn. The gentle rustle of breeze through the trees and the low whickers of nearby horses fill the tranquil air.
+
+In a large paddock shaded by ancient oaks, Storm the elderly stallion grazes peacefully amidst his small herd. His thick, graying coat shines with health, his head held high as he chews steadily, dark eyes alert to the movement in the barn yard. The distinctive clatter of feed buckets draws his attention, and with a snort of interest, he raises his head to watch.
+---
+In the late morning, the warm sunlight filtered through the weathered wooden slats of the barn, casting dappled patterns across Storm's back as he dozed in his stall. A light breeze wafted in through the open window, carrying the mingled scents of fresh hay, leather tack, and the earthy musk of equine musings. Nearby, a blackbird's trilling song rose above the tranquil scene.
+
+As Storm lay in a patch of golden sunlight, his body sprawled loosely, he shifted restlessly. One leg kicked out as if caught in a half-forgotten dream. His coarse, bristled mane lifted briefly in the draft before settling again over his thick neck.
+
+At the sound of footsteps approaching down the aisle, Storm's liquid brown eyes blinked open and swiveled to face the stall door. His head rose, ears flicking forward, alert but still half-liddled. With a low, rumbling nicker, he stood and stretched, legs straightening and back arching.
+---
+As the sun rose over the sprawling pastures, the mature stallion lifted his noble head to catch the scent of approaching human. The barn stalls were a bustling hub of activity, and Storm's nostrils flared at the mingling odors of fresh hay, pungent manure, and the faint floral perfume carried on the wind. His ears perked forward with mild curiosity, then flattened against his skull as an unfamiliar presence drew near his enclosure.
+
+The gate clanked open and footsteps approached the threshold. A hesitant breath of human air puffed into Storm's private domain, bringing with it the tangy aroma of leather and something subtly floral, a fragrance both unfamiliar yet strangely alluring to his equine senses.
+---
+Storm stands patiently in his stall, ears twitching as the door opens, announcing --User--'s arrival. His dark eyes narrow slightly as he takes in the scent of a new person in his territory. His powerful shoulders tense ever so briefly before he lets out a low nicker of interest, head swiveling to keep --User-- in his line of sight as she enters the space. His long tail switches once in greeting as he considers her presence, assessing her intentions with an age-old instinct to discern friend from foe.
+---
+The aging stallion stood in his stall, head hung low as his hindquarters shivered, shaking loose a spray of dust and chaff. Sunlight filtering through gaps in the barn roof cast striped shadows across his flanks, accentuating the rise and fall of his ribcage. A soft breeze ruffled the stiff, wiry strands of his bristled mane as his dark liquid eyes narrowed against the glare. With an audible sigh, Storm lifted his tail to flick away the persistent flies that swarmed the barn on this unseasonably warm autumn day. His nostrils flared as the familiar scents of hay, horse sweat, and fresh manure permeated the air.
+---
+As the new day dawned at the sanctuary, a soft whinny carried through the mist-shrouded fields. Storm emerged from the shadows of the barn, his long, dark form cutting a regal silhouette against the pale morning sky. The aged stallion nuzzled the damp ground with a snuffle, savoring the earthy scent that lingered from yesterday's rains.
+
+A crunch of gravel drew Storm's attention. He flicked an ear toward the gate as a human figure approached, moving with purpose and a quiet grace. The new caretaker, perhaps. The scent carried hints of soap and fresh hay, unfamiliar but not unappealing.
+
+As she neared his paddock, Storm turned his liquid eyes to her, a mix of wariness and curiosity flickering in his dark gaze. His ears perked forward as she spoke to him, a soft greeting in a language he knew all too well. With a flick of his tail and a low nicker, the old horse stepped closer, seeking out the gentle hands and comforting touch of his newest caretaker.
+
+[12-16]
+---
+The mature horse stallion stood alert within his spacious stall at the horse sanctuary. His head raised over the door as a new arrival approached, carrying the scent of fresh straw and a hint of floral perfume. Storm's liquid eyes, set wide in a long face framed by a coarse, upright mane, focused on the figure entering the barn. A warm breeze blew through the open door, rustling his thick coat and tail. His ears flickered forward as the sound of soft footfalls on the gravel path grew closer. The earthy scent of hay mixed with the underlying tang of animal musk that permeated the space. Storm exhaled slowly, his warm breath misting the morning air as he watched and listened, muscles tensed in readiness beneath his sturdy build.
