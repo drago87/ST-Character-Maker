@@ -55,10 +55,7 @@
 --Backstory--
 
 ### RESIDENCE
---Residence--
-
-### OCCUPATION
---Occupation--
+--Residence----Occupation--
 
 ### CONNECTIONS
 --Connections----Items----Abilities----Secret--

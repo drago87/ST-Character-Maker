@@ -167,7 +167,6 @@
 				/flushvar output|
 				/flushvar guidance|
 			:}|
-			/setvar key=00 {{var::tempOutputList}}|
 			/foreach {{var::tempOutputList}} {:
 				/addvar key={{var::variableName}} {{var::item}}|
 			:}|
@@ -1637,7 +1636,7 @@
 	/addvar key=parsedApperance "{{newline}}  - Anus: {{getvar::appearanceAnus}}"|
 :}|
 /addvar key=parsedApperance "{{newline}}"|
-/setvar key=dataBaseNames parsedApperance|
+/addvar key=dataBaseNames parsedApperance|
 
 
 //**Appearance Traits**|

@@ -193,7 +193,7 @@ INSTRUCTION: Only respond in the given format.|
 		/let key=find {{getvar::animalBase}}: List|
 		/findentry field=comment file="CMC Variables" {{var::find}}|
 		/getentryfield field=content file="CMC Variables" {{pipe}}|
-		/split find="/\n/" {{pipe}} |
+		/split find="---" {{pipe}} |
 		/setvar key=speciesGroup {{pipe}}|
 		/buttons labels={{getvar::speciesGroup}} Select the Species Group you want to use for later when generating the Species.|
 		/setvar key=speciesGroup {{pipe}}|
@@ -247,7 +247,7 @@ INSTRUCTION: Only respond in the given format.|
 		/let key=find {{var::t}}: List|
 		/findentry field=comment file="CMC Variables" {{var::find}}|
 		/getentryfield field=content file="CMC Variables" {{pipe}}|
-		/split find="/\n/" {{pipe}} |
+		/split find="---" {{pipe}} |
 		/setvar key=temp1 {{pipe}}|
 		/setvar key=temp {{getvar::temp1}}|
 		/addvar key=temp Use Base Type|

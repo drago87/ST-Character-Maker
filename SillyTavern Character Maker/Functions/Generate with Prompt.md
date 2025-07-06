@@ -23,6 +23,13 @@
 /ife ( needOutput_f == '') {:
 	/var key=needOutput_f Yes|
 :}|
+
+
+/getvar key=genSettings index=genAmount|
+/let key=genAmount {{pipe}}|
+/ife ( genAmount == '') {:
+	/var as=number key=genAmount 5|
+:}|
 /getvar key=genSettings index=useContext|
 /let key=useContext_f {{pipe}}|
 /ife ( useContext_f == '') {:
@@ -60,11 +67,14 @@
 	/setvar key=gen Yes|
 	/:"CMC Logic.Get Char info"|
 	/:"CMC Logic.Set Base Context"|
-	/var key=context {{pipe}}|
+	/var key=context {{getvar::baseContext}}|
 	/flushvar gen|
 :}|
 /ife (( useContext_f == 'No') and ( extraContext_f != '')) {:
-/var key=context "### **CONTEXT (for your reference—do not include in the answer):**"
+	/var key=context "### **CONTEXT (for your reference—do not include in the answer):**"|
+	/ife (real == Yes) {:
+		/var key=context "{{var::context}}{{newline}}{{getvar::realParcedContext}}"|
+	:}|
 :}|
 
 /ife ( extraContext_f != '') {:
@@ -229,21 +239,37 @@
 	:}|
 	/var key=genState []|
 	/ife (genIsList_f == 'Yes') {:
-		/var key=task {{noop}}|
-		/var key=find "{{var::wi_book_key_f}}: Task"|
-		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
-		/var key=wi_uid {{pipe}}|
-		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
-		/var key=task {{pipe}}|
-		/var key=find "{{var::wi_book_key_f}}: Instruction"|
-		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
-		/var key=wi_uid {{pipe}}|
-		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
-		/var key=instruct {{pipe}}|
-		/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+		/join {{getvar::tempList}}|
+		/setvar key=excludedList {{pipe}}|
+		/setvar key=outputGen []|
+		/whilee (i++ < genAmount ) {:
+			/var key=task {{noop}}|
+			/var key=find "{{var::wi_book_key_f}}: Task"|
+			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
+			/var key=wi_uid {{pipe}}|
+			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+			/var key=task {{pipe}}|
+			/var key=find "{{var::wi_book_key_f}}: Instruction"|
+			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
+			/var key=wi_uid {{pipe}}|
+			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+			/var key=instruct {{pipe}}|
+			
+			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+			/var key=t {{pipe}}|
+			/addvar key=outputGen {{var::t}}|
+			/join {{getvar::tempList}}|
+			/setvar key=excludedList {{pipe}}|
+			/ife (excludedList != '') {:
+				/addvar key=excludedList ", "|
+			:}|
+			/join {{getvar::outputGen}}|
+			/addvar key=excludedList {{pipe}}|
+		:}|
+		/join glue="---" {{getvar::outputGen}}|
 		/var key=t {{pipe}}|
-		/re-replace find="/^[;\s]+/g" replace="" {{var::t}}|
-		/var key=t {{pipe}}|
+		/flushvar outputGen|
+		/flushvar excludedList|
 		/ife (debug == 'Yes') {:
 			/setvar key="05 Output" {{var::t}}|
 		:}|
@@ -328,7 +354,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		/var key=t {{pipe}}|
 	:}|
 	/ife (genIsList_f == 'Yes') {:
-		/split find="," {{var::t}}|
+		/split find="---" {{var::t}}|
 		/var key=t {{pipe}}|
 		/ife ((wi_book_key_f != 'Height') and (wi_book_key_f != 'Length')) {:
 			/foreach {{var::t}} {:
@@ -361,7 +387,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 				:}|
 			:}|
 			/var key=genState {{var::temp}}|
-			/join glue=", " {{var::genState}}|
+			/join glue="--- " {{var::genState}}|
 			/let key=tempItem {{pipe}}|
 			/var as=array key=genState []|
 			/var key=genState index=0 {{var::tempItem}}|

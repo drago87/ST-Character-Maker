@@ -54,8 +54,8 @@
 
 //Parse Real Character info|
 /ife ( real == 'Yes') {:
-	/setvar key=realInfoParced "{{newline}}- Origin: {{getvar::media_type}} – {{getvar::media_name}}"|
-	/setvar key=realParcedContext "{{getvar::name}} is a character from the {{getvar::media_type}} _{{getvar::media_name}}_. Use your knowledge about {{getvar::name}} and the {{getvar::media_type}} _{{getvar::media_name}}_ when doing the assigned **TASK**"|
+	/setvar key=realInfoParced "{{newline}}- Origin: {{getvar::media_type}} – {{getvar::mediaName}}"|
+	/setvar key=realParcedContext "{{getvar::firstName}} is a character from the {{getvar::media_type}} _{{getvar::mediaName}}_. Use your knowledge about {{getvar::firstName}} and the {{getvar::media_type}} _{{getvar::mediaName}}_ when doing the assigned **TASK**"|
 :}|
 //-----------|
 

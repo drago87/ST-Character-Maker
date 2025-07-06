@@ -196,6 +196,7 @@
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Species"|
 		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 8|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=needOutput Yes|
@@ -364,6 +365,7 @@
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Ethnicities"|
 		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 8|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput Yes|
@@ -692,6 +694,7 @@
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "First Name"|
 		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 8|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput Yes|
@@ -744,6 +747,7 @@
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Last Name"|
 		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 8|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput No|
@@ -794,6 +798,7 @@
 	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Nickname"|
 	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=genAmount 8|
 	/setvar key=genSettings index=inputIsTaskList No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=needOutput No|

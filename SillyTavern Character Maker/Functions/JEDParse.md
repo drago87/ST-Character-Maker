@@ -318,7 +318,12 @@
 :}|
 /ife ((parsedOccupation != '') and (parsedOccupation != 'None')) {:
 	/messages names=off 0|
-	/re-replace find="/--Occupation--/g" replace="{{getvar::parsedOccupation}}" {{pipe}}|
+	/re-replace find="/--Occupation--/g" replace="{{newline}}{{newline}}### OCCUPATION{{newline}}{{getvar::parsedOccupation}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (parsedOccupation == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--Occupation--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife (connections != '') {:

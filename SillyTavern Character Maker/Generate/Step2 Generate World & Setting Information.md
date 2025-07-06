@@ -474,6 +474,7 @@
 	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Occupation Base"|
 	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=genAmount 10|
 	/setvar key=genSettings index=inputIsTaskList No|
 	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput Yes|
@@ -625,6 +626,7 @@
 	:}|
 	//-----------|
 	
+	
 	/findentry field=comment file="CMC Templates" "Occupation Template"|
 	/let key=wi_uid {{pipe}}|
 	/getentryfield field=content file="CMC Templates" {{var::wi_uid}}|
@@ -637,24 +639,33 @@
 		/re-replace find="/--OccupationSkills--/g" replace="" {{var::template}}|
 		/setvar key=parsedOccupation {{pipe}}|
 	:}|
+	
 	 /addvar key=dataBaseNames parsedOccupation|
 :}|
 /else {:
+	/ife (occupationDuties == '') {:
+		/buttons labels=["Unemployed", "Idle", "None"] What type of unemployment do you want {{getvar::firstName}} to have? None will remove it from the generations.|
+		/setvar key=parsedOccupation {{pipe}}|
+	:}|
 	/setvar key=occupationDuties None|
 	/addvar key=dataBaseNames occupationDuties|
 	/setvar key=occupationSkills None|
 	/addvar key=dataBaseNames occupationSkills|
-	/setvar key=parsedOccupation "- Occupation: {{getvar::occupation}}"|
-
+	
 	/addvar key=dataBaseNames parsedOccupation|
 :}|
 
 
 //Lore|
-/buttons labels=["Yes", "No"] Do you want to have Lore for the world?|
-/setvar key=selected_btn {{pipe}}|
-/ife ( selected_btn == 'Yes') {:
-	/flushvar selected_btn|
+/ife (loreSelect == '') {:
+	/buttons labels=["Yes", "No"] Do you want to have Lore for the world?|
+	/setvar key=loreSelect {{pipe}}|
+	/ife (loreSelect == '') {:
+		/echo Aborting |
+		/abort
+	:}|
+:}|
+/ife ( loreSelect == 'Yes') {:
 	/var key=do No|
 	/var key=variableName "lore"|
 	/ife ({{var::variableName}} == '') {:
@@ -829,12 +840,14 @@
 	:}|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsList No|
-	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext No|
 	/setvar key=extra []|
-	/addvar key=extra "- Occupation: {{getvar::occupation}}"|
+	/ife (parsedOccupation != 'None') {:
+		/addvar key=extra "{{getvar::parsedOccupation}}"|
+	:}|
 	/addvar key=extra "- Residence: {{getvar::residence}}"|
 	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
