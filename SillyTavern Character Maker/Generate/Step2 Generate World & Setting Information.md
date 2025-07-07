@@ -329,14 +329,14 @@
 		/abort
 	:}|
 	/elseif (( userGender == 'Male') or ( userGender == 'Female')) {:
-		/ife (userGender = 'Female') {:
+		/ife (userGender == 'Female') {:
 			/setvar key=userSubjPronoun she|
 			/setvar key=userObjPronoun her|
 			/setvar key=userPossAdjPronoun her|
 			/setvar key=userPossPronoun hers|
 			/setvar key=userReflexivePronoun herself|
 		:}|
-		/elseif (userGender = 'Male') {:
+		/elseif (userGender == 'Male') {:
 			/setvar key=userSubjPronoun he|
 			/setvar key=userObjPronoun him|
 			/setvar key=userPossAdjPronoun his|

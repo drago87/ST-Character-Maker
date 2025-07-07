@@ -1611,7 +1611,7 @@
 	/addvar key=parsedApperance "{{newline}} - Eyes: {{getvar::appearanceEyes}}"|
 :}|
 /ife (appearanceFace != 'None') {:
-	/addvar key=parsedApperance "{{newline}} - Face: {{getvar::}}"|
+	/addvar key=parsedApperance "{{newline}} - Face: {{getvar::appearanceFace}}"|
 :}|
 /addvar key=parsedApperance "{{newline}}### Body{{newline}}- Body:"|
 /ife (appearanceBody != 'None') {:

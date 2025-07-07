@@ -155,6 +155,16 @@
 	/re-replace find="/--Body--/g" replace="{{newline}} - Body: {{getvar::appearanceBody}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
+/ife ((tanlines != '') and (tanlines != 'None')) {:
+	/messages names=off 0|
+	/re-replace find="/--Tanlines--/g" replace="{{newline}} - Tanlines: {{getvar::tanlines}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (tanlines == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--Tanlines--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
 /ife ( (appearanceBreasts != '') and (appearanceBreasts != 'None')) {:
 	/messages names=off 0|
 	/re-replace find="/--Breasts--/g" replace="{{newline}} - Breast: {{getvar::appearanceBreasts}}" {{pipe}}|

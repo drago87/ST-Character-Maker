@@ -64,6 +64,7 @@ A: "My trainer? This... this mankey!? I hate this pervert so much..." Garde has 
 - Eyes: 
 ### Body: 
 - Body:
+- Tanlines:
 - Privates: 
 
 - Feature: 

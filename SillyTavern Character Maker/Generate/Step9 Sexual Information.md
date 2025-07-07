@@ -762,6 +762,7 @@
 	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Kink Type"|
 	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=genAmount 10|
 	
 	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput Yes|
@@ -866,6 +867,7 @@
 	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Kink Variant"|
 	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=genAmount 8|
 	/setvar key=genSettings index=inputIsList Yes|
 	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput No|
@@ -1738,7 +1740,7 @@
 		/wait {{getvar::wait}}|
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 4|
+		/setvar key=x 5|
 		
 		/ife (settingType == 'Realistic') {:
 			/incvar x|

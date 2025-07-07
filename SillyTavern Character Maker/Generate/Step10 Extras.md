@@ -300,7 +300,7 @@
 			/foreach {{var::unfilteredQuestions}} {:
 				/var key=pop {{var::pop}}<div>{{var::item}}</div>| 
 			:}|
-			/popup wide=true okButton="Continue" <div>Here is the questions you have to choose from during generation.</div><div>{taget} is going to get randomised each time you redo the generation.</div><div>You will also be able to add your own.</div><div>---</div>{{var::pop}}|
+			/popup wide=true okButton="Continue" <div>Here is the questions you have to choose from during generation.</div><div>You get to select {taget} each time you redo the generation.</div><div>You will also be able to add your own.</div><div>---</div>{{var::pop}}|
 			/let key=filteredQuestions []|
 			/foreach {{var::unfilteredQuestions}} {:
 				/ife (( user != 'Yes') and ('--User--' not in item)) or ( user == 'Yes') {:
@@ -387,8 +387,7 @@
 						/re-replace find="/\"$/g" replace="" {{pipe}}|
 						/let key=tOut {{pipe}}|
 						/len {{var::tempOutputList}}|
-						/var key=tempOutputList index={{pipe}}|
-						/var key=tempOutputList "\"{{var::tOut}}\""|
+						/var key=tempOutputList index={{pipe}} "\"{{var::tOut}}\""|
 					:}|
 				:}|
 				/flushvar output|
@@ -525,7 +524,7 @@
 			/foreach {{var::unfilteredQuestions}} {:
 				/var key=pop {{var::pop}}<div>{{var::item}}</div>| 
 			:}|
-			/popup wide=true okButton="Continue" <div>Here is the questions you have to choose from during generation. {taget} is going to get randomised each time you redo the generation.<div></div>You will also be able to add your own.</div>{{var::pop}}|
+			/popup wide=true okButton="Continue" <div>Here is the questions you have to choose from during generation. You get to select {taget} each time you redo the generation.<div></div>You will also be able to add your own.</div>{{var::pop}}|
 			/let key=filteredQuestions []|
 			/foreach {{var::unfilteredQuestions}} {:
 				/ife (( user != 'Yes') and ('--User--' not in item)) or ( user == 'Yes') {:
@@ -707,7 +706,7 @@
 			/foreach {{var::unfilteredQuestions}} {:
 				/var key=pop {{var::pop}}<div>{{var::item}}</div>| 
 			:}|
-			/popup wide=true okButton="Continue" <div>Here is the questions you have to choose from during generation. {taget} is going to get randomised each time you redo the generation.<div></div>You will also be able to add your own.</div>{{var::pop}}|
+			/popup wide=true okButton="Continue" <div>Here is the questions you have to choose from during generation. You get to select {taget} each time you redo the generation.<div></div>You will also be able to add your own.</div>{{var::pop}}|
 			/let key=filteredQuestions []|
 			/foreach {{var::unfilteredQuestions}} {:
 				/ife (( user != 'Yes') and ('--User--' not in item)) or ( user == 'Yes') {:
@@ -767,8 +766,7 @@
 		/ife (inputIsList == 'Yes') {:
 			/let key=tempOutputList []|
 			/foreach {{getvar::personalityQuestions}} {:
-				/getvar key={{var::variableName}}|
-				/len {{pipe}}|
+				/len {{getvar::personalityQAList}}|
 				/let key=len {{pipe}}|
 				/ife (len == 0) {:
 					/setvar as=array key={{var::variableName}} []|
@@ -787,6 +785,9 @@
 				:}|
 				/flushvar output|
 				/flushvar guidance|
+			:}|
+			/foreach {{var::tempOutputList}} {:
+				/addvar key={{var::variableName}} {{var::item}}|
 			:}|
 			/flushvar {{var::variableName}}Item|
 		:}|
@@ -900,7 +901,7 @@
 			/foreach {{var::unfilteredQuestions}} {:
 				/var key=pop {{var::pop}}<div>{{var::item}}</div>| 
 			:}|
-			/popup wide=true okButton="Continue" <div>Here is the questions you have to choose from during generation. {taget} is going to get randomised each time you redo the generation.<div></div>You will also be able to add your own.</div>{{var::pop}}|
+			/popup wide=true okButton="Continue" <div>Here is the questions you have to choose from during generation. You get to select {taget} each time you redo the generation.<div></div>You will also be able to add your own.</div>{{var::pop}}|
 			/let key=filteredQuestions []|
 			/foreach {{var::unfilteredQuestions}} {:
 				/ife (( user != 'Yes') and ('--User--' not in item)) or ( user == 'Yes') {:
@@ -961,8 +962,7 @@
 		/ife (inputIsList == 'Yes') {:
 			/let key=tempOutputList []|
 			/foreach {{getvar::sexualityQuestions}} {:
-				/getvar key={{var::variableName}}|
-				/len {{pipe}}|
+				/len {{getvar::sexualityQAList}}|
 				/let key=len {{pipe}}|
 				/ife (len == 0) {:
 					/setvar as=array key={{var::variableName}} []|
@@ -980,12 +980,12 @@
 						/var key=tempOutputList index={{pipe}} "Q: \"{{getvar::question}}\"{{newline}}A: \"{{var::tOut}}\""|
 					:}|
 				:}|
-				
-				/foreach {{var::tempOutputList}} {:
-					/addvar key={{var::variableName}} {{var::item}}|
-				:}|
 				/flushvar output|
 				/flushvar guidance|
+			:}|
+			
+			/foreach {{var::tempOutputList}} {:
+				/addvar key={{var::variableName}} {{var::item}}|
 			:}|
 			/flushvar {{var::variableName}}Item|
 		:}|
@@ -1350,7 +1350,7 @@
 	/setvar key=genSettings index=needOutput No|
 	/setvar key=genSettings index=useContext No|
 	/wait {{getvar::wait}}|
-	
+	/*
 	/len {{getvar::notes}}|
 	/var key=len {{pipe}}|
 	
@@ -1363,9 +1363,11 @@
 		/:"CMC Logic.GenerateWithSelector"|
 		/addvar key={{var::variableName}} {{getvar::output}}|
 	:}|
+	*|
 	/len {{getvar::notes}}|
 	/var key=len {{pipe}}|
-	/ife ( len == 1) {:
+	/ife ( len == 0) {:
+		/setvar key={{var::variableName}} []|
 		/setvar key=genSettings index=wi_book_key "Narrative Tone Rule"|
 		/setvar key=it "Narrative Tone Rule"|
 		/setvar key=genSettings index=buttonPrompt "Select one — how expressive or reserved the model writes"|
@@ -1374,7 +1376,7 @@
 	:}|
 	/len {{getvar::notes}}|
 	/var key=len {{pipe}}|
-	/ife ( len == 2) {:
+	/ife ( len == 1) {:
 		/setvar key=genSettings index=wi_book_key "Perspective Rule"|
 		/setvar key=it "Perspective Rule"|
 		/setvar key=genSettings index=buttonPrompt "Select one — PoV handling"|
@@ -1383,7 +1385,7 @@
 	:}|
 	/len {{getvar::notes}}|
 	/var key=len {{pipe}}|
-	/ife ( len == 3) {:
+	/ife ( len == 2) {:
 		/setvar key=genSettings index=wi_book_key ["Output Style Behavior"]|
 		/setvar key=it "Output Style Behavior"|
 		/setvar key=genSettings index=buttonPrompt "Select one or more — controls structure and generation behavior"|

@@ -68,6 +68,7 @@
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Head"|
 		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 20|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput Yes|
@@ -209,6 +210,7 @@
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Accessories"|
 		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 10|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput No|
@@ -377,6 +379,7 @@
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Makeup"|
 		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 10|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput Yes|
@@ -542,6 +545,7 @@
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Neck"|
 		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 10|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput Yes|
@@ -697,6 +701,7 @@
 			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Mainwear"|
 			/setvar key=genSettings index=genIsList Yes|
+			/setvar key=genSettings index=genAmount 8|
 			/setvar key=genSettings index=inputIsTaskList No|
 			/setvar key=genSettings index=genIsSentence No|
 			/setvar key=genSettings index=needOutput Yes|
@@ -852,6 +857,7 @@
 			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Top"|
 			/setvar key=genSettings index=genIsList Yes|
+			/setvar key=genSettings index=genAmount 10|
 			/setvar key=genSettings index=inputIsTaskList No|
 			/setvar key=genSettings index=genIsSentence No|
 			/setvar key=genSettings index=needOutput Yes|
@@ -999,6 +1005,7 @@
 			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Bottom"|
 			/setvar key=genSettings index=genIsList Yes|
+			/setvar key=genSettings index=genAmount 10|
 			/setvar key=genSettings index=inputIsTaskList No|
 			/setvar key=genSettings index=genIsSentence No|
 			/setvar key=genSettings index=needOutput Yes|
@@ -1154,6 +1161,7 @@
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Legwear"|
 		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 10|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput Yes|
@@ -1338,6 +1346,7 @@
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Shoes"|
 		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 10|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput Yes|
@@ -1477,7 +1486,7 @@
 	:}|
 	//--------|
 	
-	/ife (breasts != 'None') {:
+	/ife (appearanceBreasts != 'None') {:
 		//Outfit Underwear (Top)|
 		/var key=do No|
 		/var key=variableName "outfitUnderwearTop"|
@@ -1497,6 +1506,7 @@
 			/setvar key=genSettings {}|
 			/setvar key=genSettings index=wi_book_key "Outfit Underwear Top"|
 			/setvar key=genSettings index=genIsList Yes|
+			/setvar key=genSettings index=genAmount 10|
 			/setvar key=genSettings index=inputIsTaskList No|
 			/setvar key=genSettings index=genIsSentence No|
 			/setvar key=genSettings index=needOutput Yes|
@@ -1651,6 +1661,7 @@
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Outfit Underwear Bottom"|
 		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 10|
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput Yes|
@@ -1824,6 +1835,122 @@
 	/setvar key=outfitUnderwearBottomDescription None|
 	/addvar key=dataBaseNames outfitUnderwearBottomDescription|
 :}|
+
+/setvar key=parsedOutfit {{noop}}|
+/ife ((outfitMainwearDescription != 'Skip') and (outfitMainwearDescription != 'None')) {:
+	/addvar key=parsedOutfit "{{newline}}- Mainwear: {{getvar::outfitMainwearDescription}}"|
+:}|
+/ife ((outfitTopDescription != 'Skip') and (outfitTopDescription != 'None')) {:
+	/addvar key=parsedOutfit "{{newline}}- Top: {{getvar::outfitTopDescription}}"|
+:}|
+/ife ((outfitBottomDescription != 'Skip') and (outfitBottomDescription != 'None')) {:
+	/addvar key=parsedOutfit "{{newline}}- Bottom: {{getvar::outfitBottomDescription}}"|
+:}|
+/ife ((outfitLegsDescription != '') and (outfitLegsDescription != 'None')) {:
+	/addvar key=parsedOutfit "{{newline}}- Legs: {{getvar::outfitLegsDescription}}"|
+:}|
+/ife ((outfitShoesDescription != '') and (outfitShoesDescription != 'None')) {:
+	/addvar key=parsedOutfit "{{newline}}- Shoes: {{getvar::outfitShoesDescription}}"|
+:}|
+/ife ((outfitUnderwearTopDescription != 'Skip') and (outfitUnderwearTopDescription != 'None')) {:
+	/addvar key=parsedOutfit "{{newline}}- Underwear (Top): {{getvar::outfitUnderwearTopDescription}}"|
+:}|
+/ife ((outfitUnderwearBottomDescription != '') and (outfitUnderwearBottomDescription != 'None')) {:
+	/addvar key=parsedOutfit "{{newline}}- Underwear (Bottom): {{getvar::outfitUnderwearBottomDescription}}"|
+:}|
+/ife (parsedOutfit != '') {:
+	/setvar key=parsedOutfit "###OUTFIT{{newline}}{{getvar::parsedOutfit}}"|
+	/setvar key=parsedOutfitTan {{getvar::parsedOutfit}}|
+:}|
+
+/ife (((characterArchetype == 'Human') or (characterArchetype == 'Beastkin')) and (genTan == '')) {:
+	/buttons labels=["Yes", "No"] Do yo want {{getvar::firstName}} to have some sort of tan?|
+	/setvar key=genTan {{pipe}}|
+	/ife (genTan == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( ( (characterArchetype == 'Human') or (characterArchetype == 'Beastkin') ) and (genTan == 'Yes') ) {:
+	/let key=outTan {{noop}}|
+	/ife (parsedOutfit == '') {:
+		/var key=outTan ["Full Body Tan", "No Tan", "New Outfit"]|
+	:}|
+	/else {:
+		/var key=outTan ["Full Body Tan", "No Tan", "New Outfit", "Current Outfit"]|
+	:}|
+	/buttons labels={{var::outTan}} Do you want to have a full body tan, no tan, current outfit or select a new outfit that to mold the tan after?|
+	/var selected_btn {{pipe}}|
+	/ife ( selected_btn == '') {:
+		/echo Aborting |
+		/abort
+	:}|
+	/elseif ( selected_btn == 'Full Body Tan') {:
+		/setvar key=parsedOutfitTan "Full-body exposure"|
+	:}|
+	/elseif ( selected_btn == 'No Tan') {:
+		/setvar key=parsedOutfitTan "No visible sun exposure"|
+	:}|
+	/elseif ( selected_btn == 'New Outfit') {:
+		/input default="One-Piece Swimsuit" What is the name of the outfit that caused the tan?|
+		/setvar key=parsedOutfitTan "Visible tanlines from a {{pipe}}"
+	:}|
+:}|
+
+//Tanlines|
+/ife (((characterArchetype == 'Human') or (characterArchetype == 'Beastkin')) and (genTan != 'No')) {:
+	/var key=do No|
+	/var key=variableName "tanlines"|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
+	:}|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
+		/setvar key=genSettings index=wi_book_key "Tanlines"|
+		/setvar key=genSettings index=genIsList No|
+		/setvar key=genSettings index=inputIsList No|
+		/setvar key=genSettings index=genIsSentence Yes|
+		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=genSettings index=outputIsList No|
+		/setvar key=genSettings index=useContext No|
+		/setvar key=extra []|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
+		:}|
+		/flushvar extra|
+		/wait {{getvar::wait}}|
+	
+		/setvar key=genSettings index=buttonPrompt CHANGE_THIS_PROMPT|//Remove if not in use|
+	
+		/:"CMC Logic.GenerateWithPrompt"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+		/addvar key=dataBaseNames {{var::variableName}}|
+		/flushvar output|
+		/flushvar guidance|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar genSettings|
+	:}|
+	/else {:
+		/addvar key=dataBaseNames {{var::variableName}}|
+	:}|
+	
+:}|
+/else {:
+	/setvar key=tanlines None|
+	/addvar key=dataBaseNames tanlines|
+:}|
+//---------|
 
 /:"CMC Logic.JEDParse"|
 

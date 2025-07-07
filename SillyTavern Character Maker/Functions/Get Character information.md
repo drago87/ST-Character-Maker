@@ -29,7 +29,7 @@
 /elseif ((humanEquivalentAge != '') and (humanEquivalentAge != 'None') and (humanEquivalentAge != age)) {:
 	/setvar key=parcedAge {{getvar::age}} years-old — roughly {{getvar::humanEquivalentAge}} years-old in human years.|
 :}|
-/else (age != '') {:
+/elseif (age != '') {:
 	/setvar key=parcedAge {{getvar::age}} years-old|
 :}|
 //-----------|

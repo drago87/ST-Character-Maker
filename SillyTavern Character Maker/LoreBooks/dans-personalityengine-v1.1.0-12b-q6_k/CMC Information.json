@@ -38,7 +38,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 0
+            "displayIndex": 0,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "1": {
             "uid": 1,
@@ -78,7 +83,12 @@
             "matchCharacterPersonality": false,
             "matchCharacterDepthPrompt": false,
             "matchScenario": false,
-            "matchCreatorNotes": false
+            "matchCreatorNotes": false,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "2": {
             "uid": 2,
@@ -118,14 +128,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 2
+            "displayIndex": 2,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "3": {
             "uid": 3,
             "key": [],
             "keysecondary": [],
             "comment": "Beastkin Animalistic: Context",
-            "content": "### **Beastkin**\nBeastkin are primarily human characters who display distinct animal traits—such as ears, tails, claws, fangs, or unusual markings.  \nThey maintain a fully human body shape, face, and posture, but their hybrid nature is revealed through inherited or altered features from a non-human species.\n\nThese traits are often the result of magical fusion, ancestry, mutation, or other supernatural origins that blend human and animal characteristics.\n\n#### **Examples might include:**\n- A boy with wolf ears and a bushy tail.\n- A girl with tiger stripes, feline eyes, and retractable claws.\n- A human with bat-like wings and sharp fangs.",
+            "content": "### **Beastkin**\nBeastkin are primarily human characters who display distinct animal traits—such as ears, tails, claws, fangs, or unusual markings.\nThey maintain a fully human body shape, face, and posture, but their hybrid nature is revealed through inherited or altered features from a non-human species.\n\nThese traits are often the result of magical fusion, ancestry, mutation, or other supernatural origins that blend human and animal characteristics.\n\nAssume that the main features and body form are Human.\n\n#### **Examples might include:**\n- A boy with wolf ears and a bushy tail.\n- A girl with tiger stripes, feline eyes, and retractable claws.\n- A human with bat-like wings and sharp fangs.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -198,7 +213,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 4
+            "displayIndex": 4,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "5": {
             "uid": 5,
@@ -238,7 +258,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 5
+            "displayIndex": 5,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "6": {
             "uid": 6,
@@ -278,7 +303,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 6
+            "displayIndex": 6,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "7": {
             "uid": 7,
@@ -318,7 +348,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 7
+            "displayIndex": 7,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "8": {
             "uid": 8,
@@ -358,7 +393,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 8
+            "displayIndex": 8,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "9": {
             "uid": 9,
@@ -398,7 +438,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 2
+            "displayIndex": 2,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "10": {
             "uid": 10,
@@ -438,14 +483,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 2
+            "displayIndex": 2,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "11": {
             "uid": 11,
             "key": [],
             "keysecondary": [],
             "comment": "Beastkin Pokémon: Context",
-            "content": "### **Beastkin**\nBeastkin Pokémon are primarily human characters who display distinct physical traits derived from Pokémon—such as ears, tails, elemental markings, or unusual skin textures.  \nThey retain a human silhouette, facial structure, and posture, but their appearance is clearly influenced by Pokémon biology through fusion, ancestry, mutation, or other supernatural means.\n\n#### **Visual cues might include:**\n- A boy with Pikachu ears and a lightning bolt-shaped tail.\n- A woman with Lucario-style paws and aura-sensing markings.\n- A teen with Vaporeon fins and semi-aquatic skin.",
+            "content": "### **Beastkin**\nBeastkin Pokémon are primarily human characters who display distinct physical traits derived from Pokémon—such as ears, tails, elemental markings, or unusual skin textures.\n\nThey retain a human silhouette, facial structure, and posture, but their appearance is clearly influenced by Pokémon biology through fusion, ancestry, mutation, or other supernatural means.\n\nAssume that the main features and body form are Human.\n\n#### **Visual cues might include:**\n- A boy with Pikachu ears and a lightning bolt-shaped tail.\n- A woman with Lucario-style paws and aura-sensing markings.\n- A teen with Vaporeon fins and semi-aquatic skin.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -478,14 +528,19 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 3
+            "displayIndex": 3,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "12": {
             "uid": 12,
             "key": [],
             "keysecondary": [],
             "comment": "Beastkin Digimon: Context",
-            "content": "### **Beastkin**\nBeastkin Digimon are primarily human in appearance but exhibit visible Digimon traits, such as ears, tails, claws, fangs, markings, or other physical features derived from their Digimon ancestry.  \nThey walk upright, speak like humans, and have human-shaped faces, hands, and proportions, but their hybrid nature is unmistakable.\n\nThese characters are not simply Digimon given human traits—they are imagined as the result of a fusion, lineage, or mutation that combines a human with Digimon essence.\n\n#### **Visual cues might include:**\n- A girl with Patamon-like ears and winged feet.\n- A man with Agumon-style claws and scaled forearms.\n- A child with Gatomon’s tail and feline eyes.",
+            "content": "### **Beastkin**\nBeastkin Digimon are primarily human in appearance but exhibit visible Digimon traits, such as ears, tails, claws, fangs, markings, or other physical features derived from their Digimon ancestry.\n\nThey walk upright, speak like humans, and have human-shaped faces, hands, and proportions, but their hybrid nature is unmistakable.\n\nThese characters are not simply Digimon given human traits—they are imagined as the result of a fusion, lineage, or mutation that combines a human with Digimon essence.\n\nAssume that the main features and body form are Human.\n\n#### **Visual cues might include:**\n- A girl with Patamon-like ears and winged feet.\n- A man with Agumon-style claws and scaled forearms.\n- A child with Gatomon’s tail and feline eyes.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -518,7 +573,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 3
+            "displayIndex": 3,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "13": {
             "uid": 13,
@@ -558,7 +618,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 9
+            "displayIndex": 9,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "14": {
             "uid": 14,
@@ -598,7 +663,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 14
+            "displayIndex": 14,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         }
     }
 }

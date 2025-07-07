@@ -645,7 +645,7 @@
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Personality Tags"|
-	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
 	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput Yes|

@@ -157,7 +157,7 @@
 /setvar key=blackListGen {{noop}}|
 /setvar key=mileS {{noop}}|
 /ife (( wi_book_key_f != 'User Role' ) and ('Outfit' not in wi_book_key_f)) {:
-	/setvar key=guidance|
+	/setvar key=guidance {{noop}}|
 :}|
 
 /ife ( genIsSentence_f != 'Yes') {:
@@ -538,7 +538,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 			/setvar key=guidance {{noop}}|
 		:}|
 		/elseif ( gu == 'Set') {:
-			/input Write what you want the response shoud be guided towards.|
+			/input What kind of themes, feelings, or ideas do you want to explore through {{getvar::firstName}}?|
 			/setvar key=guideTemp {{pipe}}|
 			/ife (wi_book_key_f == 'Kink Type') {:
 				/var key=find "Kink Type Guidance"|
@@ -547,9 +547,9 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 				/getentryfield field=content file="CMC Generation Prompts" {{var::wi_uid}}|
 				/let key=mainPrompt {{pipe}}|
 				/var key=find "Kink Information"|
-				/findentry field=comment file="CMC Information Prompts" "{{var::find}}"|
+				/findentry field=comment file="CMC Information" "{{var::find}}"|
 				/var key=wi_uid {{pipe}}|
-				/getentryfield field=content file="CMC Information Prompts" {{var::wi_uid}}|
+				/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
 				/let key=infoPrompt {{pipe}}|
 				/genraw "{{var::infoPrompt}}{{newline}}{{newline}}{{var::mainPrompt}}"|
 				/setvar key=guideTemp {{pipe}}|

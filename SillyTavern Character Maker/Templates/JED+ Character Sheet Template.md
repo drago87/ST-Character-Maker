@@ -33,7 +33,7 @@
 - Eyes: --Eyes--
 - Face: --Face--
 ### Body
-- Body: --Body----Breasts----Nipples----Pussy----Cock----Genitals--
+- Body: --Body----Tanlines----Breasts----Nipples----Pussy----Cock----Genitals--
 - Anus: --Anus----Features----ApperanceTraits--
 
 
