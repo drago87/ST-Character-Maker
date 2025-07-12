@@ -10,7 +10,7 @@
 /setvar key=dataBaseNames []|
 /flushvar genSettings|
 
-/setvar key=stepVar Step10|
+/setvar key=stepVar Step11|
 /setvar key=stepDone No|
 
 /let key=do {{noop}}|
@@ -63,7 +63,7 @@
 	:}|
 	/getvar key=writingInstruct index=0|
 	/re-replace find="/\*\*Formatting Style:\*\*\s/g" replace="" {{pipe}}|
-	/addvar key=logicBasedInstruction "{{getvar::x}}. {{pipe}}"|
+	/addvar key=logicBasedInstruction "{{getvar::x}}. {{pipe}} Do **not** alter or reinterpret the formatting — apply it **exactly**."|
 	/ife (('Fully Animalistic' in parsedSentientLevel) or ('Semi-Sapient' in parsedSentientLevel)) {:
 		/incvar x|
 		/ife ( logicBasedInstruction != '') {:
@@ -102,7 +102,7 @@
 	/flushvar x|
 	
 	/ife (('Fully Animalistic' in parsedSentientLevel) or ('Semi-Sapient' in parsedSentientLevel)) {:
-		/setvar key=sceneChecklist "```{{newline}}Your scene must:{{newline}}- Describe where {{getvar::firstName}} is.{{newline}}- What {{getvar::subjPronoun}} is physically doing or reacting to.{{newline}}- What’s around {{getvar::objPronoun}} — include surroundings, weather, scent, or movement.{{newline}}- Use only instinctual behavior or physical signals — no dialogue, thoughts, or human-style emotion.{{newline}}```"|
+		/setvar key=sceneChecklist "```{{newline}}Your scene must:{{newline}}- Describe where {{getvar::firstName}} is.{{newline}}- What {{getvar::subjPronoun}} is physically doing or reacting to.{{newline}}- What’s around {{getvar::objPronoun}} — include surroundings, weather, scent, or movement.{{newline}}- Use only instinctual behavior or physical signals — no dialogue, thoughts, or human-style emotion.{{newline}}{{newline}}```"|
 	:}|
 	
 	/else {:
@@ -144,5 +144,12 @@
 /:"CMC Logic.Save DataBase"|
 
 /setvar key=stepDone Yes|
+/qr-list CMC Main|
+/getat index=1 {{pipe}}|
+/var qrlabel {{pipe}}|
+/qr-get set="CMC Main" label={{var::qrlabel}}|
+/getat index="message" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Tagline" {{pipe}}|
+
 /qr-update set="CMC Main" label="Character Export" hidden=false title="Exports the character to the DataBase and saves it as a .json file that can be imported to ST as a character (Without a image)"|
 /forcesave|

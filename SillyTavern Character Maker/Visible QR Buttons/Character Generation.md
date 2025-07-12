@@ -11,6 +11,7 @@ Step8 Generate External Interaction
 Step9 Generate Sexual Information
 Step10 Generate Extras
 Step11 First Message
+Step12 Tagline
 *|
 
 /ife ( (stepVar == 'Step0') or (stepVar == '')) {:
@@ -115,7 +116,7 @@ Step11 First Message
 :}|
 /elseif ( stepVar == 'Step10') {:
 	/ife (stepDone == 'Yes') {:
-		//Load Step10|
+		//Load Step11|
 		/:"CMC Generate.Step11 First Message"|
 	:}|
 	/else {:
@@ -124,8 +125,12 @@ Step11 First Message
 	:}|
 :}|
 /elseif ( stepVar == 'Step11') {:
-	/ife (stepDone == 'No') {:
+	/ife (stepDone == 'Yes') {:
 		//Load Step11|
+		/:"CMC Generate.Step12 Tagline"|
+	:}|
+	/else {:
+		//Load Step10|
 		/:"CMC Generate.Step11 First Message"|
 	:}|
 :}|

@@ -315,7 +315,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Occupation Template",
-            "content": "- Occupation: {{getvar::occupation}}\n  - Duties: {{getvar::occupationDuties}}--OccupationSkills--",
+            "content": "- Occupation: {{getvar::occupationBase}}\n  - Duties: {{getvar::occupationDuties}}--OccupationSkills--",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -348,12 +348,7 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 7,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "displayIndex": 7
         },
         "8": {
             "uid": 8,
@@ -534,6 +529,46 @@
                 "names": [],
                 "tags": []
             }
+        },
+        "12": {
+            "uid": 12,
+            "key": [],
+            "keysecondary": [],
+            "comment": "Tagline Template",
+            "content": "## SCENARIO OVERVIEW\n--ScenarioOverview--\n\n- - -\n\n<--FirstName-->\n\n# [--FirstName--]\n\n## CHARACTER OVERVIEW\n--CharacterOverview----Real--\n\n- - -\n\n## [APPEARANCE]\n\n### APPEARANCE DETAILS\n- Full Name--Alias1--: --FirstName-- --LastName----Alias--\n- Race: --Species--\n- Sex/Gender: --Gender----Futanari--\n\n- - -\n\n## [BASIC_INFO]\n\n### ORIGIN (BACKSTORY)\n--Backstory--\n\n### RESIDENCE\n--Residence----Occupation--\n\n### CONNECTIONS\n--Connections----Items----Abilities----Secret----Kinks--\n\n- - -\n\n## [PERSONALITY_AND_TRAITS]\n\n### PERSONALITY\n--Archetype----Alignment--\n\n--PersonalityTags--\n\n--IntelligenceLevel----CognitiveAbilities----SentientLevel--\n--SocialBehavior----SocialSkills--\n\n--MainAspiration--\n  \n--UniqueTraits----PersonalityQA----BehaviorNotes--\n\n-----StoryPlan--\n\n</--FirstName-->",
+            "constant": false,
+            "vectorized": false,
+            "selective": true,
+            "selectiveLogic": 0,
+            "addMemo": true,
+            "order": 100,
+            "position": 0,
+            "disable": false,
+            "excludeRecursion": false,
+            "preventRecursion": false,
+            "matchPersonaDescription": false,
+            "matchCharacterDescription": false,
+            "matchCharacterPersonality": false,
+            "matchCharacterDepthPrompt": false,
+            "matchScenario": false,
+            "matchCreatorNotes": false,
+            "delayUntilRecursion": false,
+            "probability": 100,
+            "useProbability": true,
+            "depth": 4,
+            "group": "",
+            "groupOverride": false,
+            "groupWeight": 100,
+            "scanDepth": null,
+            "caseSensitive": null,
+            "matchWholeWords": null,
+            "useGroupScoring": null,
+            "automationId": "",
+            "role": null,
+            "sticky": 0,
+            "cooldown": 0,
+            "delay": 0,
+            "displayIndex": 12
         }
     }
 }

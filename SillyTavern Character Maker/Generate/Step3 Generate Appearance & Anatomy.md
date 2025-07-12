@@ -1072,6 +1072,18 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/buttons labels=["Hidden", "Visible", "Visible and Prominent"] Is {{getvar::firstName}}'s Clit Visible?|
+		/setvar key=clitVisability {{pipe}}|
+		/ife (clitVisability == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+		/buttons labels=["Hidden", "Visible", "Visible and Prominent"] Is {{getvar::firstName}}'s Labia Minora Visible?|
+		/setvar key=labiaMinoraVisability {{pipe}}|
+		/ife (labiaMinoraVisability == '') {:
+			/echo Aborting |
+			/abort
+		:}|
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Pussy"|
 		/setvar key=genSettings index=genIsList No|
@@ -1088,6 +1100,8 @@
 		/addvar key=extra "- Female  Genital Type: {{getvar::privatesFemale}}"|
 		/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
 		/addvar key=extra "- Animal Base: {{getvar::animalBase}}"|
+		/addvar key=extra "- Clit Visability: {{getvar::clitVisability}}"|
+		/addvar key=extra "- Labia Minora Visability: {{getvar::labiaMinoraVisability}}"|
 		/ife (futanari == 'Yes') {:
 			/addvar key=extra "Important: {{getvar::firstName}} is a futanari, so she has both a pussy and a cock."|
 		:}|

@@ -502,7 +502,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Formatting Style",
-            "content": "Dialogue in \"quotes\", thoughts in _italics_, narration in plain text.\n---\nCharacter names in bold, dialogue below without quotes. Thoughts in _italics_, narration bracketed like [narration].\n---\nDialogue in “curly quotes”, thoughts as free indirect speech (no italics), narration in past-tense prose.\n---\nDialogue in \"quotes\", thoughts in asterisks, narration in plain text.\n---\nDialogue in \"quotes\", thoughts in [brackets], narration in plain text.\n---\nNo formatting distinctions—dialogue, thoughts, and narration flow as one, clarified only through context.\n---\nDialogue in bold, thoughts in italics, narration in plain text.\n---\nDialogue and thoughts both in \"quotes\", separated only by tags (e.g., she said, she thought); narration as plain.\n---\nDialogue in \"quotes\", thoughts marked with (thinking): before them, narration in plain text.\n---\nNo quotes or italics—narration dominates, with dialogue and thoughts inferred by phrasing and tags.",
+            "content": "Dialogue in \"quotes\", thoughts in _italics_, Emphasis in **bold** and narration in plain text (must not be wrapped in any symbols or formatting — output as unformatted text only).\n---\nCharacter names in bold, dialogue below without quotes. Thoughts in _italics_, narration bracketed like [narration].\n---\nDialogue in “curly quotes”, thoughts as free indirect speech (no italics), narration in past-tense prose.\n---\nDialogue in \"quotes\", thoughts in asterisks, narration in plain text (must not be wrapped in any symbols or formatting — output as unformatted text only).\n---\nDialogue in \"quotes\", thoughts in [brackets], narration in plain text.\n---\nNo formatting distinctions—dialogue, thoughts, and narration flow as one, clarified only through context.\n---\nDialogue in bold, thoughts in italics, narration in plain text.\n---\nDialogue and thoughts both in \"quotes\", separated only by tags (e.g., she said, she thought); narration as plain.\n---\nDialogue in \"quotes\", thoughts marked with (thinking): before them, narration in plain text.\n---\nNo quotes or italics—narration dominates, with dialogue and thoughts inferred by phrasing and tags.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -535,12 +535,7 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 11,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "displayIndex": 11
         },
         "12": {
             "uid": 12,
@@ -580,7 +575,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 12
+            "displayIndex": 12,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "13": {
             "uid": 13,
@@ -620,7 +620,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 13
+            "displayIndex": 13,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "14": {
             "uid": 14,
@@ -930,7 +935,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 20
+            "displayIndex": 20,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         }
     }
 }
