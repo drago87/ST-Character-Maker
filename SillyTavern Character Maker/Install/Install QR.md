@@ -250,7 +250,7 @@
 :}|
 
 /ife ( 'Step12 Tagline' not in qrListContent) {:
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step11%20First%20Message.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Generate/Step12%20Tagline.md|
 	/qr-create set="CMC Generate" label="Step12 Tagline" {{pipe}}|
 	//|-----|
 :}|

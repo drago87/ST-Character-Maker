@@ -1084,6 +1084,13 @@
 			/echo Aborting |
 			/abort
 		:}|
+		
+		/buttons labels=["Smooth", "Shaven with stubble", "Unshaven and bushy", "Trimmed"] Is {{getvar::firstName}}'s Labia Minora Visible?|
+		/setvar key=pubicHair {{pipe}}|
+		/ife (pubicHair == '') {:
+			/echo Aborting |
+			/abort
+		:}|
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Pussy"|
 		/setvar key=genSettings index=genIsList No|
