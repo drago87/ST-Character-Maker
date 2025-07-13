@@ -13,6 +13,19 @@
 	/qr-set-create CMC Main|
 :}|
 
+/ife ('Default' in qrList) {:
+	/qr-list CMC Main|
+	/let key=qrListContent {{pipe}}|
+	/ife ('Update CMC Script' not in qrListContent) {:
+		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Functions/Combine%20List%20Lorebooks.md|
+	
+		/qr-create set="CMC Logic" label="Update CMC Script" {{pipe}}|
+	:}|
+:}|
+/else ('Default' not in qrList) {:
+	
+:}|
+
 
 //-----|
 /qr-list CMC Main|
