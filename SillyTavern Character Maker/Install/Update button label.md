@@ -8,7 +8,7 @@
 		/qr-get set="CMC Main" label={{var::qrlabel}}|
 		/getat index="message" {{pipe}}|
 		/let key=t {{pipe}}
-		/ife (stepVar == 'Step0') {:
+		/ife ((stepVar == 'Step0') or (stepVar == '')) {:
 			/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Basic Information" {{var::t}}|
 		:}|
 		/elseif (stepVar == 'Step1') {:
