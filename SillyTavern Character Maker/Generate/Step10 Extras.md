@@ -3,7 +3,7 @@
 /let qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
-/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating Extras" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Extras" {{pipe}}|
 
 /:"CMC Logic.Get Char info"|
 

@@ -3,7 +3,7 @@
 /let qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
-/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating Appearance & Anatomy" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Appearance & Anatomy" {{pipe}}|
 
 /:"CMC Logic.Get Char info"|
 
@@ -864,6 +864,12 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+		/buttons labels=["Flat", "Small", "Medium", "Large", "Huge"] What size is {{getvar::firstName}}'s Breasts?|
+		/setvar:: key=breastSize {{pipe}}|
+		/ife (breastSize == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Breasts"|
 		/setvar key=genSettings index=genIsList No|
@@ -874,7 +880,7 @@
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
-		/addvar key=extra "- Breasts: {{getvar::appearanceBody}}"|
+		/addvar key=extra "- Breast Size: {{getvar::breastSize}}"|
 		/ife (appearanceFeatures != 'None') {:
 			/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
 		:}|

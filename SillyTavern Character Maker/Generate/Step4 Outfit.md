@@ -3,7 +3,7 @@
 /let qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
-/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue Generating Outfit" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Outfit" {{pipe}}|
 
 /:"CMC Logic.Get Char info"|
 
@@ -1930,7 +1930,7 @@
 		/flushvar extra|
 		/wait {{getvar::wait}}|
 	
-		/setvar key=genSettings index=buttonPrompt CHANGE_THIS_PROMPT|//Remove if not in use|
+		/setvar key=genSettings index=buttonPrompt Is this desctiption of {{getvar::firstName}}'s tanlines good?|
 	
 		/:"CMC Logic.GenerateWithPrompt"|
 		/setvar key={{var::variableName}} {{getvar::output}}|

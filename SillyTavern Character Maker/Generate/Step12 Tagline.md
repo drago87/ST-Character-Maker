@@ -3,7 +3,7 @@
 /let qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
-/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Continue making First Message" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Tagline" {{pipe}}|
 
 /:"CMC Logic.Get Char info"|
 
@@ -671,7 +671,7 @@
 		/setvar key=optionalFirstMessageGuidance {{noop}}|
 	:}|
 
-	/setvar key=genSettings index=buttonPrompt CHANGE_THIS_PROMPT|//Remove if not in use|
+	/setvar key=genSettings index=buttonPrompt Is this diplayed name and Character Description the one you want to display?|
 
 	//[[Generate with Prompt]]|
 	
