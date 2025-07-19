@@ -180,7 +180,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Demi-Human: Context",
-            "content": "",
+            "content": "### **Demi-Human**\n\nDemi-Humans are humanoid beings whose bodies follow a fully human structure but possess unique physiological, cultural, or magical traits that distinguish them from ordinary humans. These differences are often the result of ancient bloodlines, mystical evolution, supernatural influences, or divergent biology.\n\nTheir form remains bipedal, upright, and fully anthropomorphic. Sexual anatomy, musculature, and posture align with human norms unless explicitly modified by racial traits. The distinguishing features of a Demi-Human are typically **subtle and internalized** (e.g., longevity, resilience, specialized senses), or **cosmetic and symbolic** (e.g., pointed ears, glowing eyes, altered skin tone).\n\n#### **Common Examples:**\n\n- **Elves:**\n - Physiology: Slender build, pointed ears, sharp facial symmetry, graceful posture.\n - Traits: Long lifespans, heightened senses, attunement to nature or magic.\n - Social traits: Often refined, aloof, or tradition-bound depending on the subrace.\n - Anatomy: Fully human in structure; any magical traits (e.g., heat resistance, vision) do not alter reproductive or mobility functions.\n\n- **Dwarves:**\n - Physiology: Compact, muscular frames; stout limbs; thick body hair or beards.\n - Traits: Exceptional durability, affinity for stonework or metallurgy, high endurance.\n - Social traits: Communal, prideful, often honor-bound or tradition-driven.\n - Anatomy: Fully human, scaled proportionally. Genital and limb placement match standard human norms.\n  \n- **Vampires:**\n - Physiology: Pale skin, elongated fangs, sometimes altered eye coloration.\n - Traits: Blood dependency, nocturnal vitality, possible regenerative abilities.\n - Social traits: Seductive, manipulative, or regal depending on lore.\n - Anatomy: Human by structure, with supernatural additions like fangs or retractable claws. Some may have secondary traits (e.g., wings or shadow-forms), but these do not alter sexual anatomy or limb layout.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -213,12 +213,7 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 4,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "displayIndex": 4
         },
         "5": {
             "uid": 5,
@@ -393,12 +388,7 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 8,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "displayIndex": 8
         },
         "9": {
             "uid": 9,

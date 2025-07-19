@@ -13,6 +13,11 @@
 /ife ( genIsList_f == '') {:
 	/abort quiet=false Missing genIsList setting in input.|
 :}|
+/getvar key=genSettings index=guidencePrompt|
+/let key=guidencePrompt_f {{pipe}}|
+/ife ( guidencePrompt_f == '') {:
+	/var key=guidencePrompt_f "**GUIDANCE:**{{newline}}**Use** the following as a conceptual anchor or inspirational seed. It represents the type of setting the user is imagining. You **must** draw from its core idea, purpose, or atmosphere — but do **not** copy or paraphrase it directly:"|
+:}|
 /getvar key=genSettings index=genIsSentence|
 /let key=genIsSentence_f {{pipe}}|
 /ife ( genIsSentence_f == '') {:
@@ -556,7 +561,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 				/setvar key=guidance "**Kink Guidance Input:** [{{getvar::guideTemp}}]{{newline}}This reflects a core kink or arousal theme relevant to the character. At least one kink type in the output must reflect this input — directly or as a clear reinterpretation. [**IMPORTANT** Start with this!]"|
 			:}|
 			/else {:
-				/setvar key=guidance "**GUIDANCE:**{{newline}}**Use** the following as a conceptual anchor or inspirational seed. It represents the type of setting the user is imagining. You **must** draw from its core idea, purpose, or atmosphere — but do **not** copy or paraphrase it directly:{{newline}}[{{getvar::guideTemp}}]"|
+				/setvar key=guidance "{{var::guidencePrompt_f}}{{newline}}[{{getvar::guideTemp}}]"|
 			:}|
 			/flushvar guideTemp|
 		:}|

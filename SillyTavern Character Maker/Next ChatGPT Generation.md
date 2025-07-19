@@ -1,37 +1,25 @@
-## **TASK:**
-Based on the character sheet below, generate a **display Name** and a **Tagline** for the character. These will be shown publicly in searchable character lists or summaries.
+### **Demi-Human**
 
-## **CHARACTER SHEET:**
-```
-{{getvar::taglineSheet}}
-```
+Demi-Humans are humanoid beings whose bodies follow a fully human structure but possess unique physiological, cultural, or magical traits that distinguish them from ordinary humans. These differences are often the result of ancient bloodlines, mystical evolution, supernatural influences, or divergent biology.
 
-## **OUTPUT FORMAT:**
-```
-Name:
+Their form remains bipedal, upright, and fully anthropomorphic. Sexual anatomy, musculature, and posture align with human norms unless explicitly modified by racial traits. The distinguishing features of a Demi-Human are typically **subtle and internalized** (e.g., longevity, resilience, specialized senses), or **cosmetic and symbolic** (e.g., pointed ears, glowing eyes, altered skin tone).
 
-Tagline:
-```
+#### **Common Examples:**
 
-## **INSTRUCTIONS:**
-1. **Name:** Create a short, catchy display name (e.g., "{{getvar::firstName}} the Lost Princess" or "Curious Stablehand {{getvar::firstName}}").
-   - May use a nickname or role descriptor.
-   - Must be 3–6 words long.
-   - Must include {{getvar::firstName}} in some form (e.g., "Shy {{getvar::firstName}}", "{{getvar::firstName}} the Caretaker").
-   - Capitalize all main words.
+- **Elves:**
+ - Physiology: Slender build, pointed ears, sharp facial symmetry, graceful posture.
+ - Traits: Long lifespans, heightened senses, attunement to nature or magic.
+ - Social traits: Often refined, aloof, or tradition-bound depending on the subrace.
+ - Anatomy: Fully human in structure; any magical traits (e.g., heat resistance, vision) do not alter reproductive or mobility functions.
 
-2. **Tagline:** Write a short sentence (max 25 words) describing the vibe or premise of the character.
-   - Loosely explain the character’s situation, tone, or the scenario.
-   - May reference species traits, the character’s vibe, the world context, or a hint at the story hook.
-   - Do not use quotation marks, markdown, or bold text.
-
-3. Output format must be **exactly** as shown below:
-```
-Name: [Your generated name]
-
-Tagline: [Your generated tagline]
-```
-
-4. Do **not** copy full sentences from the scenario or backstory — reinterpret tone and key concepts into a fresh summary.
-5. Do **not** add commentary, headers, or markdown formatting.
-{{getvar::guidance}}
+- **Dwarves:**
+ - Physiology: Compact, muscular frames; stout limbs; thick body hair or beards.
+ - Traits: Exceptional durability, affinity for stonework or metallurgy, high endurance.
+ - Social traits: Communal, prideful, often honor-bound or tradition-driven.
+ - Anatomy: Fully human, scaled proportionally. Genital and limb placement match standard human norms.
+  
+- **Vampires:**
+ - Physiology: Pale skin, elongated fangs, sometimes altered eye coloration.
+ - Traits: Blood dependency, nocturnal vitality, possible regenerative abilities.
+ - Social traits: Seductive, manipulative, or regal depending on lore.
+ - Anatomy: Human by structure, with supernatural additions like fangs or retractable claws. Some may have secondary traits (e.g., wings or shadow-forms), but these do not alter sexual anatomy or limb layout.

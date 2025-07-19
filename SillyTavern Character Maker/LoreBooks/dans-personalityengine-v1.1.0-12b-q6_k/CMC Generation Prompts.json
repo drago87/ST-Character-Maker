@@ -320,7 +320,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Lore: Instruction",
-            "content": "## **INSTRUCTIONS:**\n1. Base tone and scope on {{getvar::timePeriod}}, {{getvar::worldType}}, and {{{getvar::worldDetails}}}.\n2. Treat this as an **excerpt from a setting primer** or **encyclopedia** — objective and atmospheric.\n3. Expand on the themes from the World Details sentence without repeating its phrasing.\n4. Use genre-appropriate details — magic systems, class divides, corporate power, rural myths, etc.\n5. Write in a **single, immersive paragraph** — no dialogue, scene-writing, or first-person voice.\n6. Do not mention {{getvar::firstName}} directly — this is about the **world**, not a character.\n7. Shape the tone of the description to align with {{getvar::worldTone}}:\n   - Light: optimistic, stable, or nostalgic\n   - Bright: bold, adventurous, full of potential\n   - Neutral: descriptive and impartial\n   - Dark: conflicted, uncertain, power-driven\n   - Bleak: dystopian, broken, hopeless",
+            "content": "## **INSTRUCTIONS:**\n1. Base tone and scope on {{getvar::timePeriod}}, {{getvar::worldType}}, and {{{getvar::worldDetails}}}.\n2. Treat this as an **excerpt from a setting primer** or **encyclopedia** — objective and atmospheric.\n3. Expand on the themes from the World Details sentence without repeating its phrasing.\n4. Use genre-appropriate details — magic systems, class divides, corporate power, rural myths, etc.\n5. Write in a **single, immersive paragraph** — no dialogue, scene-writing, or first-person voice.\n6. Do not mention {{getvar::firstName}} directly — this is about the **world**, not a character.\n7. Shape the tone of the description to align with {{getvar::toneDescriptor}}.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -3908,12 +3908,7 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 86,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "displayIndex": 86
         },
         "87": {
             "uid": 87,
@@ -3953,12 +3948,7 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 87,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "displayIndex": 87
         },
         "88": {
             "uid": 88,
@@ -3998,12 +3988,7 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 88,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "displayIndex": 88
         },
         "89": {
             "uid": 89,
@@ -15842,7 +15827,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 351
+            "displayIndex": 351,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "352": {
             "uid": 352,
@@ -15882,7 +15872,12 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 352
+            "displayIndex": 352,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         }
     }
 }

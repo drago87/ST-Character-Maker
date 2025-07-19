@@ -165,6 +165,22 @@
 :}|
 //-----------|
 
+/ife (worldTone == 'Light') {:
+	/setvar key=toneDescriptor "{{getvar::worldTone}} — optimistic, stable, or nostalgic"|
+:}|
+/elseif (worldTone == 'Bright') {:
+	/setvar key=toneDescriptor "{{getvar::worldTone}} — bold, adventurous, full of potential"|
+:}|
+/elseif (worldTone == 'Neutral') {:
+	/setvar key=toneDescriptor "{{getvar::worldTone}} — descriptive and impartial"|
+:}|
+/elseif (worldTone == 'Dark') {:
+	/setvar key=toneDescriptor "{{getvar::worldTone}} — conflicted, uncertain, and power-driven|
+:}|
+/elseif (worldTone == 'Bleak') {:
+	/setvar key=toneDescriptor "{{getvar::worldTone}} — dystopian, broken, and hopeless"|
+:}|
+
 //World Type|
 /var key=do No|
 /var key=variableName "worldType"|
@@ -302,7 +318,7 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/addvar key=extra "- World Tone: {{getvar::worldTone}}"|
+	/addvar key=extra "- World Tone: {{getvar::toneDescriptor}}"|
 	/addvar key=extra "- World Type: {{getvar::worldType}}"|
 	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
 	/ife (user == 'No') {:
@@ -713,11 +729,13 @@
 		/else {:
 			/setvar as=string key={{var::variableName}} {{noop}}|
 		:}|
+		
+		/setvar key=genSettings index=guidencePrompt **GUIDANCE:**{{newline}}The following is a user-written concept or description for the world setting. Use it as an **inspirational seed** — it defines tone, structure, and cultural logic, but should **not** be copied or paraphrased.{{newline}}{{newline}}Your output must:{{newline}}- Treat this as background lore, encyclopedia-style — **objective, atmospheric, and character-free**.{{newline}}- Expand upon the mood, logic, and worldbuilding ideas without restating any full lines or bullet points.{{newline}}- Match the genre, tone, and level of detail implied by the user's input.{{newline}}{{newline}}|
+		
 		//[[Generate with Prompt]]|
 		/:"CMC Logic.GenerateWithPrompt"|
-		/ife (output != '') {:
-			/setvar key={{var::variableName}} {{getvar::output}}|
-		:}|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+		
 		/addvar key=dataBaseNames {{var::variableName}}|
 		/flushvar output|
 		/flushvar guidance|
@@ -790,6 +808,9 @@
 	/else {:
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
+	
+	/setvar key=genSettings index=guidencePrompt **GUIDANCE:**{{newline}}The following user-provided notes reflect key ideas about {{getvar::firstName}}’s upbringing, personality, or environment. Use these as **directional context** to inspire the backstory — not as facts to restate directly.{{newline}}{{newline}}Your output must:{{newline}}- Prioritize emotional and narrative insight into {{getvar::firstName}}.{{newline}}- Weave setting, culture, or social rules **through** the character’s experiences.{{newline}}- Never restate the guidance verbatim or list it point by point.{{newline}}- Assume the guidance reflects the **logic of the world** — write as if it’s already true.{{newline}}{{newline}}|
+	
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.GenerateWithPrompt"|
 	/setvar key={{var::variableName}} {{getvar::output}}|
@@ -884,6 +905,9 @@
 	/else {:
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
+	
+	/setvar key=genSettings index=guidencePrompt **GUIDANCE:**{{newline}}**Use** the following as a conceptual anchor or inspirational seed. It reflects the emotional tone, world logic, and personality direction that {{getvar::firstName}} is built around. You **must** honor the purpose and atmosphere suggested — but do **not** copy phrasing or summarize directly.{{newline}}{{newline}}|
+	
 	//[[Generate with Prompt]]|
 	/ife (inputIsList == 'Yes') {:
 		/let key=tempOutputList []|
@@ -983,6 +1007,9 @@
 	/else {:
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
+	
+	/setvar key=genSettings index=guidencePrompt **GUIDANCE:**{{newline}}**Use** the following as a scene-setting compass for the scenario. It represents key tone, logic, and world context that must shape the moment. Whether expanding or generating a new scene, you **must** align with its intent — but do **not** reuse or copy phrases directly:{{newline}}{{newline}}|
+	
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.GenerateWithPrompt"|
 	/ife (output != '') {:
