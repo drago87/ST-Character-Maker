@@ -865,7 +865,7 @@
 	:}|
 	/ife ( do == 'Yes' ) {:
 		/buttons labels=["Flat", "Small", "Medium", "Large", "Huge"] What size is {{getvar::firstName}}'s Breasts?|
-		/setvar:: key=breastSize {{pipe}}|
+		/setvar key=breastSize {{pipe}}|
 		/ife (breastSize == '') {:
 	        /echo Aborting |
 	        /abort

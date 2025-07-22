@@ -262,6 +262,20 @@
 			
 			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 			/var key=t {{pipe}}|
+			/let key=running true|
+			/whilee ((x++ < 10) and (running == true)) {:
+				/ife ('#' in t) {:
+					/re-replace find="/^#/g" replace="" {{var::t}}|
+					/let key=replaceTest {{pipe}}|
+					/re-replace find="/^\s/g" replace="" {{var::replaceTest}}|
+					/var key=replaceTest {{pipe}}|
+					/ife (replaceTest == t) {:
+
+						/var key=running false|
+					:}|
+					/var key=t {{var::replaceTest}}|
+				:}|
+			:}|
 			/addvar key=outputGen {{var::t}}|
 			/join {{getvar::tempList}}|
 			/setvar key=excludedList {{pipe}}|
