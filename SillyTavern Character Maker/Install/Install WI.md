@@ -23,12 +23,12 @@
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Information.json|
 	/let key=f {{pipe}}|
 	/ife ( 'CMC Generation Prompts.json' not in databaseList){:
-		/db-add source=chat name="CMC Generation Prompts.json" {{var::f}}|
-		/db-disable source=chat CMC Generation Prompts.json|
+		/db-add source=chat name="CMC Information.json" {{var::f}}|
+		/db-disable source=chat CMC Information.json|
 	:}|
 	/else {:
-		/db-update source=chat name="CMC Generation Prompts.json" {{var::f}}|
-		/db-disable source=chat CMC Generation Prompts.json|
+		/db-update source=chat name="CMC Information.json" {{var::f}}|
+		/db-disable source=chat CMC Information.json|
 	:}|
 :}|
 
