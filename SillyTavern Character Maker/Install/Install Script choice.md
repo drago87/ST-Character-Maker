@@ -1,12 +1,15 @@
-/let key=models ["dans-personalityengine-v1.1.0-12b-q6_k"]|
+/let key=models ["dans-personalityengine-v1.1.0-12b-q6_k", "EsotericSage-12B.i1-Q6_K"]|
 /buttons labels={{var::models}} Select the model you want to download the model lorebook prompts for.|
-/let key=model {{pipe}}|
+/setvar key=model {{pipe}}|
 /ife (model == '') {:
 	/echo Aborting |
 	/abort
 :}|
 /elseif (model == 'dans-personalityengine-v1.1.0-12b-q6_k') {:
-	/popup <div>Prompt are tested with this model.</div><div><a href="https://huggingface.co/bartowski/Dans-PersonalityEngine-V1.1.0-12b-GGUF/blob/main/Dans-PersonalityEngine-V1.1.0-12b-Q6_K.gguf">Dans-PersonalityEngine-V1.1.0-12b-Q6_K.gguf</a></div>|
+	/popup <div>Prompts are tested with this model.</div><div><a href="https://huggingface.co/bartowski/Dans-PersonalityEngine-V1.1.0-12b-GGUF/blob/main/Dans-PersonalityEngine-V1.1.0-12b-Q6_K.gguf">Dans-PersonalityEngine-V1.1.0-12b-Q6_K.gguf</a></div>|
+:}|
+/elseif (model == 'EsotericSage-12B.i1-Q6_K') {:
+	/popup <div>Prompts are tested with this model.</div><div><a href="https://huggingface.co/mradermacher/EsotericSage-12B-i1-GGUF/blob/main/EsotericSage-12B.i1-Q6_K.gguf">EsotericSage-12B.i1-Q6_K.gguf</a></div>|
 :}|
 
 /qr-list CMC Temp|
