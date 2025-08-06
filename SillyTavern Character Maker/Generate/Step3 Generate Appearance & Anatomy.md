@@ -337,17 +337,14 @@
 				/getvar key=appearanceFeaturesPlacements index={{var::index}}|
 				/setvar key=featuresPlacement {{pipe}}|
 				/setvar key=logicBasedInstruction {{noop}}|
-				/setvar key=x 5|
 				
 				/ife (featureType != '') {:
-					/incvar x|
 					/ife ( logicBasedInstruction != '') {:
 						/addvar key=logicBasedInstruction {{newline}}|
 					:}|
-					/addvar key=logicBasedInstruction "{{getvar::x}}. Use any descriptive terms provided about the feature’s style, texture, or form naturally in the sentence. Do not label them or repeat the feature name."|
+					/addvar key=logicBasedInstruction "- Use any descriptive terms provided about the feature’s style, texture, or form naturally in the sentence. Do not label them or repeat the feature name."|
 					
 				:}|
-				/flushvar x|
 				/setvar key=genSettings index=buttonPrompt Is this the feature description you want for the {{getvar::feature}}?|
 				/:"CMC Logic.GenerateWithPrompt"|
 				/len {{var::tempOutputList}}|
@@ -785,46 +782,44 @@
 	/let key=outputIsList {{pipe}}|
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 9|
 	
 	/ife (( characterArchetype == 'Human') or ( characterArchetype == 'Android')) {:
-		/incvar x|
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Do not include tails, wings, hooves, digitigrade legs, animalistic limbs, or non-human anatomy. Use human structure only."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Do not include tails, wings, hooves, digitigrade legs, animalistic limbs, or non-human anatomy. Use human structure only."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Describe only human anatomical structure — posture should be upright and bipedal, with no tails or animalistic features. Focus on general proportions and center of gravity if relevant."|
+		/addvar key=logicBasedInstruction "- Describe only human anatomical structure — posture should be upright and bipedal, with no tails or animalistic features. Focus on general proportions and center of gravity if relevant."|
 		
 	:}|
 	/elseif (( characterArchetype != 'Human') and ( characterArchetype != 'Android') and (appearanceFeatures != 'None')) {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. If '{{getvar::appearanceFeatures}}' includes non-human traits (e.g., tail, claws, digitigrade stance), describe how they affect posture, balance, or silhouette."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- If '{{getvar::appearanceFeatures}}' includes non-human traits (e.g., tail, claws, digitigrade stance), describe how they affect posture, balance, or silhouette."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Incorporate any relevant non-human traits (e.g., tails, hooves, digitigrade legs) from '{{getvar::appearanceFeatures}}' into descriptions of balance, movement, or posture."|
+		/addvar key=logicBasedInstruction "- Incorporate any relevant non-human traits (e.g., tails, hooves, digitigrade legs) from '{{getvar::appearanceFeatures}}' into descriptions of balance, movement, or posture."|
 	:}|
 	/elseif (( characterArchetype != 'Human') and ( characterArchetype != 'Android') and (appearanceFeatures == 'None')) {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Use a species-appropriate body structure, but do not describe any extra non-human features unless clearly implied by species type."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Use a species-appropriate body structure, but do not describe any extra non-human features unless clearly implied by species type."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Do not invent tails, claws, wings, or non-human limbs unless strongly implied by species type. Focus on body shape, stance, or balance based on general archetype alone."|		
+		/addvar key=logicBasedInstruction "- Do not invent tails, claws, wings, or non-human limbs unless strongly implied by species type. Focus on body shape, stance, or balance based on general archetype alone."|		
 	:}|
-	/flushvar x|
+	
 	
 	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
@@ -899,33 +894,32 @@
 		/let key=outputIsList {{pipe}}|
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 7|
 		
 		/ife (characterArchetype == 'Tauric') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Breasts are located on the humanoid torso — do not describe them as part of the lower animal body."|
+			/addvar key=logicBasedInstruction "- Breasts are located on the humanoid torso — do not describe them as part of the lower animal body."|
 			
 		:}|
 		/elseif ((characterArchetype == 'Animalistic') and (speciesGroup != 'Fantasy')) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Do not describe breasts — most realistic Animalistic species lack humanoid chest anatomy. Focus on muscular bulk or species-appropriate chest traits."|
+			/addvar key=logicBasedInstruction "- Do not describe breasts — most realistic Animalistic species lack humanoid chest anatomy. Focus on muscular bulk or species-appropriate chest traits."|
 			
 		:}|
 		/elseif ((characterArchetype == 'Animalistic') and ((speciesGroup == 'Fantasy') or (speciesGroup == 'Alien') or (speciesGroup == 'Demonic') or (speciesGroup == 'Mammal'))) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Breasts may be described only if the species is explicitly humanoid or mammalian in design. Use anatomical framing consistent with fantasy physiology."|
+			/addvar key=logicBasedInstruction "- Breasts may be described only if the species is explicitly humanoid or mammalian in design. Use anatomical framing consistent with fantasy physiology."|
 			
 		:}|
-		/flushvar x|
+		
 		
 		
 		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
@@ -995,41 +989,40 @@
 		/let key=outputIsList {{pipe}}|
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 7|
 		
 		/ife (characterArchetype == 'Tauric') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Nipples are placed on the humanoid upper torso. Do not describe any features on the lower animal body."|
+			/addvar key=logicBasedInstruction "- Nipples are placed on the humanoid upper torso. Do not describe any features on the lower animal body."|
 			
 		:}|
 		/ife (( 'fur' in logicBasedInstruction) or ( 'Fur' in logicBasedInstruction)) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Areolae may be partially obscured by fur or lightly visible beneath it. Use fur-based skin logic for color and contrast."|
+			/addvar key=logicBasedInstruction "- Areolae may be partially obscured by fur or lightly visible beneath it. Use fur-based skin logic for color and contrast."|
 			
 		:}|
 		/elseif (( 'scales' in logicBasedInstruction) or ( 'Scales' in logicBasedInstruction)) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Areolae may appear slightly raised or differently textured than surrounding scales. Coloration and contrast should match scaled coverage."|
+			/addvar key=logicBasedInstruction "- Areolae may appear slightly raised or differently textured than surrounding scales. Coloration and contrast should match scaled coverage."|
 			
 		:}|
 		/elseif (( 'fur' not in logicBasedInstruction) and ( 'Fur' not in logicBasedInstruction) and ( 'scales' not in logicBasedInstruction) and ( 'Scales' not in logicBasedInstruction)) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Use skin-based detail — focus on tone, contour, and texture. Keep all surface description rooted in visible, uncovered human-like anatomy."|
+			/addvar key=logicBasedInstruction "- Use skin-based detail — focus on tone, contour, and texture. Keep all surface description rooted in visible, uncovered human-like anatomy."|
 			
 		:}|
-		/flushvar x|
+		
 		
 		
 		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
@@ -1132,123 +1125,122 @@
 		/let key=outputIsList {{pipe}}|
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 8|
 		
 		/ife (futanari == 'Yes') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Only describe the vulva — do not mention or reference the cock, even by proximity."|
+			/addvar key=logicBasedInstruction "- Only describe the vulva — do not mention or reference the cock, even by proximity."|
 			
 		:}|
 		/ife (privatesFemale == 'Mammal') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The vulva may include outer and inner lips, a visible slit, or light pubic hair or fur. Use anatomical terms like “folds,” “cleft,” or “labia” as appropriate."|
+			/addvar key=logicBasedInstruction "- The vulva may include outer and inner lips, a visible slit, or light pubic hair or fur. Use anatomical terms like “folds,” “cleft,” or “labia” as appropriate."|
 			
 		:}|
 		/elseif (privatesFemale == 'Reptile') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The slit may appear smooth, scaled, or slightly ridged. Do not describe fur, hair, or soft fleshy folds. Placement may be flush with surrounding scale plates."|
+			/addvar key=logicBasedInstruction "- The slit may appear smooth, scaled, or slightly ridged. Do not describe fur, hair, or soft fleshy folds. Placement may be flush with surrounding scale plates."|
 			
 		:}|
 		/elseif (privatesFemale == 'Bird') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The vulva may be recessed or hidden beneath feathers. If the species uses a cloacal structure, describe it as smooth and integrated near the tail base. Avoid mammalian terminology."|
+			/addvar key=logicBasedInstruction "- The vulva may be recessed or hidden beneath feathers. If the species uses a cloacal structure, describe it as smooth and integrated near the tail base. Avoid mammalian terminology."|
 			
 		:}|
 		/elseif (privatesFemale == 'Fish') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Use phrases like “smooth slit,” “recessed fold,” or “ventral placement.” Avoid fur or lip-based descriptions. The texture should reflect aquatic biology."|
+			/addvar key=logicBasedInstruction "- Use phrases like “smooth slit,” “recessed fold,” or “ventral placement.” Avoid fur or lip-based descriptions. The texture should reflect aquatic biology."|
 			
 		:}|
 		/elseif (privatesFemale == 'Amphibian') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The vulva may be soft, moist-looking, and smooth-skinned. Avoid terms like fur, hair, or lips. Structure should appear simple and subtle."|
+			/addvar key=logicBasedInstruction "- The vulva may be soft, moist-looking, and smooth-skinned. Avoid terms like fur, hair, or lips. Structure should appear simple and subtle."|
 			
 		:}|
 		/elseif (privatesFemale == 'Invertebrate') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Structure may appear segmented, chitinous, or soft-bodied. Use terms like “opening,” “ventral slit,” or “intersegmental ridge.” Avoid all mammalian descriptors."|
+			/addvar key=logicBasedInstruction "- Structure may appear segmented, chitinous, or soft-bodied. Use terms like “opening,” “ventral slit,” or “intersegmental ridge.” Avoid all mammalian descriptors."|
 			
 		:}|
 		/elseif (privatesFemale == 'Cephalopod') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The vulva may appear smooth, ringed, or recessed between soft folds or tentacle bases. Avoid describing labia or lips unless the species is hybridized."|
+			/addvar key=logicBasedInstruction "- The vulva may appear smooth, ringed, or recessed between soft folds or tentacle bases. Avoid describing labia or lips unless the species is hybridized."|
 			
 		:}|
 		/elseif (privatesFemale == 'Synthetic') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. If the vulva is synthetic or sculpted, describe it as smooth, artificial, or bio-mimetic. Do not reference organic function, fluids, or reproductive cues."|
+			/addvar key=logicBasedInstruction "- If the vulva is synthetic or sculpted, describe it as smooth, artificial, or bio-mimetic. Do not reference organic function, fluids, or reproductive cues."|
 			
 		:}|
 		/elseif (privatesFemale == 'Fantasy') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Vulva structure may include subtle magical, exotic, or hybrid traits — but keep all language anatomical and grounded. Avoid metaphor, emotion, or subjective tone."|
+			/addvar key=logicBasedInstruction "- Vulva structure may include subtle magical, exotic, or hybrid traits — but keep all language anatomical and grounded. Avoid metaphor, emotion, or subjective tone."|
 			
 		:}|
 		/elseif (privatesFemale == 'Alien') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Vulva may appear asymmetrical, oddly colored, or biologically unique. Keep tone anatomical — do not invent behavior or function unless implied by the context."|
+			/addvar key=logicBasedInstruction "- Vulva may appear asymmetrical, oddly colored, or biologically unique. Keep tone anatomical — do not invent behavior or function unless implied by the context."|
 			
 		:}|
 		/elseif ( (privatesFemale == 'Feline') or (privatesFemale == 'Canine') or (privatesFemale == 'Ursine') or (privatesFemale == 'Leporidae') ) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. You may describe soft fur or pubic hair around the vulva if the character’s surface features indicate fur. Do not use fur-related descriptors if none are present."|
+			/addvar key=logicBasedInstruction "- You may describe soft fur or pubic hair around the vulva if the character’s surface features indicate fur. Do not use fur-related descriptors if none are present."|
 			
 		:}|
 		/elseif ( (privatesFemale == 'Draconic') or (privatesFemale == 'Lacertilian') or (privatesFemale == 'Serpentine') or (privatesFemale == 'Crocodilian') ) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The vulva may be partially hidden by or integrated into scale patterns. Avoid soft or fleshy mammalian terms unless hybridized."|
+			/addvar key=logicBasedInstruction "- The vulva may be partially hidden by or integrated into scale patterns. Avoid soft or fleshy mammalian terms unless hybridized."|
 			
 		:}|
 		/elseif ( (privatesFemale == 'Passerine') or (privatesFemale == 'Raptor') or (privatesFemale == 'Ratite') or (privatesFemale == 'Aviary') ) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Vulva may be positioned beneath feathers or integrated into a cloacal structure. Keep surface detail minimal and avoid fur, lips, or fleshy folds."|
+			/addvar key=logicBasedInstruction "- Vulva may be positioned beneath feathers or integrated into a cloacal structure. Keep surface detail minimal and avoid fur, lips, or fleshy folds."|
 			
 		:}|
 		
 		
-		/flushvar x|
+		
 		
 		
 		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
@@ -1335,107 +1327,106 @@
 		
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 8|
 		
 		/ife (futanari == 'Yes') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Rule"|
+			/addvar key=logicBasedInstruction "- Rule"|
 			
 		:}|
 		/ife (privatesMale == 'Mammal') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The shaft may include a foreskin or remain uncovered. Use standard anatomical terms for glans, shaft, and scrotum. Testicles may be furred or bare depending on features."|
+			/addvar key=logicBasedInstruction "- The shaft may include a foreskin or remain uncovered. Use standard anatomical terms for glans, shaft, and scrotum. Testicles may be furred or bare depending on features."|
 			
 		:}|
 		/elseif (privatesMale == 'Canine') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The shaft may emerge from a sheath and taper to a point. Include a prominent knot at the base if erect. The scrotum may be fur-covered and sit close to the base."|
+			/addvar key=logicBasedInstruction "- The shaft may emerge from a sheath and taper to a point. Include a prominent knot at the base if erect. The scrotum may be fur-covered and sit close to the base."|
 			
 		:}|
 		/elseif (privatesMale == 'Feline') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The shaft may feature fine ridges or barbs. When erect, describe a tapered form with slight texture variation. The testicles may be small and soft-furred."|
+			/addvar key=logicBasedInstruction "- The shaft may feature fine ridges or barbs. When erect, describe a tapered form with slight texture variation. The testicles may be small and soft-furred."|
 			
 		:}|
 		/elseif (privatesMale == 'Equine') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The penis is long, thick, and partially sheathed when flaccid. When erect, it may feature a flared head and medial ring. The testicles are large, pendulous, and smooth-skinned."|
+			/addvar key=logicBasedInstruction "- The penis is long, thick, and partially sheathed when flaccid. When erect, it may feature a flared head and medial ring. The testicles are large, pendulous, and smooth-skinned."|
 			
 		:}|
 		/elseif ((privatesMale == 'Reptile') or (privatesMale == 'Draconic')) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The penis may be scaled, muscular, or ridged. It can be tucked into a slit or retractable area. When erect, emphasize texture, internal pressure, or unusual shape without exaggeration."|
+			/addvar key=logicBasedInstruction "- The penis may be scaled, muscular, or ridged. It can be tucked into a slit or retractable area. When erect, emphasize texture, internal pressure, or unusual shape without exaggeration."|
 			
 		:}|
 		/elseif ((privatesMale == 'Insectoid') or (privatesMale == 'Arachnid') or (privatesMale == 'Cephalopod')) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The shaft may be segmented, chitinous, or soft-bodied. Avoid human terminology. Use terms like “appendage,” “ventral organ,” or “spiral sheath” depending on structure."|
+			/addvar key=logicBasedInstruction "- The shaft may be segmented, chitinous, or soft-bodied. Avoid human terminology. Use terms like “appendage,” “ventral organ,” or “spiral sheath” depending on structure."|
 			
 		:}|
 		/elseif (privatesMale == 'Synthetic') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The shaft may be artificial, sculpted, or bioengineered. Describe design features such as texture, joint seams, or material finish. Avoid organic function or reproductive cues."|
+			/addvar key=logicBasedInstruction "- The shaft may be artificial, sculpted, or bioengineered. Describe design features such as texture, joint seams, or material finish. Avoid organic function or reproductive cues."|
 			
 		:}|
 		/elseif (privatesMale == 'Alien') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. The penis may be asymmetrical, multi-textured, or unusually shaped. Describe with anatomical clarity, not metaphor. You may include multiple elements if the form justifies it."|
+			/addvar key=logicBasedInstruction "- The penis may be asymmetrical, multi-textured, or unusually shaped. Describe with anatomical clarity, not metaphor. You may include multiple elements if the form justifies it."|
 			
 		:}|
 		/elseif (privatesMale == 'Fantasy') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. If the anatomy blends known and exotic traits, describe it with neutral detail. Do not invent abilities or hybrid function — structure only."|
+			/addvar key=logicBasedInstruction "- If the anatomy blends known and exotic traits, describe it with neutral detail. Do not invent abilities or hybrid function — structure only."|
 			
 		:}|
 		
 		/ife (('fur' in appearanceFeatures) or ('Fur' in appearanceFeatures)) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. If the character has fur, you may describe fur around the sheath or scrotum. Keep texture consistent with body coverage."|
+			/addvar key=logicBasedInstruction "- If the character has fur, you may describe fur around the sheath or scrotum. Keep texture consistent with body coverage."|
 			
 		:}|
 		/elseif (('scales' in appearanceFeatures) or ('Scales' in appearanceFeatures)) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. If the character has scales, the shaft may appear ridged or recessed, with the scrotum partially armored or integrated into surrounding body texture."|
+			/addvar key=logicBasedInstruction "- If the character has scales, the shaft may appear ridged or recessed, with the scrotum partially armored or integrated into surrounding body texture."|
 			
 		:}|
 		
-		/flushvar x|
+		
 		
 		
 		/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
@@ -1576,16 +1567,20 @@
 	:}|
 	/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	
+	/setvar key=logicBasedInstruction {{noop}}|
 	/ife (futanari == 'Yes') {:
-		/setvar key=logicBasedInstruction "7. {{getvar::firstName}} is a futanari. The anus should be described neutrally and anatomically, with no reference to the cock or pussy."|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/setvar key=logicBasedInstruction "- {{getvar::firstName}} is a futanari. The anus should be described neutrally and anatomically, with no reference to the cock or pussy."|
 	:}|
 	/ife ('Tail' in appearanceFeatures) {:
-		/ife (logicBasedInstruction == '') {:
-			/setvar key=logicBasedInstruction "7. {{getvar::firstName}} has a tail. Describe the anus in relation to the tail's base if visible."|
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/else {:
-			/addvar key=logicBasedInstruction "{{newline}}7. {{getvar::firstName}} has a tail. Describe the anus in relation to the tail's base if visible."
-		:}|
+		/setvar key=logicBasedInstruction "- {{getvar::firstName}} has a tail. Describe the anus in relation to the tail's base if visible."|
+		
 	:}|
 	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|

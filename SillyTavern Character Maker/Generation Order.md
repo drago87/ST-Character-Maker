@@ -2,7 +2,7 @@ This is the generation order for the character
 Generation can only use information from things above it
 
 
-  Character Setup below here (Done)
+  Character Setup below here
   
 1. **Gender** Male or Female, Part of Base Context
 2. **Futanari** Yes or No
@@ -28,7 +28,7 @@ Generation can only use information from things above it
 19. **Last Name** Base Context, No ExtraInput, No Type Context, Part of Base Context
 20. **Alias** Base Context, No ExtraInput, No Type Context
     
-    Would Info Below this (Done)
+    Would Info Below this
 
 21. **Season** Spring, Summer, Autumn, Winter or None (If None will not be included in Base Context or ExtraInput)
 22. **World Type** No Base Context, No ExtraInput, No Type Context
@@ -63,7 +63,7 @@ Generation can only use information from things above it
 47. **Appearance Traits Details** Base Context, No ExtraInput, Type Context
 48. **Appearance Traits Effect** Base Context, No ExtraInput, Type Context
     
-    Outfit Below this (Done)
+    Outfit Below this
 
 49. **Outfit Head** 
 50. **Outfit Accessories** 
@@ -90,7 +90,7 @@ Generation can only use information from things above it
 68. **Social Behavior** 
 69. **Social Skills and Integration** 
     
-    Aspiration and Personality Traits (Done)
+    Aspiration and Personality Traits
 
 70. **Main Aspiration** 
 71. **Aspiration Details**  
@@ -98,41 +98,42 @@ Generation can only use information from things above it
 73. **Unique Trait(s)**  
 74. **Unique Trait Effect(s)**  
     
-    Speech (Done)
+    Speech
 
 75. **Speech Style** 
 76. **Speech Quirks** 
 77. **Speech Tics** 
     
-    An extra category for stuff not fitting above (Done)
+    An extra category for stuff not fitting above
 
 78. **Connections** 
 79. **Abilities** 
 80. **Items / Equipment** 
 81. **Secrets** 
     
-    NSFW Stuff (Done)
+    NSFW Stuff
 
 82. **Sexual Orientation** 
 83. **Sexual Role** 
 84. **Libido**
-85. **Abilities** 
-86. **Items / Equipment** 
-87. **Kinks** 
-88. **Sexual Notes** 
+85. **SEXUAL EXPERIENCE PROFILE**
+86. **Abilities** 
+87. **Items / Equipment** 
+88. **Kinks** 
+89. **Sexual Notes** 
     
-    Ending Stuff (Done)
+    Ending Stuff
 
-89. **Behavior Notes** (Done)
-90. **Speech Examples** (Done)
-91. **Appearance Q&A** (Dona)
-92. **Personality Q&A**  (Done)
-93. **Sexuality Q&A** (Done)
-94. **Story Plan** 
-95. **Previously...** 
-96. **Notes** (Done)
-97. **Synonyms** 
-98. **Extra Characters** 
+90. **Behavior Notes**
+91. **Speech Examples**
+92. **Appearance Q&A**
+93. **Personality Q&A** 
+94. **Sexuality Q&A**
+95. **Story Plan** 
+96. **Previously...** 
+97. **Notes**
+98. **Synonyms** 
+99. **Extra Characters** 
 
 
 Species Group can be one of these depending on what the user picked for Animal Base  

@@ -205,7 +205,7 @@
 	/setvar key=genSettings index=wi_book_key "Aspiration Goals"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsTaskList No|
-	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
@@ -385,12 +385,13 @@
 		/getvar key=genSettings index=inputIsList|
 		/let key=outputIsList {{pipe}}|
 		
+		/setvar key=logicBasedInstruction {{noop}}|
 		
 		/ife (settingType == 'Realistic'){:
-			/setvar key=logicBasedInstruction "7. Avoid supernatural, magical, or heroic-fantasy phrasing in goals. Focus on emotionally grounded, plausible actions."|
+			/setvar key=logicBasedInstruction "- Avoid supernatural, magical, or heroic-fantasy phrasing in traits or behaviors. Focus on emotionally grounded, plausible responses."|
 		:}|
 		/else {:
-			/setvar key=logicBasedInstruction "7. You may include exaggerated, symbolic, or physically extreme behaviors suited to the world context."|
+			/setvar key=logicBasedInstruction "- You may include exaggerated, symbolic, or physically extreme responses suited to the world context."|
 		:}|
 		
 		

@@ -260,16 +260,16 @@
 		
 		/setvar key=logicBasedInstruction {{noop}}|
 		/ife (cognitiveAbilities != 'None') {:
-			/addvar key=logicBasedInstruction "6. Adjust vocabulary, pacing, or complexity to reflect the character’s cognitive abilities."|
+			/ife (logicBasedInstruction != '') {:
+				/addvar key=logicBasedInstruction "{{newline}}"|
+			:}|
+			/addvar key=logicBasedInstruction "- Adjust vocabulary, pacing, or complexity to reflect the character’s cognitive abilities."|
 		:}|
 		/ife (socialSkills != 'None') {:
 			/ife (logicBasedInstruction != '') {:
-				/addvar key=logicBasedInstruction "{{newline}}7. "|
+				/addvar key=logicBasedInstruction "{{newline}}"|
 			:}|
-			/else {:
-				/addvar key=logicBasedInstruction "6. "|
-			:}|
-			/addvar key=logicBasedInstruction "Reflect the character’s social integration level in tone, phrasing, or use of social cues like sarcasm, awkwardness, or formality."|
+			/addvar key=logicBasedInstruction "- Reflect the character’s social integration level in tone, phrasing, or use of social cues like sarcasm, awkwardness, or formality."|
 		:}|
 		
 		/wait {{getvar::wait}}|
@@ -1072,17 +1072,16 @@
 	/let key=outputIsList {{pipe}}|
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 7|
 	
 	/ife ('Fully Animalistic' in parsedSentientLevel) {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Do not describe {{getvar::firstName}} as capable of thoughts, emotions, or planning — only external behavior may be shown."|
+		/addvar key=logicBasedInstruction "- Do not describe {{getvar::firstName}} as capable of thoughts, emotions, or planning — only external behavior may be shown."|
 		
 	:}|
-	/flushvar x|
+	
 	
 	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
@@ -1475,25 +1474,24 @@
 		/let key=outputIsList {{pipe}}|
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 7|
 		
 		/ife ((characterArchetype == 'Human') or (characterArchetype == 'Android')) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Use grounded, physical or role-based descriptors only (e.g., the teen, the shy girl, the brunette)."|
+			/addvar key=logicBasedInstruction "- Use grounded, physical or role-based descriptors only (e.g., the teen, the shy girl, the brunette)."|
 			
 		:}|
 		/elseif ((characterArchetype != 'Human') and (characterArchetype != 'Android')) {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. You may include fantasy or species-based metaphors (e.g., “furred wanderer,” “clawed misfit,” “slime-bodied girl”) as long as they reflect the character’s anatomy or species identity."|
+			/addvar key=logicBasedInstruction "- You may include fantasy or species-based metaphors (e.g., “furred wanderer,” “clawed misfit,” “slime-bodied girl”) as long as they reflect the character’s anatomy or species identity."|
 			
 		:}|
-		/flushvar x|
+		
 		
 		
 		/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:

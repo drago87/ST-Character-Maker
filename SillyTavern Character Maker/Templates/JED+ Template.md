@@ -226,6 +226,26 @@ A:
 
 - Libido:
 
+### SEXUAL EXPERIENCE PROFILE
+- **Experience Level:** <!--None, Curious, Some Experience, Experienced, Highly Experienced-->
+- **Knowledge Level:** <!--None, Basic, Moderate, Advanced, Expert-->
+- **Exposure Context:** <!--e.g. "Limited to soft media", "Personal exploration only", "Taught by mentor", "Broad experience with past partners"-->
+- **Number of Partners:** <!--0, 1–2, 3+, Unknown, Undisclosed-->
+- **Self-Exploration:** <!--None, Rarely, Occasionally, Regularly, Frequently-->
+
+- **Familiarity With Sexual Acts:**
+ - Kissing: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
+ - Oral (Giving): <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
+ - Oral (Receiving): <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
+ - Vaginal: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
+ - Anal: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
+ - Group Sex: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
+ - Sex Toys: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
+
+
+- **Emotional Framing:** <!--e.g. "Romantic idealist", "Detached curiosity", "Acts first, reflects later", "Emotionally bound to trust", etc.-->
+- **Attitude Toward Sex:** <!--e.g. Shy, Open, Bold, Avoidant, Curious but unsure-->
+
 ### SEXUAL INVENTORY
 - Item: <!--Optional. e.g. "Club +24"-->
   - Details: <!--e.g. Club that was given {{char}} by her mother. Bonks {{user}} when angry.-->

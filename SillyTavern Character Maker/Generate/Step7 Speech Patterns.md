@@ -75,7 +75,7 @@
 	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
-	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
+	/:"CMC Logic.Get Basic Type Context"|
 	/ife (extra != '') {:
 		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	:}|
@@ -89,25 +89,20 @@
 	
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 9|
 	
 	/ife (settingType == 'Realistic') {:
-		/incvar x|
-		/ife ( logicBasedInstruction != '') {:
+		/ife (logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Avoid anachronistic or fantastical speech patterns — stay grounded in the character's setting and time period."|
-		
+		/addvar key=logicBasedInstruction "- Avoid fantastical, genre-stylized, or anachronistic speech patterns — use realistic and grounded dialogue."|
 	:}|
-	/ife (settingType != 'Realistic') {:
-		/incvar x|
-		/ife ( logicBasedInstruction != '') {:
+	/elseif (settingType != 'Realistic') {:
+		/ife (logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include stylized, thematic, or exaggerated phrasing appropriate for the world’s tone or genre."|
-		
+		/addvar key=logicBasedInstruction "- You may include stylized, heightened, or genre-tuned phrasing if it suits the world tone."|
 	:}|
-	/flushvar x|
+	
 	
 	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
@@ -179,12 +174,15 @@
 	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
+	/setvar key=logicBasedInstruction {{noop}}|
+	
 	/ife (settingType == 'Realistic'){:
-			/setvar key=logicBasedInstruction "8. Avoid overly fantastical, magical, or exaggerated quirks unless justified by culture, trauma, or setting norms."|
-		:}|
-		/else {:
-			/setvar key=logicBasedInstruction "8. You may include symbolic, magical, or genre-specific quirks if they suit the character’s archetype and setting."|
-		:}|
+		/setvar key=logicBasedInstruction "- Avoid overly fantastical, magical, or exaggerated quirks unless grounded in culture, trauma, or plausible behavior."|
+	:}|
+	/elseif (settingType != 'Realistic'){:
+		/setvar key=logicBasedInstruction "- You may include symbolic, magical, or genre-stylized quirks if they reflect the character’s world and personality."|
+	:}|
+
 	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
@@ -255,19 +253,27 @@
 	/addvar key=extra "- Character Overview: {{getvar::characterOverview}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
-	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
+	/:"CMC Logic.Get Basic Type Context"|
 	/ife (extra != '') {:
 		/setvar key=genSettings index=contextKey {{getvar::extra}}|
 	:}|
 	/flushvar extra|
 	/wait {{getvar::wait}}|
 	
-	/ife (settingType == 'Realistic'){:
-		/setvar key=logicBasedInstruction "7. Avoid magical, theatrical, or exaggerated genre behaviors unless clearly tied to species or neurodivergence."|
+	/setvar key=logicBasedInstruction {{noop}}|
+
+/ife (settingType == 'Realistic'){:
+	/ife ( logicBasedInstruction != '') {:
+		/addvar key=logicBasedInstruction {{newline}}|
 	:}|
-	/else {:
-		/setvar key=logicBasedInstruction "7. Stylized or dramatic tics are allowed if appropriate to the character’s world or design (e.g., glitch-speech, echoing, verbal echoes from magic)."|
+	/addvar key=logicBasedInstruction "- Avoid magical, stylized, or overly theatrical tics unless clearly grounded in neurodivergence or species-based vocal patterns."|
+:}|
+/else {:
+	/ife ( logicBasedInstruction != '') {:
+		/addvar key=logicBasedInstruction {{newline}}|
 	:}|
+	/addvar key=logicBasedInstruction "- Stylized, symbolic, or genre-affected vocal patterns are allowed if consistent with world rules (e.g., glitch-echo, spell-fragments, enchanted repetition)."|
+:}|
 		
 	
 	/getvar key=genSettings index=inputIsList|

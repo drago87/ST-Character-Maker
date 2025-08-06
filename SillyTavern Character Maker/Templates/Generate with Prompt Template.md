@@ -40,17 +40,20 @@
 	/let key=outputIsList {{pipe}}|
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 7|
 	
 	/ife (variable == 'content') {:
-		/incvar x|
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Rule"|
+		/addvar key=logicBasedInstruction "- Rule"|
 		
 	:}|
-	/flushvar x|
+	/else {:
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "- Rule"|
+	:}|
 	
 	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:

@@ -84,7 +84,26 @@
 
 ### GENERAL SEXUAL INFO
 --SexualOrientation--
---Libido----SexualItems----SexualAbilities----Kinks----SexualityQA--
+--Libido--
+
+### SEXUAL EXPERIENCE PROFILE
+- **Experience Level:** --SexualExperienceLevel--
+- **Knowledge Level:** --SexualKnowlageLevel--
+- **Exposure Context:** --SexualExposure--
+- **Number of Partners:** --SexualPartners--
+- **Self-Exploration:** --SexualSelfExploration--
+
+- **Familiarity With Sexual Acts:**
+ - Kissing: --SexualFamilitaryActKissing--
+ - Oral (Giving): --SexualFamilitaryActOralG--
+ - Oral (Receiving): --SexualFamilitaryActOralR--
+ - Vaginal: --SexualFamilitaryActVaginal--
+ - Anal: --SexualFamilitaryActAnal--
+ - Group Sex: --SexualFamilitaryActGroupSex--
+ - Sex Toys: --SexualFamilitaryActToys--
+
+- **Emotional Framing:** --SexualFraming--
+- **Attitude Toward Sex:** --SexualAttitude----SexualItems----SexualAbilities----Kinks----SexualityQA--
 
 - - -
 ## [OTHER_SEXUAL_NOTES]

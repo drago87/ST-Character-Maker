@@ -435,7 +435,7 @@
 	/addvar key=extra "- World Details: {{getvar::worldDetails}}"|
 	/ife (user == 'Yes') {:
 		/addvar key=extra "- --User--'s Role: {{getvar::userRole}}"|
-		/setvar key=logicBasedInstruction "7. Only include --User-- in the description if their role implies shared or nearby living space — such as a family member they still live with, a roommate, or a close neighbor.{{newline}}8. If --User-- is not part of the same household or residential area, do not reference them at all in this section."|
+		/setvar key=logicBasedInstruction "- Only include --User-- in the description if their role implies shared or nearby living space — such as a family member they still live with, a roommate, or a close neighbor.{{newline}}- If --User-- is not part of the same household or residential area, do not reference them at all in this section."|
 	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/flushvar extra|
@@ -792,8 +792,12 @@
 		/addvar key=extra "- --User--'s Role: {{getvar::userRole}}"|
 	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
+	/:"CMC Logic.Get Basic Type Context"|//Remove if not in use|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
+	:}|
 	/flushvar extra|
-	/setvar key=genSettings index=contextKey []|
 	/wait {{getvar::wait}}|
 	
 	/getvar key=genSettings index=inputIsList|
@@ -886,17 +890,16 @@
 	/let key=outputIsList {{pipe}}|
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 7|
 	
 	/ife (variable == 'conent') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Rule"|
+		/addvar key=logicBasedInstruction "- Rule"|
 		
 	:}|
-	/flushvar x|
+	
 	
 	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
@@ -984,10 +987,10 @@
 		/getvar key=genSettings index=wi_book_key|
 		/let key=inputIsList {{pipe}}|
 		/ife (inputIsList =='Scenario User') {:
-			/setvar key=logicBasedInstruction "6. Any mention of user should be replaced with '--User--'.{{newline}}7. Consider how the --User--'s Role ({{getvar::userRole}}) influences the character’s tone, visibility, or behavior — are they being watched, admired, judged, or misunderstood?"|
+			/setvar key=logicBasedInstruction "- Any mention of user should be replaced with '--User--'.{{newline}}- Consider how the --User--'s Role ({{getvar::userRole}}) influences the character’s tone, visibility, or behavior — are they being watched, admired, judged, or misunderstood?"|
 		:}|
 		/elseif (inputIsList =='Scenario Create') {:
-			/setvar key=logicBasedInstruction "5. Introduce a conflict, discovery, or dynamic involving --User-- if applicable, but do not assign them a name or alias.{{newline}}6. Always refer to them as --User--, not by a proper name or description. Maintain placeholder syntax exactly.{{newline}}7. Consider how the --User--'s Role ({{getvar::userRole}}) influences the character’s tone, visibility, or behavior — are they being watched, admired, judged, or misunderstood?"|
+			/setvar key=logicBasedInstruction "- Introduce a conflict, discovery, or dynamic involving --User-- if applicable, but do not assign them a name or alias.{{newline}}- Always refer to them as --User--, not by a proper name or description. Maintain placeholder syntax exactly.{{newline}}- Consider how the --User--'s Role ({{getvar::userRole}}) influences the character’s tone, visibility, or behavior — are they being watched, admired, judged, or misunderstood?"|
 		:}|
 
 	:}|

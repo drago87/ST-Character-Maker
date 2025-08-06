@@ -9,6 +9,16 @@
 		:}|
 	:}|
 :}|
+/ife (gen != 'Yes') {:
+	/db-list source=character field=name |
+	/let key=databaseList {{pipe}}|
+	/foreach {{var::databaseList}} {:
+		/ife (('.json' not in item) and ( item == 'model')) {:
+			/db-get source=character {{var::item}}| 
+			/setglobalvar key={{var::item}} {{pipe}}|
+		:}|
+	:}|
+:}|
 /ife (( lastName == '' ) or ( lastName == 'None' )) {:
 	/setvar key=lastName {{noop}}|
 	/setvar key=parsedName {{getvar::firstName}}|
@@ -44,11 +54,21 @@
 /ife ((characterType == 'None') or ( characterType ==  characterArchetype)) {:
 	/setvar key=characterType {{noop}}|
 :}|
-/ife ( characterArchetype == species ) {:
-    /setvar key=parsedSpecies {{getvar::species}}|
+/ife (characterArchetype == species) {:
+    /ife ((breed != 'None') and (breed != '')) {:
+        /setvar key=parsedSpecies "{{getvar::species}} – {{getvar::breed}}"|
+    :}|
+    /else {:
+        /setvar key=parsedSpecies "{{getvar::species}}"|
+    :}|
 :}|
 /else {:
-	/setvar key=parsedSpecies "{{getvar::characterArchetype}} {{getvar::species}}"|
+    /ife ((breed != 'None') and (breed != '')) {:
+        /setvar key=parsedSpecies "{{getvar::characterArchetype}} {{getvar::species}} – {{getvar::breed}}"|
+    :}|
+    /else {:
+        /setvar key=parsedSpecies "{{getvar::characterArchetype}} {{getvar::species}}"|
+    :}|
 :}|
 //-----------|
 

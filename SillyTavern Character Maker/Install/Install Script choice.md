@@ -1,6 +1,6 @@
 /let key=models ["dans-personalityengine-v1.1.0-12b-q6_k", "EsotericSage-12B.i1-Q6_K"]|
 /buttons labels={{var::models}} Select the model you want to download the model lorebook prompts for.|
-/setvar key=model {{pipe}}|
+/setglobalvar key=model {{pipe}}|
 /ife (model == '') {:
 	/echo Aborting |
 	/abort
@@ -10,6 +10,18 @@
 :}|
 /elseif (model == 'EsotericSage-12B.i1-Q6_K') {:
 	/popup <div>Prompts are tested with this model.</div><div><a href="https://huggingface.co/mradermacher/EsotericSage-12B-i1-GGUF/blob/main/EsotericSage-12B.i1-Q6_K.gguf">EsotericSage-12B.i1-Q6_K.gguf</a></div>|
+:}|
+
+/db-list source=character field=name |
+/let key=databaseList {{pipe}}|
+
+/ife ('model' not in databaseList) {:
+	/db-add source=character name=model {{getglobalvar::model}}|
+	/db-disable source=character model|
+:}|
+/else {:
+	/db-update source=character name=model {{getglobalvar::model}}|
+	/db-disable source=character model|
 :}|
 
 /qr-list CMC Temp|
@@ -58,12 +70,12 @@
 	:}|
 	/elseif ( selected_btn == 'Manually') {:
 		/popup <div>You need to manually download these files and import them to the World Info</div>
-	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Generation%20Prompts.json">CMC Generation Prompts</a></div>
-	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Information.json">CMC Information</a></div>
-	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Questions.json">CMC Questions</a></div>
-	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Rules.json">CMC Rules</a></div>
-	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Templates.json">CMC Templates</a></div>
-	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getvar::model}}/CMC%20Variablers.json">CMC Variablers</a></div>|
+	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getglobalvar::model}}/CMC%20Generation%20Prompts.json">CMC Generation Prompts</a></div>
+	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getglobalvar::model}}/CMC%20Information.json">CMC Information</a></div>
+	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getglobalvar::model}}/CMC%20Questions.json">CMC Questions</a></div>
+	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getglobalvar::model}}/CMC%20Rules.json">CMC Rules</a></div>
+	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getglobalvar::model}}/CMC%20Templates.json">CMC Templates</a></div>
+	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{getglobalvar::model}}/CMC%20Variablers.json">CMC Variablers</a></div>|
 	
 	:}|
 	/elseif ( selected_btn == 'Semi Automatically') {:

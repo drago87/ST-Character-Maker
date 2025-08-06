@@ -31,9 +31,9 @@
 
 
 /getvar key=genSettings index=genAmount|
-/let key=genAmount {{pipe}}|
-/ife ( genAmount == '') {:
-	/var as=number key=genAmount 5|
+/let key=genAmount_f {{pipe}}|
+/ife ( genAmount_f == '') {:
+	/var as=number key=genAmount_f 5|
 :}|
 /getvar key=genSettings index=useContext|
 /let key=useContext_f {{pipe}}|
@@ -76,7 +76,7 @@
 	/flushvar gen|
 :}|
 /ife (( useContext_f == 'No') and ( extraContext_f != '')) {:
-	/var key=context "### **CONTEXT (for your reference—do not include in the answer):**"|
+	/var key=context CONTEXT (for your reference—do not include in the answer):"|
 	/ife (real == Yes) {:
 		/var key=context "{{var::context}}{{newline}}{{getvar::realParcedContext}}"|
 	:}|
@@ -107,7 +107,7 @@
 	:}|
 :}|
 /ife (context != '') {:
-	/var key=context "{{var::context}}{{newline}}{{newline}}"|
+	/var key=context "[{{var::context}}]{{newline}}{{newline}}"|
 :}|
 
 /ife (debug == 'Yes') {:
@@ -121,7 +121,10 @@
 /var key=wi_uid {{pipe}}|
 /ife (( wi_uid != '') or ( wi_uid == 0)) {:
 	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
-	/var key=examples {{pipe}}|
+	/let var=tEx {{pipe}}|
+	/ife (tEx != '') {:
+		/var key=examples [{{pipe}}]|
+	:}|
 :}|
 /ife (debug == 'Yes') {:
 	/setvar key="02 Examples" {{var::examples}}|
@@ -247,7 +250,7 @@
 		/join {{getvar::tempList}}|
 		/setvar key=excludedList {{pipe}}|
 		/setvar key=outputGen []|
-		/whilee (i++ < genAmount ) {:
+		/whilee (i++ < genAmount_f ) {:
 			/var key=task {{noop}}|
 			/var key=find "{{var::wi_book_key_f}}: Task"|
 			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
@@ -259,9 +262,10 @@
 			/var key=wi_uid {{pipe}}|
 			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 			/var key=instruct {{pipe}}|
-			
-			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+			/echo Generatig {{var::wi_book_key_f}} {{var::i}}/{{var::genAmount_f}}|
+			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}[{{var::task}}]{{newline}}{{newline}}[{{var::instruct}}]"|
 			/var key=t {{pipe}}|
+			/*
 			/let key=running true|
 			/whilee ((x++ < 10) and (running == true)) {:
 				/ife ('#' in t) {:
@@ -276,14 +280,21 @@
 					/var key=t {{var::replaceTest}}|
 				:}|
 			:}|
-			/addvar key=outputGen {{var::t}}|
-			/join {{getvar::tempList}}|
-			/setvar key=excludedList {{pipe}}|
-			/ife (excludedList != '') {:
-				/addvar key=excludedList ", "|
+			*|
+			/ife (t not in outputGen) {:
+				/addvar key=outputGen {{var::t}}|
+				/join {{getvar::tempList}}|
+				/setvar key=excludedList {{pipe}}|
+				/ife (excludedList != '') {:
+					/addvar key=excludedList ", "|
+				:}|
+				/join {{getvar::outputGen}}|
+				/addvar key=excludedList {{pipe}}|
 			:}|
-			/join {{getvar::outputGen}}|
-			/addvar key=excludedList {{pipe}}|
+			/else {:
+				/add {{var::i}} -1|
+				/var key=i {{pipe}}|
+			:}|
 		:}|
 		/join glue="---" {{getvar::outputGen}}|
 		/var key=t {{pipe}}|
@@ -340,7 +351,7 @@
 		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 		/var key=instruct {{pipe}}|
 		/ife (wi_book_key_f != 'First Message') {:
-			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}[{{var::task}}]{{newline}}{{newline}}[{{var::instruct}}]"|
 			/var key=t {{pipe}}|
 		:}|
 		/elseif (wi_book_key_f == 'First Message') {:
@@ -348,7 +359,7 @@
 			/setvar key=fullCharacterSheet {{pipe}}|
 			/re-replace find="/--FirstName--/g" replace="{{getvar::firstName}}" {{getvar::fullCharacterSheet}}|
 			/setvar key=fullCharacterSheet {{pipe}}|
-			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}{{newline}}{{newline}}## [CHARACTER_SHEET_REFERENCE]
+			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}[{{var::task}}]{{newline}}{{newline}}[{{var::instruct}}]{{newline}}{{newline}}## [CHARACTER_SHEET_REFERENCE]
 Below is the full character sheet for {{getvar::firstName}}. Use it to understand {{getvar::subjPronoun}}’s personality, tone, and behavioral cues. This is reference only — do not quote or summarize it.
 
 {{getvar::fullCharacterSheet}}"|

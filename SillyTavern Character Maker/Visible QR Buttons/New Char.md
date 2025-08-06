@@ -40,6 +40,12 @@
 /getat index="message" {{pipe}}|
 /qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Basic Information" {{pipe}}|
 
+/swipes-count|
+/let key=sw {{pipe}}|
+/ife (sw > 1) {:
+	/swipes-del 1|
+:}|
+
 /qr-list CMC Logic|
 /var key=qrList {{pipe}} |
 /setvar key=dataBaseNames []|

@@ -211,7 +211,7 @@
 			/findentry field=comment file="CMC Variables" {{var::find}}|
 			/getentryfield file="CMC Variables" {{pipe}}| 
 			/let key=temp {{pipe}}|
-			/split find="/\n/" {{var::temp}}|
+			/split find="/---/" {{var::temp}}|
 			/var key=temp {{pipe}}|
 			/setvar key=speciesExamples []|
 			/ife (parsedAnimalType != animalBase) {:
@@ -238,6 +238,23 @@
 		/elseif (characterArchetype == 'Digimon') {:
 			/setvar key=speciesExamples "Agumon, Gabumon, Patamon, Gatomon, Greymon, Garurumon, Angemon, Tentomon, Biyomon, Omnimon"|
 		:}|
+		
+		/ife ((characterArchetype == 'Anthropomorphic') or (characterArchetype == 'Beastkin') or (characterArchetype == 'Animalistic')) {:
+		    /setvar key=formattedSpeciesDescriptor "a {{getvar::parsedAnimalType}} character"|
+		:}|
+		/elseif (characterArchetype == 'Tauric') {:
+		    /setvar key=formattedSpeciesDescriptor "a Tauric {{getvar::parsedAnimalType}} character"|
+		:}|
+		/elseif (characterArchetype == 'Demi-Human') {:
+		    /setvar key=formattedSpeciesDescriptor "a fantasy humanoid character"|
+		:}|
+		/elseif ((characterArchetype == 'Pokémon') or (characterArchetype == 'Digimon')) {:
+		    /setvar key=formattedSpeciesDescriptor "a {{getvar::characterArchetype}} inspired by a {{getvar::parsedAnimalType}}"|
+		:}|
+		/else {:
+		    /setvar key=formattedSpeciesDescriptor "a {{getvar::characterArchetype}} {{getvar::parsedAnimalType}} character"|
+		:}|
+		
 		/wait {{getvar::wait}}|
 		
 		/getvar key=genSettings index=inputIsList|
@@ -272,7 +289,123 @@
 :}|
 //-----------|
 
-/ife (characterArchetype == 'Demi-Human') {:
+/ife (((setBreed == '') or (skip == 'Update')) and (characterArchetype != 'Human') and (characterArchetype != 'Android')) {:
+	/buttons labels=["Yes", "No"] Do you want to so set the breed of the character?|
+	/setvar key=setBreed {{pipe}}|
+	/ife (setBreed == '') {:
+		/echo Aborting |
+		/abort
+	:}|
+:}|
+
+//Breed|
+/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Android') and (setBreed == 'Yes')) {:
+	/var key=do No|
+	/var key=variableName "breed"|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
+	:}|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	/elseif (skip == 'Update') {:
+		/getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
+		/setvar key=genSettings index=wi_book_key "Breed"|
+		/setvar key=genSettings index=genIsList Yes|
+		/setvar key=genSettings index=genAmount 8|
+		/setvar key=genSettings index=genIsSentence No|
+		/setvar key=genSettings index=inputIsTaskList No|
+		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=genSettings index=useContext No|
+		/setvar key=genSettings index=contextKey []|
+		/*
+		/ife (characterArchetype == 'Demi-Human') {:
+			/setvar key=speciesExamples Elf, Dwarf, Vampire, Succubus, Angel, Demon, Halfling, Fairy
+		:}|
+		/elseif ((characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')) {:
+			
+			/let key=find "Reproductive {{getvar::animalBase}}: List"|
+			/findentry field=comment file="CMC Variables" {{var::find}}|
+			/getentryfield file="CMC Variables" {{pipe}}| 
+			/let key=temp {{pipe}}|
+			/split find="/---/" {{var::temp}}|
+			/var key=temp {{pipe}}|
+			/setvar key=speciesExamples []|
+			/ife (parsedAnimalType != animalBase) {:
+				/foreach {{var::temp}} {:
+					/re-replace find="/(\s*\([^)]*\))/g" replace="" {{var::item}}|
+					/let key=tempItem {{pipe}}|
+					/ife (('general' not in tempItem)) {:
+						/addvar key=speciesExamples {{var::tempItem}}|
+					:}|
+				:}|
+			:}|
+			/else {:
+				/foreach {{var::temp}} {:
+					/re-replace find="/^([^\(]+)/g" replace="" {{var::item}}|
+					/addvar key=speciesExamples {{pipe}}|
+				:}|
+			:}|
+			/join {{getvar::speciesExamples}}|
+			/setvar key=speciesExamples {{pipe}}|
+		:}|
+		/elseif (characterArchetype == 'Pokémon') {:
+			/setvar key=speciesExamples "Pikachu, Charizard, Bulbasaur, Squirtle, Jigglypuff, Mewtwo, Eevee, Gengar, Lucario, Snorlax"|
+		:}|
+		/elseif (characterArchetype == 'Digimon') {:
+			/setvar key=speciesExamples "Agumon, Gabumon, Patamon, Gatomon, Greymon, Garurumon, Angemon, Tentomon, Biyomon, Omnimon"|
+		:}|
+		*|
+		/wait {{getvar::wait}}|
+		
+		/getvar key=genSettings index=inputIsList|
+		/let key=inputIsList {{pipe}}|
+		
+		
+		/ife (outputIsList == 'Yes') {:
+			/setvar as=array key={{var::variableName}} []|
+		:}|
+		/else {:
+			/setvar as=string key={{var::variableName}} {{noop}}|
+		:}|
+		//[[Generate with Prompt]]|
+		/:"CMC Logic.GenerateWithPrompt"|
+		/ife (output != '') {:
+			/setvar key={{var::variableName}} {{getvar::output}}|
+		:}|
+		/addvar key=dataBaseNames {{var::variableName}}|
+		/flushvar output|
+		/flushvar guidance|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar genSettings|
+	:}|
+	/else {:
+		/addvar key=dataBaseNames {{var::variableName}}|
+	:}|
+:}|
+/else {:
+	/setvar key=species None|
+	/addvar key=dataBaseNames breed|
+:}|
+//-----------|
+
+/ife ((characterArchetype == 'Demi-Human') and (animalBase == 'None')) {:
 	/setvar key=animalBase {{getvar::species}}|
 	/addvar key=dataBaseNames animalBase|
 	/ife ( ((gender == 'Female') or (futanari == 'Yes')) and (privatesFemale != 'None') ) {:
@@ -284,9 +417,6 @@
 		/addvar key=dataBaseNames privatesMale|
 	:}|
 :}|
-
-
-
 
 
 /ife ( (characterArchetype != 'Anthropomorphic') and (characterArchetype != 'Beastkin') and (characterArchetype != 'Animalistic') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')) {:
@@ -698,7 +828,7 @@
 		/setvar key=genSettings index=inputIsTaskList No|
 		/setvar key=genSettings index=genIsSentence No|
 		/setvar key=genSettings index=needOutput Yes|
-		/setvar key=genSettings index=useContext Yes|
+		/setvar key=genSettings index=useContext No|
 		/setvar key=genSettings index=contextKey []|
 		/ife (( nationality != 'None') and ( ethnicity != 'None')) {:
 			4. Use {{getvar::nationality}} and/or {{getvar::ethnicity}} to influence cultural tone, spelling, or structure of the names when applicable — but do not include country names or descriptors in the output.
@@ -852,7 +982,7 @@
 /setvar key=filename/setvar key=filename {{date}}, {{isotime}}|
 /re-replace find="/:/g" replace="h" {{pipe}}|
 /setvar key=filename {{pipe}}|
-/addvar key=filename "m {{getvar::firstName}} {{getvar::lastName}}"|
+/addvar key=filename "m {{getvar::characterArchetype}} {{getvar::firstName}} {{getvar::lastName}}"|
 /sendas name={{char}} del|
 /renamechat {{getvar::filename}}|
 /del {{lastMessageId}}|

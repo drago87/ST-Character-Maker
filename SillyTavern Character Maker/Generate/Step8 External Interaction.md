@@ -70,67 +70,66 @@
 	/wait {{getvar::wait}}|
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 10|
 	
 	/ife (user == 'Yes') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction == '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. If a connection is --User--, write their name **exactly** as `--User--` with no surname."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- If a connection is --User--, write their name **exactly** as `--User--` with no surname."|
+		
 		/ife ( logicBasedInstruction == '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Use only valid relationships to {{getvar::firstName}} (e.g., `Friend of {{getvar::firstName}}`, `Mentor of {{getvar::firstName}}`, etc.)."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Use only valid relationships to {{getvar::firstName}} (e.g., `Friend of {{getvar::firstName}}`, `Mentor of {{getvar::firstName}}`, etc.)."|
+		
 		/ife ( logicBasedInstruction == '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Do **not** add a full name, inferred gender, or descriptive label like “Andersson” — --User-- must stay anonymous in all contexts."|
+		/addvar key=logicBasedInstruction "- Do **not** add a full name, inferred gender, or descriptive label like “Andersson” — --User-- must stay anonymous in all contexts."|
 	:}|
 	/ife ((characterArchetype == 'Human') or (characterArchetype == 'Android') or (characterArchetype == 'Beastkin') or (characterArchetype == 'Demi-Human')) {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Use standard human familial terms (e.g., “mother,” “foster brother”) unless species logic overrides this."|
+		/addvar key=logicBasedInstruction "- Use standard human familial terms (e.g., “mother,” “foster brother”) unless species logic overrides this."|
 		
 	:}|
 	/elseif (characterArchetype == 'Anthropomorphic') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Default to human-style terms, but allow species-aligned roles (e.g., “tribe-guardian,” “clan-sibling”) when fitting."|
+		/addvar key=logicBasedInstruction "- Default to human-style terms, but allow species-aligned roles (e.g., “tribe-guardian,” “clan-sibling”) when fitting."|
 		
 	:}|
 	/else {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Use species-specific kin or pack structures (e.g., “clutchmate,” “herd elder,” “pack alpha”) and avoid human roles unless clearly justified."|
+		/addvar key=logicBasedInstruction "- Use species-specific kin or pack structures (e.g., “clutchmate,” “herd elder,” “pack alpha”) and avoid human roles unless clearly justified."|
 		
 	:}|
 	
 	/ife (settingType == 'Realistic') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Default to conventional human familial and social roles unless characterArchetype explicitly requires otherwise."|
+		/addvar key=logicBasedInstruction "- Default to conventional human familial and social roles unless characterArchetype explicitly requires otherwise."|
 		
 	:}|
 	/else {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Use culturally and biologically appropriate kinship structures (e.g., “soul-bonded trainer,” “unit sibling,” “a bonded mage-companion”) based on species or origin."|
+		/addvar key=logicBasedInstruction "- Use culturally and biologically appropriate kinship structures (e.g., “soul-bonded trainer,” “unit sibling,” “a bonded mage-companion”) based on species or origin."|
 		
 	:}|
-	/flushvar x|
+	
 	
 	
 	
@@ -216,33 +215,32 @@
 	/wait {{getvar::wait}}|
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 10|
 	
 	/ife (settingType == 'Realistic') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Abilities must be fully plausible in the real world. This includes advanced flexibility, sensory focus, pain tolerance, emotional control, or exceptional training. Do not include magic, psionics, supernatural phenomena, or any kind of proficiency level."|
+		/addvar key=logicBasedInstruction "- Abilities must be fully plausible in the real world. This includes advanced flexibility, sensory focus, pain tolerance, emotional control, or exceptional training. Do not include magic, psionics, supernatural phenomena, or any kind of proficiency level."|
 		
 	:}|
 	/elseif (settingType == 'Fantasy') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Abilities may include elemental powers, curses, divine traits, inherited magic, or arcane disciplines. Do not include tiers, mastery labels, or strength modifiers—those are handled in a later step."|
+		/addvar key=logicBasedInstruction "- Abilities may include elemental powers, curses, divine traits, inherited magic, or arcane disciplines. Do not include tiers, mastery labels, or strength modifiers—those are handled in a later step."|
 		
 	:}|
 	/elseif (settingType == 'Science Fiction') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Abilities may include psionics, gene traits, mental enhancements, or biotech-integrated skills. Do not include levels, size indicators, or parenthetical ranks—those will be generated separately."|
+		/addvar key=logicBasedInstruction "- Abilities may include psionics, gene traits, mental enhancements, or biotech-integrated skills. Do not include levels, size indicators, or parenthetical ranks—those will be generated separately."|
 		
 	:}|
-	/flushvar x|
+	
 	
 	
 	
@@ -331,33 +329,32 @@
 		/wait {{getvar::wait}}|
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 6|
 		
 		/ife (settingType == 'Realistic') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Use realistic mastery tiers, physical control states, or measured performance levels. Do not use magical, tech-based, or mystical states."|
+			/addvar key=logicBasedInstruction "- Use realistic mastery tiers, physical control states, or measured performance levels. Do not use magical, tech-based, or mystical states."|
 			
 		:}|
 		/elseif (settingType == 'Fantasy') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Use magical resonance levels, mystical awakenings, spell tiering, or enchanted conditions. You may use poetic or arcane phrasing."|
+			/addvar key=logicBasedInstruction "- Use magical resonance levels, mystical awakenings, spell tiering, or enchanted conditions. You may use poetic or arcane phrasing."|
 			
 		:}|
 		/elseif (settingType == 'Science Fiction') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Use mutation stages, neural tiers, cybernetic activation levels, or psionic charge states. Do not include divine, magical, or elemental qualifiers."|
+			/addvar key=logicBasedInstruction "- Use mutation stages, neural tiers, cybernetic activation levels, or psionic charge states. Do not include divine, magical, or elemental qualifiers."|
 			
 		:}|
-		/flushvar x|
+		
 		
 		
 		
@@ -455,33 +452,32 @@
 		/wait {{getvar::wait}}|
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 10|
 		
 		/ife (settingType == 'Realistic') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Description must reflect real-world logic and be physically or psychologically plausible. Do not reference magic, tech, or supernatural forces."|
+			/addvar key=logicBasedInstruction "- Description must reflect real-world logic and be physically or psychologically plausible. Do not reference magic, tech, or supernatural forces."|
 			
 		:}|
 		/elseif (settingType == 'Fantasy') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. You may include references to mana, magic, curses, bloodlines, or mystic energies. Abilities may scale dramatically between levels."|
+			/addvar key=logicBasedInstruction "- You may include references to mana, magic, curses, bloodlines, or mystic energies. Abilities may scale dramatically between levels."|
 			
 		:}|
 		/elseif (settingType == 'Science Fiction') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. You may reference cybernetic processes, psionic channels, tech-enhanced cognition, or biotech-based traits. Avoid magical concepts."|
+			/addvar key=logicBasedInstruction "- You may reference cybernetic processes, psionic channels, tech-enhanced cognition, or biotech-based traits. Avoid magical concepts."|
 			
 		:}|
-		/flushvar x|
+		
 		
 		
 		
@@ -597,33 +593,32 @@
 	/wait {{getvar::wait}}|
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 7|
 	
 	/ife (settingType == 'Realistic') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Limit items to real-world modern gear, accessories, or everyday personal objects. Do not include magic, advanced tech, or fantasy items."|
+		/addvar key=logicBasedInstruction "- Limit items to real-world modern gear, accessories, or everyday personal objects. Do not include magic, advanced tech, or fantasy items."|
 		
 	:}|
 	/elseif (settingType == 'Fantasy') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Items may include magical trinkets, mystical gear, herbal components, talismans, or medieval-style tools and charms."|
+		/addvar key=logicBasedInstruction "- Items may include magical trinkets, mystical gear, herbal components, talismans, or medieval-style tools and charms."|
 		
 	:}|
 	/elseif (settingType == 'Science Fiction') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Items may include advanced tools, nanotech, biotech devices, psionic accessories, or gear with augmented properties."|
+		/addvar key=logicBasedInstruction "- Items may include advanced tools, nanotech, biotech devices, psionic accessories, or gear with augmented properties."|
 		
 	:}|
-	/flushvar x|
+	
 	
 	
 	
@@ -712,33 +707,32 @@
 		/wait {{getvar::wait}}|
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 7|
 		
 		/ife (settingType == 'Realistic') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Do not include magical, advanced tech, or psionic properties. Focus on grounded, everyday materials and wear."|
+			/addvar key=logicBasedInstruction "- Do not include magical, advanced tech, or psionic properties. Focus on grounded, everyday materials and wear."|
 			
 		:}|
 		/elseif (settingType == 'Fantasy') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. You may reference glowing runes, magical engravings, spiritual symbols, or arcane materials—but avoid lore or spell explanations."|
+			/addvar key=logicBasedInstruction "- You may reference glowing runes, magical engravings, spiritual symbols, or arcane materials—but avoid lore or spell explanations."|
 			
 		:}|
 		/elseif (settingType == 'Science Fiction') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. You may reference interfaces, synth materials, nanotech casings, and embedded circuitry—but avoid system-level tech detail or exposition."|
+			/addvar key=logicBasedInstruction "- You may reference interfaces, synth materials, nanotech casings, and embedded circuitry—but avoid system-level tech detail or exposition."|
 			
 		:}|
-		/flushvar x|
+		
 		
 		
 		

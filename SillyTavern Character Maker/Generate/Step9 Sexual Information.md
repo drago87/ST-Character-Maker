@@ -167,85 +167,85 @@
 	
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 8|
+	
 	
 	/ife (sexualOrientation == 'Heterosexual') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Focus attraction toward the opposite sex — emphasize traditionally masculine or feminine traits depending on character’s gender and age."|
+		/addvar key=logicBasedInstruction "- Focus attraction toward the opposite sex — emphasize traditionally masculine or feminine traits depending on character’s gender and age."|
 		
 	:}|
 	/elseif (sexualOrientation == 'Pansexual') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Describe attraction to a broad range of gender expressions or bodies — avoid reducing attraction to a binary or to one physical archetype."|
+		/addvar key=logicBasedInstruction "- Describe attraction to a broad range of gender expressions or bodies — avoid reducing attraction to a binary or to one physical archetype."|
 		
 	:}|
 	/elseif (sexualOrientation == 'Asexual') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Emphasize lack of innate sexual attraction; describe emotional or aesthetic triggers only if relevant."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Emphasize lack of innate sexual attraction; describe emotional or aesthetic triggers only if relevant."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Describe how attraction requires deep bonding, or what is **not** felt."|
+		/addvar key=logicBasedInstruction "- Describe how attraction requires deep bonding, or what is **not** felt."|
 		
 	:}|
 	/elseif (sexualOrientation == 'Demisexual') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Attraction must require **deep emotional connection** before any physical or sexual interest is felt."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Attraction must require **deep emotional connection** before any physical or sexual interest is felt."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Describe how attraction requires deep bonding, or what is **not** felt."|
+		/addvar key=logicBasedInstruction "- Describe how attraction requires deep bonding, or what is **not** felt."|
 		
 	:}|
 	/elseif (sexualOrientation == 'Bi-curious') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Express curiosity or tentative interest in same-gender or non-typical partners — use uncertain or exploratory language."|
+		/addvar key=logicBasedInstruction "- Express curiosity or tentative interest in same-gender or non-typical partners — use uncertain or exploratory language."|
 		
 	:}|
 	/elseif (sexualOrientation == 'Xenosexual') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Attraction should focus on **non-human humanoid** or **hybrid forms** (e.g., beastkin, aliens, demi-humans). Highlight features like mixed anatomy, unusual physiology, or hybrid charm — avoid feral or quadrupedal attraction."|
+		/addvar key=logicBasedInstruction "- Attraction should focus on **non-human humanoid** or **hybrid forms** (e.g., beastkin, aliens, demi-humans). Highlight features like mixed anatomy, unusual physiology, or hybrid charm — avoid feral or quadrupedal attraction."|
 		
 	:}|
 	/elseif (sexualOrientation == 'Zoosexual') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Attraction should be directed toward **fully animalistic**, **feral**, or **quadrupedal bodies**. Emphasize instinctual behavior, physical traits (e.g., fur, gait, size), or dominance/submission cues — avoid humanoid references."|
+		/addvar key=logicBasedInstruction "- Attraction should be directed toward **fully animalistic**, **feral**, or **quadrupedal bodies**. Emphasize instinctual behavior, physical traits (e.g., fur, gait, size), or dominance/submission cues — avoid humanoid references."|
 		
 	:}|
 	
 	
 	/ife ((settingType == 'Realistic') and (sexualOrientation != 'Zoosexual') and (sexualOrientation != 'Xenosexual')) {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Avoid references to alien, hybrid, or feral attraction unless justified by species context. Keep tone grounded in biologically plausible preferences."|
+		/addvar key=logicBasedInstruction "- Avoid references to alien, hybrid, or feral attraction unless justified by species context. Keep tone grounded in biologically plausible preferences."|
 		
 	:}|
-	/flushvar x|
+	
 	
 	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
@@ -402,225 +402,225 @@
 	
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 7|
+	
 	
 	/ife (sexualRole == 'Dominant') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character must take control during intimacy — they lead, direct, and handle their partner confidently."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character must take control during intimacy — they lead, direct, and handle their partner confidently."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Show active physical or verbal dominance (e.g., restraint, commands, assertive touch)."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Show active physical or verbal dominance (e.g., restraint, commands, assertive touch)."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Personality tags may affect tone (e.g., cold, nurturing, aggressive), but role remains in control."|
+		/addvar key=logicBasedInstruction "- Personality tags may affect tone (e.g., cold, nurturing, aggressive), but role remains in control."|
 		
 	:}|
 	/elseif (sexualRole == 'Top') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character takes the physically active or giving role during sex, initiating contact or stimulation."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character takes the physically active or giving role during sex, initiating contact or stimulation."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. May or may not control dynamics — focus on action and assertive engagement."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- May or may not control dynamics — focus on action and assertive engagement."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags like playful, impatient, or intense may shape *how* they act, not whether they do."|
+		/addvar key=logicBasedInstruction "- Tags like playful, impatient, or intense may shape *how* they act, not whether they do."|
 		
 	:}|
 	/elseif (sexualRole == 'Submissive') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character must yield control and respond to a dominant partner’s actions or guidance."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character must yield control and respond to a dominant partner’s actions or guidance."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Show willingness to follow, wait, or obey — describe receptive body language or behavior."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Show willingness to follow, wait, or obey — describe receptive body language or behavior."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags may affect how passivity is expressed (e.g., shy, eager, stoic), but they should not lead."|
+		/addvar key=logicBasedInstruction "- Tags may affect how passivity is expressed (e.g., shy, eager, stoic), but they should not lead."|
 		
 	:}|
 	/elseif (sexualRole == 'Bottom') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character takes a physically passive or receiving role — they are touched, penetrated, or held."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character takes a physically passive or receiving role — they are touched, penetrated, or held."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. May be sexually assertive in tone or feedback, but should not initiate or guide."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- May be sexually assertive in tone or feedback, but should not initiate or guide."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags should shape *emotional reaction* or tone of passivity (e.g., needy, playful, tense)."|
+		/addvar key=logicBasedInstruction "- Tags should shape *emotional reaction* or tone of passivity (e.g., needy, playful, tense)."|
 		
 	:}|
 	/elseif (sexualRole == 'Switch') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character is flexible — describe adaptive behavior that shifts based on mood or partner energy."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character is flexible — describe adaptive behavior that shifts based on mood or partner energy."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Show role fluidity: confident control in one moment, eager submission in the next."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Show role fluidity: confident control in one moment, eager submission in the next."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags can influence preference or transitions (e.g., impulsive = faster switching)."|
+		/addvar key=logicBasedInstruction "- Tags can influence preference or transitions (e.g., impulsive = faster switching)."|
 		
 	:}|
 	/elseif (sexualRole == 'Service Top') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character takes an active role, but their focus is on fulfilling their partner’s needs or preferences — not on dominance."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character takes an active role, but their focus is on fulfilling their partner’s needs or preferences — not on dominance."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Use actions like initiating stimulation or adjusting pace for the other’s benefit."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Use actions like initiating stimulation or adjusting pace for the other’s benefit."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags may reflect devotion, calm precision, or eager support — never controlling ego."|
+		/addvar key=logicBasedInstruction "- Tags may reflect devotion, calm precision, or eager support — never controlling ego."|
 		
 	:}|
 	/elseif (sexualRole == 'Power Bottom') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character is physically submissive but emotionally or behaviorally assertive."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character is physically submissive but emotionally or behaviorally assertive."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Describe how they guide the encounter from below: giving feedback, demanding more, controlling pace from a passive position."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Describe how they guide the encounter from below: giving feedback, demanding more, controlling pace from a passive position."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags should enhance their bold, teasing, or confident tone without contradicting positional passivity."|
+		/addvar key=logicBasedInstruction "- Tags should enhance their bold, teasing, or confident tone without contradicting positional passivity."|
 		
 	:}|
 	/elseif (sexualRole == 'Soft Dom') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character is dominant, but emotionally nurturing and attentive — they lead while offering care and reassurance."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character is dominant, but emotionally nurturing and attentive — they lead while offering care and reassurance."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Show steady control paired with kindness (e.g., praise, soft restraint, protective behavior)."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Show steady control paired with kindness (e.g., praise, soft restraint, protective behavior)."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags like gentle, warm, or empathetic reinforce tone without reducing authority."|
+		/addvar key=logicBasedInstruction "- Tags like gentle, warm, or empathetic reinforce tone without reducing authority."|
 		
 	:}|
 	/elseif (sexualRole == 'Brat') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character resists control playfully or provocatively — they provoke dominance, not avoid it."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character resists control playfully or provocatively — they provoke dominance, not avoid it."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Emphasize teasing, defiance, or button-pushing behavior followed by eventual surrender."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Emphasize teasing, defiance, or button-pushing behavior followed by eventual surrender."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags like impulsive, tomboyish, or stubborn shape style of resistance, not goal (being overpowered)."|
+		/addvar key=logicBasedInstruction "- Tags like impulsive, tomboyish, or stubborn shape style of resistance, not goal (being overpowered)."|
 		
 	:}|
 	/elseif (sexualRole == 'Pillow Princess') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character prefers to receive pleasure passively and rarely initiates."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character prefers to receive pleasure passively and rarely initiates."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Show behavior like lying back, encouraging attention, or expressing enjoyment without active contribution."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Show behavior like lying back, encouraging attention, or expressing enjoyment without active contribution."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags may amplify tone (e.g., shy = quiet, bratty = mildly demanding), but never initiate."|
+		/addvar key=logicBasedInstruction "- Tags may amplify tone (e.g., shy = quiet, bratty = mildly demanding), but never initiate."|
 		
 	:}|
 	/elseif (sexualRole == 'Owner') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character asserts possessive, long-term dominance — focus on symbolic or emotional control, not just physical."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character asserts possessive, long-term dominance — focus on symbolic or emotional control, not just physical."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Show hierarchical behavior: giving permission, claiming, or marking territory (e.g., collars, commands)."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Show hierarchical behavior: giving permission, claiming, or marking territory (e.g., collars, commands)."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags like cold, obsessive, or refined may shift dominance tone."|
+		/addvar key=logicBasedInstruction "- Tags like cold, obsessive, or refined may shift dominance tone."|
 		
 	:}|
 	/elseif (sexualRole == 'Pet') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Character expresses obedience and affection through submissive, creature-like behavior."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Character expresses obedience and affection through submissive, creature-like behavior."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Emphasize emotional dependence, eagerness to please, or physical submission through posture or vocalization."|
-		/incvar x|
+		/addvar key=logicBasedInstruction "- Emphasize emotional dependence, eagerness to please, or physical submission through posture or vocalization."|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Tags like clingy, shy, or cheerful can shape expression of petlike behavior — never switch to control."|
+		/addvar key=logicBasedInstruction "- Tags like clingy, shy, or cheerful can shape expression of petlike behavior — never switch to control."|
 		
 	:}|
-	/flushvar x|
+	
 	
 	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
@@ -783,30 +783,30 @@
 	
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 7|
+	
 	
 	/ife (settingType == 'Realistic') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Only include kinks that are grounded in real-world physical, psychological, or social dynamics. Avoid magical, alien, or non-physical elements."|
+		/addvar key=logicBasedInstruction "- Only include kinks that are grounded in real-world physical, psychological, or social dynamics. Avoid magical, alien, or non-physical elements."|
 		
 	:}|
 	/elseif (settingType == 'Fantasy') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include magical, mythic, or creature-based kink categories if they match the species or emotional tone."|
+		/addvar key=logicBasedInstruction "- You may include magical, mythic, or creature-based kink categories if they match the species or emotional tone."|
 		
 	:}|
 	/elseif (settingType == 'Science Fiction') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include alien, biotech, cybernetic, psionic, or synthetic kink categories if appropriate to the character’s setting or biology."|
+		/addvar key=logicBasedInstruction "- You may include alien, biotech, cybernetic, psionic, or synthetic kink categories if appropriate to the character’s setting or biology."|
 		
 	:}|
 	
@@ -887,30 +887,30 @@
 	
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 6|
+	
 	
 	/ife (settingType == 'Realistic') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Focus on physical, psychological, or interpersonal kinks. Avoid sci-fi/fantasy-specific kinks like tentacles or psionics unless species or origin supports them."|
+		/addvar key=logicBasedInstruction "- Focus on physical, psychological, or interpersonal kinks. Avoid sci-fi/fantasy-specific kinks like tentacles or psionics unless species or origin supports them."|
 		
 	:}|
 	/elseif (settingType == 'Fantasy') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include magical, supernatural, or creature-related kink types—such as possession, corruption, size-shifting, or ritual play."|
+		/addvar key=logicBasedInstruction "- You may include magical, supernatural, or creature-related kink types—such as possession, corruption, size-shifting, or ritual play."|
 		
 	:}|
 	/elseif (settingType == 'Science Fiction') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include biotech, psionic, AI-based, or body-modification kink types, including neural control or holographic restraint."|
+		/addvar key=logicBasedInstruction "- You may include biotech, psionic, AI-based, or body-modification kink types, including neural control or holographic restraint."|
 		
 	:}|
 	
@@ -1171,30 +1171,30 @@
 	
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 11|
+	
 	
 	/ife (settingType == 'Realistic') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Only use real-world tools, acts, or responses. Do not include fantasy biology or futuristic tech."|
+		/addvar key=logicBasedInstruction "- Only use real-world tools, acts, or responses. Do not include fantasy biology or futuristic tech."|
 		
 	:}|
 	/elseif (settingType == 'Fantasy') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include magical anatomy, rituals, mystical sensations, or monster-related expressions of {{getvar::kinkVariant}}."|
+		/addvar key=logicBasedInstruction "- You may include magical anatomy, rituals, mystical sensations, or monster-related expressions of {{getvar::kinkVariant}}."|
 		
 	:}|
 	/elseif (settingType == 'Science Fiction') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include biotech enhancements, psionic triggers, alien features, or advanced control devices in the kink experience."|
+		/addvar key=logicBasedInstruction "- You may include biotech enhancements, psionic triggers, alien features, or advanced control devices in the kink experience."|
 		
 	:}|
 	
@@ -1304,30 +1304,30 @@
 	
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 10|
+	
 	
 	/ife (settingType == 'Realistic') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include biotech or psionic modulation of behavior, enhanced arousal triggers, or AI-linked reactions where appropriate to the kink context."|
+		/addvar key=logicBasedInstruction "- You may include biotech or psionic modulation of behavior, enhanced arousal triggers, or AI-linked reactions where appropriate to the kink context."|
 		
 	:}|
 	/elseif (settingType == 'Fantasy') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include magical or supernatural influences (e.g., enchanted obedience, arousal curses, spiritual reactions) if consistent with the kink."|
+		/addvar key=logicBasedInstruction "- You may include magical or supernatural influences (e.g., enchanted obedience, arousal curses, spiritual reactions) if consistent with the kink."|
 		
 	:}|
 	/elseif (settingType == 'Science Fiction') {:
-		/incvar x|
+		
 		/ife ( user == 'Yes') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. You may include biotech or psionic modulation of behavior, enhanced arousal triggers, or AI-linked reactions where appropriate to the kink context."|
+		/addvar key=logicBasedInstruction "- You may include biotech or psionic modulation of behavior, enhanced arousal triggers, or AI-linked reactions where appropriate to the kink context."|
 		
 	:}|
 	
@@ -1627,33 +1627,33 @@
 	/wait {{getvar::wait}}|
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 10|
+	
 	
 	/ife (settingType == 'Realistic') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Abilities must be fully plausible in the real world. This includes advanced flexibility, sensory focus, pain tolerance, emotional control, or exceptional training. Do not include magic, psionics, supernatural phenomena, or any kind of proficiency level."|
+		/addvar key=logicBasedInstruction "- Abilities must be fully plausible in the real world. This includes advanced flexibility, sensory focus, pain tolerance, emotional control, or exceptional training. Do not include magic, psionics, supernatural phenomena, or any kind of proficiency level."|
 		
 	:}|
 	/elseif (settingType == 'Fantasy') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Abilities may include elemental powers, curses, divine traits, inherited magic, or arcane disciplines. Do not include tiers, mastery labels, or strength modifiers—those are handled in a later step."|
+		/addvar key=logicBasedInstruction "- Abilities may include elemental powers, curses, divine traits, inherited magic, or arcane disciplines. Do not include tiers, mastery labels, or strength modifiers—those are handled in a later step."|
 		
 	:}|
 	/elseif (settingType == 'Science Fiction') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Abilities may include psionics, gene traits, mental enhancements, or biotech-integrated skills. Do not include levels, size indicators, or parenthetical ranks—those will be generated separately."|
+		/addvar key=logicBasedInstruction "- Abilities may include psionics, gene traits, mental enhancements, or biotech-integrated skills. Do not include levels, size indicators, or parenthetical ranks—those will be generated separately."|
 		
 	:}|
-	/flushvar x|
+	
 	
 	
 	
@@ -1740,33 +1740,33 @@
 		/wait {{getvar::wait}}|
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 5|
+		
 		
 		/ife (settingType == 'Realistic') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Use realistic mastery tiers, physical control states, or measured performance levels. Do not use magical, tech-based, or mystical states."|
+			/addvar key=logicBasedInstruction "- Use realistic mastery tiers, physical control states, or measured performance levels. Do not use magical, tech-based, or mystical states."|
 			
 		:}|
 		/elseif (settingType == 'Fantasy') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Use magical resonance levels, mystical awakenings, spell tiering, or enchanted conditions. You may use poetic or arcane phrasing."|
+			/addvar key=logicBasedInstruction "- Use magical resonance levels, mystical awakenings, spell tiering, or enchanted conditions. You may use poetic or arcane phrasing."|
 			
 		:}|
 		/elseif (settingType == 'Science Fiction') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Use mutation stages, neural tiers, cybernetic activation levels, or psionic charge states. Do not include divine, magical, or elemental qualifiers."|
+			/addvar key=logicBasedInstruction "- Use mutation stages, neural tiers, cybernetic activation levels, or psionic charge states. Do not include divine, magical, or elemental qualifiers."|
 			
 		:}|
-		/flushvar x|
+		
 		
 		
 		
@@ -1862,33 +1862,33 @@
 		/wait {{getvar::wait}}|
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 5|
+		
 		
 		/ife (settingType == 'Realistic') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Description must reflect real-world logic and be physically or psychologically plausible. Do not reference magic, tech, or supernatural forces."|
+			/addvar key=logicBasedInstruction "- Description must reflect real-world logic and be physically or psychologically plausible. Do not reference magic, tech, or supernatural forces."|
 			
 		:}|
 		/elseif (settingType == 'Fantasy') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. You may include references to mana, magic, curses, bloodlines, or mystic energies. Abilities may scale dramatically between levels."|
+			/addvar key=logicBasedInstruction "- You may include references to mana, magic, curses, bloodlines, or mystic energies. Abilities may scale dramatically between levels."|
 			
 		:}|
 		/elseif (settingType == 'Science Fiction') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. You may reference cybernetic processes, psionic channels, tech-enhanced cognition, or biotech-based traits. Avoid magical concepts."|
+			/addvar key=logicBasedInstruction "- You may reference cybernetic processes, psionic channels, tech-enhanced cognition, or biotech-based traits. Avoid magical concepts."|
 			
 		:}|
-		/flushvar x|
+		
 		
 		
 		
@@ -1962,6 +1962,500 @@
 //--------|
 
 
+//SEXUAL EXPERIENCE PROFILE|
+
+//Experience Level|
+/var key=do No|
+/var key=variableName "sexualExperienceLevel"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
+	/setvar key=genSettings index=wi_book_key "Sexual Experience Level"|
+	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=useContext No|
+	/wait {{getvar::wait}}|
+	
+	
+	/getvar key=genSettings index=wi_book_key|
+	/let key=wi_book_key {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=combineLorebookEntries|
+	/let key=combineLorebookEntries {{pipe}}|
+	
+	
+	/ife ( inputIsList == 'Yes') {:
+		/setvar key={{var::variableName}} []|
+		/ife ( combineLorebookEntries == 'Yes') {:
+			/:"CMC Logic.Combine List Lorebooks"
+		:}|
+		/foreach {{getvar::genOrder}} {:
+			/setvar key=it {{var::item}}|
+			/getat index={{var::index}} {{var::genOrderContent}} |
+			/setvar key=genSettings index=content {{pipe}}|
+			/:"CMC Logic.GenerateWithSelector"|
+			/ife (output != '') {:
+				/addvar key={{var::variableName}} {{getvar::output}}|
+			:}|
+		:}|
+	:}|
+	/else {:
+		/getvar key=genSettings index=wi_book_key|
+		/setvar key=it {{pipe}}|
+		/:"CMC Logic.GenerateWithSelector"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+		
+	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar it|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+//--------|
+
+//Knowledge Level|
+/var key=do No|
+/var key=variableName "sexualKnowlageLevel"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
+	/setvar key=genSettings index=wi_book_key "Sexual Knowledge Level"|
+	/setvar key=genSettings index=combineLorebookEntries No|
+	/setvar key=genSettings index=genIsSentence No|
+	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=outputIsList Yes|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=useContext No|
+	/wait {{getvar::wait}}|
+	
+	
+	/getvar key=genSettings index=wi_book_key|
+	/let key=wi_book_key {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=combineLorebookEntries|
+	/let key=combineLorebookEntries {{pipe}}|
+	
+	
+	/ife ( inputIsList == 'Yes') {:
+		/setvar key={{var::variableName}} []|
+		/ife ( combineLorebookEntries == 'Yes') {:
+			/:"CMC Logic.Combine List Lorebooks"
+		:}|
+		/foreach {{getvar::genOrder}} {:
+			/setvar key=it {{var::item}}|
+			/getat index={{var::index}} {{var::genOrderContent}} |
+			/setvar key=genSettings index=content {{pipe}}|
+			/:"CMC Logic.GenerateWithSelector"|
+			/ife (output != '') {:
+				/addvar key={{var::variableName}} {{getvar::output}}|
+			:}|
+		:}|
+	:}|
+	/else {:
+		/getvar key=genSettings index=wi_book_key|
+		/setvar key=it {{pipe}}|
+		/:"CMC Logic.GenerateWithSelector"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+		
+	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar it|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+//--------|
+
+/ife ( (sexualExperienceLevel != 'None') and (sexualKnowlageLevel != 'None')) {:
+	
+	/ife (sexualExperienceLevel != 'None') {:
+	//Number of Partners|
+		/var key=do No|
+		/var key=variableName "sexualPartners"|
+		/ife ({{var::variableName}} == '') {:
+		    /var key=do Yes|
+		:}|
+		/elseif (skip == 'Update') {:
+		    /getvar key={{var::variableName}}|
+		    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+		    /var key=do {{pipe}}|
+		    /ife (do == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
+			/setvar key=genSettings index=wi_book_key "Sexual Number of Partners"|
+			/setvar key=genSettings index=combineLorebookEntries No|
+			/setvar key=genSettings index=genIsSentence No|
+			/setvar key=genSettings index=inputIsList No|
+			/setvar key=genSettings index=genIsList Yes|
+			/setvar key=genSettings index=outputIsList No|
+			/setvar key=genSettings index=needOutput Yes|
+			/setvar key=genSettings index=useContext No|
+			/wait {{getvar::wait}}|
+			
+			
+			/getvar key=genSettings index=wi_book_key|
+			/let key=wi_book_key {{pipe}}|
+			/getvar key=genSettings index=inputIsList|
+			/let key=inputIsList {{pipe}}|
+			/getvar key=genSettings index=combineLorebookEntries|
+			/let key=combineLorebookEntries {{pipe}}|
+			
+			
+			/ife ( inputIsList == 'Yes') {:
+				/setvar key={{var::variableName}} []|
+				/ife ( combineLorebookEntries == 'Yes') {:
+					/:"CMC Logic.Combine List Lorebooks"
+				:}|
+				/foreach {{getvar::genOrder}} {:
+					/setvar key=it {{var::item}}|
+					/getat index={{var::index}} {{var::genOrderContent}} |
+					/setvar key=genSettings index=content {{pipe}}|
+					/:"CMC Logic.GenerateWithSelector"|
+					/ife (output != '') {:
+						/addvar key={{var::variableName}} {{getvar::output}}|
+					:}|
+				:}|
+			:}|
+			/else {:
+				/getvar key=genSettings index=wi_book_key|
+				/setvar key=it {{pipe}}|
+				/:"CMC Logic.GenerateWithSelector"|
+				/setvar key={{var::variableName}} {{getvar::output}}|
+				
+			:}|
+			/addvar key=dataBaseNames {{var::variableName}}|
+			/flushvar output|
+			/flushvar genOrder|
+			/flushvar genContent|
+			/flushvar it|
+			/flushvar genSettings|
+		:}|
+		/else {:
+			/addvar key=dataBaseNames {{var::variableName}}|
+		:}|
+	//--------|
+	
+	
+	//Self-Exploration|
+		/var key=do No|
+		/var key=variableName "sexualSelfExploration"|
+		/ife ({{var::variableName}} == '') {:
+		    /var key=do Yes|
+		:}|
+		/elseif (skip == 'Update') {:
+		    /getvar key={{var::variableName}}|
+		    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+		    /var key=do {{pipe}}|
+		    /ife (do == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
+			/setvar key=genSettings index=wi_book_key "Sexual Self-Exploration"|
+			/setvar key=genSettings index=combineLorebookEntries No|
+			/setvar key=genSettings index=genIsSentence No|
+			/setvar key=genSettings index=inputIsList No|
+			/setvar key=genSettings index=genIsList Yes|
+			/setvar key=genSettings index=outputIsList No|
+			/setvar key=genSettings index=needOutput Yes|
+			/setvar key=genSettings index=useContext No|
+			/wait {{getvar::wait}}|
+			
+			
+			/getvar key=genSettings index=wi_book_key|
+			/let key=wi_book_key {{pipe}}|
+			/getvar key=genSettings index=inputIsList|
+			/let key=inputIsList {{pipe}}|
+			/getvar key=genSettings index=combineLorebookEntries|
+			/let key=combineLorebookEntries {{pipe}}|
+			
+			
+			/ife ( inputIsList == 'Yes') {:
+				/setvar key={{var::variableName}} []|
+				/ife ( combineLorebookEntries == 'Yes') {:
+					/:"CMC Logic.Combine List Lorebooks"
+				:}|
+				/foreach {{getvar::genOrder}} {:
+					/setvar key=it {{var::item}}|
+					/getat index={{var::index}} {{var::genOrderContent}} |
+					/setvar key=genSettings index=content {{pipe}}|
+					/:"CMC Logic.GenerateWithSelector"|
+					/ife (output != '') {:
+						/addvar key={{var::variableName}} {{getvar::output}}|
+					:}|
+				:}|
+			:}|
+			/else {:
+				/getvar key=genSettings index=wi_book_key|
+				/setvar key=it {{pipe}}|
+				/:"CMC Logic.GenerateWithSelector"|
+				/setvar key={{var::variableName}} {{getvar::output}}|
+				
+			:}|
+			/addvar key=dataBaseNames {{var::variableName}}|
+			/flushvar output|
+			/flushvar genOrder|
+			/flushvar genContent|
+			/flushvar it|
+			/flushvar genSettings|
+		:}|
+		/else {:
+			/addvar key=dataBaseNames {{var::variableName}}|
+		:}|
+	//--------|
+	
+	//Exposure Context|
+		/var key=do No|
+		/var key=variableName "sexualExposure"|
+		/ife ({{var::variableName}} == '') {:
+		    /var key=do Yes|
+		:}|
+		/elseif (skip == 'Update') {:
+		    /getvar key={{var::variableName}}|
+		    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+		    /var key=do {{pipe}}|
+		    /ife (do == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
+			/setvar key=genSettings index=wi_book_key "Exposure Context"|
+			/setvar key=genSettings index=genIsList No|
+			/setvar key=genSettings index=genAmount 8|
+			/setvar key=genSettings index=inputIsList No|
+			/setvar key=genSettings index=genIsSentence Yes|
+			/setvar key=genSettings index=needOutput Yes|
+			/setvar key=genSettings index=outputIsList No|
+			/setvar key=genSettings index=useContext Yes|
+			/setvar key=extra []|
+			/addvar key=extra "- Setting Type: {{getvar::settingType}}"|
+			/addvar key=extra "- Time Period: {{getvar::timePeriod}}"|
+			/addvar key=extra "- World Type: {{getvar::worldType}}"|
+			/addvar key=extra "- Backstory: {{getvar::backstory}}"|
+			/addvar key=extra "- Social Behavior: {{getvar::personalitySocialBehavior}}"|
+			/ife (personalitySocialSkills != 'None') {:
+				/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}"|
+			:}|
+			/addvar key=extra "- Sexual Orientation: {{getvar::sexualOrientation}}"|
+			/addvar key=extra "- Sexual Role: {{getvar::sexualRole}}"|
+			/addvar key=extra "- Libido: {{getvar::libido}}"|
+			/setvar key=genSettings index=extraContext {{getvar::extra}}|
+			/setvar key=extra []|
+			/:"CMC Logic.Get Basic Type Context"|
+			/ife (extra != '') {:
+				/setvar key=genSettings index=contextKey {{getvar::extra}}|
+			:}|
+			/flushvar extra|
+			/wait {{getvar::wait}}|
+			
+			/getvar key=genSettings index=inputIsList|
+			/let key=inputIsList {{pipe}}|
+			/getvar key=genSettings index=inputIsList|
+			/let key=outputIsList {{pipe}}|
+			
+			/setvar key=logicBasedInstruction {{noop}}|
+			
+			/ife (variable == 'content') {:
+				/ife ( logicBasedInstruction != '') {:
+					/addvar key=logicBasedInstruction {{newline}}|
+				:}|
+				/addvar key=logicBasedInstruction "- Rule"|
+				
+			:}|
+			
+			
+			/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+				/setvar as=array key={{var::variableName}} []|
+			:}|
+			/else {:
+				/setvar as=string key={{var::variableName}} {{noop}}|
+			:}|
+		
+			/setvar key=genSettings index=buttonPrompt CHANGE_THIS_PROMPT|//Remove if not in use|
+		
+			/setvar key=genSettings index=guidencePrompt CHANGE_THIS_PROMPT|//Remove if not in use|
+			//[[Generate with Prompt]]|
+			/ife (inputIsList == 'Yes') {:
+				/let key=tempOutputList []|
+				/foreach {{getvar::CHANGE_REMOVE_THIS}} {:
+					/getvar key={{var::variableName}}|
+					/len {{pipe}}|
+					/let key=len {{pipe}}|
+					/ife (len == 0) {:
+						/setvar as=array key={{var::variableName}} []|
+					:}|
+					
+					/ife ((index > len) or ((index == 0) and (len == 0))) {:
+						/setvar key={{var::variableName}}Item {{var::item}}|
+						/setvar key=genSettings index=buttonPrompt "Select the type variant for '{{var::item}}' you want {{getvar::firstName}} to have."|
+						/:"CMC Logic.GenerateWithPrompt"|
+						/len {{var::tempOutputList}}|
+						/var key=tempOutputList index={{pipe}} {{getvar::output}}|
+					:}|
+					/flushvar output|
+					/flushvar guidance|
+				:}|
+				/foreach {{var::tempOutputList}} {:
+					/addvar key={{var::variableName}} {{var::item}}|
+				:}|
+				/flushvar {{var::variableName}}Item|
+			:}|
+			/else {:
+				/:"CMC Logic.GenerateWithPrompt"|
+				/setvar key={{var::variableName}} {{getvar::output}}|
+			:}|
+			/addvar key=dataBaseNames {{var::variableName}}|
+			/flushvar output|
+			/flushvar guidance|
+			/flushvar genOrder|
+			/flushvar genContent|
+			/flushvar genSettings|
+		:}|
+		/else {:
+			/addvar key=dataBaseNames {{var::variableName}}|
+		:}|
+	//--------|
+	
+	:}|
+	/elseif ((sexualExperienceLevel == 'None') and (sexualKnowlageLevel == 'None')) {:
+		/setvar key=sexualPartners "0"|
+		/addvar key=dataBaseNames sexualPartners|
+		/setvar key=sexualSelfExploration "None"|
+		/addvar key=dataBaseNames sexualSelfExploration|
+		
+	:}|
+:}|
+/elseif ((sexualExperienceLevel == 'None') and (sexualKnowlageLevel == 'None')) {:
+	
+	/setvar key=sexualExposure "None"|
+	/addvar key=dataBaseNames sexualExposure|
+	/setvar key=sexualPartners "0"|
+	/addvar key=dataBaseNames sexualPartners|
+	/setvar key=sexualSelfExploration "None"|
+	/addvar key=dataBaseNames sexualSelfExploration|
+	
+:}|
+
+/ife ( (sexualExperienceLevel != 'None') and (sexualKnowlageLevel != 'None')) {:
+
+
+//Familiarity With Sexual Acts|
+
+	/let key=nameList ["sexualFamilitaryActKissing", "sexualFamilitaryActOralR", "sexualFamilitaryActOralG", "sexualFamilitaryActVaginal", "sexualFamilitaryActAnal", "sexualFamilitaryActGroupSex", "sexualFamilitaryActToys"]|
+	/let key=nameListN ["Familitary with Kissing" "Familitary with reciving Oral", "Familitary with giving Oral", "Familitary with Vaginal sex", "Familitary with Anal sex", "Familitary with Group Sex", "Familitary with using Sex Toys"]|
+	/foreach {{getvar::nameList}} {:
+		/var key=do No|
+		/var key=variableName "{{var::item}}"|
+		/ife ({{var::variableName}} == '') {:
+		    /var key=do Yes|
+		:}|
+		/elseif (skip == 'Update') {:
+		    /getvar key={{var::variableName}}|
+		    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+		    /var key=do {{pipe}}|
+		    /ife (do == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		/ife ( do == 'Yes' ) {:
+			/setvar key=genSettings {}|
+			/setvar key=genSettings index=wi_book_key "Familiarity With Sexual Acts"|
+			/setvar key=genSettings index=combineLorebookEntries No|
+			/setvar key=genSettings index=genIsSentence No|
+			/setvar key=genSettings index=inputIsList No|
+			/setvar key=genSettings index=genIsList Yes|
+			/setvar key=genSettings index=outputIsList No|
+			/setvar key=genSettings index=needOutput Yes|
+			/setvar key=genSettings index=useContext No|
+			/wait {{getvar::wait}}|
+			
+			
+			/getvar key=genSettings index=wi_book_key|
+			/let key=wi_book_key {{pipe}}|
+			/getvar key=genSettings index=inputIsList|
+			/let key=inputIsList {{pipe}}|
+			/getvar key=genSettings index=combineLorebookEntries|
+			/let key=combineLorebookEntries {{pipe}}|
+			
+			
+			
+			/getvar key=nameListN index={{var::index}}|
+			/setvar key=it {{pipe}}|
+			/:"CMC Logic.GenerateWithSelector"|
+			/setvar key={{var::variableName}} {{getvar::output}}|
+				
+			
+			/addvar key=dataBaseNames {{var::variableName}}|
+			/flushvar output|
+			/flushvar genOrder|
+			/flushvar genContent|
+			/flushvar it|
+			/flushvar genSettings|
+		:}|
+		/else {:
+			/addvar key=dataBaseNames {{var::variableName}}|
+		:}|
+	:}|
+
+//--------|
+:}|
+/elseif ((sexualExperienceLevel == 'None') and (sexualKnowlageLevel == 'None')) {:
+	/let key=nameList ["sexualFamilitaryActKissing", "sexualFamilitaryActOralR", "sexualFamilitaryActOralG", "sexualFamilitaryActVaginal", "sexualFamilitaryActAnal", "sexualFamilitaryActGroupSex", "sexualFamilitaryActToys"]|
+	/foreach {{getvar::nameList}} {:
+		/setvar key={{var::item}} "Unfamiliar – Has no knowledge or exposure."|
+		/addvar key=dataBaseNames {{var::item}}|
+	:}|
+	
+:}|
+//--------|
+
 //Items / Equipment|
 /var key=do No|
 /var key=variableName "sexualItemNames"|
@@ -2003,33 +2497,33 @@
 	/wait {{getvar::wait}}|
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	/setvar key=x 7|
+	
 	
 	/ife (settingType == 'Realistic') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Limit items to real-world modern gear, accessories, or everyday personal objects. Do not include magic, advanced tech, or fantasy items."|
+		/addvar key=logicBasedInstruction "- Limit items to real-world modern gear, accessories, or everyday personal objects. Do not include magic, advanced tech, or fantasy items."|
 		
 	:}|
 	/elseif (settingType == 'Fantasy') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Items may include magical trinkets, mystical gear, herbal components, talismans, or medieval-style tools and charms."|
+		/addvar key=logicBasedInstruction "- Items may include magical trinkets, mystical gear, herbal components, talismans, or medieval-style tools and charms."|
 		
 	:}|
 	/elseif (settingType == 'Science Fiction') {:
-		/incvar x|
+		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "{{getvar::x}}. Items may include advanced tools, nanotech, biotech devices, psionic accessories, or gear with augmented properties."|
+		/addvar key=logicBasedInstruction "- Items may include advanced tools, nanotech, biotech devices, psionic accessories, or gear with augmented properties."|
 		
 	:}|
-	/flushvar x|
+	
 	
 	
 	
@@ -2116,33 +2610,33 @@
 		/wait {{getvar::wait}}|
 		
 		/setvar key=logicBasedInstruction {{noop}}|
-		/setvar key=x 6|
+		
 		
 		/ife (settingType == 'Realistic') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. Do not include magical, advanced tech, or psionic properties. Focus on grounded, everyday materials and wear."|
+			/addvar key=logicBasedInstruction "- Do not include magical, advanced tech, or psionic properties. Focus on grounded, everyday materials and wear."|
 			
 		:}|
 		/elseif (settingType == 'Fantasy') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. You may reference glowing runes, magical engravings, spiritual symbols, or arcane materials—but avoid lore or spell explanations."|
+			/addvar key=logicBasedInstruction "- You may reference glowing runes, magical engravings, spiritual symbols, or arcane materials—but avoid lore or spell explanations."|
 			
 		:}|
 		/elseif (settingType == 'Science Fiction') {:
-			/incvar x|
+			
 			/ife ( logicBasedInstruction != '') {:
 				/addvar key=logicBasedInstruction {{newline}}|
 			:}|
-			/addvar key=logicBasedInstruction "{{getvar::x}}. You may reference interfaces, synth materials, nanotech casings, and embedded circuitry—but avoid system-level tech detail or exposition."|
+			/addvar key=logicBasedInstruction "- You may reference interfaces, synth materials, nanotech casings, and embedded circuitry—but avoid system-level tech detail or exposition."|
 			
 		:}|
-		/flushvar x|
+		
 		
 		
 		
