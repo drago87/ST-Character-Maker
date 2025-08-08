@@ -1,5 +1,7 @@
-/let key=models ["dans-personalityengine-v1.1.0-12b-q6_k", "EsotericSage-12B.i1-Q6_K"]|
+/let key=models ["dans-personalityengine-v1.1.0-12b-q6_k", "EsotericSage-12B.i1-Q6_K (WIP)"]|
 /buttons labels={{var::models}} Select the model you want to download the model lorebook prompts for.|
+/setglobalvar key=model {{pipe}}|
+/re-replace find="/\s\(WIP\)/g" replace="" {{getglobalvar::model}}|
 /setglobalvar key=model {{pipe}}|
 /ife (model == '') {:
 	/echo Aborting |

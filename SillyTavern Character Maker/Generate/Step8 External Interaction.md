@@ -241,9 +241,6 @@
 		
 	:}|
 	
-	
-	
-	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
 	/getvar key=genSettings index=inputIsList|

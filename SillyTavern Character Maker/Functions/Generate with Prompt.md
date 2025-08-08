@@ -121,9 +121,9 @@
 /var key=wi_uid {{pipe}}|
 /ife (( wi_uid != '') or ( wi_uid == 0)) {:
 	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
-	/let var=tEx {{pipe}}|
+	/let key=tEx {{pipe}}|
 	/ife (tEx != '') {:
-		/var key=examples [{{pipe}}]|
+		/var key=examples [{{var::tEx}}]|
 	:}|
 :}|
 /ife (debug == 'Yes') {:

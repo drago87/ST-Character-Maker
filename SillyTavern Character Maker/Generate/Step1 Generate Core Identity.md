@@ -3,7 +3,7 @@
 /let qrlabel {{pipe}}|
 /qr-get set="CMC Main" label={{var::qrlabel}}|
 /getat index="message" {{pipe}}|
-/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating World Info" {{pipe}}|
+/qr-update set="CMC Main" label={{var::qrlabel}} newlabel="Start Generating Core Identity" {{pipe}}|
 
 /:"CMC Logic.Get Char info"|
 
@@ -255,6 +255,24 @@
 		    /setvar key=formattedSpeciesDescriptor "a {{getvar::characterArchetype}} {{getvar::parsedAnimalType}} character"|
 		:}|
 		
+		/setvar key=speciesInstruction {{noop}}|
+
+		/ife ((characterArchetype == 'Anthropomorphic') or (characterArchetype == 'Beastkin') or (characterArchetype == 'Animalistic')) {:
+			/setvar key=speciesInstruction "Return a common, real-world animal type in singular form (e.g., Dog, Fox, Tiger)."|
+		:}|
+		/elseif (characterArchetype == 'Tauric') {:
+			/setvar key=speciesInstruction "Return a real-world or mythic animal that could suit a centaur-like body (e.g., Horse, Panther, Dragon)."|
+		:}|
+		/elseif (characterArchetype == 'Demi-Human') {:
+			/setvar key=speciesInstruction "Return a mythological or fantasy humanoid type in singular form (e.g., Elf, Vampire, Succubus)."|
+		:}|
+		/elseif (characterArchetype == 'Pokémon') {:
+			/setvar key=speciesInstruction "Return a canonical Pokémon species name (e.g., Pikachu, Lucario, Eevee)."|
+		:}|
+		/elseif (characterArchetype == 'Digimon') {:
+			/setvar key=speciesInstruction "Return a canonical Digimon species name (e.g., Agumon, Gatomon, Greymon)."|
+		:}|
+		
 		/wait {{getvar::wait}}|
 		
 		/getvar key=genSettings index=inputIsList|
@@ -400,7 +418,7 @@
 	:}|
 :}|
 /else {:
-	/setvar key=species None|
+	/setvar key=breed None|
 	/addvar key=dataBaseNames breed|
 :}|
 //-----------|
@@ -803,6 +821,28 @@
 	/setvar key=parcedAge {{getvar::age}} years-old|
 :}|
 //-----------|
+
+//Parse character Species|
+/setvar key=parsedSpecies {{noop}}|
+/ife ((characterType == 'None') or ( characterType ==  characterArchetype)) {:
+	/setvar key=characterType {{noop}}|
+:}|
+/ife (characterArchetype == species) {:
+    /ife ((breed != 'None') and (breed != '')) {:
+        /setvar key=parsedSpecies "{{getvar::species}} – {{getvar::breed}}"|
+    :}|
+    /else {:
+        /setvar key=parsedSpecies "{{getvar::species}}"|
+    :}|
+:}|
+/else {:
+    /ife ((breed != 'None') and (breed != '')) {:
+        /setvar key=parsedSpecies "{{getvar::characterArchetype}} {{getvar::species}} – {{getvar::breed}}"|
+    :}|
+    /else {:
+        /setvar key=parsedSpecies "{{getvar::characterArchetype}} {{getvar::species}}"|
+    :}|
+:}|
 
 /ife ( real != 'Yes') {:
 	//First Name|
