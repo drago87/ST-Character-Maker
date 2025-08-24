@@ -88,7 +88,7 @@
 		:}|
 		/addvar key=logicBasedInstruction "- Do **not** add a full name, inferred gender, or descriptive label like “Andersson” — --User-- must stay anonymous in all contexts."|
 	:}|
-	/ife ((characterArchetype == 'Human') or (characterArchetype == 'Android') or (characterArchetype == 'Beastkin') or (characterArchetype == 'Demi-Human')) {:
+	/ife ((characterArchetype == 'Human') or (characterArchetype == 'Android') or (characterArchetype == 'Beastkin') or (characterArchetype == 'Mythfolk')) {:
 		
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
@@ -215,9 +215,9 @@
 	/wait {{getvar::wait}}|
 	
 	/setvar key=logicBasedInstruction {{noop}}|
-	
+	/setvar key=settingRule {{noop}}|
 	/ife (settingType == 'Realistic') {:
-		
+		/setvar key=settingRule "grounded physical, psychological, or sensory traits"|
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
@@ -225,7 +225,7 @@
 		
 	:}|
 	/elseif (settingType == 'Fantasy') {:
-		
+		/setvar key=settingRule "magical, divine, inherited, or mystical traits"|
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
@@ -233,7 +233,7 @@
 		
 	:}|
 	/elseif (settingType == 'Science Fiction') {:
-		
+		/setvar key=settingRule "psionic, cybernetic, gene-modified, or tech-integrated traits"|
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
@@ -274,6 +274,7 @@
 	/flushvar genOrder|
 	/flushvar genContent|
 	/flushvar genSettings|
+	/flushvar settingRule|
 :}|
 /else {:
 	/addvar key=dataBaseNames {{var::variableName}}|
@@ -592,7 +593,8 @@
 	/setvar key=logicBasedInstruction {{noop}}|
 	
 	/ife (settingType == 'Realistic') {:
-		
+		/setvar key=settingRule "practical, everyday tools or personal effects"|
+:}|
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
@@ -600,7 +602,7 @@
 		
 	:}|
 	/elseif (settingType == 'Fantasy') {:
-		
+		/setvar key=settingRule "charms, relics, satchels, tomes, minor weapons, or magical trinkets"|
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
@@ -608,16 +610,16 @@
 		
 	:}|
 	/elseif (settingType == 'Science Fiction') {:
-		
+		 /setvar key=settingRule "tech tools, augmentations, energy items, or utility gear"|
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
 		/addvar key=logicBasedInstruction "- Items may include advanced tools, nanotech, biotech devices, psionic accessories, or gear with augmented properties."|
 		
 	:}|
-	
-	
-	
+	/ife ((characterArchetype == 'Anthropomorphic') or (characterArchetype == 'Beastkin')) {:
+		  /setvar key=logicBasedInstruction "- Items should be human-based in function and design, reflecting clothing, tools, or accessories that an anthropomorphic or beastkin character would logically carry."|
+	:}|
 	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
@@ -853,9 +855,6 @@
 	/let key=inputIsList {{pipe}}|
 	/getvar key=genSettings index=inputIsList|
 	/let key=outputIsList {{pipe}}|
-	
-	
-	
 	
 	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|

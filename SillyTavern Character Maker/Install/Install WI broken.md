@@ -133,7 +133,7 @@ Exclude future speculations from your reply.|
 
 	/createentry file={{var::wi_variables}} key="Type Guide" Human is a standard human.
 Anthro is a animal that have a human form.
-Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...
+Mythfolk is races that mostly looks like humans like Dwarfs, Elves etc...
 Furry is animal like humans that mostly looks like humans but have certain animal parts.
 Feral is standard animals, fantasy animals or monsters.
 Pokémon is the creatures from the Pokémon games and anime.

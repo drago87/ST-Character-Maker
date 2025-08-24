@@ -403,16 +403,20 @@
 :}|
 
 
-/ife ((characterArchetype == 'Animalistic') or (characterArchetype == 'Pokémon') or (characterArchetype == 'Digimon') or (characterArchetype == 'Tauric')) {:
+/ife ( ((characterArchetype == 'Animalistic') or (characterArchetype == 'Pokémon') or (characterArchetype == 'Digimon') or (characterArchetype == 'Tauric')) and (lenghtHeight == '')) {:
 	/buttons labels=["Length (Their body is horizontal or animal-like — e.g., snake, lizard, quadruped)", "Height (They stand upright like a human or humanoid)", "Both (They have both vertical and elongated traits — e.g., centaur, dragon)"] <div>How should this character's body be measured?</div><div>Choose the option that best fits their physical structure:</div>|
-	/var key=selected_btn {{pipe}}|
-	/re-replace find="/\s\(.*$/g" replace="" {{var::selected_btn}}|
-	/var key=selected_btn {{pipe}}|
+	/setvar key=lenghtHeight {{pipe}}|
+	/ife (lenghtHeight == '') {:
+		/echo Aborting |
+		/abort
+	:}|
+	/re-replace find="/\s\(.*$/g" replace="" {{getvar::lenghtHeight}}|
+	/setvar key=lenghtHeight {{pipe}}|
 :}|
 
 //**Length**|
 
-/ife ((( selected_btn == 'Length') or ( selected_btn == 'Both')) and (((characterArchetype == 'Animalistic') or (characterArchetype == 'Pokémon') or (characterArchetype == 'Digimon') or (characterArchetype == 'Tauric')))) {:
+/ife ((( lenghtHeight == 'Length') or ( lenghtHeight == 'Both')) and (((characterArchetype == 'Animalistic') or (characterArchetype == 'Pokémon') or (characterArchetype == 'Digimon') or (characterArchetype == 'Tauric')))) {:
 	/var key=do No|
 	/var key=variableName "length"|
 	/ife ({{var::variableName}} == '') {:
@@ -484,7 +488,7 @@
 //-----------|
 
 //**Height**|
-/ife ((( selected_btn == 'Height') or ( selected_btn == 'Both')) or  (((characterArchetype != 'Animalistic') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')))) {:
+/ife ((( lenghtHeight == 'Height') or ( lenghtHeight == 'Both')) or  (((characterArchetype != 'Animalistic') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')))) {:
 	/var key=do No|
 	/var key=variableName "height"|
 	/ife ({{var::variableName}} == '') {:
@@ -739,7 +743,301 @@
 :}|
 //-----------|
 
+/ife ((characterArchetype == 'Anthropomorphic') or (characterArchetype == 'Beastkin') or (characterArchetype == 'Animalistic') or (characterArchetype == 'Pokémon') or (characterArchetype == 'Digimon')) {:
+	/ife ((coveringType != 'Skin') and (coveringType != 'Fur') and (coveringType != 'Scale') and (coveringType != 'Feather')) {:
+		/setvar key=coveringType ["Skin", "Fur", "Scale", "Feather"]|
+		/buttons labels={{getvar::coveringType}} "Select the type of covering {{getvar::firstName}} should have."|
+		/setvar key=coveringType {{pipe}}|
+		/ife (coveringType == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+	:}|
+	/var key=do No|
+	/var key=variableName "coveringFront"|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
+	:}|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
+		/setvar key=genSettings index=wi_book_key "Covering Front"|
+		/setvar key=genSettings index=genIsList No|
+		/setvar key=genSettings index=genAmount 8|
+		/setvar key=genSettings index=inputIsList No|
+		/setvar key=genSettings index=genIsSentence Yes|
+		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=genSettings index=outputIsList No|
+		/setvar key=genSettings index=useContext Yes|
+		/setvar key=extra []|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
+		:}|
+		/flushvar extra|
+		/wait {{getvar::wait}}|
+		
+		/getvar key=genSettings index=inputIsList|
+		/let key=inputIsList {{pipe}}|
+		/getvar key=genSettings index=inputIsList|
+		/let key=outputIsList {{pipe}}|
+		
+		/setvar key=logicBasedInstruction {{noop}}|
+		
+		/ife (variable == 'content') {:
+			/ife ( logicBasedInstruction != '') {:
+				/addvar key=logicBasedInstruction {{newline}}|
+			:}|
+			/addvar key=logicBasedInstruction "- Rule"|
+			
+		:}|
+		/else {:
+			/ife ( logicBasedInstruction != '') {:
+				/addvar key=logicBasedInstruction {{newline}}|
+			:}|
+			/addvar key=logicBasedInstruction "- Rule"|
+		:}|
+		
+		
+		/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+			/setvar as=array key={{var::variableName}} []|
+		:}|
+		/else {:
+			/setvar as=string key={{var::variableName}} {{noop}}|
+		:}|
+	
+		//setvar key=genSettings index=buttonPrompt CHANGE_THIS_PROMPT|
+	
+		//setvar key=genSettings index=guidencePrompt CHANGE_THIS_PROMPT|
+		//[[Generate with Prompt]]|
+		/:"CMC Logic.GenerateWithPrompt"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+		/addvar key=dataBaseNames {{var::variableName}}|
+		
+		/flushvar output|
+		/flushvar guidance|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar genSettings|
+	:}|
+	/else {:
+		/addvar key=dataBaseNames {{var::variableName}}|
+	:}|
+	
+	
+	/var key=do No|
+	/var key=variableName "coveringSidesBack"|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
+	:}|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
+		/setvar key=genSettings index=wi_book_key "Covering Sides and Back"|
+		/setvar key=genSettings index=genIsList No|
+		/setvar key=genSettings index=genAmount 8|
+		/setvar key=genSettings index=inputIsList No|
+		/setvar key=genSettings index=genIsSentence Yes|
+		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=genSettings index=outputIsList No|
+		/setvar key=genSettings index=useContext Yes|
+		/setvar key=extra []|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
+		:}|
+		/flushvar extra|
+		/wait {{getvar::wait}}|
+		
+		/getvar key=genSettings index=inputIsList|
+		/let key=inputIsList {{pipe}}|
+		/getvar key=genSettings index=inputIsList|
+		/let key=outputIsList {{pipe}}|
+		
+		/setvar key=logicBasedInstruction {{noop}}|
+		
+		/ife (variable == 'content') {:
+			/ife ( logicBasedInstruction != '') {:
+				/addvar key=logicBasedInstruction {{newline}}|
+			:}|
+			/addvar key=logicBasedInstruction "- Rule"|
+			
+		:}|
+		/else {:
+			/ife ( logicBasedInstruction != '') {:
+				/addvar key=logicBasedInstruction {{newline}}|
+			:}|
+			/addvar key=logicBasedInstruction "- Rule"|
+		:}|
+		
+		
+		/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+			/setvar as=array key={{var::variableName}} []|
+		:}|
+		/else {:
+			/setvar as=string key={{var::variableName}} {{noop}}|
+		:}|
+	
+		//setvar key=genSettings index=buttonPrompt CHANGE_THIS_PROMPT|
+	
+		//setvar key=genSettings index=guidencePrompt CHANGE_THIS_PROMPT|
+		//[[Generate with Prompt]]|
+		/:"CMC Logic.GenerateWithPrompt"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+		/addvar key=dataBaseNames {{var::variableName}}|
+		
+		/flushvar output|
+		/flushvar guidance|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar genSettings|
+	:}|
+	/else {:
+		/addvar key=dataBaseNames {{var::variableName}}|
+	:}|
+	
+	
+	/var key=do No|
+	/var key=variableName "coveringArmsLegs"|
+	/ife ({{var::variableName}} == '') {:
+	    /var key=do Yes|
+	:}|
+	/elseif (skip == 'Update') {:
+	    /getvar key={{var::variableName}}|
+	    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+	    /var key=do {{pipe}}|
+	    /ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	/ife ( do == 'Yes' ) {:
+		/setvar key=genSettings {}|
+		/setvar key=genSettings index=wi_book_key "Covering Arms and Legs"|
+		/setvar key=genSettings index=genIsList No|
+		/setvar key=genSettings index=genAmount 8|
+		/setvar key=genSettings index=inputIsList No|
+		/setvar key=genSettings index=genIsSentence Yes|
+		/setvar key=genSettings index=needOutput Yes|
+		/setvar key=genSettings index=outputIsList No|
+		/setvar key=genSettings index=useContext Yes|
+		/setvar key=extra []|
+		/:"CMC Logic.Get Basic Type Context"|
+		/ife (extra != '') {:
+			/setvar key=genSettings index=contextKey {{getvar::extra}}|
+		:}|
+		/flushvar extra|
+		/wait {{getvar::wait}}|
+		
+		/getvar key=genSettings index=inputIsList|
+		/let key=inputIsList {{pipe}}|
+		/getvar key=genSettings index=inputIsList|
+		/let key=outputIsList {{pipe}}|
+		
+		/setvar key=logicBasedInstruction {{noop}}|
+		
+		/ife (variable == 'content') {:
+			/ife ( logicBasedInstruction != '') {:
+				/addvar key=logicBasedInstruction {{newline}}|
+			:}|
+			/addvar key=logicBasedInstruction "- Rule"|
+			
+		:}|
+		/else {:
+			/ife ( logicBasedInstruction != '') {:
+				/addvar key=logicBasedInstruction {{newline}}|
+			:}|
+			/addvar key=logicBasedInstruction "- Rule"|
+		:}|
+		
+		
+		/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+			/setvar as=array key={{var::variableName}} []|
+		:}|
+		/else {:
+			/setvar as=string key={{var::variableName}} {{noop}}|
+		:}|
+	
+		//setvar key=genSettings index=buttonPrompt CHANGE_THIS_PROMPT|
+	
+		//setvar key=genSettings index=guidencePrompt CHANGE_THIS_PROMPT|
+		//[[Generate with Prompt]]|
+		/:"CMC Logic.GenerateWithPrompt"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+		/addvar key=dataBaseNames {{var::variableName}}|
+		
+		/flushvar output|
+		/flushvar guidance|
+		/flushvar genOrder|
+		/flushvar genContent|
+		/flushvar genSettings|
+	:}|
+	/else {:
+		/addvar key=dataBaseNames {{var::variableName}}|
+	:}|
+:}|
+/else {:
+	/setvar key=coveringFront None|
+	/addvar key=dataBaseNames coveringFront|
+	/setvar key=coveringSidesBack None|
+	/addvar key=dataBaseNames coveringSidesBack|
+	/setvar key=coveringArmsLegs None|
+	/addvar key=dataBaseNames coveringArmsLegs|
+:}|
+
+/setvar key=parsedCovering {{noop}}|
+/ife ( coveringType != 'None') {:
+	/setvar key=parsedCovering "- {{getvar::coveringType}} Pattern:{{newline}} - Front (Chest, Stomach, and Inner Thighs): {{getvar::coveringFront}}{{newline}} - Sides and Back: {{getvar::coveringSidesBack}}{{newline}} - Arms and Legs:  {{getvar::coveringArmsLegs}}"
+:}|
+/else {:
+	/setvar key=parsedCovering None|
+	/addvar key=dataBaseNames parsedCovering|
+:}|
+
 //**Body**|
+
+/setvar key=buttSize {{nope}}|
+/setvar key=thighsSize {{nope}}|
+/setvar key=hipsSize {{nope}}|
+/ife (gender == 'Female') {:
+	/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s butt?|
+	/setvar key=buttSize {{pipe}}|
+	/ife (buttSize == '') {:
+		/echo Aborting |
+        /abort
+	:}|
+	
+	/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s hips?|
+	/setvar key=hipsSize {{pipe}}|
+	/ife (hipsSize == '') {:
+		/echo Aborting |
+        /abort
+	:}|
+	
+	/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s thighs?|
+	/setvar key=thighsSize {{pipe}}|
+	/ife (thighsSize == '') {:
+		/echo Aborting |
+        /abort
+	:}|
+:}|
+
 /var key=do No|
 /var key=variableName "appearanceBody"|
 /ife ({{var::variableName}} == '') {:
@@ -766,6 +1064,11 @@
 	/setvar key=extra []|
 	/ife (appearanceFeatures != 'None') {:
 		/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
+	:}|
+	/ife (gender == 'Female') {:
+		/addvar key=extra "Butt Size: {{getvar::buttSize}}"|
+		/addvar key=extra "Thighs Size: {{getvar::thighsSize}}"|
+		/addvar key=extra "Hips Size: {{getvar::hipsSize}}"|
 	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -1084,7 +1387,7 @@
 			/abort
 		:}|
 		
-		/buttons labels=["Smooth", "Shaven with stubble", "Unshaven and bushy", "Trimmed"] Is {{getvar::firstName}}'s Labia Minora Visible?|
+		/buttons labels=["Smooth", "Shaven with stubble", "Unshaven and bushy", "Trimmed"] What is the status of {{getvar::firstName}}'s pubic hair?|
 		/setvar key=pubicHair {{pipe}}|
 		/ife (pubicHair == '') {:
 			/echo Aborting |

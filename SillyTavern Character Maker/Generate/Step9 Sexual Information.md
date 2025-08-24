@@ -45,7 +45,7 @@
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
-	/ife ((characterArchetype == 'Human') or (characterArchetype == 'Android') or (characterArchetype == 'Demi-Human') or (characterArchetype == 'Beastkin')) {:
+	/ife ((characterArchetype == 'Human') or (characterArchetype == 'Android') or (characterArchetype == 'Mythfolk') or (characterArchetype == 'Beastkin')) {:
 		/setvar key=genSettings index=wi_book_key "Sexual Orientation Humanoid"|
 	:}|
 	/elseif (characterArchetype == 'Anthropomorphic') {:
@@ -224,7 +224,7 @@
 		/ife ( logicBasedInstruction != '') {:
 			/addvar key=logicBasedInstruction {{newline}}|
 		:}|
-		/addvar key=logicBasedInstruction "- Attraction should focus on **non-human humanoid** or **hybrid forms** (e.g., beastkin, aliens, demi-humans). Highlight features like mixed anatomy, unusual physiology, or hybrid charm — avoid feral or quadrupedal attraction."|
+		/addvar key=logicBasedInstruction "- Attraction should focus on **non-human humanoid** or **hybrid forms** (e.g., beastkin, aliens, Mythfolks). Highlight features like mixed anatomy, unusual physiology, or hybrid charm — avoid feral or quadrupedal attraction."|
 		
 	:}|
 	/elseif (sexualOrientation == 'Zoosexual') {:
@@ -1279,7 +1279,6 @@
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
-	/setvar key=genSettings index=wi_book_key "Kink Effect"|
 	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=inputIsList Yes|
 	/setvar key=genSettings index=genIsSentence Yes|
@@ -1362,6 +1361,16 @@
 			:}|
 			/getvar key=sexualKinkRoles index={{var::index}}|
 			/setvar key=kinkRole {{pipe}}|
+			/ife (kinkRole == 'Giver') {:
+				/setvar key=genSettings index=wi_book_key "Kink Response Giver"|
+			:}|
+			/elseif (kinkRole == 'Receiver') {:
+				/setvar key=genSettings index=wi_book_key "Kink Response Receiver"|
+			:}|
+			/elseif (kinkRole == 'Switch') {:
+				/setvar key=genSettings index=wi_book_key "Kink Response Switch"|
+			:}|
+
 			/getvar key=sexualKinkDetails index={{var::index}}|
 			/setvar key=kinkDetail {{pipe}}|
 			/:"CMC Logic.GenerateWithPrompt"|
@@ -1496,19 +1505,64 @@
 			:}|
 			/getvar key=sexualKinkRoles index={{var::index}}|
 			/setvar key=kinkRole {{pipe}}|
+			/ife (kinkRole == 'Giver') {:
+			    /setvar key=kinkRoleRule "show how {{getvar::subjPronoun}} initiates or controls the act"|
+			:}|
+			/elseif (kinkRole == 'Receiver') {:
+			    /setvar key=kinkRoleRule "show how {{getvar::subjPronoun}} accepts or submits to the act"|
+			:}|
+			/elseif (kinkRole == 'Switch') {:
+			    /setvar key=kinkRoleRule "show how {{getvar::subjPronoun}} flexibly alternates between initiating and accepting the act"|
+			:}|
 			/getvar key=sexualKinkAwareness index={{var::index}}|
 			/setvar key=kinkAwareness {{pipe}}|
-			/ife (kinkAwareness == 'Unaware') {:
-				/setvar key=awarenessExplanation Only include **involuntary**, **confused**, or **externally prompted** responses. Never imply knowledge, control, or acceptance of the kink.|
+			/ife ('Unaware' in kinkAwareness) {:
+				/setvar key=awarenessExplanation "Responses must be externally prompted — {{getvar::subjPronoun}} cannot self-initiate. Behavior may be involuntary, confused, or curious."|
+				/ife (kinkRole == 'Giver') {:
+					/setvar key=roleAwarenessInstruction "Any action happens only if someone explicitly offers to let {{getvar::subjPronoun}} perform the act; otherwise, {{getvar::subjPronoun}} shows no initiative."|
+				:}|
+				/elseif (kinkRole == 'Receiver') {:
+					/setvar key=roleAwarenessInstruction "Any response occurs only if someone proposes or applies the act to {{getvar::objPronoun}}; {{getvar::subjPronoun}} does not seek it out independently."|
+				:}|
+				/else {:
+					/setvar key=roleAwarenessInstruction "Engagement only follows someone else’s prompting — describe both giving and receiving as externally guided, never self-initiated."|
+				:}|
 			:}|
-			/elseif (kinkAwareness == 'Suppressed') {:
-				/setvar key=awarenessExplanation Describe emotional resistance or internal repression. Triggers require stress, vulnerability, or breakdown to override avoidance.|
+			/elseif ('Suppressed' in kinkAwareness) {:
+				/setvar key=awarenessExplanation "Responses reflect repression or resistance. Engagement requires stress, exposure, or breakdown to override avoidance."|
+				/ife (kinkRole == 'Giver') {:
+					/setvar key=roleAwarenessInstruction "{{getvar::subjPronoun}} may only initiate under pressure or emotional strain, showing reluctance even when performing."|
+				:}|
+				/elseif (kinkRole == 'Receiver') {:
+					/setvar key=roleAwarenessInstruction "{{getvar::subjPronoun}} only accepts under duress, stress, or when emotional barriers collapse — not out of desire."|
+				:}|
+				/else {:
+					/setvar key=roleAwarenessInstruction "Whether giving or receiving, {{getvar::subjPronoun}} engages reluctantly, only when stress or emotional breakdown overrides suppression."|
+				:}|
 			:}|
-			/elseif (kinkAwareness == 'Curious') {:
-				/setvar key=awarenessExplanation Frame as playful, impulsive, or exploratory — **without recognition** that it’s a kink. Avoid formal names or conscious framing.|
+			/elseif ('Curious' in kinkAwareness) {:
+				/setvar key=awarenessExplanation "Responses are playful, impulsive, or exploratory. {{getvar::subjPronoun}} does not consciously frame it as a kink."|
+				/ife (kinkRole == 'Giver') {:
+					/setvar key=roleAwarenessInstruction "{{getvar::subjPronoun}} might impulsively try administering it when prompted or intrigued, but frames it as experimentation rather than kink."|
+				:}|
+				/elseif (kinkRole == 'Receiver') {:
+					/setvar key=roleAwarenessInstruction "{{getvar::subjPronoun}} might accept or play along out of curiosity, treating it as novelty rather than kink."|
+				:}|
+				/else {:
+					/setvar key=roleAwarenessInstruction "Whether giving or receiving, {{getvar::subjPronoun}} engages impulsively or experimentally, never as deliberate kink play."|
+				:}|
 			:}|
 			/else {:
-				/setvar key=awarenessExplanation {{getvar::firstName}} is fully aware of this kink and may engage with intent, confidence, or emotional readiness. Consent, trust, or situational context may guide behavior.|
+				/setvar key=awarenessExplanation "{{getvar::firstName}} is fully aware of this kink and may engage with intent, confidence, or emotional readiness."|
+				/ife (kinkRole == 'Giver') {:
+					/setvar key=roleAwarenessInstruction "When acting as Giver, {{getvar::subjPronoun}} may deliberately initiate or control the act, guided by trust or context."|
+				:}|
+				/elseif (kinkRole == 'Receiver') {:
+					/setvar key=roleAwarenessInstruction "When acting as Receiver, {{getvar::subjPronoun}} may deliberately accept, anticipate, or respond to the act with conscious intent."|
+				:}|
+				/else {:
+					/setvar key=roleAwarenessInstruction "As a Switch, {{getvar::subjPronoun}} may consciously engage from either side, adjusting between initiating and accepting depending on context."|
+				:}|
 			:}|
 			/getvar key=sexualKinkDetails index={{var::index}}|
 			/setvar key=kinkDetail {{pipe}}|
@@ -1985,7 +2039,7 @@
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=inputIsList No|
-	/setvar key=genSettings index=genIsList Yes|
+	/setvar key=genSettings index=genIsList No|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext No|
@@ -2055,8 +2109,8 @@
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=inputIsList No|
-	/setvar key=genSettings index=genIsList Yes|
-	/setvar key=genSettings index=outputIsList Yes|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=useContext No|
 	/wait {{getvar::wait}}|
@@ -2128,7 +2182,7 @@
 			/setvar key=genSettings index=combineLorebookEntries No|
 			/setvar key=genSettings index=genIsSentence No|
 			/setvar key=genSettings index=inputIsList No|
-			/setvar key=genSettings index=genIsList Yes|
+			/setvar key=genSettings index=genIsList No|
 			/setvar key=genSettings index=outputIsList No|
 			/setvar key=genSettings index=needOutput Yes|
 			/setvar key=genSettings index=useContext No|
@@ -2317,9 +2371,7 @@
 				/setvar as=string key={{var::variableName}} {{noop}}|
 			:}|
 		
-			/setvar key=genSettings index=buttonPrompt CHANGE_THIS_PROMPT|//Remove if not in use|
-		
-			/setvar key=genSettings index=guidencePrompt CHANGE_THIS_PROMPT|//Remove if not in use|
+			/setvar key=genSettings index=buttonPrompt "Is this the sexual exposure you want {{getvar::firstName}} to have"|
 			//[[Generate with Prompt]]|
 			/ife (inputIsList == 'Yes') {:
 				/let key=tempOutputList []|
@@ -2387,8 +2439,8 @@
 
 //Familiarity With Sexual Acts|
 
-	/let key=nameList ["sexualFamilitaryActKissing", "sexualFamilitaryActOralR", "sexualFamilitaryActOralG", "sexualFamilitaryActVaginal", "sexualFamilitaryActAnal", "sexualFamilitaryActGroupSex", "sexualFamilitaryActToys"]|
-	/let key=nameListN ["Familitary with Kissing" "Familitary with reciving Oral", "Familitary with giving Oral", "Familitary with Vaginal sex", "Familitary with Anal sex", "Familitary with Group Sex", "Familitary with using Sex Toys"]|
+	/setvar key=nameList ["sexualFamiliarityActKissing", "sexualFamiliarityActOralR", "sexualFamiliarityActOralG", "sexualFamiliarityActVaginal", "sexualFamiliarityActAnal", "sexualFamiliarityActGroupSex", "sexualFamiliarityActToys"]|
+	/setvar key=nameListN ["Familiarity with Kissing", "Familiarity with reciving Oral sex", "Familiarity with giving Oral sex", "Familiarity with Vaginal sex", "Familiarity with Anal sex", "Familiarity with Group Sex", "Familiarity with using Sex Toys"]|
 	/foreach {{getvar::nameList}} {:
 		/var key=do No|
 		/var key=variableName "{{var::item}}"|
@@ -2428,6 +2480,7 @@
 			
 			/getvar key=nameListN index={{var::index}}|
 			/setvar key=it {{pipe}}|
+			/setvar key=genSettings index=buttonPrompt "Select the {{getvar::it}} you want {{getvar::firstName}} to have."|
 			/:"CMC Logic.GenerateWithSelector"|
 			/setvar key={{var::variableName}} {{getvar::output}}|
 				
@@ -2447,7 +2500,6 @@
 //--------|
 :}|
 /elseif ((sexualExperienceLevel == 'None') and (sexualKnowlageLevel == 'None')) {:
-	/let key=nameList ["sexualFamilitaryActKissing", "sexualFamilitaryActOralR", "sexualFamilitaryActOralG", "sexualFamilitaryActVaginal", "sexualFamilitaryActAnal", "sexualFamilitaryActGroupSex", "sexualFamilitaryActToys"]|
 	/foreach {{getvar::nameList}} {:
 		/setvar key={{var::item}} "Unfamiliar – Has no knowledge or exposure."|
 		/addvar key=dataBaseNames {{var::item}}|
@@ -2455,6 +2507,253 @@
 	
 :}|
 //--------|
+
+/setvar key=parcedFamiliarity {{noop}}|
+/foreach {{getvar::nameList}} {:
+	/getvar key=nameListN index={{var::index}}|
+	/let key=N {{pipe}}|
+	/getvar key={{var::item}}|
+	/let key=L {{pipe}}|
+	/ife (parcedFamiliarity != '') {:
+		/addvar key=parcedFamiliarity {{newline}}|
+	:}|
+	/addvar key=parcedFamiliarity {{var::N}}: {{var::L}}|
+:}|
+
+//Emotional Framing|
+/var key=do No|
+/var key=variableName "sexualFraming"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
+	/setvar key=genSettings index=wi_book_key "Emotional Framing"|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=genAmount 8|
+	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=genIsSentence Yes|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
+	/addvar key=extra "- Social Behavior: {{getvar::personalitySocialBehavior}}"|
+	/ife (personalitySocialSkills != 'None') {:
+		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}"|
+	:}|
+	/addvar key=extra "- Sexual Orientation: {{getvar::sexualOrientation}}"|
+	/addvar key=extra "- Sexual Role: {{getvar::sexualRole}}"|
+	/addvar key=extra "- Libido: {{getvar::libido}}"|
+	/addvar key=extra "{{getvar::parcedFamiliarity}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
+	/:"CMC Logic.Get Basic Type Context"|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
+	:}|
+	/flushvar extra|
+	/wait {{getvar::wait}}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=outputIsList {{pipe}}|
+	
+	/setvar key=logicBasedInstruction {{noop}}|
+	
+	/ife (variable == 'content') {:
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "- Rule"|
+		
+	:}|
+	/else {:
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "- Rule"|
+	:}|
+	
+	
+	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+
+	/setvar key=genSettings index=buttonPrompt Is this the Emotional Framing you want {{getvar::firstName}} should have?|
+
+	
+	//[[Generate with Prompt]]|
+	/ife (inputIsList == 'Yes') {:
+		/let key=tempOutputList []|
+		/foreach {{getvar::CHANGE_REMOVE_THIS}} {:
+			/getvar key={{var::variableName}}|
+			/len {{pipe}}|
+			/let key=len {{pipe}}|
+			/ife (len == 0) {:
+				/setvar as=array key={{var::variableName}} []|
+			:}|
+			
+			/ife ((index > len) or ((index == 0) and (len == 0))) {:
+				/setvar key={{var::variableName}}Item {{var::item}}|
+				/setvar key=genSettings index=buttonPrompt "Select the type variant for '{{var::item}}' you want {{getvar::firstName}} to have."|
+				/:"CMC Logic.GenerateWithPrompt"|
+				/len {{var::tempOutputList}}|
+				/var key=tempOutputList index={{pipe}} {{getvar::output}}|
+			:}|
+			/flushvar output|
+			/flushvar guidance|
+		:}|
+		/foreach {{var::tempOutputList}} {:
+			/addvar key={{var::variableName}} {{var::item}}|
+		:}|
+		/flushvar {{var::variableName}}Item|
+	:}|
+	/else {:
+		/:"CMC Logic.GenerateWithPrompt"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar guidance|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+
+//Attitude Toward Sex|
+/var key=do No|
+/var key=variableName "sexualAttitude"|
+/ife ({{var::variableName}} == '') {:
+    /var key=do Yes|
+:}|
+/elseif (skip == 'Update') {:
+    /getvar key={{var::variableName}}|
+    /buttons labels=["Yes", "No"] Do you want to set or redo {{var::variableName}} (current value: {{pipe}})?|
+    /var key=do {{pipe}}|
+    /ife (do == '') {:
+        /echo Aborting |
+        /abort
+    :}|
+:}|
+/ife ( do == 'Yes' ) {:
+	/setvar key=genSettings {}|
+	/setvar key=genSettings index=wi_book_key "Attitude Toward Sex"|
+	/setvar key=genSettings index=genIsList No|
+	/setvar key=genSettings index=genAmount 8|
+	/setvar key=genSettings index=inputIsList No|
+	/setvar key=genSettings index=genIsSentence Yes|
+	/setvar key=genSettings index=needOutput Yes|
+	/setvar key=genSettings index=outputIsList No|
+	/setvar key=genSettings index=useContext Yes|
+	/setvar key=extra []|
+	/addvar key=extra "- Backstory: {{getvar::backstory}}"|
+	/addvar key=extra "- Social Behavior: {{getvar::personalitySocialBehavior}}"|
+	/ife (personalitySocialSkills != 'None') {:
+		/addvar key=extra "- Social Skills and Integration Into Society: {{getvar::personalitySocialSkills}}"|
+	:}|
+	/addvar key=extra "- Sexual Orientation: {{getvar::sexualOrientation}}"|
+	/addvar key=extra "- Sexual Role: {{getvar::sexualRole}}"|
+	/addvar key=extra "- Libido: {{getvar::libido}}"|
+	/addvar key=extra "{{getvar::parcedFamiliarity}}"|
+	/addvar key=extra "- Emotional Framing: {{getvar::sexualFraming}}"|
+	/setvar key=genSettings index=extraContext {{getvar::extra}}|
+	/setvar key=extra []|
+	/:"CMC Logic.Get Basic Type Context"|
+	/ife (extra != '') {:
+		/setvar key=genSettings index=contextKey {{getvar::extra}}|
+	:}|
+	/flushvar extra|
+	/wait {{getvar::wait}}|
+	
+	/getvar key=genSettings index=inputIsList|
+	/let key=inputIsList {{pipe}}|
+	/getvar key=genSettings index=inputIsList|
+	/let key=outputIsList {{pipe}}|
+	
+	/setvar key=logicBasedInstruction {{noop}}|
+	
+	/ife (variable == 'content') {:
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "- Rule"|
+		
+	:}|
+	/else {:
+		/ife ( logicBasedInstruction != '') {:
+			/addvar key=logicBasedInstruction {{newline}}|
+		:}|
+		/addvar key=logicBasedInstruction "- Rule"|
+	:}|
+	
+	
+	/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/setvar as=array key={{var::variableName}} []|
+	:}|
+	/else {:
+		/setvar as=string key={{var::variableName}} {{noop}}|
+	:}|
+
+	/setvar key=genSettings index=buttonPrompt Is this the Emotional Framing you want {{getvar::firstName}} should have?|
+
+	
+	//[[Generate with Prompt]]|
+	/ife (inputIsList == 'Yes') {:
+		/let key=tempOutputList []|
+		/foreach {{getvar::CHANGE_REMOVE_THIS}} {:
+			/getvar key={{var::variableName}}|
+			/len {{pipe}}|
+			/let key=len {{pipe}}|
+			/ife (len == 0) {:
+				/setvar as=array key={{var::variableName}} []|
+			:}|
+			
+			/ife ((index > len) or ((index == 0) and (len == 0))) {:
+				/setvar key={{var::variableName}}Item {{var::item}}|
+				/setvar key=genSettings index=buttonPrompt "Select the type variant for '{{var::item}}' you want {{getvar::firstName}} to have."|
+				/:"CMC Logic.GenerateWithPrompt"|
+				/len {{var::tempOutputList}}|
+				/var key=tempOutputList index={{pipe}} {{getvar::output}}|
+			:}|
+			/flushvar output|
+			/flushvar guidance|
+		:}|
+		/foreach {{var::tempOutputList}} {:
+			/addvar key={{var::variableName}} {{var::item}}|
+		:}|
+		/flushvar {{var::variableName}}Item|
+	:}|
+	/else {:
+		/:"CMC Logic.GenerateWithPrompt"|
+		/setvar key={{var::variableName}} {{getvar::output}}|
+	:}|
+	/addvar key=dataBaseNames {{var::variableName}}|
+	/flushvar output|
+	/flushvar guidance|
+	/flushvar genOrder|
+	/flushvar genContent|
+	/flushvar genSettings|
+:}|
+/else {:
+	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
 
 //Items / Equipment|
 /var key=do No|
@@ -2571,7 +2870,11 @@
 /ife ((do != '') and (do != 'None')) {:
 	/var key=do No|
 	/var key=variableName "sexualItemDetails"|
-	/ife ({{var::variableName}} == '') {:
+	/len {{getvar::sexualItemDetails}}|
+	/let key=lenSexualItemDetails {{pipe}}|
+	/len {{getvar::sexualItemNames}}|
+	/let key=lenSexualItemNames {{pipe}}|
+	/ife (({{var::variableName}} == '') or (lenSexualItemDetails < lenSexualItemNames)) {:
 	    /var key=do Yes|
 	:}|
 	/elseif (skip == 'Update') {:
@@ -2588,8 +2891,8 @@
 		/setvar key=genSettings index=wi_book_key "Sexual Item or Equipment Description"|
 		/setvar key=genSettings index=genIsList No|
 		/setvar key=genSettings index=inputIsList Yes|
-		/setvar key=genSettings index=genIsSentence yes|
-		/setvar key=genSettings index=needOutput yes|
+		/setvar key=genSettings index=genIsSentence Yes|
+		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=outputIsList No|
 		/setvar key=genSettings index=useContext Yes|
 		/setvar key=extra []|
@@ -2645,9 +2948,23 @@
 		/getvar key=genSettings index=inputIsList|
 		/let key=outputIsList {{pipe}}|
 		
+		/let key=redoDetails Yes|
+		/ife (lenSexualItemDetails > 0) {:
+			/buttons labels=["Yes", "No"] Want to remake all item details?|
+			/var key=redoDetails {{pipe}}|
+			/ife (redoDetails == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
 		
-		/ife ((inputIsList == 'Yes') or (outputIsList == 'Yes')) {:
+		/let key=startIndex 0|
+		/ife (((inputIsList == 'Yes') and (redoDetails == 'Yes')) or ((outputIsList == 'Yes') and (redoDetails == 'Yes'))) {:
 			/setvar as=array key={{var::variableName}} []|
+			/var key=startIndex 0|
+		:}|
+		/elseif (((inputIsList == 'Yes') and (redoDetails == 'No')) or ((outputIsList == 'Yes') and (redoDetails == 'No'))) {:
+			/var key=startIndex {{var::lenSexualItemDetails}}|
 		:}|
 		/else {:
 			/setvar as=string key={{var::variableName}} {{noop}}|
@@ -2655,11 +2972,13 @@
 		//[[Generate with Prompt]]|
 		/ife (inputIsList == 'Yes') {:
 			/foreach {{getvar::sexualItemNames}} {:
-				/setvar key=itemName {{var::item}}|
-				/:"CMC Logic.GenerateWithPrompt"|
-				/addvar key={{var::variableName}} {{getvar::output}}|
-				/flushvar output|
-				/flushvar guidance|
+				/ife (index >= startIndex) {:
+					/setvar key=itemName {{var::item}}|
+					/:"CMC Logic.GenerateWithPrompt"|
+					/addvar key={{var::variableName}} {{getvar::output}}|
+					/flushvar output|
+					/flushvar guidance|
+				:}|
 			:}|
 			/flushvar itemName|
 		:}|

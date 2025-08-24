@@ -6,7 +6,7 @@ Generation can only use information from things above it
   
 1. **Gender** Male or Female, Part of Base Context
 2. **Futanari** Yes or No
-3. **Character Archetype** Human, Anthropomorphic, Demi-Human, Tauric, Beastkin, Animalistic, Pokémon, Digimon, Android, Part of Base Context
+3. **Character Archetype** Human, Anthropomorphic, Mythfolk, Tauric, Beastkin, Animalistic, Pokémon, Digimon, Android, Part of Base Context
 4. **Character Type** Pokémon, Digimon, Animalistic
 5. **Animal Base** Humanoid (For Human), Synthetic (For Android), Mammal, Reptile, Bird, Fish, Amphibian, Invertebrate, Fantasy
 6. **Species Group** See list at the end
@@ -137,7 +137,7 @@ Generation can only use information from things above it
 
 
 Species Group can be one of these depending on what the user picked for Animal Base  
-None (Automatically set for Human, Demi-Human and Android. Cannot be select for anyone else)  
+None (Automatically set for Human, Mythfolk and Android. Cannot be select for anyone else)  
 Bovine  
 Canine  
 Cervine  
@@ -194,7 +194,7 @@ Privates Female will be set freely from the Animal Base and Species Group (Excep
 
 Privates Male will be set freely from the Animal Base and Species Group (Except None)
 
-Demi-Human characters Privates Female and Privates Male will be set to the generated Species (After having generated the Species) unless already set
+Mythfolk characters Privates Female and Privates Male will be set to the generated Species (After having generated the Species) unless already set
 
 Real
 If No will have no impact on the generation

@@ -150,6 +150,16 @@
 	/re-replace find="/--Face--/g" replace="{{getvar::appearanceFace}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
+/ife ((parsedCovering != '') and (parsedCovering != 'None')) {:
+	/messages names=off 0|
+	/re-replace find="/--Covering--/g" replace="{{getvar::parsedCovering}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/elseif (parsedCovering == 'None') {:
+	/messages names=off 0|
+	/re-replace find="/--Covering--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
 /ife (appearanceBody != '') {:
 	/messages names=off 0|
 	/re-replace find="/--Body--/g" replace="{{newline}} - Body: {{getvar::appearanceBody}}" {{pipe}}|
@@ -216,7 +226,7 @@
 	/re-replace find="/--Features--/g" replace="{{newline}}{{newline}}{{getvar::parsedAppearanceFeatures}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
-/elseif (parsedAppearanceFeatures != 'None') {:
+/elseif (parsedAppearanceFeatures == 'None') {:
 	/messages names=off 0|
 	/re-replace find="/--Features--/g" replace="" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
@@ -502,6 +512,41 @@
 /elseif  (parsedSexualKinks == 'None'){:
 	/messages names=off 0|
 	/re-replace find="/--Kinks--/g" replace="" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (sexualFamiliarityActKissing != '') {:
+	/messages names=off 0|
+	/re-replace find="/--SexualFamilitaryActKissing--/g" replace="{{getvar::sexualFamiliarityActKissing}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (sexualFamiliarityActOralG != '') {:
+	/messages names=off 0|
+	/re-replace find="/--SexualFamilitaryActOralG--/g" replace="{{getvar::sexualFamiliarityActOralG}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (sexualFamiliarityActOralR != '') {:
+	/messages names=off 0|
+	/re-replace find="/--SexualFamilitaryActOralR--/g" replace="{{getvar::sexualFamiliarityActOralR}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (sexualFamiliarityActVaginal != '') {:
+	/messages names=off 0|
+	/re-replace find="/--SexualFamilitaryActVaginal--/g" replace="{{getvar::sexualFamiliarityActVaginal}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (sexualFamiliarityActAnal != '') {:
+	/messages names=off 0|
+	/re-replace find="/--SexualFamilitaryActAnal--/g" replace="{{getvar::sexualFamiliarityActAnal}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (sexualFamiliarityActGroupSex != '') {:
+	/messages names=off 0|
+	/re-replace find="/--SexualFamilitaryActGroupSex--/g" replace="{{getvar::sexualFamiliarityActGroupSex}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
+/ife (sexualFamiliarityActToys != '') {:
+	/messages names=off 0|
+	/re-replace find="/--SexualFamilitaryActToys--/g" replace="{{getvar::sexualFamiliarityActToys}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
 /ife ((sexualityQA != '') and (sexualityQA != 'None')) {:

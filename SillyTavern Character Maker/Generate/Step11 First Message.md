@@ -39,7 +39,7 @@
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
 	/addvar key=extra "{{getvar::parsedApperance}}"|
-	/addvar key=extra "{{getvar::parsedSentientLevel"|
+	/addvar key=extra "{{getvar::parsedSentientLevel}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/ife (extra != '') {:

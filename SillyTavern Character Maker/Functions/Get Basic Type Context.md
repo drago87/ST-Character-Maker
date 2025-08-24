@@ -1,4 +1,4 @@
-/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
+/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Tauric') and (characterArchetype != 'Mythfolk') and (characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon') and (characterArchetype != 'Android')){:
 	/ife ( (characterType != 'Animalistic') and (characterType != 'None')) {:
 		/addvar key=extra "{{getvar::characterArchetype}} {{getvar::characterType}}"|
 	:}|

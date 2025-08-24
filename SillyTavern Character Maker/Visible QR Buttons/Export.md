@@ -9,11 +9,15 @@
 	/echo Generationg Brief Character Overview|
 	/genraw {{var::prompt}}|
 	/var key=output {{pipe}}|
-	/buttons labels=["Yes", "Regenerate"] <div>Are you happy with the Character Overview?</div><div>{{var::output}}</div>|
+	/buttons labels=["Yes", "Edit", "Regenerate"] <div>Are you happy with the Character Overview?</div><div>{{var::output}}</div>|
 	/var key=done {{pipe}}|
 	/ife ( done == ''){:
 		/echo Aborting |
 		/abort
+	:}|
+	/elseif (done == 'Edit') {:
+		/input default={{var::output}} Edit the Character Overview to your liking.|
+		/var key=output {{pipe}}|
 	:}|
 :}|
 /re-replace find="/\n/g" replace="\r\n" {{var::output}}|
@@ -33,7 +37,7 @@ You MUST follow the writing instructions below with **exact formatting**:
 Each rule is **mandatory** — do not simplify, guess, or loosely interpret. Match the exact phrasing, punctuation, and tone shown in every line. If a style element is ambiguous, assume it must be followed literally."|
 /re-replace find="/\n/g" replace="\r\n" {{var::postHist}}|
 /re-replace find="/\"/g" replace="\\\"" {{pipe}}|
-/re-replace find="--FirstName--/g" replace="{/{char}}" {{pipe}}|
+/re-replace find="/--FirstName--/g" replace="{/{char}}" {{pipe}}|
 /var key=postHist {{pipe}}|
 /findentry field=comment file="CMC Templates" "Character Card Template"|
 /getentryfield field=content file="CMC Templates" {{pipe}}|

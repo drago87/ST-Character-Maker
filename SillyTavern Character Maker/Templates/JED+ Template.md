@@ -63,6 +63,7 @@ A: "My trainer? This... this mankey!? I hate this pervert so much..." Garde has 
 - Face: 
 - Eyes: 
 ### Body: 
+- Covering:
 - Body:
 - Tanlines:
 - Privates: 
@@ -235,10 +236,10 @@ A:
 
 - **Familiarity With Sexual Acts:**
  - Kissing: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
- - Oral (Giving): <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
- - Oral (Receiving): <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
- - Vaginal: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
- - Anal: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
+ - Oral Sex (Giving): <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
+ - Oral Sex (Receiving): <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
+ - Vaginal Sex: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
+ - Anal Sex: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
  - Group Sex: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
  - Sex Toys: <!--Unfamiliar, Heard of, Seen, Tried, Experienced-->
 
@@ -265,7 +266,7 @@ A:
   - Variant: <!--Optional. Used to specify a subtype or target of the kink. e.g. Anal Enema, Womb Enema, Canine, Shibari, Paddling-->
   - Role: <!--Giver, Receiver, or Switch. Defines whether the character enjoys performing the kink, receiving it, or both-->
   - Details: <!--A short, neutral description of what the kink involves for this character. Focus on what they enjoy or respond to-->
-  - Effect: <!--How this kink influences the character’s behavior, arousal, emotions, or dynamics during intimacy-->
+  - Response: <!--How the character responds when doing the kink-->
   - Conditions: <!--Optional. Describes situational boundaries or requirements, such as specific partner types, emotional states, or settings-->
 
 <Q&A>

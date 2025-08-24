@@ -202,7 +202,7 @@
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=useContext No|
 		/setvar key=genSettings index=contextKey []|
-		/ife (characterArchetype == 'Demi-Human') {:
+		/ife (characterArchetype == 'Mythfolk') {:
 			/setvar key=speciesExamples Elf, Dwarf, Vampire, Succubus, Angel, Demon, Halfling, Fairy
 		:}|
 		/elseif ((characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')) {:
@@ -245,7 +245,7 @@
 		/elseif (characterArchetype == 'Tauric') {:
 		    /setvar key=formattedSpeciesDescriptor "a Tauric {{getvar::parsedAnimalType}} character"|
 		:}|
-		/elseif (characterArchetype == 'Demi-Human') {:
+		/elseif (characterArchetype == 'Mythfolk') {:
 		    /setvar key=formattedSpeciesDescriptor "a fantasy humanoid character"|
 		:}|
 		/elseif ((characterArchetype == 'Pokémon') or (characterArchetype == 'Digimon')) {:
@@ -263,7 +263,7 @@
 		/elseif (characterArchetype == 'Tauric') {:
 			/setvar key=speciesInstruction "Return a real-world or mythic animal that could suit a centaur-like body (e.g., Horse, Panther, Dragon)."|
 		:}|
-		/elseif (characterArchetype == 'Demi-Human') {:
+		/elseif (characterArchetype == 'Mythfolk') {:
 			/setvar key=speciesInstruction "Return a mythological or fantasy humanoid type in singular form (e.g., Elf, Vampire, Succubus)."|
 		:}|
 		/elseif (characterArchetype == 'Pokémon') {:
@@ -352,7 +352,7 @@
 		/setvar key=genSettings index=useContext No|
 		/setvar key=genSettings index=contextKey []|
 		/*
-		/ife (characterArchetype == 'Demi-Human') {:
+		/ife (characterArchetype == 'Mythfolk') {:
 			/setvar key=speciesExamples Elf, Dwarf, Vampire, Succubus, Angel, Demon, Halfling, Fairy
 		:}|
 		/elseif ((characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')) {:
@@ -423,7 +423,7 @@
 :}|
 //-----------|
 
-/ife ((characterArchetype == 'Demi-Human') and (animalBase == 'None')) {:
+/ife ((characterArchetype == 'Mythfolk') and (animalBase == 'None')) {:
 	/setvar key=animalBase {{getvar::species}}|
 	/addvar key=dataBaseNames animalBase|
 	/ife ( ((gender == 'Female') or (futanari == 'Yes')) and (privatesFemale != 'None') ) {:
@@ -1022,7 +1022,12 @@
 /setvar key=filename/setvar key=filename {{date}}, {{isotime}}|
 /re-replace find="/:/g" replace="h" {{pipe}}|
 /setvar key=filename {{pipe}}|
-/addvar key=filename "m {{getvar::characterArchetype}} {{getvar::firstName}} {{getvar::lastName}}"|
+/ife (lastName != 'None') {:
+	/addvar key=filename "m {{getvar::characterArchetype}} {{getvar::firstName}} {{getvar::lastName}}"|
+:}|
+/else {:
+	/addvar key=filename "m {{getvar::characterArchetype}} {{getvar::firstName}}"|
+:}|
 /sendas name={{char}} del|
 /renamechat {{getvar::filename}}|
 /del {{lastMessageId}}|

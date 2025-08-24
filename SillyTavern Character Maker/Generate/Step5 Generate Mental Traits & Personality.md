@@ -95,10 +95,10 @@
 	/let key=temp {{pipe}}||
 	/foreach {{var::temp}} {:
 		/ife (index == 0) {:
-			/addvar key=parsedSentientLevel "- Animalistic Level: {{var::item}}{{newline}}  - Description:"|
+			/addvar key=parsedSentientLevel "- Animalistic Level: {{var::item}}{{newline}} - Description:"|
 		:}|
 		/ife (index >= 1) {:
-			/addvar key=parsedSentientLevel "{{newline}}    {{var::item}}"|
+			/addvar key=parsedSentientLevel "{{newline}}  {{var::item}}"|
 		:}|
 	:}|
 	/addvar key=dataBaseNames parsedSentientLevel|

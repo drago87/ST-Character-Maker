@@ -95,7 +95,7 @@
 	/getentryfield file="CMC Information" {{pipe}}| 
 	/var typeGuide {{pipe}}|
 	/whilee ( characterArchetype == 'Help me Decide') {:
-		/buttons labels=["Help me Decide", "Human", "Anthropomorphic\n(Anthropomorphic is a character that combines both human and animal traits, often featuring an animal body with human-like posture, facial expressions, speech, and behavior.)", "Demi-Human\n(Demi-Human is races that mostly looks like humans like Dwarfs, Elves etc...)", "Tauric\n(Tauric are hybrid species with a humanoid upper body and an animal-like lower body, such as centaurs, lamias, and mermaids.)", "Beastkin\n(Beastkin is a character with animal features like ears and tail but otherwise human appearance.)", "Animalistic\n(Animalistic refers to standard animals, fantasy creatures, or monsters that behave and appear primarily as non-human beings, typically walking on all fours and lacking human speech or reasoning.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
+		/buttons labels=["Help me Decide", "Human", "Anthropomorphic\n(Anthropomorphic is a character that combines both human and animal traits, often featuring an animal body with human-like posture, facial expressions, speech, and behavior.)", "Mythfolk\n(Mythfolk is races that mostly looks like humans like Dwarfs, Elves etc...)", "Tauric\n(Tauric are hybrid species with a humanoid upper body and an animal-like lower body, such as centaurs, lamias, and mermaids.)", "Beastkin\n(Beastkin is a character with animal features like ears and tail but otherwise human appearance.)", "Animalistic\n(Animalistic refers to standard animals, fantasy creatures, or monsters that behave and appear primarily as non-human beings, typically walking on all fours and lacking human speech or reasoning.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
 		/re-replace find="/(\n\()[\s\S]*$/g" replace="" {{pipe}}|
 		/setvar key=characterArchetype {{pipe}}|
 		/ife ( characterArchetype == ''){:
@@ -108,7 +108,7 @@
 			/genraw as=char Respond to the question: What type of character is a {{var::inp}}?
 The reply should be in this format:
 '<div>{{getvar::inp}} is a x</div>'
-x is one of the following "Human", "Anthropomorphic", "Demi-Human", "Tauric", "Beastkin", "Animalistic", "Pokémon", "Digimon", "Android"
+x is one of the following "Human", "Anthropomorphic", "Mythfolk", "Tauric", "Beastkin", "Animalistic", "Pokémon", "Digimon", "Android"
 INFORMATION: 
 {{var::typeGuide}}
 INSTRUCTION: Only respond in the given format.|
@@ -154,7 +154,7 @@ INSTRUCTION: Only respond in the given format.|
 /addvar key=dataBaseNames characterType|
 
 
-/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Android')) {:
+/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Mythfolk') and (characterArchetype != 'Android')) {:
 	/var selected_btn {{noop}}|
 	/ife ( animalBase != '' ) {:
 		/buttons labels=["Yes", "No"] Do you want to change the animal base?|
@@ -185,8 +185,8 @@ INSTRUCTION: Only respond in the given format.|
 :}|
 /addvar key=dataBaseNames animalBase|
 
-/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Demi-Human') and (characterArchetype != 'Android')) {:
-	/buttons labels=["Yes", "No"] Do you want the character to use the animal base as-is, or pick a more specific category like Canine, Feline, or Reptilian when generating the species later?|
+/ife ( (characterArchetype != 'Human') and (characterArchetype != 'Mythfolk') and (characterArchetype != 'Android')) {:
+	/buttons labels=["Yes pick a specific category", "No"] Do you want the character to use the animal base as-is, or pick a more specific category like Canine, Feline, or Reptilian when generating the species later?|
 	/var selected_btn {{pipe}}|
 	/ife ( selected_btn == '') {:
 		/echo Aborting|
@@ -214,7 +214,7 @@ INSTRUCTION: Only respond in the given format.|
 /else {:
 	/setvar key=speciesGroup Humanoid|
 :}|
-/ife ( (characterArchetype == 'Human') and (characterArchetype == 'Demi-Human') and (characterArchetype == 'Android')) {:
+/ife ( (characterArchetype == 'Human') and (characterArchetype == 'Mythfolk') and (characterArchetype == 'Android')) {:
 	/setvar key=parsedAnimalType Humanoid|
 :}|
 /elseif (((characterArchetype == Anthropomorphic) or (characterArchetype == Anthropomorphic)) and ((characterType == 'Pokémon') or (characterType == 'Digimon') or (characterType == 'Animalistic'))) {:

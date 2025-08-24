@@ -170,7 +170,7 @@
 		/var key=selected_btn {{pipe}}|
 		/ife (wi_book_key_f not in exemptRules) {:
 			/re-replace find="/\s\(.*$/g" replace="" {{var::selected_btn}}|
-			/var key=selected_btn {{pipe}}|
+			/var as=string key=selected_btn {{pipe}}|
 		:}|
 	:}|
 	/ife (( selected_btn == '') and (wi_book_f != 'CMC Rules')) {:

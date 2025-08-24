@@ -626,8 +626,8 @@
 	/setvar key=taglineSheet {{pipe}}|
 :}|
 
-/let key=do No|
-/let key=variableName "tagline"|
+/var key=do No|
+/var key=variableName "tagline"|
 /ife ({{var::variableName}} == '') {:
     /var key=do Yes|
 :}|
@@ -687,6 +687,23 @@
 :}|
 /else {:
 	/addvar key=dataBaseNames {{var::variableName}}|
+:}|
+
+/ife (user == 'No') {:
+	/re-replace find="/Tagline:\s/g" replace="Tagline: (NarratorPOV)" {{getvar::tagline}}|
+	/setvar key=tagline {{pipe}}|
+:}|
+/elseif (userGender == 'Male') {:
+	/re-replace find="/Tagline:\s/g" replace="Tagline: (MalePOV)" {{getvar::tagline}}|
+	/setvar key=tagline {{pipe}}|
+:}|
+/elseif (userGender == 'Female') {:
+	/re-replace find="/Tagline:\s/g" replace="Tagline: (FemalePOV)" {{getvar::tagline}}|
+	/setvar key=tagline {{pipe}}|
+:}|
+/elseif ((userGender == 'Gender Neutral') or (userGender == 'Anything')) {:
+	/re-replace find="/Tagline:\s/g" replace="Tagline: (AnyPOV)" {{getvar::tagline}}|
+	/setvar key=tagline {{pipe}}|
 :}|
 
 /messages names=off 2|

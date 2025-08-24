@@ -1,10 +1,3 @@
-d Species
-d Nationalities
-d Ethnicities
-d World Details
-d Occupation Base (Should not include the species in the name)
-d Occupation Duties
-Occupation Skills
- feature type
+All it took was a simple miscommunication to --User--, a soon-to-be knight. To prove his worth, --User-- are asked to slay a dragon. But instead of one of them saying "slay." They kinda screwed up and the word "lay" Came up. Asking --User-- to lay a dragon instead of slaying one. Well, as it turns out, at least this miscommunication doesn't get --User-- killed in a horrible and brutal way!
 
-Outfit Makeup
+Even better for --User--, the dragoness actually ends up liking it… After clearing up all of her confusion. Not only did this miscommunication save --User-- life and bring him to Cloud 9, it also well… Gave --User-- an idea of how to "slay" other dragons. Nothing more, nothing less.

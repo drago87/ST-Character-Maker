@@ -126,11 +126,16 @@ Step12 Tagline
 :}|
 /elseif ( stepVar == 'Step11') {:
 	/ife (stepDone == 'Yes') {:
-		//Load Step11|
+		//Load Step12|
 		/:"CMC Generate.Step12 Tagline"|
 	:}|
 	/else {:
-		//Load Step10|
+		//Load Step11|
 		/:"CMC Generate.Step11 First Message"|
 	:}|
+:}|
+/elseif ( stepVar == 'Step12') {:
+	
+	//Load Step12|
+	/:"CMC Generate.Step12 Tagline"|
 :}|

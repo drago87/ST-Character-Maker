@@ -861,6 +861,9 @@
 		/addvar key=extra "{{newline}}{{getvar::parsedSexualOrientation}}"|
 		/addvar key=extra "{{getvar::parsedSexualRole}}"|
 		/addvar key=extra "- Libido: {{getvar::sexualLibido}}"|
+		/addvar key=extra "{{getvar::parcedFamiliarity}}"|
+		/addvar key=extra "- Emotional Framing: {{getvar::sexualFraming}}"|
+		/addvar key=extra "- Attitude Toward Sex: {{getvar::sexualAttitude}}"|
 		/ife (parsedSexualKinks != 'None') {:
 			/addvar key=extra "{{getvar::parsedSexualKinks}}"|
 		:}|
@@ -870,6 +873,7 @@
 		/ife (parsedSexualAblilities != 'None') {:
 			/addvar key=extra "{{getvar::parsedSexualAblilities}}"|
 		:}|
+		/addvar key=extra "{{getvar::parcedFamiliarity}}"|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/flushvar extra|
 		/setvar key=genSettings index=contextKey []|

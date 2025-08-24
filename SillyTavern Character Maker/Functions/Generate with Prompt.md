@@ -1,3 +1,11 @@
+/let key=wi_uid {{noop}}|
+/let key=actionType {{noop}}|
+/let key=context {{noop}}|
+/let key=find {{noop}}|
+/let key=examples {{noop}}|
+/let key=task {{noop}}|
+/let key=instruct {{noop}}|
+
 /getvar key=genSettings index=wi_book|
 /let key=wi_book_f {{pipe}}|
 /ife ( wi_book_f == '') {:
@@ -16,7 +24,29 @@
 /getvar key=genSettings index=guidencePrompt|
 /let key=guidencePrompt_f {{pipe}}|
 /ife ( guidencePrompt_f == '') {:
-	/var key=guidencePrompt_f "**GUIDANCE:**{{newline}}**Use** the following as a conceptual anchor or inspirational seed. It represents the type of setting the user is imagining. You **must** draw from its core idea, purpose, or atmosphere — but do **not** copy or paraphrase it directly:"|
+	/var key=find "{{var::wi_book_key_f}}: Guide"|
+	/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+	/var key=wi_uid {{pipe}}|
+	/getentryfield field=comment file="CMC Generation Prompts" {{var::wi_uid}}|
+	/let key=testPrompt {{pipe}}|
+	/ife ( find == testPrompt) {:
+		/getentryfield field=content file="CMC Generation Prompts" {{var::wi_uid}}|
+		/var key=guidencePrompt_f {{pipe}}|
+		/ife (guidencePrompt_f == '') {:
+			/var key=find "Guidance Template"|
+			/findentry field=comment file="CMC Templates" "{{var::find}}"|
+			/var key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Templates" {{var::wi_uid}}|
+			/var key=guidencePrompt_f {{pipe}}|
+		:}|
+	:}|
+	/else {:
+		/var key=find "Guidance Template"|
+		/findentry field=comment file="CMC Templates" "{{var::find}}"|
+		/var key=wi_uid {{pipe}}|
+		/getentryfield field=content file="CMC Templates" {{var::wi_uid}}|
+		/var key=guidencePrompt_f {{pipe}}|
+	:}|
 :}|
 /getvar key=genSettings index=genIsSentence|
 /let key=genIsSentence_f {{pipe}}|
@@ -61,13 +91,6 @@
 /let as=array key=extraContext_f {{pipe}}|
 
 
-/let key=wi_uid {{noop}}|
-/let key=actionType {{noop}}|
-/let key=context {{noop}}|
-/let key=find {{noop}}|
-/let key=examples {{noop}}|
-
-
 /ife ( useContext_f == 'Yes') {:
 	/setvar key=gen Yes|
 	/:"CMC Logic.Get Char info"|
@@ -94,7 +117,9 @@
 		/var key=find "{{var::item}}: Context"|
 		/findentry field=comment file="CMC Information" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
-		/ife ( wi_uid != '') {:
+		/getentryfield field=comment file="CMC Information" {{var::wi_uid}}|
+		/let key=conTest {{pipe}}|
+		/ife ( find == conTest) {:
 			/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
 			/let key=cInfo {{pipe}}|
 			/ife (context != '') {:
@@ -119,12 +144,19 @@
 /var key=find "{{var::wi_book_key_f}}: Examples"|
 /findentry field=comment file={{var::wi_book_f}} "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
-/ife (( wi_uid != '') or ( wi_uid == 0)) {:
+/getentryfield field=comment file={{var::wi_book_f}} {{var::wi_uid}}|
+/let key=exaTemp {{pipe}}|
+/ife (find == exaTemp) {:
 	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
 	/let key=tEx {{pipe}}|
 	/ife (tEx != '') {:
 		/var key=examples [{{var::tEx}}]|
 	:}|
+:}|
+/else {:
+	/echo Missing WI entry {{var::find}} from the WI {{var::wi_book_f}}|
+	/echo Aborting |
+	/abort
 :}|
 /ife (debug == 'Yes') {:
 	/setvar key="02 Examples" {{var::examples}}|
@@ -135,8 +167,17 @@
 /var key=find "{{var::wi_book_key_f}}: Task"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
-/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
-/let key=task {{pipe}}|
+/getentryfield field=comment file={{var::wi_book_f}} {{var::wi_uid}}|
+/let key=taskTest {{pipe}}|
+/ife (find == taskTest) {:
+	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+	/var key=task {{pipe}}|
+:}|
+/else {:
+	/echo Missing WI entry {{var::find}} from the WI {{var::wi_book_f}}|
+	/echo Aborting |
+	/abort
+:}|
 /ife (debug == 'Yes') {:
 	/setvar key="03 Task" {{var::task}}|
 :}|
@@ -146,8 +187,17 @@
 /var key=find "{{var::wi_book_key_f}}: Instruction"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
-/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
-/let key=instruct {{pipe}}|
+/getentryfield field=comment file={{var::wi_book_f}} {{var::wi_uid}}|
+/let key=instructTest {{pipe}}|
+/ife (find == instructTest) {:
+	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+	/var key=instruct {{pipe}}|
+:}|
+/else {:
+	/echo Missing WI entry {{var::find}} from the WI {{var::wi_book_f}}|
+	/echo Aborting |
+	/abort
+:}|
 /ife (debug == 'Yes') {:
 	/setvar key="04 Instruktions" {{var::instruct}}|
 :}|
@@ -250,7 +300,7 @@
 		/join {{getvar::tempList}}|
 		/setvar key=excludedList {{pipe}}|
 		/setvar key=outputGen []|
-		/whilee (i++ < genAmount_f ) {:
+		/whilee ((i++ < genAmount_f ) and (stuckPrevention++ < 10)) {:
 			/var key=task {{noop}}|
 			/var key=find "{{var::wi_book_key_f}}: Task"|
 			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
@@ -265,23 +315,7 @@
 			/echo Generatig {{var::wi_book_key_f}} {{var::i}}/{{var::genAmount_f}}|
 			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}[{{var::task}}]{{newline}}{{newline}}[{{var::instruct}}]"|
 			/var key=t {{pipe}}|
-			/*
-			/let key=running true|
-			/whilee ((x++ < 10) and (running == true)) {:
-				/ife ('#' in t) {:
-					/re-replace find="/^#/g" replace="" {{var::t}}|
-					/let key=replaceTest {{pipe}}|
-					/re-replace find="/^\s/g" replace="" {{var::replaceTest}}|
-					/var key=replaceTest {{pipe}}|
-					/ife (replaceTest == t) {:
-
-						/var key=running false|
-					:}|
-					/var key=t {{var::replaceTest}}|
-				:}|
-			:}|
-			*|
-			/ife (t not in outputGen) {:
+			/ife ((t not in outputGen) and (t != '')) {:
 				/addvar key=outputGen {{var::t}}|
 				/join {{getvar::tempList}}|
 				/setvar key=excludedList {{pipe}}|
@@ -290,6 +324,7 @@
 				:}|
 				/join {{getvar::outputGen}}|
 				/addvar key=excludedList {{pipe}}|
+				/var key=stuckPrevention 0|
 			:}|
 			/else {:
 				/add {{var::i}} -1|
