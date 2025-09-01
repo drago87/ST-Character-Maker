@@ -511,11 +511,6 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 10,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            },
             "ignoreBudget": false,
             "triggers": []
         },
@@ -981,11 +976,6 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 20,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            },
             "ignoreBudget": false,
             "triggers": []
         }

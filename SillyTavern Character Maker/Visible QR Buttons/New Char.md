@@ -3,6 +3,13 @@
 /let key=qrList {{noop}}|
 /let key=typeGuide {{noop}}|
 
+/let key=selectModels ["dans-personalityengine-v1.1.0-12b-q6_k", "EsotericSage-12B.i1-Q6_K"]|
+/buttons multiple=true labels={{var::selectModels}} Select the model you want to download the model lorebook prompts for.|
+/setglobalvar key=model {{pipe}}|
+/ife (model == '') {:
+	/echo Aborting |
+	/abort
+:}|
 
 /messages 0|
 /let firstMess {{pipe}}|
