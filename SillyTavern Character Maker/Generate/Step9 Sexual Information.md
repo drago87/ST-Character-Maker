@@ -1009,8 +1009,8 @@
 		/let key=tempOutputList []|
 		/foreach {{getvar::sexualKinkTypes}} {:
 			/setvar key=it {{var::item}}|
-			/findentry field=comment file="CMC Information" "Kink Role Prompt"|
-			/getentryfield field=content file="CMC Information" {{pipe}}|
+			/findentry field=comment file="CMC Information {{getglobalvar::model}}" "Kink Role Prompt"|
+			/getentryfield field=content file="CMC Information {{getglobalvar::model}}" {{pipe}}|
 			/genraw {{pipe}}|
 			/let key=kinkTemp {{pipe}}|
 			/setvar key=kinkExp {{noop}}|

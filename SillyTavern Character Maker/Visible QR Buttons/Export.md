@@ -1,8 +1,8 @@
 /input Who do you want the name of the author of the character to be?|
 /setvar key=author {{pipe}}|
 /let key=done Regenerate|
-/findentry field=comment file="CMC Generation Prompts" "Export Prompt"|
-/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "Export Prompt"|
+/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{pipe}}|
 /let key=prompt {{pipe}}|
 /let key=output {{noop}}|
 /whilee (done == 'Regenerate') {:

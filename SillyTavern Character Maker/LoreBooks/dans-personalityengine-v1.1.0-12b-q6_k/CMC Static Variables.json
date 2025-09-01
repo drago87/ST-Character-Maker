@@ -38,7 +38,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 0
+            "displayIndex": 0,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "1": {
             "uid": 1,
@@ -78,7 +85,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 1
+            "displayIndex": 1,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "2": {
             "uid": 2,
@@ -118,7 +132,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 2
+            "displayIndex": 2,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "3": {
             "uid": 3,
@@ -158,7 +179,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 3
+            "displayIndex": 3,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "4": {
             "uid": 4,
@@ -198,7 +226,14 @@
             "matchCharacterPersonality": false,
             "matchCharacterDepthPrompt": false,
             "matchScenario": false,
-            "matchCreatorNotes": false
+            "matchCreatorNotes": false,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "5": {
             "uid": 5,
@@ -238,7 +273,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 5
+            "displayIndex": 5,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "6": {
             "uid": 6,
@@ -278,7 +320,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 6
+            "displayIndex": 6,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "7": {
             "uid": 7,
@@ -318,7 +367,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 6
+            "displayIndex": 6,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "8": {
             "uid": 8,
@@ -358,7 +414,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 8
+            "displayIndex": 8,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "9": {
             "uid": 9,
@@ -398,7 +461,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 9
+            "displayIndex": 9,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "10": {
             "uid": 10,
@@ -438,7 +508,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 10
+            "displayIndex": 10,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "11": {
             "uid": 11,
@@ -478,7 +555,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 11
+            "displayIndex": 11,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "12": {
             "uid": 12,
@@ -518,7 +602,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 12
+            "displayIndex": 12,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "13": {
             "uid": 13,
@@ -558,7 +649,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 13
+            "displayIndex": 13,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "14": {
             "uid": 14,
@@ -598,7 +696,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 14
+            "displayIndex": 14,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "15": {
             "uid": 15,
@@ -638,7 +743,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 15
+            "displayIndex": 15,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "16": {
             "uid": 16,
@@ -678,7 +790,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 16
+            "displayIndex": 16,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "17": {
             "uid": 17,
@@ -718,7 +837,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 17
+            "displayIndex": 17,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "18": {
             "uid": 18,
@@ -758,7 +884,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 18
+            "displayIndex": 18,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "19": {
             "uid": 19,
@@ -798,7 +931,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 19
+            "displayIndex": 19,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "20": {
             "uid": 20,
@@ -838,7 +978,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 20
+            "displayIndex": 20,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "21": {
             "uid": 21,
@@ -878,7 +1025,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 21
+            "displayIndex": 21,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "22": {
             "uid": 22,
@@ -918,7 +1072,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 18
+            "displayIndex": 18,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "23": {
             "uid": 23,
@@ -958,7 +1119,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 23
+            "displayIndex": 23,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "24": {
             "uid": 24,
@@ -998,7 +1166,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 24
+            "displayIndex": 24,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "25": {
             "uid": 25,
@@ -1038,7 +1213,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 25
+            "displayIndex": 25,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "26": {
             "uid": 26,
@@ -1078,7 +1260,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 26
+            "displayIndex": 26,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "27": {
             "uid": 27,
@@ -1118,7 +1307,14 @@
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
-            "displayIndex": 27
+            "displayIndex": 27,
+            "ignoreBudget": false,
+            "triggers": [],
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         }
     }
 }

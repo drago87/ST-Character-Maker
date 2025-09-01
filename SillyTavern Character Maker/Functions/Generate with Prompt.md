@@ -11,6 +11,11 @@
 /ife ( wi_book_f == '') {:
 	/var key=wi_book_f "CMC Generation Prompts"|
 :}|
+
+ife ((wi_book_f != 'CMC Static Variables') or (wi_book_f != 'CMC Templates') or (wi_book_f != 'CMC Questions')) {:
+	/var key=wi_book_f "{{var::wi_book_f}} {{getglobalvar::model}}"|
+:}|
+
 /getvar key=genSettings index=wi_book_key|
 /let key=wi_book_key_f {{pipe}}|
 /ife ( wi_book_key_f == '') {:
@@ -25,26 +30,26 @@
 /let key=guidencePrompt_f {{pipe}}|
 /ife ( guidencePrompt_f == '') {:
 	/var key=find "{{var::wi_book_key_f}}: Guide"|
-	/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+	/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
 	/var key=wi_uid {{pipe}}|
-	/getentryfield field=comment file="CMC Generation Prompts" {{var::wi_uid}}|
+	/getentryfield field=comment file="CMC Generation Prompts {{getglobalvar::model}}" {{var::wi_uid}}|
 	/let key=testPrompt {{pipe}}|
 	/ife ( find == testPrompt) {:
-		/getentryfield field=content file="CMC Generation Prompts" {{var::wi_uid}}|
+		/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{var::wi_uid}}|
 		/var key=guidencePrompt_f {{pipe}}|
 		/ife (guidencePrompt_f == '') {:
 			/var key=find "Guidance Template"|
-			/findentry field=comment file="CMC Templates" "{{var::find}}"|
+			/findentry field=comment file="CMC Information {{getglobalvar::model}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
-			/getentryfield field=content file="CMC Templates" {{var::wi_uid}}|
+			/getentryfield field=content file="CMC Information {{getglobalvar::model}}" {{var::wi_uid}}|
 			/var key=guidencePrompt_f {{pipe}}|
 		:}|
 	:}|
 	/else {:
 		/var key=find "Guidance Template"|
-		/findentry field=comment file="CMC Templates" "{{var::find}}"|
+		/findentry field=comment file="CMC Information {{getglobalvar::model}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
-		/getentryfield field=content file="CMC Templates" {{var::wi_uid}}|
+		/getentryfield field=content file="CMC Information {{getglobalvar::model}}" {{var::wi_uid}}|
 		/var key=guidencePrompt_f {{pipe}}|
 	:}|
 :}|
@@ -115,12 +120,12 @@
 /ife ( contextKey_f != '') {:
 	/foreach {{var::contextKey_f}} {:
 		/var key=find "{{var::item}}: Context"|
-		/findentry field=comment file="CMC Information" "{{var::find}}"|
+		/findentry field=comment file="CMC Information {{getglobalvar::model}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
-		/getentryfield field=comment file="CMC Information" {{var::wi_uid}}|
+		/getentryfield field=comment file="CMC Information {{getglobalvar::model}}" {{var::wi_uid}}|
 		/let key=conTest {{pipe}}|
 		/ife ( find == conTest) {:
-			/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
+			/getentryfield field=content file="CMC Information {{getglobalvar::model}}" {{var::wi_uid}}|
 			/let key=cInfo {{pipe}}|
 			/ife (context != '') {:
 				/var key=context "{{var::context}}{{newline}}{{newline}}{{var::cInfo}}"|
@@ -142,12 +147,12 @@
 	/flushvar "01 Context"|
 :}|
 /var key=find "{{var::wi_book_key_f}}: Examples"|
-/findentry field=comment file={{var::wi_book_f}} "{{var::find}}"|
+/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
-/getentryfield field=comment file={{var::wi_book_f}} {{var::wi_uid}}|
+/getentryfield field=comment file="{{var::wi_book_f}}" {{var::wi_uid}}|
 /let key=exaTemp {{pipe}}|
 /ife (find == exaTemp) {:
-	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+	/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
 	/let key=tEx {{pipe}}|
 	/ife (tEx != '') {:
 		/var key=examples [{{var::tEx}}]|
@@ -167,10 +172,10 @@
 /var key=find "{{var::wi_book_key_f}}: Task"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
-/getentryfield field=comment file={{var::wi_book_f}} {{var::wi_uid}}|
+/getentryfield field=comment file="{{var::wi_book_f}}" {{var::wi_uid}}|
 /let key=taskTest {{pipe}}|
 /ife (find == taskTest) {:
-	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+	/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
 	/var key=task {{pipe}}|
 :}|
 /else {:
@@ -187,10 +192,10 @@
 /var key=find "{{var::wi_book_key_f}}: Instruction"|
 /findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 /var key=wi_uid {{pipe}}|
-/getentryfield field=comment file={{var::wi_book_f}} {{var::wi_uid}}|
+/getentryfield field=comment file="{{var::wi_book_f}}" {{var::wi_uid}}|
 /let key=instructTest {{pipe}}|
 /ife (find == instructTest) {:
-	/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+	/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
 	/var key=instruct {{pipe}}|
 :}|
 /else {:
@@ -214,9 +219,8 @@
 /setvar key=previousMilestones {{noop}}|
 /setvar key=blackListGen {{noop}}|
 /setvar key=mileS {{noop}}|
-/ife (( wi_book_key_f != 'User Role' ) and ('Outfit' not in wi_book_key_f)) {:
-	/setvar key=guidance {{noop}}|
-:}|
+/setvar key=guidance {{noop}}|
+
 
 /ife ( genIsSentence_f != 'Yes') {:
 	/ife ( outputIsList_f == 'Yes') {:
@@ -305,12 +309,12 @@
 			/var key=find "{{var::wi_book_key_f}}: Task"|
 			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
-			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+			/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
 			/var key=task {{pipe}}|
 			/var key=find "{{var::wi_book_key_f}}: Instruction"|
 			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
-			/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+			/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
 			/var key=instruct {{pipe}}|
 			/echo Generatig {{var::wi_book_key_f}} {{var::i}}/{{var::genAmount_f}}|
 			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}[{{var::task}}]{{newline}}{{newline}}[{{var::instruct}}]"|
@@ -378,12 +382,12 @@
 		/var key=find "{{var::wi_book_key_f}}: Task"|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
-		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
 		/var key=task {{pipe}}|
 		/var key=find "{{var::wi_book_key_f}}: Instruction"|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
-		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
 		/var key=instruct {{pipe}}|
 		/ife (wi_book_key_f != 'First Message') {:
 			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}[{{var::task}}]{{newline}}{{newline}}[{{var::instruct}}]"|
@@ -607,14 +611,14 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 			/setvar key=guideTemp {{pipe}}|
 			/ife (wi_book_key_f == 'Kink Type') {:
 				/var key=find "Kink Type Guidance"|
-				/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
+				/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
 				/var key=wi_uid {{pipe}}|
-				/getentryfield field=content file="CMC Generation Prompts" {{var::wi_uid}}|
+				/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{var::wi_uid}}|
 				/let key=mainPrompt {{pipe}}|
 				/var key=find "Kink Information"|
-				/findentry field=comment file="CMC Information" "{{var::find}}"|
+				/findentry field=comment file="CMC Information {{getglobalvar::model}}" "{{var::find}}"|
 				/var key=wi_uid {{pipe}}|
-				/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
+				/getentryfield field=content file="CMC Information {{getglobalvar::model}}" {{var::wi_uid}}|
 				/let key=infoPrompt {{pipe}}|
 				/genraw "{{var::infoPrompt}}{{newline}}{{newline}}{{var::mainPrompt}}"|
 				/setvar key=guideTemp {{pipe}}|
@@ -633,7 +637,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		/var key=find "{{var::wi_book_key_f}}: Task"|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
-		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
 		/var key=task {{pipe}}|
 	:}|
 	/elseif ( selected_btn == 'Customize Parts of the generation') {:
@@ -701,7 +705,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		/var key=find "{{var::wi_book_key_f}}: Task"|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
-		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
 		/var key=task {{pipe}}|
 		/ife (debug == 'Yes') {:
 			/setvar key="03 Task" {{var::task}}|
@@ -712,7 +716,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		/var key=find "{{var::wi_book_key_f}}: Instruction"|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
-		/getentryfield field=content file={{var::wi_book_f}} {{var::wi_uid}}|
+		/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
 		/var key=instruct {{pipe}}|
 		/ife (debug == 'Yes') {:
 			/setvar key="04 Instruktions" {{var::instruct}}|

@@ -306,18 +306,18 @@
 
 /ife (personalityMainTrait == '') {:
 	/let key=find "Identify Personality Tag: Examples"|
-	/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
-	/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+	/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+	/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{pipe}}|
 	/let key=example {{pipe}}|
 	
 	/var key=find "Identify Personality Tag: Task"|
-	/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
-	/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+	/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+	/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{pipe}}|
 	/let key=task {{pipe}}|
 	
 	/var key=find "Identify Personality Tag: Instruction"|
-	/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
-	/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+	/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+	/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{pipe}}|
 	/let key=instruction {{pipe}}|
 	
 	/genraw "{{var::example}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruction}}"|

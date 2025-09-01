@@ -1,8 +1,13 @@
 /getvar key=genSettings index=wi_book|
 /let key=wi_book_f {{pipe}}|
 /ife ( wi_book_f == '') {:
-	/var key=wi_book_f "CMC Variables"|
+	/var key=wi_book_f "CMC Static Variables"|
 :}|
+
+ife ((wi_book_f != 'CMC Static Variables') or (wi_book_f != 'CMC Templates') or (wi_book_f != 'CMC Questions')) {:
+	/var key=wi_book_f "{{var::wi_book_f}} {{getglobalvar::model}}"|
+:}|
+
 /getvar key=genSettings index=wi_book_key|
 /let key=wi_book_key_f {{pipe}}|
 /ife ( wi_book_key_f == '') {:

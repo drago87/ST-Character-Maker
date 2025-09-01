@@ -91,8 +91,8 @@
 :}|
 /ife ( (characterArchetype == '') or ( selected_btn == 'Yes')) {:
 	/setvar key=characterArchetype "Help me Decide"|
-	/findentry field=comment file="CMC Information" Type Guide|
-	/getentryfield file="CMC Information" {{pipe}}| 
+	/findentry field=comment file="CMC Information {{getglobalvar::model}}" Type Guide|
+	/getentryfield file="CMC Information {{getglobalvar::model}}" {{pipe}}| 
 	/var typeGuide {{pipe}}|
 	/whilee ( characterArchetype == 'Help me Decide') {:
 		/buttons labels=["Help me Decide", "Human", "Anthropomorphic\n(Anthropomorphic is a character that combines both human and animal traits, often featuring an animal body with human-like posture, facial expressions, speech, and behavior.)", "Mythfolk\n(Mythfolk is races that mostly looks like humans like Dwarfs, Elves etc...)", "Tauric\n(Tauric are hybrid species with a humanoid upper body and an animal-like lower body, such as centaurs, lamias, and mermaids.)", "Beastkin\n(Beastkin is a character with animal features like ears and tail but otherwise human appearance.)", "Animalistic\n(Animalistic refers to standard animals, fantasy creatures, or monsters that behave and appear primarily as non-human beings, typically walking on all fours and lacking human speech or reasoning.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
@@ -197,8 +197,8 @@ INSTRUCTION: Only respond in the given format.|
 	:}|
 	/else {:
 		/let key=find {{getvar::animalBase}}: List|
-		/findentry field=comment file="CMC Variables" {{var::find}}|
-		/getentryfield field=content file="CMC Variables" {{pipe}}|
+		/findentry field=comment file="CMC Static Variables" {{var::find}}|
+		/getentryfield field=content file="CMC Static Variables" {{pipe}}|
 		/split find="---" {{pipe}} |
 		/setvar key=speciesGroup {{pipe}}|
 		/buttons labels={{getvar::speciesGroup}} Select the Species Group you want to use for later when generating the Species.|
@@ -251,8 +251,8 @@ INSTRUCTION: Only respond in the given format.|
 			/abort
 		:}|
 		/let key=find {{var::t}}: List|
-		/findentry field=comment file="CMC Variables" {{var::find}}|
-		/getentryfield field=content file="CMC Variables" {{pipe}}|
+		/findentry field=comment file="CMC Static Variables" {{var::find}}|
+		/getentryfield field=content file="CMC Static Variables" {{pipe}}|
 		/split find="---" {{pipe}} |
 		/setvar key=temp1 {{pipe}}|
 		/setvar key=temp {{getvar::temp1}}|

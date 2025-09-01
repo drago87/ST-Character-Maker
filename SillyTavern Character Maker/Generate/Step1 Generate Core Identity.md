@@ -208,8 +208,8 @@
 		/elseif ((characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')) {:
 			
 			/let key=find "Reproductive {{getvar::animalBase}}: List"|
-			/findentry field=comment file="CMC Variables" {{var::find}}|
-			/getentryfield file="CMC Variables" {{pipe}}| 
+			/findentry field=comment file="CMC Static Variables" {{var::find}}|
+			/getentryfield file="CMC Static Variables" {{pipe}}| 
 			/let key=temp {{pipe}}|
 			/split find="/---/" {{var::temp}}|
 			/var key=temp {{pipe}}|
@@ -358,8 +358,8 @@
 		/elseif ((characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')) {:
 			
 			/let key=find "Reproductive {{getvar::animalBase}}: List"|
-			/findentry field=comment file="CMC Variables" {{var::find}}|
-			/getentryfield file="CMC Variables" {{pipe}}| 
+			/findentry field=comment file="CMC Static Variables" {{var::find}}|
+			/getentryfield file="CMC Static Variables" {{pipe}}| 
 			/let key=temp {{pipe}}|
 			/split find="/---/" {{var::temp}}|
 			/var key=temp {{pipe}}|
@@ -545,36 +545,36 @@
 	
 	/ife ((( nationality != '') and ( nationality != 'None')) and (( ethnicity != '') and ( ethnicity != 'None'))) {:
 		/let key=find Origin1: Task|
-		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
-		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{pipe}}|
 		/let key=task|
 		/var key=find Origin1: Instruction|
-		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
-		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{pipe}}|
 		/let key=instruct|
 		/genraw "{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/setvar key=parsedOrigin {{pipe}}|
 	:}|
 	/elseif ((( nationality != '') and ( nationality != 'None')) and (( ethnicity == '') or ( ethnicity == 'None'))) {:
 		/let key=find Origin2: Task|
-		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
-		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{pipe}}|
 		/let key=task|
 		/var key=find Origin2: Instruction|
-		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
-		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{pipe}}|
 		/let key=instruct|
 		/genraw "{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/setvar key=parsedOrigin {{pipe}}|
 	:}|
 	/elseif ((( ethnicity != '') and ( ethnicity != 'None')) and (( nationality == '') or ( nationality == 'None'))) {:
 		/let key=find Origin3: Task|
-		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
-		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{pipe}}|
 		/let key=task|
 		/var key=find Origin3: Instruction|
-		/findentry field=comment file="CMC Generation Prompts" "{{var::find}}"|
-		/getentryfield field=content file="CMC Generation Prompts" {{pipe}}|
+		/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+		/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{pipe}}|
 		/let key=instruct|
 		/genraw "{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 		/setvar key=parsedOrigin {{pipe}}|

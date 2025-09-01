@@ -1,7 +1,7 @@
 /ife (qestions == '') {: 
 	/findentry field=comment file="CMC Questions" "Personality: Q"|
 	/let key=wi_uid {{pipe}}|
-	/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
+	/getentryfield field=content file="CMC Information {{getglobalvar::model}}" {{var::wi_uid}}|
 	/let key=unfilteredQuestions {{pipe}}|
 	/split find="\n" {{var::unfilteredQuestions}}|
 	/var key=unfilteredQuestions {{pipe}}|

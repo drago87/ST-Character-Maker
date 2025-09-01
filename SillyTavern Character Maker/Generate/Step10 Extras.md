@@ -342,9 +342,9 @@
 		:}|
 		
 		
-		/findentry field=comment file="CMC Variables" "Someone Random"|
+		/findentry field=comment file="CMC Static Variables" "Someone Random"|
 		/let key=wi_uid {{pipe}}|
-		/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+		/getentryfield field=content file="CMC Static Variables" {{var::wi_uid}}|
 		/let key=rnd {{pipe}}|
 		/var key=do {{noop}}|
 		/whilee (do != 'Done') {:

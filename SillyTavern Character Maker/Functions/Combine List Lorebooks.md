@@ -15,9 +15,9 @@
 /setvar as=array key=wi_input_content []|
 /wait {{getvar::wait}}|
 /foreach {{getvar::wi_input_entries}} {:
-	/findentry field=comment file="{{getvar::input}}" "{{var::item}}"|
+	/findentry field=comment file="{{getvar::input}} {{getglobalvar::model}}" "{{var::item}}"|
 	/let key=wi_uid {{pipe}}|
-	/getentryfield field=content file="{{getvar::input}}" {{var::wi_uid}}|
+	/getentryfield field=content file="{{getvar::input}} {{getglobalvar::model}}" {{var::wi_uid}}|
 	/addvar key=wi_input_content {{pipe}}|
 :}|
 

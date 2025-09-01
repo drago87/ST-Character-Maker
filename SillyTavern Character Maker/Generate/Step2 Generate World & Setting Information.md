@@ -377,6 +377,23 @@
 		/setvar key=userReflexivePronoun themself|
 		/setvar key=userIdentityDescriptor "--User--’s gender is unspecified and should be described using flexible or inclusive language, avoiding gendered pronouns or assumptions."|
 	:}|
+	/findentry field=comment file="CMC Static Variables" "User Roles"|
+	/getentryfield field=content file="CMC Static Variables" {{pipe}}|
+	/let key=roles {{pipe}}|
+	/split find="---" {{var::roles}}|
+	/setvar key=userRoles {{pipe}}|
+	/addvar key=userRoles "Manual Input"|
+	/var key=roles {{getvar::userRoles}}|
+	/flushvar userRoles|
+	/buttons labels={{var::roles}} Select the role you want --User-- to have in the story.|
+	/setvar key=genRole {{pipe}}|
+	/ife (genRole == 'Manual Input') {:
+		/input default="{{getvar::firstName}}'s " Write the role you want --User-- to have.|
+		/setvar key=genRole {{pipe}}|
+	:}|
+	/ife (genRole != '') {:
+		/setvar key=genRole "--User-- is {{getvar::genRole}}"|
+	:}|
 	
 	/ife ((outputIsList == 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
@@ -730,7 +747,7 @@
 			/setvar as=string key={{var::variableName}} {{noop}}|
 		:}|
 		
-		/setvar key=genSettings index=guidencePrompt **GUIDANCE:**{{newline}}The following is a user-written concept or description for the world setting. Use it as an **inspirational seed** — it defines tone, structure, and cultural logic, but should **not** be copied or paraphrased.{{newline}}{{newline}}Your output must:{{newline}}- Treat this as background lore, encyclopedia-style — **objective, atmospheric, and character-free**.{{newline}}- Expand upon the mood, logic, and worldbuilding ideas without restating any full lines or bullet points.{{newline}}- Match the genre, tone, and level of detail implied by the user's input.{{newline}}{{newline}}|
+		
 		
 		//[[Generate with Prompt]]|
 		/:"CMC Logic.GenerateWithPrompt"|

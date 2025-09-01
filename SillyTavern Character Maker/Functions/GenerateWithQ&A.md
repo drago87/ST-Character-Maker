@@ -41,9 +41,9 @@
 :}|
 
 /ife ( useContext_f == 'Yes') {:
-	/findentry field=comment file="CMC Information" "Base Information"|
+	/findentry field=comment file="CMC Information {{getglobalvar::model}}" "Base Information"|
 	/var key=wi_uid {{pipe}}|
-	/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
+	/getentryfield field=content file="CMC Information {{getglobalvar::model}}" {{var::wi_uid}}|
 	/var key=context {{pipe}}|
 	/ife ( real == 'Yes') {:
 		/var key=context {{var::context}}{{var::realParced}}|
@@ -51,10 +51,10 @@
 	/ife ( contextKey_f != '') {:
 		/foreach {{var::contextKey_f}} {:
 			/var key=find "{{var::item}}: Context"|
-			/findentry field=comment file="CMC Information" "{{var::find}}"|
+			/findentry field=comment file="CMC Information {{getglobalvar::model}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
 			/ife ( wi_uid != '') {:
-				/getentryfield field=content file="CMC Information" {{var::wi_uid}}|
+				/getentryfield field=content file="CMC Information {{getglobalvar::model}}" {{var::wi_uid}}|
 				/var key=context "{{var::context}}{{newline}}{{newline}}{{pipe}}"|
 			:}|
 		:}|
