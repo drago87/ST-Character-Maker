@@ -6,7 +6,7 @@
 	/let key=wi_uid {{pipe}}|
 	/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
 	/let key=selectModels {{pipe}}|
-	/buttons multiple=true labels={{var::selectModels}} Select the model you want to download the model lorebook prompts for.|
+	/buttons multiple=true labels={{var::selectModels}} Select the model prompts you want use for generation.|
 	/setglobalvar key=model {{pipe}}|
 	/ife (model == '') {:
 		/echo Aborting |
@@ -97,7 +97,7 @@
 	
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{var::selectedModel}}/CMC%20Information%20{{var::selectedModel}}.json|
 	/var key=f {{pipe}}|
-	/ife ( 'CMC Generation Prompts {{var::selectedModel}}.json' not in databaseList){:
+	/ife ( 'CMC Information {{var::selectedModel}}.json' not in databaseList){:
 		/db-add source=chat name="CMC Information {{var::selectedModel}}.json" {{var::f}}|
 		/db-disable source=chat CMC Information {{var::selectedModel}}.json|
 	:}|
@@ -105,4 +105,6 @@
 		/db-update source=chat name="CMC Information {{var::selectedModel}}.json" {{var::f}}|
 		/db-disable source=chat CMC Information {{var::selectedModel}}.json|
 	:}|
+	/popup Don't forget to download the .json files from the databank. It will open automaticly.|
+	/db
 :}|

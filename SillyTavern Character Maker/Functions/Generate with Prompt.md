@@ -159,7 +159,7 @@
 	:}|
 :}|
 /else {:
-	/echo Missing WI entry {{var::find}} from the WI {{var::wi_book_f}}|
+	/echo Missing WI entry '{{var::find}}' from the WI '{{var::wi_book_f}}'|
 	/echo Aborting |
 	/abort
 :}|
@@ -179,7 +179,7 @@
 	/var key=task {{pipe}}|
 :}|
 /else {:
-	/echo Missing WI entry {{var::find}} from the WI {{var::wi_book_f}}|
+	/echo Missing WI entry '{{var::find}}' from the WI '{{var::wi_book_f}}'|
 	/echo Aborting |
 	/abort
 :}|
@@ -199,7 +199,7 @@
 	/var key=instruct {{pipe}}|
 :}|
 /else {:
-	/echo Missing WI entry {{var::find}} from the WI {{var::wi_book_f}}|
+	/echo Missing WI entry '{{var::find}}' from the WI '{{var::wi_book_f}}'|
 	/echo Aborting |
 	/abort
 :}|
