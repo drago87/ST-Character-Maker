@@ -377,8 +377,8 @@
 		/setvar key=userReflexivePronoun themself|
 		/setvar key=userIdentityDescriptor "--User--’s gender is unspecified and should be described using flexible or inclusive language, avoiding gendered pronouns or assumptions."|
 	:}|
-	/findentry field=comment file="CMC Static Variables" "User Roles"|
-	/getentryfield field=content file="CMC Static Variables" {{pipe}}|
+	/findentry field=comment file="CMC Variables" "User Roles"|
+	/getentryfield field=content file="CMC Variables" {{pipe}}|
 	/let key=roles {{pipe}}|
 	/split find="---" {{var::roles}}|
 	/setvar key=userRoles {{pipe}}|

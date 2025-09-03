@@ -14,19 +14,23 @@
 :}|
 
 /ife ('Default' in qrList) {:
-	/qr-list CMC Main|
+	/qr-list Default|
 	/let key=qrListContent {{pipe}}|
-	/ife ('Update CMC Script' not in qrListContent) {:
-		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Delete%20setts.md|
+	/ife ('CMC Menu' not in qrListContent) {:
+		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/CMC%20Menu.md|
 	
-		/qr-create set="Default" label="Update CMC Script" {{pipe}}|
+		/qr-create set="Default" label="CMC Menu" {{pipe}}|
+	:}|
+	/else {:
+		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/CMC%20Menu.md|
+		/qr-update set=Default label="CMC Menu" {{pipe}}|
 	:}|
 :}|
 /else ('Default' not in qrList) {:
 	/qr-set-create Default|
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Delete%20setts.md|
 	
-	/qr-create set="Default" label="Update CMC Script" {{pipe}}|
+	/qr-create set="Default" label="CMC Menu" {{pipe}}|
 :}|
 
 

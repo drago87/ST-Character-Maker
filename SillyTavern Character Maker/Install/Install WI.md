@@ -30,20 +30,21 @@
 			/db-disable source=chat CMC Information {{var::item}}.json|
 		:}|
 	:}|
-	
-	/ife ( 'CMC Variables {{var::item}}' not in lorebookList) {:
-		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{var::item}}/CMC%20Variables%20{{var::item}}.json|
-		/let key=f {{pipe}}|
-		/ife ( 'CMC Variables {{var::item}}.json' not in databaseList){:
-			/db-add source=chat name="CMC Variables {{var::item}}.json" {{var::f}}|
-			/db-disable source=chat CMC Variables {{var::item}}.json|
-		:}|
-		/else {:
-			/db-update source=chat name="CMC Variables {{var::item}}.json" {{var::f}}|
-			/db-disable source=chat CMC Variables {{var::item}}.json|
-		:}|
+:}|
+
+/ife ( 'CMC Variables' not in lorebookList) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{var::item}}/CMC%20Variables.json|
+	/let key=f {{pipe}}|
+	/ife ( 'CMC Variables.json' not in databaseList){:
+		/db-add source=chat name="CMC Variables.json" {{var::f}}|
+		/db-disable source=chat CMC Variables.json|
+	:}|
+	/else {:
+		/db-update source=chat name="CMC Variables.json" {{var::f}}|
+		/db-disable source=chat CMC Variables.json|
 	:}|
 :}|
+
 /ife ( 'CMC Questions' not in lorebookList) {:
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Questions.json|
 	/let key=f {{pipe}}|
@@ -109,10 +110,10 @@
 	:}|
 :}|
 
-/let key=counter 5|
+/let key=counter 6|
 /len {{getglobalvar::models}}|
-/mul {{pipe}} 3|
+/mul {{pipe}} 2|
 /add {{pipe}} counter|
 /var key=counter {{pipe}}|
-/popup Download all .json files (Should be {{var::counter}} of them) from SillyTavern Data Bank (It will open when you press ok) and import them into the lorebook/World Info.|
+/popup Download all .json files starting with CMC (Should be {{var::counter}} of them) from SillyTavern Data Bank (It will open when you press ok) and import them into the lorebook/World Info.|
 /db|

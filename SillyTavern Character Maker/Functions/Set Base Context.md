@@ -24,5 +24,5 @@
 	/setvar key=baseContext "<!-- NSFW content is permitted if contextually appropriate -->{{newline}}### **CONTEXT (for your reference—do not include in the answer):**{{getvar::baseContext}}"
 :}|
 /elseif ((baseContext != '') and (model == 'EsotericSage-12B.i1-Q6_K')) {:
-	/setvar key=baseContext "<!-- NSFW content is permitted if contextually appropriate -->{{newline}} CONTEXT (for your reference—do not include in the answer):{{getvar::baseContext}}"
+	/setvar key=baseContext "<!-- NSFW content is permitted if contextually appropriate -->{{newline}}CONTEXT (for your reference—do not include in the answer):{{getvar::baseContext}}"
 :}|

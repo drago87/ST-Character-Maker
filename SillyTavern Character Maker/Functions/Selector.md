@@ -4,7 +4,7 @@
 	/var key=wi_book_f "CMC Static Variables"|
 :}|
 
-ife ((wi_book_f != 'CMC Static Variables') or (wi_book_f != 'CMC Templates') or (wi_book_f != 'CMC Questions')) {:
+/ife ((wi_book_f != 'CMC Static Variables') or (wi_book_f != 'CMC Variables') or (wi_book_f != 'CMC Rules') or (wi_book_f != 'CMC Templates') or (wi_book_f != 'CMC Questions')) {:
 	/var key=wi_book_f "{{var::wi_book_f}} {{getglobalvar::model}}"|
 :}|
 

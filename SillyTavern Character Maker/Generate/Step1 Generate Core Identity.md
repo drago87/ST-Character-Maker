@@ -47,7 +47,8 @@
 :}|
 /ife ( do == 'Yes' ) {:
 	/setvar key=genSettings {}|
-	/setvar key=genSettings index=wi_book_key "Time Period"|
+	/setvar key=genSettings index=wi_book "CMC Variables"|
+	/setvar key=genSettings index=wi_book_key "Time Periods"|
 	/setvar key=genSettings index=combineLorebookEntries No|
 	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=inputIsList No|
@@ -208,8 +209,8 @@
 		/elseif ((characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')) {:
 			
 			/let key=find "Reproductive {{getvar::animalBase}}: List"|
-			/findentry field=comment file="CMC Static Variables" {{var::find}}|
-			/getentryfield file="CMC Static Variables" {{pipe}}| 
+			/findentry field=comment file="CMC Variables" {{var::find}}|
+			/getentryfield file="CMC Variables" {{pipe}}| 
 			/let key=temp {{pipe}}|
 			/split find="/---/" {{var::temp}}|
 			/var key=temp {{pipe}}|
@@ -358,8 +359,8 @@
 		/elseif ((characterArchetype != 'Pokémon') and (characterArchetype != 'Digimon')) {:
 			
 			/let key=find "Reproductive {{getvar::animalBase}}: List"|
-			/findentry field=comment file="CMC Static Variables" {{var::find}}|
-			/getentryfield file="CMC Static Variables" {{pipe}}| 
+			/findentry field=comment file="CMC Variables" {{var::find}}|
+			/getentryfield file="CMC Variables" {{pipe}}| 
 			/let key=temp {{pipe}}|
 			/split find="/---/" {{var::temp}}|
 			/var key=temp {{pipe}}|

@@ -3,12 +3,17 @@
 /let key=qrList {{noop}}|
 /let key=typeGuide {{noop}}|
 
-/let key=selectModels ["dans-personalityengine-v1.1.0-12b-q6_k", "EsotericSage-12B.i1-Q6_K"]|
-/buttons multiple=true labels={{var::selectModels}} Select the model you want to download the model lorebook prompts for.|
-/setglobalvar key=model {{pipe}}|
 /ife (model == '') {:
-	/echo Aborting |
-	/abort
+	/findentry field=comment file="CMC Variables" "Models"|
+	/let key=wi_uid {{pipe}}|
+	/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+	/let key=selectModels {{pipe}}|
+	/buttons multiple=true labels={{var::selectModels}} Select the model you want to download the model lorebook prompts for.|
+	/setglobalvar key=model {{pipe}}|
+	/ife (model == '') {:
+		/echo Aborting |
+		/abort
+	:}|
 :}|
 
 /messages 0|
@@ -204,8 +209,8 @@ INSTRUCTION: Only respond in the given format.|
 	:}|
 	/else {:
 		/let key=find {{getvar::animalBase}}: List|
-		/findentry field=comment file="CMC Static Variables" {{var::find}}|
-		/getentryfield field=content file="CMC Static Variables" {{pipe}}|
+		/findentry field=comment file="CMC Variables" {{var::find}}|
+		/getentryfield field=content file="CMC Variables" {{pipe}}|
 		/split find="---" {{pipe}} |
 		/setvar key=speciesGroup {{pipe}}|
 		/buttons labels={{getvar::speciesGroup}} Select the Species Group you want to use for later when generating the Species.|
@@ -258,8 +263,8 @@ INSTRUCTION: Only respond in the given format.|
 			/abort
 		:}|
 		/let key=find {{var::t}}: List|
-		/findentry field=comment file="CMC Static Variables" {{var::find}}|
-		/getentryfield field=content file="CMC Static Variables" {{pipe}}|
+		/findentry field=comment file="CMC Variables" {{var::find}}|
+		/getentryfield field=content file="CMC Variables" {{pipe}}|
 		/split find="---" {{pipe}} |
 		/setvar key=temp1 {{pipe}}|
 		/setvar key=temp {{getvar::temp1}}|
