@@ -1,4 +1,4 @@
-/buttons labels=["Change Model", "Add New Model", "Update QR buttons", "Download WI"] What do you want to do?|
+/buttons labels=["Change Model", "Add New Model", "Update QR Scripts", "Download WI"] What do you want to do?|
 /let key=selection {{pipe}}|
 
 /ife (selection == 'Change Model') {:
@@ -57,7 +57,7 @@
 	/popup Don't forget to download the .json files from the databank. It will open automaticly.|
 	/db
 :}|
-/elseif (selection == 'Update QR buttons') {:
+/elseif (selection == 'Update QR Scripts') {:
 	/qr-set-delete CMC Generate|
 	/qr-set-delete CMC Logic|
 	/qr-chat-set-off CMC Main|

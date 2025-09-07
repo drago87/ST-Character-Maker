@@ -1957,6 +1957,10 @@
 		/input default="One-Piece Swimsuit" What is the name of the outfit that caused the tan?|
 		/setvar key=parsedOutfitTan "Visible tanlines from a {{pipe}}"
 	:}|
+	/elseif ( selected_btn == 'Current Outfit') {:
+		/input default="One-Piece Swimsuit" What is the name of the outfit that caused the tan?|
+		/setvar key=parsedOutfitTan "Visible tanlines from a {{getvar::overallOutfit}}"
+	:}|
 :}|
 
 //Tanlines|

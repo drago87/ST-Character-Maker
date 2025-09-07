@@ -103,7 +103,8 @@
  - Sex Toys: --SexualFamilitaryActToys--
 
 - **Emotional Framing:** --SexualFraming--
-- **Attitude Toward Sex:** --SexualAttitude----SexualItems----SexualAbilities----Kinks----SexualityQA--
+- **Attitude Toward Sex:** --SexualAttitude--
+- **Behavior During Intimacy:** --SexualBehavior----SexualItems----SexualAbilities----Kinks----SexualityQA--
 
 - - -
 ## [OTHER_SEXUAL_NOTES]

@@ -639,6 +639,11 @@
 	/re-replace find="/--SexualAttitude--/g" replace="{{getvar::sexualAttitude}}" {{pipe}}|
 	/message-edit message=0 await=true {{pipe}}|
 :}|
+/ife (sexualBehavior != '') {:
+	/messages names=off 0|
+	/re-replace find="/--SexualBehavior--/g" replace="{{getvar::sexualBehavior}}" {{pipe}}|
+	/message-edit message=0 await=true {{pipe}}|
+:}|
 /ife (speechStyle != '') {:
 	/messages names=off 0|
 	/re-replace find="/--SpeechStyle--/g" replace="{{getvar::speechStyle}}" {{pipe}}|
