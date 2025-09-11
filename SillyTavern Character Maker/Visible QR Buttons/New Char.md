@@ -1,7 +1,34 @@
+/popup <div>If you have problems with a prompt during generation you can</div><div>1. Try pressing the 'Generate New' button.</div>
+<div>2. If the generation still poses problem you can try to Edit the prompt.</div>
+<div>3. If you still have problem you can ask for help on Discord. Include what model you are using and what prompt you are having problem with</div>|
+
 /let key=selected_btn {{noop}}|
 /let key=databaseList {{noop}}|
 /let key=qrList {{noop}}|
 /let key=typeGuide {{noop}}|
+
+/extension-exists SillyTavern-Variable-Viewer |
+/let key=vV {{pipe}}|
+/ife (vV == true) {:
+	/buttons labels=["Yes", "No"] <div>Do you want to enable debug mode?</div><div>This lets you check what the prompt sent to the LLM is.</div>|
+	/let key=check {{pipe}}|
+	/ife (check == '') {:
+		/echo Aborting |
+		/abort
+	:}|
+	/elseif (check == 'Yes') {:
+		/buttons labels=["Yes", "No"] Do you want to toggle the Variable Viewer window On/Off?|
+		/let key=toggle {{pipe}}|
+		/ife (toggle == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+		/elseif (toggle == 'Yes') {:
+			/variableviewer|
+		:}|
+	:}|
+:}|
+
 
 /ife (model == '') {:
 	/findentry field=comment file="CMC Variables" "Models"|

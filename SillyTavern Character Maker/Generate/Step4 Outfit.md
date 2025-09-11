@@ -23,8 +23,6 @@
 :}|
 
 /setvar key=stepDone No|
-
-/setvar key=stepDone No|
 /setvar key=outfitsDone Yes|
 /let key=do {{noop}}|
 /let key=variableName {{noop}}|

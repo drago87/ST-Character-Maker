@@ -12,7 +12,7 @@
 	/var key=wi_book_f "CMC Generation Prompts"|
 :}|
 
-/ife ((wi_book_f != 'CMC Static Variables') or (wi_book_f != 'CMC Variables') or (wi_book_f != 'CMC Rules') or (wi_book_f != 'CMC Templates') or (wi_book_f != 'CMC Questions')) {:
+/ife ((wi_book_f == 'CMC Generation Prompts') or (wi_book_f == 'CMC Information')) {:
 	/var key=wi_book_f "{{var::wi_book_f}} {{getglobalvar::model}}"|
 :}|
 
@@ -39,17 +39,17 @@
 		/var key=guidencePrompt_f {{pipe}}|
 		/ife (guidencePrompt_f == '') {:
 			/var key=find "Guidance Template"|
-			/findentry field=comment file="CMC Information {{getglobalvar::model}}" "{{var::find}}"|
+			/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
-			/getentryfield field=content file="CMC Information {{getglobalvar::model}}" {{var::wi_uid}}|
+			/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{var::wi_uid}}|
 			/var key=guidencePrompt_f {{pipe}}|
 		:}|
 	:}|
 	/else {:
 		/var key=find "Guidance Template"|
-		/findentry field=comment file="CMC Information {{getglobalvar::model}}" "{{var::find}}"|
+		/findentry field=comment file="CMC Templates" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
-		/getentryfield field=content file="CMC Information {{getglobalvar::model}}" {{var::wi_uid}}|
+		/getentryfield field=content file="CMC Templates" {{var::wi_uid}}|
 		/var key=guidencePrompt_f {{pipe}}|
 	:}|
 :}|
