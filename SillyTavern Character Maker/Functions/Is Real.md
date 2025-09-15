@@ -1,4 +1,4 @@
-/buttons labels=["Yes", "No"] Is the character you are making a "real" character from a game/anime/book etc..?|
+/buttons labels=["Yes", "No"] <div>Is the character you are making a "real" character from a game/anime/book etc..?</div><div>The Result depends on how much information the model you are using have about the character.</div> |
 /setvar key=real {{pipe}}|
 /ife ( real == ''){:
 	/echo Aborting|

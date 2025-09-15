@@ -4423,7 +4423,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Occupation Duties: Instruction",
-            "content": "Generation Rules:\n- Output must be a **comma-separated list** of **5 to 7 core duties** tied to the occupation’s daily, weekly, or seasonal routine.\n- Adjust the duties to match the setting’s world type and time period — avoid anachronistic or out-of-place activities.\n- Focus on actions the character performs regularly — physical tasks, mental roles, magical rituals, or social responsibilities.\n- Keep each duty **short and clear** — use sentence fragments (not full sentences), and avoid unnecessary filler.\n- Do **not** include any formatting, bullet points, or labels — just the raw list of duties.\n\n**Only output the duties list below this line:**",
+            "content": "Generation Rules:\n- Output must be a **comma-separated list** of **5 to 7 core duties** tied to the occupation’s daily, weekly, or seasonal routine.\n- Adjust the duties to match the setting’s world type and time period — avoid anachronistic or out-of-place activities.\n- Focus on actions the character performs regularly — physical tasks, mental roles, magical rituals, or social responsibilities.\n- Keep each duty **short and clear** — use sentence fragments (not full sentences), and avoid unnecessary filler.\n- Do **not** include any formatting, bullet points, or labels — just the raw list of duties.\n\n**Only output the comma-separated duties list below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -4458,12 +4458,12 @@
             "delay": 0,
             "displayIndex": 94,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "95": {
             "uid": 95,
@@ -4517,7 +4517,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Occupation Skills: Task",
-            "content": "Task: \nList the practical skills {{getvar::firstName}} is likely developing or using as a {{getvar::occupationBase}}. \n{{getvar::guidance}}",
+            "content": "Task: \nList the practical skills {{getvar::firstName}} is likely developing or using as a {{getvar::occupationBase}} in a comma-separated list. \n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -4552,11 +4552,6 @@
             "delay": 0,
             "displayIndex": 96,
             "triggers": [],
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            },
             "ignoreBudget": false
         },
         "97": {
@@ -4564,7 +4559,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Occupation Skills: Instruction",
-            "content": "Generation Rules:\n- Output a **comma-separated list** of **5 to 7 specific skills** related to the character’s role and duties.\n- Skills should reflect practical, magical, technical, social, or spiritual abilities relevant to the occupation.\n- Use setting-appropriate terminology — avoid anachronistic language (e.g., say “herbcraft” instead of “botany” in fantasy).\n- Each skill must be **clear, unique, and immersive** — no vague or generic entries.\n- Do **not** include formatting, punctuation, or commentary — just the raw skill list.\n\n**Only output the skill list below this line:**",
+            "content": "Generation Rules:\n- Output a **comma-separated list** of **5 to 7 specific skills** related to the character’s role and duties.\n- Skills should reflect practical, magical, technical, social, or spiritual abilities relevant to the occupation.\n- Use setting-appropriate terminology — avoid anachronistic language (e.g., say “herbcraft” instead of “botany” in fantasy).\n- Each skill must be **clear, unique, and immersive** — no vague or generic entries.\n- Do **not** include formatting, punctuation, numbering, or commentary — just the raw skill list.\n\n**Only output the comma-separated skills list below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -4599,11 +4594,6 @@
             "delay": 0,
             "displayIndex": 97,
             "triggers": [],
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            },
             "ignoreBudget": false
         },
         "98": {
@@ -18473,7 +18463,12 @@
             "cooldown": 0,
             "delay": 0,
             "triggers": [],
-            "displayIndex": 392
+            "displayIndex": 392,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "393": {
             "uid": 393,
