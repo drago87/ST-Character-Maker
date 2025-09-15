@@ -37,12 +37,12 @@
 	/let key=selectModels {{pipe}}|
 	/buttons multiple=true labels={{var::selectModels}} Select the model you want to download the model lorebook prompts for.|
 	/setglobalvar key=model {{pipe}}|
+	
 	/ife (model == '') {:
 		/echo Aborting |
 		/abort
 	:}|
 :}|
-
 /messages 0|
 /let firstMess {{pipe}}|
 /ife ( ('Installation Instructions' not in firstMess) and (continue != 'Yes')) {:

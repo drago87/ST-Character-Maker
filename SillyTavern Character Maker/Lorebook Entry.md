@@ -59,6 +59,8 @@
 			/abort|
 		:}|
 	:}|
+	
+	/popup </div>After you have exported {{getvar::firstName}} as a character file dont forget to link the lorebook '{{getvar::lorebookName}}' to it using </div>[]()
 :}|
 /else {:
 	/popup The name of the lorebook is wrong. Try again.|
