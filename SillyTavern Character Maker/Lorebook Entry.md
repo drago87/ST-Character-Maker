@@ -60,7 +60,7 @@
 		:}|
 	:}|
 	
-	/popup </div>After you have exported {{getvar::firstName}} as a character file dont forget to link the lorebook '{{getvar::lorebookName}}' to it using </div>[]()
+	/popup <div>After you have exported {{getvar::firstName}} as a character file dont forget to link the lorebook '{{getvar::lorebookName}}' to it using the globe button</div><div><img src="https://raw.githubusercontent.com/drago87/ST-Character-Maker/Fetch-Files/SillyTavern%20Character%20Maker/Images/Character%20Lore%20Button.png" alt="Character Lore Button"></div></div>Then make sure that your sorebook is selected Here.|
 :}|
 /else {:
 	/popup The name of the lorebook is wrong. Try again.|
