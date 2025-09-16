@@ -181,6 +181,10 @@
 	/setvar key=toneDescriptor "{{getvar::worldTone}} — dystopian, broken, and hopeless"|
 :}|
 
+
+
+
+
 //World Type|
 /var key=do No|
 /var key=variableName "worldType"|
@@ -197,6 +201,69 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	
+	/ife ((mostImportant == '') or (skip == 'Update')) {:
+		/findentry field=comment file="CMC Variables" "Setting Scope Priority"|
+		/let key=wi_uid {{pipe}}|
+		/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+		/setvar key=settingScope {{pipe}}|
+		/split find="---" {{getvar::settingScope}}|
+		/setvar key=settingScope {{pipe}}|
+		
+		/setvar key=mostImportant {{noop}}|
+		/setvar key=middleImportant {{noop}}|
+		/setvar key=leastImportant {{noop}}|
+		
+		/buttons labels={{getvar::settingScope}} <div>Select what you deeam most important for the world building.</div><div>Most important focus: Selecting</div><div>Secondary support: Not Selected</div><div>Least important (background only): Not Selected</div>|
+		/setvar key=mostImportant {{pipe}}|
+		/ife (mostImportant == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	    /else {:
+		    /find index=true {{getvar::settingScope}} {:
+				/test left={{var::item}} rule=eq right={{getvar::mostImportant}}|
+			:}|
+			/let key=i {{pipe}}|
+			/splice delete=1 start={{var::i}} {{getvar::settingScope}}|
+			/setvar key=settingScope {{pipe}}|
+		:}|
+	:}|
+	
+	/ife ((middleImportant == '') or (skip == 'Update')) {:
+		/buttons labels={{getvar::settingScope}} <div>Select what you deeam as a secondary support for the world building.</div><div>Most important focus: {{getvar::mostImportant}}</div><div>Secondary support: Selecting</div><div>Least important (background only): Not Selected</div>|
+		/setvar key=middleImportant {{pipe}}|
+		/ife (middleImportant == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	    /else {:
+		    /find index=true {{getvar::settingScope}} {:
+				/test left={{var::item}} rule=eq right={{getvar::middleImportant}}|
+			:}|
+			/let key=i {{pipe}}|
+			/splice delete=1 start={{var::i}} {{getvar::settingScope}}|
+			/setvar key=settingScope {{pipe}}|
+		:}|
+	:}|
+	
+	/ife ((leastImportant == '') or (skip == 'Update')) {:
+		/buttons labels={{getvar::settingScope}} <div>Select what you deeam as the important for the world building.</div><div>Most important focus: {{getvar::mostImportant}}</div><div>Secondary support: {{getvar::middleImportant}}</div><div>Least important (background only): Selecting</div>|
+		/setvar key=leastImportant {{pipe}}|
+		/ife (leastImportant == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	    /else {:
+		    /find index=true {{getvar::settingScope}} {:
+				/test left={{var::item}} rule=eq right={{getvar::leastImportant}}|
+			:}|
+			/let key=i {{pipe}}|
+			/splice delete=1 start={{var::i}} {{getvar::settingScope}}|
+			/setvar key=settingScope {{pipe}}|
+		:}|
+	:}|
+	
 	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "World Type"|
 	/setvar key=genSettings index=genIsList Yes|
@@ -830,7 +897,7 @@
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
 	
-	/setvar key=genSettings index=guidencePrompt **GUIDANCE:**{{newline}}The following user-provided notes reflect key ideas about {{getvar::firstName}}’s upbringing, personality, or environment. Use these as **directional context** to inspire the backstory — not as facts to restate directly.{{newline}}{{newline}}Your output must:{{newline}}- Prioritize emotional and narrative insight into {{getvar::firstName}}.{{newline}}- Weave setting, culture, or social rules **through** the character’s experiences.{{newline}}- Never restate the guidance verbatim or list it point by point.{{newline}}- Assume the guidance reflects the **logic of the world** — write as if it’s already true.{{newline}}{{newline}}|
+	
 	
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.GenerateWithPrompt"|

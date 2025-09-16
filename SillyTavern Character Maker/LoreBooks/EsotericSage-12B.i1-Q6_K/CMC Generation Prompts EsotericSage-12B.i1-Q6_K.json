@@ -99,7 +99,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "World Type: Task",
-            "content": "Task:\nGenerate a single, full-sentence world type that could replace X in the sentence:\n**“The story takes place in a X setting.”**\n\nThe world type must reflect:\n- The genre: **{{getvar::settingType}}** — but do **not** mention it by name. Convey it **implicitly** through imagery, theme, or atmosphere.\n- The time period: **{{getvar::timePeriod}}** — but do **not** state the date or era directly. Reflect it through environment, technology, or social context.\n- The tone: **{{getvar::worldTone}}** — express this through the setting's mood or tension.\n- The main character is {{getvar::firstName}} and {{getvar::subjPronoun}} is a: **{{getvar::parcedAge}} {{getvar::gender}} {{getvar::parsedSpecies}} {{getvar::lifeStage}}** — integrate naturally into the environment if relevant.\n- Any concepts or details in: **{{getvar::guidance}}**",
+            "content": "Task:\nGenerate a single, full-sentence description that could replace X in the sentence:\n**“The story takes place in a X setting.”**\n\nBalance the description using the following priority order:\n- **Most important focus:** {{getvar::mostImportant}}\n- **Secondary support:** {{getvar::middleImportant}}\n- **Least important (background only):** {{getvar::leastImportant}}\n\nThe world type must reflect:\n- The genre: **{{getvar::settingType}}** — but do **not** mention it by name. Convey it **implicitly** through imagery, theme, or atmosphere.\n- The time period: **{{getvar::timePeriod}}** — but do **not** state the date or era directly. Reflect it through environment, technology, or social context.\n- The tone: **{{getvar::worldTone}}** — express this through the setting's mood or tension.\n- Any concepts or details in: **{{getvar::guidance}}**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -134,19 +134,14 @@
             "delay": 0,
             "displayIndex": 2,
             "triggers": [],
-            "ignoreBudget": false,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "ignoreBudget": false
         },
         "3": {
             "uid": 3,
             "key": [],
             "keysecondary": [],
             "comment": "World Type: Instruction",
-            "content": "Generation Rules:\n- Your sentence **must begin** with: **“The story takes place in”**\n- It must be a **single, self-contained sentence** with no trailing commas or dependent phrases.\n- The sentence **may include** punctuation at the end (period preferred).\n- Do not include or refer to the genre name (e.g., “Fantasy,” “Science Fiction”) or specific years (e.g., “1940s,” “prehistoric,” “2000s”).\n- Do not reuse or closely mimic any item in: `{{getvar::excludedList}}`\n- Output only the sentence — no formatting, bullets, or commentary.\n\n**Only output the world type sentence below this line:**",
+            "content": "Generation Rules:\n- Your sentence **must begin** with: **“The story takes place in”**\n- Anchor the description in {{getvar::mostImportant}}, weave in {{getvar::middleImportant}}, and touch lightly on {{getvar::leastImportant}}.\n- It must be a **single, self-contained sentence** with no trailing commas or dependent phrases.\n- Do not include or refer to the genre name (e.g., “Fantasy,” “Science Fiction”) or specific years (e.g., “1940s,” “prehistoric,” “2000s”).\n- Do not reuse or closely mimic any item in: `{{getvar::excludedList}}`\n- Output only the sentence — no formatting, bullets, or commentary.\n\n**Only output the world type sentence below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -193,7 +188,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "World Details: Examples",
-            "content": "Examples (for reference only — do not include in the output):\n\nFantasy – Late Middle Ages: \nA kingdom fractured by war and prophecy, where enchanted forests and plague-ridden cities teeter on the edge of collapse.\n\nScience Fiction – Cyberpunk: \nA neon-drenched megacity run by corporate warlords and inhabited by tech-augmented drifters, where identity is a fluid commodity.\n\nRealistic – Post-WWII Era: \nA recovering European nation, where bombed-out cities struggle to rebuild amid rationing, black market trades, and displaced families.",
+            "content": "Examples (for reference only — do not include in the output):\n\nWorld (mostImportant) / Country (middleImportant) / City (leastImportant):\nAn ancient continent splintered by faith and famine, where kingdoms rise and fall, their capitals pulsing with quiet desperation.\n\nCountry (mostImportant) / Region (middleImportant) / City (leastImportant):\nA fractured nation clinging to its river valleys and fertile plains, its frontier provinces restless and its towns echoing with unease.\n\nCity (mostImportant) / Neighborhood (middleImportant) / Household (leastImportant):\nA bustling desert bazaar full of spice-laden stalls and clashing tongues, its narrow quarters alive with rumors behind shuttered doors.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -228,19 +223,19 @@
             "delay": 0,
             "displayIndex": 4,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "5": {
             "uid": 5,
             "key": [],
             "keysecondary": [],
             "comment": "World Details: Task",
-            "content": "Task: \nWrite one descriptive sentence that establishes the atmosphere and tone of a {{getvar::timePeriod}} {{getvar::settingType}} world. \nUse {{getvar::worldType}} as subtext for environmental or cultural flavor. \nReflect the intended tone: {{getvar::worldTone}}. \n{{getvar::guidance}}",
+            "content": "Task:\nWrite one descriptive sentence that establishes the atmosphere and tone of a {{getvar::timePeriod}} {{getvar::settingType}} world.\nBalance the description using the following priority order:\n- **Most important focus:** {{getvar::mostImportant}}\n- **Secondary support:** {{getvar::middleImportant}}\n- **Least important (background only):** {{getvar::leastImportant}}\n\nUse '{{getvar::worldType}}' as subtext for environmental or cultural flavor.\nReflect the intended tone: {{getvar::worldTone}}.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -275,19 +270,19 @@
             "delay": 0,
             "displayIndex": 5,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "6": {
             "uid": 6,
             "key": [],
             "keysecondary": [],
             "comment": "World Details: Instruction",
-            "content": "Generation Rules:\n- The output must be **a single vivid sentence** that conveys mood and atmosphere — not a plot summary or historical overview.\n- Do **not** list events or narrate scenes — instead, evoke place, tension, or lifestyle.\n- Let {{getvar::worldType}} shape the sensory tone or lifestyle implied, but **do not quote or paraphrase it** directly.\n- Match the sentence’s tone to {{getvar::worldTone}} ({{getvar::toneDescriptor}}).\n- Avoid character actions or quotes — this is a setting impression, not a narrative.\n- Do **not** include formatting, punctuation beyond the sentence itself, or any extra commentary.\n\n**Only output the setting descriptor sentence below this line:**",
+            "content": "Generation Rules:\n- Output must be a **single vivid sentence** that conveys mood and atmosphere at the scale of {{getvar::mostImportant}}, supported by {{getvar::middleImportant}}, with {{getvar::leastImportant}} as minor backdrop.\n- Avoid narrowing only to a household, workplace, or street unless **explicitly set as mostImportant**.\n- Do **not** list events or narrate scenes — evoke place, lifestyle, or mood.\n- Let {{getvar::worldType}} shape the sensory tone or cultural feel, but **do not quote or paraphrase it** directly.\n- Match the sentence’s tone to {{getvar::worldTone}} ({{getvar::toneDescriptor}}).\n- Avoid character actions or quotes — this is a setting impression, not a narrative.\n- Do **not** include formatting, punctuation beyond the sentence itself, or extra commentary.\n\n**Only output the setting descriptor sentence below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -322,12 +317,12 @@
             "delay": 0,
             "displayIndex": 6,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "7": {
             "uid": 7,
@@ -3953,7 +3948,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Backstory: Task",
-            "content": "## **TASK:**\nWrite {{getvar::firstName}}’s backstory as a concise narrative paragraph that gives insight into who they are and how they’ve lived.\n{{getvar::guidance}}",
+            "content": "## **TASK:**\nWrite {{getvar::firstName}}’s backstory as a concise narrative paragraph that gives insight into who {{getvar::subjPronoun}} and how {{getvar::subjPronoun}} have lived.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -3987,13 +3982,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 84,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "85": {
             "uid": 85,
@@ -4423,7 +4418,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Occupation Duties: Instruction",
-            "content": "Generation Rules:\n- Output must be a **comma-separated list** of **5 to 7 core duties** tied to the occupation’s daily, weekly, or seasonal routine.\n- Adjust the duties to match the setting’s world type and time period — avoid anachronistic or out-of-place activities.\n- Focus on actions the character performs regularly — physical tasks, mental roles, magical rituals, or social responsibilities.\n- Keep each duty **short and clear** — use sentence fragments (not full sentences), and avoid unnecessary filler.\n- Do **not** include any formatting, bullet points, or labels — just the raw list of duties.\n\n**Only output the comma-separated duties list below this line:**",
+            "content": "Generation Rules:\n- Output exactly **5 to 7 duties** written in plain text, separated only by commas.\n- Do not use bullets, dashes, or numbering — just a single flowing line.\n- Duties must reflect the occupation’s daily, weekly, or seasonal routine, tailored to the setting.\n- Keep each duty short, clear, and action-focused — use fragments, not full sentences.\n- Do not add extra text, commentary, or formatting — return only the raw duties.\n\n**Only output the comma-separated duties in one single line below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -4552,14 +4547,19 @@
             "delay": 0,
             "displayIndex": 96,
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "97": {
             "uid": 97,
             "key": [],
             "keysecondary": [],
             "comment": "Occupation Skills: Instruction",
-            "content": "Generation Rules:\n- Output a **comma-separated list** of **5 to 7 specific skills** related to the character’s role and duties.\n- Skills should reflect practical, magical, technical, social, or spiritual abilities relevant to the occupation.\n- Use setting-appropriate terminology — avoid anachronistic language (e.g., say “herbcraft” instead of “botany” in fantasy).\n- Each skill must be **clear, unique, and immersive** — no vague or generic entries.\n- Do **not** include formatting, punctuation, numbering, or commentary — just the raw skill list.\n\n**Only output the comma-separated skills list below this line:**",
+            "content": "Generation Rules:\n- Output exactly **5 to 7 skills** written in plain text, separated only by commas.\n- Do not use bullets, dashes, or numbering — just a single flowing line.\n- Each skill must be concise, distinct, and setting-appropriate (fantasy, sci-fi, historical, or realistic).\n- Use immersive terminology relevant to the occupation — avoid vague phrases or anachronisms.\n- Do not add explanations, commentary, or extra formatting — return only the raw text.\n\n**Only output the comma-separated skills in one single line below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -4594,7 +4594,12 @@
             "delay": 0,
             "displayIndex": 97,
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "98": {
             "uid": 98,
@@ -7139,7 +7144,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "World Type: Examples",
-            "content": "Examples (for reference only — do not include in the output):\n\nExample – Realistic:\nThe story takes place in a suburban cul-de-sac where neighbors trade secrets beneath trimmed hedges.\n\nExample – Realistic:\nThe story takes place in a struggling Midwestern diner clinging to old routines and fading hopes.\n\nExample – Fantasy:\nThe story takes place in a ruined cathedral where forgotten gods whisper through cracked stained glass.\n\nExample – Fantasy:\nThe story takes place in a floating archipelago patrolled by skyward leviathans and pirate clans.\n\nExample – Science Fiction:\nThe story takes place in a Martian mining colony where oxygen is currency and loyalty is rare.\n\nExample – Science Fiction:\nThe story takes place in a sentient virtual world that punishes those who question its reality.\n\nExample – Horror:\nThe story takes place in a long-abandoned amusement park where the rides still move at night.\n\nExample – Horror:\nThe story takes place in a decaying hospital overtaken by sentient mold and vanishing patients.\n\nExample – Historical:\nThe story takes place in a war-torn village balancing occupation, resistance, and betrayal.\n\nExample – Historical:\nThe story takes place in a Gilded Age mansion where social ambition masks deadly secrets.",
+            "content": "Examples (for reference only — do not include in the output):\n\nExample – World (mostImportant) / Country (middleImportant) / City (leastImportant):\nThe story takes place in a fractured realm of empires where a fading kingdom clings to relevance, its crowded capital simmering with unrest.\n\nExample – Country (mostImportant) / City (middleImportant) / Street (leastImportant):\nThe story takes place in a war-torn republic where its bombed-out capital still stirs with life, alleys whispering rumors of rebellion.\n\nExample – City (mostImportant) / Region (middleImportant) / World (leastImportant):\nThe story takes place in a bustling desert trade hub shaped by the shifting dunes beyond, watched by distant empires locked in uneasy peace.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -18558,6 +18563,53 @@
             "delay": 0,
             "triggers": [],
             "displayIndex": 392,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
+        },
+        "395": {
+            "uid": 395,
+            "key": [],
+            "keysecondary": [],
+            "comment": "Backstory: Guide",
+            "content": "**GUIDANCE:**\nThe following user-provided notes reflect key ideas about {{getvar::firstName}}’s upbringing, personality, or environment. Use these as **directional context** to inspire the backstory — not as facts to restate directly.\n\nYour output must:{{newline}}- Prioritize emotional and narrative insight into {{getvar::firstName}}.\n- Weave setting, culture, or social rules **through** the character’s experiences\n- Never restate the guidance verbatim or list it point by point.\n- Assume the guidance reflects the **logic of the world** — write as if it’s already true.\n\n",
+            "constant": false,
+            "vectorized": false,
+            "selective": true,
+            "selectiveLogic": 0,
+            "addMemo": true,
+            "order": 100,
+            "position": 0,
+            "disable": false,
+            "ignoreBudget": false,
+            "excludeRecursion": false,
+            "preventRecursion": false,
+            "matchPersonaDescription": false,
+            "matchCharacterDescription": false,
+            "matchCharacterPersonality": false,
+            "matchCharacterDepthPrompt": false,
+            "matchScenario": false,
+            "matchCreatorNotes": false,
+            "delayUntilRecursion": false,
+            "probability": 100,
+            "useProbability": true,
+            "depth": 4,
+            "group": "",
+            "groupOverride": false,
+            "groupWeight": 100,
+            "scanDepth": null,
+            "caseSensitive": null,
+            "matchWholeWords": null,
+            "useGroupScoring": null,
+            "automationId": "",
+            "role": null,
+            "sticky": 0,
+            "cooldown": 0,
+            "delay": 0,
+            "triggers": [],
+            "displayIndex": 83,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],

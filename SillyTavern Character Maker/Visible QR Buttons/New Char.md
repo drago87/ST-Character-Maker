@@ -29,7 +29,7 @@
 	:}|
 :}|
 
-
+/*
 /ife (model == '') {:
 	/findentry field=comment file="CMC Variables" "Models"|
 	/let key=wi_uid {{pipe}}|
@@ -43,6 +43,7 @@
 		/abort
 	:}|
 :}|
+*/
 /messages 0|
 /let firstMess {{pipe}}|
 /ife ( ('Installation Instructions' not in firstMess) and (continue != 'Yes')) {:
