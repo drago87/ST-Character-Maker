@@ -5,6 +5,31 @@
 /let key=examples {{noop}}|
 /let key=task {{noop}}|
 /let key=instruct {{noop}}|
+/let key=contextStarter {{noop}}|
+/let key=contextStopper {{noop}}|
+/let key=examplesStarter {{noop}}|
+/let key=examplesStopper {{noop}}|
+/let key=taskStarter {{noop}}|
+/let key=taskStopper {{noop}}|
+/let key=instructionsStarter {{noop}}|
+/let key=instructionsStopper {{noop}}|
+
+/findentry field=comment file="CMC Static Variables" "Need Stopper"|
+/var key=wi_uid {{pipe}}|
+/getentryfield field=content file="CMC Static Variables" {{var::wi_uid}}|
+/let key=needed {{pipe}}|
+/split find="---" {{var::needed}}|
+/var key=needed {{pipe}}|
+/ife (model in needed) {:
+	/var key=contextStarter "<context>{{newline}}"|
+	/var key=contextStopper "{{newline}}</context>"|
+	/var key=examplesStarter "<examples>{{newline}}"|
+	/var key=examplesStopper "{{newline}}</examples>"|
+	/var key=taskStarter "<task>{{newline}}"|
+	/var key=taskStopper "{{newline}}</task>"|
+	/var key=instructionsStarter "<instructions>{{newline}}"|
+	/var key=instructionsStopper "{{newline}}</instructions>"|
+:}|
 
 /getvar key=genSettings index=wi_book|
 /let key=wi_book_f {{pipe}}|
@@ -137,7 +162,7 @@
 	:}|
 :}|
 /ife (context != '') {:
-	/var key=context "[{{var::context}}]{{newline}}{{newline}}"|
+	/var key=context "[{{var::contextStarter}}{{var::context}}{{var::contextStopper}}]{{newline}}{{newline}}"|
 :}|
 
 /ife (debug == 'Yes') {:
@@ -155,7 +180,7 @@
 	/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
 	/let key=tEx {{pipe}}|
 	/ife (tEx != '') {:
-		/var key=examples [{{var::tEx}}]|
+		/var key=examples [{{var::examplesStarter}}{{var::tEx}}{{var::examplesStopper}}]|
 	:}|
 :}|
 /else {:
@@ -176,7 +201,7 @@
 /let key=taskTest {{pipe}}|
 /ife (find == taskTest) {:
 	/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
-	/var key=task {{pipe}}|
+	/var key=task [{{var::taskStarter}}{{pipe}}{{var::taskStopper}}]|
 :}|
 /else {:
 	/echo Missing WI entry '{{var::find}}' from the WI '{{var::wi_book_f}}'|
@@ -196,7 +221,7 @@
 /let key=instructTest {{pipe}}|
 /ife (find == instructTest) {:
 	/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
-	/var key=instruct {{pipe}}|
+	/var key=instruct [{{var::instructionsStarter}}{{pipe}}{{var::instructionsStopper}}]|
 :}|
 /else {:
 	/echo Missing WI entry '{{var::find}}' from the WI '{{var::wi_book_f}}'|
@@ -310,15 +335,22 @@
 			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
 			/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
-			/var key=task {{pipe}}|
+			/var key=task [{{var::taskStarter}}{{pipe}}{{var::taskStopper}}]|
 			/var key=find "{{var::wi_book_key_f}}: Instruction"|
 			/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 			/var key=wi_uid {{pipe}}|
 			/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
-			/var key=instruct {{pipe}}|
+			/var key=instruct [{{var::instructionsStarter}}{{pipe}}{{var::instructionsStopper}}]|
 			/echo Generatig {{var::wi_book_key_f}} {{var::i}}/{{var::genAmount_f}}|
-			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}[{{var::task}}]{{newline}}{{newline}}[{{var::instruct}}]"|
+			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 			/var key=t {{pipe}}|
+			/ife (debug == 'Yes') {:
+				/setvar key="00 Genraw" "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
+				/setvar key="01 Context" {{var::context}}|
+				/setvar key="02 Examples" {{var::examples}}|
+				/setvar key="03 Task" {{var::task}}|
+				/setvar key="04 Instruktions" {{var::instruct}}|
+			:}|
 			/ife ((t not in outputGen) and (t != '')) {:
 				/addvar key=outputGen {{var::t}}|
 				/join {{getvar::tempList}}|
@@ -383,14 +415,14 @@
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
 		/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
-		/var key=task {{pipe}}|
+		/var key=task [{{var::taskStarter}}{{pipe}}{{var::taskStopper}}]|
 		/var key=find "{{var::wi_book_key_f}}: Instruction"|
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
 		/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
-		/var key=instruct {{pipe}}|
+		/var key=instruct [{{var::instructionsStarter}}{{pipe}}{{var::instructionsStopper}}]|
 		/ife (wi_book_key_f != 'First Message') {:
-			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}[{{var::task}}]{{newline}}{{newline}}[{{var::instruct}}]"|
+			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}"|
 			/var key=t {{pipe}}|
 		:}|
 		/elseif (wi_book_key_f == 'First Message') {:
@@ -398,7 +430,7 @@
 			/setvar key=fullCharacterSheet {{pipe}}|
 			/re-replace find="/--FirstName--/g" replace="{{getvar::firstName}}" {{getvar::fullCharacterSheet}}|
 			/setvar key=fullCharacterSheet {{pipe}}|
-			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}[{{var::task}}]{{newline}}{{newline}}[{{var::instruct}}]{{newline}}{{newline}}## [CHARACTER_SHEET_REFERENCE]
+			/genraw "{{var::context}}{{var::examples}}{{newline}}{{newline}}{{var::task}}{{newline}}{{newline}}{{var::instruct}}{{newline}}{{newline}}## [CHARACTER_SHEET_REFERENCE]
 Below is the full character sheet for {{getvar::firstName}}. Use it to understand {{getvar::subjPronoun}}’s personality, tone, and behavioral cues. This is reference only — do not quote or summarize it.
 
 {{getvar::fullCharacterSheet}}"|
@@ -638,7 +670,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
 		/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
-		/var key=task {{pipe}}|
+		/var key=task [{{var::taskStarter}}{{pipe}}{{var::taskStopper}}]|
 	:}|
 	/elseif ( selected_btn == 'Customize Parts of the generation') {:
 		/buttons labels=["Yes", "Reset", "No"] Do you want to Customize the {Modifier} of the formula {Modifier} + {Archetype} + {Addition}?|
@@ -706,7 +738,7 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
 		/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
-		/var key=task {{pipe}}|
+		/var key=task [{{var::taskStarter}}{{pipe}}{{var::taskStopper}}]|
 		/ife (debug == 'Yes') {:
 			/setvar key="03 Task" {{var::task}}|
 		:}|
@@ -717,9 +749,9 @@ Below is the full character sheet for {{getvar::firstName}}. Use it to understan
 		/findentry field=comment file="{{var::wi_book_f}}" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
 		/getentryfield field=content file="{{var::wi_book_f}}" {{var::wi_uid}}|
-		/var key=instruct {{pipe}}|
+		/var key=instruct [{{var::instructionsStarter}}{{pipe}}{{var::instructionsStopper}}]|
 		/ife (debug == 'Yes') {:
-			/setvar key="04 Instruktions" {{var::instruct}}|
+			/setvar key="04 Instruktions" [{{var::instruct}}]|
 		:}|
 		/else {:
 			/flushvar "04 Instruktions"|

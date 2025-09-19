@@ -38,6 +38,8 @@
 
 
 ### STARTING OUTFIT
+[IMPORTANT NOTE FOR AI: In this section None means that --FirstName-- is not wearing anything there.]
+
 - Head: --OutfitHead--
 - Accessories: --OutfitAccessories--
 - Makeup: --OutfitMakeup--

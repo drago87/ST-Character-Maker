@@ -134,7 +134,12 @@
             "delay": 0,
             "displayIndex": 2,
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "3": {
             "uid": 3,
@@ -376,7 +381,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Scenario User: Examples",
-            "content": "### **EXAMPLES (for reference only — do not include in the output):**\nIn one of his adventures, --User-- was severely wounded and lost his party. However, a passing healer ({{getvar::firstName}}) saved him and brought him to a nearby Maretta's [...]",
+            "content": "Examples (for reference only — do not include in the output):\nIn one of his adventures, --User-- was severely wounded and lost his party. However, a passing healer ({{getvar::firstName}}) saved him and brought him to a nearby Maretta's [...]",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -410,20 +415,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 8,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "9": {
             "uid": 9,
             "key": [],
             "keysecondary": [],
             "comment": "Scenario User: Task",
-            "content": "## **TASK:**\nEnhance the following scenario idea by expanding on its setting, mood, and stakes, while keeping the core premise unchanged.\n“{{getvar::scenarioIde}}”  \n{{getvar::guidance}}",
+            "content": "Task:\nEnhance the following scenario idea by expanding on its setting, mood, and stakes, while keeping the core premise unchanged.\n“{{getvar::scenarioIde}}”\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -457,20 +462,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 9,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "10": {
             "uid": 10,
             "key": [],
             "keysecondary": [],
             "comment": "Scenario User: Instruction",
-            "content": "## **INSTRUCTIONS:**\n- Preserve the original **scenario’s meaning, characters, and timeline** — do not introduce unrelated changes or outcomes.\n- Expand the idea with **grounded detail**: Where is it happening? What tension or urgency is present? What physical or emotional elements shape the moment?\n- Do not create new events, twist the scenario’s intent, or alter character roles.\n- Write in a neutral, immersive **third-person summary** — no inner thoughts, quotes, or dialogue.\n- Respond with one **tight paragraph**, approximately 3–5 sentences in length.\n{{getvar::logicBasedInstruction}}",
+            "content": "Generation Rules:\n- Preserve the original scenario’s meaning, characters, and timeline — do not introduce unrelated changes or outcomes.\n- Expand the idea with grounded detail: Where is it happening? What tension or urgency is present? What physical or emotional elements shape the moment?\n- Do not create new events, twist the scenario’s intent, or alter character roles.\n- Write in a neutral, immersive third-person summary — no inner thoughts, quotes, or dialogue.\n- Respond with one tight paragraph, approximately 3–5 sentences in length.\n{{getvar::logicBasedInstruction}}\n\n**Only output the expanded scenario paragraph below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -504,13 +509,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 10,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "11": {
             "uid": 11,
@@ -1679,20 +1684,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 35,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "36": {
             "uid": 36,
             "key": [],
             "keysecondary": [],
             "comment": "Archetype Base: Instruction",
-            "content": "Generation Rules:\n- Combine the three variables in **this exact order**:\n  - `{{getvar::settingModifier}}` – An emotional tone or behavior style (e.g., “Shy”, “Detached”, “Weepy”).\n  - `{{getvar::settingArchetype}}` – A **personality trope or character type**, such as “Kuudere”, “Ojou-sama”, “Dreamer”, “Tomboy”, “Cynic”.\n    - **Do not** use occupations (e.g., “Knight”, “Healer”, “Teacher”) or species-based terms (e.g., “Fox”, “Horse”, “Dragon”).\n  - `{{getvar::settingAddition}}` – A quirk, emotional fixation, or interpersonal trait (e.g., “with a secret soft side”, “who fears being touched”).\n\n- If any of the values are missing, substitute with:\n  - “Reserved” for Modifier\n  - “Idealist” for Archetype\n  - “who avoids close contact” for Addition\n  (Never invent species terms, objects, fantasy symbols, or poetic abstractions.)\n\n- Output only one sentence, formatted as:\n  **Modifier Archetype Addition**\n  Example: *Shy Dreamer who avoids close contact.*\n\n- Do **not** use names, species, formatting (bold/italic), or commentary.\n- Do **not** include:\n  - Occupations, professions, species, taxonomy, metaphors, or physical descriptions.\n  - Role terms like “sibling”, “trainer”, “guardian”, or “teacher” in the Archetype.\n\n**Only output the full sentence below this line — no labels, names, or formatting:**",
+            "content": "Generation Rules:\n- Combine the three variables in **this exact order**:\n  - `{{getvar::settingModifier}}` – An emotional tone or behavior style (e.g., “Shy”, “Detached”, “Weepy” etc..).\n  - `{{getvar::settingArchetype}}` – A **personality trope or character type**, such as “Kuudere”, “Ojou-sama”, “Dreamer”, “Tomboy”, “Cynic” etc...\n    - **Do not** use occupations (e.g., “Knight”, “Healer”, “Teacher”) or species-based terms (e.g., “Fox”, “Horse”, “Dragon”).\n  - `{{getvar::settingAddition}}` – A quirk, emotional fixation, or interpersonal trait (e.g., “with a secret soft side”, “who fears being touched” etc..).\n\n- Output only one sentence, formatted as:\n  **Modifier Archetype Addition**\n  Example: *Shy Dreamer who avoids close contact.*\n\n- Do **not** use names, species, formatting (bold/italic), or commentary.\n- Do **not** include:\n  - Occupations, professions, species, taxonomy, metaphors, or physical descriptions.\n  - Role terms like “sibling”, “trainer”, “guardian”, or “teacher” in the Archetype.\n\n**Only output the full sentence below this line — no labels, names, or formatting:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -1726,13 +1731,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 36,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "37": {
             "uid": 37,
@@ -1773,20 +1778,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 37,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "38": {
             "uid": 38,
             "key": [],
             "keysecondary": [],
             "comment": "Archetype Details: Examples",
-            "content": "EXAMPLES (for reference only — do not include in the output):\n\nExample:\nShe is brimming with questions, always scribbling observations instead of speaking up.\n\nExample:\nShe leads with confidence and laughter, often masking nerves with bold plans.\n\nExample:\nHe rarely makes eye contact and tends to follow others out of quiet caution.\n\nExample:\nHe moves through life in routines and patterns — structure calms the mind.\n\nExample:\nShe helps eagerly, then panics when asked to explain or take credit.\n\nExample:\nShe retreats into daydreams during stress, where expectations can't follow.\n\nExample:\nShe speaks in clipped, efficient phrases and prefers facts over feelings.",
+            "content": "Examples (for reference only — do not include in the output):\n\nExample:\nShe is brimming with questions, always scribbling observations instead of speaking up.\n\nExample:\nShe leads with confidence and laughter, often masking nerves with bold plans.\n\nExample:\nHe rarely makes eye contact and tends to follow others out of quiet caution.\n\nExample:\nHe moves through life in routines and patterns — structure calms the mind.\n\nExample:\nShe helps eagerly, then panics when asked to explain or take credit.\n\nExample:\nShe retreats into daydreams during stress, where expectations can't follow.\n\nExample:\nShe speaks in clipped, efficient phrases and prefers facts over feelings.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -1821,19 +1826,14 @@
             "delay": 0,
             "displayIndex": 38,
             "triggers": [],
-            "ignoreBudget": false,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "ignoreBudget": false
         },
         "39": {
             "uid": 39,
             "key": [],
             "keysecondary": [],
             "comment": "Archetype Details: Task",
-            "content": "TASK:\nWrite a short sentence that explains the following archetype and describes baseline behavior.\n'{{getvar::personalityArchetype}}'  \n{{getvar::guidance}}",
+            "content": "Task:\nWrite a single sentence that describes the character’s baseline behavior, fully reflecting all aspects of the given personality archetype.\n'{{getvar::personalityArchetype}}'\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -1868,19 +1868,14 @@
             "delay": 0,
             "displayIndex": 39,
             "triggers": [],
-            "ignoreBudget": false,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "ignoreBudget": false
         },
         "40": {
             "uid": 40,
             "key": [],
             "keysecondary": [],
             "comment": "Archetype Details: Instruction",
-            "content": "INSTRUCTIONS:\n- Treat this as part of a neutral character profile entry — not a scene or monologue.\n- Do **not** include the character’s name, species, age, or any external labels.\n- Focus on describing **observable behavior** that reflects the archetype — the sort of habits, reactions, or demeanor others would notice.\n- Output exactly one sentence, compact and immersive.\n- No dialogue, no backstory, no explanation — that comes in the next section.",
+            "content": "Generation Rules:\n- Incorporate **all key components** of the archetype phrase, including traits like “shy,” “energetic,” or other descriptors.\n- Focus on **observable behavior** — habits, reactions, or demeanor others would notice.\n- Output exactly **one compact, immersive sentence**.\n- Do **not** include the character’s name, species, age, or external labels.\n- Do **not** include dialogue, backstory, or explanation — those belong in other sections.\n\n**Only output the sentence below this line — no tags, no formatting, no extra text:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -1915,12 +1910,7 @@
             "delay": 0,
             "displayIndex": 40,
             "triggers": [],
-            "ignoreBudget": false,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "ignoreBudget": false
         },
         "41": {
             "uid": 41,
@@ -3901,7 +3891,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Backstory: Examples",
-            "content": "## **EXAMPLES (for reference only — do not include in the output):**\n#### **Example: Fantasy – High Middle Ages**\nRaised in a fog-shrouded mountain village, Elira grew up listening to stories of fire-breathing wyrms and vanished kings. After losing her brother to a border raid, she apprenticed under the village herbalist, trading plant lore for emotional distance. Her calm, ghost-like presence hides a fierce curiosity that has only grown with each passing winter.\n\n#### **Example: Science Fiction – Post-Apocalyptic**\nJax was born in the shadow of a ruined data tower, where rusted tech and lost knowledge shaped every scrap of his childhood. He scavenged, fought, and learned to lie before he could read. These days, he serves as a code-runner between tribal enclaves — trusted by no one, useful to everyone.\n\n#### **Example: Realistic – Modern Day**\nEmily grew up in a lakeside town too quiet for her mind. Her parents ran a seasonal café, and while they spoke in smiles, she always noticed the silence between them. Now a university dropout back in the old family home, she spends more time with the dog than with people, drifting through summer with one foot in nostalgia and the other in regret.",
+            "content": "Examples (for reference only — do not include in the output):\n\nExample: Fantasy – High Middle Ages\nRaised in a fog-shrouded mountain village, Elira grew up listening to stories of fire-breathing wyrms and vanished kings. After losing her brother to a border raid, she apprenticed under the village herbalist, trading plant lore for emotional distance. Her calm, ghost-like presence hides a fierce curiosity that has only grown with each passing winter.\n\nExample: Science Fiction – Post-Apocalyptic\nJax was born in the shadow of a ruined data tower, where rusted tech and lost knowledge shaped every scrap of his childhood. He scavenged, fought, and learned to lie before he could read. These days, he serves as a code-runner between tribal enclaves — trusted by no one, useful to everyone.\n\nExample: Realistic – Modern Day\nEmily grew up in a lakeside town too quiet for her mind. Her parents ran a seasonal café, and while they spoke in smiles, she always noticed the silence between them. Now a university dropout back in the old family home, she spends more time with the dog than with people, drifting through summer with one foot in nostalgia and the other in regret.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -3935,20 +3925,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 83,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "84": {
             "uid": 84,
             "key": [],
             "keysecondary": [],
             "comment": "Backstory: Task",
-            "content": "## **TASK:**\nWrite {{getvar::firstName}}’s backstory as a concise narrative paragraph that gives insight into who {{getvar::subjPronoun}} and how {{getvar::subjPronoun}} have lived.\n{{getvar::guidance}}",
+            "content": "Task:\nWrite {{getvar::firstName}}’s backstory as a concise narrative paragraph that gives insight into who {{getvar::subjPronoun}} is and how {{getvar::subjPronoun}} have lived.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -3995,7 +3985,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Backstory: Instruction",
-            "content": "## **INSTRUCTIONS:**\n- Ground the backstory in their world, residence, species, and life stage — include key moments or patterns that shaped them.\n- You may hint at childhood, formative relationships, hardships, talents, or reputation.\n- Use a tone that fits the {{getvar::worldType}} and {{getvar::timePeriod}} — magical, gritty, dystopian, rural, etc.\n- Do not include exposition about the world itself — focus on {{getvar::firstName}}’s personal path.\n- Output a single paragraph in natural, immersive language with no labels or extra formatting.",
+            "content": "Generation Rules:\n- Ground the backstory in their world, residence, species, and life stage — include key moments or patterns that shaped them.\n- You may hint at childhood, formative relationships, hardships, talents, or reputation.\n- Shape the tone and atmosphere to fit the descriptive **world context** ({{getvar::worldType}}) and the **historical or thematic frame** ({{getvar::timePeriod}}).\n- Use the **world context** and the **historical or thematic frame** only as **influences on tone, atmosphere, and cultural flavor**. Do not copy their text directly into the backstory.\n- Do not include exposition about the world itself — focus on {{getvar::firstName}}’s personal path.\n- Output a single paragraph in natural, immersive language with no labels or extra formatting.\n\n**Only output the backstory paragraph below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -4029,20 +4019,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 85,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "86": {
             "uid": 86,
             "key": [],
             "keysecondary": [],
             "comment": "Scenario Create: Examples",
-            "content": "### **EXAMPLES (for reference only — do not include in the output):**\nIn one of his adventures, --User-- was severely wounded and lost his party. However, a passing healer ({{getvar::firstName}}) saved him and brought him to a nearby Maretta's [...]",
+            "content": "Examples (for reference only — do not include in the output):\nIn one of his adventures, --User-- was severely wounded and lost his party. However, a passing healer ({{getvar::firstName}}) saved him and brought him to a nearby Maretta's [...]",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -4076,20 +4066,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 86,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "87": {
             "uid": 87,
             "key": [],
             "keysecondary": [],
             "comment": "Scenario Create: Task",
-            "content": "## **TASK:**\nCreate an immersive scenario involving {{getvar::firstName}} from scratch, using the world and character context.  \n{{getvar::guidance}}",
+            "content": "Task:\nCreate an immersive scenario involving {{getvar::firstName}} from scratch, using the world and character context.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -4123,20 +4113,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 87,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "88": {
             "uid": 88,
             "key": [],
             "keysecondary": [],
             "comment": "Scenario Create: Instruction",
-            "content": "## **INSTRUCTIONS:**  \n- The scenario must be grounded in {{getvar::firstName}}’s world, species, life stage, and any existing context.  \n- Focus on tone, setting, and situation — a moment in time, not a biography.  \n- Keep the writing immersive but concise — 3 to 5 sentences max.  \n- Do not include any dialogue, quoted speech, or character thoughts. The scenario should read like a third-person scene summary, not a monologue or script.\n{{getvar::logicBasedInstruction}}",
+            "content": "Generation Rules:\n- The scenario must be grounded in {{getvar::firstName}}’s world, species, life stage, and any existing context.\n- Focus on tone, setting, and situation — a moment in time, not a biography.\n- Keep the writing immersive but concise — 3 to 5 sentences maximum.\n- Do not include any dialogue, quoted speech, or character thoughts. The scenario should read like a third-person scene summary, not a monologue or script.\n{{getvar::logicBasedInstruction}}\n\n**Only output the scenario paragraph below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -4170,13 +4160,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 88,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "89": {
             "uid": 89,
@@ -4888,7 +4878,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Face: Examples",
-            "content": "### **EXAMPLES (for reference only — do not include in the output):**\n\n#### **Example (Human – Teen Girl):**\nSoft and rounded face with a faint dusting of freckles that adds to her youthful charm.\n\n#### **Example (Beastkin – Fox Girl):**\nMostly human face framed by soft fox ears and a light dusting of fur along the cheeks. Expressions are lively and animated.\n\n#### **Example (Anthropomorphic – Wolf Male):**\nFully lupine face with a short muzzle, angular jawline, and thick fur trailing down the jaw.\n\n#### **Example (Tauric – Lamia):**\nHumanoid face with subtle scales across the cheeks and sharp cheekbones that highlight predatory elegance.\n\n#### **Example (Animalistic – Dragon):**\nLong, angular snout with horned ridges and tightly scaled skin. The jaw tapers to a narrow point, giving a regal look.",
+            "content": "Example (Human – Teen Girl):\nSoft and rounded face with a faint dusting of light freckles across fair skin that adds to her youthful charm.\n\nExample (Beastkin – Fox Girl):\nMostly human face framed by soft russet fur along the cheeks and a cream-colored muzzle. Expressions are lively and animated.\n\nExample (Anthropomorphic – Wolf Male):\nFully lupine face with a short gray muzzle, angular jawline, and thick silver-gray fur trailing down the jaw.\n\nExample (Tauric – Lamia):\nHumanoid face with subtle greenish scales across the cheeks and sharp cheekbones that highlight predatory elegance.\n\nExample (Animalistic – Dragon):\nLong, angular snout with dark red horned ridges and tightly scaled emerald-green skin. The jaw tapers to a narrow point, giving a regal look.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -4922,20 +4912,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 104,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "105": {
             "uid": 105,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Face: Task",
-            "content": "## **TASK:**\nDescribe {{getvar::firstName}}’s face based on their species, life stage, and gender.\n{{getvar::guidance}}",
+            "content": "Task:\nDescribe the character’s face in 1–2 neutral, descriptive sentences{{getvar::faceTaskColor}}.\nUse the context above to guide facial structure and visible traits.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -4969,20 +4959,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 105,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "106": {
             "uid": 106,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Face: Instruction",
-            "content": "## **INSTRUCTIONS:**\n- Describe only the character’s **face**: jawline, muzzle/snout, cheekbones, markings, skin/fur/scales.\n- You may use {{getvar::subjPronoun}}, {{getvar::possAdjPronoun}}, or {{getvar::reflexivePronoun}} for clarity — but never the character’s name.\n- You may describe visible traits like freckles, baby fat, youthful charm, or soft skin — if they reflect appearance, not emotion.\n- Do **not** describe facial expressions, mood, or implied behavior.\n- Do **not** include hair, eyes, outfit, or body features.\n- Keep it to **1–2 neutral, descriptive sentences**, focused solely on the face.",
+            "content": "Generation Rules:\n- Describe only the **face**: jawline, muzzle/snout, cheekbones, markings, skin/fur/scales.\n- Include only strictly **appearance-related features** (freckles, baby fat, soft skin, scales, etc.){{getvar::faceRulesColor}}.\n- Do **not** mention the character’s name, age, gender, or species explicitly.\n- Do **not** describe hair, eyes, clothing, or other body parts.\n- Do **not** describe expressions, mood, or implied behavior.\n- You may use pronouns ({{getvar::subjPronoun}}/{{getvar::objPronoun}}/{{getvar::reflexivePronoun}}) if needed for clarity.\n- Output exactly 1–2 sentences.\n- Do **not** repeat or copy any instructions, examples, guidance text, or variable names.\n- If uncertain, output a safe, neutral description consistent with the character’s context without referencing metadata literally.\n\n**Only output the facial description below this line — no names, no demographics, no extra formatting:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5016,20 +5006,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 106,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "107": {
             "uid": 107,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Hair: Examples",
-            "content": "EXAMPLES (for reference only — do not include in the output):\n\nExample (Human – Teen Girl):\nShort, uneven black hair cropped close behind the ears, with soft curls at the crown that rise slightly from sleep or motion.\n\nExample (Beastkin – Cat Girl):\nCoarse chestnut fur forms a tight crest along her skull, tapering into a thick mane that blends with the shoulder fur.\n\nExample (Anthropomorphic – Hyena Male):\nThick, scruffy mane brushed back in jagged tufts that follow the ridge of the skull and neck.\n\nExample (Tauric – Naga):\nLong and glossy hair cascading over the shoulders and curling slightly where it brushes the upper serpent body.\n\nExample (Animalistic – Horse):\nShort, bristled mane standing upright along the neck, twitching subtly with movement.",
+            "content": "Example (Human – Teen Girl):\nShort, uneven black hair cropped close behind the ears, with soft dark brown curls at the crown that rise slightly from sleep or motion.\n\nExample (Beastkin – Cat Girl):\nCoarse chestnut fur forms a tight crest along her skull, tapering into a thick mane of lighter tan fur that blends with the shoulder fur.\n\nExample (Anthropomorphic – Hyena Male):\nThick, scruffy mane brushed back in jagged tufts of sandy brown and dark brown that follow the ridge of the skull and neck.\n\nExample (Tauric – Naga):\nLong and glossy jet-black hair cascading over the shoulders, curling slightly where it brushes the upper serpent body, with streaks of deep blue along the tips.\n\nExample (Animalistic – Horse):\nShort, bristled mane standing upright along the neck, alternating between dark brown and chestnut, twitching subtly with movement.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5063,20 +5053,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 107,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "108": {
             "uid": 108,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Hair: Task",
-            "content": "TASK:\nDescribe {{getvar::firstName}}’s **hair** using their species, age, and gender as described in the context above.  \n{{getvar::guidance}}",
+            "content": "Task:\nWrite a neutral description of the character’s {{getvar::hairStyle}} in 1–2 sentences.\nFocus only on appearance: length, texture, style, color, and species-based integration (crest, mane, feathers, fur, etc.).\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5110,20 +5100,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 108,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "109": {
             "uid": 109,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Hair: Instruction",
-            "content": "INSTRUCTIONS:\n- Describe **only** {{getvar::firstName}}’s **hair or head-fur**: include length, style, texture, and species-based integration (e.g., crest, mane etc..).\n- If the species has fur or feathers instead of hair, describe the equivalent head covering.\n- You may include how {{getvar::possAdjPronoun}} hair is typically kept or styled, but do **not** describe actions, movement, or personality.\n- Do **not** include fashion accessories, clothing, or unrelated body parts.\n- Do **not** use the character’s name. You may use {{getvar::possAdjPronoun}} or {{getvar::subjPronoun}} as needed.\n- Limit the output to 1–2 vivid, neutral sentences written in third person.\n- **Avoid** emotional tone, metaphor, or behavior-based framing (e.g., “rebellious,” “flirty,” “messy from a fight”).\n- Do **not** describe the muzzle, face shape, eyes, or general facial anatomy — focus strictly on the hair or head-fur only.",
+            "content": "Generation Rules:\n- Describe only the **hair or head-fur** (or equivalent covering if the species lacks hair).\n- Always include **color** and specify which parts are which color if multiple shades are present.\n- Do **not** mention or restate the character’s name, age, gender, species, or origin.\n- Do **not** begin with “The girl’s,” “His,” “Her,” or similar — start directly with the description (e.g., “Fine, golden blonde hair…”).\n- You may use pronouns ({{getvar::subjPronoun}} / {{getvar::possAdjPronoun}} / {{getvar::reflexivePronoun}}) only if strictly necessary for clarity.\n- Do **not** describe actions, movement, behavior, or personality.\n- Do **not** include fashion accessories, clothing, or unrelated body parts.\n- Do **not** describe face, eyes, or general anatomy — focus strictly on the hair/head covering.\n- Do **not** copy, paraphrase, or restate instructions, context, examples, or variable text.\n- Output exactly 1–2 neutral, descriptive sentences.\n- If uncertain, output a safe, neutral description consistent with the character’s context without referencing metadata literally.\n\n**Only output the hair description below this line — no names, no demographics, no instructions, no variable text, no examples:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5157,20 +5147,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 109,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "110": {
             "uid": 110,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Eyes: Examples",
-            "content": "### **EXAMPLES (for reference only — do not include in the output):**\n\n#### **Example (Human – Teen Girl):**  \nWide and bright green eyes with a playful spark and long lashes that frame an expressive gaze.\n\n#### **Example (Beastkin – Cat Girl):**  \nAmber eyes with slit pupils and a mischievous glint, often narrowing when curious or teasing.\n\n#### **Example (Anthropomorphic – Fox Male):**  \nSharp golden eyes that reflect light like a fox’s, with dark fur markings emphasizing their intensity.\n\n#### **Example (Tauric – Naga):**  \nVertically slit jade eyes with a hypnotic quality that draws attention when staring too long.\n\n#### **Example (Animalistic – Horse):**  \nLarge, dark eyes set wide apart on an elongated face, soft and alert beneath short lashes.\n",
+            "content": "Examples (for reference only — do not include in the output):\n\nExample (Human – Teen Girl):\nWide, bright green eyes framed by long lashes that enhance their youthful clarity.\n\nExample (Beastkin – Cat Girl):\nAmber eyes with narrow slit pupils, accented by subtle fur markings at the corners.\n\nExample (Anthropomorphic – Fox Male):\nGolden eyes with sharp intensity, their shape emphasized by dark fur surrounding the lids.\n\nExample (Tauric – Naga):\nJade eyes with vertical pupils, the irises shimmering faintly against scaled ridges.\n\nExample (Animalistic – Horse):\nLarge, dark eyes set wide apart, with short lashes softening their prominence.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5204,20 +5194,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 110,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "111": {
             "uid": 111,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Features Humanoid: Examples",
-            "content": "Examples (for reference only – do not include any of these in your output):\n\nExample Output (Teen, Human):  \nTattoo, Scar, Braces\n\nExample Output (Adult, Android):  \nCybernetic Arm, Neural Port, Synthetic Skin Panel\n\nExample Output (Elder, Human):  \nSurgical Scar, Prosthetic Leg, Burn Mark",
+            "content": "Examples (for reference only – do not include any of these in your output):\n\nExample Output (Teen, Human):\nTattoo\n\nExample Output (Adult, Android):\nCybernetic Arm\n\nExample Output (Elder, Human):\nProsthetic Leg",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5251,20 +5241,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 116,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "112": {
             "uid": 112,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Features Humanoid: Task",
-            "content": "Task:  \nSuggest one visible physical modification, enhancement, or feature that distinguishes {{getvar::firstName}} from an average, unmodified human.  \nThis should be a real, physical aspect of {{getvar::possAdjPronoun}} body — not clothing or behavior.  \n{{getvar::guidance}}",
+            "content": "Task:\nSuggest one visible physical modification, enhancement, or feature that distinguishes {{getvar::firstName}} from an average, unmodified human.\nThis should be a real, physical aspect of {{getvar::possAdjPronoun}} body — not clothing or behavior.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5298,20 +5288,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 120,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "113": {
             "uid": 113,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Features Humanoid: Instruction",
-            "content": "Generation Rules:  \n- Output only one noun or noun phrase — no lists, punctuation, or extra text.  \n- The feature must be real-world plausible and clearly visible (e.g., Tattoo, Prosthetic Leg, Cybernetic Eye).  \n- Do not include non-human traits (like tails, horns, or animal ears) — this is for humanoid modifications only.  \n- Do not include internal organs, clothing, behavior, feelings, or symbolic items.  \n- Capitalize the first letter of the phrase.  \n- Do not include anything from this list: {{getvar::excludedList}}.  \n- Avoid all direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of excluded content.  \n  For example, if “Dog ears” is excluded, also avoid “Dog Ears”, “Erect dog ears”, “Furry ears”, or just “Ears”.\n\n**Only output the feature below this line:**",
+            "content": "Generation Rules:\n- Output **only one single noun or noun phrase**.\n- Do **not** output numbers, lists, bullet points, or extra words.\n- The feature must be real-world plausible and clearly visible (e.g., Tattoo, Prosthetic Leg, Cybernetic Eye).\n- Do not include non-human traits (tails, horns, animal ears, etc.) — this is for humanoid modifications only.\n- Do not include internal organs, clothing, behavior, feelings, or symbolic items.\n- Capitalize the first letter of the phrase.\n- Blacklisted features (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted features.\n- If a candidate feature is even slightly related to a blacklisted item, reject it and choose a different valid feature.\n- Never output anything from the blacklist, even if it would otherwise fit the rules.\n- If you are unsure, output a safe, simple option that follows all rules.\n\n**Only output the one feature below this line — no numbers, no bullets, no punctuation, no extra text:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5345,20 +5335,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 121,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "114": {
             "uid": 114,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Eyes: Task",
-            "content": "## **TASK:**  \nDescribe {{getvar::firstName}}’s eyes based on species, age, and gender using the provided context.  \n{{getvar::guidance}}",
+            "content": "Task:\nWrite a neutral, concise description of the character’s eyes in 1–2 sentences.\nUse the context above to guide anatomical structure and visible traits.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5392,20 +5382,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 114,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "115": {
             "uid": 115,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Eyes: Instruction",
-            "content": "## **INSTRUCTIONS:**  \n- Refer to the anatomical structure and visual style implied by the CONTEXT block.\n- Include traits such as:\n   - Eye **shape**, **size**, or **placement**\n   - **Color**, **pupil type**, or **emotional tone**\n   - Species traits (e.g., slit pupils, glowing irises, eye markings)\n- Adjust emotional expression to reflect {{getvar::lifeStage}} (e.g., innocence, intensity, weariness).\n- Write 1–2 vivid, natural sentences. Avoid robotic lists.\n- Do **not** mention hair, face, or other features unless they directly interact with the eyes (e.g., markings or expressions).\n- Never include {{getvar::firstName}}’s name, species, gender, or age as a phrase or heading — use only {{getvar::possAdjPronoun}} or {{getvar::subjPronoun}}.",
+            "content": "Generation Rules:\n- Focus only on the **eyes**: shape, size, placement, color, pupil type, markings, and structural traits.\n- You may include species-based details (e.g., slit pupils, glowing irises, wide spacing) if consistent with the context.\n- If multiple colors or markings are present, specify which part has which color.\n- Do **not** mention the character’s **name, age, gender, or species** explicitly.\n- Do **not** describe facial expressions, mood, or personality.\n- Do **not** include unrelated body parts (hair, clothing, overall face shape, etc.).\n- You may use pronouns ({{getvar::subjPronoun}} / {{getvar::possAdjPronoun}} / {{getvar::reflexivePronoun}}) if needed for clarity.\n- Output exactly 1–2 descriptive sentences.\n- Do **not** repeat or copy instructions, examples, or variable text.\n- If uncertain, output a safe, neutral description consistent with species and life stage, without referencing metadata literally.\n\n**Only output the eye description below this line — no names, no demographics, no extra formatting:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5439,20 +5429,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 115,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "116": {
             "uid": 116,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Features Other: Examples",
-            "content": "Examples (for reference only – do not include any of these in your output):\n\nExample Output (Feline Beastkin):  \nTail, Feline Ears, Clawed Hands, Digitigrade Legs\n\nExample Output (Dragonkin):  \nWings, Horns, Tail, Scales, Talons\n\nExample Output (Tauric Naga):  \nSerpentine Lower Body, Scaled Arms, Forked Tongue\n\nExample Output (Bat Anthro):  \nBat Wings, Tufted Ears, Clawed Feet, Nose Ridge",
+            "content": "Examples (for reference only – do not include any of these in your output):\n\nExample Output (Feline Beastkin):\nTail\n\nExample Output (Dragonkin):\nHorns\n\nExample Output (Tauric Naga):\nSerpentine Lower Body\n\nExample Output (Bat Anthro):\nBat Wings",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5486,13 +5476,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 116,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "117": {
             "uid": 117,
@@ -5593,7 +5583,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Head: Instruction",
-            "content": "Generation Rules:\n- Output **only a single capitalized item name**, such as “Baseball Cap” or “Wool Beret”.\n- Do **not** include any context, labels, names, species, or gender in the output.\n- The result must be **headwear only** — hats, hoods, helmets, tiaras, etc. No hairstyles or body parts.\n- Absolutely no punctuation, prefixes (like “Headwear:”), or descriptive sentences.\n- Do **not** include any headwear found in this list: {{getvar::excludedList}} — avoid exact matches, word swaps, capitalized variants, or near duplicates.\n- Output must be **just the item name** on a single line.\n\n**Only output the headwear item below this line:**",
+            "content": "Generation Rules:\n- Output **only a single capitalized item name**, such as “Baseball Cap” or “Wool Beret”.\n- Do **not** include any context, labels, names, species, or gender in the output.\n- The result must be **headwear only** — hats, hoods, helmets, tiaras, etc. No hairstyles or body parts.\n- Absolutely no punctuation, prefixes (like “Headwear:”), or descriptive sentences.\n- Blacklisted garments (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted garments.\n- If a candidate garment is even slightly related to a blacklisted item, reject it and choose a different valid garment.\n- Never output anything from the blacklist, even if it would otherwise fit the rules.\n- Output must be **just the item name** on a single line.\n\n**Only output the headwear item below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5627,20 +5617,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 119,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "120": {
             "uid": 120,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Features Other: Task",
-            "content": "Task:  \nSuggest one non-human anatomical feature that visually distinguishes {{getvar::firstName}} from a typical human.  \nThis should be a species-based physical trait such as a tail, wings, horns, claws, or unusual limbs.  \n{{getvar::guidance}}",
+            "content": "Task:\nSuggest one non-human anatomical feature that visually distinguishes {{getvar::firstName}} from a typical human.\nThis should be a species-based physical trait such as a tail, wings, horns, claws, or unusual limbs.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5674,20 +5664,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 120,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "121": {
             "uid": 121,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Features Other: Instruction",
-            "content": "Generation Rules:  \n- Output only one noun or noun phrase — no lists, punctuation, or extra text.  \n- The trait must be permanent, visible, and clearly non-human.  \n- Only include species-based anatomical traits — do not use tattoos, cybernetics, scars, markings, or clothing.  \n- Do not include standard human anatomy unless it is clearly altered (e.g., Hooved Feet, Digitigrade Legs).  \n- Capitalize the first letter of the phrase.  \n- Do not include anything from this list: {{getvar::excludedList}}.  \n- Avoid all direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of excluded content.  \n  For example, if “Dog ears” is excluded, also avoid “Dog Ears”, “Erect dog ears”, “Furry ears”, or just “Ears”.\n\n**Only output the feature below this line:**",
+            "content": "Generation Rules:\n- Output **only one single noun or noun phrase**.\n- Do **not** output numbers, lists, bullet points, or extra words.\n- The trait must be permanent, visible, and clearly non-human.\n- Only include species-based anatomical traits — do not use tattoos, cybernetics, scars, markings, or clothing.\n- Do not include standard human anatomy unless it is clearly altered (e.g., Hooved Feet, Digitigrade Legs).\n- Capitalize the first letter of the phrase.\n- Blacklisted features (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted features.\n- If a candidate feature is even slightly related to a blacklisted item, reject it and choose a different valid feature.\n- Never output anything from the blacklist, even if it would otherwise fit the rules.\n- If you are unsure, output a safe, simple option that follows all rules.\n\n**Only output the one feature below this line — no numbers, no bullets, no punctuation, no extra text:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5721,13 +5711,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 121,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "122": {
             "uid": 122,
@@ -5768,20 +5758,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 122,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "123": {
             "uid": 123,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Body: Task",
-            "content": "Task:\nDescribe {{getvar::firstName}}’s body using species, age, life stage, and anatomical structure as reference.\nIncorporate posture, silhouette, balance, and any visible traits specific to {{getvar::species}}.\n{{getvar::guidance}}",
+            "content": "Task:\nWrite a neutral, concise description of the character’s body in 1–2 sentences.\nFocus strictly on anatomical structure, posture, balance, and proportions.\n{{getvar::guidance}}\n\nCharacter Info (for anatomical reference only — do NOT output literally):\n- Species: {{getvar::parsedSpecies}}\n- Gender: {{getvar::gender}}\n- Life Stage: {{getvar::lifeStage}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5815,20 +5805,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 123,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "124": {
             "uid": 124,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Body: Instruction",
-            "content": "Generation Rules:\n- Focus on body structure only: build, proportions, limb configuration, posture, stance, and movement logic.\n- Species-specific traits may include tails, paws, legs, scales, fur, or other visible modifiers.\n- You **may** describe general motion or physical orientation (e.g., crouched, grounded, upright).\n- You **may not** include any of the following: facial traits, clothing, breasts, genitals, personality, or emotion.\n- Do not use {{getvar::firstName}} in the output. Use {{getvar::subjPronoun}} and {{getvar::possAdjPronoun}} where needed.\n- Do **not** copy or closely paraphrase from examples above. Restructure ideas and sentence order.\n- Output only **1–2 grammatically correct, neutral sentences**.\n- Avoid metaphor, mood, or behavior-based language.\n- Never include {{getvar::firstName}}’s name, species, gender, or age as a phrase or heading — use only pronouns or implicit description in the body.\n\n**Only output the description below this line:**",
+            "content": "Generation Rules:\n- Focus on body structure: build, proportions, limb configuration, balance, posture, and stance.{{getvar::femaleBodyShapeRule}}\n- Use the character info above (species, gender, life stage) **only to guide proportions**; do not output these values literally.\n- Include lower-body proportions (hips, thighs, butt) based on these reference values when relevant.\n- Describe general motion or orientation in neutral terms (e.g., upright, crouched, grounded).\n- Do not include facial traits, hair, clothing, breasts, genitals, personality, or emotion.\n- Output exactly 1–2 grammatically correct, neutral sentences.\n- Avoid metaphor, mood, or behavior-based language.\n- Do not copy or closely paraphrase examples; restructure ideas and vary sentence order.\n- Use only pronouns ({{getvar::subjPronoun}}, {{getvar::possAdjPronoun}}, {{getvar::reflexivePronoun}}) if needed for clarity.\n\n**Only output the body description below this line — no names, no demographics, no extra formatting:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -5862,13 +5852,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 124,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "125": {
             "uid": 125,
@@ -5909,13 +5899,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 125,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "126": {
             "uid": 126,
@@ -5956,20 +5946,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 126,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "127": {
             "uid": 127,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Breasts: Instruction",
-            "content": "Generation Rules:\n- Base the bust description on {{getvar::appearanceBody}}, {{getvar::appearanceFeatures}}, and species or life stage traits.\n- Emphasize shape, size, placement, and anatomical fit — avoid emotional or behavioral context.\n- Do **not** describe nipples, areolae, or internal tissue.\n- Do **not** mention clothing, personality, comfort, or any sexualized framing.\n- Never include {{getvar::firstName}}’s name, species, gender, or age as a phrase or heading — use only pronouns or implicit description in the body.\n- Output only **1–2 short, neutral sentences** written in third person.\n- Do **not** reuse example phrasing — vary sentence structure and detail emphasis.\n- Avoid metaphor, mood, or behavior-based framing.\n\n**Only output the description below this line:**",
+            "content": "Generation Rules:\n- Base the bust description on 'Body:', 'Feature:' (Only include Features if they have anything to do with Breasts), and species or life stage traits.\n- Emphasize shape, size, placement, and anatomical fit — avoid emotional or behavioral context.\n- Do **not** describe nipples, areolae, or internal tissue.\n- Do **not** mention clothing, personality, comfort, or any sexualized framing.\n- Never include {{getvar::firstName}}’s name, species, gender, or age as a phrase or heading — use only pronouns or implicit description in the body.\n- Output only **1–2 short, neutral sentences** written in third person.\n- Do **not** reuse example phrasing — vary sentence structure and detail emphasis.\n- Avoid metaphor, mood, or behavior-based framing.\n\n**Only output the description below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -6003,13 +5993,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 127,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "128": {
             "uid": 128,
@@ -6204,7 +6194,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Pussy: Task",
-            "content": "Task:\nDescribe the visible anatomy of {{getvar::possAdjPronoun}} vulva using species group, genital structure type, and anatomical context.\nFocus on static, physical description only — texture, contour, placement, and visual features.\n{{getvar::guidance}}",
+            "content": "Task:\nDescribe the visible anatomy of {{getvar::possAdjPronoun}} vulva and clit using species group, genital structure type, and anatomical context.\nFocus on static, physical description only — texture, contour, placement, and visual features.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -6238,13 +6228,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 132,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "133": {
             "uid": 133,
@@ -7472,7 +7462,7 @@
             "uid": 159,
             "key": [],
             "keysecondary": [],
-            "comment": "Outfit Accessory: Examples",
+            "comment": "Outfit Accessories: Examples",
             "content": "Examples (for reference only — do not include in the output):\n\nExample (Preteen – Fantasy Human Girl):\nCharm bracelet, beaded anklet, clip-on earrings, cloth wristband, embroidered sash, decorative hair pin, leather friendship band",
             "constant": false,
             "vectorized": false,
@@ -7519,7 +7509,7 @@
             "uid": 160,
             "key": [],
             "keysecondary": [],
-            "comment": "Outfit Accessory: Task",
+            "comment": "Outfit Accessories: Task",
             "content": "Task:\nGenerate one accessory that {{getvar::firstName}} might wear or carry.\nThe accessory must reflect their age, gender, and species appearance.\nDo not include headwear, footwear, or garments.\nBase your selection on the setting’s fashion style — do not include time period or world names in the output.\nAvoid repeating any item from the excluded list.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
@@ -7566,8 +7556,8 @@
             "uid": 161,
             "key": [],
             "keysecondary": [],
-            "comment": "Outfit Accessory: Instruction",
-            "content": "Generation Rules:\n- Choose an accessory appropriate to {{getvar::firstName}}’s age, gender, and species.\n- Valid accessories include common worn or carried items like jewelry, keychains, wristbands, small charms, or decorative tokens.\n- Do **not** include any item meant for the head, neck, torso, or feet (e.g., hats, necklaces, tops, footwear).\n- The item must be generic — describe the type only. Do **not** include names, engravings, decorations, branding, or species-specific features.\n- Avoid descriptors like colors, materials, or motifs unless necessary for identifying the item type (e.g., “fabric wristband” is fine; “red woven bracelet with star charms” is not).\n- Use only the implied style or technology level of the Time Period, Setting Type, and World Type — never include or reference these names or labels directly. \n- Return only one item name, properly capitalized — no punctuation, no formatting, no list.\n- Do **not** include any accessory found in this list: {{getvar::excludedList}} — avoid exact matches, rewordings, capitalization swaps, or variants.\n\n**Only output the accessory name below this line:**",
+            "comment": "Outfit Accessories: Instruction",
+            "content": "Generation Rules:\n- Choose an accessory appropriate to {{getvar::firstName}}’s age, gender, and species.\n- Valid accessories include common worn or carried items like jewelry, keychains, wristbands, small charms, or decorative tokens.\n- Do **not** include any item meant for the head, neck, torso, or feet (e.g., hats, necklaces, tops, footwear).\n- The item must be generic — describe the type only. Do **not** include names, engravings, decorations, branding, or species-specific features.\n- Avoid descriptors like colors, materials, or motifs unless necessary for identifying the item type (e.g., “fabric wristband” is fine; “red woven bracelet with star charms” is not).\n- Use only the implied style or technology level of the Time Period, Setting Type, and World Type — never include or reference these names or labels directly. \n- Return only one item name, properly capitalized — no punctuation, no formatting, no list.\n- Blacklisted accessories (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted accessories .\n- If a candidate accessory is even slightly related to a blacklisted item, reject it and choose a different valid accessory .\n- Never output anything from the blacklist, even if it would otherwise fit the rules.\n\n**Only output the accessory name below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -7601,19 +7591,19 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 161,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "162": {
             "uid": 162,
             "key": [],
             "keysecondary": [],
-            "comment": "Outfit Accessory Description: Examples",
+            "comment": "Outfit Accessories Description: Examples",
             "content": "### **EXAMPLES (for reference only — do not include in the output):**\n\n#### **Example:**\nA charm bracelet with silver animal tokens that jingle faintly with each movement.\n\n#### **Example:**\nA set of mismatched pins fastened to a satchel strap — one shaped like a mushroom, the other like a pixel heart.\n\n#### **Example:**\nA metallic armband with engraved runes circling the bicep, polished to a dull golden sheen.",
             "constant": false,
             "vectorized": false,
@@ -7660,7 +7650,7 @@
             "uid": 163,
             "key": [],
             "keysecondary": [],
-            "comment": "Outfit Accessory Description: Task",
+            "comment": "Outfit Accessories Description: Task",
             "content": "## **TASK:**  \nDescribe the Accessory '{{getvar::outfitAccessoriesDescriptionItem}}' in a way that fits the character’s anatomy and tone. \n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
@@ -7707,7 +7697,7 @@
             "uid": 164,
             "key": [],
             "keysecondary": [],
-            "comment": "Outfit Accessory Description: Instruction",
+            "comment": "Outfit Accessories Description: Instruction",
             "content": "## **INSTRUCTIONS:**\n- Use {{getvar::outfitAccessoriesDescriptionItem}} as the item being described — do **not change or reinterpret it**.\n- Expand the item visually — mention **material**, **color**, **engraving**, **movement**, or **cultural detail**.\n- If it’s worn, note **how or where** it sits (e.g., wrist, belt, ear, neck, etc.).\n- Stay consistent with the world context: {{getvar::settingType}}, {{getvar::timePeriod}}, {{getvar::parsedSpecies}}, and {{getvar::lifeStage}}.\n- Avoid describing behavior, personality, or body parts not directly affected.\n- Output should be **a single, immersive sentence** — no bullets, lists, or intros.\n{{getvar::logicBasedInstruction}}",
             "constant": false,
             "vectorized": false,
@@ -7849,7 +7839,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Makeup: Instruction",
-            "content": "Generation Rules:\n- Choose a cosmetic item suited to {{getvar::firstName}}’s {{getvar::lifeStage}}, {{getvar::gender}}, and {{getvar::parsedSpecies}}.\n- Valid cosmetics include lip color, blush, eyeliner, eyeshadow, foundation, nail polish, war paint, or other skin/hair/body applications.\n- Do **not** include accessories, tools (e.g., brushes), or wearable items.\n- Keep the item general and type-based (e.g., “Blush” or “Lip Balm”) — avoid branding, color names, scents, finishes, or decorative terms unless essential for classification (e.g., “Glitter Eyeshadow” is valid; “Lavender Sparkle Lip Gloss” is not).\n- Use only the implied style or technology level of the Time Period, Setting Type, and World Type — never include or reference these names or labels directly.\n- Return only one item name, properly capitalized — no punctuation, no formatting, and no lists.\n- Do **not** include any cosmetic item found in this list: {{getvar::excludedList}} — avoid exact matches, rewordings, capitalization swaps, or variants.\n\n**Only output the cosmetic item name below this line:**",
+            "content": "Generation Rules:\n- Choose a cosmetic item suited to {{getvar::firstName}}’s {{getvar::lifeStage}}, {{getvar::gender}}, and {{getvar::parsedSpecies}}.\n- Valid cosmetics include lip color, blush, eyeliner, eyeshadow, foundation, nail polish, war paint, or other skin/hair/body applications.\n- Do **not** include accessories, tools (e.g., brushes), or wearable items.\n- Keep the item general and type-based (e.g., “Blush” or “Lip Balm”) — avoid branding, color names, scents, finishes, or decorative terms unless essential for classification (e.g., “Glitter Eyeshadow” is valid; “Lavender Sparkle Lip Gloss” is not).\n- Use only the implied style or technology level of the Time Period, Setting Type, and World Type — never include or reference these names or labels directly.\n- Return only one item name, properly capitalized — no punctuation, no formatting, and no lists.\n- Blacklisted makeups (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted makeups .\n- If a candidate makeup is even slightly related to a blacklisted item, reject it and choose a different valid makeup.\n- Never output anything from the blacklist, even if it would otherwise fit the rules.\n\n**Only output the cosmetic item name below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -7884,12 +7874,12 @@
             "delay": 0,
             "displayIndex": 167,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "168": {
             "uid": 168,
@@ -8131,7 +8121,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Neck: Instruction",
-            "content": "Generation Rules:\n- Choose a neckwear item appropriate to {{getvar::firstName}}’s age, gender, and species.\n- Valid neck accessories include items such as chokers, necklaces, cords, pendants, amulets, scarves, ribbons, or collars.\n- Do **not** include accessories for other areas of the body (e.g., bracelets, hats, pins).\n- The item must be general — describe only the type. Do **not** include names, engraving, branding, or species-specific traits.\n- Avoid detailed descriptors such as color, material, or motifs unless needed to define the accessory (e.g., “leather cord necklace” is fine; “green glass pendant with flower charms” is not).\n- Use only the implied style or technology level of the Time Period, Setting Type, and World Type — never include or reference these names or labels directly.\n- Return only one item name, properly capitalized — no punctuation, no formatting, no list.\n- Do **not** include numbering, bullets, or list formatting — return only the plain item name.\n- Do **not** include any neck accessory found in this list: {{getvar::excludedList}} — avoid exact matches, rewordings, capitalization swaps, or variants.\n\n**Only output the accessory name below this line:**",
+            "content": "Generation Rules:\n- Choose a neckwear item appropriate to {{getvar::firstName}}’s age, gender, and species.\n- Valid neck accessories include items such as chokers, necklaces, cords, pendants, amulets, scarves, ribbons, or collars.\n- Do **not** include accessories for other areas of the body (e.g., bracelets, hats, pins).\n- The item must be general — describe only the type. Do **not** include names, engraving, branding, or species-specific traits.\n- Avoid detailed descriptors such as color, material, or motifs unless needed to define the accessory (e.g., “leather cord necklace” is fine; “green glass pendant with flower charms” is not).\n- Use only the implied style or technology level of the Time Period, Setting Type, and World Type — never include or reference these names or labels directly.\n- Return only one item name, properly capitalized — no punctuation, no formatting, no list.\n- Do **not** include numbering, bullets, or list formatting — return only the plain item name.\n- Blacklisted neckwears (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted neckweas.\n- If a candidate neckwear is even slightly related to a blacklisted item, reject it and choose a different valid neckwear.\n- Never output anything from the blacklist, even if it would otherwise fit the rules.\n\n**Only output the accessory name below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -8165,13 +8155,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 173,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "174": {
             "uid": 174,
@@ -8413,7 +8403,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Top: Instruction",
-            "content": "Generation Rules:\n- The item must be appropriate for {{getvar::firstName}}’s age, gender, and species anatomy.\n- Valid results include simple upper garments such as T-shirt, blouse, vest, tunic, hoodie, or robe.\n- The result must be a base clothing type — do **not** include adjectives, colors, patterns, or decorative details.\n- Do **not** include any garments for the head, lower body, full body, or feet.\n- Use only the implied fashion tone from the Time Period, Setting Type, and World Type — never reference them directly in the output.\n- Capitalize the first letter only — do **not** include punctuation, quotes, numbering, or formatting.\n- Do **not** include any item found in this list: {{getvar::excludedList}} — avoid matches, variants, or paraphrased versions.\n\n**Only output the garment name below this line:**",
+            "content": "Generation Rules:\n- The item must be appropriate for {{getvar::firstName}}’s age, gender, and species anatomy.\n- Valid results include simple upper garments such as T-shirt, blouse, vest, tunic, hoodie, or robe.\n- The result must be a base clothing type — do **not** include adjectives, colors, patterns, or decorative details.\n- Do **not** include any garments for the head, lower body, full body, or feet.\n- Use only the implied fashion tone from the Time Period, Setting Type, and World Type — never reference them directly in the output.\n- Capitalize the first letter only — do **not** include punctuation, quotes, numbering, or formatting.\n- Blacklisted garments (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted garments.\n- If a candidate garment is even slightly related to a blacklisted item, reject it and choose a different valid garment.\n- Never output anything from the blacklist, even if it would otherwise fit the rules.\n\n**Only output the garment name below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -8447,13 +8437,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 179,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "180": {
             "uid": 180,
@@ -8695,7 +8685,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Bottom: Instruction",
-            "content": "Generation Rules:\n- Return only a **base garment type** — do not include adjectives, materials, colors, or stylistic modifiers.\n- The item must be appropriate for {{getvar::firstName}}’s {{getvar::lifeStage}}, {{getvar::gender}}, and {{getvar::parsedSpecies}}.\n- Valid outputs include garments like **pants, shorts, skirts, leggings, wraps, bloomers**, etc.\n- Do **not** include underwear, one-piece outfits, or dresses.\n- Reflect the world logic defined by {{getvar::timePeriod}}, {{getvar::settingType}}, and {{getvar::worldType}} — but do **not** mention or reference those labels directly.\n- Return only **one item**, properly capitalized — no punctuation, no formatting, and no extra text.\n- Do **not** include any garment from this list: {{getvar::excludedList}} — avoid exact matches, rewordings, or close variants.\n\n**Only output the garment name below this line:**",
+            "content": "Generation Rules:\n- Return only a **base garment type** — do not include adjectives, materials, colors, or stylistic modifiers.\n- The item must be appropriate for {{getvar::firstName}}’s {{getvar::lifeStage}}, {{getvar::gender}}, and {{getvar::parsedSpecies}}.\n- Valid outputs include garments like **pants, shorts, skirts, leggings, wraps, bloomers**, etc.\n- Do **not** include underwear, one-piece outfits, or dresses.\n- Reflect the world logic defined by {{getvar::timePeriod}}, {{getvar::settingType}}, and {{getvar::worldType}} — but do **not** mention or reference those labels directly.\n- Return only **one item**, properly capitalized — no punctuation, no formatting, and no extra text.\n- Blacklisted garments (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted garments.\n- If a candidate garment is even slightly related to a blacklisted item, reject it and choose a different valid garment.\n- Never output anything from the blacklist, even if it would otherwise fit the rules.\n\n**Only output the garment name below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -8730,12 +8720,12 @@
             "delay": 0,
             "displayIndex": 185,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "186": {
             "uid": 186,
@@ -8977,7 +8967,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Legwear: Instruction",
-            "content": "## **INSTRUCTIONS:**\n- Return only a **legwear-type garment** — accessories or coverings for the **legs**, separate from pants or underwear.\n- The item must be appropriate for {{getvar::lifeStage}}, and fit {{getvar::parsedSpecies}} and setting.\n- Acceptable types include things like **socks, tights, greaves, leg sleeves**, etc.\n- Do **not** include full pants, skirts, or any form of underwear.\n- Return only **one** item, properly capitalized (e.g., “Leg Warmers”).\n- Do **not** include quotes, punctuation, or formatting.\n- Do **not** include any item from this list: `{{getvar::excludedList}}`.",
+            "content": "## **INSTRUCTIONS:**\n- Return only a **legwear-type garment** — accessories or coverings for the **legs**, separate from pants or underwear.\n- The item must be appropriate for {{getvar::lifeStage}}, and fit {{getvar::parsedSpecies}} and setting.\n- Acceptable types include things like **socks, tights, greaves, leg sleeves**, etc.\n- Do **not** include full pants, skirts, or any form of underwear.\n- Return only **one** item, properly capitalized (e.g., “Leg Warmers”).\n- Do **not** include quotes, punctuation, or formatting.\n- Blacklisted garments (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted garments.\n- If a candidate garment is even slightly related to a blacklisted item, reject it and choose a different valid garment.\n- Never output anything from the blacklist, even if it would otherwise fit the rules.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -9012,12 +9002,12 @@
             "delay": 0,
             "displayIndex": 191,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "192": {
             "uid": 192,
@@ -9259,7 +9249,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Shoes: Instruction",
-            "content": "Generation Rules:\n- Choose a **foot-covering item only** — such as shoes, boots, sandals, slippers, or species-appropriate footwear.\n- The item must suit {{getvar::lifeStage}}, {{getvar::gender}}, and {{getvar::parsedSpecies}} — no neckwear, legwear, or torso clothing.\n- **Do not** include socks, pants, accessories, or anything not worn directly on the feet or paws.\n- **Do not** include brand names, fictional gear, or species-specific labels (e.g., “Shiba Inu Slippers” is invalid).\n- The result must be **generic** — e.g., “Sandals”, “Clogs”, “Slippers”, “Boots”.\n- Return **only one item name**, properly capitalized. Do **not** use: All-caps (e.g., `SANDALS`), Markdown (`**Slippers**`), Lowercase (`slippers`), Descriptors (e.g., “Shiba Inu Sandals”, “Dog Booties”).\n- Do **not** include any item found in this list: {{getvar::excludedList}} — avoid exact matches, variants, or rewordings.\n\n**Only output the footwear item below this line:**",
+            "content": "Generation Rules:\n- Choose a **foot-covering item only** — such as shoes, boots, sandals, slippers, or species-appropriate footwear.\n- The item must suit {{getvar::lifeStage}}, {{getvar::gender}}, and {{getvar::parsedSpecies}} — no neckwear, legwear, or torso clothing.\n- **Do not** include socks, pants, accessories, or anything not worn directly on the feet or paws.\n- **Do not** include brand names, fictional gear, or species-specific labels (e.g., “Shiba Inu Slippers” is invalid).\n- The result must be **generic** — e.g., “Sandals”, “Clogs”, “Slippers”, “Boots”.\n- Return **only one item name**, properly capitalized. Do **not** use: All-caps (e.g., `SANDALS`), Markdown (`**Slippers**`), Lowercase (`slippers`), Descriptors (e.g., “Shiba Inu Sandals”, “Dog Booties”).\n- Blacklisted footwears (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted footwears.\n- If a candidate footwear is even slightly related to a blacklisted item, reject it and choose a different valid footwear.\n- Never output anything from the blacklist, even if it would otherwise fit the rules.\n\n**Only output the footwear item below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -9293,13 +9283,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 197,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "198": {
             "uid": 198,
@@ -9353,7 +9343,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Shoes Description: Task",
-            "content": "Task:\nDescribe how {{getvar::firstName}}'s {{getvar::outfitShoes}} fit and interact with {{getvar::possAdjPronoun}} feet or paws — begin with pronoun phrasing like “{{getvar::possAdjPronoun}} wears...”\n{{getvar::guidance}}",
+            "content": "Task:\nDescribe how {{getvar::firstName}}'s {{getvar::outfitShoes}} fit and interact with {{getvar::possAdjPronoun}} feet or paws — begin with pronoun phrasing like “{{getvar::subjPronoun}} wears...”\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -9387,13 +9377,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 199,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "200": {
             "uid": 200,
@@ -9447,7 +9437,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Underwear Top: Examples",
-            "content": "Examples (for reference only — do not include in the output):\n\nExample (Teen/Adult – Mixed Setting):\nSports bra, training bra, cotton bralette, silk bra, lace-trimmed bra, bandeau top, padded bra, wireless bra, mesh halter bra, fantasy corset wrap",
+            "content": "Examples (for reference only — do not include in the output):\n\nExample (Teen/Adult – Mixed Setting):\nSports bra\nTraining bra\nBralette\nBra\nLace-trimmed bra\nBandeau top\nPadded bra\nWireless bra\nMesh halter bra\nFantasy corset wrap",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -9481,13 +9471,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 201,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "202": {
             "uid": 202,
@@ -9541,7 +9531,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Underwear Top: Instruction",
-            "content": "Generation Rules:\n- Return only a **single item name**, properly capitalized (e.g., “Support Wrap”).\n- Include **upper underwear garments only** — such as bras, bralettes, supportive wraps, bandeaus, or fantasy-style breast coverings.\n- The item must suit {{getvar::lifeStage}}, bust size, and species anatomy.\n- Do **not** include colors, decorations, materials, cultural references, or descriptive embellishments — only the item type.\n- Do **not** include punctuation, markdown formatting, or multiple words that imply branding or identity.\n- Do **not** include any item from this list: {{getvar::excludedList}} — avoid exact matches, capitalization variants, or close rewordings.\n\n**Only output the garment name below this line:**",
+            "content": "Generation Rules:\n- Return only a **single item name**, properly capitalized (e.g., “Support Wrap”).\n- Include **upper underwear garments only** — such as bras, bralettes, supportive wraps, bandeaus, or fantasy-style breast coverings.\n- The item must suit {{getvar::lifeStage}}, bust size, and species anatomy.\n- Do **not** include colors, decorations, materials, cultural references, or descriptive embellishments — only the item type.\n- Do **not** include punctuation, markdown formatting, or multiple words that imply branding or identity.\n- Blacklisted garments (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted garments.\n- If a candidate garment is even slightly related to a blacklisted item, reject it and choose a different valid garment.\n- Never output anything from the blacklist, even if it would otherwise fit the rules.\n\n**Only output the garment name below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -9575,13 +9565,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 203,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "204": {
             "uid": 204,
@@ -9682,7 +9672,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Underwear Top Description: Instruction",
-            "content": "Generation Rules:\n- Describe only {{getvar::outfitUnderwearTop}} — do **not** reference other garments or layers.\n- Focus on **fit**, **support level**, **coverage**, and **adjustments** for anatomy (e.g., fur, tails, tauric posture).\n- Use short, clear phrases: 1–2 neutral sentences describing static form — not movement or use.\n- Avoid brand names, sexual language, emotion, or behavior-based phrasing.\n- Do **not** refer to {{getvar::firstName}}. Use {{getvar::possAdjPronoun}} or neutral references (e.g., “the bust”, “the chest”).\n{{getvar::logicBasedInstruction}}\n\n**Only output the garment description below this line:**",
+            "content": "Generation Rules:\n- Describe only {{getvar::outfitUnderwearTop}} — do **not** reference other garments or layers.\n- Focus on **fit**, **support level**, **coverage**, **color**, and **adjustments** for anatomy (e.g., fur, tails, tauric posture).\n- Use short, clear phrases: 1–2 neutral sentences describing static form — not movement or use.\n- Avoid brand names, sexual language, emotion, or behavior-based phrasing.\n- Do **not** refer to {{getvar::firstName}}. Use {{getvar::possAdjPronoun}} or neutral references (e.g., “the bust”, “the chest”).\n{{getvar::logicBasedInstruction}}\n\n**Only output the garment description below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -9716,13 +9706,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 206,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "207": {
             "uid": 207,
@@ -9823,7 +9813,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Underwear Bottom: Instruction",
-            "content": "Generation Rules:\n- Return only a **single item name**, properly capitalized (e.g., “Loincloth”).\n- Include only **bottom underwear garments** — such as briefs, panties, loincloths, boxers, or compression styles.\n- The item must suit {{getvar::lifeStage}}, {{getvar::gender}}, and {{getvar::parsedSpecies}} anatomy.\n- Do **not** include full-body garments, outerwear, socks, or tops.\n- Do **not** include descriptors, colors, decorations, or material — only the item type.\n- Do **not** include punctuation, formatting, or quote marks.\n- Do **not** include any item from this list: {{getvar::excludedList}} — avoid rewordings, variants, or near-duplicates.\n\n**Only output the item name below this line:**",
+            "content": "Generation Rules:\n- Return only a **single item name**, properly capitalized (e.g., “Loincloth”).\n- Include only **bottom underwear garments** — such as briefs, panties, loincloths, boxers, or compression styles.\n- The item must suit {{getvar::lifeStage}}, {{getvar::gender}}, and {{getvar::parsedSpecies}} anatomy.\n- Do **not** include full-body garments, outerwear, socks, or tops.\n- Do **not** include descriptors, colors, decorations, or material — only the item type.\n- Do **not** include punctuation, formatting, or quote marks.\n- Blacklisted garments (must never appear in output): {{getvar::excludedList}}.\n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted garments.\n- If a candidate garment is even slightly related to a blacklisted item, reject it and choose a different valid garment.\n- Never output anything from the blacklist, even if it would otherwise fit the rules.\n\n**Only output the item name below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -9858,12 +9848,12 @@
             "delay": 0,
             "displayIndex": 209,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "210": {
             "uid": 210,
@@ -9964,7 +9954,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Underwear Bottom Description: Instruction",
-            "content": "Generation Rules:\n- Focus only on {{getvar::outfitUnderwearBottom}} — do **not** mention other garments, behavior, or context.\n- Describe **cut**, **coverage**, **fit**, and species-related adjustments (e.g., tail gaps, digitigrade shaping, limb spacing).\n- You may mention **material, stitching, or closures** only if relevant to structure or anatomical fit.\n- Keep it neutral and functional — 1–2 concise sentences max.\n- Do **not** include brand names, movement, emotion, or use the character’s name.\n- Avoid erotic phrasing — this is anatomical description only.\n{{getvar::logicBasedInstruction}}\n\n**Only output the garment description below this line:**",
+            "content": "Generation Rules:\n- Focus only on **{{getvar::outfitUnderwearBottom}}** — do **not** mention other garments, behavior, or context.\n- Describe **cut**, **coverage**, **fit**, **color**, and species-related adjustments (e.g., tail gaps, digitigrade shaping, limb spacing).\n- You may mention **material, stitching, or closures** only if relevant to structure or anatomical fit.\n- Keep it neutral and functional — 1–2 concise sentences max.\n- Do **not** include brand names, movement, emotion, or use the character’s name.\n- Avoid erotic phrasing — this is anatomical description only.\n{{getvar::logicBasedInstruction}}\n\n**Only output the garment description below this line:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -9998,13 +9988,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 212,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "213": {
             "uid": 213,
@@ -15228,7 +15218,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Mainwear: Examples",
-            "content": "Examples (for reference only — do not include in the output):\n\nExample (Human – Teen Girl):\nSummer dress, zippered leotard, romper with hoodie, halter jumpsuit, lacey slip, denim overall dress, pleated t-shirt dress\n\nExample (Beastkin – Feline):\nTail-cut swimsuit, fur-trimmed bodysuit, high-slit robe, belted tunic dress, asymmetrical zip jumpsuit, paw-accommodating onesie\n\nExample (Anthropomorphic – Male):\nArmored robe, sleeveless mech-suit, reinforced leather jumper, fur-integrated jumpsuit, battle-class onesie, high-collar utility dress",
+            "content": "Examples (for reference only — do not include in the output):\n\nExample (Human – Teen Girl):\nSummer dress\nShort dress\nZippered leotard\nRomper with hoodie\nAlter jumpsuit\nLacey slip\nDenim overall dress\nPleated t-shirt dress\n\nExample (Beastkin – Feline):\nTail-cut swimsuit\nFur-trimmed bodysuit\nHigh-slit robe\nBelted tunic dress\nAsymmetrical zip jumpsuit\nPaw-accommodating onesie\n\nExample (Anthropomorphic – Male):\nArmored robe\nSleeveless mech-suit\nReinforced leather jumper\nFur-integrated jumpsuit\nBattle-class onesie\nHigh-collar utility dress",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -15262,20 +15252,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 324,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "325": {
             "uid": 325,
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Mainwear: Task",
-            "content": "Task:\nGenerate one body-appropriate, species-conscious one-piece garment that {{getvar::firstName}} might wear.\nThe item must be wearable as a full outfit and match their life stage, gender, and physical traits.\nAvoid multi-piece clothing, outerwear, or accessories.\n{{getvar::guidance}}",
+            "content": "Task:\nOutput the name of a single body-appropriate, species-conscious one-piece garment.  \nIt must be wearable as a complete outfit and suitable for {{getvar::parsedSpecies}}, {{getvar::gender}}, and {{getvar::lifeStage}}.  \n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -15309,20 +15299,20 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 325,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "326": {
             "uid": 326,
             "key": [],
             "keysecondary": [],
             "comment": "Outfit Mainwear: Instruction",
-            "content": "Generation Rules:\n- The garment must function as a complete one-piece outfit — replacing both top and bottom (e.g., robe, jumpsuit, onesie, bodysuit, tunic dress).\n- The outfit must suit {{getvar::firstName}}’s age, gender, and species anatomy, including any fur, tail, wings, or digitigrade limbs.\n- Use implied tone from the context: casual, formal, utilitarian, athletic, modest, or fashionable — but do **not** describe the tone.\n- Do **not** include accessories, outer layers, or undergarments — only the main one-piece outfit.\n- The output must be general — no names, brands, decorative imagery, or species-specific adjectives.\n- Capitalize only the first word — do **not** include punctuation, quotes, formatting, or numbering.\n- Do **not** include any clothing found in this list: {{getvar::excludedList}} — avoid exact matches, variants, or paraphrased versions.\n- Do **not** include list formatting (e.g., “1”, “-”, or bullets) — return only the plain garment name.\n\n**Only output the one-piece garment name below this line:**",
+            "content": "Generation Rules:\n- Output must be a single garment name in plain text (e.g., catsuit, romper, coverall).  \n- Do **not** include numbers, hyphens, or multi-part labels (e.g., no \"1-piece catsuit\", \"3-in-1 bodysuit\", or \"utility jumpsuit\").  \n- Do **not** add adjectives or descriptors (e.g., no \"casual\", \"fashionable\", \"gender-appropriate\").  \n- The garment must function as a full one-piece outfit — replacing both top and bottom (e.g., robe, jumpsuit, onesie, bodysuit, tunic dress).  \n- It must account for {{getvar::parsedSpecies}}, including anatomical features such as fur, tail, wings, or digitigrade limbs.  \n- It must align with {{getvar::parsedGender}} and {{getvar::parsedLifeStage}} without outputting these values literally.  \n- Do **not** describe, explain, or justify the garment. Only output its name.  \n- Do **not** include accessories, outer layers, or undergarments — only the main one-piece garment.  \n- Blacklisted garments (must never appear): {{getvar::excludedList}}.  \n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted garments.  \n- If a candidate garment is even slightly related to a blacklisted item, reject it and choose a different valid garment.  \n- Never include {{getvar::firstName}}, age, gender, life stage, or species literally.  \n\n**Only output the garment name below this line — no names, no demographics, no explanation, no numbers, no multi-part labels:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -15356,13 +15346,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 326,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "327": {
             "uid": 327,
@@ -15733,12 +15723,12 @@
             "delay": 0,
             "displayIndex": 334,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "335": {
             "uid": 335,
@@ -15780,12 +15770,12 @@
             "delay": 0,
             "displayIndex": 335,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "336": {
             "uid": 336,
@@ -15827,12 +15817,12 @@
             "delay": 0,
             "displayIndex": 336,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "337": {
             "uid": 337,
@@ -16014,13 +16004,13 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 340,
+            "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "triggers": [],
-            "ignoreBudget": false
+            }
         },
         "341": {
             "uid": 341,
@@ -16062,19 +16052,19 @@
             "delay": 0,
             "displayIndex": 341,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "342": {
             "uid": 342,
             "key": [],
             "keysecondary": [],
             "comment": "Appearance Features Placement: Instruction",
-            "content": "Generation Rules:\n- Output a short anatomical phrase describing the location — do not include the feature name itself.\n- Phrase must reflect physical emergence or attachment to the body.\n- Use logic from the character’s species or anatomy (e.g., tails = lower back, wings = upper back, horns = head).\n- Do not reuse exact example text — match the format, not the wording.\n- Do not describe behavior, movement, or function — only structural placement.\n- Do not include the words “feature,” “placement,” or {{getvar::firstName}}.\n\n**Only output the placement phrase below this line:**",
+            "content": "Generation Rules:\n- Output **only one short anatomical placement phrase**.\n- Do **not** output numbers, bullet points, or lists.\n- Do **not** mention {{getvar::firstName}}, pronouns, species, age, gender, or other descriptors of the character.\n- Do **not** include the feature name ({{getvar::feature}}).\n- Phrase must describe **structural placement only** — not behavior, function, or appearance.\n- Use logical anatomical positions for the species/feature (e.g., tails = lower back, wings = upper back, horns = head).\n- Do not reuse exact example text — match the format and style, not the wording.\n\n**Only output the anatomical placement phrase below this line — no names, no features, no numbering, no descriptors, no extra text:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -16109,12 +16099,12 @@
             "delay": 0,
             "displayIndex": 342,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "343": {
             "uid": 343,
@@ -18610,6 +18600,100 @@
             "delay": 0,
             "triggers": [],
             "displayIndex": 83,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
+        },
+        "396": {
+            "uid": 396,
+            "key": [],
+            "keysecondary": [],
+            "comment": "Context",
+            "content": "<!-- NSFW content is permitted if contextually appropriate -->\nCONTEXT (for your reference—do not include in the answer):{{getvar::baseContext}}",
+            "constant": false,
+            "vectorized": false,
+            "selective": true,
+            "selectiveLogic": 0,
+            "addMemo": true,
+            "order": 100,
+            "position": 0,
+            "disable": false,
+            "ignoreBudget": false,
+            "excludeRecursion": false,
+            "preventRecursion": false,
+            "matchPersonaDescription": false,
+            "matchCharacterDescription": false,
+            "matchCharacterPersonality": false,
+            "matchCharacterDepthPrompt": false,
+            "matchScenario": false,
+            "matchCreatorNotes": false,
+            "delayUntilRecursion": false,
+            "probability": 100,
+            "useProbability": true,
+            "depth": 4,
+            "group": "",
+            "groupOverride": false,
+            "groupWeight": 100,
+            "scanDepth": null,
+            "caseSensitive": null,
+            "matchWholeWords": null,
+            "useGroupScoring": null,
+            "automationId": "",
+            "role": null,
+            "sticky": 0,
+            "cooldown": 0,
+            "delay": 0,
+            "triggers": [],
+            "displayIndex": 396,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
+        },
+        "397": {
+            "uid": 397,
+            "key": [],
+            "keysecondary": [],
+            "comment": "Appearance Body: Context",
+            "content": "<!-- NSFW content is permitted if contextually appropriate -->\nContext (for internal reference only — NEVER include names, age, gender, life stage, or species in the output):{{getvar::baseContext}}",
+            "constant": false,
+            "vectorized": false,
+            "selective": true,
+            "selectiveLogic": 0,
+            "addMemo": true,
+            "order": 100,
+            "position": 0,
+            "disable": false,
+            "ignoreBudget": false,
+            "excludeRecursion": false,
+            "preventRecursion": false,
+            "matchPersonaDescription": false,
+            "matchCharacterDescription": false,
+            "matchCharacterPersonality": false,
+            "matchCharacterDepthPrompt": false,
+            "matchScenario": false,
+            "matchCreatorNotes": false,
+            "delayUntilRecursion": false,
+            "probability": 100,
+            "useProbability": true,
+            "depth": 4,
+            "group": "",
+            "groupOverride": false,
+            "groupWeight": 100,
+            "scanDepth": null,
+            "caseSensitive": null,
+            "matchWholeWords": null,
+            "useGroupScoring": null,
+            "automationId": "",
+            "role": null,
+            "sticky": 0,
+            "cooldown": 0,
+            "delay": 0,
+            "triggers": [],
+            "displayIndex": 397,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],

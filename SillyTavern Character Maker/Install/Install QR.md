@@ -13,24 +13,24 @@
 	/qr-set-create CMC Main|
 :}|
 
-/ife ('Default' in qrList) {:
-	/qr-list Default|
+/ife ('CMC Menu' in qrList) {:
+	/qr-list CMC Menu|
 	/let key=qrListContent {{pipe}}|
 	/ife ('CMC Menu' not in qrListContent) {:
 		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/CMC%20Menu.md|
 	
-		/qr-create set="Default" label="CMC Menu" {{pipe}}|
+		/qr-create set="CMC Menu" label="CMC Menu" {{pipe}}|
 	:}|
 	/else {:
 		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/CMC%20Menu.md|
-		/qr-update set=Default label="CMC Menu" {{pipe}}|
+		/qr-update set="CMC Menu" label="CMC Menu" {{pipe}}|
 	:}|
 :}|
-/else ('Default' not in qrList) {:
-	/qr-set-create Default|
+/else ('CMC Menu' not in qrList) {:
+	/qr-set-create CMC Menu|
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Delete%20setts.md|
 	
-	/qr-create set="Default" label="CMC Menu" {{pipe}}|
+	/qr-create set="CMC Menu" label="CMC Menu" {{pipe}}|
 :}|
 
 

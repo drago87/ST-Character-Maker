@@ -5,7 +5,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Change/Update a prompt",
-            "content": "Change/Update a prompt\nIf you want to change or update a prompt to work with a new model or to make it work better for the type of output you want you can go to the \"CMC Generation Prompts\" and search for the prompt you want to change for example if you search \"Lore\" you should get\nLore: Examples\nLore: Task\nLore: Instruction\nLore: Guide\n\nGuide is optional and only a few of them have it. If you feel that when you use Guidance that the generation is not listening you can add a ': Guide' to 'CMC Generation Prompts'\n\nExamples needs to be there but can be empty. Here you put examples on what type of outputs you want.\n\nTask needs to be there and will be the main part of the prompt that specifies what will be generated. {{getvar::guidance}} should be precent here for it to work. \n\nInstruction needs to be there and will be the rules that it should follow when making the generation.\n\nvariables vill look like this {{getvar::variableName}} and will contain generated or static information that is based in earlier generations or selections.",
+            "content": "Change/Update a prompt\nIf you want to change or update a prompt to work with a new model or to make it work better for the type of output you want you can go to the \"CMC Generation Prompts\" and search for the prompt you want to change for example if you search \"Lore\" you should get\nLore: Examples\nLore: Task\nLore: Instruction\nLore: Guide\nLore: Context\n\nGuide is optional and only a few of them have it. If you feel that when you use Guidance that the generation is not listening you can add a ': Guide' to 'CMC Generation Prompts ModelName'\n\nContext is optional and only a few of them have it. If you feel that it adheres to much to the context you you can add a ': Context'  to 'CMC Generation Prompts ModelName'\n\nExamples needs to be there but can be empty. Here you put examples on what type of outputs you want.\n\nTask needs to be there and will be the main part of the prompt that specifies what will be generated. {{getvar::guidance}} should be precent here for it to work. \n\nInstruction needs to be there and will be the rules that it should follow when making the generation.\n\nvariables will look like this {{getvar::variableName}} and will contain generated or static information that is based in earlier generations or selections.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -40,12 +40,7 @@
             "cooldown": 0,
             "delay": 0,
             "triggers": [],
-            "displayIndex": 0,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "displayIndex": 0
         },
         "1": {
             "uid": 1,
@@ -228,7 +223,12 @@
             "cooldown": 0,
             "delay": 0,
             "triggers": [],
-            "displayIndex": 4
+            "displayIndex": 4,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         }
     }
 }

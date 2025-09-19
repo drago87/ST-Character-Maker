@@ -20,9 +20,57 @@
 /ife (parsedSpecies != '') {:
 	/addvar key=baseContext "{{newline}}- Species: {{getvar::parsedSpecies}}"
 :}|
-/ife ((baseContext != '') and (model != 'EsotericSage-12B.i1-Q6_K')) {:
-	/setvar key=baseContext "<!-- NSFW content is permitted if contextually appropriate -->{{newline}}### **CONTEXT (for your reference—do not include in the answer):**{{getvar::baseContext}}"
-:}|
-/elseif ((baseContext != '') and (model == 'EsotericSage-12B.i1-Q6_K')) {:
-	/setvar key=baseContext "<!-- NSFW content is permitted if contextually appropriate -->{{newline}}CONTEXT (for your reference—do not include in the answer):{{getvar::baseContext}}"
+
+
+
+
+/ife (baseContext != '') {:
+	
+	/let key=tempContext {{noop}}|
+	/let key=find {{noop}}|
+	/let key=wi_uid {{noop}}|
+	/let key=wi_book_f {{noop}}|
+	/let key=wi_book_key_f {{noop}}|
+	
+	/getvar key=genSettings index=wi_book|
+	/var key=wi_book_f {{pipe}}|
+	/ife ( wi_book_f == '') {:
+		/var key=wi_book_f "CMC Generation Prompts"|
+	:}|
+	
+	/ife ((wi_book_f == 'CMC Generation Prompts') or (wi_book_f == 'CMC Information')) {:
+		/var key=wi_book_f "{{var::wi_book_f}} {{getglobalvar::model}}"|
+	:}|
+	
+	/getvar key=genSettings index=wi_book_key|
+	/var key=wi_book_key_f {{pipe}}|
+	/ife ( wi_book_key_f == '') {:
+		/abort quiet=false Missing wi_book_key name in input.|
+	:}|
+	
+	
+	/var key=find "{{var::wi_book_key_f}}: Context"|
+	/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+	/var key=wi_uid {{pipe}}|
+	/getentryfield field=comment file="CMC Generation Prompts {{getglobalvar::model}}" {{var::wi_uid}}|
+	/let key=testPrompt {{pipe}}|
+	/ife ( find == testPrompt) {:
+		/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{var::wi_uid}}|
+		/var key=tempContext {{pipe}}|
+		/ife (tempContext == '') {:
+			/var key=find "Context"|
+			/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+			/var key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{var::wi_uid}}|
+			/var key=tempContext {{pipe}}|
+		:}|
+	:}|
+	/else {:
+		/var key=find "Context"|
+		/findentry field=comment file="CMC Generation Prompts {{getglobalvar::model}}" "{{var::find}}"|
+		/var key=wi_uid {{pipe}}|
+		/getentryfield field=content file="CMC Generation Prompts {{getglobalvar::model}}" {{var::wi_uid}}|
+		/var key=tempContext {{pipe}}|
+	:}|
+	/setvar key=baseContext {{var::tempContext}}|
 :}|

@@ -38,6 +38,18 @@
 	:}|
 :}|
 
+/ife ((characterArchetype == 'Anthropomorphic') or (characterArchetype == 'Beastkin') or (characterArchetype == 'Animalistic') or (characterArchetype == 'Pokémon') or (characterArchetype == 'Digimon')) {:
+	/ife (coveringType == '') {:
+		/setvar key=coveringType ["Skin", "Fur", "Scale", "Feather"]|
+		/buttons labels={{getvar::coveringType}} "Select the type of covering {{getvar::firstName}} should have."|
+		/setvar key=coveringType {{pipe}}|
+		/ife (coveringType == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+	:}|
+:}|
+
 //**Features**|
 /var key=do No|
 /var key=variableName "appearanceFeatures"|
@@ -389,12 +401,12 @@
 		/getvar key=appearanceFeaturesTypes index={{var::index}}|
 		/let key=aType {{pipe}}|
 		/ife (aType != 'None') {:
-			/addvar key=parsedAppearanceFeatures "{{newline}}  - Type: {{var::aType}}"|
+			/addvar key=parsedAppearanceFeatures "{{newline}}  - {{var::item}} Type: {{var::aType}}"|
 		:}|
 		/getvar key=appearanceFeaturesPlacements index={{var::index}}|
-		/addvar key=parsedAppearanceFeatures "{{newline}}  - Placement: {{pipe}}"|
+		/addvar key=parsedAppearanceFeatures "{{newline}}  - {{var::item}} Placement: {{pipe}}"|
 		/getvar key=appearanceFeaturesDescriptions index={{var::index}}|
-		/addvar key=parsedAppearanceFeatures "{{newline}}  - Description: {{pipe}}"|
+		/addvar key=parsedAppearanceFeatures "{{newline}}  - {{var::item}} Description: {{pipe}}"|
 	:}|
 :}|
 /else {:
@@ -597,6 +609,11 @@
 	/getvar key=genSettings index=inputIsList|
 	/let key=outputIsList {{pipe}}|
 	
+	/ife ((coveringType == 'Fur') or (coveringType == 'Scale') or (coveringType == 'Feather')) {:
+	/setvar key=faceTaskColor " , and color"|
+	/setvar key=faceRulesColor "{{newline}}- Include visible **color** and specify which parts are each color if multiple shades are present."|
+	:}|
+	
 	
 	/ife ((inputIsList== 'Yes') or (outputIsList == 'Yes')) {:
 		/setvar as=array key={{var::variableName}} []|
@@ -635,6 +652,53 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	
+	/ife ((hairLenght == '') or (skip == 'Update')) {:
+		/buttons labels=["Short", "Medium", "Long", "Extra Long"] What lenght of hair to you want for {{getvar::firstName}}?|
+		/setvar key=hairLenght {{pipe}}|
+		/ife (hairLenght == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	:}|
+	
+	/ife ((hairStyle == '') or (skip == 'Update')) {:
+		/buttons labels=["Yes", "No"] Do you want to set a hairstyle?|
+		/var key=do {{pipe}}|
+		/ife (do == '') {:
+	        /echo Aborting |
+	        /abort
+	    :}|
+	    /elseif (do == 'Yes') {:
+		    /findentry field=comment file="CMC Variables" "Hairstyles"|
+		    /let key=wi_uid {{pipe}}|
+		    /getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+		    /setvar key=hairStyles "Manual Input---{{pipe}}"|
+		    /split find="---" {{getvar::hairStyles}}|
+		    /setvar key=hairStyles {{pipe}}|
+		    /buttons labels={{getvar::hairStyles}} Select the hairstyle you want for {{getvar::firstName}}|
+		    /setvar key=hairStyleSelected {{pipe}}|
+		    /ife (hairStyleSelected == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		    /elseif (hairStyleSelected == 'Manual Input') {:
+			    /input Write the hairstyle you want to use for {{getvar::firstName}}|
+			    /setvar key=hairStyleSelected {{pipe}}|
+		    :}|
+	    :}|
+	    /else {:
+		    /setvar key=hairStyleSelected {{noop}}|
+	    :}| 
+	:}|
+	
+	/ife (hairStyleSelected != '') {:
+		/setvar key=hairStyle "{{getvar::hairLengt}} length hair, styled in a {{getvar::hairStyleSelected}} hairdo"|
+	:}|
+	/else {:
+		/setvar key=hairStyle "{{getvar::hairLengt}} length hair"|
+	:}|
+	
 	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Appearance Hair"|
 	/setvar key=genSettings index=genIsList No|
@@ -744,15 +808,7 @@
 //-----------|
 
 /ife ((characterArchetype == 'Anthropomorphic') or (characterArchetype == 'Beastkin') or (characterArchetype == 'Animalistic') or (characterArchetype == 'Pokémon') or (characterArchetype == 'Digimon')) {:
-	/ife ((coveringType != 'Skin') and (coveringType != 'Fur') and (coveringType != 'Scale') and (coveringType != 'Feather')) {:
-		/setvar key=coveringType ["Skin", "Fur", "Scale", "Feather"]|
-		/buttons labels={{getvar::coveringType}} "Select the type of covering {{getvar::firstName}} should have."|
-		/setvar key=coveringType {{pipe}}|
-		/ife (coveringType == '') {:
-			/echo Aborting |
-			/abort
-		:}|
-	:}|
+	
 	/var key=do No|
 	/var key=variableName "coveringFront"|
 	/ife ({{var::variableName}} == '') {:
@@ -1002,7 +1058,7 @@
 :}|
 
 /setvar key=parsedCovering {{noop}}|
-/ife ( coveringType != 'None') {:
+/ife (( coveringType != 'None') and ( coveringType != '')) {:
 	/setvar key=parsedCovering "- {{getvar::coveringType}} Pattern:{{newline}} - Front (Chest, Stomach, and Inner Thighs): {{getvar::coveringFront}}{{newline}} - Sides and Back: {{getvar::coveringSidesBack}}{{newline}} - Arms and Legs:  {{getvar::coveringArmsLegs}}"
 :}|
 /else {:
@@ -1012,29 +1068,33 @@
 
 //**Body**|
 
-/setvar key=buttSize {{nope}}|
-/setvar key=thighsSize {{nope}}|
-/setvar key=hipsSize {{nope}}|
+
 /ife (gender == 'Female') {:
-	/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s butt?|
-	/setvar key=buttSize {{pipe}}|
-	/ife (buttSize == '') {:
-		/echo Aborting |
-        /abort
+	/ife ((buttSize == '') or (skip == 'Update')) {:
+		/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s butt?|
+		/setvar key=buttSize {{pipe}}|
+		/ife (buttSize == '') {:
+			/echo Aborting |
+	        /abort
+		:}|
 	:}|
 	
-	/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s hips?|
-	/setvar key=hipsSize {{pipe}}|
-	/ife (hipsSize == '') {:
-		/echo Aborting |
-        /abort
+	/ife ((hipsSize == '') or (skip == 'Update')) {:
+		/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s hips?|
+		/setvar key=hipsSize {{pipe}}|
+		/ife (hipsSize == '') {:
+			/echo Aborting |
+	        /abort
+		:}|
 	:}|
 	
-	/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s thighs?|
-	/setvar key=thighsSize {{pipe}}|
-	/ife (thighsSize == '') {:
-		/echo Aborting |
-        /abort
+	/ife ((thighsSize == '') or (skip == 'Update')) {:
+		/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s thighs?|
+		/setvar key=thighsSize {{pipe}}|
+		/ife (thighsSize == '') {:
+			/echo Aborting |
+	        /abort
+		:}|
 	:}|
 :}|
 
@@ -1060,7 +1120,7 @@
 	/setvar key=genSettings index=genIsSentence Yes|
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
-	/setvar key=genSettings index=useContext Yes|
+	/setvar key=genSettings index=useContext No|
 	/setvar key=extra []|
 	/ife (appearanceFeatures != 'None') {:
 		/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
@@ -1078,6 +1138,14 @@
 	:}|
 	/flushvar extra|
 	/wait {{getvar::wait}}|
+	
+	/ife (gender == 'Female') {:
+		/setvar key=femaleBodyShapeRule "{{newline}}- Include visible lower-body proportions such as butt size, thighs size, and hips size when describing the body."|
+	:}|
+	/else {:
+		/setvar key=femaleBodyShapeRule {{noop}}|
+	:}|
+
 	
 	/getvar key=genSettings index=inputIsList|
 	/let key=inputIsList {{pipe}}|
@@ -1162,12 +1230,15 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
-		/buttons labels=["Flat", "Small", "Medium", "Large", "Huge"] What size is {{getvar::firstName}}'s Breasts?|
-		/setvar key=breastSize {{pipe}}|
-		/ife (breastSize == '') {:
-	        /echo Aborting |
-	        /abort
-	    :}|
+		
+		/ife ((breastSize == '') or (skip == 'Update')) {:
+			/buttons labels=["Flat", "Small", "Medium", "Large", "Huge"] What size is {{getvar::firstName}}'s Breasts?|
+			/setvar key=breastSize {{pipe}}|
+			/ife (breastSize == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Breasts"|
 		/setvar key=genSettings index=genIsList No|
@@ -1179,8 +1250,8 @@
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 		/addvar key=extra "- Breast Size: {{getvar::breastSize}}"|
-		/ife (appearanceFeatures != 'None') {:
-			/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
+		/ife ((appearanceFeatures != 'None') and ('Breast' in parsedAppearanceFeatures) or ('breast' in parsedAppearanceFeatures)) {:
+			/addvar key=extra "{{newline}}{{getvar::parsedAppearanceFeatures}}"|
 		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -1274,8 +1345,8 @@
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 		/addvar key=extra "- Breasts: {{getvar::appearanceBreasts}}"|
-		/ife (appearanceFeatures != 'None') {:
-			/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
+		/ife ((appearanceFeatures != 'None') and ('nipple' in parsedAppearanceFeatures) or ('Nipple' in parsedAppearanceFeatures)) {:
+			/addvar key=extra "{{newline}}{{getvar::parsedAppearanceFeatures}}"|
 		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -1374,24 +1445,49 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
-		/buttons labels=["Hidden", "Visible", "Visible and Prominent"] Is {{getvar::firstName}}'s Clit Visible?|
-		/setvar key=clitVisability {{pipe}}|
-		/ife (clitVisability == '') {:
-			/echo Aborting |
-			/abort
-		:}|
-		/buttons labels=["Hidden", "Visible", "Visible and Prominent"] Is {{getvar::firstName}}'s Labia Minora Visible?|
-		/setvar key=labiaMinoraVisability {{pipe}}|
-		/ife (labiaMinoraVisability == '') {:
-			/echo Aborting |
-			/abort
+		/ife ((clitVisability == '') or (skip == 'Update')) {:
+			/buttons labels=["Hidden", "Barely Visible", "Visible", "Visible and Prominent"] Is {{getvar::firstName}}'s Clit Visible?|
+			/setvar key=clitVisability {{pipe}}|
+			/ife (clitVisability == '') {:
+				/echo Aborting |
+				/abort
+			:}|
 		:}|
 		
-		/buttons labels=["Smooth", "Shaven with stubble", "Unshaven and bushy", "Trimmed"] What is the status of {{getvar::firstName}}'s pubic hair?|
-		/setvar key=pubicHair {{pipe}}|
-		/ife (pubicHair == '') {:
-			/echo Aborting |
-			/abort
+		/ife ((labiaMinoraVisability == '') or (skip == 'Update')) {:
+			/buttons labels=["Hidden", "Visible", "Visible and Prominent"] Is {{getvar::firstName}}'s Labia Minora Visible?|
+			/setvar key=labiaMinoraVisability {{pipe}}|
+			/ife (labiaMinoraVisability == '') {:
+				/echo Aborting |
+				/abort
+			:}|
+		:}|
+		
+		/ife ((labiaMajoraFullness == '') or (skip == 'Update')) {:
+			/buttons labels=["Smooth", "Softly contoured", "Puffy", "Full and pronounced"] How would you describe the natural shape or fullness of {{getvar::firstName}}’s labia majora?|
+			/setvar key=labiaMajoraFullness {{pipe}}|
+			/ife (labiaMajoraFullness == '') {:
+				/echo Aborting |
+				/abort
+			:}|
+		:}|
+		
+		/ife ((pussyState == '') or (skip == 'Update')) {:
+			/buttons labels=["Closed slit", "Slightly parted", "Neutrally open", "Fuller and gently parted"] How would you describe the natural openness of {{getvar::firstName}}’s labia majora?|
+			/setvar key=pussyState {{pipe}}|
+			/ife (pussyState == '') {:
+				/echo Aborting |
+				/abort
+			:}|
+		:}|
+		
+		/ife ((pubicHair == '') or (skip == 'Update')) {:
+			/buttons labels=["Smooth", "Shaven with stubble", "Unshaven and bushy", "Trimmed"] What is the status of {{getvar::firstName}}'s pubic hair?|
+			/setvar key=pubicHair {{pipe}}|
+			/ife (pubicHair == '') {:
+				/echo Aborting |
+				/abort
+			:}|
 		:}|
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Pussy"|
@@ -1411,6 +1507,8 @@
 		/addvar key=extra "- Animal Base: {{getvar::animalBase}}"|
 		/addvar key=extra "- Clit Visability: {{getvar::clitVisability}}"|
 		/addvar key=extra "- Labia Minora Visability: {{getvar::labiaMinoraVisability}}"|
+		/addvar key=extra "- Labia Majora Fullness: {{getvar::labiaMajoraFullness}}"|
+		/addvar key=extra "- Labia Majora Openness: {{getvar::pussyState}}"|
 		/ife (futanari == 'Yes') {:
 			/addvar key=extra "Important: {{getvar::firstName}} is a futanari, so she has both a pussy and a cock."|
 		:}|
@@ -1591,6 +1689,15 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+	
+		/ife ((cockSize == '') or (skip == 'Update')) {:
+			/buttons labels=["Flat", "Small", "Medium", "Large", "Huge"] What size is {{getvar::firstName}}'s Cock?|
+			/setvar key=cockSize {{pipe}}|
+			/ife (cockSize == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Cock"|
 		/setvar key=genSettings index=genIsList No|
@@ -1607,7 +1714,8 @@
 		/ife (futanari == 'Yes') {:
 			/addvar key=extra "- Pussy Appearance: {{getvar::appearancePussy}}"|
 		:}|
-		/addvar key=extra "- Male Genital Type:: {{getvar::privatesMale}}"|
+		/addvar key=extra "- Male Genital Type: {{getvar::privatesMale}}"|
+		/addvar key=extra "- Cock Size: {{getvar::cockSize}}"|
 		/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
 		/addvar key=extra "- Animal Base: {{getvar::animalBase}}"|
 		/ife (futanari == 'Yes') {:
