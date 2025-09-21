@@ -1826,7 +1826,12 @@
             "delay": 0,
             "displayIndex": 38,
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "39": {
             "uid": 39,
@@ -1868,7 +1873,12 @@
             "delay": 0,
             "displayIndex": 39,
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "40": {
             "uid": 40,
@@ -1910,7 +1920,12 @@
             "delay": 0,
             "displayIndex": 40,
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "41": {
             "uid": 41,
@@ -11270,7 +11285,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Item or Equipment Names: Examples",
-            "content": "EXAMPLES (for reference only — do not include in the output):\n\nExample – Realistic:\nBackpack, Pocket Knife, Flashlight, School Binder, Water Bottle, Hoodie, Phone Charger, ID Card, Notebook, Wristwatch\n\nExample – Fantasy:\nTraveler’s Satchel, Iron Dagger, Talisman Shard, Leather-Bound Grimoire, Healing Herb Pouch, Wooden Flute, Bronze Ring, Belt Charm, Rope Coil, Coin Pouch\n\nExample – Science Fiction:\nWrist Comm, Plasma Torch, Protein Injector, Med Patch, Holo-Slate, Grav Boots, Energy Blade, Utility Gauntlet, Personal AI Core, Nanoweave Satchel",
+            "content": "EXAMPLES (for reference only — do not include in the output):\n\nExample – Realistic:\nBackpack\nPocket Knife\nFlashlight\nSchool Binder\nWater Bottle\nHoodie\nPhone Charger\nID Card\nNotebook\nWristwatch\n\nExample – Fantasy:\nTraveler’s Satchel\nIron Dagger\nTalisman Shard\nLeather-Bound Grimoire\nHealing Herb Pouch\nWooden Flute\nBronze Ring\nBelt Charm\nRope Coil\nCoin Pouch\n\nExample – Science Fiction:\nWrist Comm\nPlasma Torch\nProtein Injector\nMed Patch\nHolo-Slate\nGrav Boots\nEnergy Blade\nUtility Gauntlet\nPersonal AI Core\nNanoweave Satchel",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -11305,19 +11320,19 @@
             "delay": 0,
             "displayIndex": 240,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "241": {
             "uid": 241,
             "key": [],
             "keysecondary": [],
             "comment": "Item or Equipment Names: Task",
-            "content": "Task:\nGenerate one short, general **Item Name** that {{getvar::firstName}} might reasonably carry, wear, or own.\nThe item should fit {{getvar::settingType}}, {{getvar::parsedSpecies}}, and {{getvar::lifeStage}}, but the **lifeStage itself must never appear in the name**.\n{{getvar::guidance}}",
+            "content": "Task:\nOutput a single short, general item name (2–4 words, Title Case) that {{getvar::firstName}} might reasonably carry, wear, or own.\nThe item should fit {{getvar::settingType}}, {{getvar::parsedSpecies}}, and {{getvar::lifeStage}} (use these only to assess suitability; do not include the life stage word in the name).\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -11352,19 +11367,19 @@
             "delay": 0,
             "displayIndex": 241,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "242": {
             "uid": 242,
             "key": [],
             "keysecondary": [],
             "comment": "Item or Equipment Names: Instruction",
-            "content": "Generation Rules:\n- Output only **one item name** — no list, no sentences, no numbering.\n- Must be **2–4 words long** in **Title Case**.\n- The name must be a **neutral, reusable object label** (e.g., *Satchel*, *Iron Dagger*, *Healing Herb Pouch*).\n- Do **not** include {{getvar::lifeStage}}, {{getvar::species}}, or {{getvar::firstName}} in the item name unless absolutely intrinsic (e.g., *Wolf Pelt Cloak*).\n- The item must be appropriate for {{getvar::lifeStage}}, but implied through scale, utility, or simplicity — not by explicitly naming the life stage.\n- Avoid weapons unless the world and role justify them clearly.\n- Do not include full outfits, full armor sets, redundant containers, or furniture.\n- Do not generate brands, copyrighted references, or media tie-ins.\n- Do not repeat or reword any entry from: {{getvar::excludedList}}.\n- The item must be setting-consistent: {{getvar::settingRule}}\n{{getvar::logicBasedInstruction}}\n\n**Only output the item name below this line:**",
+            "content": "Generation Rules:\n- Output exactly one item name as a single line of plain text only.\n- The name must be 2–4 words long, in Title Case (each major word capitalized). No punctuation, no numbers, no hyphens, no special characters.\n- Do not include life-stage words or synonyms (e.g., kid, kiddie, child, toddler, teen, adult), gender labels, the character's name, or species labels in the item name.\n- Do not include brand names, copyrighted references, or media tie-ins.\n- Do not generate full outfits, full armor sets, redundant containers, or furniture.\n- Prefer neutral utility items; avoid weapons unless clearly justified by the setting/role.\n- Never output any item on {{getvar::excludedList}} or any direct match, synonym, partial match, or visual reinterpretation of blacklisted items.\n- Do not use list formatting, numbering, or code fences; do not include backticks or triple-backticks. Never begin with “1.”, “-”, or similar.\n- Output must be a single line with no leading/trailing whitespace or newline characters.\n- Do not copy or closely paraphrase the example entries literally — produce an original, reusable label.\n- Prefer diverse choices across repeated generations; if uncertain, output the safe default: Leather Satchel.\n\n**Only output the item name below this line — single line, Title Case, 2–4 words, no punctuation, no tags, no extra text:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -11399,12 +11414,12 @@
             "delay": 0,
             "displayIndex": 242,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "243": {
             "uid": 243,
@@ -11881,7 +11896,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Sexual Orientation Explanation: Task",
-            "content": "Task:\nDescribe how {{getvar::firstName}} experiences sexual attraction in a typical situation, based on {{getvar::possAdjPronoun}} orientation: {{getvar::sexualOrientation}}.\n{{getvar::guidance}}",
+            "content": "Task:\nDescribe how {{getvar::firstName}} experiences sexual attraction in a typical situation, based on {{getvar::possAdjPronoun}} orientation and age.\nOrientation: {{getvar::sexualOrientation}}\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -11916,12 +11931,12 @@
             "delay": 0,
             "displayIndex": 253,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "254": {
             "uid": 254,
@@ -12116,7 +12131,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "Kink Type: Examples",
-            "content": "EXAMPLES (structure only — do not copy content):\nBondage, Petplay, Breeding, Degradation, Size Difference, Exhibitionism, Voyeurism, Sensory Play, Impact Play, Worship, Restraint, Roleplay",
+            "content": "EXAMPLES (structure only — do not copy content):\nBondage\nPetplay\nBreeding\nDegradation\nSize Difference\nExhibitionism\nVoyeurism\nSensory Play\nImpact Play\nWorship\nRestraint\nRoleplay",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -12151,19 +12166,19 @@
             "delay": 0,
             "displayIndex": 258,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "259": {
             "uid": 259,
             "key": [],
             "keysecondary": [],
             "comment": "Kink Type: Task",
-            "content": "Task:\nGenerate one kink type that {{getvar::firstName}} may be drawn to, based on {{getvar::possAdjPronoun}} species, personality, setting, and preferences.\nThis should be a broad **fetish category** — not a specific act, tool, or position.\n{{getvar::guidance}}",
+            "content": "Task:\nGenerate one kink type that {{getvar::firstName}} may be drawn to, based on {{getvar::possAdjPronoun}} species, personality, setting, and preferences.\nThis should be a broad fetish category — not a specific act, tool, or position.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -12198,19 +12213,19 @@
             "delay": 0,
             "displayIndex": 259,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "260": {
             "uid": 260,
             "key": [],
             "keysecondary": [],
             "comment": "Kink Type: Instruction",
-            "content": "Generation Rules:\n- Output **only one kink type** — no list, no description, no formatting.\n- Must be a **general kink category** (e.g., “Choking,” “Praise,” “Restraint”) — not a specific act, item, or position.\n- Include taboo, nonhuman, or species-specific kinks **only if** supported by the species or setting type.\n- Do not generate:\n - Emotional or vague traits (e.g., “Obsession,” “Love”).\n - Pure descriptors (e.g., “Dark,” “Cute”).\n - Any kink type from '{{getvar::excludedList}}'.\n- Do not repeat, reword, or create variants of anything in {{getvar::excludedList}}.\n- Return exactly one kink type — no extras.\n{{getvar::logicBasedInstruction}}\n\n**Only output the kink type below this line:**",
+            "content": "Generation Rules:\n- Output exactly **one kink type** as a single line of plain text only.\n- The kink type must be a **general category** (e.g., “Choking,” “Praise,” “Restraint”) — not a specific act, item, or position.\n- Do not include emotional abstractions (e.g., “Obsession,” “Love”) or vague descriptors (e.g., “Dark,” “Cute”).\n- Never include {{getvar::firstName}}, pronouns, age, gender, species, or setting terms in the output.\n- Do not output anything from {{getvar::excludedList}}, nor synonyms, partial matches, or rewordings of it.\n- Do not use list formatting, numbering, hyphens, colons, or code fences; do not include backticks or triple-backticks.\n- Output must be a single word or short phrase (1–3 words), capitalized normally (Title Case if multi-word).\n- Never copy the examples directly — generate an original category.\n- If uncertain, default to: Restraint.\n\n**Only output the kink type below this line — single line, no numbering, no formatting, no extra text:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -12245,19 +12260,19 @@
             "delay": 0,
             "displayIndex": 260,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "261": {
             "uid": 261,
             "key": [],
             "keysecondary": [],
             "comment": "Kink Variant: Examples",
-            "content": "Examples (for structure only — do not copy content):\n\nBondage → Rope Bondage, Shibari, Spread Eagle, Hogtie, Arm Binder, Suspension\nWorship → Foot Worship, Body Worship, Anal Worship, Genital Worship\nPetplay → Puppy, Kitten, Pony, Hybrid, Caged\nBestiality → Canine, Equine, Feline, Dragon, Tentacle\nImpact Play → Spanking, Paddling, Whipping, Flogging, Slapping\nEnema → Anal, Bladder, Womb",
+            "content": "Examples (for structure only — do not copy content):\n\nExample Bondage:\nRope Bondage\nShibari\nSpread Eagle\nHogtie\nArm Binder\nSuspension\n\nExample Worship:\nFoot Worship\nBody Worship\nAnal Worship\nGenital Worship\n\nExample Petplay:\nPuppy\nKitten\nPony\nHybrid\nCaged\n\nExample Bestiality:\nCanine\nEquine\nFeline\nDragon\nTentacle\n\nExample Impact Play:\nSpanking\nPaddling\nWhipping\nFlogging\nSlapping\n\nExample Enema:\nAnal\nBladder\nWomb\n\nExample Voyeurism:\nPublic\nHidden\nWindow\nSecret Room",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -12292,12 +12307,12 @@
             "delay": 0,
             "displayIndex": 261,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "262": {
             "uid": 262,
@@ -12339,19 +12354,19 @@
             "delay": 0,
             "displayIndex": 262,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "263": {
             "uid": 263,
             "key": [],
             "keysecondary": [],
             "comment": "Kink Variant: Instruction",
-            "content": "Generation Rules:\n- Output **only one variant** — no lists, bullets, or formatting.\n- The output must be **2–3 words max** in plain Title Case.\n- Do **not** include prefixes like “variant:” or “type:”.\n- Do **not** include time lengths, numbers, or phrases with “with,” “and,” or similar conjunctions.\n- Do **not** repeat {{getvar::kinkType}} in full — use only the narrowed form (e.g., *Bladder Enema* not *Enema Play: Bladder Enema*).\n- Focus on the **core variant only** — strip out add-ons like “temperature play,” “sound play,” or extra descriptors.\n- Magical, creature-based, or sci-fi expressions are allowed only if {{getvar::settingType}} supports them.\n- Do **not** use vague terms like “Basic,” “Normal,” or “Standard.”\n- Exclude any variant from this list: {{getvar::excludedList}}.\n- Keep the output to **one kink variant** only.\n{{getvar::logicBasedInstruction}}\n\n**Only output the kink variant below this line:**",
+            "content": "Generation Rules:\n- Output **exactly one kink variant** — single plain text only.\n- The output must be **1–3 words** in **Title Case**.\n- Do **not** include colons, prefixes, suffixes, brackets, bold marks, quotes, or numbering.\n- Do **not** repeat {{getvar::kinkType}} in full; only produce the narrowed form.\n- Do **not** use conjunctions like “with,” “and,” or phrases like “play,” “style,” or “variant.”\n- Blacklisted kink variants (must never appear): {{getvar::excludedList}}. \n- Treat blacklisted content as strictly invalid. Do not output any direct matches, synonyms, partial matches, rewordings, or visual reinterpretations of blacklisted kink variants. \n- If a candidate is even slightly related to a blacklisted item, reject it and choose a different valid kink variant.\n- Magical, creature-based, or sci-fi expressions are valid only if {{getvar::settingType}} supports them.\n- No vague terms like “Basic,” “Standard,” or “Normal.”\n- Keep the output to **one kink variant only**.\n{{getvar::logicBasedInstruction}}\n\n**Only output the kink variant below this line — one plain line, no formatting, no extras:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -12386,12 +12401,12 @@
             "delay": 0,
             "displayIndex": 263,
             "triggers": [],
+            "ignoreBudget": false,
             "characterFilter": {
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            },
-            "ignoreBudget": false
+            }
         },
         "264": {
             "uid": 264,
@@ -12715,19 +12730,14 @@
             "delay": 0,
             "displayIndex": 270,
             "triggers": [],
-            "ignoreBudget": false,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "ignoreBudget": false
         },
         "271": {
             "uid": 271,
             "key": [],
             "keysecondary": [],
             "comment": "Kink Conditions: Task",
-            "content": "Task:\nDescribe a single, specific **trigger condition** under which {{getvar::firstName}} might engage in {{getvar::kinkDisplay}}, based on {{getvar::possAdjPronoun}} role (**{{getvar::kinkRole}}**), cognitive level, and awareness.\n{{getvar::awarenessExplanation}}\n{{getvar::roleAwarenessInstruction}}\nUse Kink Detail only as internal reference — do not quote or repeat it.\n{{getvar::guidance}}\n\nContext – Kink Detail (for reference only – do not copy):\n{{getvar::kinkDetail}}",
+            "content": "Task:\nDescribe a single, specific **trigger condition** under which {{getvar::firstName}} might engage in {{getvar::kinkDisplay}}, based on {{getvar::possAdjPronoun}} role (**{{getvar::kinkRole}}**), cognitive level, and awareness.\n{{getvar::awarenessExplanation}}\n{{getvar::roleAwarenessInstruction}}\nUse Kink Detail only as internal reference — do not quote or repeat it.\n{{getvar::guidance}}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -12762,19 +12772,14 @@
             "delay": 0,
             "displayIndex": 271,
             "triggers": [],
-            "ignoreBudget": false,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "ignoreBudget": false
         },
         "272": {
             "uid": 272,
             "key": [],
             "keysecondary": [],
             "comment": "Kink Conditions: Instruction",
-            "content": "Generation Rules:\n- Return exactly **1 sentence only** describing the **condition, mindset, or trigger** under which {{getvar::firstName}} would engage in this kink.\n- Never include explanations, labels, or meta-text.\n- Do not prefix the output with \"1 sentence only,\" \"Output,\" numbers, or formatting.\n- Do not describe the kink act or physical outcome — focus only on **why or when** it happens.\n- Refer to {{getvar::firstName}} only with **{{getvar::subjPronoun}}**, **{{getvar::possAdjPronoun}}**, or neutral phrasing.\n- {{getvar::sentienceInstruction}}\n- {{getvar::awarenessExplanation}}\n- {{getvar::kinkMention}}\n- The description must {{getvar::kinkRoleRule}}.\n\n**Only output the sentence below this line:**",
+            "content": "Generation Rules:\n- The output must be exactly **one complete sentence**.\n- Describe only the **condition, mindset, or trigger** under which {{getvar::firstName}} would engage in this kink.\n- Do not include explanations, labels, meta-text, or prefaces like numbering.\n- Do not describe the kink act or physical outcome — focus only on **why or when** it happens.\n- Refer to {{getvar::firstName}} only with **{{getvar::subjPronoun}}**, **{{getvar::possAdjPronoun}}**, or neutral phrasing.\n- {{getvar::sentienceInstruction}}\n- {{getvar::awarenessExplanation}}\n- {{getvar::kinkMention}}\n- The description must {{getvar::kinkRoleRule}}.\n\n**Only output one plain sentence below this line — nothing else, no labels, no restating, no lists, no formatting:**",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -12809,12 +12814,7 @@
             "delay": 0,
             "displayIndex": 272,
             "triggers": [],
-            "ignoreBudget": false,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            }
+            "ignoreBudget": false
         },
         "273": {
             "uid": 273,

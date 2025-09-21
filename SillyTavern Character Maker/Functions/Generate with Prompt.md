@@ -129,7 +129,7 @@
 	/flushvar gen|
 :}|
 /ife (( useContext_f == 'No') and ( extraContext_f != '')) {:
-	/var key=context CONTEXT (for your reference—do not include in the answer):"|
+	/var key=context <!-- NSFW content is permitted if contextually appropriate -->{{newline}}CONTEXT (for your reference—do not include in the answer):"|
 	/ife (real == Yes) {:
 		/var key=context "{{var::context}}{{newline}}{{getvar::realParcedContext}}"|
 	:}|

@@ -869,7 +869,7 @@
 	/setvar key=genSettings index=genIsList Yes|
 	/setvar key=genSettings index=genAmount 8|
 	/setvar key=genSettings index=inputIsList Yes|
-	/setvar key=genSettings index=genIsSentence Yes|
+	/setvar key=genSettings index=genIsSentence No|
 	/setvar key=genSettings index=needOutput No|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext No|
@@ -1477,7 +1477,7 @@
 				/setvar key=genSettings index=buttonPrompt "Is this the kink condition for {{getvar::kinkDisplay}} you want {{getvar::firstName}}."|
 			:}|
 			/else {:
-				/setvar key=kinkDisplay {{getvar::kinkType}}|({{getvar::kinkVariant}})
+				/setvar key=kinkDisplay {{getvar::kinkType}}({{getvar::kinkVariant}})|
 				/setvar key=kinkReference **{{getvar::kinkType}}** or **{{getvar::kinkVariant}}**|
 				/setvar key=kinkMention **Never mention {{getvar::kinkType}} or {{getvar::kinkVariant}} by name** — refer only to “the act,” “private exchange,” or similar indirect phrasing.|
 				/setvar key=genSettings index=buttonPrompt "Select the type variant for '{{var::item}}' you want {{getvar::firstName}} to have."|
@@ -2434,13 +2434,14 @@
 	
 :}|
 
-/ife ( (sexualExperienceLevel != 'None') and (sexualKnowlageLevel != 'None')) {:
+/setvar key=nameList ["sexualFamiliarityActKissing", "sexualFamiliarityActOralR", "sexualFamiliarityActOralG", "sexualFamiliarityActVaginal", "sexualFamiliarityActAnal", "sexualFamiliarityActGroupSex", "sexualFamiliarityActToys"]|
+/setvar key=nameListN ["Familiarity with Kissing", "Familiarity with reciving Oral sex", "Familiarity with giving Oral sex", "Familiarity with Vaginal sex", "Familiarity with Anal sex", "Familiarity with Group Sex", "Familiarity with using Sex Toys"]|
 
+/ife ( (sexualExperienceLevel != 'None') and (sexualKnowlageLevel != 'None')) {:
 
 //Familiarity With Sexual Acts|
 
-	/setvar key=nameList ["sexualFamiliarityActKissing", "sexualFamiliarityActOralR", "sexualFamiliarityActOralG", "sexualFamiliarityActVaginal", "sexualFamiliarityActAnal", "sexualFamiliarityActGroupSex", "sexualFamiliarityActToys"]|
-	/setvar key=nameListN ["Familiarity with Kissing", "Familiarity with reciving Oral sex", "Familiarity with giving Oral sex", "Familiarity with Vaginal sex", "Familiarity with Anal sex", "Familiarity with Group Sex", "Familiarity with using Sex Toys"]|
+	
 	/foreach {{getvar::nameList}} {:
 		/var key=do No|
 		/var key=variableName "{{var::item}}"|
