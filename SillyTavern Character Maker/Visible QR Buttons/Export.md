@@ -60,7 +60,7 @@ Each rule is **mandatory** — do not simplify, guess, or loosely interpret. Mat
 /db-add source=chat name="{{getvar::firstName}}.json" {{pipe}}|
 /db-disable source=chat "{{getvar::firstName}}.json"|
 
-/qr-update set="CMC Main" label="Generate Persona" hidden=false title="Generates a Persona that could be used for this character."|
+//qr-update set="CMC Main" label="Generate Persona" hidden=false title="Generates a Persona that could be used for this character."|
 
 /popup Download {{getvar::firstName}}.json from the SillyTavern Data Bank (It will open when you press ok) and import it as a character to be able to change the image.|
 /db|
