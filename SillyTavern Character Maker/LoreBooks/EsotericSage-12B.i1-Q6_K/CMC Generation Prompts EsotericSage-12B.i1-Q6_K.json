@@ -15893,7 +15893,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "First Message: Task",
-            "content": "Task:\nSet the scene right **before** the 'Story start'. Where is {{getvar::firstName}}? What’s happening in the space around {{getvar::objPronoun}}? What physical actions or instinctual signals are present just before the RP begins?\n\n<context>\nContext (reference only – never include, quote, or paraphrase in the output):\nStory start: {{getvar::scenarioOverview}}\n</context>\n\n{{getvar::sceneChecklist}}\n\n{{getvar::guidance}}\n\nResponse Rules:\nYou MUST follow the writing instructions below with **exact formatting**:\n{{getvar::parsedWritingInstructFirstMessage}}\n\nEach rule is **mandatory** — do not simplify, guess, or loosely interpret. Match the exact phrasing, punctuation, and tone shown in every line. If a style element is ambiguous, assume it must be followed literally.",
+            "content": "Task:\nSet the scene just **before the 'Story start'**.\n- Treat the 'Story start' as a fixed, future event.\n- Your output must only describe what happens immediately **before** it.\n- Do not copy, paraphrase, or continue the 'Story start' text itself.\nWhere is {{getvar::firstName}}?\nWhat’s happening in the space around {{getvar::objPronoun}}?\nWhat physical actions or instinctual signals are present just before the roleplay begins?\n{{getvar::guidance}}\n\n{{getvar::sceneChecklist}}\n\n\nResponse Rules:\nYou MUST follow the writing instructions below with **exact formatting**:\n{{getvar::parsedWritingInstructFirstMessage}}\n\nEach rule is **mandatory** — do not simplify, guess, or loosely interpret. Match the exact phrasing, punctuation, and tone shown in every line. If a style element is ambiguous, assume it must be followed literally.",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -15936,7 +15936,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "First Message: Instruction",
-            "content": "Generation Rules:\n- Write 2–4 sentences in third-person past tense.\n- Use **airy formatting**: separate narration, action, and dialogue onto their own lines with blank breaks (do not run them together).\n- Focus entirely on {{getvar::firstName}}'s life, space, or behavior.\n- Mention --User-- only as a neutral presence (e.g., \"the door opened as --User-- stepped inside\").\n- Do not include emotions, thoughts, or --User--’s perspective.\n- The 'Story start' block is a future point in time. You must never reuse its wording, imagery, or phrasing.\n- Keep it structural RP context — modular, observational, character-focused.\n- Do not use metaphors, titles, or symbolic phrasing when describing {{getvar::firstName}}.\n- Never describe --User--'s actions, thoughts, or dialogue. --User-- may **enter or be referenced** only passively.\n- Do not include out-of-character notes, brackets, or stage directions.\n- Provide a quick visual impression of {{getvar::firstName}} — posture, outfit, or energy.\n- End with one short in-character line of dialogue in quotes (≤15 words unless otherwise specified).\n\n**Only output the airy scene description below this line — do not include the 'Story start', rules, or any meta-text:**",
+            "content": "Generation Rules:\n- Write 2–4 sentences in third-person past tense.\n- Use **airy formatting**: separate narration, action, and dialogue onto their own lines with blank breaks (do not run them together).\n- Focus entirely on {{getvar::firstName}}'s life, space, or behavior.\n- Mention --User-- only as a neutral presence (e.g., \"the door opened as --User-- stepped inside\").\n- Do not include emotions, thoughts, or --User--’s perspective.\n- The 'Story start' block is a future point in time. You must never reuse its wording, imagery, or phrasing.\n- Keep it structural RP context — modular, observational, character-focused.\n- Do not use metaphors, titles, or symbolic phrasing when describing {{getvar::firstName}}.\n- Never describe --User--'s actions, thoughts, or dialogue. --User-- may **enter or be referenced** only passively.\n- Do not include out-of-character notes, brackets, or stage directions.\n- Provide a quick visual impression of {{getvar::firstName}} — posture, outfit, or energy.\n- End with one short in-character line of dialogue in quotes (≤15 words unless otherwise specified).\n\n**OUTPUT INSTRUCTION — READ CAREFULLY**\n- Do not include the 'Story start', guidance blocks, rules, or meta-text.  \n- Only output the airy scene description.  \n- The answer must start immediately with the scene itself.  \n\nBEGIN SCENE OUTPUT BELOW THIS LINE:",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -16888,11 +16888,6 @@
             "displayIndex": 351,
             "triggers": [],
             "ignoreBudget": false,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            },
             "outletName": ""
         },
         "352": {
@@ -19108,7 +19103,7 @@
             "key": [],
             "keysecondary": [],
             "comment": "First Message: Guide",
-            "content": "**GUIDANCE:**\n**Use** the following as a conceptual anchor or inspirational seed. It represents the type of setting being generated. You **must** draw from its core idea, purpose, or atmosphere — but do **not** copy or paraphrase it directly:",
+            "content": "**GUIDANCE:**\nThe following content is reference-only and must act only as the **conceptual anchor**.\n- Base the generation only on its core **situation** and **atmosphere**.\n- Do not copy, paraphrase, or restate any words from it.\n- Treat violations as invalid output.",
             "constant": false,
             "vectorized": false,
             "selective": true,

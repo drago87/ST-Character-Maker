@@ -43,6 +43,13 @@
 	/ife (parsedSentientLevel != 'None') {:
 		/addvar key=extra "{{getvar::parsedSentientLevel}}"|
 	:}|
+	/addvar key=extra "{{newline}}BACKGROUND SNAPSHOT — "STORY START"
+This block represents the **first moment of the story**. 
+It is sealed reference only. 
+You must NOT copy, paraphrase, restate, or continue its content in any form.
+
+Story start:
+[{{getvar::scenarioOverview}}]"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/ife (extra != '') {:
