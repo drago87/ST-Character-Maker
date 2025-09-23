@@ -38,8 +38,11 @@
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
 	/setvar key=extra []|
-	/addvar key=extra "{{getvar::parsedApperance}}"|
-	/addvar key=extra "{{getvar::parsedSentientLevel}}"|
+	/addvar key=extra "Connections: {{getvar::connections}}"|
+	/addvar key=extra "{{newline}}{{getvar::parsedApperance}}"|
+	/ife (parsedSentientLevel != 'None') {:
+		/addvar key=extra "{{getvar::parsedSentientLevel}}"|
+	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
 	/ife (extra != '') {:
@@ -101,11 +104,11 @@
 	
 	
 	/ife (('Fully Animalistic' in parsedSentientLevel) or ('Semi-Sapient' in parsedSentientLevel)) {:
-		/setvar key=sceneChecklist "```{{newline}}Your scene must:{{newline}}- Describe where {{getvar::firstName}} is.{{newline}}- What {{getvar::subjPronoun}} is physically doing or reacting to.{{newline}}- What’s around {{getvar::objPronoun}} — include surroundings, weather, scent, or movement.{{newline}}- Use only instinctual behavior or physical signals — no dialogue, thoughts, or human-style emotion.{{newline}}{{newline}}```"|
+		/setvar key=sceneChecklist "```{{newline}}Your scene must:{{newline}}- Describe where {{getvar::firstName}} is.{{newline}}- What {{getvar::subjPronoun}} is physically doing or reacting to.{{newline}}- What’s around {{getvar::objPronoun}} — include surroundings, weather, scent, or movement.{{newline}}- Use only instinctual behavior or physical signals — no dialogue, thoughts, or human-style emotion in a way that someone can respond to.{{newline}}```"|
 	:}|
 	
 	/else {:
-		/setvar key=sceneChecklist "```{{newline}}Your scene must:{{newline}}- Describe where {{getvar::firstName}} is.{{newline}}- What {{getvar::subjPronoun}} is doing or feeling.{{newline}}- What’s around {{getvar::objPronoun}} (setting, tone, mood).{{newline}}- How {{getvar::firstName}} looks — posture, expression, outfit, or notable traits.{{newline}}- End with a single in-character line of dialogue that reflects {{getvar::possAdjPronoun}} personality and tone.```"|
+		/setvar key=sceneChecklist "```{{newline}}Your scene must:{{newline}}- Describe where {{getvar::firstName}} is.{{newline}}- What {{getvar::subjPronoun}} is doing or feeling.{{newline}}- What’s around {{getvar::objPronoun}} (setting, tone, mood).{{newline}}- How {{getvar::firstName}} looks — posture, expression, outfit, or notable traits.{{newline}}- End with a single in-character line of dialogue that reflects {{getvar::possAdjPronoun}} personality and tone in a way that someone can respond to.{{newline}}```"|
 	:}|
 	
 	

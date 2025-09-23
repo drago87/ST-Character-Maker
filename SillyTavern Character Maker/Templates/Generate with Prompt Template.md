@@ -64,8 +64,6 @@
 	:}|
 
 	/setvar key=genSettings index=buttonPrompt CHANGE_THIS_PROMPT|//Remove if not in use|
-
-	/setvar key=genSettings index=guidencePrompt CHANGE_THIS_PROMPT|//Remove if not in use|
 	//[[Generate with Prompt]]|
 	/ife (inputIsList == 'Yes') {:
 		/let key=tempOutputList []|

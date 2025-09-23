@@ -1094,6 +1094,10 @@
 	/else {:
 		/setvar as=string key={{var::variableName}} {{noop}}|
 	:}|
+	
+	/setvar key=genSettings index=buttonPrompt What lead up to the start of the RP?|
+	
+	
 	//[[Generate with Prompt]]|
 	/:"CMC Logic.GenerateWithPrompt"|
 	/setvar key={{var::variableName}} {{getvar::output}}|
