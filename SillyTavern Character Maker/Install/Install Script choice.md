@@ -53,7 +53,7 @@ Prompts are tested with this model.|
 	:}|
 	/elseif ( selected_btn == 'Manually') {:
 		/popup <div>You need to manually download these files and import them to Extensions → Quick Reply</div>
-<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/QR%20Sets/CMC%20Generate.json">CMC Generate</a></div><div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/QR%20Sets/CMC%20Logic.json">CMC Logic</a></div><div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/QR%20Sets/CMC%20Main.json">CMC Main</a></div>|
+<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/QR%20Sets/CMC%20Generate.json">CMC Generate</a></div><div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/QR%20Sets/CMC%20Logic.json">CMC Logic</a></div><div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/QR%20Sets/CMC%20Main.json">CMC Main</a></div><div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/QR%20Sets/CMC%20Automate.json">CMC Automate (optional but recommended)</a></div>|
 	:}|
 	/elseif ( selected_btn == 'Automatically') {:
 		/qr-list CMC Temp|
