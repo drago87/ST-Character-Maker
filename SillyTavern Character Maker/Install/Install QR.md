@@ -17,19 +17,19 @@
 	/qr-list CMC Menu|
 	/let key=qrListContent {{pipe}}|
 	/ife ('CMC Menu' not in qrListContent) {:
-		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/CMC%20Menu.md|
+		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/CMC%20Menu.md |
 	
 		/qr-create set="CMC Menu" label="CMC Menu" {{pipe}}|
 	:}|
 	/else {:
-		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/CMC%20Menu.md|
+		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/CMC%20Menu.md |
 		/qr-update set="CMC Menu" label="CMC Menu" {{pipe}}|
 		/qr-set-on CMC Menu|
 	:}|
 :}|
-/else ('CMC Menu' not in qrList) {:
+/elseif ('CMC Menu' not in qrList) {:
 	/qr-set-create CMC Menu|
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Delete%20setts.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/CMC%20Menu.md |
 	
 	/qr-create set="CMC Menu" label="CMC Menu" {{pipe}}|
 	/qr-set-on CMC Menu|
