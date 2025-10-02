@@ -62,5 +62,5 @@ Each rule is **mandatory** — do not simplify, guess, or loosely interpret. Mat
 
 //qr-update set="CMC Main" label="Generate Persona" hidden=false title="Generates a Persona that could be used for this character."|
 
-/popup Download {{getvar::firstName}}.json from the SillyTavern Data Bank (It will open when you press ok) and import it as a character to be able to change the image.|
+/popup <div>Download {{getvar::firstName}}.json from the SillyTavern Data Bank (It will open when you press ok) and import it as a character to be able to change the image.</div><div>I would love it if you could upload the character to the discord so that i can see what you have made with the CMC Generator.</div>|
 /db|
