@@ -10,14 +10,19 @@
 /extension-exists SillyTavern-Variable-Viewer |
 /let key=vV {{pipe}}|
 /ife (vV == true) {:
-	/buttons labels=["Yes", "No"] <div>Do you want to enable debug mode?</div><div>This lets you check what the prompt sent to the LLM is.</div>|
+	/buttons labels=["Enable", "Disable", "Skip"] <div>Do you want to enable debug mode?</div><div>This lets you check what the prompt sent to the LLM is.</div>|
 	/let key=check {{pipe}}|
 	/ife (check == '') {:
 		/echo Aborting |
 		/abort
 	:}|
-	/elseif (check == 'Yes') {:
-		/buttons labels=["Yes", "No"] Do you want to toggle the Variable Viewer window On/Off?|
+	/elseif (check == 'Enable') {:
+		/setvar key=debug Yes|		
+	:}|
+	/elseif (check == 'Disable') {:
+		/setvar key=debug No|		
+	:}|
+	/buttons labels=["Yes", "No"] Do you want to toggle the Variable Viewer window On/Off?|
 		/let key=toggle {{pipe}}|
 		/ife (toggle == '') {:
 			/echo Aborting |
@@ -26,24 +31,8 @@
 		/elseif (toggle == 'Yes') {:
 			/variableviewer|
 		:}|
-	:}|
 :}|
 
-/*
-/ife (model == '') {:
-	/findentry field=comment file="CMC Variables" "Models"|
-	/let key=wi_uid {{pipe}}|
-	/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
-	/let key=selectModels {{pipe}}|
-	/buttons multiple=true labels={{var::selectModels}} Select the model you want to download the model lorebook prompts for.|
-	/setglobalvar key=model {{pipe}}|
-	
-	/ife (model == '') {:
-		/echo Aborting |
-		/abort
-	:}|
-:}|
-*/
 /messages 0|
 /let firstMess {{pipe}}|
 /ife ( ('Installation Instructions' not in firstMess) and (continue != 'Yes')) {:
@@ -247,7 +236,7 @@ INSTRUCTION: Only respond in the given format.|
 			/echo Aborting|
 			/abort
 		:}|
-		/re-replace find="/\(.*$/g" replace="" {{getvar::speciesGroup}}|
+		/re-replace find="/ \(.*$/g" replace="" {{getvar::speciesGroup}}|
 		/setvar key=speciesGroup {{pipe}}|
 	:}|
 :}|

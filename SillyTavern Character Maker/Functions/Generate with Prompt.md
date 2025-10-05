@@ -13,6 +13,7 @@
 /let key=taskStopper {{noop}}|
 /let key=instructionsStarter {{noop}}|
 /let key=instructionsStopper {{noop}}|
+/let key=anatomyPrompt {{noop}}|
 
 /findentry field=comment file="CMC Static Variables" "Need Stopper"|
 /var key=wi_uid {{pipe}}|
@@ -100,6 +101,12 @@
 /ife ( useContext_f == '') {:
 	/abort quiet=false Missing useContext setting in input.|
 :}|
+/getvar key=genSettings index=useAnatomy|
+/let key=useAnatomy_f {{pipe}}|
+/ife ( useAnatomy_f == '') {:
+	/var key=useAnatomy_f false|
+:}|
+
 /getvar key=genSettings index=outputIsList|
 /let key=outputIsList_f {{pipe}}|
 /ife ( outputIsList_f == '') {:
@@ -162,7 +169,30 @@
 	:}|
 :}|
 /ife (context != '') {:
-	/var key=context "[{{var::contextStarter}}{{var::context}}{{var::contextStopper}}]{{newline}}{{newline}}"|
+	/wi-list-books all=true|
+	/setvar key=wiList {{pipe}}|
+	/ife ((useAnatomy_f != false) and ('CMC Anatomy' in wiList)) {:
+		/var key=find "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::parsedAnimalType}}"|
+		/findentry field=comment file="CMC Anatomy" "{{var::find}}"|
+		/var key=wi_uid {{pipe}}|
+		/getentryfield field=comment file="CMC Anatomy" {{var::wi_uid}}|
+		/let key=testComment {{pipe}}|
+		/ife ( find == testComment) {:
+			/getentryfield field=content file="CMC Anatomy" {{var::wi_uid}}|
+			/var key=anatomyPrompt {{pipe}}|
+			/ife (anatomyPrompt == '') {: 
+			:}|
+			/else {:
+				/var key=anatomyPrompt "{{getvar::characterArchetype}} Anatomy: {{getvar::characterType}}{{newline}}{{var::anatomyPrompt}}"
+			:}|
+		:}|
+	:}|
+	/ife (anatomyPrompt != '') {:
+		/var key=context "[{{var::contextStarter}}{{var::context}}{{newline}}{{newline}}{{var::anatomyPrompt}}{{var::contextStopper}}]{{newline}}{{newline}}"|
+	:}|
+	/else {:
+		/var key=context "[{{var::contextStarter}}{{var::context}}{{var::contextStopper}}]{{newline}}{{newline}}"|
+	:}|
 :}|
 
 /ife (debug == 'Yes') {:
