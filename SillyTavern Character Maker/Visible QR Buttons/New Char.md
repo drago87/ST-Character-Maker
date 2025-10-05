@@ -7,31 +7,7 @@
 /let key=qrList {{noop}}|
 /let key=typeGuide {{noop}}|
 
-/extension-exists SillyTavern-Variable-Viewer |
-/let key=vV {{pipe}}|
-/ife (vV == true) {:
-	/buttons labels=["Enable", "Disable", "Skip"] <div>Do you want to enable debug mode?</div><div>This lets you check what the prompt sent to the LLM is.</div>|
-	/let key=check {{pipe}}|
-	/ife (check == '') {:
-		/echo Aborting |
-		/abort
-	:}|
-	/elseif (check == 'Enable') {:
-		/setvar key=debug Yes|		
-	:}|
-	/elseif (check == 'Disable') {:
-		/setvar key=debug No|		
-	:}|
-	/buttons labels=["Yes", "No"] Do you want to toggle the Variable Viewer window On/Off?|
-		/let key=toggle {{pipe}}|
-		/ife (toggle == '') {:
-			/echo Aborting |
-			/abort
-		:}|
-		/elseif (toggle == 'Yes') {:
-			/variableviewer|
-		:}|
-:}|
+
 
 /messages 0|
 /let firstMess {{pipe}}|
@@ -56,6 +32,32 @@
 		/flushvar {{pipe}}|
 	:}|
 	
+:}|
+
+/extension-exists SillyTavern-Variable-Viewer |
+/let key=vV {{pipe}}|
+/ife (vV == true) {:
+	/buttons labels=["Enable", "Disable", "Skip"] <div>Do you want to enable debug mode?</div><div>This lets you check what the prompt sent to the LLM is.</div>|
+	/let key=check {{pipe}}|
+	/ife (check == '') {:
+		/echo Aborting |
+		/abort
+	:}|
+	/elseif (check == 'Enable') {:
+		/setvar key=debug Yes|		
+	:}|
+	/elseif (check == 'Disable') {:
+		/setvar key=debug No|		
+	:}|
+	/buttons labels=["Yes", "No"] Do you want to toggle the Variable Viewer window On/Off?|
+		/let key=toggle {{pipe}}|
+		/ife (toggle == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+		/elseif (toggle == 'Yes') {:
+			/variableviewer|
+		:}|
 :}|
 
 /setvar key=continue Yes|
