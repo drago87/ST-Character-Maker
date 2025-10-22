@@ -77,19 +77,22 @@ Prompts are tested with this model.|
 		/abort|
 	:}|
 	/elseif ( selected_btn == 'Manually') {:
-		/setvar key=popupLinks {{noop}}|
+		/setvar key=popupLinks "Model Specific Lorebooks"|
 		/foreach {{getglobalvar::models}} {:
-			/addvar key=popupLinks "<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{var::item}}/CMC%20Generation%20Prompts%20{{var::item}}.json">CMC Generation Prompts {{var::item}}</a></div>"|
-			/addvar key=popupLinks "<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{var::item}}/CMC%20Information%20{{var::item}}.json">CMC Information {{var::item}}</a></div>"|
-			/addvar key=popupLinks "<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{var::item}}/CMC%20Variablers%20{{var::item}}.json">CMC Variablers {{var::item}}</a></div>"|
+			/addvar key=popupLinks "<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{var::item}}/CMC%20Generation%20Prompts%20{{var::item}}.json">CMC Generation Prompts {{var::item}}</a></div>|
+			/addvar key=popupLinks "<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{var::item}}/CMC%20Information%20{{var::item}}.json">CMC Information {{var::item}}</a></div>|
+			/addvar key=popupLinks "<div>---</div>"|
 	
 		:}|
 		/popup <div>You need to manually download these files and import them to the World Info</div>
 		{{getvar::popupLinks}}
+		<div>General Lorebooks</div>
 	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Questions.json">CMC Questions</a></div>
 	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Rules.json">CMC Rules</a></div>
 	<div><a href="https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Templates.json">CMC Templates</a></div>
-	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20%20Static%20Variablers.json">CMC Static Variablers</a></div>|
+	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20%20Static%20Variablers.json">CMC Static Variablers</a></div>
+	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Variables.json">CMC Variablers</a></div>
+	<div><a href="https://github.com/drago87/ST-Character-Maker/blob/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Anatomy.json">CMC Anatomy (Optional, WIP)</a></div>|
 	
 	:}|
 	/elseif ( selected_btn == 'Semi Automatically') {:

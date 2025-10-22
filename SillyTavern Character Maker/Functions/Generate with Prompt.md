@@ -171,12 +171,71 @@
 /ife (context != '') {:
 	/wi-list-books all=true|
 	/setvar key=wiList {{pipe}}|
+	/let key=findMale {{noop}}|
+	/let key=findFemale {{noop}}|
 	/ife ((useAnatomy_f != false) and ('CMC Anatomy' in wiList)) {:
-		/var key=find "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::parsedAnimalType}}"|
+		
+		/ife (parsedAnimalType == 'Fantasy') {:
+			/ife ((gender == 'Male') or (futanari == 'Yes'))
+				/var key=findMale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesMale}}: {{getvar::species}}: {{getvar::gender}}"|
+			:}|
+			/elseif ((gender == 'Female') or (futanari == 'Yes'))
+				/var key=findFemale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesFemale}}: {{getvar::species}}: {{getvar::gender}}"|
+			:}|
+		:}|
+		/else {:
+			/ife ((gender == 'Male') or (futanari == 'Yes'))
+				/var key=findMale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesMale}}: {{getvar::gender}}"|
+			:}|
+			/elseif ((gender == 'Female') or (futanari == 'Yes'))
+				/var key=findFemale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesFemale}}: {{getvar::gender}}"|
+		:}|
+		/ife (futanari == 'Yes') {:
+			/findentry field=comment file="CMC Anatomy" "{{var::findMale}}"|
+			/var key=wi_uid {{pipe}}|
+			/getentryfield field=comment file="CMC Anatomy" {{var::wi_uid}}|
+			/let key=testComment {{pipe}}|
+			/ife ( find == testComment) {:
+				/getentryfield field=content file="CMC Anatomy" {{var::wi_uid}}|
+				/setvar key=male_genital_structure {{pipe}}|
+			:}|
+			/findentry field=comment file="CMC Anatomy" "{{var::findFemale}}"|
+			/var key=wi_uid {{pipe}}|
+			/getentryfield field=comment file="CMC Anatomy" {{var::wi_uid}}|
+			/let key=testComment {{pipe}}|
+			/ife ( find == testComment) {:
+				/getentryfield field=content file="CMC Anatomy" {{var::wi_uid}}|
+				/setvar key=female_genital_structure {{pipe}}|
+			:}|
+		:}|
+		/else {:
+			/ife (findMale != '') {:
+				/var key=find {{var::findMale}}|
+			:}|
+			/elseif (findFemale != '') {:
+				/var key=find {{var::findFemale}}|
+			:}|
+		:}|
 		/findentry field=comment file="CMC Anatomy" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
 		/getentryfield field=comment file="CMC Anatomy" {{var::wi_uid}}|
 		/let key=testComment {{pipe}}|
+		/ife ( find == testComment) {:
+			/getentryfield field=content file="CMC Anatomy" {{var::wi_uid}}|
+			/setvar key=genital_structure {{pipe}}|
+		:}|
+		
+		
+		/ife (parsedAnimalType == 'Fantasy') {:
+			/var key=find "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::parsedAnimalType}}: {{getvar::species}}: {{getvar::gender}}"|
+		:}|
+		/else {:
+			/var key=find "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::parsedAnimalType}}: {{getvar::gender}}"|
+		:}|
+		/findentry field=comment file="CMC Anatomy" "{{var::find}}"|
+		/var key=wi_uid {{pipe}}|
+		/getentryfield field=comment file="CMC Anatomy" {{var::wi_uid}}|
+		/var key=testComment {{pipe}}|
 		/ife ( find == testComment) {:
 			/getentryfield field=content file="CMC Anatomy" {{var::wi_uid}}|
 			/var key=anatomyPrompt {{pipe}}|

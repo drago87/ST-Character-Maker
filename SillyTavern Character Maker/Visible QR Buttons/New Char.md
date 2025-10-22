@@ -187,8 +187,14 @@ INSTRUCTION: Only respond in the given format.|
 
 /ife ( (characterArchetype != 'Human') and (characterArchetype != 'Mythfolk') and (characterArchetype != 'Android')) {:
 	/var selected_btn {{noop}}|
+	/wi-list-books all=true|
+	/let key=wiList {{pipe}}|
+	/let key=anatomyTrue {{noop}}|
+	/ife ('CMC Anatomy' in wiList) {:
+		/var key=anatomyTrue " Needed if you want it to use the CMC Anatomy Lorebook"|
+	:}|
 	/ife ( animalBase != '' ) {:
-		/buttons labels=["Yes", "No"] Do you want to change the animal base?|
+		/buttons labels=["Yes", "No"] Do you want to change the animal base?{{var::anatomyTrue}}|
 		/var selected_btn {{pipe}}|
 		/ife ( selected_btn == '') {:
 			/echo Aborting|

@@ -596,6 +596,7 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
+	/setvar key=genSettings index=useAnatomy Yes|
 	/setvar key=extra []|
 	/:"CMC Logic.Get Basic Type Context"|
 	/ife (extra != '') {:
@@ -707,6 +708,7 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
+	/setvar key=genSettings index=useAnatomy Yes|
 	/setvar key=extra []|
 	/addvar key=extra "- Face Description: {{getvar::appearanceFace}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
@@ -769,6 +771,7 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
+	/setvar key=genSettings index=useAnatomy Yes|
 	/setvar key=extra []|
 	/addvar key=extra "- Face Description: {{getvar::appearanceFace}}"|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
@@ -1068,36 +1071,6 @@
 
 //**Body**|
 
-
-/ife (gender == 'Female') {:
-	/ife ((buttSize == '') or (skip == 'Update')) {:
-		/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s butt?|
-		/setvar key=buttSize {{pipe}}|
-		/ife (buttSize == '') {:
-			/echo Aborting |
-	        /abort
-		:}|
-	:}|
-	
-	/ife ((hipsSize == '') or (skip == 'Update')) {:
-		/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s hips?|
-		/setvar key=hipsSize {{pipe}}|
-		/ife (hipsSize == '') {:
-			/echo Aborting |
-	        /abort
-		:}|
-	:}|
-	
-	/ife ((thighsSize == '') or (skip == 'Update')) {:
-		/buttons labels=["Small", "Normal", "Large", "Huge"] What size is {{getvar::firstName}}'s thighs?|
-		/setvar key=thighsSize {{pipe}}|
-		/ife (thighsSize == '') {:
-			/echo Aborting |
-	        /abort
-		:}|
-	:}|
-:}|
-
 /var key=do No|
 /var key=variableName "appearanceBody"|
 /ife ({{var::variableName}} == '') {:
@@ -1113,6 +1086,82 @@
     :}|
 :}|
 /ife ( do == 'Yes' ) {:
+	
+	/ife (gender == 'Female') {:
+		/ife ((buttSize == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Butt Size"|
+			/var key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=size {{pipe}}|
+			/split find="---" {{var::needed}}|
+			/var key=size {{pipe}}|
+			/buttons labels={{var::size}} What size is {{getvar::firstName}}'s butt?|
+			/setvar key=buttSize {{pipe}}|
+			/ife (buttSize == '') {:
+				/echo Aborting |
+		        /abort
+			:}|
+		:}|
+		/ife ((buttShape == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Butt Shape"|
+			/var key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=shape {{pipe}}|
+			/split find="---" {{var::needed}}|
+			/var key=shape {{pipe}}|
+			/buttons labels={{var::shape}} What shape is {{getvar::firstName}}'s butt?|
+			/setvar key=buttShape {{pipe}}|
+			/ife (buttShape == '') {:
+				/echo Aborting |
+		        /abort
+			:}|
+		:}|
+		/ife ((buttFirmness == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Butt Firmness"|
+			/var key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=firmness {{pipe}}|
+			/split find="---" {{var::needed}}|
+			/var key=firmness {{pipe}}|
+			/buttons labels={{var::firmness}} What firmness is {{getvar::firstName}}'s butt?|
+			/setvar key=buttFirmness {{pipe}}|
+			/ife (buttFirmness == '') {:
+				/echo Aborting |
+		        /abort
+			:}|
+		:}|
+		
+		/ife ((hipsSize == '') or (skip == 'Update')) {:
+				/findentry field=comment file="CMC Variables" "Hip Size"|
+				/let key=wi_uid {{pipe}}|
+				/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+				/let key=list {{pipe}}|
+				/split find="---" {{var::list}}|
+				/var key=list {{pipe}}|
+				/buttons labels={{var::list}} What size is {{getvar::firstName}}'s hips?|
+				/setvar key=hipsSize {{pipe}}|
+				/ife (hipsSize == '') {:
+			        /echo Aborting |
+			        /abort
+			    :}|
+			:}|
+		
+		/ife ((thighsSize == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Thigh Size"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} What size is {{getvar::firstName}}'s thighs?|
+			/setvar key=thighsSize {{pipe}}|
+			/ife (thighsSize == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+	:}|
+	
 	/setvar key=genSettings {}|
 	/setvar key=genSettings index=wi_book_key "Appearance Body"|
 	/setvar key=genSettings index=genIsList No|
@@ -1121,14 +1170,28 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext No|
+	/setvar key=genSettings index=useAnatomy Yes|
+	
 	/setvar key=extra []|
 	/ife (appearanceFeatures != 'None') {:
 		/addvar key=extra "{{getvar::parsedAppearanceFeatures}}"|
 	:}|
 	/ife (gender == 'Female') {:
-		/addvar key=extra "Butt Size: {{getvar::buttSize}}"|
-		/addvar key=extra "Thighs Size: {{getvar::thighsSize}}"|
-		/addvar key=extra "Hips Size: {{getvar::hipsSize}}"|
+		/ife (buttSize != 'Skip') {:
+			/addvar key=extra "Butt Size: {{getvar::buttSize}}"|
+		:}|
+		/ife (buttShape != 'Skip') {:
+			/addvar key=extra "Butt Shape: {{getvar::buttShape}}"|
+		:}|
+		/ife (buttFirmness != 'Skip') {:
+			/addvar key=extra "Butt Firmness: {{getvar::buttFirmness}}"|
+		:}|
+		/ife (thighsSize != 'Skip') {:
+			/addvar key=extra "- Thigh Size: {{getvar::thighsSize}}"|
+		:}|
+		/ife (hipsSize != 'Skip') {:
+			/addvar key=extra "- Hip Size: {{getvar::hipsSize}}"|
+		:}|
 	:}|
 	/setvar key=genSettings index=extraContext {{getvar::extra}}|
 	/setvar key=extra []|
@@ -1232,9 +1295,43 @@
 	/ife ( do == 'Yes' ) {:
 		
 		/ife ((breastSize == '') or (skip == 'Update')) {:
-			/buttons labels=["Flat", "Small", "Medium", "Large", "Huge"] What size is {{getvar::firstName}}'s Breasts?|
+			/findentry field=comment file="CMC Variables" "Breast Size"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=size {{pipe}}|
+			/split find="---" {{var::size}}|
+			/var key=size {{pipe}}|
+			/buttons labels={{var::size}} What size is {{getvar::firstName}}'s Breasts?|
 			/setvar key=breastSize {{pipe}}|
 			/ife (breastSize == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		/ife ((breastShape == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Breast Shape"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=shape {{pipe}}|
+			/split find="---" {{var::shape}}|
+			/var key=shape {{pipe}}|
+			/buttons labels={{var::shape}} What shape is {{getvar::firstName}}'s Breasts?|
+			/setvar key=breastShape {{pipe}}|
+			/ife (breastShape == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		/ife ((breastFirmness == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Breast Firmness"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=size {{pipe}}|
+			/split find="---" {{var::size}}|
+			/var key=size {{pipe}}|
+			/buttons labels={{var::size}} What firmness is {{getvar::firstName}}'s Breasts?|
+			/setvar key=breastFirmness {{pipe}}|
+			/ife (breastFirmness == '') {:
 		        /echo Aborting |
 		        /abort
 		    :}|
@@ -1247,9 +1344,19 @@
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=outputIsList No|
 		/setvar key=genSettings index=useContext Yes|
+		/setvar key=genSettings index=useAnatomy Yes|
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
-		/addvar key=extra "- Breast Size: {{getvar::breastSize}}"|
+		/ife (breastSize != 'Skip') {:
+			/addvar key=extra "- Breast Size: {{getvar::breastSize}}"|
+		:}|
+		/ife (breastShape != 'Skip') {:
+			/addvar key=extra "- Breast Shape: {{getvar::breastShape}}"|
+		:}|
+		
+		/ife (breastFirmness != 'Skip') {:
+			/addvar key=extra "- Breast Firmness: {{getvar::breastFirmness}}"|
+		:}|
 		/ife ((appearanceFeatures != 'None') and ('Breast' in parsedAppearanceFeatures) or ('breast' in parsedAppearanceFeatures)) {:
 			/addvar key=extra "{{newline}}{{getvar::parsedAppearanceFeatures}}"|
 		:}|
@@ -1334,6 +1441,68 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
+	
+		/ife ((nippleType == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Nipple Type"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=type {{pipe}}|
+			/split find="---" {{var::type}}|
+			/var key=type {{pipe}}|
+			/buttons labels={{var::type}} What is {{getvar::firstName}}'s nipple type?|
+			/setvar key=nippleType {{pipe}}|
+			/ife (nippleType == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		
+		/ife ((nippleProtrusion == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Nipple Protrusion"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=protrusion {{pipe}}|
+			/split find="---" {{var::protrusion}}|
+			/var key=protrusion {{pipe}}|
+			/buttons labels={{var::protrusion}} What is {{getvar::firstName}}'s nipple protrusion?|
+			/setvar key=nippleProtrusion {{pipe}}|
+			/ife (nippleProtrusion == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		
+		/ife ((areolaSize == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Areola Size"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=size {{pipe}}|
+			/split find="---" {{var::size}}|
+			/var key=size {{pipe}}|
+			/buttons labels={{var::size}} What is {{getvar::firstName}}'s areola size?|
+			/setvar key=areolaSize {{pipe}}|
+			/ife (areolaSize == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		
+		/ife ((areolaShape == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Areola Shape"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=shape {{pipe}}|
+			/split find="---" {{var::shape}}|
+			/var key=shape {{pipe}}|
+			/buttons labels={{var::shape}} What is {{getvar::firstName}}'s areola shape?|
+			/setvar key=areolaShape {{pipe}}|
+			/ife (areolaShape == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		
+		
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Nipples"|
 		/setvar key=genSettings index=genIsList No|
@@ -1342,9 +1511,22 @@
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=outputIsList No|
 		/setvar key=genSettings index=useContext Yes|
+		/setvar key=genSettings index=useAnatomy Yes|
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 		/addvar key=extra "- Breasts: {{getvar::appearanceBreasts}}"|
+		/ife (nippleType != 'Skip') {:
+			/addvar key=extra "- Nipple Type: {{getvar::nippleType}}"|
+		:}|
+		/ife (nippleProtrusion != 'Skip') {:
+			/addvar key=extra "- Nipple Protrusion: {{getvar::nippleProtrusion}}"|
+		:}|
+		/ife (areolaSize != 'Skip') {:
+			/addvar key=extra "- Areola Size: {{getvar::areolaSize}}"|
+		:}|
+		/ife (areolaShape != 'Skip') {:
+			/addvar key=extra "- Areola Shape: {{getvar::areolaShape}}"|
+		:}|
 		/ife ((appearanceFeatures != 'None') and ('nipple' in parsedAppearanceFeatures) or ('Nipple' in parsedAppearanceFeatures)) {:
 			/addvar key=extra "{{newline}}{{getvar::parsedAppearanceFeatures}}"|
 		:}|
@@ -1445,49 +1627,73 @@
 	    :}|
 	:}|
 	/ife ( do == 'Yes' ) {:
-		/ife ((clitVisability == '') or (skip == 'Update')) {:
-			/buttons labels=["Hidden", "Barely Visible", "Visible", "Visible and Prominent"] Is {{getvar::firstName}}'s Clit Visible?|
-			/setvar key=clitVisability {{pipe}}|
-			/ife (clitVisability == '') {:
-				/echo Aborting |
-				/abort
-			:}|
+		/ife ((clitVisibility == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Clit Visibility"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} What is {{getvar::firstName}}'s clit's visibility?|
+			/setvar key=clitVisibility {{pipe}}|
+			/ife (clitVisibility == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
 		:}|
 		
-		/ife ((labiaMinoraVisability == '') or (skip == 'Update')) {:
+		/ife ((labiaMinoraVisibility == '') or (skip == 'Update')) {:
 			/buttons labels=["Hidden", "Visible", "Visible and Prominent"] Is {{getvar::firstName}}'s Labia Minora Visible?|
-			/setvar key=labiaMinoraVisability {{pipe}}|
-			/ife (labiaMinoraVisability == '') {:
+			/setvar key=labiaMinoraVisibility {{pipe}}|
+			/ife (labiaMinoraVisibility == '') {:
 				/echo Aborting |
 				/abort
 			:}|
 		:}|
 		
 		/ife ((labiaMajoraFullness == '') or (skip == 'Update')) {:
-			/buttons labels=["Smooth", "Softly contoured", "Puffy", "Full and pronounced"] How would you describe the natural shape or fullness of {{getvar::firstName}}’s labia majora?|
+			/findentry field=comment file="CMC Variables" "Labia Majora Fullness"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} How would you describe the natural shape or fullness of {{getvar::firstName}}’s labia majora?|
 			/setvar key=labiaMajoraFullness {{pipe}}|
 			/ife (labiaMajoraFullness == '') {:
-				/echo Aborting |
-				/abort
-			:}|
+		        /echo Aborting |
+		        /abort
+		    :}|
 		:}|
 		
-		/ife ((pussyState == '') or (skip == 'Update')) {:
-			/buttons labels=["Closed slit", "Slightly parted", "Neutrally open", "Fuller and gently parted"] How would you describe the natural openness of {{getvar::firstName}}’s labia majora?|
-			/setvar key=pussyState {{pipe}}|
-			/ife (pussyState == '') {:
-				/echo Aborting |
-				/abort
-			:}|
+		/ife ((externalVulvaState == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "External Vulva State"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} How would you describe the natural openness of {{getvar::firstName}}’s labia majora?|
+			/setvar key=externalVulvaState {{pipe}}|
+			/ife (externalVulvaState == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
 		:}|
 		
 		/ife ((pubicHair == '') or (skip == 'Update')) {:
-			/buttons labels=["Smooth", "Shaven with stubble", "Unshaven and bushy", "Trimmed"] What is the status of {{getvar::firstName}}'s pubic hair?|
+			/findentry field=comment file="CMC Variables" "Pubic Hair Style"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} What is the status of {{getvar::firstName}}'s pubic hair?|
 			/setvar key=pubicHair {{pipe}}|
 			/ife (pubicHair == '') {:
-				/echo Aborting |
-				/abort
-			:}|
+		        /echo Aborting |
+		        /abort
+		    :}|
 		:}|
 		/setvar key=genSettings {}|
 		/setvar key=genSettings index=wi_book_key "Appearance Pussy"|
@@ -1497,6 +1703,7 @@
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=outputIsList No|
 		/setvar key=genSettings index=useContext Yes|
+		/setvar key=genSettings index=useAnatomy Yes|
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 		/ife (appearanceFeatures != 'None') {:
@@ -1505,12 +1712,23 @@
 		/addvar key=extra "- Female  Genital Type: {{getvar::privatesFemale}}"|
 		/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
 		/addvar key=extra "- Animal Base: {{getvar::animalBase}}"|
-		/addvar key=extra "- Clit Visability: {{getvar::clitVisability}}"|
-		/addvar key=extra "- Labia Minora Visability: {{getvar::labiaMinoraVisability}}"|
-		/addvar key=extra "- Labia Majora Fullness: {{getvar::labiaMajoraFullness}}"|
-		/addvar key=extra "- Labia Majora Openness: {{getvar::pussyState}}"|
+		/ife (clitVisibility != 'Skip') {:
+			/addvar key=extra "- Clit Visibility: {{getvar::clitVisibility}}"|
+		:}|
+		/ife (labiaMinoraVisibility != 'Skip') {:
+			/addvar key=extra "- Labia Minora Visibility: {{getvar::labiaMinoraVisibility}}"|
+		:}|
+		/ife (labiaMajoraFullness != 'Skip') {:
+			/addvar key=extra "- Labia Majora Fullness: {{getvar::labiaMajoraFullness}}"|
+		:}|
+		/ife (externalVulvaState != 'Skip') {:
+			/addvar key=extra "- External Vulva State: {{getvar::externalVulvaState}}"|
+		:}|
+		/ife (pubicHair != 'Skip') {:
+			/addvar key=extra "- Pubic Hair Style: {{getvar::pubicHair}}"|
+		:}|
 		/ife (futanari == 'Yes') {:
-			/addvar key=extra "Important: {{getvar::firstName}} is a futanari, so she has both a pussy and a cock."|
+			/addvar key=extra "Important: {{getvar::firstName}} is a futanari, so {{getvar::subjPronoun}} has both a pussy and a cock."|
 		:}|
 		/setvar key=genSettings index=extraContext {{getvar::extra}}|
 		/setvar key=extra []|
@@ -1691,9 +1909,29 @@
 	/ife ( do == 'Yes' ) {:
 	
 		/ife ((cockSize == '') or (skip == 'Update')) {:
-			/buttons labels=["Flat", "Small", "Medium", "Large", "Huge"] What size is {{getvar::firstName}}'s Cock?|
+			/findentry field=comment file="CMC Variables" "Cock Size"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} What size is {{getvar::firstName}}'s Cock?|
 			/setvar key=cockSize {{pipe}}|
 			/ife (cockSize == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		/ife ((testicularPosition == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Testicular Position"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} Where is {{getvar::firstName}}'s testicles positioned?|
+			/setvar key=testicularPosition {{pipe}}|
+			/ife (testicularPosition == '') {:
 		        /echo Aborting |
 		        /abort
 		    :}|
@@ -1706,6 +1944,7 @@
 		/setvar key=genSettings index=needOutput Yes|
 		/setvar key=genSettings index=outputIsList No|
 		/setvar key=genSettings index=useContext Yes|
+		/setvar key=genSettings index=useAnatomy Yes|
 		/setvar key=extra []|
 		/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 		/ife (appearanceFeatures != 'None') {:
@@ -1715,7 +1954,12 @@
 			/addvar key=extra "- Pussy Appearance: {{getvar::appearancePussy}}"|
 		:}|
 		/addvar key=extra "- Male Genital Type: {{getvar::privatesMale}}"|
-		/addvar key=extra "- Cock Size: {{getvar::cockSize}}"|
+		/ife (cockSize != 'Skip') {:
+			/addvar key=extra "- Cock Size: {{getvar::cockSize}}"|
+		:}|
+		/ife (testicularPosition != 'Skip') {:
+			/addvar key=extra "- Testicular Position: {{getvar::testicularPosition}}"|
+		:}|
 		/addvar key=extra "- Species Group: {{getvar::speciesGroup}}"|
 		/addvar key=extra "- Animal Base: {{getvar::animalBase}}"|
 		/ife (futanari == 'Yes') {:
@@ -1971,6 +2215,7 @@
 	/setvar key=genSettings index=needOutput Yes|
 	/setvar key=genSettings index=outputIsList No|
 	/setvar key=genSettings index=useContext Yes|
+	/setvar key=genSettings index=useAnatomy Yes|
 	/setvar key=extra []|
 	/addvar key=extra "- Body: {{getvar::appearanceBody}}"|
 	/ife (appearanceFeatures != 'None') {:
