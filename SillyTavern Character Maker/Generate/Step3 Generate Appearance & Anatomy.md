@@ -1642,15 +1642,6 @@
 		    :}|
 		:}|
 		
-		/ife ((labiaMinoraVisibility == '') or (skip == 'Update')) {:
-			/buttons labels=["Hidden", "Visible", "Visible and Prominent"] Is {{getvar::firstName}}'s Labia Minora Visible?|
-			/setvar key=labiaMinoraVisibility {{pipe}}|
-			/ife (labiaMinoraVisibility == '') {:
-				/echo Aborting |
-				/abort
-			:}|
-		:}|
-		
 		/ife ((labiaMajoraFullness == '') or (skip == 'Update')) {:
 			/findentry field=comment file="CMC Variables" "Labia Majora Fullness"|
 			/let key=wi_uid {{pipe}}|
@@ -1663,6 +1654,112 @@
 			/ife (labiaMajoraFullness == '') {:
 		        /echo Aborting |
 		        /abort
+		    :}|
+		:}|
+		
+		/ife ((labiaMajoraOutsideColor == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Labia Majora Outside Color"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} What is the color of {{getvar::firstName}}'s Labia Majora's Outside?|
+			/setvar key=labiaMajoraOutsideColor {{pipe}}|
+			/ife (labiaMajoraOutsideColor == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		    /elseif (labiaMajoraOutsideColor == 'Own Color') {:
+			    /input Type the color your want {{getvar::firstName}}'s Labia Majora's Outside Color to be.|
+			    /setvar key=labiaMajoraOutsideColor {{pipe}}|
+				/ife (labiaMajoraOutsideColor == '') {:
+			        /echo Aborting |
+			        /abort
+			    :}|
+		    :}|
+		:}|
+		
+		/ife ((labiaMajoraInsideColor == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Labia Majora Inside Color"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} What is the color of {{getvar::firstName}}'s Labia Majora's Inside?|
+			/setvar key=labiaMajoraInsideColor {{pipe}}|
+			/ife (labiaMajoraInsideColor == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		    /elseif (labiaMajoraInsideColor == 'Own Color') {:
+			    /input Type the color your want {{getvar::firstName}}'s Labia Majora's Inside Color to be.|
+			    /setvar key=labiaMajoraInsideColor {{pipe}}|
+				/ife (labiaMajoraInsideColor == '') {:
+			        /echo Aborting |
+			        /abort
+			    :}|
+		    :}|
+		:}|
+		
+		/ife ((labiaMinoraVisibility == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Labia Minora Visibility"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} Is {{getvar::firstName}}'s Labia Minora Visible?|
+			/setvar key=labiaMinoraVisibility {{pipe}}|
+			/ife (labiaMinoraVisibility == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		:}|
+		/ife ((labiaMinoraOutsideColor == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Labia Minora Outside Color"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} What is the color of {{getvar::firstName}}'s Labia Minora's Outside?|
+			/setvar key=labiaMinoraOutsideColor {{pipe}}|
+			/ife (labiaMinoraOutsideColor == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		    /elseif (labiaMinoraOutsideColor == 'Own Color') {:
+			    /input Type the color your want {{getvar::firstName}}'s Labia Minora's Outside Color to be.|
+			    /setvar key=labiaMinoraOutsideColor {{pipe}}|
+				/ife (labiaMinoraOutsideColor == '') {:
+			        /echo Aborting |
+			        /abort
+			    :}|
+		    :}|
+		:}|
+		
+		/ife ((labiaMinoraInsideColor == '') or (skip == 'Update')) {:
+			/findentry field=comment file="CMC Variables" "Labia Minora Inside Color"|
+			/let key=wi_uid {{pipe}}|
+			/getentryfield field=content file="CMC Variables" {{var::wi_uid}}|
+			/let key=list {{pipe}}|
+			/split find="---" {{var::list}}|
+			/var key=list {{pipe}}|
+			/buttons labels={{var::list}} What is the color of {{getvar::firstName}}'s Labia Minora Inside?|
+			/setvar key=labiaMinoraInsideColor {{pipe}}|
+			/ife (labiaMinoraInsideColor == '') {:
+		        /echo Aborting |
+		        /abort
+		    :}|
+		    /elseif (labiaMinoraInsideColor == 'Own Color') {:
+			    /input Type the color your want {{getvar::firstName}}'s Labia Minora's Inside Color to be.|
+			    /setvar key=labiaMinoraInsideColor {{pipe}}|
+				/ife (labiaMinoraInsideColor == '') {:
+			        /echo Aborting |
+			        /abort
+			    :}|
 		    :}|
 		:}|
 		
@@ -1715,11 +1812,23 @@
 		/ife (clitVisibility != 'Skip') {:
 			/addvar key=extra "- Clit Visibility: {{getvar::clitVisibility}}"|
 		:}|
+		/ife (labiaMajoraFullness != 'Skip') {:
+			/addvar key=extra "- Labia Majora Fullness: {{getvar::labiaMajoraFullness}}"|
+		:}|
+		/ife (labiaMajoraOutsideColor != 'Skip') {:
+			/addvar key=extra "- Labia Majora's Outside Color: {{getvar::labiaMajoraOutsideColor}}"|
+		:}|
+		/ife (labiaMajoraInsideColor != 'Skip') {:
+			/addvar key=extra "- Labia Majora's Inside Color: {{getvar::labiaMajoraInsideColor}}"|
+		:}|
 		/ife (labiaMinoraVisibility != 'Skip') {:
 			/addvar key=extra "- Labia Minora Visibility: {{getvar::labiaMinoraVisibility}}"|
 		:}|
-		/ife (labiaMajoraFullness != 'Skip') {:
-			/addvar key=extra "- Labia Majora Fullness: {{getvar::labiaMajoraFullness}}"|
+		/ife (labiaMinoraOutsideColor != 'Skip') {:
+			/addvar key=extra "- Labia Minora's Outside Color: {{getvar::labiaMinoraOutsideColor}}"|
+		:}|
+		/ife (labiaMinoraInsideColor != 'Skip') {:
+			/addvar key=extra "- Labia Minora's Inside Color: {{getvar::labiaMinoraInsideColor}}"|
 		:}|
 		/ife (externalVulvaState != 'Skip') {:
 			/addvar key=extra "- External Vulva State: {{getvar::externalVulvaState}}"|

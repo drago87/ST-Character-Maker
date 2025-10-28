@@ -39,6 +39,40 @@ Each rule is **mandatory** — do not simplify, guess, or loosely interpret. Mat
 /re-replace find="/\"/g" replace="\\\"" {{pipe}}|
 /re-replace find="/--FirstName--/g" replace="{/{char}}" {{pipe}}|
 /var key=postHist {{pipe}}|
+/let key=tag {{noop}}|
+/setvar key=tags []|
+/addvar key=tags CMC|
+/let key=done No|
+/let key=input {{noop}}|
+/whilee (done != 'Yes') {:
+	/input rows=1 <div>Add the tags you want to add to the character card. (One at a time).</div><div>Press cancel or leave the textbox empty to continue.</div>|
+	/var key=input {{pipe}}|
+	/ife ( input == '') {:
+		/var key=done Yes|
+	:}|
+	/else {:
+		/addvar key=tags {{var::input}}|
+	:}
+:}|
+/setvar key=tagString1 {{noop}}|
+/addvar key=tagString1 "{{newline}}"|
+/setvar key=tagString2 {{noop}}|
+/addvar key=tagString2 "{{newline}}"|
+/foreach {{getvar::tags}} {:
+	/len {{getvar::tags}}|
+	/let key=len {{pipe}}|
+	//add {{var::len}} -1|
+	/addvar key=tagString1 "            \"{{var::item}}\""|
+	/addvar key=tagString2 "        \"{{var::item}}\""|
+	/ife (index < len-1) {:
+		/addvar key=tagString1 ",{{newline}}"|
+		/addvar key=tagString2 ",{{newline}}"|
+	:}|
+	/else {:
+		/addvar key=tagString1 "{{newline}}"|
+		/addvar key=tagString2 "{{newline}}"|
+	:}
+:}|
 /findentry field=comment file="CMC Templates" "Character Card Template"|
 /getentryfield field=content file="CMC Templates" {{pipe}}|
 /re-replace find="/--CharName--/g" replace="{{getvar::firstName}}" {{pipe}}|
@@ -50,7 +84,8 @@ Each rule is **mandatory** — do not simplify, guess, or loosely interpret. Mat
 /re-replace find="/--Alt_Greet1--/g" replace="" {{pipe}}|
 /re-replace find="/--Char_Notes--/g" replace="" {{pipe}}|
 /re-replace find="/--Group_Greeting1--/g" replace="" {{pipe}}|
-/re-replace find="/--Tag1--/g" replace="" {{pipe}}|
+/re-replace find="/--Tag1--/g" replace="{{getvar::tagString1}}" {{pipe}}|
+/re-replace find="/--Tag2--/g" replace="{{getvar::tagString2}}" {{pipe}}|
 /re-replace find="/--Created_By--/g" replace="{{getvar::author}}" {{pipe}}|
 /re-replace find="/--Creator_Notes--/g" replace="{{var::output}}" {{pipe}}|
 

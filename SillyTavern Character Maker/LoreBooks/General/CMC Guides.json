@@ -40,7 +40,13 @@
             "cooldown": 0,
             "delay": 0,
             "triggers": [],
-            "displayIndex": 0
+            "displayIndex": 0,
+            "outletName": "",
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
+            }
         },
         "1": {
             "uid": 1,
@@ -87,7 +93,8 @@
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            }
+            },
+            "outletName": ""
         },
         "2": {
             "uid": 2,
@@ -134,7 +141,8 @@
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            }
+            },
+            "outletName": ""
         },
         "3": {
             "uid": 3,
@@ -181,7 +189,8 @@
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            }
+            },
+            "outletName": ""
         },
         "4": {
             "uid": 4,
@@ -228,7 +237,99 @@
                 "isExclude": false,
                 "names": [],
                 "tags": []
+            },
+            "outletName": ""
+        },
+        "5": {
+            "uid": 5,
+            "key": [],
+            "keysecondary": [],
+            "comment": "Optional Anatomy",
+            "content": "The optional anatomy lorebook entries are built like this (For everything except Fantasy and Tauric (Human and Android is skipped))\nAnatomy: characterArchetype: characterType: animalBase: Gender\nand\nGenital Structure: characterArchetype: characterType: animalBase: Gender or Futanari (Futanari combines Male and Female)\n\nfor example\nAnatomy: Anthropomorphic: Animalistic: Canine: Male\nand\nGenital Structure: Anthropomorphic: Animalistic: Canine: Male\n\nfor Fantasy it is built like this (animalBase is Fantasy)\nAnatomy: characterArchetype: characterType: species: Gender\nand\nGenital Structure: characterArchetype: characterType: species: Gender or Futanari (Futanari combines Male and Female)\n\nfor example\nAnatomy: Animalistic: Animalistic: Dragon: Male\nand\nGenital Structure: Animalistic: Animalistic: Dragon: Male\n\nfor Tauric it follows the same format as Fantasy\nAnatomy: characterArchetype: characterType: species: Gender\nand\nGenital Structure: characterArchetype: characterType: species: Gender or Futanari (Futanari combines Male and Female)\n\nfor example\nAnatomy: Tauric: Animalistic: Centaur: Male\nand\nGenital Structure: Tauric: Animalistic: Centaur: Male\n\ncharacterArchetype can be\nAnthropomorphic, Tauric, Beastkin, Animalistic, Pokémon, Digimon\n\ncharacterType can be Animalistic, Pokémon, Digimon",
+            "constant": false,
+            "vectorized": false,
+            "selective": true,
+            "selectiveLogic": 0,
+            "addMemo": true,
+            "order": 100,
+            "position": 0,
+            "disable": false,
+            "ignoreBudget": false,
+            "excludeRecursion": false,
+            "preventRecursion": false,
+            "matchPersonaDescription": false,
+            "matchCharacterDescription": false,
+            "matchCharacterPersonality": false,
+            "matchCharacterDepthPrompt": false,
+            "matchScenario": false,
+            "matchCreatorNotes": false,
+            "delayUntilRecursion": false,
+            "probability": 100,
+            "useProbability": true,
+            "depth": 4,
+            "outletName": "",
+            "group": "",
+            "groupOverride": false,
+            "groupWeight": 100,
+            "scanDepth": null,
+            "caseSensitive": null,
+            "matchWholeWords": null,
+            "useGroupScoring": null,
+            "automationId": "",
+            "role": null,
+            "sticky": 0,
+            "cooldown": 0,
+            "delay": 0,
+            "triggers": [],
+            "displayIndex": 5,
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
+        },
+        "6": {
+            "uid": 6,
+            "key": [],
+            "keysecondary": [],
+            "comment": "Anatomy ChatGPT First Message",
+            "content": "Information\nFor Fantasy creatures write\nMake me Fantasy `Character Archetype: Character Type: Species`\n\nFor Tauric creatures write\nMake me `Tauric: Character Type: Species`\n\nFor Anthropomorphic, Beastkin, Animalistic, Pokémon or Digimon write\nMake me Fantasy `Character Archetype: Character Type: Species Type`\n\nCharacter Archetype can be\nAnthropomorphic, Beastkin, Animalistic, Pokémon or Digimon\n\nCharacter Type can be\nAnimalistic, Pokémon or Digimon\n\nSpecies Type is for example Feline, Canine etc..\nThese are taken from ´CMC Variables´ and `Reproductive something` (Remove the () and it's content)\n\nCopy everything after `---` into a empty ChatGPT to have it help you write the lorebook entry's\n---\n\nYou are going to help me build a structured JSON-based lorebook used by LLMs to describe how characters look.  \n\nEach entry you make will be a fully-structured JSON document formatted like this:\n```\n{  \n  \"species\": \"SPECIES\",  \n  \"contexts\": [\"CHARACTER ARCHETYPE\", \"CHARACTER TYPE\"],  \n  \"common_variants\": [\"Variant 1\", \"Variant 2\"],  \n  \"anatomy\": {  \n    (... full biological and descriptive detail ...),  \n    \"genital_structure\": {  \n      \"sexual_dimorphism\": true,\n\n{{getvar::genital_structure}}  \n    }  \n  }  \n}\n```\n\n---\n\n### 🧠 **Taxonomy and Naming Rules**\n\nEach entry must begin with a header in this format:\n\n#### 🩻 Anatomy files\n\n```\nAnatomy: characterArchetype: characterType: animalBase: Gender\n```\n\nor (for Fantasy or Tauric species):\n\n```\nAnatomy: characterArchetype: characterType: species: Gender\n```\n\n#### ⚙️ Genital Structure files\n\n```\nGenital Structure: characterArchetype: characterType: animalBase: Gender\n```\n\nor (for Fantasy or Tauric species):\n\n```\nGenital Structure: characterArchetype: characterType: species: Gender\n```\n\n**Futanari entries** always combine both male and female genital data:\n\n```\nGenital Structure: characterArchetype: characterType: animalBase: Futanari\n```\n\nor\n\n```\nGenital Structure: characterArchetype: characterType: species: Futanari\n```\n\n---\n\n### 🧬 **Character Archetypes**\n\n- **Anthropomorphic** → Upright animals with humanlike bodies, speech, and clothing.\n    \n- **Beastkin** → Humans with partial animal features (ears, tail, fangs, claws).\n    \n- **Tauric** → Upper human torso combined with an animalistic lower body (centaur-style, lamia, mermaid).\n    \n- **Animalistic** → Fully animal-shaped, natural body plan of the species.\n    \n- **Pokémon** and **Digimon** will follow similar structure when created later.\n    \n\n---\n\n### 🐾 **Character Types**\n\n- **Animalistic** → Real-world creatures (Mammal, Reptile, Bird, Fish, Amphibian, Invertebrate)\n- **Pokémon** → Creatures from the Game/Show Pokémon\n- **Digimon** →  Creatures from the Game/Show Digimon\n\n### 🐾 **Bases**\n- **Fantasy** → Mythical species (e.g., Draconic, Alien, etc.)\n\n---\n\n### 🧩 **Runtime Variable Placeholder**\n\nWherever the genital description appears, use this placeholder exactly:\n\n```\n{{getvar::genital_structure}}\n```\n\nAt runtime, this will be replaced by the selected genital structure entry (for example, “Genital Structure: Animalistic: Animalistic: Canine: Male”).  \nDo **not** wrap this variable in quotes.\n\n---\n\n### ⚖️ **Breasts / Mammary Gland Rules**\n\n1. **Human-based forms**  \n    (Anthropomorphic, Beastkin, Tauric, or Fantasy forms with a human torso)  \n    → Include `\"breasts_and_mammary\"` section with placement, lactation, and appearance.\n    \n2. **Quadrupedal Animalistic females**  \n    → Include `\"mammary_glands\"` section instead, describing ventral alignment, count, and function.\n    \n3. **Male characters (all species)**  \n    → Do **not** include `\"breasts_and_mammary\"` or `\"mammary_glands\"` unless the species explicitly has them.\n    \n4. **Oviparous (egg-laying) Fantasy species**  \n    → Exclude mammary data entirely unless the variant is human-based.\n    \n\n---\n\n### ⚙️ **Genital Structure Formatting Rules**\n\n#### **1. Male Format**\n\nEach male genital structure should describe external and internal anatomy in two main blocks:\n\n```\n      \"external_features\": { ... },\n      \"internal_structures\": { ... },\n      \"behavioral_notes\": \"...\"\n```\n\nExample:\n\n```\n      \"external_features\": {\n        \"intromittent_organ\": {...},\n        \"scrotal_profile\": {...}\n      },\n      \"internal_structures\": {\n        \"testes\": {...},\n        \"vas_deferens\": \"...\",\n        \"accessory_glands\": [\"...\"]\n      },\n      \"behavioral_notes\": \"...\"\n```\n\n---\n\n#### **2. Female Format**\n\nEach female genital structure should include external reproductive features, internal organs, and behavior:\n\n```\n      \"external_features\": { ... },\n      \"internal_structures\": { ... },\n      \"behavioral_notes\": \"...\"\n```\n\nExample:\n\n```\n      \"external_features\": {\n        \"vulva\": {...},\n        \"clitoral_structure\": {...}\n      },\n      \"internal_structures\": {\n        \"vagina\": {...},\n        \"uterus\": {...},\n        \"ovaries\": {...}\n      },\n      \"behavioral_notes\": \"...\"\n```\n\n---\n\n#### **3. Futanari Format**\n\nFutanari combines both male and female genital structure data.  \nAt the location where genital data goes, use this pattern:\n\n```\n{{getvar::male_genital_structure}},\n{{getvar::female_genital_structure}},\n      (extra information)\n```\n\n`(extra information)` should describe how the male and female systems coexist, interact, or function together in that species.\n\nExample:\n\n```\n{{getvar::male_genital_structure}},\n{{getvar::female_genital_structure}},\n      \"integration_notes\": {\n        \"description\": \"The Futanari variant possesses both functional sets of reproductive anatomy. Hormonal balance determines expression dominance during heat or arousal cycles.\",\n        \"fertility\": \"Both systems may be active or alternately functional depending on biological or magical factors.\"\n      }\n```\n\nDo **not** wrap `{{getvar::male_genital_structure}}` or `{{getvar::female_genital_structure}}` in quotes.\n\n---\n\n### 📄 **Output Requirements**\n\n- Each output must be valid, well-structured JSON.\n    \n- Use descriptive but concise biological and aesthetic terminology.\n    \n- Keep consistent indentation and formatting.\n    \n- Do not reference other files directly — each entry must be self-contained.\n    \n- Keep `\"sexual_dimorphism\": true,` inside `\"genital_structure\"` but **before** the placeholder.\n    \n- Never wrap the `{{getvar::...}}` placeholders in quotes.\n    \n\n---\n\n### 🧠 **Example Headers**\n\n```\nAnatomy: Animalistic: Animalistic: Dragon: Male  \nGenital Structure: Animalistic: Animalistic: Dragon: Male\n\nAnatomy: Anthropomorphic: Animalistic: Canine: Female  \nGenital Structure: Anthropomorphic: Animalistic: Canine: Futanari\n\nAnatomy: Tauric: Animalistic: Centaur: Female  \nGenital Structure: Tauric: Animalistic: Centaur: Male\n```\n\n---\n\nAfter initialization, I will request entries like:\n\n> “Make me `Beastkin: Animalistic: Feline`”\n\nand you will produce **five full JSON entries** following the schema and formatting above:\n\n```\nAnatomy : ... : Male  \nAnatomy : ... : Female  \nGenital Structure : ... : Male  \nGenital Structure : ... : Female  \nGenital Structure : ... : Futanari\n```",
+            "constant": false,
+            "vectorized": false,
+            "selective": true,
+            "selectiveLogic": 0,
+            "addMemo": true,
+            "order": 100,
+            "position": 0,
+            "disable": false,
+            "ignoreBudget": false,
+            "excludeRecursion": false,
+            "preventRecursion": false,
+            "matchPersonaDescription": false,
+            "matchCharacterDescription": false,
+            "matchCharacterPersonality": false,
+            "matchCharacterDepthPrompt": false,
+            "matchScenario": false,
+            "matchCreatorNotes": false,
+            "delayUntilRecursion": false,
+            "probability": 100,
+            "useProbability": true,
+            "depth": 4,
+            "outletName": "",
+            "group": "",
+            "groupOverride": false,
+            "groupWeight": 100,
+            "scanDepth": null,
+            "caseSensitive": null,
+            "matchWholeWords": null,
+            "useGroupScoring": null,
+            "automationId": "",
+            "role": null,
+            "sticky": 0,
+            "cooldown": 0,
+            "delay": 0,
+            "triggers": [],
+            "displayIndex": 6
         }
     }
 }

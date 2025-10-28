@@ -174,7 +174,7 @@ INSTRUCTION: Only respond in the given format.|
 /ife ( (selected_btn == 'Yes') or (characterType == '')) {:
 	/setvar key=characterType None|
 :}|
-/ife (((characterType == 'None') or ( selected_btn == 'Yes')) and (( characterArchetype == 'Anthropomorphic') or ( characterArchetype == 'Beastkin'))) {:
+/ife (((characterType == 'None') or ( selected_btn == 'Yes')) and (( characterArchetype == 'Anthropomorphic') or ( characterArchetype == 'Beastkin') or ( characterArchetype == 'Digimon') or ( characterArchetype == 'Pokémon'))) {:
 	/buttons labels=["Pokémon", "Digimon", "Animalistic"] Select the type you want?|
 	/setvar key=characterType {{pipe}}|
 	/ife ( characterType == '') {:
@@ -340,31 +340,45 @@ INSTRUCTION: Only respond in the given format.|
 					/setvar key=temp {{getvar::animalBase}}|
 				:}|
 				/ife ( privatesFemale == '') {:
+					/setvar key=privatesFemaleStandard No|
+					/setvar key=privatesMaleStandard Yes|
 					/setvar key=privatesFemale {{getvar::temp}}|
 				:}|
 				/elseif ( privatesFemale == '') {:
+					/setvar key=privatesFemaleStandard Yes|
+					/setvar key=privatesMaleStandard No|
 					/setvar key=privatesMale {{getvar::temp}}|
 				:}|
 			:}|
 		:}|
 		/elseif (gender == 'Male') {:
+			/setvar key=privatesFemaleStandard Yes|
+			/setvar key=privatesMaleStandard No|
 			/setvar key=privatesFemale None|
 			/setvar key=privatesMale {{getvar::temp}}|
 		:}|
 		/else {:
+			/setvar key=privatesFemaleStandard No|
+			/setvar key=privatesMaleStandard Yes|
 			/setvar key=privatesFemale {{getvar::temp}}|
 			/setvar key=privatesMale None|
 		:}|
 	:}|
 	/elseif (futanari == 'Yes') {:
+		/setvar key=privatesMaleStandard Yes|
+		/setvar key=privatesFemaleStandard Yes|
 		/setvar key=privatesFemale {{getvar::animalBase}}|
 		/setvar key=privatesMale {{getvar::animalBase}}|
 	:}|
 	/elseif (gender == 'Male') {:
+		/setvar key=privatesMaleStandard Yes|
+		/setvar key=privatesFemaleStandard Yes|
 		/setvar key=privatesFemale None|
 		/setvar key=privatesMale {{getvar::animalBase}}|
 	:}|
 	/else {:
+		/setvar key=privatesMaleStandard Yes|
+		/setvar key=privatesFemaleStandard Yes|
 		/setvar key=privatesFemale {{getvar::animalBase}}|
 		/setvar key=privatesMale None|
 	:}|

@@ -110,6 +110,23 @@
 	:}|
 :}|
 
+/ife ( 'CMC Anatomy' not in lorebookList) {:
+	/buttons labels=["Yes", "No"] Do you want to download the optional CMC Anatomy (WIP) lorebook?|
+	/let key=button {{pipe}}|
+	/ife (button == 'Yes') {:
+		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Anatomy.json |
+		/let key=f {{pipe}}|
+		/ife ( 'CMC Guides.json' not in databaseList){:
+			/db-add source=chat name="CMC Anatomy.json" {{var::f}}|
+			/db-disable source=chat CMC Anatomy.json|
+		:}|
+		/else {:
+			/db-update source=chat name="CMC Anatomy.json" {{var::f}}|
+			/db-disable source=chat CMC Anatomy.json|
+		:}|
+	:}|
+:}|
+
 /let key=counter 6|
 /len {{getglobalvar::models}}|
 /mul {{pipe}} 2|

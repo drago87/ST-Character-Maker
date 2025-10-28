@@ -45,7 +45,8 @@
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            }
+            },
+            "outletName": ""
         },
         "1": {
             "uid": 1,
@@ -92,7 +93,8 @@
                 "tags": []
             },
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         },
         "2": {
             "uid": 2,
@@ -139,7 +141,8 @@
                 "tags": []
             },
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         },
         "3": {
             "uid": 3,
@@ -186,7 +189,8 @@
                 "tags": []
             },
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         },
         "4": {
             "uid": 4,
@@ -233,7 +237,8 @@
                 "tags": []
             },
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         },
         "5": {
             "uid": 5,
@@ -280,7 +285,8 @@
                 "tags": []
             },
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         },
         "6": {
             "uid": 6,
@@ -327,7 +333,8 @@
                 "isExclude": false,
                 "names": [],
                 "tags": []
-            }
+            },
+            "outletName": ""
         },
         "7": {
             "uid": 7,
@@ -374,7 +381,8 @@
                 "tags": []
             },
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         },
         "8": {
             "uid": 8,
@@ -421,7 +429,8 @@
                 "tags": []
             },
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         },
         "9": {
             "uid": 9,
@@ -468,7 +477,8 @@
                 "tags": []
             },
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         },
         "10": {
             "uid": 10,
@@ -515,14 +525,15 @@
                 "tags": []
             },
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         },
         "11": {
             "uid": 11,
             "key": [],
             "keysecondary": [],
             "comment": "Character Card Template",
-            "content": "{\n    \"name\": \"--CharName--\",\n    \"description\": \"--Description--\",\n    \"personality\": \"--Summary--\",\n    \"scenario\": \"--Scenario--\",\n    \"first_mes\": \"--First_Mess--\",\n    \"mes_example\": \"--Example_Dial--\",\n    \"creatorcomment\": \"--Creator_Notes--\",\n    \"avatar\": \"none\",\n    \"talkativeness\": \"0.5\",\n    \"fav\": false,\n    \"tags\": [],\n    \"spec\": \"chara_card_v3\",\n    \"spec_version\": \"3.0\",\n    \"data\": {\n        \"name\": \"--CharName--\",\n        \"description\": \"--Description--\",\n        \"personality\": \"--Summary--\",\n        \"scenario\": \"--Scenario--\",\n        \"first_mes\": \"--First_Mess--\",\n        \"mes_example\": \"--Example_Dial--\",\n        \"creator_notes\": \"--Creator_Notes--\",\n        \"system_prompt\": \"--Main_Prompt--\",\n        \"post_history_instructions\": \"--Post_Hist--\",\n        \"tags\": [],\n        \"creator\": \"--Created_By--\",\n        \"character_version\": \"\",\n        \"alternate_greetings\": [],\n        \"extensions\": {\n            \"talkativeness\": \"0.5\",\n            \"fav\": false,\n            \"world\": \"\",\n            \"depth_prompt\": {\n                \"prompt\": \"--Char_Notes--\",\n                \"depth\": 4,\n                \"role\": \"system\"\n            }\n        },\n        \"group_only_greetings\": []\n    },\n    \"create_date\": \"{{datetimeformat YYYY-MM-DD @HH\\h mm\\m ss\\s sss\\m\\s}}\"\n}",
+            "content": "{\n    \"name\": \"--CharName--\",\n    \"description\": \"--Description--\",\n    \"personality\": \"--Summary--\",\n    \"scenario\": \"--Scenario--\",\n    \"first_mes\": \"--First_Mess--\",\n    \"mes_example\": \"--Example_Dial--\",\n    \"creatorcomment\": \"--Creator_Notes--\",\n    \"avatar\": \"none\",\n    \"talkativeness\": \"0.5\",\n    \"fav\": false,\n    \"tags\": [--Tag1--],\n    \"spec\": \"chara_card_v3\",\n    \"spec_version\": \"3.0\",\n    \"data\": {\n        \"name\": \"--CharName--\",\n        \"description\": \"--Description--\",\n        \"personality\": \"--Summary--\",\n        \"scenario\": \"--Scenario--\",\n        \"first_mes\": \"--First_Mess--\",\n        \"mes_example\": \"--Example_Dial--\",\n        \"creator_notes\": \"--Creator_Notes--\",\n        \"system_prompt\": \"--Main_Prompt--\",\n        \"post_history_instructions\": \"--Post_Hist--\",\n        \"tags\": [--Tag2--],\n        \"creator\": \"--Created_By--\",\n        \"character_version\": \"\",\n        \"alternate_greetings\": [],\n        \"extensions\": {\n            \"talkativeness\": \"0.5\",\n            \"fav\": false,\n            \"world\": \"\",\n            \"depth_prompt\": {\n                \"prompt\": \"--Char_Notes--\",\n                \"depth\": 4,\n                \"role\": \"system\"\n            }\n        },\n        \"group_only_greetings\": []\n    },\n    \"create_date\": \"{{datetimeformat YYYY-MM-DD @HH\\h mm\\m ss\\s sss\\m\\s}}\"\n}",
             "constant": false,
             "vectorized": false,
             "selective": true,
@@ -556,13 +567,9 @@
             "cooldown": 0,
             "delay": 0,
             "displayIndex": 11,
-            "characterFilter": {
-                "isExclude": false,
-                "names": [],
-                "tags": []
-            },
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         },
         "12": {
             "uid": 12,
@@ -609,7 +616,8 @@
                 "tags": []
             },
             "triggers": [],
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         },
         "13": {
             "uid": 13,
@@ -656,7 +664,8 @@
                 "names": [],
                 "tags": []
             },
-            "ignoreBudget": false
+            "ignoreBudget": false,
+            "outletName": ""
         }
     }
 }

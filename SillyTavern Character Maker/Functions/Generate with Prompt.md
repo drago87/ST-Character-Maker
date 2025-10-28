@@ -177,18 +177,26 @@
 		
 		/ife (parsedAnimalType == 'Fantasy') {:
 			/ife ((gender == 'Male') or (futanari == 'Yes'))
-				/var key=findMale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesMale}}: {{getvar::species}}: {{getvar::gender}}"|
+				/var key=findMale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesMale}}: {{getvar::species}}: Male"|
 			:}|
-			/elseif ((gender == 'Female') or (futanari == 'Yes'))
-				/var key=findFemale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesFemale}}: {{getvar::species}}: {{getvar::gender}}"|
+			/ife ((gender == 'Female') or (futanari == 'Yes'))
+				/var key=findFemale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesFemale}}: {{getvar::species}}: Female"|
+			:}|
+		:}|
+		/elseif (characterArchetype == 'Tauric') {:
+			/ife ((gender == 'Male') or (futanari == 'Yes'))
+				/var key=findMale "Anatomy: {{getvar::characterArchetype}}: {{getvar::privatesMale}}: {{getvar::species}}: Male"|
+			:}|
+			/ife ((gender == 'Female') or (futanari == 'Yes'))
+				/var key=findFemale "Anatomy: {{getvar::characterArchetype}}: {{getvar::privatesFemale}}: {{getvar::species}}: Female"|
 			:}|
 		:}|
 		/else {:
 			/ife ((gender == 'Male') or (futanari == 'Yes'))
-				/var key=findMale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesMale}}: {{getvar::gender}}"|
+				/var key=findMale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesMale}}: Male"|
 			:}|
-			/elseif ((gender == 'Female') or (futanari == 'Yes'))
-				/var key=findFemale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesFemale}}: {{getvar::gender}}"|
+			/ife ((gender == 'Female') or (futanari == 'Yes'))
+				/var key=findFemale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesFemale}}: Female"|
 		:}|
 		/ife (futanari == 'Yes') {:
 			/findentry field=comment file="CMC Anatomy" "{{var::findMale}}"|
@@ -207,6 +215,12 @@
 				/getentryfield field=content file="CMC Anatomy" {{var::wi_uid}}|
 				/setvar key=female_genital_structure {{pipe}}|
 			:}|
+			/ife (gender == 'Male') {:
+				/var key=find {{var::findMale}}|
+			:}|
+			/elseif (gender == 'Female') {:
+				/var key=find {{var::findFemale}}|
+			:}|
 		:}|
 		/else {:
 			/ife (findMale != '') {:
@@ -215,6 +229,10 @@
 			/elseif (findFemale != '') {:
 				/var key=find {{var::findFemale}}|
 			:}|
+		:}|
+		/ife (futanari == 'Yes') {:
+			/re-replace find="/: (Male|Female)/" replace=": Futanari" {{var::find}}|
+			/var key=find {{pipe}}|
 		:}|
 		/findentry field=comment file="CMC Anatomy" "{{var::find}}"|
 		/var key=wi_uid {{pipe}}|
@@ -227,7 +245,10 @@
 		
 		
 		/ife (parsedAnimalType == 'Fantasy') {:
-			/var key=find "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::parsedAnimalType}}: {{getvar::species}}: {{getvar::gender}}"|
+			/var key=find "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::species}}: {{getvar::gender}}"|
+		:}|
+		/elseif (characterArchetype == 'Tauric') {:
+			/var key=find "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::species}}: {{getvar::gender}}"|
 		:}|
 		/else {:
 			/var key=find "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::parsedAnimalType}}: {{getvar::gender}}"|
