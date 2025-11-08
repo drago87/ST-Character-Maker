@@ -301,6 +301,14 @@
 	/else {:
 		/addvar key=dataBaseNames {{var::variableName}}|
 	:}|
+	/ife ((privatesFemale == 'To be selected') and ((gender == 'Female') or (futanari == 'Yes'))) {:
+		/setvar key=privatesFemale {{getvar::species}}|
+		/setvar key=seachPrivatesFemale {{getvar::characterArchetype}}: {{getvar::characterType}}|
+	:}|
+	/ife ((privatesMale == 'To be selected') and ((gender == 'Male') or (futanari == 'Yes'))) {:
+		/setvar key=privatesMale {{getvar::species}}|
+		/setvar key=seachPrivatesMale {{getvar::characterArchetype}}: {{getvar::characterType}}|
+	:}|
 :}|
 /else {:
 	/setvar key=species Human|

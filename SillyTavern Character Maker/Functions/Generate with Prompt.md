@@ -175,28 +175,21 @@
 	/let key=findFemale {{noop}}|
 	/ife ((useAnatomy_f != false) and ('CMC Anatomy' in wiList)) {:
 		
-		/ife (parsedAnimalType == 'Fantasy') {:
-			/ife ((gender == 'Male') or (futanari == 'Yes'))
-				/var key=findMale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesMale}}: {{getvar::species}}: Male"|
+		/ife ((parsedAnimalType == 'Fantasy') or (characterArchetype == 'Tauric') or (characterArchetype == 'Pokémon') or (characterType == 'Pokémon') or (characterArchetype == 'Digimon') or (characterType == 'Digimon')) {:
+			/ife ((gender == 'Male') or (futanari == 'Yes')) {:
+				/var key=findMale "Anatomy: {{getvar::seachPrivatesMale}}: {{getvar::species}}: Male"|
 			:}|
-			/ife ((gender == 'Female') or (futanari == 'Yes'))
-				/var key=findFemale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesFemale}}: {{getvar::species}}: Female"|
-			:}|
-		:}|
-		/elseif (characterArchetype == 'Tauric') {:
-			/ife ((gender == 'Male') or (futanari == 'Yes'))
-				/var key=findMale "Anatomy: {{getvar::characterArchetype}}: {{getvar::privatesMale}}: {{getvar::species}}: Male"|
-			:}|
-			/ife ((gender == 'Female') or (futanari == 'Yes'))
-				/var key=findFemale "Anatomy: {{getvar::characterArchetype}}: {{getvar::privatesFemale}}: {{getvar::species}}: Female"|
+			/ife ((gender == 'Female') or (futanari == 'Yes')) {:
+				/var key=findFemale "Anatomy: {{getvar::seachPrivatesFemale}}: {{getvar::species}}: Female"|
 			:}|
 		:}|
 		/else {:
-			/ife ((gender == 'Male') or (futanari == 'Yes'))
-				/var key=findMale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesMale}}: Male"|
+			/ife ((gender == 'Male') or (futanari == 'Yes')) {:
+				/var key=findMale "Anatomy: {{getvar::seachPrivatesMale}}: Male"|
 			:}|
-			/ife ((gender == 'Female') or (futanari == 'Yes'))
-				/var key=findFemale "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::privatesFemale}}: Female"|
+			/ife ((gender == 'Female') or (futanari == 'Yes')) {:
+				/var key=findFemale "Anatomy: {{getvar::seachPrivatesFemale}}: Female"|
+			:}|
 		:}|
 		/ife (futanari == 'Yes') {:
 			/findentry field=comment file="CMC Anatomy" "{{var::findMale}}"|
@@ -244,10 +237,7 @@
 		:}|
 		
 		
-		/ife (parsedAnimalType == 'Fantasy') {:
-			/var key=find "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::species}}: {{getvar::gender}}"|
-		:}|
-		/elseif (characterArchetype == 'Tauric') {:
+		/ife ((parsedAnimalType == 'Fantasy') or (characterArchetype == 'Tauric') or (characterArchetype == 'Pokémon') or (characterType == 'Pokémon') or (characterArchetype == 'Digimon') or (characterType == 'Digimon')) {:
 			/var key=find "Anatomy: {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::species}}: {{getvar::gender}}"|
 		:}|
 		/else {:

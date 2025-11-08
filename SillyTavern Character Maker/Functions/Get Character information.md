@@ -51,7 +51,7 @@
 
 //Parse character Species|
 /setvar key=parsedSpecies {{noop}}|
-/ife ((characterType == 'None') or ( characterType ==  characterArchetype)) {:
+/ife ((characterType == 'None') or (characterType == '') or ( characterType ==  characterArchetype)) {:
 	/setvar key=characterType {{noop}}|
 :}|
 /ife (characterArchetype == species) {:
