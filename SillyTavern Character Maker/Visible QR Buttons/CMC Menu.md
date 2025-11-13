@@ -116,10 +116,11 @@
 	/setvar key=counter 0|
 	/db-list source=chat field=name |
 	/let key=databaseList {{pipe}}|
+	/let key=f {{noop}}|
 	
 	/foreach {{getglobalvar::models}} {:
 		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{var::item}}/CMC%20Generation%20Prompts%20{{var::item}}.json|
-		/let key=f {{pipe}}|
+		/var key=f {{pipe}}|
 		/addvar key=counter 1|
 		
 		/ife ( 'CMC Generation Prompts {{var::item}}.json' not in databaseList){:
@@ -132,7 +133,7 @@
 		:}|
 		
 		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/{{var::item}}/CMC%20Information%20{{var::item}}.json|
-		/let key=f {{pipe}}|
+		/var key=f {{pipe}}|
 		/addvar key=counter 1|
 		
 		/ife ( 'CMC Generation Prompts {{var::item}}.json' not in databaseList){:
@@ -146,7 +147,7 @@
 	:}|
 	
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Variables.json |
-	/let key=f {{pipe}}|
+	/var key=f {{pipe}}|
 	/addvar key=counter 1|
 	
 	/ife ( 'CMC Variables.json' not in databaseList){:
@@ -159,7 +160,7 @@
 	:}|
 	
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Questions.json |
-	/let key=f {{pipe}}|
+	/var key=f {{pipe}}|
 	/addvar key=counter 1|
 	
 	/ife ( 'CMC Questions.json' not in databaseList){:
@@ -172,7 +173,7 @@
 	:}|
 	
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Rules.json |
-	/let key=f {{pipe}}|
+	/var key=f {{pipe}}|
 	/addvar key=counter 1|
 	
 	/ife ( 'CMC Rules.json' not in databaseList){:
@@ -185,7 +186,7 @@
 	:}|
 	
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Templates.json |
-	/let key=f {{pipe}}|
+	/var key=f {{pipe}}|
 	/addvar key=counter 1|
 	
 	/ife ( 'CMC Templates.json' not in databaseList){:
@@ -198,7 +199,7 @@
 	:}|
 	
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Static%20Variables.json |
-	/let key=f {{pipe}}|
+	/var key=f {{pipe}}|
 	/addvar key=counter 1|
 	
 	/ife ( 'CMC Static Variables.json' not in databaseList){:
@@ -211,7 +212,7 @@
 	:}|
 	
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Guides.json |
-	/let key=f {{pipe}}|
+	/var key=f {{pipe}}|
 	/addvar key=counter 1|
 	
 	/ife ( 'CMC Guides.json' not in databaseList){:
@@ -227,7 +228,7 @@
 	/let key=button {{pipe}}|
 	/ife (button == 'Yes') {:
 		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/LoreBooks/General/CMC%20Anatomy.json |
-		/let key=f {{pipe}}|
+		/var key=f {{pipe}}|
 		/addvar key=counter 1|
 		
 		/ife ( 'CMC Guides.json' not in databaseList){:
@@ -244,5 +245,5 @@
 	/popup Download all .json files starting with CMC (Should be {{getvar::counter}} of them) from SillyTavern Data Bank (It will open when you press ok) and import them into the lorebook/World Info.|
 	/db|
 	/flushvar counter|
-	/echo extendedTimeout=0 awaitDismissal=true Press to Continue|
+	/echo extendedTimeout=0 timeout=0 awaitDismissal=true Press to Continue|
 :}|

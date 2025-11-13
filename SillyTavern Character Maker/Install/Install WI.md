@@ -150,4 +150,4 @@
 /popup Download all .json files starting with CMC (Should be {{getvar::counter}} of them) from SillyTavern Data Bank (It will open when you press ok) and import them into the lorebook/World Info.|
 /db|
 /flushvar counter|
-/echo extendedTimeout=0 awaitDismissal=true Press to Continue|
+/echo extendedTimeout=0 timeout=0 awaitDismissal=true Press to Continue|
