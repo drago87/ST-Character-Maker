@@ -173,7 +173,7 @@
 	/setvar key=wiList {{pipe}}|
 	/let key=findMale {{noop}}|
 	/let key=findFemale {{noop}}|
-	/ife ((useAnatomy_f != false) and ('CMC Anatomy' in wiList)) {:
+	/ife ((loreAnatomy == 'Yes') and (useAnatomy_f != false) and ('CMC Anatomy' in wiList)) {:
 		
 		/ife ((parsedAnimalType == 'Fantasy') or (characterArchetype == 'Tauric') or (characterArchetype == 'Pokémon') or (characterType == 'Pokémon') or (characterArchetype == 'Digimon') or (characterType == 'Digimon')) {:
 			/ife ((gender == 'Male') or (futanari == 'Yes')) {:
@@ -199,6 +199,7 @@
 			/ife ( find == testComment) {:
 				/getentryfield field=content file="CMC Anatomy" {{var::wi_uid}}|
 				/setvar key=male_genital_structure {{pipe}}|
+				/echo Found Optional Genitial Structure for ({{var::findMale}})|
 			:}|
 			/findentry field=comment file="CMC Anatomy" "{{var::findFemale}}"|
 			/var key=wi_uid {{pipe}}|
@@ -207,6 +208,7 @@
 			/ife ( find == testComment) {:
 				/getentryfield field=content file="CMC Anatomy" {{var::wi_uid}}|
 				/setvar key=female_genital_structure {{pipe}}|
+				/echo Found Optional Genitial Structure for ({{var::findFemale}})|
 			:}|
 			/ife (gender == 'Male') {:
 				/var key=find {{var::findMale}}|
@@ -234,6 +236,7 @@
 		/ife ( find == testComment) {:
 			/getentryfield field=content file="CMC Anatomy" {{var::wi_uid}}|
 			/setvar key=genital_structure {{pipe}}|
+			/echo Found Optional Genitial Structure for ({{var::find}})|
 		:}|
 		
 		
@@ -253,7 +256,8 @@
 			/ife (anatomyPrompt == '') {: 
 			:}|
 			/else {:
-				/var key=anatomyPrompt "{{getvar::characterArchetype}} Anatomy: {{getvar::characterType}}{{newline}}{{var::anatomyPrompt}}"
+				/var key=anatomyPrompt "{{getvar::characterArchetype}} Anatomy: {{getvar::characterType}}{{newline}}{{var::anatomyPrompt}}"|
+				/echo Found Optional Anatomy for ({{var::findFemale}})|
 			:}|
 		:}|
 	:}|

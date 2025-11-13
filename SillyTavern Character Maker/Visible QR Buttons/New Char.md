@@ -60,6 +60,25 @@
 		:}|
 :}|
 
+
+/wi-list-books all=true|
+/let key=wiList {{pipe}}|
+
+/setvar key=lorebookList []|
+/addvar key=lorebookList Anatomy|
+
+/foreach {{getvar::lorebookList}} {:
+	/setvar key=lore{{var::item}} "No"|
+	/ife ('CMC {{var::item}}' in wiList) {:
+		/buttons labels=["Yes", "No"] Do you want to use the optional {{var::item}} Lorebook?|
+		/setvar key=lore{{var::item}} {{pipe}}|
+		/ife (lore{{var::item}} == '') {:
+			/echo Aborting |
+			/abort
+		:}|
+	:}|
+:}|
+
 /setvar key=continue Yes|
 /setvar key=wait 100|
 /setvar key=stepDone No|
@@ -196,8 +215,6 @@ INSTRUCTION: Only respond in the given format.|
 
 /ife ( (characterArchetype != 'Human') and (characterArchetype != 'Mythfolk') and (characterArchetype != 'Android')) {:
 	/var selected_btn {{noop}}|
-	/wi-list-books all=true|
-	/let key=wiList {{pipe}}|
 	/let key=anatomyTrue {{noop}}|
 	/ife ('CMC Anatomy' in wiList) {:
 		/var key=anatomyTrue " Needed if you want it to use the CMC Anatomy Lorebook"|
@@ -274,7 +291,7 @@ INSTRUCTION: Only respond in the given format.|
 :}|
 
 /var selected_btn {{noop}}|
-/ife ((privatesMale != '') and (privatesFemale != '')) {:
+/ife ((privatesMale != '') or (privatesFemale != '')) {:
 	/buttons labels=["Yes", "No"] Do you want to change the Privates you selected?|
 	/var selected_btn {{pipe}}|
 	/ife ( selected_btn == '') {:
@@ -347,7 +364,7 @@ INSTRUCTION: Only respond in the given format.|
 								/setvar key=searchPrivatesFemale {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::temp}}|
 							:}|
 							/elseif (tempPrivateFemale == 'No') {:
-								/buttons labels=["Help me Decide", "Human", "Anthropomorphic\n(Anthropomorphic is a character that combines both human and animal traits, often featuring an animal body with human-like posture, facial expressions, speech, and behavior.)", "Mythfolk\n(Mythfolk is races that mostly looks like humans like Dwarfs, Elves etc...)", "Tauric\n(Tauric are hybrid species with a humanoid upper body and an animal-like lower body, such as centaurs, lamias, and mermaids.)", "Beastkin\n(Beastkin is a character with animal features like ears and tail but otherwise human appearance.)", "Animalistic\n(Animalistic refers to standard animals, fantasy creatures, or monsters that behave and appear primarily as non-human beings, typically walking on all fours and lacking human speech or reasoning.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
+								/buttons labels=["Human", "Anthropomorphic\n(Anthropomorphic is a character that combines both human and animal traits, often featuring an animal body with human-like posture, facial expressions, speech, and behavior.)", "Mythfolk\n(Mythfolk is races that mostly looks like humans like Dwarfs, Elves etc...)", "Tauric\n(Tauric are hybrid species with a humanoid upper body and an animal-like lower body, such as centaurs, lamias, and mermaids.)", "Beastkin\n(Beastkin is a character with animal features like ears and tail but otherwise human appearance.)", "Animalistic\n(Animalistic refers to standard animals, fantasy creatures, or monsters that behave and appear primarily as non-human beings, typically walking on all fours and lacking human speech or reasoning.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of female genitalia are you making? |
 								/re-replace find="/(\n\()[\s\S]*$/g" replace="" {{pipe}}|
 								/setvar key=tempFemaleGenitaliaCharacterArchetype {{pipe}}|
 								/re-replace find="/\(.*$/g" replace="" {{getvar::tempFemaleGenitaliaCharacterArchetype}}|
@@ -384,7 +401,7 @@ INSTRUCTION: Only respond in the given format.|
 								/setvar key=privatesMale {{getvar::characterArchetype}}: {{getvar::characterType}}: {{getvar::temp}}|
 							:}|
 							/elseif (tempPrivateMale == 'No') {:
-								/buttons labels=["Help me Decide", "Human", "Anthropomorphic\n(Anthropomorphic is a character that combines both human and animal traits, often featuring an animal body with human-like posture, facial expressions, speech, and behavior.)", "Mythfolk\n(Mythfolk is races that mostly looks like humans like Dwarfs, Elves etc...)", "Tauric\n(Tauric are hybrid species with a humanoid upper body and an animal-like lower body, such as centaurs, lamias, and mermaids.)", "Beastkin\n(Beastkin is a character with animal features like ears and tail but otherwise human appearance.)", "Animalistic\n(Animalistic refers to standard animals, fantasy creatures, or monsters that behave and appear primarily as non-human beings, typically walking on all fours and lacking human speech or reasoning.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of character are you making? |
+								/buttons labels=["Human", "Anthropomorphic\n(Anthropomorphic is a character that combines both human and animal traits, often featuring an animal body with human-like posture, facial expressions, speech, and behavior.)", "Mythfolk\n(Mythfolk is races that mostly looks like humans like Dwarfs, Elves etc...)", "Tauric\n(Tauric are hybrid species with a humanoid upper body and an animal-like lower body, such as centaurs, lamias, and mermaids.)", "Beastkin\n(Beastkin is a character with animal features like ears and tail but otherwise human appearance.)", "Animalistic\n(Animalistic refers to standard animals, fantasy creatures, or monsters that behave and appear primarily as non-human beings, typically walking on all fours and lacking human speech or reasoning.)", "Pokémon", "Digimon", "Android\n(Android is a robot that looks and acts like a Human.)"] What type of male genitalia are you making? |
 								/re-replace find="/(\n\()[\s\S]*$/g" replace="" {{pipe}}|
 								/setvar key=tempMaleGenitaliaCharacterArchetype {{pipe}}|
 								/re-replace find="/\(.*$/g" replace="" {{getvar::tempMaleGenitaliaCharacterArchetype}}|
