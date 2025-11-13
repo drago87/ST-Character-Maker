@@ -63,7 +63,7 @@
 	/qr-set-delete CMC Logic|
 	/qr-chat-set-off CMC Main|
 	/qr-set-delete CMC Main|
-	/qr-set-delete CMC Menu|
+	//qr-set-delete CMC Menu|
 	/qr-set-delete CMC Automate| 
 	
 	/wait 1000|
