@@ -73,6 +73,27 @@ Each rule is **mandatory** — do not simplify, guess, or loosely interpret. Mat
 		/addvar key=tagString2 "{{newline}}"|
 	:}
 :}|
+
+/setvar key=strAltGreet "["|
+/len {{getvar::altGreetings}}|
+/var len {{pipe}}|
+/ife (len != 0) {:
+	/let key=altOutput {{noop}}|
+	/foreach {{getvar::altGreetings}} {:
+		/re-replace find="/\n/g" replace="\r\n" {{var::item}}|
+		/re-replace find="/\"/g" replace="\\\"" {{pipe}}|
+		/var key=altOutput {{pipe}}|
+		/ife (index != 0) {:
+			/addvar key= ","|
+		:}|
+		/addvar key=strAltGreet "{{newline}}            \"{{var::altOutput}}\""|
+	:}|
+	/addvar key=strAltGreet "{{newline}}        ]"|
+:}|
+/else {:
+	/addvar key=strAltGreet "]"|
+:}|
+
 /findentry field=comment file="CMC Templates" "Character Card Template"|
 /getentryfield field=content file="CMC Templates" {{pipe}}|
 /re-replace find="/--CharName--/g" replace="{{getvar::firstName}}" {{pipe}}|

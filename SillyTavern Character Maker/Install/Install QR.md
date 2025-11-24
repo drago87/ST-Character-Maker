@@ -77,6 +77,18 @@
 :}|
 //|-----|
 
+/ife ('Redo current Greeting' not in qrList) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/Redo%20%current%20%Greeting.md|
+	/qr-create set="CMC Main" label="Redo current Greeting" {{pipe}}|
+	/qr-update set="CMC Main" label="Redo current Greeting" hidden=true title="Redoes the current Greeting"|
+:}|
+
+/ife ('Make a Alt. Greeting' not in qrList) {:
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/Make%20a%20Alt.%20Greeting.md|
+	/qr-create set="CMC Main" label="Make a Alt. Greeting" {{pipe}}|
+	/qr-update set="CMC Main" label="Make a Alt. Greeting" hidden=true title="Makes a new Alternative Greeting"|
+:}|
+
 //Export Character|
 /ife ('Export Character' not in qrList) {:
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/Export.md|
@@ -285,13 +297,18 @@
 
 /ife ( 'CMC Automate' not in qrGlobal) {:
 	/qr-set-create CMC Automate|
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Install/Auto%20Add%20QR%20to%20Character.md|
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Automation/Auto%20Add%20QR%20to%20Character.md|
 	/qr-create set="CMC Automate" label="Auto Add QR to Character" {{pipe}}|
 	/qr-set visible=false "CMC Automate"|
-	/qr-update hidden=false new=true set="CMC Automate" label="Auto Add QR to Character"|
-	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Install/Update%20button%20label.md|
+	/qr-update hidden=true new=true set="CMC Automate" label="Auto Add QR to Character"|
+	
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Automation/Update%20button%20label.md|
 	/qr-create set="CMC Automate" label="Update button label" {{pipe}}|
-	/qr-update hidden=false load=true new=true set="CMC Automate" label="Update button label"|
+	/qr-update hidden=true load=true new=true set="CMC Automate" label="Update button label"|
+	
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Automation/Hide%20First%20Message%20Buttons.md|
+	/qr-create set="CMC Automate" label="Hide First Message Buttons" {{pipe}}|
+	/qr-update hidden=true load=true new=true bot=true user=true set="CMC Automate" label="Hide First Message Buttons"|
 	//|-----|
 :}|
 
