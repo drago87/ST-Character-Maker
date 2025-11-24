@@ -57,12 +57,7 @@
 /let key=temp {{pipe}}|
 /getat index=1 {{var::temp}}|
 /let key=qrlabel {{pipe}}|
-/var key=temp {{noop}}|
-/ife ( qrlabel != '') {:
-	/qr-get set="CMC Main" label={{var::qrlabel}}|
-	/getat index="message" {{pipe}}|
-	/var key=temp {{pipe}}|
-:}|
+/var key=temp {{var::qrlabel}}|
 
 
 //Create Character Generation|
