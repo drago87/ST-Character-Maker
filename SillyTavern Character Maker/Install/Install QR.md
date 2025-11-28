@@ -23,7 +23,8 @@
 	:}|
 	/else {:
 		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/CMC%20Menu.md |
-		/qr-update set="CMC Menu" label="CMC Menu" {{pipe}}|
+		/qr-create set="CMC Menu" label="CMC Menu2" {{pipe}}|
+		//qr-update set="CMC Menu" label="CMC Menu2" {{pipe}}|
 	:}|
 :}|
 /elseif ('CMC Menu' not in qrList) {:
