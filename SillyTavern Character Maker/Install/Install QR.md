@@ -307,8 +307,8 @@
 	/qr-update hidden=true load=true new=true bot=true user=true set="CMC Automate" label="Hide First Message Buttons"|
 	
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Automation/Rename%20Menu.md|
-	/qr-create set="CMC Automate" label="Menu" {{pipe}}|
-	/qr-update hidden=true load=true set="CMC Automate" label="Menu"|
+	/qr-create set="CMC Automate" label="Rename Menu" {{pipe}}|
+	/qr-update hidden=true load=true set="CMC Automate" label="Rename Menu"|
 	//|-----|
 :}|
 
