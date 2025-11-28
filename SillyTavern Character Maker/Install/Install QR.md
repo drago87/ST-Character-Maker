@@ -23,9 +23,7 @@
 	:}|
 	/else {:
 		/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Visible%20QR%20Buttons/CMC%20Menu.md |
-		/let key=gogole {{pipe}}|
-		/popup {{var::gogole}}|
-		/qr-create set="CMC Menu" label="CMC Menu2" {{var:gogole}}|
+		/qr-create set="CMC Menu" label="CMC Menu2" {{pipe}}|
 		//qr-update set="CMC Menu" label="CMC Menu2" {{pipe}}|
 	:}|
 :}|
@@ -307,6 +305,10 @@
 	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Automation/Hide%20First%20Message%20Buttons.md|
 	/qr-create set="CMC Automate" label="Hide First Message Buttons" {{pipe}}|
 	/qr-update hidden=true load=true new=true bot=true user=true set="CMC Automate" label="Hide First Message Buttons"|
+	
+	/fetch https://raw.githubusercontent.com/drago87/ST-Character-Maker/refs/heads/Fetch-Files/SillyTavern%20Character%20Maker/Automation/Rename%20Menu.md|
+	/qr-create set="CMC Automate" label="Menu" {{pipe}}|
+	/qr-update hidden=true load=true set="CMC Automate" label="Menu"|
 	//|-----|
 :}|
 

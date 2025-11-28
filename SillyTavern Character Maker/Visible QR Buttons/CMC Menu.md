@@ -76,8 +76,6 @@
 	
 	/wait 1000|
 	/qr-set-delete CMC Temp |
-	/qr-delete set="CMC Menu" label="CMC Menu"|
-	/qr-update set="CMC Menu" label="CMC Menu2" newlabel="CMC Menu"|
 	/wait 10000|
 	/forcesave|
 	/wait 1000|
