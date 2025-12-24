@@ -1,0 +1,10 @@
+head
+neck
+one_piece
+two_piece_top
+two_piece_bottom
+legs
+socks
+shoes
+underwear_top
+underwear_bottom
