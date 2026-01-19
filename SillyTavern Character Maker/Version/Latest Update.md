@@ -1,4 +1,4 @@
-  <div style="height:1px;background:rgba(100,200,255,.2);margin:0;"></div>
+  <div style="height:1px;background:rgba(100,200,255,.2);margin:0;">
 
   <!-- Content -->
   <div style="padding:16px;font-size:13px;line-height:1.6;color:#d5f1ff;">
@@ -36,4 +36,5 @@
 	<li>Added a option in the CMC Menu to Enable **XML Tags** for the prompts (Recommended for DeepSeek models)</li>
 	</ul>
 
+</div>
 </div>
