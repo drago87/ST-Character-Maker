@@ -1,7 +1,7 @@
 <div style="background:#0b0d12;border:1px solid rgba(100,200,255,.35);border-radius:12px;color:#e9edf5;font-family:Inter,system-ui,sans-serif;max-width:520px;margin:20px auto;">
   <!-- Header -->
   <div style="padding:12px 16px;text-align:center;text-transform:uppercase;letter-spacing:.14em;font-weight:700;font-size:13px;background:#0a1a24;border-bottom:1px solid rgba(100,200,255,.25);color:#64c8ff;">
-    🔄 Update {{var::updatedVersion}}
+    🔄 Update
   </div>
 
   <!-- Divider -->
