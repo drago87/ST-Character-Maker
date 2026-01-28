@@ -62,9 +62,9 @@
 ```json
 {
 	"instruction": "Define clothing category metadata with full schema.",
-	"input": "What is leggings?",
+	"input": "What is legwear?",
 	"output": {
-		"id": "leggings",
+		"id": "legwear",
 		"name": "Leg Garments",
 		"description": "Clothing worn around the legs that is separate from the waist garment itself. May provide coverage, warmth, compression, or support.",
 		"typical_items": [

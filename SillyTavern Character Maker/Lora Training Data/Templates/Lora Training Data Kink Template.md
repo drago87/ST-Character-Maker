@@ -10,13 +10,13 @@
 		"description": "<describe_what_the_kink_is>",
 		"roles": {
 			"giver": {
-				"id": "kinknam_giver_role",
+				"id": "kinkname_giver_role",(Always keep "_giver_role". Remove this parantese)
 				"label": "Giver",
 				"definition": "<enjoys_doing_or_applying>",
 				"notes": "<optional_notes_or_context>
 			},
 			"receiver": {
-				"id": "kinknam_reciver_role",
+				"id": "kinkname_reciver_role",(Always keep "_reciver_role". Remove this parantese)
 				"label": "Receiver",
 				"definition": "<enjoys_receiving_or_experiencing>",
 				"notes": "<optional_notes_or_context>
