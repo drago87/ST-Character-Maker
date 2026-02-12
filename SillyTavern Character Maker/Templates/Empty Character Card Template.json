@@ -1,0 +1,53 @@
+{
+    "name": "--CharName--",
+    "description": "--Description--",
+    "personality": "--Summary--",
+    "scenario": "--Scenario--",
+    "first_mes": "--First_Mess--",
+    "mes_example": "--Example_Dial--",
+    "creatorcomment": "--Creator_Notes--",
+    "avatar": "none",
+    "chat": "--CharName-- - {\{datetimeformat YYYY-MM-DD @HH\h mm\m ss\s}}",
+    "talkativeness": "0.5",
+    "fav": false,
+    "tags": [
+        "--Tag1--"
+    ],
+    "spec": "chara_card_v3",
+    "spec_version": "3.0",
+    "data": {
+        "name": "--CharName--",
+        "description": "--Description--",
+        "personality": "--Summary--",
+        "scenario": "--Scenario--",
+        "first_mes": "--First_Mess--",
+        "mes_example": "--Example_Dial--",
+        "creator_notes": "--Creator_Notes--",
+        "system_prompt": "--Main_Prompt--",
+        "post_history_instructions": "--Post_Hist--",
+        "tags": [
+            "--Tag1--"
+        ],
+        "creator": "--Created_By--",
+        "character_version": "",
+        "alternate_greetings": [
+            "--Alt_Greet1--"
+        ],
+        "extensions": {
+            "talkativeness": "0.5",
+            "fav": false,
+            "world": "",
+            "depth_prompt": {
+                "prompt": "--Char_Notes--",
+                "depth": 4,
+                "role": "system"
+            },
+            "group_greetings_mode": 1,
+            "group_greetings": [
+                "--Group_Greeting1--"
+            ]
+        },
+        "group_only_greetings": []
+    },
+    "create_date": "{\{datetimeformat YYYY-MM-DD @HH\h mm\m ss\s}}"
+}
